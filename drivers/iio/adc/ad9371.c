@@ -1,7 +1,7 @@
 /*
  * AD9371/5 RF Transceiver
  *
- * Copyright 2016-2017 Analog Devices Inc.
+ * Copyright 2016-2018 Analog Devices Inc.
  *
  * Licensed under the GPL-2.
  */
@@ -92,7 +92,7 @@ static int ad9371_string_to_val(const char *buf, int *val)
 	int ret, integer, fract;
 
 	ret = iio_str_to_fixpoint(buf, 100000, &integer, &fract);
-	if (ret)
+	if (ret < 0)
 		return ret;
 
 	*val = (abs(integer) * 1000) + (abs(fract) / 1000);
@@ -854,10 +854,14 @@ static ssize_t ad9371_phy_store(struct device *dev,
 
 	switch ((u32)this_attr->address & 0xFF) {
 	case AD9371_ENSM_MODE:
-		if (sysfs_streq(buf, "radio_on"))
+		if (sysfs_streq(buf, "radio_on")) {
 			val = RADIO_ON;
-		else if (sysfs_streq(buf, "radio_off"))
+		} else if (sysfs_streq(buf, "radio_off")) {
 			val = RADIO_OFF;
+		} else {
+			ret = -EINVAL;
+			break;
+		}
 
 		ret = ad9371_set_radio_state(phy, val);
 		break;
@@ -1259,6 +1263,7 @@ static ssize_t ad9371_phy_rx_write(struct iio_dev *indio_dev,
 			break;
 		default:
 			ret = -EINVAL;
+			goto unlock;
 		}
 
 		if (enable)
@@ -1295,6 +1300,7 @@ static ssize_t ad9371_phy_rx_write(struct iio_dev *indio_dev,
 		}
 	}
 
+unlock:
 	mutex_unlock(&indio_dev->mlock);
 
 	return ret ? ret : len;
@@ -1588,6 +1594,8 @@ static ssize_t ad9371_phy_tx_read(struct iio_dev *indio_dev,
 			break;
 		val = phy->vswrStatus[chan->channel].errorStatus;
 		break;
+	default:
+		ret = -EINVAL;
 
 	}
 
@@ -2108,6 +2116,7 @@ static int ad9371_phy_write_raw(struct iio_dev *indio_dev,
 		break;
 
 	case IIO_CHAN_INFO_SAMP_FREQ:
+		ret = -ENOTSUPP;
 		break;
 	case IIO_CHAN_INFO_RAW:
 		if (chan->output) {
@@ -2119,6 +2128,8 @@ static int ad9371_phy_write_raw(struct iio_dev *indio_dev,
 				ret = -ENODEV;
 			}
 		}
+
+		ret = -ENOTSUPP;
 		break;
 	default:
 		ret = -EINVAL;
@@ -3005,9 +3016,9 @@ static int ad9371_parse_profile(struct ad9371_rf_phy *phy,
 				 char *data, u32 size)
 {
 	mykonosDevice_t *mykDevice = phy->mykDevice;
-	mykonosRxProfile_t *rx_profile;
-	mykonosTxProfile_t *tx_profile;
-	mykonosFir_t *fir;
+	mykonosRxProfile_t *rx_profile = NULL;
+	mykonosTxProfile_t *tx_profile = NULL;
+	mykonosFir_t *fir = NULL;
 	struct device *dev = &phy->spi->dev;
 	char clocks = 0, tx = 0, rx = 0,
 	     filter = 0, adcprof = 0, lpbkadcprof = 0, header = 0,
@@ -3015,7 +3026,7 @@ static int ad9371_parse_profile(struct ad9371_rf_phy *phy,
 
 	char *line, *ptr = data;
 	unsigned int int32, int32_2;
-	int ret, num, version = 0, type, max, sint32, retval;
+	int ret, num = 0, version = 0, type, max, sint32, retval = 0;
 
 #define GET_TOKEN(x, n) \
 	{ret = sscanf(line, " <" #n "=%u>", &int32);\
@@ -3186,7 +3197,7 @@ static int ad9371_parse_profile(struct ad9371_rf_phy *phy,
 				dev_err(dev, "%s:%d: Invalid number (%d) of coefficients",
 					__func__, __LINE__, num);
 
-				num = 0;
+			num = 0;
 			continue;
 		}
 
@@ -3467,7 +3478,7 @@ static struct gain_table_info * ad9371_parse_gt(struct ad9371_rf_phy *phy,
 {
 	struct gain_table_info *table = phy->gt_info;
 	bool header_found;
-	int i, ret, dest, table_num = 0;
+	int i = 0, ret, dest, table_num = 0;
 	char *line, *ptr = data;
 	u8 *p;
 
