@@ -1,0 +1,32 @@
+/dts-v1/;
+
+/include/ "zynq-zed.dtsi"
+/include/ "zynq-zed-adv7511.dtsi"
+
+
+
+&fpga_axi {
+		axi_dmac: dmac@43c20000 {
+			compatible = "adi,axi-dmac-1.00.a";
+			reg = <0x43c20000 0x10000>;
+			#dma-cells = <1>;
+			interrupts = <0 56 0>;
+			clocks = <&clkc 16>;
+
+			adi,channels {
+        #size-cells = <0>;
+				#address-cells = <1>;
+
+        dma-channel@0 {
+					reg = <0>;
+					adi,source-bus-width = <32>;
+					adi,source-bus-type = <1>;
+					adi,destination-bus-width = <64>;
+					adi,destination-bus-type = <0>;
+				  adi,length-width = <24>;
+				};
+			};
+		};
+	};
+
+
