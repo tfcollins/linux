@@ -21,6 +21,8 @@ struct jesd204_dev_top;
  * @list		list entry for the framework to keep a list of devices
  * @is_top		true if this device is a top device in a JESD204
  *			topology
+ * @dev			device that registers itself as a JESD204 device
+ * @ops			JESD204 operations specified via function pointers
  * @np			reference in the device-tree for this JESD204 device
  * @ref			ref count for this JESD204 device
  */
@@ -29,6 +31,8 @@ struct jesd204_dev {
 
 	bool				is_top;
 
+	struct device			*dev;
+	struct jesd204_dev_ops		*ops;
 	struct device_node		*np;
 	struct kref			ref;
 };
