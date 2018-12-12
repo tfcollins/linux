@@ -16,6 +16,9 @@
 		clock-output-names = "ad9528-1_out0", "ad9528-1_out1", "ad9528-1_out2", "ad9528-1_out3", "ad9528-1_out4", "ad9528-1_out5", "ad9528-1_out6", "ad9528-1_out7", "ad9528-1_out8", "ad9528-1_out9", "ad9528-1_out10", "ad9528-1_out11", "ad9528-1_out12", "ad9528-1_out13";
 		#clock-cells = <1>;
 
+		jesd204-device;
+		#jesd204-cells = <1>;
+
 		adi,vcxo-freq = <122880000>;
 
 		adi,refa-enable;
@@ -83,8 +86,11 @@
 			adi,divider-phase = <0>;
 			adi,channel-divider = <10>;
 			adi,signal-source = <SOURCE_SYSREF_VCO>;
-		};
 
+			jesd204 {
+				node-device;
+			};
+		};
 	};
 
 
@@ -105,6 +111,13 @@
 
 		clock-output-names = "rx_sampl_clk", "rx_os_sampl_clk", "tx_sampl_clk";
 		#clock-cells = <1>;
+
+		jesd204-top-device;
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&axi_ad9371_rx_jesd>, <&axi_ad9371_tx_jesd>,
+				 <&axi_ad9371_rx_os_jesd>, <&clk0_ad9528 13>,
+				 <&clk0_ad9528 1>,  <&clk0_ad9528 12>, <&clk0_ad9528 3>;
 
 		adi,clocks-clk-pll-vco-freq_khz = <9830400>;
 		adi,clocks-device-clock_khz = <122880>;

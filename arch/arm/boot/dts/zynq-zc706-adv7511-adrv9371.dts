@@ -96,6 +96,10 @@
 		dmas = <&rx_dma 0>;
 		dma-names = "rx";
 		spibus-connected = <&trx0_ad9371>;
+
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&trx0_ad9371>;
 	};
 
 	axi_ad9371_core_rx_obs: axi-ad9371-rx-obs-hpc@44a08000 {
@@ -105,6 +109,10 @@
 		dma-names = "rx";
 		clocks = <&trx0_ad9371 1>;
 		clock-names = "sampl_clk";
+
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&trx0_ad9371>;
 	};
 
 	axi_ad9371_core_tx: axi-ad9371-tx-hpc@44a04000 {
@@ -116,6 +124,10 @@
 		clock-names = "sampl_clk";
 		spibus-connected = <&trx0_ad9371>;
 		adi,axi-pl-fifo-enable;
+
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&trx0_ad9371>;
 	};
 
 	axi_ad9371_rx_jesd: axi-jesd204-rx@44aa0000 {
@@ -129,6 +141,10 @@
 
 		#clock-cells = <0>;
 		clock-output-names = "jesd_rx_lane_clk";
+
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&axi_ad9371_adxcvr_rx>;
 
 		adi,octets-per-frame = <4>;
 		adi,frames-per-multiframe = <32>;
@@ -145,6 +161,10 @@
 
 		#clock-cells = <0>;
 		clock-output-names = "jesd_tx_lane_clk";
+
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&axi_ad9371_adxcvr_tx>;
 
 		adi,octets-per-frame = <2>;
 		adi,frames-per-multiframe = <32>;
@@ -166,6 +186,10 @@
 		#clock-cells = <0>;
 		clock-output-names = "jesd_rx_os_lane_clk";
 
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&axi_ad9371_adxcvr_rx_os>;
+
 		adi,octets-per-frame = <2>;
 		adi,frames-per-multiframe = <32>;
 	};
@@ -184,7 +208,6 @@
 		#clock-cells = <0>;
 		clocks = <&clk0_ad9528 1>;
 		clock-output-names = "axi_rx_clkgen";
-
 	};
 
 	axi_rx_os_clkgen: axi-clkgen@43c20000  {
@@ -193,7 +216,6 @@
 		#clock-cells = <0>;
 		clocks = <&clk0_ad9528 1>;
 		clock-output-names = "axi_rx_os_clkgen";
-
 	};
 
 	axi_ad9371_adxcvr_rx: axi-adxcvr-rx@44a60000 {
@@ -207,6 +229,10 @@
 
 		#clock-cells = <1>;
 		clock-output-names = "rx_gt_clk", "rx_out_clk";
+
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&clk0_ad9528 1>;
 
 		adi,sys-clk-select = <0>;
 		adi,out-clk-select = <3>;
@@ -226,6 +252,10 @@
 		#clock-cells = <1>;
 		clock-output-names = "rx_os_gt_clk", "rx_os_out_clk";
 
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&clk0_ad9528 1>;
+
 		adi,sys-clk-select = <0>;
 		adi,out-clk-select = <3>;
 		adi,use-lpm-enable;
@@ -243,6 +273,10 @@
 
 		#clock-cells = <1>;
 		clock-output-names = "tx_gt_clk", "tx_out_clk";
+
+		jesd204-device;
+		#jesd204-cells = <0>;
+		jesd204-inputs = <&clk0_ad9528 1>;
 
 		adi,sys-clk-select = <3>;
 		adi,out-clk-select = <3>;
