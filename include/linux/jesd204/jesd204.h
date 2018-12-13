@@ -18,10 +18,16 @@ enum jesd204_state_change_result {
 	JESD204_STATE_CHANGE_DONE,
 };
 
+typedef int (*jesd204_cb)(struct jesd204_dev *jdev);
+
 /**
  * struct jesd204_dev_ops - JESD204 device operations
+ * @init_clocks			clock initialzation callback
+ * @uninit_clocks		equivalent un-init callback for @init_clocks
  */
 struct jesd204_dev_ops {
+	jesd204_cb				init_clocks;
+	jesd204_cb				uninit_clocks;
 };
 
 /**

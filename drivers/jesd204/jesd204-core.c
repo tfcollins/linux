@@ -477,6 +477,33 @@ unlock:
 	return ret;
 }
 
+static int jesd204_dev_enable_continuous_sysref(struct jesd204_dev *jdev)
+{
+	dev_err(jdev->dev, "JESD204 %s %d %s\n", __func__, __LINE__, jdev->np->name);
+	return 0;
+}
+
+static int jesd204_dev_init_clocks_cb(struct jesd204_dev *jdev, void *data)
+{
+	if (!jdev->ops || !jdev->ops->init_clocks)
+		return JESD204_STATE_CHANGE_DONE;
+
+	if (!jdev->ops->uninit_clocks) {
+		dev_err(jdev->dev, "init_clock() cb must have equivalent uninit_clock()\n");
+		return jesd204_dev_set_error(jdev, -EINVAL);
+	}
+
+	return jdev->ops->init_clocks(jdev);
+}
+
+static int jesd204_dev_init_clock_chips(struct jesd204_dev *jdev)
+{
+	return jesd204_dev_run_state_change(jdev,
+					    JESD204_DEV_PROBED,
+					    JESD204_DEV_CLOCKS_READY,
+					    jesd204_dev_init_clocks_cb, NULL,
+					    jesd204_dev_enable_continuous_sysref);
+}
 struct jesd204_dev *jesd204_dev_register(struct device *dev,
 					 const struct jesd204_dev_data *init)
 {
@@ -502,6 +529,14 @@ struct jesd204_dev *jesd204_dev_register(struct device *dev,
 
 	jdev->ops = init->ops;
 	jdev->dev = get_device(dev);
+
+	ret = jesd204_dev_run_state_change(jdev,
+					   JESD204_DEV_INITIALIZED,
+					   JESD204_DEV_PROBED,
+					   NULL, NULL,
+					   jesd204_dev_init_clock_chips);
+	if (ret)
+		goto err;
 
 	mutex_unlock(&jesd204_device_list_lock);
 

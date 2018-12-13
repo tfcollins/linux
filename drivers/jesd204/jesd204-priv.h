@@ -19,6 +19,8 @@ struct jesd204_dev_top;
 enum jesd204_dev_state {
 	JESD204_DEV_UNINITIALIZED = 0,
 	JESD204_DEV_INITIALIZED,
+	JESD204_DEV_PROBED,
+	JESD204_DEV_CLOCKS_READY,
 };
 
 typedef int (*jesd204_cb)(struct jesd204_dev *jdev);
