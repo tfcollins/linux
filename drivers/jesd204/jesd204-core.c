@@ -116,6 +116,9 @@ struct jesd204_dev *jesd204_dev_register(struct device *dev,
 	if (!dev)
 		return ERR_PTR(-EINVAL);
 
+	if (!of_dev_is_jesd204_dev(dev))
+		return NULL;
+
 	if (!init)
 		return ERR_PTR(-EINVAL);
 
@@ -204,6 +207,9 @@ struct jesd204_dev *devm_jesd204_dev_register(struct device *dev,
 					      const struct jesd204_dev_data *i)
 {
 	struct jesd204_dev **jdevp, *jdev;
+
+	if (!of_dev_is_jesd204_dev(dev))
+		return NULL;
 
 	jdevp = devres_alloc(devm_jesd204_dev_unreg, sizeof(*jdevp),
 			     GFP_KERNEL);
