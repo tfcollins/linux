@@ -15,6 +15,7 @@
 #include <linux/of.h>
 #include <linux/module.h>
 #include <linux/err.h>
+#include <linux/jesd204/jesd204.h>
 
 #define AXI_CLKGEN_V2_REG_RESET		0x40
 #define AXI_CLKGEN_V2_REG_CLKSEL	0x44
@@ -46,6 +47,7 @@
 struct axi_clkgen {
 	void __iomem *base;
 	struct clk_hw clk_hw;
+	struct jesd204_dev *jdev;
 };
 
 static uint32_t axi_clkgen_lookup_filter(unsigned int m)
@@ -494,6 +496,9 @@ static const struct of_device_id axi_clkgen_ids[] = {
 };
 MODULE_DEVICE_TABLE(of, axi_clkgen_ids);
 
+static const struct jesd204_dev_data axi_clkgen_jesd204_data = {
+};
+
 static int axi_clkgen_probe(struct platform_device *pdev)
 {
 	const struct of_device_id *id;
@@ -547,8 +552,17 @@ static int axi_clkgen_probe(struct platform_device *pdev)
 	if (ret)
 		return ret;
 
-	return of_clk_add_hw_provider(pdev->dev.of_node, of_clk_hw_simple_get,
-				      &axi_clkgen->clk_hw);
+	ret = of_clk_add_hw_provider(pdev->dev.of_node, of_clk_hw_simple_get,
+				     &axi_clkgen->clk_hw);
+	if (ret)
+		return ret;
+
+	axi_clkgen->jdev = devm_jesd204_dev_register(&pdev->dev,
+						     &axi_clkgen_jesd204_data);
+	if (IS_ERR(axi_clkgen->jdev))
+		return PTR_ERR(axi_clkgen->jdev);
+
+	return 0;
 }
 
 static int axi_clkgen_remove(struct platform_device *pdev)
