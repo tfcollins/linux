@@ -214,6 +214,7 @@ struct cf_axi_dds_state {
 	struct clk 		*clk;
 	struct cf_axi_dds_chip_info	*chip_info;
 	struct gpio_desc		*plddrbypass_gpio;
+	struct jesd204_dev	*jdev;
 
 	bool			standalone;
 	bool			dp_disable;
