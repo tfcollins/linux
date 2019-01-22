@@ -14,8 +14,17 @@
 #include <linux/module.h>
 #include <linux/device.h>
 #include <linux/debugfs.h>
+#include <linux/of.h>
+#include <linux/slab.h>
+
+#include "jesd204-priv.h"
 
 static dev_t jesd204_devt;
+
+static DEFINE_MUTEX(jesd204_device_list_lock);
+static LIST_HEAD(jesd204_device_list);
+
+static unsigned int jesd204_device_count;
 
 #define JESD204_DEV_MAX 256
 static struct bus_type jesd204_bus_type = {
@@ -23,6 +32,87 @@ static struct bus_type jesd204_bus_type = {
 };
 
 static struct dentry *jesd204_debugfs_dentry;
+
+static struct jesd204_dev *jesd204_dev_alloc(struct device_node *np)
+{
+	struct jesd204_dev *jdev;
+
+	jdev = kzalloc(sizeof(*jdev), GFP_KERNEL);
+	if (!jdev)
+		return ERR_PTR(-ENOMEM);
+
+        kref_get(&jdev->ref);
+
+	jdev->np = of_node_get(np);
+	kref_init(&jdev->ref);
+
+	list_add(&jdev->list, &jesd204_device_list);
+	jesd204_device_count++;
+
+	return jdev;
+}
+
+static int jesd204_of_create_devices(void)
+{
+	struct jesd204_dev *jdev;
+	struct device_node *np;
+	int ret;
+
+	mutex_lock(&jesd204_device_list_lock);
+
+	ret = 0;
+	for_each_node_with_property(np, "jesd204-device") {
+		jdev = jesd204_dev_alloc(np);
+		if (IS_ERR(jdev)) {
+			ret = PTR_ERR(jdev);
+			goto unlock;
+		}
+	}
+
+unlock:
+	mutex_unlock(&jesd204_device_list_lock);
+
+	return ret;
+}
+
+static void jesd204_of_unregister_devices(void)
+{
+	struct jesd204_dev *jdev, *j;
+
+	list_for_each_entry_safe(jdev, j, &jesd204_device_list, list) {
+		jesd204_dev_unregister(jdev);
+	}
+}
+
+/* Free memory allocated. */
+static void __jesd204_dev_release(struct kref *ref)
+{
+	struct jesd204_dev *jdev = container_of(ref, struct jesd204_dev, ref);
+
+	mutex_lock(&jesd204_device_list_lock);
+
+	list_del(&jdev->list);
+	of_node_put(jdev->np);
+
+	kfree(jdev);
+
+	jesd204_device_count--;
+
+	mutex_unlock(&jesd204_device_list_lock);
+}
+
+/**
+ * jesd204_dev_unregister() - unregister a device from the JESD204 subsystem
+ * @jdev:		Device structure representing the device.
+ **/
+void jesd204_dev_unregister(struct jesd204_dev *jdev)
+{
+	if (!IS_ERR_OR_NULL(jdev))
+		return;
+
+	kref_put(&jdev->ref, __jesd204_dev_release);
+}
+EXPORT_SYMBOL(jesd204_dev_unregister);
 
 static int __init jesd204_init(void)
 {
@@ -43,8 +133,16 @@ static int __init jesd204_init(void)
 
 	jesd204_debugfs_dentry = debugfs_create_dir("jesd204", NULL);
 
+	mutex_init(&jesd204_device_list_lock);
+
+	ret = jesd204_of_create_devices();
+	if (ret < 0)
+		goto error_unreg_devices;
+
 	return 0;
 
+error_unreg_devices:
+	jesd204_of_unregister_devices();
 error_unregister_bus_type:
 	bus_unregister(&jesd204_bus_type);
 error_nothing:
@@ -54,6 +152,7 @@ error_nothing:
 
 static void __exit jesd204_exit(void)
 {
+	jesd204_of_unregister_devices();
 	if (jesd204_devt)
 		unregister_chrdev_region(jesd204_devt, JESD204_DEV_MAX);
 	bus_unregister(&jesd204_bus_type);
