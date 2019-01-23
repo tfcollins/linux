@@ -61,12 +61,40 @@ static struct jesd204_dev *jesd204_dev_alloc(struct device_node *np)
 	jdev->np = of_node_get(np);
 	kref_init(&jdev->ref);
 
+	INIT_LIST_HEAD(&jdev->top_devices);
 	INIT_LIST_HEAD(&jdev->outputs);
 
 	list_add(&jdev->list, &jesd204_device_list);
 	jesd204_device_count++;
 
 	return jdev;
+}
+
+static int jesd204_dev_set_error(struct jesd204_dev *jdev, int err)
+{
+	struct jesd204_dev_top *jdev_top;
+	struct jesd204_dev_list *e;
+
+	if (err == 0)
+		return 0;
+
+	/* we aready have an error state */
+	if (jdev->error)
+		return err;
+
+	jdev->error = err;
+
+	jdev_top = jesd204_dev_top_dev(jdev);
+	if (jdev_top)
+		jdev_top->error = true;
+
+	/* tell all top devices about the error */
+	list_for_each_entry(e, &jdev->top_devices, list) {
+		jdev_top = jesd204_dev_top_dev(e->jdev);
+		jdev_top->error = true;
+	}
+
+	return err;
 }
 
 static struct jesd204_dev *jesd204_dev_find_by_of_node(struct device_node *np)
@@ -109,6 +137,67 @@ static struct jesd204_dev_link *jesd204_dev_find_output_link(
 	}
 
 	return NULL;
+}
+
+static int jesd204_dev_propagate_cb_inputs(struct jesd204_dev *jdev,
+					   jesd204_cb_priv propagated_cb,
+					   void *data)
+{
+	unsigned int i;
+	int ret = 0;
+
+	for (i = 0; i < jdev->inputs_count; i++) {
+		struct jesd204_dev_link *lnk = jdev->inputs[i];
+
+		ret = jesd204_dev_propagate_cb_inputs(lnk->owner,
+						      propagated_cb, data);
+		if (ret)
+			goto done;
+		ret = propagated_cb(lnk->owner, data);
+		if (ret)
+			goto done;
+	}
+
+done:
+	return jesd204_dev_set_error(jdev, ret);
+}
+
+static int jesd204_dev_propagate_cb_outputs(struct jesd204_dev *jdev,
+					    jesd204_cb_priv propagated_cb,
+					    void *data)
+{
+	struct jesd204_dev_link *l;
+	struct jesd204_dev_list *e;
+	int ret = 0;
+
+	list_for_each_entry(l, &jdev->outputs, list) {
+		list_for_each_entry(e, &l->dests, list) {
+			ret = propagated_cb(e->jdev, data);
+			if (ret)
+				goto done;
+			ret = jesd204_dev_propagate_cb_outputs(e->jdev,
+							       propagated_cb,
+							       data);
+			if (ret)
+				goto done;
+		}
+	}
+
+done:
+	return jesd204_dev_set_error(jdev ,ret);
+}
+
+static inline int jesd204_dev_propagate_cb(struct jesd204_dev *jdev,
+					   jesd204_cb_priv propagated_cb,
+					   void *data)
+{
+	int ret;
+
+	ret = jesd204_dev_propagate_cb_inputs(jdev, propagated_cb, data);
+	if (ret)
+		return ret;
+
+	return jesd204_dev_propagate_cb_outputs(jdev, propagated_cb, data);
 }
 
 static int jesd204_dev_create_link(struct jesd204_dev *jdev,
@@ -195,8 +284,159 @@ static int jesd204_of_device_create_links(struct jesd204_dev *jdev)
 	return 0;
 }
 
+static void __jesd204_dev_top_state_change_cb(struct kref *ref)
+{
+	struct jesd204_dev_top *jdev_top;
+	struct jesd204_dev *jdev;
+	int ret;
+
+	jdev_top = container_of(ref, typeof(*jdev_top), cb_ref);
+	jdev = &jdev_top->jdev;
+
+	jdev->state = jdev_top->nxt_state;
+	if (jdev_top->state_complete_cb) {
+		ret = jdev_top->state_complete_cb(jdev);
+		jesd204_dev_set_error(jdev, ret);
+	}
+
+	/**
+	 * Reset nxt_state ; so that other devices won't run another
+	 * state change
+	 */
+	jdev_top->nxt_state = 0;
+}
+
+static int jesd204_dev_notify_state_change(struct jesd204_dev *jdev)
+{
+	struct jesd204_dev_top *jdev_top;
+	struct jesd204_dev_list *e;
+
+	/**
+	 * Now go through the list of top devices (that this device cares about)
+	 * and see which device we need to notify/update
+	 */
+	list_for_each_entry(e, &jdev->top_devices, list) {
+		jdev_top = jesd204_dev_top_dev(e->jdev);
+
+		/**
+		 * Propagate to top devices that want to be in the same state
+		 * as this node device
+		 */
+		if (jdev_top->nxt_state != jdev->state)
+			continue;
+
+		kref_put(&jdev_top->cb_ref, __jesd204_dev_top_state_change_cb);
+	}
+
+	return 0;
+}
+
+static int jesd204_dev_validate_state_change(struct jesd204_dev *jdev,
+					     enum jesd204_dev_state cur_state,
+					     enum jesd204_dev_state nxt_state)
+{
+	if (jdev->state == nxt_state)
+		return JESD204_STATE_CHANGE_DONE;
+
+	if (cur_state != jdev->state) {
+		dev_warn(jdev->dev, "jesd204 state invalid: %u, should be %u\n",
+			 jdev->state, cur_state);
+		return jesd204_dev_set_error(jdev, -EINVAL);
+	}
+
+	return 0;
+}
+
+static int jesd204_dev_run_state_change_cb(struct jesd204_dev *jdev, void *data)
+{
+	struct jesd204_dev_state_change_data *s = data;
+	struct jesd204_dev_top *jdev_top = s->jdev_top;
+	int ret;
+
+	ret = jesd204_dev_validate_state_change(jdev,
+						jdev_top->jdev.state,
+						jdev_top->nxt_state);
+	if (ret < 0)
+		return ret;
+
+	if (ret == JESD204_STATE_CHANGE_DONE)
+		return 0;
+
+	if (s->trigger_state_change_cb) {
+		ret = s->trigger_state_change_cb(jdev, s->priv);
+		if (ret < 0)
+			return ret;
+	}
+
+	if (ret != JESD204_STATE_CHANGE_DONE)
+		kref_get(&s->jdev_top->cb_ref);
+
+	return 0;
+}
+
+static int jesd204_dev_run_state_change(
+		struct jesd204_dev *jdev,
+		enum jesd204_dev_state cur_state,
+		enum jesd204_dev_state nxt_state,
+		jesd204_cb_priv trigger_state_change_cb,
+		void *update_state_priv,
+		jesd204_cb state_complete_cb)
+{
+	struct jesd204_dev_top *jdev_top = jesd204_dev_top_dev(jdev);
+	struct jesd204_dev_state_change_data data;
+	int ret;
+
+	ret = jesd204_dev_validate_state_change(jdev, cur_state, nxt_state);
+	if (ret < 0)
+		return ret;
+
+	if (ret == JESD204_STATE_CHANGE_DONE)
+		return 0;
+
+	if (!jdev_top) {
+		jdev->state = nxt_state;
+		return jesd204_dev_notify_state_change(jdev);
+	}
+
+	memset(&data, 0, sizeof(data));
+	data.trigger_state_change_cb = trigger_state_change_cb;
+	data.priv = update_state_priv;
+	data.jdev_top = jdev_top;
+
+	kref_init(&jdev_top->cb_ref);
+
+	jdev_top->state_complete_cb = state_complete_cb;
+	jdev_top->nxt_state = nxt_state;
+
+	ret = jesd204_dev_propagate_cb(jdev,
+				       jesd204_dev_run_state_change_cb,
+				       &data);
+
+	kref_put(&jdev_top->cb_ref, __jesd204_dev_top_state_change_cb);
+
+	return ret;
+}
+
+static int jesd204_dev_initialize(struct jesd204_dev *jdev, void *data)
+{
+	struct jesd204_dev_top *jdev_top = data;
+	struct jesd204_dev_list *e;
+
+	e = kzalloc(sizeof(*e), GFP_KERNEL);
+	if (!e)
+		return -ENOMEM;
+
+	e->jdev = &jdev_top->jdev;
+	list_add(&e->list, &jdev->top_devices);
+
+	jdev->state = JESD204_DEV_INITIALIZED;
+
+	return JESD204_STATE_CHANGE_DONE;
+}
+
 static int jesd204_of_create_devices(void)
 {
+	struct jesd204_dev_top *jdev_top;
 	struct jesd204_dev *jdev;
 	struct device_node *np;
 	int ret;
@@ -214,6 +454,19 @@ static int jesd204_of_create_devices(void)
 
 	list_for_each_entry(jdev, &jesd204_device_list, list) {
 		ret = jesd204_of_device_create_links(jdev);
+		if (ret)
+			goto unlock;
+	}
+
+	list_for_each_entry(jdev_top, &jesd204_topologies, list) {
+		jdev = &jdev_top->jdev;
+
+		ret = jesd204_dev_run_state_change(jdev,
+						   JESD204_DEV_UNINITIALIZED,
+						   JESD204_DEV_INITIALIZED,
+						   jesd204_dev_initialize,
+						   jdev_top,
+						   NULL);
 		if (ret)
 			goto unlock;
 	}
