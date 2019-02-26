@@ -103,6 +103,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	rpi-adxl372.dtbo \
 	rpi-adxl375.dtbo \
 	rpi-ad5770r.dtbo \
+	rpi-adis16480.dtbo \
 	rpi-backlight.dtbo \
 	rpi-cirrus-wm5102.dtbo \
 	rpi-dac.dtbo \
