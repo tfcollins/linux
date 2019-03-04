@@ -165,8 +165,58 @@ struct ad7192_state {
 	u32				scale_avail[8][2];
 	u8				gpocon;
 	u8				devid;
+	u8				syscalib_mode[8];
 
 	struct ad_sigma_delta		sd;
+};
+
+static const char * const ad7192_syscalib_modes[] = {
+	"zero_scale",
+	"full_scale",
+};
+
+static int ad7192_set_syscalib_mode(struct iio_dev *indio_dev,
+				    const struct iio_chan_spec *chan,
+				    unsigned int mode)
+{
+	struct ad7192_state *st = iio_priv(indio_dev);
+	int ret;
+
+	st->syscalib_mode[chan->channel] = mode;
+
+	if (!strcmp(ad7192_syscalib_modes[mode], "zero_scale")) {
+		ret = ad_sd_calibrate(&st->sd, AD7192_MODE_CAL_SYS_ZERO,
+				      chan->address);
+
+		pr_err("ad7192: zero_scale chan: %d\n", chan->channel);
+	} else {
+		ret = ad_sd_calibrate(&st->sd, AD7192_MODE_CAL_SYS_FULL,
+				      chan->address);
+		pr_err("ad7192: full_scale chan: %d\n", chan->channel);
+
+	}
+	return ret;
+}
+
+static int ad7192_get_syscalib_mode(struct iio_dev *indio_dev,
+				    const struct iio_chan_spec *chan)
+{
+	struct ad7192_state *st = iio_priv(indio_dev);
+
+	return st->syscalib_mode[chan->channel];
+}
+
+static const struct iio_enum ad7192_syscalib_mode_enum = {
+	.items = ad7192_syscalib_modes,
+	.num_items = ARRAY_SIZE(ad7192_syscalib_modes),
+	.set = ad7192_set_syscalib_mode,
+	.get = ad7192_get_syscalib_mode
+};
+
+static const struct iio_chan_spec_ext_info ad7192_calibsys_ext_info[] = {
+	IIO_ENUM("system_calibration", IIO_SEPARATE, &ad7192_syscalib_mode_enum),
+	IIO_ENUM_AVAILABLE("system_calibration", &ad7192_syscalib_mode_enum),
+	{}
 };
 
 static struct ad7192_state *ad_sigma_delta_to_ad7192(struct ad_sigma_delta *sd)
@@ -639,6 +689,36 @@ static int ad7192_parse_dt(struct device_node *np,
 	return 0;
 }
 
+static void ad7192_channels_config(struct iio_dev *indio_dev)
+{
+	struct ad7192_state *st = iio_priv(indio_dev);
+	const struct iio_chan_spec *channels;
+	struct iio_chan_spec *chan;
+	int i;
+
+	switch (st->devid) {
+	case ID_AD7193:
+		channels = ad7193_channels;
+		indio_dev->num_channels = ARRAY_SIZE(ad7193_channels);
+		break;
+	default:
+		channels = ad7192_channels;
+		indio_dev->num_channels = ARRAY_SIZE(ad7192_channels);
+		break;
+	}
+
+	chan = devm_kcalloc(indio_dev->dev.parent, indio_dev->num_channels,
+			    sizeof(*chan), GFP_KERNEL);
+	indio_dev->channels = chan;
+
+	for (i = 0; i < indio_dev->num_channels; i++) {
+		*chan = channels[i];
+		if ((chan->type != IIO_TEMP) & !chan->differential)
+			chan->ext_info = ad7192_calibsys_ext_info;
+		chan++;
+	}
+}
+
 static int ad7192_probe(struct spi_device *spi)
 {
 	struct ad7192_platform_data *pdata;
@@ -716,16 +796,7 @@ static int ad7192_probe(struct spi_device *spi)
 	indio_dev->name = spi_get_device_id(spi)->name;
 	indio_dev->modes = INDIO_DIRECT_MODE;
 
-	switch (st->devid) {
-	case ID_AD7193:
-		indio_dev->channels = ad7193_channels;
-		indio_dev->num_channels = ARRAY_SIZE(ad7193_channels);
-		break;
-	default:
-		indio_dev->channels = ad7192_channels;
-		indio_dev->num_channels = ARRAY_SIZE(ad7192_channels);
-		break;
-	}
+	ad7192_channels_config(indio_dev);
 
 	if (st->devid == ID_AD7195)
 		indio_dev->info = &ad7195_info;
