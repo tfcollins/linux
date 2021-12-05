@@ -1,0 +1,46 @@
+site_name: pyadi-dt
+site_description: Tools for managing device trees
+site_author: Analog Devices, Inc.
+
+theme:
+  name: material
+  features:
+    - content.tabs.link
+  palette:
+    - scheme: default
+      primary: deep orange
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep orange
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+nav:
+    - Home: index.md
+    - Devs:
+        {% block content -%}
+        {% for dev in devs -%}
+              - devs/{{ dev }}
+        {% endfor %}
+        {% endblock %}
+
+repo_url: https://github.com/analogdevicesinc/pyadi-dt
+
+markdown_extensions:
+    # - attr_list
+    - mkdocs-click
+    - pymdownx.superfences
+    - pymdownx.tabbed
+    # - pymdownx.tabbed:
+    #     alternate_style: true 
+
+plugins:
+  - search
+  - mkdocstrings
+  - dt-plugin
+
+extra_css:
+  - stylesheets/style.css
