@@ -741,7 +741,7 @@
 https://www.analog.com/media/en/technical-documentation/data-sheets/ad7606_7606-6_7606-4.pdf
 https://www.analog.com/media/en/technical-documentation/data-sheets/AD7606B.pdf
 https://www.analog.com/media/en/technical-documentation/data-sheets/AD7616.pdf</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Properties</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Properties</label><div class="tabbed-content">
 
 
 <table>
@@ -940,6 +940,179 @@ https://www.analog.com/media/en/technical-documentation/data-sheets/AD7616.pdf</
     <span class="l l-Scalar l-Scalar-Plain">};</span>
 <span class="l l-Scalar l-Scalar-Plain">};</span>
 </code></pre></div>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Properties</label><div class="tabbed-content">
+<p><table>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Info</th>
+    </tr></p>
+<pre><code>&lt;tr&gt;
+    &lt;td&gt;compatible&lt;/td&gt;
+
+    &lt;td&gt;enum&lt;/td&gt;
+
+    &lt;td&gt;yes&lt;/td&gt;
+
+    &lt;td&gt;Options: &lt;span class='enum-dt'&gt;&amp;nbspadi,ad7605-4&amp;nbsp&lt;/span&gt; &lt;span class='enum-dt'&gt;&amp;nbspadi,ad7606-8&amp;nbsp&lt;/span&gt; &lt;span class='enum-dt'&gt;&amp;nbspadi,ad7606-6&amp;nbsp&lt;/span&gt; &lt;span class='enum-dt'&gt;&amp;nbspadi,ad7606-4&amp;nbsp&lt;/span&gt; &lt;span class='enum-dt'&gt;&amp;nbspadi,ad7606b&amp;nbsp&lt;/span&gt; &lt;span class='enum-dt'&gt;&amp;nbspadi,ad7616&amp;nbsp&lt;/span&gt; &lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;reg&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;yes&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;spi-cpha&lt;/td&gt;
+
+    &lt;td&gt;bool&lt;/td&gt;
+
+    &lt;td&gt;yes&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;spi-cpol&lt;/td&gt;
+
+    &lt;td&gt;bool&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;spi-max-frequency&lt;/td&gt;
+
+    &lt;td&gt;bool&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;avcc-supply&lt;/td&gt;
+
+    &lt;td&gt;bool&lt;/td&gt;
+
+    &lt;td&gt;yes&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;interrupts&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;yes&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;adi,conversion-start-gpios&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;yes&lt;/td&gt;
+
+    &lt;td&gt;Must be the device tree identifier of the CONVST pin. This logic input is used to initiate conversions on the analog input channels. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;reset-gpios&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;Must be the device tree identifier of the RESET pin. If specified, it will be asserted during driver probe. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;standby-gpios&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;Must be the device tree identifier of the STBY pin. This pin is used to place the AD7606 into one of two power-down modes, Standby mode or Shutdown mode. As the line is active low, it should be marked GPIO_ACTIVE_LOW.&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;adi,first-data-gpios&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;Must be the device tree identifier of the FRSTDATA pin. The FRSTDATA output indicates when the first channel, V1, is being read back on either the parallel, byte or serial interface. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;adi,range-gpios&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;Must be the device tree identifier of the RANGE pin. The polarity on this pin determines the input range of the analog input channels. If this pin is tied to a logic high, the analog input range is ±10V for all channels. If this pin is tied to a logic low, the analog input range is ±5V for all channels. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;adi,oversampling-ratio-gpios&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;Must be the device tree identifier of the over-sampling mode pins. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;adi,sw-mode&lt;/td&gt;
+
+    &lt;td&gt;boolean&lt;/td&gt;
+
+    &lt;td&gt;&lt;/td&gt;
+
+    &lt;td&gt;Software mode of operation, so far available only for ad7616 and ad7606b. It is enabled when all three oversampling mode pins are connected to high level. The device is configured by the corresponding registers. If the adi,oversampling-ratio-gpios property is defined, then the driver will set the oversampling gpios to high. Otherwise, it is assumed that the pins are hardwired to VDD.&lt;/td&gt;
+
+&lt;/tr&gt;
+</code></pre>
+</table>
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Examples</label><div class="tabbed-content">
+<p>Example</p>
+</div>
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">sysfs</label><div class="tabbed-content">
+<p>sysfs</p>
+</div>
+<input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">libiio API</label><div class="tabbed-content">
+<p>libiio</p>
 </div>
 </div>
                 
