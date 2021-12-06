@@ -1109,7 +1109,35 @@ https://www.analog.com/media/en/technical-documentation/data-sheets/AD7616.pdf</
 <p>Example</p>
 </div>
 <input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">sysfs</label><div class="tabbed-content">
-<p>sysfs</p>
+<div class="highlight"><pre><span></span><code>root:/&gt; <span class="nb">cd</span> /sys/bus/iio/devices/
+root:/sys/bus/iio/devices&gt; ls
+iio:device4  iio:trigger0
+
+root:/sys/bus/iio/devices&gt; <span class="nb">cd</span> iio:device4
+
+root:/sys/bus/iio/devices/iio:device4&gt; ls -l
+drwxr-xr-x    <span class="m">2</span> root     root             <span class="m">0</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 buffer
+-r--r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 dev
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage0_calibbias
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage0_calibphase
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage0_calibscale
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage0_filter_high_pass_3db_frequency
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage0_test_mode
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage1_calibbias
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage1_calibphase
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage1_calibscale
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage1_filter_high_pass_3db_frequency
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage1_test_mode
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage_sampling_frequency
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage_scale
+-r--r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage_scale_available
+-r--r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 in_voltage_test_mode_available
+-r--r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 name
+drwxr-xr-x    <span class="m">2</span> root     root             <span class="m">0</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 scan_elements
+lrwxrwxrwx    <span class="m">1</span> root     root             <span class="m">0</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 subsystem -&gt; ../../../../bus/iio
+-rw-r--r--    <span class="m">1</span> root     root          <span class="m">4096</span> Jan  <span class="m">1</span> <span class="m">00</span>:00 uevent
+root:/sys/bus/iio/devices/iio:device4&gt;
+</code></pre></div>
 </div>
 <input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><label for="__tabbed_1_6">libiio API</label><div class="tabbed-content">
 <p>libiio</p>
