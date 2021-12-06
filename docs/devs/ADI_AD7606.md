@@ -174,7 +174,36 @@
 
 === "sysfs"
 
-    sysfs
+    ```bash
+    root:/> cd /sys/bus/iio/devices/
+    root:/sys/bus/iio/devices> ls
+    iio:device4  iio:trigger0
+
+    root:/sys/bus/iio/devices> cd iio:device4
+
+    root:/sys/bus/iio/devices/iio:device4> ls -l
+    drwxr-xr-x    2 root     root             0 Jan  1 00:00 buffer
+    -r--r--r--    1 root     root          4096 Jan  1 00:00 dev
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage0_calibbias
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage0_calibphase
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage0_calibscale
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage0_filter_high_pass_3db_frequency
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage0_test_mode
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage1_calibbias
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage1_calibphase
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage1_calibscale
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage1_filter_high_pass_3db_frequency
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage1_test_mode
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage_sampling_frequency
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 in_voltage_scale
+    -r--r--r--    1 root     root          4096 Jan  1 00:00 in_voltage_scale_available
+    -r--r--r--    1 root     root          4096 Jan  1 00:00 in_voltage_test_mode_available
+    -r--r--r--    1 root     root          4096 Jan  1 00:00 name
+    drwxr-xr-x    2 root     root             0 Jan  1 00:00 scan_elements
+    lrwxrwxrwx    1 root     root             0 Jan  1 00:00 subsystem -> ../../../../bus/iio
+    -rw-r--r--    1 root     root          4096 Jan  1 00:00 uevent
+    root:/sys/bus/iio/devices/iio:device4>
+    ```
 
 === "libiio API"
 
