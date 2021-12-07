@@ -1,4 +1,4 @@
-"""Generate MD pages for DT yaml files"""
+"""Generate MD pages for DT yaml files and create mkdocs.yml"""
 import glob
 from jinja2 import Environment, FileSystemLoader
 import yaml
@@ -14,7 +14,8 @@ def test_yaml(filename):
         return False
 
 
-def generate_md_files(kernel_root_dir, stop_bad_yaml=False):
+def generate_md_files(kernel_root_dir, stop_bad_yaml=False, limit_to_adi=True):
+    """Generate MD files for all DT yaml files"""
 
     if not os.path.isdir(kernel_root_dir):
         raise Exception(f"{kernel_root_dir} not a directory")
@@ -27,7 +28,7 @@ def generate_md_files(kernel_root_dir, stop_bad_yaml=False):
     filenames = []
 
     for file in files:
-        if "adi," in file:
+        if not limit_to_adi or "adi," in file:
             if not test_yaml(file):
                 if stop_bad_yaml:
                     raise Exception(f"Invalid yaml file found: {file}")
@@ -45,7 +46,8 @@ def generate_md_files(kernel_root_dir, stop_bad_yaml=False):
     return filenames
 
 
-def create_mkdocs_yml(filenames):
+def create_mkdocs_yml(filenames: list):
+    """Gernerate mkdocs.yml file based on generated md files"""
 
     file_loader = FileSystemLoader("templates")
     env = Environment(loader=file_loader)
@@ -59,7 +61,9 @@ def create_mkdocs_yml(filenames):
 
 
 def default():
-    fns = generate_md_files("/tmp/linux")
+    loc = os.path.dirname(__file__)
+    kernel_root_dir = os.path.abspath(os.path.join(loc, "../"))
+    fns = generate_md_files(kernel_root_dir)
     create_mkdocs_yml(fns)
 
 
