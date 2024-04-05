@@ -1,7 +1,16 @@
 # Download the wiki page
-import urllib.request
-from fixup_wrap_tags import process, preprocess
 import os
+import subprocess
+import urllib.request
+
+from fixers.fixup_wrap_tags import preprocess, process
+from fixers.heading_fixup import adjust_heading
+from fixers.fixup_term_tags import update_xterm_blocks
+
+# Check if running on linux
+if os.name != "posix":
+    print("This script is only supported on Linux")
+    exit(1)
 
 TARGET = "https://wiki.analog.com/resources/tools-software/linux-drivers-all"
 
@@ -14,7 +23,6 @@ with open(input, "w") as f:
 
 # Pass through pandoc to convert to markdown
 output = "linux-drivers-all.md"
-import subprocess
 
 subprocess.run(
     [
@@ -54,7 +62,18 @@ if not os.path.exists("generated"):
 with open("generated/drivers.md", "w") as f:
     f.write("# Linux Drivers\n\n")
     for driver, link in drivers.items():
+        if link[0] == "/":
+            link = link[1:]
         f.write(f"- [{driver}]({link})\n")
+
+with open("generated/drivers_index.md", "w") as f:
+    f.write("# Linux Drivers\n\n")
+    f.write("::: {toctree}\n")
+    for driver, link in drivers.items():
+        if link[0] == "/":
+            link = link[1:]
+        f.write(f"drivers/{link}\n")
+    f.write(":::\n")
 
 # Download doc pages for each driver
 FOLDER = "generated/drivers"
@@ -114,9 +133,15 @@ for driver, link in drivers.items():
     )
 
     # Fix up the markdown file
-    print(f"Fixing up {output}")
-    with open(output, "r") as f:
-        text = f.read()
+    try:
+        print(f"Fixing up {output}")
+        with open(output, "r") as f:
+            text = f.read()
+    except Exception as e:
+        print(f"Failed to open {output}: {e}")
+        with open('failed.txt', 'a') as f:
+            f.write(f"PANDOC: {driver}: {ROOT}{link}\n")
+        continue
 
     try:
         preprocess(text)
@@ -128,9 +153,42 @@ for driver, link in drivers.items():
         continue
     text = process(text)
 
+    text = adjust_heading(text)
+
+    text = update_xterm_blocks(text)
+
+    # Add metadata
+    text = f"""
+    ---
+    wiki-source: {ROOT}{link}
+    title: {driver}
+    ---
+    """ + text
+
     with open(output, "w") as f:
         f.write(text)
 
     # break
     import time
-    time.sleep(1)
+
+    # time.sleep(0.1)
+
+print("Done, check failed.txt for any failed downloads or processing")
+
+# Move to sphinx source directory
+print("\nMoving files to sphinx source directory")
+import shutil
+
+source_folder = os.path.abspath("generated")
+source_folder = os.path.join(source_folder, "drivers", )
+target_folder = os.path.abspath(os.path.join("..", "..", "source", "drivers"))
+for folder in os.listdir(source_folder):
+    source = os.path.join(source_folder, folder)
+    target = os.path.join(target_folder, folder)
+    if os.path.isfile(source):
+        continue
+    if os.path.exists(target):
+        print(f"Remove {target}")
+        shutil.rmtree(target)
+    print(f"Move {source} to {target}")
+    shutil.move(source, target)
