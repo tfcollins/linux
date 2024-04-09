@@ -69,10 +69,14 @@ with open("generated/drivers.md", "w") as f:
 with open("generated/drivers_index.md", "w") as f:
     f.write("# Linux Drivers\n\n")
     f.write("::: {toctree}\n")
+    written = []
     for driver, link in drivers.items():
         if link[0] == "/":
             link = link[1:]
+        if link in written:
+            continue
         f.write(f"drivers/{link}\n")
+        written.append(link)
     f.write(":::\n")
 
 # Download doc pages for each driver
@@ -125,7 +129,8 @@ for driver, link in drivers.items():
             "-f",
             "dokuwiki",
             "-t",
-            "markdown",
+            # "markdown",
+            "markdown-pipe_tables-simple_tables-multiline_tables-grid_tables",
             "-o",
             output,
             input,
@@ -158,12 +163,12 @@ for driver, link in drivers.items():
     text = update_xterm_blocks(text)
 
     # Add metadata
-    text = f"""
-    ---
-    wiki-source: {ROOT}{link}
-    title: {driver}
-    ---
-    """ + text
+    text = f"""---
+wiki-source: {ROOT}{link}
+title: {driver}
+---
+
+""" + text
 
     with open(output, "w") as f:
         f.write(text)
@@ -192,3 +197,11 @@ for folder in os.listdir(source_folder):
         shutil.rmtree(target)
     print(f"Move {source} to {target}")
     shutil.move(source, target)
+
+# Move index files
+print("\nMoving index files")
+source_folder = os.path.abspath("generated")
+drivers_index = os.path.join(source_folder, "drivers_index.md")
+target_file = os.path.abspath(os.path.join("..", "..", "source", "drivers_index.md"))
+os.remove(target_file)
+shutil.move(drivers_index, target_file)

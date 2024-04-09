@@ -5,6 +5,12 @@ import re
 
 def update_xterm_blocks(text):
 
+    text = text.replace('\<xterm>', '```bash')
+    text = text.replace('\</xterm>', '```')
+
+    text = text.replace('\<xterm\>', '```bash')
+    text = text.replace('\</xterm\>', '```')
+
     text = text.replace('<xterm>', '```bash')
     text = text.replace('</xterm>', '```')
 
