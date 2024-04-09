@@ -1,0 +1,617 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad400x
+title: ADAQ4003: 18-Bit 2 MSPS μModule Data Acquisition System in BGA
+---
+
+AD4003/AD4007/AD4011/AD4020/ADAQ4001/ADAQ4003 Linux Driver
+==========================================================
+
+Supported Devices
+-----------------
+
+-   [AD4000](https://www.google.com/search?q=AD4000&btnI=lucky)
+-   [AD4001](https://www.google.com/search?q=AD4001&btnI=lucky)
+-   [AD4002](https://www.google.com/search?q=AD4002&btnI=lucky)
+-   [AD4003](https://www.google.com/search?q=AD4003&btnI=lucky)
+-   [AD4004](https://www.google.com/search?q=AD4004&btnI=lucky)
+-   [AD4005](https://www.google.com/search?q=AD4005&btnI=lucky)
+-   [AD4006](https://www.google.com/search?q=AD4006&btnI=lucky)
+-   [AD4007](https://www.google.com/search?q=AD4007&btnI=lucky)
+-   [AD4008](https://www.google.com/search?q=AD4008&btnI=lucky)
+-   [AD4010](https://www.google.com/search?q=AD4010&btnI=lucky)
+-   [AD4011](https://www.google.com/search?q=AD4011&btnI=lucky)
+-   [AD4020](https://www.google.com/search?q=AD4020&btnI=lucky)
+-   [AD4021](https://www.google.com/search?q=AD4021&btnI=lucky)
+-   [AD4022](https://www.google.com/search?q=AD4022&btnI=lucky)
+-   [ADAQ4003](https://www.google.com/search?q=ADAQ4003&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-AD400x-FMCZ](https://www.google.com/search?q=EVAL-AD400x-FMCZ&btnI=lucky)
+-   [EVAL-ADAQ40xx](https://www.google.com/search?q=EVAL-ADAQ40xx&btnI=lucky)
+
+Description
+-----------
+
+Analog Devices [AD4000](https://www.google.com/search?q=AD4000&btnI=lucky) and the above listed devices are high accuracy, high speed, low power SAR ADCs.
+
+This is the Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single channel SPI interface [AD4000](https://www.google.com/search?q=AD4000&btnI=lucky) and similar ADC devices. The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (I2C, SPI, etc). See [IIO](/software/linux/docs/iio/iio) for more information.
+
+See the [Evaluating AD400X and ADAQ400X devices](/resources/eval/ad400x-eval-board) user guide for instructions on how to setup and evaluate devices supported by the ad400x Linux driver.
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=main/drivers/iio/adc/ad400x.c&amp;btnI=lucky">git</a></td>
+<td>[No]</td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=main?drivers/iio/adc/ad400x.c&amp;btnI=lucky">drivers/iio/adc/ad400x.c</a></td>
+</tr>
+<tr class="even">
+<td>devicetree bindings</td>
+<td><a href="https://www.google.com/search?q=main?Documentation/devicetree/bindings/iio/adc/adi,ad400x.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/adc/adi,ad400x.yaml</a></td>
+</tr>
+<tr class="odd">
+<td>ZedBoard example devicetree</td>
+<td><a href="https://www.google.com/search?q=main?arch/arm/boot/dts/zynq-zed-adv7511-ad4020.dts&amp;btnI=lucky">arch/arm/boot/dts/zynq-zed-adv7511-ad4020.dts</a></td>
+</tr>
+<tr class="even">
+<td>CoraZ7 example devicetree</td>
+<td><a href="https://www.google.com/search?q=main?arch/arm/boot/dts/zynq-coraz7s-adaq4003.dts&amp;btnI=lucky">arch/arm/boot/dts/zynq-coraz7s-adaq4003.dts</a></td>
+</tr>
+</tbody>
+</table>
+
+Driver setup
+============
+
+Since AD4003/4007/4011/4020 are high speed analog-to-digital converters with speeds up to 2 MSPS, additional components are required to achieve high performance. In this scenario, the following HDL components are required:
+
+-   [SPI Engine](/resources/fpga/peripherals/spi_engine)
+-   [High-Speed DMA Controller Peripheral](/resources/fpga/docs/axi_dmac)
+
+The device will interface with these components and follow the device tree bindings.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+properties:
+
+```{=markdown}
+```
+compatible:
+  enum:
+    - adi,ad4000
+    - adi,ad4001
+    - adi,ad4002
+    - adi,ad4003
+    - adi,ad4004
+    - adi,ad4005
+    - adi,ad4006
+    - adi,ad4007
+    - adi,ad4008
+    - adi,ad4010
+    - adi,ad4011
+    - adi,ad4020
+    - adi,ad4021
+    - adi,ad4022
+    - adi,adaq4003
+
+```
+```
+```{=markdown}
+```
+reg: true
+spi-max-frequency: true
+
+```
+```
+```{=markdown}
+```
+dmas:
+  description: |
+    DMA specifier, consisting of a phandle to DMA controller node.
+  maxItems: 1
+
+```
+```
+```{=markdown}
+```
+dma-names:
+  const: rx
+
+```
+```
+```{=markdown}
+```
+clocks:
+  maxItems: 1
+
+```
+```
+```{=markdown}
+```
+clock-names:
+  const: ref_clk
+  description: AD400X reference clock name.
+
+```
+```
+```{=markdown}
+```
+pwms:
+  description: |
+    PWM used as trigger source for the SPI engine, also represents the
+    acquisition rate for the samples.
+  maxItems: 1
+
+```
+```
+```{=markdown}
+```
+pwm-names:
+  const: cnv
+
+```
+```
+```{=markdown}
+```
+vref-supply:
+  description: Phandle to the regulator for ADC reference voltage.
+
+```
+```
+```{=markdown}
+```
+'#address-cells':
+  const: 1
+
+```
+```
+```{=markdown}
+```
+'#size-cells':
+  const: 0
+
+```
+```
+patternProperties:
+
+```{=markdown}
+```
+"^channel@([0-1])$":
+  $ref: adc.yaml
+  type: object
+  description: Represents the external channel connected to the ADC.
+
+```
+```
+```{=markdown}
+```
+  properties:
+    reg:
+      maxItems: 1
+
+```
+```
+```{=markdown}
+```
+    diff-channels: true
+
+```
+```
+```{=markdown}
+```
+  required:
+    - reg
+
+```
+```
+```{=markdown}
+```
+  additionalProperties: false
+
+```
+```
+required:
+
+1.  compatible
+2.  reg
+3.  dmas
+4.  dma-names
+5.  vref-supply
+
+allOf:
+
+1.  \$ref: /schemas/spi/spi-peripheral-props.yaml\#
+
+```{=html}
+<!-- -->
+```
+1.  if:
+
+```{=markdown}
+```
+    properties:
+      compatible:
+        contains:
+          enum:
+            - adi,adaq4003
+
+```
+```
+```{=markdown}
+```
+  then:
+    required:
+      - compatible
+      - reg
+      - dmas
+      - dma-names
+      - clocks
+      - clock-names
+      - pwms
+      - pwm-names
+      - vref-supply
+
+```
+```
+unevaluatedProperties: false
+
+examples:
+
+1.  |
+
+```{=markdown}
+```
+  spi {
+      #address-cells = <1>;
+      #size-cells = <0>;
+      /* Example for a AD400X devices */
+      adc@0 {
+          compatible = "adi,ad4020";
+          reg = <0>;
+          spi-max-frequency = <71000000>;
+          vref-supply = <&vref>;
+
+```
+```
+```{=markdown}
+```
+          dmas = <&rx_dma 0>;
+          dma-names = "rx";
+
+```
+```
+```{=markdown}
+```
+          #address-cells = <1>;
+          #size-cells = <0>;
+
+```
+```
+```{=markdown}
+```
+          channel@0 {
+              reg = <0>;
+              diff-channels = <0 1>;
+          };
+      };
+  };
+- |
+  spi {
+      #address-cells = <1>;
+      #size-cells = <0>;
+
+```
+```
+```{=markdown}
+```
+      /* Example for a ADAQ400X devices */
+      adc@0 {
+          compatible = "adi,adaq4003";
+          reg = <0>;
+          spi-max-frequency = <80000000>;
+          dmas = <&rx_dma 0>;
+          dma-names = "rx";
+          clocks = <&spi_clk>;
+          clock-names = "ref_clk";
+          pwms = <&adc_trigger 0 0>;
+          pwm-names = "cnv";
+          vref-supply = <&vref>;
+
+```
+```
+```{=markdown}
+```
+          #address-cells = <1>;
+          #size-cells = <0>;
+
+```
+```
+```{=markdown}
+```
+          channel@0 {
+              reg = <0>;
+              diff-channels = <0 1>;
+          };
+      };
+  };
+
+```
+```
+```
+:::
+
+
+See the [Evaluating AD400X and ADAQ400X devices](/resources/eval/ad400x-eval-board) user guide for examples of device trees used with devices supported by the ad400x Linux driver.
+
+Adding Linux driver support
+===========================
+
+Enabling the driver
+-------------------
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The AD400x driver depends on **CONFIG\_SPI\_MASTER**
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        ...
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            ...
+            Analog to digital converters  ---> 
+                ...
+                <*>   Analog Devices AD400X ADC Driver
+                ...
+            ...
+        ...
+
+
+```
+```
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%\="" -->
+**TIP:**
+An example program which uses the interface can be found here:
+
+-   [IIO Oscilloscope](/resources/tools-software/linux-software/iio_oscilloscope)
+
+
+:::
+\
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# ls -l /sys/bus/iio/devices/
+total 0
+lrwxrwxrwx 1 root root 0 Apr 2 21:42 iio:device0 -\> ../../../devices/soc0/axi/f8007100.adc/iio:device0
+lrwxrwxrwx 1 root root 0 Apr 2 21:43 iio:device1 -\> ../../../devices/soc0/fpga-axi\@0/44a00000.spi/spi\_master/spi0/spi0.0/iio:device1
+lrwxrwxrwx 1 root root 0 Apr 2 21:42 iio\_sysfs\_trigger -\> ../../../devices/iio\_sysfs\_trigger
+
+root\@analog:\~\# ls -l /sys/bus/iio/devices/iio:device1/
+total 0
+drwxr-xr-x 2 root root 0 Apr 2 21:43 buffer
+drwxr-xr-x 2 root root 0 Apr 2 21:43 buffer0
+-r\--r\--r\-- 1 root root 4096 Apr 2 21:43 dev
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 in\_voltage0\_offset
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 in\_voltage0\_raw
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 in\_voltage0\_scale
+-r\--r\--r\-- 1 root root 4096 Apr 2 21:43 name
+lrwxrwxrwx 1 root root 0 Apr 2 21:43 of\_node -\> ../../../../../../../../firmware/devicetree/base/fpga-axi\@0/spi\@44a00000/adc\@0
+drwxr-xr-x 2 root root 0 Apr 2 21:43 power
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 sampling\_frequency
+drwxr-xr-x 2 root root 0 Apr 2 21:43 scan\_elements
+lrwxrwxrwx 1 root root 0 Apr 2 21:43 subsystem -\> ../../../../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 uevent
+```
+:::
+
+
+# Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# cat /sys/bus/iio/devices/iio:device1/name
+adaq4003
+```
+:::
+
+
+##### Show channel scale
+
+**Description:**\
+Scale to be applied to in\_voltagex\_raw in order to obtain the measured voltage in millivolts
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# cat /sys/bus/iio/devices/iio:device1/in\_voltage0\_scale
+0.019073486
+```
+:::
+
+
+##### Configure sampling rate
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/sampling\_frequency\
+Configures the input sampling rate.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# cat /sys/bus/iio/devices/iio:device1/sampling\_frequency
+2000000
+```
+:::
+
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# **echo 1000000 \> /sys/bus/iio/devices/iio:device1/sampling\_frequency**
+root\@analog:\~\# cat /sys/bus/iio/devices/iio:device1/sampling\_frequency
+1000000
+```
+:::
+
+
+Buffer management
+-----------------
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# ls -l /sys/bus/iio/devices/iio:device1/buffer/
+total 0
+-r\--r\--r\-- 1 root root 4096 Apr 3 08:11 data\_available
+-r\--r\--r\-- 1 root root 4096 Apr 3 08:11 direction
+-rw-r\--r\-- 1 root root 4096 Apr 3 08:11 enable
+-rw-r\--r\-- 1 root root 4096 Apr 3 08:11 length
+-r\--r\--r\-- 1 root root 4096 Apr 3 08:11 length\_align\_bytes
+-r\--r\--r\-- 1 root root 4096 Apr 3 08:11 watermark
+```
+:::
+
+
+![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# ls -l /sys/bus/iio/devices/iio:device1/scan\_elements/
+total 0
+-rw-r\--r\-- 1 root root 4096 Apr 3 08:11 in\_voltage0\_en
+-r\--r\--r\-- 1 root root 4096 Apr 3 08:11 in\_voltage0\_index
+-r\--r\--r\-- 1 root root 4096 Apr 3 08:11 in\_voltage0\_type
+```
+:::
+
+
+![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device1/scan\_elements\# grep \"\" \*
+in\_voltage0\_en:0
+in\_voltage0\_index:0
+in\_voltage0\_type:le:s18/32\>\>0
+```
+:::
+
+
+Buffer Example
+--------------
+
+When the buffer is enabled, the ad400x driver prepares a read transfer and configures the [SPI Engine Offload](/resources/fpga/peripherals/spi_engine/offload) module to repeat that transfer each time the offload module is triggered. Then, the ad400x driver sets a PWM device to trigger the offload module at the rate specified by the `sampling_frequency` attribute. With that, ADC readings are gathered continuously while the buffer remains enabled.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target - Example command sequence
+:::
+
+```bash
+root\@analog:\~\# echo 1 \> /sys/bus/iio/devices/iio:device1/scan\_elements/in\_voltage0\_en
+root\@analog:\~\# cat /sys/bus/iio/devices/iio:device1/scan\_elements/in\_voltage0\_en
+1
+root\@analog:\~\# echo 1 \> /sys/bus/iio/devices/iio:device1/buffer/enable
+root\@analog:\~\# cat /sys/bus/iio/devices/iio:device1/buffer/data\_available
+32768
+```
+:::
+
+
+#### Data interpretation
+
+Each buffer entry contains one sample. The amount of bits and their meaning will vary according to ADC precision and output code pattern (whether output code is twos complement or not). Buffer raw data may be retrieved by reading the character device associated with the ADC device.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# hexdump -n 512 -e \' 32 \"%d \" \"\\n\"\' /dev/iio:device1
+4864 4889 4730 4716 4695 4678 4667 4659 4662 4676 4706 4738 4770 4789 4786 4785 4775 4763 4752 4737 4723 4703 4686 4673 4666 4672 4688 4715 4762 4799 4820 4821
+4816 4807 4788 4773 4757 4737 4718 4694 4676 4664 4668 4692 4727 4777 4814 4837 4836 4829 4822 4808 4796 4771 4748 4728 4707 4685 4664 4654 4651 4659 4675 4709
+4757 4801 4823 4826 4812 4800 4789 4770 4749 4724 4700 4677 4653 4644 4633 4639 4659 4695 4738 4777 4798 4799 4794 4785 4772 4755 4735 4712 4692 4668 4652 4646
+4641 4648 4674 4709 4753 4793 4817 4818 4808 4797 4780 4764 4748 4724 4699 4674 4656 4639 4627 4633 4644 4677 4716 4765 4794 4804 4801 4791 4778 4763 4744 4721
+```
+:::
+
+
+Remove the `-n` parameter to keep reading the buffer continuously. To stop capture, disable the buffer by writing 0 to `/sys/bus/iio/devices/iio:device1/buffer/enable`.
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

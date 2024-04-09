@@ -1,0 +1,456 @@
+AD5933 IIO Impedance Converter and Network Analyzer Linux Driver
+================================================================
+
+Supported Devices
+-----------------
+
+-   [AD5933](https://www.google.com/search?q=AD5933&btnI=lucky)
+-   [AD5934](https://www.google.com/search?q=AD5934&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-AD5933EBZ](https://www.google.com/search?q=EVAL-AD5933EBZ&btnI=lucky)
+
+Reference Circuits
+------------------
+
+-   [CN0217](https://www.google.com/search?q=CN0217&btnI=lucky)
+-   [CN0349](https://www.google.com/search?q=CN0349&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting Impedance Converters and Network Analyzers.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/staging/iio/impedance-analyzer/ad5933.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/staging/iio/impedance-analyzer/ad5933.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=drivers/staging/iio/impedance-analyzer/ad5933.c&amp;btnI=lucky">drivers/staging/iio/impedance-analyzer/ad5933.c</a></td>
+</tr>
+</tbody>
+</table>
+
+Example platform device initialization
+======================================
+
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+
+The reference voltage or external reference clock may vary between boards and models. The platform\_data for the device\'s \"struct device\" holds this information.
+
+*File*: drivers/staging/iio/impedance-analyzer/ad5933.h:ad5933\_platform\_data\
+
+``` {.c}
+/**
+ * struct ad5933_platform_data - platform specific data
+ * @ext_clk_Hz:     the external clock frequency in Hz, if not set
+ *          the driver uses the internal clock (16.776 MHz)
+ * @vref_mv:        the external reference voltage in millivolt
+ */
+
+struct ad5933_platform_data {
+    unsigned long           ext_clk_Hz;
+    unsigned short          vref_mv;
+};
+```
+
+``` {.c}
+static struct ad5933_platform_data ad5933_pdata  = {
+    .vref_mv = 3300,
+};
+```
+
+\<WRAP tip\>
+In case platform\_data is not present or set to NULL, the driver will use the AD5933 internal 16.776MHz reference clock.
+\</WRAP\>
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+
+Depending on the converter IC used, you may need to set the I2C\_BOARD\_INFO name accordingly, matching your part name.
+
+<table>
+<thead>
+<tr class="header">
+<th>ADI part number</th>
+<th>I2C_BOARD_INFO Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AD5933</td>
+<td>ad5933</td>
+</tr>
+<tr class="even">
+<td>AD5934</td>
+<td>ad5934</td>
+</tr>
+</tbody>
+</table>
+
+``` {.c}
+static struct i2c_board_info __initdata board_i2c_board_info[] = {
+#if defined(CONFIG_AD5933) || defi
+ned(CONFIG_AD5933_MODULE)
+    {
+        I2C_BOARD_INFO("ad5933", 0x0D),
+        .platform_data = (void *)&ad5933_pdata, /* optional */
+    },
+#endif
+};
+```
+
+``` {.c}
+static int __init board_init(void)
+{
+    [--snip--]
+
+    i2c_register_board_info(0, board_i2c_board_info,
+                ARRAY_SIZE(board_i2c_board_info));
+    [--snip--]
+
+    return 0;
+}
+arch_initcall(board_init);
+```
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+\<WRAP round help\>
+The driver depends on **CONFIG\_I2C**
+\</WRAP\>
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        [*] Staging drivers  --->
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
+                -*-   Enable ring buffer support within IIO
+                -*-     Industrial I/O lock free software ring
+                -*-   Enable triggered sampling support
+
+                [--snip--]
+
+                *** Network Analyzer, Impedance Converters ***
+                <*>   Analog Devices AD5933, AD5934 driver
+
+                [--snip--]
+
+
+```
+```
+Hardware configuration
+======================
+
+![](/resources/tools-software/linux-drivers/iio-impedance-analyzer/ad5933_eval_lr.jpg){width="600"}
+
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>\<xterm\>
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+root:/sys/bus/iio/devices\> **cd iio:device0**
+
+root:/sys/bus/iio/devices/iio:deviceX\> **ls -l**
+drwxr-xr-x 4 root root 0 Jan 1 21:48 buffer
+-rw-r\--r\-- 1 root root 4096 Jan 1 21:48 in\_voltage0\_scale
+-r\--r\--r\-- 1 root root 4096 Jan 1 21:48 in\_voltage0\_scale\_available
+-r\--r\--r\-- 1 root root 4096 Jan 1 21:48 name
+-rw-r\--r\-- 1 root root 4096 Jan 1 21:48 out\_voltage0\_freq\_increment
+-rw-r\--r\-- 1 root root 4096 Jan 1 21:48 out\_voltage0\_freq\_points
+-rw-r\--r\-- 1 root root 4096 Jan 1 21:48 out\_voltage0\_freq\_start
+-rw-r\--r\-- 1 root root 4096 Jan 1 21:48 out\_voltage0\_scale
+-r\--r\--r\-- 1 root root 4096 Jan 1 21:48 out\_voltage0\_scale\_available
+-rw-r\--r\-- 1 root root 4096 Jan 1 21:48 out\_voltage0\_settling\_cycles
+drwxr-xr-x 2 root root 0 Jan 1 21:48 power
+lrwxrwxrwx 1 root root 0 Jan 1 21:48 subsystem -\> ../../../o
+-r\--r\--r\-- 1 root root 4096 Jan 1 21:48 in\_temp0\_raw
+-rw-r\--r\-- 1 root root 4096 Jan 1 21:48 uevent
+\</xterm\>\</WRAP\>
+
+#### Show device name
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **cat name**
+ad5933
+\</xterm\>\</WRAP\>
+
+#### Set sweep start frequency
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltageY\_freq\_start\
+Frequency sweep start frequency in Hz.
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **echo 15000 \> out\_voltage0\_freq\_start**
+root:/sys/bus/iio/devices/iio:deviceX\> cat out\_voltage0\_freq\_start
+14999
+\</xterm\>\</WRAP\>
+
+#### Set frequency increment
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltageY\_freq\_increment\
+Frequency increment in Hz (step size) between consecutive frequency points along the sweep.
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **echo 200 \> out\_voltageY\_freq\_increment**
+\</xterm\>\</WRAP\>
+
+#### Set number of frequency points
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltage0\_freq\_points\
+Number of frequency points (steps) in the frequency sweep.
+This value, in conjunction with the out\_voltageY\_freq\_start and the
+out\_voltageY\_freq\_increment, determines the frequency sweep range
+for the sweep operation.
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **echo 100 \> out\_voltage0\_freq\_points**
+root:/sys/bus/iio/devices/iio:deviceX\> cat out\_voltage0\_freq\_points
+100
+\</xterm\>\</WRAP\>
+
+#### Set number of settling time cycles
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltage0\_settling\_cycles\
+Number of output excitation cycles (settling time cycles)
+that are allowed to pass through the unknown impedance,
+after each frequency increment, and before the ADC is triggered
+to perform a conversion sequence of the response signal.
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **echo 15 \> out\_voltage0\_settling\_cycles**
+root:/sys/bus/iio/devices/iio:deviceX\> cat out\_voltage0\_settling\_cycles
+15
+\</xterm\>\</WRAP\>
+
+#### Show available output ranges
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltage0\_scale\_available\
+List available output scales/ranges in millivolt.
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **cat out\_voltage0\_scale\_available**
+1980 970 383 198
+\</xterm\>\</WRAP\>
+
+#### Set output range
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltage0\_scale\
+Sets output scale/range in millivolt.
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **echo 1980 \> out\_voltage0\_scale**
+root:/sys/bus/iio/devices/iio:deviceX\> **cat out\_voltage0\_scale**
+1980
+\</xterm\>\</WRAP\>
+
+#### Show available input scales
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/in\_voltage0\_scale\_available\
+List available input scales. Programmable gain amplifier (PGA) options.
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **cat in\_voltage0\_scale\_available**
+1 0.2
+\</xterm\>\</WRAP\>
+
+#### Set input scale
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/in\_voltage0\_scale\
+Sets input scale. Controls programmable gain amplifier (PGA).
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **echo 0.2 \> in\_voltage0\_scale**
+root:/sys/bus/iio/devices/iio:deviceX\> **cat in\_voltage0\_scale**
+0.2
+\</xterm\>\</WRAP
+
+#### Show internal temperature
+
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/in\_temp0\_input\
+Shows temperature in milli degrees Celsius.
+
+The on-chip temperature sensor allows an accurate measurement of the ambient device temperature.
+The measurement range of the sensor is −40°C to +125°C.
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX\> **cat in\_temp0\_input**
+27987
+\</xterm\>\</WRAP\>
+
+Buffer management
+-----------------
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX/buffer\> **ls**
+**enable** **length**
+root:/sys/bus/iio/devices/iio:deviceX/buffer\>
+\</xterm\>\</WRAP\>
+
+![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX/scan\_elements\> **ls**
+in\_voltage0\_imag\_en in\_voltage0\_imag\_type in\_voltage0\_real\_index
+in\_voltage0\_imag\_index in\_voltage0\_real\_en in0\_voltage\_real\_type
+\</xterm\>\</WRAP\>
+
+![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/bus/iio/devices/iio:deviceX/scan\_elements\> \*\*grep \"\" \*\*\*
+in\_voltage0\_imag\_en: 1
+in\_voltage0\_imag\_index: 1
+in\_voltage0\_imag\_type: s16/16\>\>0
+in\_voltage0\_real\_en: 1
+in\_voltage0\_real\_index: 0
+in\_voltage0\_real\_type: s16/16\>\>0
+\</xterm\>\</WRAP\>
+
+Buffer Example
+--------------
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target - Example command sequence\</wrap\>
+\<xterm\>
+
+> **cd /sys/bus/iio/devices/iio:device0**
+>
+> **echo 10000 \> out\_voltage0\_freq\_start**
+>
+> **echo 100 \> out\_voltage0\_freq\_increment**
+>
+> **echo 100 \> out\_voltage0\_freq\_points**
+>
+> **echo 512 \> buffer/length**
+>
+> **echo 1 \> buffer/enable**
+
+\</xterm\>\</WRAP\>
+
+### Data interpretation
+
+<table>
+<thead>
+<tr class="header">
+<th>index</th>
+<th>datum</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td><strong>Real Sample</strong> f0</td>
+<td>signed short 16-bit</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td><strong><em>Imag Sample</em></strong> f0</td>
+<td>signed short 16-bit</td>
+</tr>
+<tr class="odd">
+<td>[fn * 2]</td>
+<td><strong>Real Sample</strong> fn</td>
+<td>signed short 16-bit</td>
+</tr>
+<tr class="even">
+<td>[fn * 2] + 1</td>
+<td><strong><em>Imag Sample</em></strong> fn</td>
+<td>signed short 16-bit</td>
+</tr>
+</tbody>
+</table>
+
+Z = **in\_voltage0\_real** + i \* ***in\_voltage0\_imag***
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:\> \*\*hexdump -d /dev/iio:device0\*
+0000000 **09451** ***01627*** 09541 01663 09622 01697 09708 01734
+0000010 09799 01757 09889 01791 09985 01820 10079 01856
+0000020 10172 01887 10264 01922 10357 01962 10451 02005
+0000030 10543 02044 10628 02082 10714 02123 10798 02153
+0000040 10889 02188 10983 02230 11069 02268 11157 02302
+0000050 11246 02339 11335 02381 11429 02423 11514 02461
+0000060 11603 02500 11688 02539 11782 02573 11871 02618
+0000070 11955 02659 12045 02703 12135 02743 12221 02787
+0000080 12307 02828 12393 02877 12481 02910 12567 02951
+0000090 12659 02991 12750 03034 12840 03080 12927 03130
+00000a0 13010 03173 13102 03220 13185 03268 13271 03313
+00000b0 13356 03358 13443 03401 13525 03445 13612 03491
+00000c0 13700 03536 13791 03584 13875 03630 13958 03684
+00000d0 14047 03729 14135 03785 14216 03834 14302 03879
+00000e0 14383 03930 14469 03982 14555 04028 14634 04084
+00000f0 14722 04131 14805 04183 14890 04231 14972 04291
+0000100 15052 04340 15136 04389 15216 04445 15301 04495
+0000110 15377 04549 15455 04604 15526 04651 15595 04703
+0000120 15661 04758 15731 04809 15782 04856 15836 04905
+0000130 15885 04943 15939 04990 15993 05043 16035 05083
+0000140 16077 05131 16118 05174 16165 05223 16198 05265
+0000150 16241 05311 16275 05351 16300 05389 16336 05438
+0000160 16373 05482 16405 05522 16441 05559 16470 05603
+0000170 16498 05644 16534 05690 16554 05742 16577 05780
+0000180 16601 05827 16621 05874 16640 05904 16668 05943
+0000190 16686 05983
+0000194
+\</xterm\>\</WRAP\>
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

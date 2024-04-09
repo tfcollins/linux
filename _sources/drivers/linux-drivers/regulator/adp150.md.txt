@@ -1,0 +1,194 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/regulator/adp150
+title: ADP5022: Dual 3 MHz, 600 mA Buck Regulator with 150 mA LDO
+---
+
+ADP150 Regulator Fixed Voltage Linux Driver
+===========================================
+
+Supported Devices
+-----------------
+
+-   [ADP122](https://www.google.com/search?q=ADP122&btnI=lucky)
+-   [ADP123](https://www.google.com/search?q=ADP123&btnI=lucky)
+-   [ADP124](https://www.google.com/search?q=ADP124&btnI=lucky)
+-   [ADP125](https://www.google.com/search?q=ADP125&btnI=lucky)
+-   [ADP150](https://www.google.com/search?q=ADP150&btnI=lucky)
+-   [ADP5022](https://www.google.com/search?q=ADP5022&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [ADP122-3.3-EVALZ](https://www.google.com/search?q=EVAL-ADP122&btnI=lucky)
+-   [ADP123-EVALZ](https://www.google.com/search?q=ADP123-EVALZ&btnI=lucky)
+-   [ADP124-3.3-EVALZ](https://www.google.com/search?q=EVAL-ADP124&btnI=lucky)
+-   [ADP125CP-EVALZ](https://www.google.com/search?q=ADP125CP-EVALZ&btnI=lucky)
+-   [ADP150CB-3.3-EVALZ](https://www.google.com/search?q=EVAL-ADP150&btnI=lucky)
+
+# Reference Circuits
+
+-   [CN0134](https://www.google.com/search?q=CN0134&btnI=lucky)
+-   [CN0144](https://www.google.com/search?q=CN0144&btnI=lucky)
+-   [CN0147](https://www.google.com/search?q=CN0147&btnI=lucky)
+-   [CN0285](https://www.google.com/search?q=CN0285&btnI=lucky)
+-   [CN0228](https://www.google.com/search?q=CN0228&btnI=lucky)
+-   [CN0290](https://www.google.com/search?q=CN0290&btnI=lucky)
+-   [CN0311](https://www.google.com/search?q=CN0311&btnI=lucky)
+
+Description
+-----------
+
+The fixed regulator voltage driver can be used to control these chips.
+Please connect the **EN**able switch pin to any available GPIO port on your CPU.
+This driver adapts to voltage and current regulator framework in Linux kernel.
+
+Configuration
+-------------
+
+Software configurable features
+------------------------------
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/regulator/fixed.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/regulator/fixed.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=drivers/regulator/fixed.c&amp;btnI=lucky">drivers/regulator/fixed.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="https://www.google.com/search?q=include/linux/regulator/fixed.h&amp;btnI=lucky">include/linux/regulator/fixed.h</a></td>
+</tr>
+</tbody>
+</table>
+
+Example platform device initialization
+======================================
+
+The default platform info defined in bf537-stamp board file is for ad122. If you want to customize this driver for other switch only regulator, you should revise the platform information accordingly.
+
+-   Define device supply name exported by the adp\_switch driver.
+
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp122\_consumers{} c linux-kernel\>
+
+-   Define regulator init data of this supply.
+
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp\_switch\_regulator\_data{} c linux-kernel\>
+
+-   Add new userspace consumer platform device for this supply.
+
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp122\_bulk\_data{} c linux-kernel\>
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp122\_userspace\_comsumer\_data{} c linux-kernel\>
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp122\_userspace\_consumer\_device{} c linux-kernel\>
+
+Adding Linux driver support
+===========================
+
+Enable generic GPIO lib in kernel option.
+
+```{=markdown}
+```
+Device Drivers  --->
+[*] GPIO Support  --->
+
+```
+```
+Select voltage and current regulator framework support and enable adp\_switch driver. Don\'t forget to select userspace regulator consumer driver as a module. adp\_switch driver is initialized after userspace consumer driver, if both are built into kernel.
+
+```{=markdown}
+```
+Device Drivers  --->
+[*] Voltage and Current Regulator Support  --->
+    <*>   Fixed voltage regulator support
+    <*>   Userspace regulator consumer support
+
+```
+```
+Hardware configuration
+======================
+
+Driver testing
+==============
+
+Check regulator driver initialization information at kernel booting.
+
+```{=markdown}
+```
+regulator: core version 0.5
+regulator: adp122: 2500 mV                                                                     
+
+```
+```
+Check if adp122 is probed properly.
+
+```{=markdown}
+```
+root:/> ls sys/class/regulator/
+regulator.0
+root:/> ls sys/class/regulator/regulator.0/
+device      name        power       subsystem   uevent
+microvolts  num_users   state       type
+root:/> cat sys/class/regulator/regulator.0/name
+adp122
+root:/> cat sys/class/regulator/regulator.0/type
+voltage
+root:/> cat sys/class/regulator/regulator.0/microvolts
+2500000
+root:/> cat sys/class/regulator/regulator.0/state
+disabled
+root:/> cat sys/class/regulator/regulator.0/num_users
+0
+
+```
+```
+Insert user space consumer driver module and check usability.
+
+```{=markdown}
+```
+root:/> modprobe userspace-consumer
+root:/> ls sys/devices/platform/reg-userspace-consumer.0/
+driver                      power
+microamps_requested_adp122  state
+modalias                    subsystem
+name                        uevent
+root:/> cat sys/devices/platform/reg-userspace-consumer.0/name
+adp122
+root:/> cat sys/devices/platform/reg-userspace-consumer.0/state
+disabled
+root:/> echo enabled > sys/devices/platform/reg-userspace-consumer.0/state
+root:/> cat sys/devices/platform/reg-userspace-consumer.0/state
+enabled
+
+```
+```
+More Information
+================

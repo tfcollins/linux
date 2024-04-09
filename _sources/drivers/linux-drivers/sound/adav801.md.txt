@@ -1,0 +1,396 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adav801
+title: ADAV803: Audio Codec for Recordable DVD
+---
+
+ADAV80X Sound CODEC Linux Driver
+================================
+
+Supported devices
+-----------------
+
+-   [ADAV801](https://www.google.com/search?q=ADAV801&btnI=lucky)
+-   [ADAV803](https://www.google.com/search?q=ADAV803&btnI=lucky)
+
+ADAV801 and ADAV803 differs in serial interface. ADAV801 uses SPI, while ADAV803 uses I2C.
+
+Reference Circuits
+------------------
+
+-   [CN0219](https://www.google.com/search?q=CN0219&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-ADAV801EBZ](https://www.google.com/search?q=EVAL-ADAV801EBZ&btnI=lucky)
+-   [EVAL-ADAV803EBZ](https://www.google.com/search?q=EVAL-ADAV803EBZ&btnI=lucky)
+
+Source Code
+===========
+
+# Status
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=sound/soc/codecs/adav80x.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=sound/soc/codecs/adav80x.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+##### Files
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=sound/soc/codecs/adav80x.c&amp;btnI=lucky">sound/soc/codecs/adav80x.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="https://www.google.com/search?q=sound/soc/codecs/adav80x.h&amp;btnI=lucky">sound/soc/codecs/adav80x.h</a></td>
+</tr>
+</tbody>
+</table>
+
+Supported Features
+==================
+
+ASoC DAPM widgets
+-----------------
+
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VINL</td>
+<td>Left Analog Input</td>
+</tr>
+<tr class="even">
+<td>VINR</td>
+<td>Right Analog Input</td>
+</tr>
+<tr class="odd">
+<td>VOUTL</td>
+<td>Left Analog Output</td>
+</tr>
+<tr class="even">
+<td>VOUTR</td>
+<td>Right Analog Output</td>
+</tr>
+</tbody>
+</table>
+
+ALSA controls
+-------------
+
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Master Playback Volume</td>
+<td>DAC Volume</td>
+</tr>
+<tr class="even">
+<td>Master Playback Switch</td>
+<td>Mute/Unmute DAC output</td>
+</tr>
+<tr class="odd">
+<td>Master Capture Switch</td>
+<td>ADC Volume</td>
+</tr>
+<tr class="even">
+<td>Master Capture Volume</td>
+<td>Mute/Unmute ADC input</td>
+</tr>
+<tr class="odd">
+<td>PGA Capture Volume</td>
+<td>Input PGA gain</td>
+</tr>
+<tr class="even">
+<td>ADC High Pass Filter Switch</td>
+<td>Enable/Disable ADC high-pass filter</td>
+</tr>
+<tr class="odd">
+<td>Playback De-emphasis Switch</td>
+<td>Enable/Disable playback de-emphassis</td>
+</tr>
+<tr class="even">
+<td>Capture Select</td>
+<td>Select the serial port capture source. Possible values: "ADC", "Playback", "Aux Playback"</td>
+</tr>
+<tr class="odd">
+<td>Aux Capture Select</td>
+<td>Select the auxiliary serial port capture source. Possible values: "ADC", "Playback", "Aux Playback"</td>
+</tr>
+<tr class="even">
+<td>DAC Select</td>
+<td>Select the DAC signal source. Possible values: "ADC", "Playback", "Aux Playback"</td>
+</tr>
+</tbody>
+</table>
+
+Supported DAI formats
+---------------------
+
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Supported by driver</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_I2S</td>
+<td>yes</td>
+<td>I2S mode</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_RIGHT_J</td>
+<td>yes</td>
+<td>Right Justified mode</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_LEFT_J</td>
+<td>yes</td>
+<td>Left Justified mode</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_DSP_A</td>
+<td>no</td>
+<td>data MSB after FRM LRC</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_DSP_B</td>
+<td>no</td>
+<td>data MSB during FRM LRC</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_AC97</td>
+<td>no</td>
+<td>AC97 mode</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_PDM</td>
+<td>no</td>
+<td>Pulse density modulation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_NB_NF</td>
+<td>yes</td>
+<td>Normal bit- and frameclock</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_NB_IF</td>
+<td>no</td>
+<td>Normal bitclock, inverted frameclock</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_IB_NF</td>
+<td>no</td>
+<td>Inverted frameclock, normal bitclock</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_IB_IF</td>
+<td>no</td>
+<td>Inverted bit- and frameclock</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_CBM_CFM</td>
+<td>yes</td>
+<td>Codec bit- and frameclock master</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_CBS_CFM</td>
+<td>no</td>
+<td>Codec bitclock slave, frameclock master</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_CBM_CFS</td>
+<td>no</td>
+<td>Codec bitclock master, frameclock slave</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_CBS_CFS</td>
+<td>yes</td>
+<td>Codec bit- and frameclock slave</td>
+</tr>
+</tbody>
+</table>
+
+Currently unsupported features
+------------------------------
+
+-   Automatic level control
+-   on-chip sample rate converter (Both serial ports have to use the same sample rate)
+-   S/PDIF input and output
+
+ADAV80X evaluation board driver
+===============================
+
+There is no dedicated Blackfin STAMP evaluation board for the ADAV80X. During test and driver development we used the EVAL-ADAV801/ADAV803 board.
+
+It can be easily wired to the Blackfin STAMP SPORT header.
+
+Source Code
+-----------
+
+# Status
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=linux-kernel?sound/soc/blackfin/bfin-eval-adav80x.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=sound/soc/blackfin/bfin-eval-adav80x.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+##### Files
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=sound/soc/blackfin/bfin-eval-adav80x.c&amp;btnI=lucky">sound/soc/blackfin/bfin-eval-adav80x.c</a></td>
+</tr>
+</tbody>
+</table>
+
+Kernel configuration
+--------------------
+
+For ADAV801, enable SPI:
+
+```{=markdown}
+```
+Device Drivers  --->
+[*] SPI support  --->
+***   SPI Master Controller Drivers ***
+<*>   SPI controller driver for ADI Blackfin5xx
+
+```
+```
+For ADAV803, enable I2C:
+
+```{=markdown}
+```
+Device Drivers  --->
+[*] I2C support  --->
+[*]   I2C Hardware Bus support  --->
+***     I2C system bus drivers (mostly embedded / system-on-chip) ***
+<*>       Blackfin TWI I2C support
+(100)     Blackfin TWI I2C clock (kHz)
+
+```
+```
+Enable ALSA SoC evaluation board driver:
+
+```{=markdown}
+```
+Device Drivers  --->
+<M> Sound card support  --->
+<M>   Advanced Linux Sound Architecture  --->
+<M>     ALSA for SoC audio support  --->
+<M>       Support for the EVAL-ADAV80X boards on Blackfin eval boards
+
+```
+```
+Hardware configuration
+----------------------
+
+Default setting for the 12-way DIP switch: from SW11 to SW0 - 110001110001.
+Keep all switch and jumpers as default value defined in the manual, except:
+
+-   Playback Port Source: SW11: 0, SW10: 0 (Make it tri-state since we connect playback port to Blackfin SPORT)
+-   ADAV80x MCLK Source: SW0: 0, LK4: A, LK5: ON, LK6: ON (Use the on board cystal oscillator as MCLK source).
+
+To test using BF537-STAMP board, connect **play** and **rec** port on the ADAV80X evaluation board with SPORT0 on STAMP.
+Connect **CPORT** pins also to corresponding pins STAMP. Also, please make sure to connect the **GND** of the two boards together to get better signal.
+
+Driver testing
+--------------
+
+Load the driver and make sure the sound card is properly instantiated.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> modprobe snd-bf5xx-i2s
+root:/\> modprobe snd-soc-bf5xx-i2s
+root:/\> modprobe snd-soc-adav80x
+root:/\> modprobe snd-soc-bfin-eval-adav80x
+dma rx:3 tx:4, err irq:45, regs:ffc00800
+asoc: ADAV80X \<-\> bf5xx-i2s mapping ok
+```
+
+:::
+
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> modprobe snd-pcm-oss
+root:/\> tone
+TONE: generating sine wave at 1000 Hz\...
+
+root:/\> arecord -f cd | aplay
+Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+```
+
+:::
+

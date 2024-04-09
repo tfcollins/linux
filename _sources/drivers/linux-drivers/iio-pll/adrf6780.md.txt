@@ -1,0 +1,332 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/adrf6780
+title: ADRF6780: 5.9 GHz to 23.6 GHz, Wideband, Microwave Upconverter
+---
+
+ADRF6780 5.9 GHz to 23.6 GHz, Wideband, Microwave Upconverter
+=============================================================
+
+Supported Devices
+-----------------
+
+-   [ADRF6780](https://www.google.com/search?q=ADRF6780&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-ADRF6780](https://www.google.com/search?q=EVAL-ADRF6780&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Microwave converters.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adrf6780.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/frequency/adrf6780.c&amp;btnI=lucky">WIP</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adrf6780.c&amp;btnI=lucky">drivers/iio/frequency/adrf6780.c</a></td>
+</tr>
+<tr class="even">
+<td>Documentation</td>
+<td><a href="https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio</a></td>
+</tr>
+</tbody>
+</table>
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+
+# properties
+
+**compatible:**
+
+-   enum:
+    -   adi,adrf6780
+
+**reg:**
+
+-   maxItems: 1
+
+**spi-max-frequency:**
+
+-   minimum: 1000000
+
+**clocks:**
+
+-   description: Definition of the external clock (see clock/clock-bindings.txt)
+-   minItems: 1
+
+**clock-names:**
+
+-   description: Must be \"lo\_in\"
+-   maxItems: 1
+
+**clock-output-names:**
+
+-   maxItems: 1
+
+**adi,parity-en:**
+
+-   description: Enable Parity for Write execution.
+-   type: boolean
+
+**adi,vga-buff-en:**
+
+-   description: VGA Buffer Enable.
+-   type: boolean
+
+**adi,det-en:**
+
+-   description: Detector Enable.
+-   type: boolean
+
+**adi,lo-buff-en:**
+
+-   description: LO Buffer Enable.
+-   type: boolean
+
+**adi,if-mode-en:**
+
+-   description: IF Mode Enable.
+-   type: boolean
+
+**adi,iq-mode-en:**
+
+-   description: IQ Mode Enable.
+-   type: boolean
+
+**adi,lo-x2-en:**
+
+-   description: LO x2 Enable.
+-   type: boolean
+
+**adi,lo-ppf-en:**
+
+-   description: LO x1 Enable.
+-   type: boolean
+
+**adi,lo-en:**
+
+-   description: LO Enable.
+-   type: boolean
+
+**adi,uc-bias-en:**
+
+-   description: UC Bias Enable.
+-   type: boolean
+
+**adi,lo-sideband:**
+
+-   description: Switch to the Other LO Sideband.
+-   type: boolean
+
+**adi,vdet-out-en:**
+
+-   description: VDET Output Select Enable.
+-   type: boolean
+
+**\'\#address-cells\':**
+
+-   const: 1
+
+**\'\#size-cells\':**
+
+-   const: 0
+
+**\'\#clock-cells\':**
+
+-   const: 0
+
+**required:**
+
+-   compatible
+-   reg
+-   clocks
+-   clock-names
+
+#### Example
+
+``` {.c}
+spi {
+      spi {
+      #address-cells = <1>;
+      #size-cells = <0>;
+      adrf6780@0{
+        compatible = "adi,adrf6780";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        clocks = <&adrf6780_lo>;
+        clock-names = "lo_in";
+        adi,parity-en;
+      };
+    };
+```
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The ADRF6780 Driver depends on **CONFIG\_SPI**
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+                Frequency  --->
+                    <*> Analog Devices ADRF6780 Microwave Upconverter
+
+```
+```
+Hardware configuration
+======================
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+root:/sys/bus/iio/devices\> **iio:device0**
+
+root:/\> **ls -l**
+-r\--r\--r\-- 1 root root 4096 May 6 12:20 dev
+-r\--r\--r\-- 1 root root 4096 May 6 12:20 name
+-rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_voltage0\_raw
+-rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_voltage0\_scale
+-rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_altvoltage0\_i\_phase
+-rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_altvoltage0\_q\_phase
+lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -\> ../../../../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 May 6 12:20 uevent
+```
+:::
+
+
+##### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/iio\\:device0/**
+root:/\> **cat name**
+adrf6780
+```
+:::
+
+
+##### Set ChannelY Raw value
+
+/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_raw\
+ADC raw value. If shared across all channels,
+\<type\>\_offset is used.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cat out\_voltage0\_raw**
+0
+
+```
+:::
+
+
+##### Set ChannelY Scale value
+
+/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_scale\
+RDAC Linearize. If shared across all channels,
+\<type\>\_offset is used.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cat out\_voltage0\_scale**
+0
+
+root:/\> **echo 1 \> out\_voltage0\_scale**
+root:/\> **cat out\_voltage0\_scale**
+1
+
+```
+:::
+
+
+##### Set ChannelY Phase value
+
+/sys/bus/iio/devices/iio:deviceX/out\_altvoltageY\_Z\_phase\
+Phase value. If shared across all channels,
+\<type\>\_phase is used.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cat out\_altvoltage0\_i\_phase**
+0
+
+root:/\> **echo 1 \> out\_altvoltage0\_i\_phase**
+root:/\> **cat out\_altvoltage0\_phase**
+1
+```
+:::
+
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

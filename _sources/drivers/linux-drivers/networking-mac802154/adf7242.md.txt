@@ -1,0 +1,410 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/networking-mac802154/adf7242
+title: ADF7242: Low Power IEEE 802.15.4/Proprietary GFSK/FSK Zero-IF 2.4 GHz Transceiver IC
+---
+
+ADF7242 Network MAC802154 Linux Driver
+======================================
+
+Supported Devices
+-----------------
+
+-   [ADF7242](https://www.google.com/search?q=ADF7242&btnI=lucky)
+-   [ADF7241](https://www.google.com/search?q=ADF7241&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-ADF7242-PMDZ](https://www.google.com/search?q=EVAL-ADF7242-PMDZ&btnI=lucky)
+-   [EVAL-ADF7242DB1Z](https://www.google.com/search?q=EVAL-ADF7242DB1Z&btnI=lucky)
+
+Description
+-----------
+
+![adf7242-pmod\#product\_details&firstseconly](/page>resources/eval/user-guides/circuits-from-the-lab/adf7242-pmod#product_details&firstseconly)
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/drivers/net/ieee802154/adf7242.c">git</a></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/net/ieee802154/adf7242.c&amp;btnI=lucky">adf7242.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="https://www.google.com/search?q=master?include/linux/spi/adf7242.h&amp;btnI=lucky">adf7242.h</a></td>
+</tr>
+</tbody>
+</table>
+
+Firmware for Automatic IEEE 802.15.4 Operating Modes (AN-1082)
+--------------------------------------------------------------
+
+-   ![](/resources/tools-software/linux-drivers/networking-mac802154/ram_lab_7242_2_0_ieee15dot4_full_r5.zip)\
+    \* ![](/resources/tools-software/linux-drivers/networking-mac802154/ram_lab_7242_2_0_ieee15dot4_full_r6.zip)\
+
+Below you can find a simple command line tool that was used to convert the original firmware HEX file into binary format consumed by the ADF7242 Linux device driver.
+
+-   ![Hex2Bin Firmware Tool](/resources/tools-software/linux-drivers/networking-mac802154/adf7242_do_firmware.zip)
+
+Example platform device initialization
+======================================
+
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+
+Example Platform / Board file
+-----------------------------
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly)
+
+``` {.C}
+# include <linux/spi/adf7242.h>
+
+static const struct adf7242_platform_data adf7242_pdata = {
+
+    .mode = ADF_IEEE802154_AUTO_CSMA_CA | ADF_IEEE802154_HW_AACK,
+/*
+ * Specifies number of attempts to
+ * retransmit unacknowledged
+ * frames while in automatic CSMA-CA 
+ * Tx mode.
+ */
+    .max_frame_retries = 4,
+/*
+ * Specifies number of attempts to
+ * repeat CSMA-CA algorithm prior to
+ * cancellation of RC_TX command.
+ * Valid range is 0 to 5; 
+ * 7: CSMA-CA algorithm is off
+ */
+    .max_cca_retries = 4,
+/* 
+ * Specifies the maximum back-off
+ * exponent used in the CSMA-CA
+ * algorithm; valid range is 4 to 8
+ * 
+ */
+    .max_csma_be = 6,
+/*
+ * Specifies the minimum back-off
+ * exponent used in the CSMA-CA
+ * algorithm; valid range is 0 to
+ * csma_max_be
+ */
+    .min_csma_be = 1,
+};
+```
+
+``` {.C}
+static struct spi_board_info bfin_spi_board_info[] __initdata = {
+## if defined(CONFIG_IEEE802154_ADF7242) || defined(CONFIG_IEEE802154_ADF7242_MODULE)
+    {
+        .modalias = "adf7242",
+        .max_speed_hz = 10000000,     /* max spi clock (SCK) speed in HZ */
+        .irq = IRQ_PF6,
+        .bus_num = 0,
+        .chip_select = 0,   /* GPIO controlled SSEL */
+        .controller_data = &adf7242_spi_chip_info, /* Blackfin only */
+        .platform_data = &adf7242_pdata,
+        .mode = SPI_MODE_0,
+    },
+## endif
+};
+```
+
+Alternatively, it is possible to declare the SPI devices from a DeviceTree file.\
+Read the [documentation](https://www.google.com/search?q=master?Documentation/devicetree/bindings/net/ieee802154/adf7242.txt&btnI=lucky) for more details.
+
+Example:
+
+```{=markdown}
+```
+adf7242@0 {
+    compatible = "adi,adf7242";
+    reg = <0>;
+    spi-max-frequency = <10000000>;
+    interrupts = <0x62 IRQ_TYPE_LEVEL_HIGH>;
+
+    adi,hw-aack-mode-enable;
+    adi,auto-csma-ca-mode-enable;
+};
+
+```
+```
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The ADF7242 Driver depends on **CONFIG\_SPI** and **CONFIG\_IEEE802154**
+
+:::
+
+
+```{=markdown}
+```
+------------------- Linux Kernel Configuration ----------------------
+
+  [*] Networking support  --->
+       Networking options  --->
+         <*> IEEE Std 802.15.4 Low-Rate Wireless Personal Area Networks support
+            <*>   Generic IEEE 802.15.4 Soft Networking Stack (mac802154)
+
+  [*] Device drivers  --->
+       [*] Network device support  --->
+          --- Network device support
+          [*]   Ethernet (10 or 100Mbit)  --->
+          <*>   IEEE 802.15.4 drivers  --->
+              --- IEEE 802.15.4 drivers
+               <M>   ADF7242 transceiver driver
+
+```
+```
+Hardware configuration
+======================
+
+![](page>resources/eval/user-guides/circuits-from-the-lab/adf7242-pmod#interface_connector_signal_description&firstseconly)
+
+Driver testing
+==============
+
+On this demo network, we will have two different boards communicating with each other using ADF7242 modules: a Raspberry Pi and a ZedBoard.
+
+<table>
+<tbody>
+<tr class="odd">
+<td><img src="/resources/tools-software/linux-drivers/networking-mac802154/raspi_adf7242.jpg" width="400" /></td>
+<td><img src="/resources/tools-software/linux-drivers/networking-mac802154/zedboard_adf7242.jpg" class="align-right" width="400" /></td>
+</tr>
+</tbody>
+</table>
+
+Userspace tools for Linux IEEE 802.15.4 stack
+---------------------------------------------
+
+:::{NOTE} <!-- ATTRS: round="" important\="" -->
+
+lowpan-tools are deprecated please use linux-wpan tools available here:
+[linux-wpan](https://github.com/linux-wpan/wpan-tools)
+
+:::
+
+
+Example using lowpan-tools\
+```bash
+iwpan dev wpan0 set pan\_id 0x777
+iwpan phy phy0 set channel 0 11
+iwpan dev wpan0 set ackreq\_default 1
+ifconfig wpan0 up
+ip link add link wpan0 name lowpan0 type lowpan
+ip route add 2001::/64 dev lowpan0
+ip addr add 2001::4/128 dev lowpan0
+ifconfig lowpan0 up
+```
+
+Configuration of the IEEE 802.15.4 layer
+----------------------------------------
+
+We will configure the two devices to use the PAN ID 0x0777, the hardware addresses a0::1 and a0::2, and the short addresses 0x8001 and 0x8002.
+
+Then, we will give them IPv6 addresses and test 6loWPAN communication with standard GNU tools.
+
+##### Configuration for the first node (ZedBoard)
+
+```bash
+root:/\> HW\_ADDR=\"a0:0:0:0:0:0:0:1\"
+root:/\> DEVICE\_ADDR=8001 \# hexadecimal
+root:/\> PAN\_ID=777 \# hexadecimal
+root:/\> CHANNEL=11
+root:/\>
+root:/\> iz add wpan-phy0
+Registered new device (\'wpan0\') on phy wpan-phy0
+
+root:/\> ip link set wpan0 address \${HW\_ADDR}
+root:/\> ifconfig wpan0 up
+
+root:/\> iz set wpan0 \${PAN\_ID} \${DEVICE\_ADDR} \${CHANNEL}
+```
+
+##### Configuration for the second node (Raspberry Pi)
+
+We only need to change the first two lines:
+```bash
+root:/\> HW\_ADDR=\"a0:0:0:0:0:0:0:2\"
+root:/\> DEVICE\_ADDR=8002 \# hexadecimal
+root:/\> PAN\_ID=777 \# hexadecimal
+root:/\> CHANNEL=11
+root:/\>
+root:/\> iz add wpan-phy0
+Registered new device (\'wpan0\') on phy wpan-phy0
+
+root:/\> ip link set wpan0 address \${HW\_ADDR}
+root:/\> ifconfig wpan0 up
+
+root:/\> iz set wpan0 \${PAN\_ID} \${DEVICE\_ADDR} \${CHANNEL}
+```
+
+:::{NOTE} <!-- ATTRS: round="" important\="" -->
+
+Some GNU/Linux distributions offered on the Raspberry Pi, like Raspbian, will auto-enable the wpan0 interface as soon as it is created. We can disable this behaviour with the following command:
+```bash
+root:/\> ifplugd -S -i wpan0 && ifconfig wpan0 down
+```
+
+:::
+
+
+#### Chat application
+
+Now that our two devices are correctly configured, we can verify that the two devices can communicate using the \"izchat\" application:
+
+**ZedBoard:**
+
+```bash
+root:/\> izchat 0x0777 0x8001 0x8002
+Hello World!
+
+> Thanks
+
+```
+
+**Raspberry Pi:**
+
+```bash
+root:/\> izchat 0x0777 0x8002 0x8001
+
+> Hello World!
+
+Thanks
+```
+
+This is a pretty simple two way communication.
+The ASCII strings are encapsulated in IEEE802.15.4 DATA frames.
+
+Configuration of the 6loWPAN layer
+----------------------------------
+
+The previous example shows that communication is working, but it is not very useful. By using the 6loWPAN protocol on top (the low-power equivalent of the IPv6 protocol), we can allow standard Linux network applications to communicate over the IEEE 802.15.4 link with standard sockets.
+
+##### Configuration for the first node (ZedBoard)
+
+```bash
+root:/\> HW\_ADDR=\"a0:0:0:0:0:0:0:1\" \# Same as before
+root:/\> IPV6\_ADDR=\"2001::1/128\"
+root:/\>
+root:/\> ip link add link wpan0 name lowpan0 type lowpan
+root:/\> ip link set lowpan0 address \${HW\_ADDR}
+root:/\>
+root:/\> ip addr add \${IPV6\_ADDR} dev lowpan0
+root:/\> ip route add 2001::/64 dev lowpan0
+```
+
+##### Configuration for the second node (Raspberry Pi)
+
+```bash
+root:/\> HW\_ADDR=\"a0:0:0:0:0:0:0:2\" \# Same as before
+root:/\> IPV6\_ADDR=\"2001::2/128\"
+root:/\>
+root:/\> ip link add link wpan0 name lowpan0 type lowpan
+root:/\> ip link set lowpan0 address \${HW\_ADDR}
+root:/\>
+root:/\> ip addr add \${IPV6\_ADDR} dev lowpan0
+root:/\> ip route add 2001::/64 dev lowpan0
+```
+
+:::{NOTE} <!-- ATTRS: round="" important\="" -->
+
+Some GNU/Linux distributions offered on the Raspberry Pi, like Raspbian, will auto-enable the lowpan0 interface as soon as it is created. We can disable this behaviour with the following command:
+```bash
+root:/\> ifplugd -S -i lowpan0 && ifconfig lowpan0 down
+```
+
+:::
+
+
+Testing the communication
+-------------------------
+
+#### Ping!
+
+From the Raspberry Pi, we can now ping the ZedBoard at the address **fe80::a200:0:0:1%lowpan0**:
+```bash
+root\@analog:\~\# ping6 -i0.1 2001::3
+PING 2001::3(2001::3) 56 data bytes
+64 bytes from 2001::3: icmp\_seq=1 ttl=64 time=44.8 ms
+64 bytes from 2001::3: icmp\_seq=2 ttl=64 time=39.9 ms
+64 bytes from 2001::3: icmp\_seq=3 ttl=64 time=44.0 ms
+64 bytes from 2001::3: icmp\_seq=4 ttl=64 time=36.5 ms
+64 bytes from 2001::3: icmp\_seq=5 ttl=64 time=45.6 ms
+64 bytes from 2001::3: icmp\_seq=6 ttl=64 time=49.1 ms
+64 bytes from 2001::3: icmp\_seq=7 ttl=64 time=42.1 ms
+64 bytes from 2001::3: icmp\_seq=8 ttl=64 time=34.2 ms
+64 bytes from 2001::3: icmp\_seq=9 ttl=64 time=35.0 ms
+64 bytes from 2001::3: icmp\_seq=10 ttl=64 time=33.1 ms
+64 bytes from 2001::3: icmp\_seq=11 ttl=64 time=46.6 ms
+64 bytes from 2001::3: icmp\_seq=12 ttl=64 time=28.8 ms
+64 bytes from 2001::3: icmp\_seq=13 ttl=64 time=43.0 ms
+64 bytes from 2001::3: icmp\_seq=14 ttl=64 time=38.6 ms
+64 bytes from 2001::3: icmp\_seq=15 ttl=64 time=41.1 ms
+64 bytes from 2001::3: icmp\_seq=16 ttl=64 time=40.3 ms
+64 bytes from 2001::3: icmp\_seq=17 ttl=64 time=45.6 ms
+64 bytes from 2001::3: icmp\_seq=18 ttl=64 time=53.3 ms
+64 bytes from 2001::3: icmp\_seq=19 ttl=64 time=51.6 ms
+64 bytes from 2001::3: icmp\_seq=20 ttl=64 time=26.6 ms
+64 bytes from 2001::3: icmp\_seq=21 ttl=64 time=42.3 ms
+64 bytes from 2001::3: icmp\_seq=22 ttl=64 time=32.7 ms
+64 bytes from 2001::3: icmp\_seq=23 ttl=64 time=50.0 ms
+\^C
+\-\-- 2001::3 ping statistics \-\--
+23 packets transmitted, 23 received, 0% packet loss, time 2210ms
+rtt min/avg/max/mdev = 26.622/41.122/53.348/6.945 ms
+root\@analog:\~\#
+```
+
+We can as well ping the Raspberry Pi from the Zedboard using the address **fe80::a200:0:0:2%lowpan0**.
+
+#### Standard tools
+
+The following is just to demonstrate that any Linux program can, using standard sockets, communicate over the IEEE 802.15.4 link with 6loWPAN:
+
+```bash
+root\@raspberrypi:/\> ssh -6 analog\@fe80::a200:0:0:1%lowpan0
+analog\@fe80::a200:0:0:1%lowpan0\'s password:
+Welcome to Linaro 14.04 (GNU/Linux 3.18.0-33199-g62cfd65-dirty armv7l)
+
+Last login: Thu Jan 1 00:02:21 1970 from fe80::a200:0:0:2%lowpan0
+
+root\@analog:/\>
+```

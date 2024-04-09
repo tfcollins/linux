@@ -1,0 +1,487 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/hwmon/ltc2947
+title: LTC2947: High Precision Power and Energy Monitor
+---
+
+LTC2947 High Precision Power and Energy Monitor
+===============================================
+
+Supported Devices
+-----------------
+
+-   [LTC2947](https://www.google.com/search?q=LTC2947&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [DC2334A](https://www.google.com/search?q=DC2334A&btnI=lucky)
+-   [DC2574A-KIT](https://www.google.com/search?q=DC2574A-KIT&btnI=lucky)
+
+Description
+-----------
+
+This is a Hardware Monitor subsystem driver. There are two driver\'s (sharing the same core implementation) for the LTC2947 since the device supports both SPI and I2C interfaces. The underlying bus is abstracted in the core implementation by using regmap. The Hwmon subsystem provides a unified framework for drivers doing hardware monitoring. It exposes a set of sysfs file that should follow the [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-core.c&amp;btnI=lucky">drivers/hwmon/ltc2947-core.c</a></td>
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-core.c&amp;btnI=lucky">yes</a></td>
+</tr>
+<tr class="even">
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-i2c.c&amp;btnI=lucky">drivers/hwmon/ltc2947-i2c.c</a></td>
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-i2c.c&amp;btnI=lucky">yes</a></td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-spi.c&amp;btnI=lucky">drivers/hwmon/ltc2947-spi.c</a></td>
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-spi.c&amp;btnI=lucky">yes</a></td>
+</tr>
+<tr class="even">
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947.h&amp;btnI=lucky">drivers/hwmon/ltc2947.h</a></td>
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947.h&amp;btnI=lucky">yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>core driver</td>
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-core.c&amp;btnI=lucky">drivers/hwmon/ltc2947-core.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-i2c.c&amp;btnI=lucky">drivers/hwmon/ltc2947-i2c.c</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-spi.c&amp;btnI=lucky">drivers/hwmon/ltc2947-spi.c</a></td>
+</tr>
+<tr class="even">
+<td>core include</td>
+<td><a href="https://www.google.com/search?q=drivers/hwmon//ltc2947.h&amp;btnI=lucky">drivers/hwmon/ltc2947.h</a></td>
+</tr>
+</tbody>
+</table>
+
+Example I2C & SPI device initialization
+=======================================
+
+The LTC2947 supports both I2C and SPI interfaces, so one of the drivers can be used depending on which kind of device is instantiated. Currently, the devices can only be instantiated via device tree.
+
+Required devicetree properties:
+
+-   **compatible**: Must be always one of these:
+
+```{=markdown}
+```
+   * adi,ltc2947
+* **reg**: Must be either the I2C device address or the SPI device chip select number.
+
+```
+```
+Example SPI:
+
+```{=markdown}
+```
+&spi0 {
+        #address-cells = <1>;
+        #size-cells = <0>;
+        status = "okay";
+        ltc2947_spi: ltc2947@0 {
+                compatible = "adi,ltc2947";
+                reg = <0>;
+                spi-max-frequency = <1000000>;
+        };
+};
+
+```
+```
+Example I2C:
+
+```{=markdown}
+```
+&i2c0 {
+        #address-cells = <1>;
+        #size-cells = <0>;
+        status = "okay";
+        ltc2947_i2c: ltc2947@5c {
+                compatible = "adi,ltc2947";
+                reg = <0x5c>;
+        };
+};
+
+```
+```
+For more supported devicetree properties take a look to [dt-bindings](https://www.google.com/search?q=master?Documentation/devicetree/bindings/hwmon/adi,ltc2947.yaml&btnI=lucky).
+
+Enabling Linux driver support
+=============================
+
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig").
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The LTC2947 SPI driver depends **CONFIG\_SPI** and the LTC2947 I2C driver depends on **CONFIG\_I2C**.
+
+:::
+
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        <*>     Hardware Monitoring support --->
+            --- Hardware Monitoring support
+        [--snip--]
+            <*> Analog Devices LTC2947 High Precision Power and Energy Monitor over I2C
+            <*> Analog Devices LTC2947 High Precision Power and Energy Monitor over SPI
+        [--snip--]
+
+```
+```
+Hardware configuration
+======================
+
+Driver testing
+==============
+
+HWMON device files
+------------------
+
+Each and every HWMON device has a device folder under /sys/class/hwmon/hwmonX, where X is the hwmon device index. Under every of these directory folders there are a set of files, depending on what kind of hardware monitoring is supported (temperature, voltage). In order to determine which hwmon device corresponds to which hardware chip, the user can read the name file under /sys/class/hwmon/hwmonX/name.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/class/hwmon/**
+root:/sys/class/hwmon\> ls
+hwmon0 hwmon1
+
+root:/sys/class/hwmon\> **cd hwmon1**
+
+root:/sys/class/hwmon/hwmon1\> **ls -l**
+total 0
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_lowest
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_max\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1\_min\_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 curr1\_reset\_history
+lrwxrwxrwx 1 root root 0 Nov 16 09:25 device -\> ../../../spi0.0
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1\_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1\_input
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 energy1\_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1\_max\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 energy1\_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1\_min\_alarm
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1\_overflow\_alarm
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2\_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2\_input
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 energy2\_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2\_max\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 energy2\_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2\_min\_alarm
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2\_overflow\_alarm
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_lowest
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_max\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0\_min\_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 in0\_reset\_history
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_lowest
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_max\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1\_min\_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 in1\_reset\_history
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:21 name
+lrwxrwxrwx 1 root root 0 Nov 16 09:25 of\_node -\> ../../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/ltc2947\@0
+drwxr-xr-x 2 root root 0 Nov 16 09:25 power
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_input\_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_input\_lowest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_label
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_max\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1\_min\_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 power1\_reset\_history
+lrwxrwxrwx 1 root root 0 Nov 16 09:25 subsystem -\> ../../../../../../../../../class/hwmon
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_lowest
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_max\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1\_min\_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 temp1\_reset\_history
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp2\_label
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 temp2\_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp2\_max\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 temp2\_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp2\_min\_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:17 uevent
+root:/sys/class/hwmon/hwmon1\>
+```
+:::
+
+
+For each type of monitored value (current, power), the file will look like **\${type}\_\${monitored\_value}\_\${channel}**, where **\${monitored\_value}** can be the current value, the high threshold, etc\... The channel is the index when, for example, a device can monitor more than one voltage. For more information on the files format, take a look to [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
+
+# Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat name**
+ltc2947
+```
+:::
+
+
+#### Show current values
+
+The device supports readings of current, voltage, power, temperature and energy. To get, for example, the value of the monitored voltage:
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in0\_input**
+4910
+```
+:::
+
+
+#### Show highest read value
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in0\_highest**
+5026
+```
+:::
+
+
+#### Show lowest read value
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in0\_lowest**
+4754
+```
+:::
+
+
+#### Show high threshold
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in0\_max**
+5500
+```
+:::
+
+
+#### Show low threshold
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in0\_min**
+4500
+```
+:::
+
+
+##### Show high threshold alarm
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in0\_max\_alarm**
+0
+```
+:::
+
+
+##### Show low threshold alarm
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in0\_min\_alarm**
+0
+```
+:::
+
+
+#### Show fault
+
+When the **\${type}\_\${channel}\_fault** files are present, the user can read these files to look for faulty cases. If reading this file returns 1, then the readings for that channel are invalid and should be discarded\...
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in0\_fault**
+0
+```
+:::
+
+
+#### Show label
+
+Some channels, support a label attribute which specifies the name of the channel being monitored.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat in1\_label**
+DVCC
+```
+:::
+
+
+#### Show Overflow alarm
+
+These properties are custom and not part of the sysfs-hwmon interface. However, the device set\'s an alarm when register overflow is near for accumulated values (in this case, energy).
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **cat energy1\_overflow\_alarm**
+0
+```
+:::
+
+
+#### Set High threshold
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **echo 5500 \> in0\_max**
+```
+:::
+
+
+#### Set Low threshold
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **echo 4500 \> in0\_min**
+```
+:::
+
+
+#### Reset History
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/class/hwmon/hwmon1\> **echo 1 \> in0\_reset\_history**
+```
+:::
+
+
+More Information
+================
+
+HWMON pointers
+==============
+
+-   HWMON mailing list: <linux-hwmon@vger.kernel.org>
+-   [HWMON Linux Kernel Documentation](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/hwmon)
+-   [HWMON sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface)
+
+![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)

@@ -1,0 +1,526 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/axi-adc-hdl
+title: AD9684: 14-Bit, 500 MSPS LVDS, Dual Analog-to-Digital Converter
+---
+
+AXI ADC HDL Linux Driver
+========================
+
+Supported Devices
+-----------------
+
+-   [AD6676](https://www.google.com/search?q=AD6676&btnI=lucky)
+-   [AD9208](https://www.google.com/search?q=AD9208&btnI=lucky)
+-   [AD9234](https://www.google.com/search?q=AD9234&btnI=lucky)
+-   [AD9250](https://www.google.com/search?q=AD9250&btnI=lucky)
+-   [AD9265](https://www.google.com/search?q=AD9265&btnI=lucky)
+-   [AD9361](https://www.google.com/search?q=AD9361&btnI=lucky)
+-   [AD9364](https://www.google.com/search?q=AD9364&btnI=lucky)
+-   [AD9371](https://www.google.com/search?q=AD9371&btnI=lucky)
+-   [AD9434](https://www.google.com/search?q=AD9434&btnI=lucky)
+-   [AD9467](https://www.google.com/search?q=AD9467&btnI=lucky)
+-   [AD9625](https://www.google.com/search?q=AD9625&btnI=lucky)
+-   [AD9643](https://www.google.com/search?q=AD9643&btnI=lucky)
+-   [AD9649](https://www.google.com/search?q=AD9649&btnI=lucky)
+-   [AD9652](https://www.google.com/search?q=AD9652&btnI=lucky)
+-   [AD9680](https://www.google.com/search?q=AD9680&btnI=lucky)
+-   [AD9683](https://www.google.com/search?q=AD9683&btnI=lucky)
+-   [AD9684](https://www.google.com/search?q=AD9684&btnI=lucky)
+
+Supported Boards
+----------------
+
+This driver supports the\
+\* [AD-FMCOMMS1-EBZ FMC Card](resources/eval/user-guides/ad-fmcomms1-ebz)
+
+-   [AD-FMCOMMS2-EBZ FMC Card](resources/eval/user-guides/ad-fmcomms2-ebz)
+-   [AD-FMCOMMS3-EBZ FMC Card](resources/eval/user-guides/ad-fmcomms3-ebz)
+-   [AD-FMCOMMS4-EBZ FMC Card](resources/eval/user-guides/ad-fmcomms4-ebz)
+-   [AD-FMCOMMS5-EBZ FMC Card](resources/eval/user-guides/ad-fmcomms5-ebz)
+-   [AD-FMCOMMS6-EBZ FMC Card](resources/eval/user-guides/ad-fmcomms6-ebz)
+-   [AD-FMCJESDADC1-EBZ FMC Card](resources/fpga/xilinx/fmc/ad-fmcjesdadc1-ebz)
+-   [AD-FMCADC2-EBZ FMC Card](resources/eval/user-guides/ad-fmcadc2-ebz)
+-   [AD-FMCDAQ2-EBZ FMC Card](resources/eval/user-guides/ad-fmcdaq2-ebz)
+-   [AD9467 Native FMC Card](resources/fpga/xilinx/fmc/ad9467)
+-   [AD9467 Evaluation Board, ADC-FMC Interposer](resources/fpga/xilinx/interposer/ad9467)
+-   [AD9250 Evaluation Board, ADC-FMC Interposer](resources/fpga/xilinx/interposer/ad9250)
+-   [AD9265 Native FMC Card](resources/fpga/xilinx/fmc/ad9265)
+-   [ADRV9371 FMC Card](resources/eval/user-guides/mykonos)
+
+Sub device Documentation (linked mode)
+--------------------------------------
+
+-   [AD9208 ADC Linux Driver](/resources/tools-software/linux-drivers/iio-adc/ad9208)
+
+Description
+-----------
+
+The AXI ADC HDL driver is the driver for [Generic AXI ADC IP core](/resources/fpga/docs/axi_adc_ip) which is used on various FPGA designs. The driver is implemented as an Linux IIO driver. It\'s register map can be found here: [Base register map (common to all cores)](/resources/fpga/docs/hdl/regmap)
+
+This driver is split into two parts. A control driver let's call it SPI-ADC which configures the converter internal control registers, this part is typically instantiated via the SPI bus.
+(see: [ad9467.c](https://www.google.com/search?q=master?drivers/iio/adc/ad9467.c&btnI=lucky), [ad9361\_conv.c](https://www.google.com/search?q=master?drivers/iio/adc/ad9361_conv.c&btnI=lucky) or [ad9371\_conv.c](https://www.google.com/search?q=mykonos?drivers/iio/adc/ad9361_conv.c&btnI=lucky))
+Device probing for the data capture driver (AXI-ADC) which controls the AXI HDL core registers and the DMA, is delayed until the SPI control driver is fully probed.
+The device tree phandle \"**spibus-connected**\" is used to connect the capture driver with is SPI control driver. This split is required since the AXI-ADC and the SPI-ADC parts are instantiated via different busses. The AXI-ADC driver registers the IIO device, the SPI-ADC instance doesn't. However a shared data structure (struct axiadc\_converter) is used so that the methods local to the SPI-ADC driver can extend the IIO attributes provided the AXI-ADC driver. There is also a callback provided (post\_setup) which calls a from the AXI-ADC into the AXI-SPI driver after the AXI-ADC is fully alive. This post setup callback is then typically used to finally configure the digital data path, test and tune the digital data interface etc.
+
+For the **AD9361** and **AD9371** family of transceivers, things are a bit more differentiated. In fact these devices have a separate IIO device for the radio control portion.
+We call them the PHY devices. ([ad9361.c](https://www.google.com/search?q=master?drivers/iio/adc/ad9361.c&btnI=lucky) and [ad9371.c](https://www.google.com/search?q=master?drivers/iio/adc/ad9371.c&btnI=lucky) ) The **PHY** drivers are intended to be independent from our AXI-ADC capture drivers and underlying HDL designs.
+Therefore things related to the AXI-ADC driver are located in the ad93X1\_conv.c files.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">WIP</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad6676.c&amp;btnI=lucky">drivers/iio/adc/ad6676.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9208.c&amp;btnI=lucky">drivers/iio/adc/ad9208.c</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9467.c&amp;btnI=lucky">drivers/iio/adc/ad9467.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9680.c&amp;btnI=lucky">drivers/iio/adc/ad9680.c</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9361_conv.c&amp;btnI=lucky">drivers/iio/adc/ad9361_conv.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9361_conv.c&amp;btnI=lucky">drivers/iio/adc/ad9371_conv.c</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/adrv9009_conv.c&amp;btnI=lucky">drivers/iio/adc/adrv9009_conv.c</a></td>
+</tr>
+<tr class="even">
+<td>core driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+</tr>
+<tr class="odd">
+<td>core driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_ring_stream.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
+</tr>
+<tr class="even">
+<td>core include</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc.h&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc.h</a></td>
+</tr>
+</tbody>
+</table>
+
+Example platform device initialization
+======================================
+
+The AXI ADC driver is a platform driver and can currently only be instantiated via device tree.
+
+Required devicetree properties:
+
+-   **compatible**: Should always be one of these:
+    -   \"xlnx,cf-ad9467-core-1.00.a\"
+    -   \"xlnx,axi-adc-1c-1.00.a\"
+    -   \"xlnx,axi-ad9234-1.00.a\"
+    -   \"xlnx,axi-ad9250-1.00.a\"
+    -   \"xlnx,axi-ad9434-1.00.a\"
+    -   \"adi,axi-ad9643-6.00.a\"
+    -   \"adi,axi-ad9361-6.00.a\"
+    -   \"adi,axi-ad9371-6.00.a\"
+    -   \"adi,axi-ad9680-1.0\"
+    -   \"adi,axi-ad9625-1.0\"
+    -   \"adi,axi-ad6676-1.0\"
+    -   \"adi,axi-ad9684-1.0\"
+    -   \"adi,axi-ad9371-rx-1.0\"
+    -   \"adi,axi-ad9684-1.0\"
+    -   \"adi,axi-adrv9009-rx-1.0\"
+    -   \"adi,axi-ad9208-1.0\"
+    -   For a complete list see driver source: static const struct of\_device\_id axiadc\_of\_match\[\]
+
+```{=html}
+<!-- -->
+```
+-   **reg**: Base address and register area size. This parameter expects a register range.
+-   **spibus-connected**: Phandle to the SPI device on which the AD9467/AD9643 can be found
+-   **dmas**: List of DMA controller phandle. DMA specifiers for tx and rx dma. See the DMA client binding, Documentation/devicetree/bindings/dma/dma.txt
+-   **dma-names**: DMA request names should include \"tx\" and \"rx\" if present.
+
+Example:
+
+```{=markdown}
+```
+&fmc_spi {
+    adc_ad9467: ad9467@0 {
+        #address-cells = <1>;
+        #size-cells = <0>;
+        compatible = "ad9467";
+        reg = <0>;
+        spi-max-frequency = <10000000>;
+        clocks = <&clk_ad9517 3>;
+        clock-names = "adc_clk";
+
+        adi,spi-3wire-enable;
+    };
+};
+
+&fpga_axi {
+    rx_dma: rx-dmac@44a30000 {
+        compatible = "adi,axi-dmac-1.00.a";
+        reg = <0x44A30000 0x10000>;
+        #dma-cells = <1>;
+        interrupts = <0 57 0>;
+        clocks = <&clkc 16>;
+
+        adi,channels {
+            #size-cells = <0>;
+            #address-cells = <1>;
+
+            dma-channel@0 {
+                reg = <0>;
+                adi,source-bus-width = <16>;
+                adi,source-bus-type = <2>;
+                adi,destination-bus-width = <64>;
+                adi,destination-bus-type = <0>;
+            };
+        };
+    };
+
+    cf_ad9467_core_0: cf-ad9467-core-lpc@44a00000 {
+        compatible = "xlnx,cf-ad9467-core-1.00.a";
+        reg = <0x44A00000 0x10000>;
+        dmas = <&rx_dma 0>;
+        dma-names = "rx";
+
+        spibus-connected = <&adc_ad9467>;
+    };
+}; 
+
+```
+```
+Enabling Linux driver support
+=============================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The AXI ADC HDL driver depends on **CONFIG\_SPI**
+
+:::
+
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+`Linux Kernel Configuration
+    Device Drivers  --->
+    <*>     Industrial I/O support --->
+        --- Industrial I/O support
+        -*-   Enable ring buffer support within IIO
+        -*-     Industrial I/O lock free software ring
+        -*-   Enable triggered sampling support
+
+              *** Analog to digital converters ***
+        [--snip--]
+            -*- Analog Devices High-Speed AXI ADC driver core             
+                <*> Analog Devices AD9208 and similar high speed ADCs         
+                <*> Analog Devices AD9371 RF Transceiver driver               
+                <*> Analog Devices ADRV9009/ADRV9008 RF Transceiver driver    
+                <*> Analog Devices AD6676 Wideband IF Receiver driver         
+                <*> Analog Devices AD9467 etc. high speed ADCs                
+                <*> Analog Devices AD9680 and similar high speed ADCs 
+        [--snip--]
+`
+
+Hardware configuration
+======================
+
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device4 iio:trigger0
+
+root:/sys/bus/iio/devices\> **cd iio:device4**
+
+root:/sys/bus/iio/devices/iio:device4\> **ls -l**
+drwxr-xr-x 2 root root 0 Jan 1 00:00 buffer
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 dev
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0\_calibbias
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0\_calibphase
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0\_filter\_high\_pass\_3db\_frequency
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0\_test\_mode
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1\_calibbias
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1\_calibphase
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1\_filter\_high\_pass\_3db\_frequency
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1\_test\_mode
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage\_sampling\_frequency
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage\_scale
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage\_scale\_available
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage\_test\_mode\_available
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 name
+drwxr-xr-x 2 root root 0 Jan 1 00:00 scan\_elements
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 uevent
+root:/sys/bus/iio/devices/iio:device4\>
+```
+:::
+
+
+# Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4\> **cat name**
+cf-ad9643-core-lpc
+```
+:::
+
+
+##### Show scale
+
+**Description:**\
+scale to be applied to in\_voltageX\_raw in order to obtain the measured voltage in millivolts.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4\> **cat in\_voltage\_scale**
+0.026703
+```
+:::
+
+
+##### Show available scales
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4\> **cat in\_voltage\_scale\_available**
+0.031738 0.031403 0.031067 0.030731 0.030396 0.030060 0.029724 0.029388 0.029053 0.028717 0.028381 0.028046 0.027710 0.027374 0.027039 0.026703 0.026367 0.026031 0.025696 0.025360 0.025024 0.024689 0.024353 0.024017 0.023682 0.023346 0.023010 0.022675 0.022339 0.022003 0.021667 0.021332
+```
+:::
+
+
+##### Set ADC calibration gain
+
+**Description:**\
+in\_voltage0\_calibscale\
+in\_voltage1\_calibscale\
+Set the channel calibration gain. Writing to these files will set the calibration gain for the respective channel. Valid values are in the range of 0..1.999999
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4\> **cat in\_voltage0\_calibscale**
+1.000000
+```
+:::
+
+
+##### Set ADC calibration bias
+
+**Description:**\
+in\_voltage0\_calibbias\
+in\_voltage1\_calibbias\
+Set the channel calibration bias/offset. Writing to these files will set the calibration bias for the respective channel. Valid values are in the range of +/- 16384.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4\> **cat in\_voltage0\_calibscale**
+1.0
+```
+:::
+
+
+##### Show available ADC test modes
+
+**Description:**\
+Show available test modes supported by the underlying ADC.
+These test modes are typically used to test the high speed digital interface between the converter and interface adaptor.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4\> **cat in\_voltage\_test\_mode\_available**
+off midscale\_short pos\_fullscale neg\_fullscale checkerboard pn\_long pn\_short one\_zero\_toggle
+```
+:::
+
+
+##### Set ADC test mode
+
+**Description:**\
+in\_voltage0\_test\_mode\
+in\_voltage1\_test\_mode\
+Enter test modes supported by the underlying ADC.
+These test modes are typically used to test the high speed digital interface between the converter and interface adaptor.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4\> **echo one\_zero\_toggle \> in\_voltage0\_test\_mode**
+root:/sys/bus/iio/devices/iio:device4\> **cat in\_voltage0\_test\_mode**
+one\_zero\_toggle
+root:/sys/bus/iio/devices/iio:device4\> **echo off \> in\_voltage0\_test\_mode**
+```
+:::
+
+
+##### External Synchronization
+
+The [ADC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_adc) core supports the [EXT\_SYNC](/resources/fpga/peripherals/jesd204/jesd204_tpl_adc#External_synchronization) feature, allowing to synchronize multiple channels within a ADC or across multiple instances.
+This feature can also synchronize between the [ADC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_adc) and [DAC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_dac) core.
+
+There are two device attributes which allows controlling this feature:
+`sync_start_enable` and `sync_start_enable_available` reading the
+later returns the available modes which depend on HDL core synthesis
+parameters. The options are explained below. Reading \'sync\_start\_enable\'
+returns either \'arm\' while waiting for the external synchronization
+signal or \'disarm\' otherwise.
+
+-   `arm`: Setting this key will arm the trigger mechanism sensitive to an external sync signal. Once the external sync signal goes high it synchronizes channels within a ADC, and across multiple instances. This key has an effect only the EXT\_SYNC synthesis parameter is set.
+
+```{=html}
+<!-- -->
+```
+-   `disarm`: Setting this key will disarm the trigger mechanism sensitive to an external sync signal. This key has an effect only the EXT\_SYNC synthesis parameter is set.
+
+```{=html}
+<!-- -->
+```
+-   `trigger_manual`: Setting this key will issue an external sync event if it is hooked up inside the fabric. This key has an effect only the EXT\_SYNC synthesis parameter is set.
+
+###### Example:
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device3\# **cat sync\_start\_enable\_available**
+**arm disarm trigger\_manual**
+root\@analog:/sys/bus/iio/devices/iio:device3\# **cat sync\_start\_enable**
+**disarm**
+root\@analog:/sys/bus/iio/devices/iio:device3\# **echo arm \> sync\_start\_enable**
+root\@analog:/sys/bus/iio/devices/iio:device3\# **cat sync\_start\_enable**
+**arm**
+root\@analog:/sys/bus/iio/devices/iio:device3\# **echo trigger\_manual \> sync\_start\_enable**
+root\@analog:/sys/bus/iio/devices/iio:device3\# **cat sync\_start\_enable**
+**disarm**
+```
+:::
+
+
+Buffer management
+-----------------
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4/buffer\> **ls**
+**bytes\_per\_datum** **enable** subsystem
+**length** uevent
+root:/sys/bus/iio/devices/iio:device4/buffer\>
+```
+:::
+
+
+![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device4/scan\_elements\> **ls**
+in\_voltage0\_en
+in\_voltage0\_index
+in\_voltage0\_type
+in\_voltage1\_en
+in\_voltage1\_index
+in\_voltage1\_type
+root:/sys/bus/iio/devices/iio:device4/scan\_elements\>
+```
+:::
+
+
+![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

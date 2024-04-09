@@ -1,0 +1,268 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-accelerometer/adxl313
+title: ADXL312, ADXL313, ADXL314: Low Noise, Low Drift, Low Power, 3-Axis MEMS Accelerometers
+---
+
+ADXL312, ADXL313, ADXL314 Low Noise, Low Drift, Low Power, 3-Axis MEMS Accelerometers
+=====================================================================================
+
+Supported Devices
+-----------------
+
+-   [ADXL312](https://www.google.com/search?q=ADXL312&btnI=lucky)
+-   [ADXL313](https://www.google.com/search?q=ADXL313&btnI=lucky)
+-   [ADXL314](https://www.google.com/search?q=ADXL314&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-ADXL312Z](https://www.google.com/search?q=en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/eval-adxl312.html#eb-overview&btnI=lucky)
+-   [EVAL-ADXL313Z](https://www.google.com/search?q=en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/eval-adxl313.html#eb-overview&btnI=lucky)
+-   [EVAL-ADXL314Z](https://www.google.com/search?q=en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/EVAL-ADXL314Z.html&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface accelerometers.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/iio/accel/adxl313_core.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/accel/adxl313_core.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>core driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl313_core.c&amp;btnI=lucky">drivers/iio/accel/adxl313_core.c</a></td>
+</tr>
+<tr class="even">
+<td>spi driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl313_spi.c&amp;btnI=lucky">drivers/iio/accel/adxl313_spi.c</a></td>
+</tr>
+<tr class="odd">
+<td>i2c driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl313_i2c.c&amp;btnI=lucky">drivers/iio/accel/adxl313_i2c.c</a></td>
+</tr>
+<tr class="even">
+<td>header</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl313.h&amp;btnI=lucky">drivers/iio/accel/adxl313.h</a></td>
+</tr>
+<tr class="odd">
+<td>Documentation</td>
+<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/accel/adi,adxl313.yaml&amp;btnI=lucky">adi,adxl313.yaml</a></td>
+</tr>
+</tbody>
+</table>
+
+Example platform device initialization
+======================================
+
+Required devicetree properties:
+
+-   compatible: Needs to be the name of the device. E.g. \"adi,adxl313\", \"adi,adxl314\"
+-   reg: the I2C address or SPI chip select number for the device
+
+Required properties for SPI bus usage:
+
+-   spi-max-frequency: Maximum SPI clock frequency.
+
+Optional properties:
+
+-   interrupts: a list of interrupt specifiers
+
+Example for a SPI device node:
+
+```{=markdown}
+```
+    #include <dt-bindings/gpio/gpio.h>
+    #include <dt-bindings/interrupt-controller/irq.h>
+    spi {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        /* Example for a SPI device node */
+        accelerometer@0 {
+            compatible = "adi,adxl313";
+            reg = <0>;
+            spi-max-frequency = <5000000>;
+            interrupt-parent = <&gpio0>;
+            interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
+            interrupt-names = "INT1";
+        };
+    };
+
+```
+```
+Example for a I2C device node:
+
+```{=markdown}
+```
+    #include <dt-bindings/gpio/gpio.h>
+    #include <dt-bindings/interrupt-controller/irq.h>
+    i2c0 {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        /* Example for a I2C device node */
+        accelerometer@53 {
+            compatible = "adi,adxl313";
+            reg = <0x53>;
+            interrupt-parent = <&gpio0>;
+            interrupts = <0 IRQ_TYPE_LEVEL_HIGH>;
+            interrupt-names = "INT1";
+        };
+    };
+
+```
+```
+Driver testing
+==============
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:\~\# **cd /sys/bus/iio/devices/**
+root\@analog:/sys/bus/iio/devices\# **ls**
+iio:device0 iio\_sysfs\_trigger
+root\@analog:/sys/bus/iio/devices\# **cd iio\\:device0**
+root\@analog:/sys/bus/iio/devices/iio:device0\# **ls -l**
+total 0
+-r\--r\--r\-- 1 root root 4096 Sep 23 14:33 dev
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_sampling\_frequency
+-r\--r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_sampling\_frequency\_available
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_scale
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_x\_calibbias
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_x\_raw
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_y\_calibbias
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_y\_raw
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_z\_calibbias
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 in\_accel\_z\_raw
+-r\--r\--r\-- 1 root root 4096 Sep 23 14:33 name
+lrwxrwxrwx 1 root root 0 Sep 23 14:33 of\_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/adxl313\@0
+drwxr-xr-x 2 root root 0 Sep 23 14:33 power
+lrwxrwxrwx 1 root root 0 Sep 23 14:33 subsystem -\> ../../../../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 Sep 23 14:33 uevent
+
+```
+:::
+
+
+# Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0\# **cat name**
+adxl313
+```
+:::
+
+
+##### Show scale
+
+**Description:**\
+scale to be applied to in\_accel\_\*\_raw in order to obtain the acceleration.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0\# **cat in\_accel\_scale**
+0.009576806
+```
+:::
+
+
+##### Show axis x measurement
+
+**Description:**\
+Raw unscaled acceleration measurement on x axis
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0\# **cat in\_accel\_x\_raw**
+-14
+```
+:::
+
+
+##### Set sampling frequency
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0\# **cat in\_accel\_sampling\_frequency\_available**
+6.250000 12.500000 25.000000 50.000000 100.000000 200.000000 400.000000 800.000000 1600.000000 3200.000000
+root\@analog:/sys/bus/iio/devices/iio:device0\# **cat in\_accel\_sampling\_frequency**
+100.000000
+root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 12.5 \> in\_accel\_sampling\_frequency**
+root\@analog:/sys/bus/iio/devices/iio:device0\# **cat in\_accel\_sampling\_frequency**
+12.500000
+```
+:::
+
+
+##### Set calibbias for the Z channel
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0\# **cat in\_accel\_z\_calibbias**
+0
+root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 4 \> in\_accel\_z\_calibbias**
+root\@analog:/sys/bus/iio/devices/iio:device0\# **cat in\_accel\_z\_calibbias**
+4
+```
+:::
+
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

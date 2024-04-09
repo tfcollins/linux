@@ -1,0 +1,244 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adau7002
+title: ADAU7002: Stereo PDM to I2S or TDM Conversion IC
+---
+
+ADAU7002 Stereo PDM to I2S or TDM Conversion IC Linux Driver
+============================================================
+
+Supported Devices
+-----------------
+
+-   [ADAU7002](https://www.google.com/search?q=ADAU7002&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-ADAU7002](https://www.google.com/search?q=EVAL-ADAU7002&btnI=lucky)
+
+Description
+-----------
+
+The ADAU7002 converts a stereo PDM bit stream into a PCM output. The source for the PDM data can be two microphones or other PDM sources. The PCM audio data is output on a serial audio interface port in either I2S or TDM format.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau7002.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau7002.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau7002.c&amp;btnI=lucky">sound/soc/codecs/adau7002.c</a></td>
+</tr>
+<tr class="even">
+<td>devicetree</td>
+<td><a href="https://www.google.com/search?q=Documentation/devicetree/bindings/sound/adau7002.txt&amp;btnI=lucky">Documentation/devicetree/bindings/sound/adau7002.txt</a></td>
+</tr>
+</tbody>
+</table>
+
+Devicetree bindings
+===================
+
+The ADAU7002 driver is fully devicetree compatible.
+
+**Required properties:**
+
+-   **compatible**: Must be \"adi,adau7002\"
+
+**Optional properties:**
+
+-   **IOVDD-supply**: Phandle and specifier for the power supply providing the IOVDD supply as covered in Documentation/devicetree/bindings/regulator/regulator.txt If this property is not present it is assumed that the supply pin is hardwired to always on.
+
+Example device initialization
+=============================
+
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+
+Devicetree
+----------
+
+```{=markdown}
+```
+adau7002: pdm-to-i2s {
+    compatible = "adi,adau7002";
+    IOVDD-supply = <&supply>;
+};
+
+```
+```
+Kernel configuration
+====================
+
+```{=markdown}
+```
+Device Drivers  --->
+<*> Sound card support  --->
+<*>   Advanced Linux Sound Architecture  --->
+<*>     ALSA for SoC audio support  --->
+<*>       CODEC drivers  --->
+<*>          Analog Devices ADAU7002 Stereo PDM-to-I2S/TDM Converter
+
+```
+```
+ASoC DAPM widgets
+=================
+
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PDM</td>
+<td>PDM signal input</td>
+</tr>
+</tbody>
+</table>
+
+ALSA controls
+=============
+
+This device has no controls.
+
+DAI Configuration
+=================
+
+The driver registers one DAI called **\"adau7002\"**.
+
+Supported DAI formats
+---------------------
+
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Supported by driver</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_I2S</td>
+<td>yes*</td>
+<td>I2S mode</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_RIGHT_J</td>
+<td>no</td>
+<td>Right Justified mode</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_LEFT_J</td>
+<td>no</td>
+<td>Left Justified mode</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_DSP_A</td>
+<td>yes*</td>
+<td>data MSB after FRM LRC</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_DSP_B</td>
+<td>no</td>
+<td>data MSB during FRM LRC</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_AC97</td>
+<td>no</td>
+<td>AC97 mode</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_PDM</td>
+<td>no</td>
+<td>Pulse density modulation</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_NB_NF</td>
+<td>yes</td>
+<td>Normal bit- and frameclock</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_NB_IF</td>
+<td>no</td>
+<td>Normal bitclock, inverted frameclock</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_IB_NF</td>
+<td>no</td>
+<td>Inverted frameclock, normal bitclock</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_IB_IF</td>
+<td>no</td>
+<td>Inverted bit- and frameclock</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_CBM_CFM</td>
+<td>yes</td>
+<td>Codec bit- and frameclock master</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_CBS_CFM</td>
+<td>no</td>
+<td>Codec bitclock slave, frameclock master</td>
+</tr>
+<tr class="even">
+<td>SND_SOC_DAIFMT_CBM_CFS</td>
+<td>no</td>
+<td>Codec bitclock master, frameclock slave</td>
+</tr>
+<tr class="odd">
+<td>SND_SOC_DAIFMT_CBS_CFS</td>
+<td>no</td>
+<td>Codec bit- and frameclock slave</td>
+</tr>
+</tbody>
+</table>
+
+\* The supported DAI format depends on the configuration of the CONFIG pin. When tied to IOVDD only SND\_SOC\_DAIFMT\_I2S is supported, for all other settings only SND\_SOC\_DAIFMT\_DSP\_A is supported
+
+More information
+================
+
+![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)

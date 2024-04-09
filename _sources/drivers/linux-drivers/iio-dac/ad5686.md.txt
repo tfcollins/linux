@@ -1,0 +1,705 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-dac/ad5686
+title: AD5686R: Quad, 16-Bit nanoDAC+ with 2 ppm/°C On-Chip Reference and SPI Interface
+---
+
+\<!DOCTYPE html\>
+\<!\--\[if IE 7\]\>
+\<html class=\"no-js lt-ie9 lt-ie8\" lang=\"en\"
+
+```{=markdown}
+```
+    dir="ltr"> <![endif]-->
+
+```
+```
+\<!\--\[if IE 8\]\>
+\<html class=\"no-js lt-ie9\" lang=\"en\" dir=\"ltr\"\> \<!\[endif\]\--\>
+\<!\--\[if IE 9\]\>
+\<html class=\"no-js lt-ie10\" lang=\"en\" dir=\"ltr\"\> \<!\[endif\]\--\>
+\<!\--\[if gt IE 8\]\>\<!\--\>
+\<html class=\"no-js\" lang=\"en\" dir=\"ltr\"\> \<!\--\<!\[endif\]\--\>
+\<head\>
+
+```{=markdown}
+```
+  <meta charset="utf-8"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>AD5686 IIO DAC Linux Driver [Analog Devices Wiki]</title>
+
+```
+```
+```{=markdown}
+```
+  <script>(function (H) {
+          H.className = H.className.replace(/\bno-js\b/, 'js')
+      })(document.documentElement)</script>
+
+```
+```
+```{=markdown}
+```
+  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:500,500i,600,600i,700,700i|Barlow:300,300i,400,400i,500,500i,600,600i&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="//assets.analog.com/css/vendor.css" />
+
+```
+```
+```{=markdown}
+```
+  <meta name="generator" content="DokuWiki"/>
+
+```
+```
+\<meta name=\"robots\" content=\"noindex,nofollow\"/\>
+\<link rel=\"search\" type=\"application/opensearchdescription+xml\" href=\"/lib/exe/opensearch.php\" title=\"Analog Devices Wiki\"/\>
+\<link rel=\"start\" href=\"/\"/\>
+\<link rel=\"contents\" href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=index\" title=\"Sitemap\"/\>
+\<link rel=\"manifest\" href=\"/lib/exe/manifest.php\"/\>
+\<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Recent Changes\" href=\"/feed.php\"/\>
+\<link rel=\"alternate\" type=\"application/rss+xml\" title=\"Current namespace\" href=\"/feed.php?mode=list&ns=resources:tools-software:linux-drivers:iio-dac\"/\>
+\<link rel=\"alternate\" type=\"text/html\" title=\"Plain HTML\" href=\"/\_export/xhtml/resources/tools-software/linux-drivers/iio-dac/ad5686\"/\>
+\<link rel=\"alternate\" type=\"text/plain\" title=\"Wiki Markup\" href=\"/\_export/raw/resources/tools-software/linux-drivers/iio-dac/ad5686\"/\>
+\<link rel=\"stylesheet\" href=\"/lib/exe/css.php?t=analog2014&tseed=a8bf9c6481eafa8ec787aeacbc45453d\"/\>
+\<!\--\[if gte IE 9\]\>\<!\--\>
+\<script \>/\*\<!\[CDATA\[\*/var NS=\'resources:tools-software:linux-drivers:iio-dac\';var JSINFO = {\"plugin\_enforcesummary\":{\"enforce\_summary\":1,\"default\_minoredit\":0,\"enforce\_preview\":0},\"plugin\_folded\":{\"hide\":\"hide\",\"reveal\":\"reveal\"},\"plugins\":{\"interwikipaste\":{\"patterns\":\"\[{\\\"shortcut\\\":\\\"footprints\\\",\\\"pattern\\\":\\\"http\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/en\\\\\\\\\\\\\\/design\\\\\\\\-center\\\\\\\\\\\\\\/packaging\\\\\\\\-quality\\\\\\\\-symbols\\\\\\\\-footprints\\\\\\\\\\\\\\/symbols\\\\\\\\-and\\\\\\\\-footprints\\\\\\\\\\\\\\/(\[\^ \]+)?\\\\\\\\.html\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"staging.kernel.org\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/git\\\\\\\\.kernel\\\\\\\\.org\\\\\\\\\\\\\\/\\\\\\\\?p\\\\\\\\=linux\\\\\\\\\\\\\\/kernel\\\\\\\\\\\\\\/git\\\\\\\\\\\\\\/gregkh\\\\\\\\\\\\\\/staging\\\\\\\\.git;a\\\\\\\\=blob;hb\\\\\\\\=refs\\\\\\\\\\\\\\/heads\\\\\\\\\\\\\\/staging\\\\\\\\-next;f\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"avnetexpress\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/avnetexpress\\\\\\\\.avnet\\\\\\\\.com\\\\\\\\\\\\\\/store\\\\\\\\\\\\\\/em\\\\\\\\\\\\\\/EMController\\\\\\\\?storeId\\\\\\\\=500201&N\\\\\\\\=0&action\\\\\\\\=products&term\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"downgit\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/analogdevicesinc\\\\\\\\.github\\\\\\\\.io\\\\\\\\\\\\\\/DownGit\\\\\\\\\\\\\\/\\\\\\\\\#\\\\\\\\\\\\\\/home\\\\\\\\?url\\\\\\\\=https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/github\\\\\\\\.com\\\\\\\\\\\\\\/analogdevicesinc\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"cart\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/shoppingcart\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/AddModel\\\\\\\\.aspx\\\\\\\\?locale\\\\\\\\=en&ACTION\\\\\\\\=BUY\_BUNDLES&modelNbr\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"digikey\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.digikey\\\\\\\\.com\\\\\\\\\\\\\\/scripts\\\\\\\\\\\\\\/DkSearch\\\\\\\\\\\\\\/dksus\\\\\\\\.dll\\\\\\\\?KeywordSearch\\\\\\\\?Site\\\\\\\\=US&Keywords\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"git.linux.org\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/git\\\\\\\\.kernel\\\\\\\\.org\\\\\\\\\\\\\\/\\\\\\\\?p\\\\\\\\=linux\\\\\\\\\\\\\\/kernel\\\\\\\\\\\\\\/git\\\\\\\\\\\\\\/torvalds\\\\\\\\\\\\\\/linux\\\\\\\\.git;a\\\\\\\\=blob;hb\\\\\\\\=HEAD;f\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"export\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/exportclassification\\\\\\\\\\\\\\/Search\\\\\\\\\\\\\\/Result\\\\\\\\?strSearch\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"ibis\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/media\\\\\\\\\\\\\\/en\\\\\\\\\\\\\\/simulation\\\\\\\\-models\\\\\\\\\\\\\\/ibis\\\\\\\\-models\\\\\\\\\\\\\\/(\[\^ \]+)?\\\\\\\\.ibs\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"bfgit\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/blackfin\\\\\\\\.uclinux\\\\\\\\.org\\\\\\\\\\\\\\/git\\\\\\\\\\\\\\/\\\\\\\\?p\\\\\\\\=(\[\^ \]+)?;a\\\\\\\\=blob;f\\\\\\\\=(\[\^ \]+)?;hb\\\\\\\\=HEAD\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"bfsvn\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/blackfin\\\\\\\\.uclinux\\\\\\\\.org\\\\\\\\\\\\\\/gf\\\\\\\\\\\\\\/project\\\\\\\\\\\\\\/(\[\^ \]+)?\\\\\\\\\\\\\\/scmsvn\\\\\\\\\\\\\\/trunk\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"paypal\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.paypal\\\\\\\\.com\\\\\\\\\\\\\\/cgi\\\\\\\\-bin\\\\\\\\\\\\\\/webscr\\\\\\\\?cmd\\\\\\\\=\_xclick&business\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"arrow\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.arrow\\\\\\\\.com\\\\\\\\\\\\\\/en\\\\\\\\\\\\\\/products\\\\\\\\\\\\\\/search\\\\\\\\?cat\\\\\\\\=&q\\\\\\\\=(\[\^ \]+)?&r\\\\\\\\=true\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"linux.github\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/github\\\\\\\\.com\\\\\\\\\\\\\\/analogdevicesinc\\\\\\\\\\\\\\/linux\\\\\\\\\\\\\\/blob\\\\\\\\\\\\\\/(\[\^ \]+)?\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"bfgit\_rev\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/blackfin\\\\\\\\.uclinux\\\\\\\\.org\\\\\\\\\\\\\\/git\\\\\\\\\\\\\\/\\\\\\\\?p\\\\\\\\=(\[\^ \]+)?;a\\\\\\\\=blob;f\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"digilent\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.digilentinc\\\\\\\\.com\\\\\\\\\\\\\\/Products\\\\\\\\\\\\\\/Detail\\\\\\\\.cfm\\\\\\\\?Prod\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"reg\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/my\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/en\\\\\\\\\\\\\\/app\\\\\\\\\\\\\\/registration\\\\\\\\\\\\\\/hardware\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"github\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/github\\\\\\\\.com\\\\\\\\\\\\\\/analogdevicesinc\\\\\\\\\\\\\\/(\[\^ \]+)?\\\\\\\\\\\\\\/blob\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"docs\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/docs\\\\\\\\.blackfin\\\\\\\\.uclinux\\\\\\\\.org\\\\\\\\\\\\\\/doku\\\\\\\\.php\\\\\\\\?id\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"go\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.google\\\\\\\\.com\\\\\\\\\\\\\\/search\\\\\\\\?q\\\\\\\\=(\[\^ \]+)?&btnI\\\\\\\\=lucky\\\",\\\"encode\\\":true},{\\\"shortcut\\\":\\\"amazon\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.amazon\\\\\\\\.com\\\\\\\\\\\\\\/dp\\\\\\\\\\\\\\/(\[\^ \]+)?\\\\\\\\?tag\\\\\\\\=splitbrain\\\\\\\\-20\\\",\\\"encode\\\":true},{\\\"shortcut\\\":\\\"amazon.de\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.amazon\\\\\\\\.de\\\\\\\\\\\\\\/dp\\\\\\\\\\\\\\/(\[\^ \]+)?\\\\\\\\?tag\\\\\\\\=splitbrain\\\\\\\\-21\\\",\\\"encode\\\":true},{\\\"shortcut\\\":\\\"mouser\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/mouser\\\\\\\\.com\\\\\\\\\\\\\\/Search\\\\\\\\\\\\\\/Refine\\\\\\\\?Keyword\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"tkt\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/blackfin\\\\\\\\.uclinux\\\\\\\\.org\\\\\\\\\\\\\\/gf\\\\\\\\\\\\\\/tracker\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"repo\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/github\\\\\\\\.com\\\\\\\\\\\\\\/analogdevicesinc\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"maxim\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.maximintegrated\\\\\\\\.com\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"wpmeta\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/meta\\\\\\\\.wikipedia\\\\\\\\.org\\\\\\\\\\\\\\/wiki\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"bf\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/blackfin\\\\\\\\.uclinux\\\\\\\\.org\\\\\\\\\\\\\\/gf\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"wp\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/en\\\\\\\\.wikipedia\\\\\\\\.org\\\\\\\\\\\\\\/wiki\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"wpfr\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/fr\\\\\\\\.wikipedia\\\\\\\\.org\\\\\\\\\\\\\\/wiki\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"wpde\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/de\\\\\\\\.wikipedia\\\\\\\\.org\\\\\\\\\\\\\\/wiki\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"wpes\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/es\\\\\\\\.wikipedia\\\\\\\\.org\\\\\\\\\\\\\\/wiki\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"wppl\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/pl\\\\\\\\.wikipedia\\\\\\\\.org\\\\\\\\\\\\\\/wiki\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"wpjp\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/ja\\\\\\\\.wikipedia\\\\\\\\.org\\\\\\\\\\\\\\/wiki\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"wpru\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/ru\\\\\\\\.wikipedia\\\\\\\\.org\\\\\\\\\\\\\\/wiki\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"bfin\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/blackfin\\\\\\\\.uclinux\\\\\\\\.org\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"amazon.uk\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.amazon\\\\\\\\.co\\\\\\\\.uk\\\\\\\\\\\\\\/dp\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":true},{\\\"shortcut\\\":\\\"mw\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.mathworks\\\\\\\\.com\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"oreilly\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.oreilly\\\\\\\\.com\\\\\\\\\\\\\\/catalog\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"google\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.google\\\\\\\\.com\\\\\\\\\\\\\\/search\\\\\\\\?q\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"rfc\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/tools\\\\\\\\.ietf\\\\\\\\.org\\\\\\\\\\\\\\/html\\\\\\\\\\\\\\/rfc(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"google.de\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.google\\\\\\\\.de\\\\\\\\\\\\\\/search\\\\\\\\?q\\\\\\\\=(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"user\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/ez\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/members\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"this\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/wiki\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"phpfn\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/secure\\\\\\\\.php\\\\\\\\.net\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"xilinx\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.xilinx\\\\\\\\.com\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"adi\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"ez\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/ez\\\\\\\\.analog\\\\\\\\.com\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"doku\\\",\\\"pattern\\\":\\\"https\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/www\\\\\\\\.dokuwiki\\\\\\\\.org\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"callto\\\",\\\"pattern\\\":\\\"callto\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"man\\\",\\\"pattern\\\":\\\"http\\\\\\\\:\\\\\\\\\\\\\\/\\\\\\\\\\\\\\/man\\\\\\\\.cx\\\\\\\\\\\\\\/(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"skype\\\",\\\"pattern\\\":\\\"skype\\\\\\\\:(\[\^ \]+)?\\\",\\\"encode\\\":false},{\\\"shortcut\\\":\\\"tel\\\",\\\"pattern\\\":\\\"tel\\\\\\\\:(\[\^ \]+)?\\\",\\\"encode\\\":false}\]\"},\"vshare\":{\"youtube\":\"youtube\\\\.com\\/.\*\[&?\]v=(\[a-z0-9\_\\\\-\]+)\",\"vimeo\":\"vimeo\\\\.com\\\\\\/(\\\\d+)\",\"slideshare\":\"slideshare.\*id=(\\\\d+)\",\"dailymotion\":\"dailymotion\\\\.com\\/video\\/(\[a-z0-9\]+)\",\"archiveorg\":\"archive\\\\.org\\/(?:embed|details)\\/(\[a-zA-Z0-9\_\\\\-\]+)\",\"soundcloud\":\"soundcloud\\\\.com\\/(\[\\\\w-\]+\\/\[\\\\w-\]+)\",\"niconico\":\"nicovideo\\\\.jp\\/watch\\/(sm\[0-9\]+)\",\"bitchute\":\"bitchute\\\\.com\\\\\\/video\\\\\\/(\[a-zA-Z0-9\_\\\\-\]+)\",\"coub\":\"coub\\\\.com\\\\\\/view\\\\\\/(\[a-zA-Z0-9\_\\\\-\]+)\",\"odysee\":\"odysee\\\\.com\\/\\\\\$\\/(?:embed|download)\\/(\[-%\_?=\\/a-zA-Z0-9\]+)\",\"youku\":\"v\\\\.youku\\\\.com\\/v\_show\\/id\_(\[0-9A-Za-z=\]+)\\\\.html\",\"bilibili\":\"bilibili\\\\.com\\\\\\/video\\\\\\/(BV\[0-9A-Za-z\]+)\",\"msoffice\":\"(?:office\\\\.com.\*\[&?\]videoid=(\[a-z0-9\\\\-\]+))\",\"msstream\":\"microsoftstream\\\\.com\\\\\\/video\\\\\\/(\[a-f0-9\\\\-\]{36})\"}},\"id\":\"resources:tools-software:linux-drivers:iio-dac:ad5686\",\"namespace\":\"resources:tools-software:linux-drivers:iio-dac\",\"ACT\":\"denied\",\"useHeadingNavigation\":1,\"useHeadingContent\":0};
+/\*!\]\]\>\*/\</script\>
+\<script src=\"/lib/exe/jquery.php?tseed=f0349b609f9b91a485af8fd8ecd4aea4\" defer=\"defer\"\>/\*\<!\[CDATA\[\*/
+/\*!\]\]\>\*/\</script\>
+\<script src=\"/lib/exe/js.php?t=analog2014&tseed=a8bf9c6481eafa8ec787aeacbc45453d\" defer=\"defer\"\>/\*\<!\[CDATA\[\*/
+/\*!\]\]\>\*/\</script\>
+\<!\--\<!\[endif\]\--\>
+
+```{=markdown}
+```
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/lib/tpl/analog2014/images/favicon.ico" />
+
+```
+```
+```{=markdown}
+```
+  <script src="https://assets.analog.com/js/adi/modernizr.js" type="text/javascript" defer="true"></script>
+
+```
+```
+```{=markdown}
+```
+  <!--[if lt IE 9]>
+  <script src="https://assets.analog.com/js/adi/html5ie.js" type="text/javascript"></script>
+  <![endif]-->
+
+```
+```
+```{=markdown}
+```
+  <script src="https://assets2.analog.com/cms-assets/js/pages/scripts/header-footer.bundle.js" type="text/javascript" defer="true"></script>
+
+```
+```
+```{=markdown}
+```
+  <!-- LIVE tracking -->
+
+```
+```
+\<script src=\"//assets.adobedtm.com/bc68b7886092/2a726ea8b70d/launch-a4a6d55de309.min.js\" async\>\</script\>
+\<script src=\"/lib/tpl/analog2014/assets/js/adi/global.analytics.js\" type=\"text/javascript\"\>\</script\>
+\</head\>
+
+\<!\-- List of supported themes thm-education, thm-applications, thm-parametric, thm-product, thm-community, thm-design-center, thm-my-analog, thm-support \--\>
+\<body class=\"home\"\>
+
+\<!\-- wiki\_header.html \--\>
+\<header class=\"adi\_header adi\_header\--wiki tools-header\" id=\"dokuwiki\_\_top\" data-ot=\"true\"\>
+
+```{=markdown}
+```
+  <div class="adi_topbar">
+      <div class="adi_container">
+          <section class="adi_row">
+              <!--  BEGIN:  Internal Links -->
+              <nav class="adi_column adi_pull-left">
+                  <a class="adi_topbar-link adi_topbar-link--analog-home" href="//www.analog.com">
+                      <strong>Analog.com</strong>
+                  </a>
+                  <a class="adi_topbar-link adi_topbar-link--engineer-zone" href="//ez.analog.com">
+                      <strong class="adi_link--hover-accent">Engineer</strong>
+                      <span>Zone</span>
+                  </a>
+                  <a class="adi_topbar-link adi_topbar-link--analog-dialogue" href="//www.analog.com/en/analog-dialogue.html">
+                      <strong class="adi_link--hover-accent">Analog</strong>
+                      <span>Dialogue</span>
+                  </a>
+              </nav> <!-- /.adi_column.adi_pull-left -->
+              <!--  END:  Internal Links  -->
+              <!--  BEGIN:  Language Options  -->
+              <nav class="adi_column adi_pull-right">
+                  <a class="adi_topbar-link adi_topbar-link--light adi_topbar-link--myanalog-logo" href="//my.analog.com/">
+                      <span><img src="//assets.analog.com/images/myanalog_logo.png" alt="My Analog Login"></span>&nbsp;
+                  </a>
+
+```
+```
+```{=markdown}
+```
+                  <a href="/resources/tools-software/linux-drivers/iio-dac/ad5686?do=login&amp;sectok="  class="adi_topbar-link adi_topbar-link--light adi_topbar-link--myanalog-login action login" rel="nofollow" title="Log In"><strong>Log In</strong></a>                </nav> <!-- /.adi_column.adi_pull-right -->
+              <!--  END:  Language Options  -->
+          </section> <!-- /.adi_row -->
+      </div> <!-- /.adi_container -->
+  </div>
+
+```
+```
+```{=markdown}
+```
+  <div class="adi_container">
+      <section class="adi_row">
+          <!--  BEGIN:  Logo  -->
+          <div class="adi_column adi_logo-container">
+              <a class="adi_logo" href="/start">
+                  <img src="/lib/tpl/analog2014//assets/images/adi-logo.svg" alt="Analog Devices Wiki" />
+              </a>
+          </div> <!-- /.adi_column.adi_logo -->
+          <!--  END:  Logo  -->
+          <div class="adi_column adi_page-title-container">
+              <h1 class="adi_page-title">Wiki</h1>
+          </div> <!-- /.adi_column.adi_logo -->
+          <!--  END:  Logo  -->
+      </section> <!-- /.adi_row -->
+  </div> <!-- /.adi_container -->
+
+```
+```
+```{=markdown}
+```
+  <div class="navigation-bar">
+      <div class="content-wrap clearfix">
+          <ul class="list-inline pull-left nav-links clearfix">
+
+```
+```
+\<li class=\"dropdown\"\>\<div class=\"li\"\> \<a href=\"/resources\" class=\"wikilink1\" title=\"resources\" data-wiki-id=\"resources\"\>Resources and Tools\</a\>\</div\>
+\<ul class=\"submenu\"\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/eval\" class=\"wikilink1\" title=\"resources:eval\" data-wiki-id=\"resources:eval\"\>Evaluation Boards & Kits\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/fpga\" class=\"wikilink1\" title=\"resources:fpga\" data-wiki-id=\"resources:fpga\"\>FPGA Reference Designs\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/quick-start\" class=\"wikilink1\" title=\"resources:quick-start\" data-wiki-id=\"resources:quick-start\"\>Quick Start Guides\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/tools-software/linux-drivers-all\" class=\"wikilink1\" title=\"resources:tools-software:linux-drivers-all\" data-wiki-id=\"resources:tools-software:linux-drivers-all\"\>Linux Software Drivers\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/no-os/drivers\" class=\"wikilink1\" title=\"resources:no-os:drivers\" data-wiki-id=\"resources:no-os:drivers\"\>Microcontroller Software Drivers\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/tools-software/ace\" class=\"wikilink1\" title=\"resources:tools-software:ace\" data-wiki-id=\"resources:tools-software:ace\"\>ACE Software\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/technical-guides\" class=\"wikilink1\" title=\"resources:technical-guides\" data-wiki-id=\"resources:technical-guides\"\>Technical Guides\</a\>\</div\>
+\</li\>
+\</ul\>
+\</li\>
+\<li class=\"dropdown\"\>\<div class=\"li\"\> \<a href=\"/university/courses/tutorials/index\" class=\"wikilink1\" title=\"university:courses:tutorials:index\" data-wiki-id=\"university:courses:tutorials:index\"\>Education Content\</a\>\</div\>
+\<ul class=\"submenu\"\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university\" class=\"wikilink1\" title=\"university\" data-wiki-id=\"university\"\>University Program Overview\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university/tools/m1k\" class=\"wikilink1\" title=\"university:tools:m1k\" data-wiki-id=\"university:tools:m1k\"\>ADALM1000 (M1k) Active Learning Module\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university/tools/m2k\" class=\"wikilink1\" title=\"university:tools:m2k\" data-wiki-id=\"university:tools:m2k\"\>ADALM2000 (M2k) Active Learning Module\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university/tools/adalp2000/parts-index\" class=\"wikilink1\" title=\"university:tools:adalp2000:parts-index\" data-wiki-id=\"university:tools:adalp2000:parts-index\"\>ADALP2000 Parts kit for Circuits\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university/tools/pluto\" class=\"wikilink1\" title=\"university:tools:pluto\" data-wiki-id=\"university:tools:pluto\"\>ADALM-PLUTO SDR Active Learning Module\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university\#teaching\_materials\_lab\_exercises\" class=\"wikilink1\" title=\"university\" data-wiki-id=\"university\"\>Teaching and Lab Materials\</a\>\</div\>
+\</li\>
+\</ul\>
+\</li\>
+\<li class=\"dropdown\"\>\<div class=\"li\"\> \<a href=\"/wiki/help\" class=\"wikilink1\" title=\"wiki:help\" data-wiki-id=\"wiki:help\"\>Wiki Help\</a\>\</div\>
+\<ul class=\"submenu\"\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/wiki/help\" class=\"wikilink1\" title=\"wiki:help\" data-wiki-id=\"wiki:help\"\>Help\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/wiki/introduction\" class=\"wikilink1\" title=\"wiki:introduction\" data-wiki-id=\"wiki:introduction\"\>About Wiki\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/playground/playground\" class=\"wikilink1\" title=\"playground:playground\" data-wiki-id=\"playground:playground\"\>Playground\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/start?do=index\" class=\"wikilink1\" title=\"start\" data-wiki-id=\"start\"\>Wiki Site Map\</a\>\</div\>
+\</li\>
+\</ul\>
+\</li\>
+\<li class=\"dropdown\"\>\<div class=\"li\"\>\<a href=\"\#\"\>Wiki Tools\</a\>\</div\>\<ul class=\"submenu\"\>\<li class=\"level2\"\>\<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=admin\" class=\"action admin\" rel=\"nofollow\" title=\"Admin\"\>Admin\</a\>\</li\>\<li class=\"level2\"\>\<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=recent\" class=\"action recent\" accesskey=\"r\" rel=\"nofollow\" title=\"Recent Changes \[R\]\"\>Recent Changes\</a\>\</li\>\<li class=\"level2\"\>\<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=media&ns=resources%3Atools-software%3Alinux-drivers%3Aiio-dac\" class=\"action media\" rel=\"nofollow\" title=\"Media Manager\"\>Media Manager\</a\>\</li\>\<li class=\"level2\"\>\<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=index\" class=\"action index\" accesskey=\"x\" rel=\"nofollow\" title=\"Sitemap \[X\]\"\>Sitemap\</a\>\</li\>\</ul\>\</li\>\</ul\>
+
+```{=markdown}
+```
+          <ul class="list-inline pull-right searchmenu clearfix">
+              <li class="search-box">
+                  <form action="" accept-charset="utf-8" class="search clearfix" id="dw__search" method="get" role="search">
+                      <div class="no">
+                          <input type="hidden" name="do" value="search">
+                          <input type="text" autocomplete="off" id="qsearch__in" accesskey="f" name="id" class="edit" placeholder="search wiki">
+                          <button type="submit" value="Search" class="button search-icon" title="Search"></button>
+
+```
+```
+```{=markdown}
+```
+                          <div id="qsearch__out" class="ajax_qsearch JSpopup" style="display: none; white-space: nowrap;">
+                          </div>
+                      </div>
+                  </form>
+              </li>
+          </ul>
+      </div>
+  </div>
+
+```
+```
+\</header\> \<!\-- /.adi\_header \--\>
+
+\<!\-- Mobile view navigation drawer\--\>
+\<div class=\"wiki-mob-body\"\>
+
+```{=markdown}
+```
+  <div class="content" role="main">
+      <div class="col-md-12 wiki-head-row">
+          <div class="row ">
+              <div class="title-nophoto">
+                  <div class="container page-title ">
+                      <h1 data-page-title="true">Analog Devices Wiki</h1>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-12 floater-menu-container">
+              <div class="row product-row">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-md-2 wiki-right-panel">
+                              <div class="row">
+                                  <div class=" product-bookmarks" id="affix-nav" name="adi_products_left_navigation">
+                                      <ul class="nav" id="affix-ul">
+                                          <li class="">
+
+```
+```
+```{=markdown}
+```
+                                              <a data-toggle="collapse" data-parent="#accordion" href="#"
+                                                 name='SDR-home_2e322e80-5ec4-4b20-b8b8-71702b590a25'>Analog Devices
+                                                  Wiki
+                                              </a>
+
+```
+```
+```{=markdown}
+```
+                                          </li>
+                                          <!--Wiki-->
+                                          <ul class="list-inline pull-left nav-links clearfix">
+
+```
+```
+\<li class=\"dropdown\"\>\<div class=\"li Res\_tools\_parent\"\> \<a href=\"/resources\" class=\"wikilink1\" title=\"resources\" data-wiki-id=\"resources\"\>Resources and Tools\</a\>\</div\>
+\<ul class=\"submenu Res\_tools\_child\"\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/eval\" class=\"wikilink1\" title=\"resources:eval\" data-wiki-id=\"resources:eval\"\>Evaluation Boards & Kits\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/fpga\" class=\"wikilink1\" title=\"resources:fpga\" data-wiki-id=\"resources:fpga\"\>FPGA Reference Designs\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/quick-start\" class=\"wikilink1\" title=\"resources:quick-start\" data-wiki-id=\"resources:quick-start\"\>Quick Start Guides\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/tools-software/linux-drivers-all\" class=\"wikilink1\" title=\"resources:tools-software:linux-drivers-all\" data-wiki-id=\"resources:tools-software:linux-drivers-all\"\>Linux Software Drivers\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/no-os/drivers\" class=\"wikilink1\" title=\"resources:no-os:drivers\" data-wiki-id=\"resources:no-os:drivers\"\>Microcontroller Software Drivers\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/tools-software/ace\" class=\"wikilink1\" title=\"resources:tools-software:ace\" data-wiki-id=\"resources:tools-software:ace\"\>ACE Software\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/resources/technical-guides\" class=\"wikilink1\" title=\"resources:technical-guides\" data-wiki-id=\"resources:technical-guides\"\>Technical Guides\</a\>\</div\>
+\</li\>
+\</ul\>
+\</li\>
+\<li class=\"dropdown\"\>\<div class=\"li Res\_tools\_parent\"\> \<a href=\"/university/courses/tutorials/index\" class=\"wikilink1\" title=\"university:courses:tutorials:index\" data-wiki-id=\"university:courses:tutorials:index\"\>Education Content\</a\>\</div\>
+\<ul class=\"submenu Res\_tools\_child\"\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university\" class=\"wikilink1\" title=\"university\" data-wiki-id=\"university\"\>University Program Overview\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university/tools/m1k\" class=\"wikilink1\" title=\"university:tools:m1k\" data-wiki-id=\"university:tools:m1k\"\>ADALM1000 (M1k) Active Learning Module\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university/tools/m2k\" class=\"wikilink1\" title=\"university:tools:m2k\" data-wiki-id=\"university:tools:m2k\"\>ADALM2000 (M2k) Active Learning Module\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university/tools/adalp2000/parts-index\" class=\"wikilink1\" title=\"university:tools:adalp2000:parts-index\" data-wiki-id=\"university:tools:adalp2000:parts-index\"\>ADALP2000 Parts kit for Circuits\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university/tools/pluto\" class=\"wikilink1\" title=\"university:tools:pluto\" data-wiki-id=\"university:tools:pluto\"\>ADALM-PLUTO SDR Active Learning Module\</a\>\</div\>
+\</li\>
+\<li class=\"level2\"\>\<div class=\"li\"\> \<a href=\"/university\#teaching\_materials\_lab\_exercises\" class=\"wikilink1\" title=\"university\" data-wiki-id=\"university\"\>Teaching and Lab Materials\</a\>\</div\>
+\</li\>
+\</ul\>
+\</li\>
+\<li class=\"dropdown\"\>\<div class=\"li Res\_tools\_parent\"\> \<a href=\"/wiki/help\" class=\"wikilink1\" title=\"wiki:help\" data-wiki-id=\"wiki:help\"\>Wiki Help\</a\>\</div\>
+\<ul class=\"submenu Res\_tools\_child\"\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/wiki/help\" class=\"wikilink1\" title=\"wiki:help\" data-wiki-id=\"wiki:help\"\>Help\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/wiki/introduction\" class=\"wikilink1\" title=\"wiki:introduction\" data-wiki-id=\"wiki:introduction\"\>About Wiki\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/playground/playground\" class=\"wikilink1\" title=\"playground:playground\" data-wiki-id=\"playground:playground\"\>Playground\</a\>\</div\>
+\</li\>
+\<li class=\"level3\"\>\<div class=\"li\"\> \<a href=\"/start?do=index\" class=\"wikilink1\" title=\"start\" data-wiki-id=\"start\"\>Wiki Site Map\</a\>\</div\>
+\</li\>
+\</ul\>
+\</li\>
+\<li class=\"dropdown\"\>\<div class=\"li Res\_tools\_parent\"\>\<a href=\"\#\"\>Wiki Tools\</a\>\</div\>\<ul class=\"submenu Res\_tools\_child\"\>\<li class=\"level2\"\>\<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=admin\" class=\"action admin\" rel=\"nofollow\" title=\"Admin\"\>Admin\</a\>\</li\>\<li class=\"level2\"\>\<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=recent\" class=\"action recent\" accesskey=\"r\" rel=\"nofollow\" title=\"Recent Changes \[R\]\"\>Recent Changes\</a\>\</li\>\<li class=\"level2\"\>\<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=media&ns=resources%3Atools-software%3Alinux-drivers%3Aiio-dac\" class=\"action media\" rel=\"nofollow\" title=\"Media Manager\"\>Media Manager\</a\>\</li\>\<li class=\"level2\"\>\<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=index\" class=\"action index\" accesskey=\"x\" rel=\"nofollow\" title=\"Sitemap \[X\]\"\>Sitemap\</a\>\</li\>\</ul\>\</li\>\</ul\> \<!\--Wiki\--\>
+
+```{=markdown}
+```
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+```
+```
+```{=markdown}
+```
+          </div>
+      </div>
+      <div class="special-content">
+          <div class="accordion-group language-footer-block">
+              <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#English">English<span
+                          class="glyphicon  pull-right glyphicon-chevron-down visible-phone"></span>
+                  </a>
+              </div>
+              <div id="English" class="accordion-body collapse">
+                  <div class="accordion-inner language-footer">
+                      <a href="//www.analog.com/en/landing-pages/001/sdr/sdr-get-started.html">
+                          <img data-image-source="//assets.analog.com/images/language_en.jpg" class="mobile-images"
+                               width="100%" alt="English"/></a>
+                  </div>
+              </div>
+          </div>
+          <div class="accordion-group language-footer-block">
+              <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#简体中文">简体中文<span
+                          class="glyphicon  pull-right glyphicon-chevron-down visible-phone"></span>
+                  </a>
+              </div>
+              <div id="简体中文" class="accordion-body collapse">
+                  <div class="accordion-inner language-footer">
+                      <a href="//www.analog.com/cn/landing-pages/001/sdr/sdr-get-started.html">
+                          <img data-image-source="//assets.analog.com/images/language_cn.jpg" class="mobile-images"
+                               width="100%" alt="简体中文"/></a>
+                  </div>
+              </div>
+          </div>
+          <div class="accordion-group language-footer-block">
+              <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#日本語">日本語<span
+                          class="glyphicon  pull-right glyphicon-chevron-down visible-phone"></span>
+                  </a>
+              </div>
+              <div id="日本語" class="accordion-body collapse">
+                  <div class="accordion-inner language-footer">
+                      <a href="//www.analog.com/jp/landing-pages/001/sdr/sdr-get-started.html">
+                          <img data-image-source="//assets.analog.com/images/language_jp.jpg" class="mobile-images"
+                               width="100%" alt="日本語"/></a>
+                  </div>
+              </div>
+          </div>
+          <div class="accordion-group language-footer-block">
+              <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#Руccкий">Руccкий<span
+                          class="glyphicon  pull-right glyphicon-chevron-down visible-phone"></span>
+                  </a>
+              </div>
+              <div id="Руccкий" class="accordion-body collapse">
+                  <div class="accordion-inner language-footer">
+                      <a href="//www.analog.com/ru/landing-pages/001/sdr/sdr-get-started.html">
+                          <img data-image-source="//assets.analog.com/images/language_ru.jpg" class="mobile-images"
+                               width="100%" alt="Руccкий"/></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+```
+```
+\</div\>
+\<!\-- Mobile view navigation drawer\--\>
+
+\<!\-- /tpl\_header.php \--\>
+
+\<div id=\"dokuwiki\_\_site\" role=\"main\" class=\"main-body content\"\>
+
+```{=markdown}
+```
+  <div class="site dokuwiki mode_denied tpl_analog2014   ">
+      <div class="container">
+
+```
+```
+```{=markdown}
+```
+          <!-- ********** CONTENT ********** -->
+          <div id="dokuwiki__content">
+              <div class="pad group">
+
+```
+```
+```{=markdown}
+```
+                  <div class="page group">
+                      
+                                              <!-- wikipage start -->
+                      
+
+```
+```
+\<h1 class=\"sectionedit1\" id=\"error\_page\_not\_found\"\>Error, Page Not Found\</h1\>
+\<div class=\"level1\"\>
+
+\<p\>
+We are experiencing a problem retrieving the information you requested. We apologize for the inconvenience this has caused.
+There could be numerous reasons for this error, including a link to content that no longer exists or has moved.
+\</p\>
+
+\<p\>
+We would like to offer the following options:
+\</p\>
+
+\<p\>
+\<a href=\"/\_detail/lightning\_sign.png?id=iq4lu1\" class=\"media\" title=\"lightning\_sign.png\"\>\<img src=\"/\_media/lightning\_sign.png\" class=\"medialeft\" loading=\"lazy\" alt=\"\" /\>\</a\>
+\</p\>
+\<ul\>
+\<li class=\"level1\"\>\<div class=\"li\"\> Contact our \<a href=\"<https://www.analog.com/en/content/technical_support_page/fca.html>\" class=\"interwiki iw\_adi\" title=\"<https://www.analog.com/en/content/technical_support_page/fca.html>\"\>experienced application engineers\</a\> for product and technical questions.\</div\>
+\</li\>
+\<li class=\"level1\"\>\<div class=\"li\"\> Use our \<a href=\"<http://search.analog.com/search/default.aspx>\" class=\"urlextern\" target=\"\_blank\" title=\"<http://search.analog.com/search/default.aspx>\" rel=\"ugc nofollow noopener\"\>site search\</a\> feature.\</div\>
+\</li\>
+\<li class=\"level1\"\>\<div class=\"li\"\> Browse our \<a href=\"<https://www.analog.com/>\" class=\"interwiki iw\_adi\" title=\"<https://www.analog.com/>\"\>product category portfolio\</a\> or \<a href=\"<https://www.analog.com/>\" class=\"interwiki iw\_adi\" title=\"<https://www.analog.com/>\"\>\'Application\' microsites\</a\> or product information used within specific real-world applications.\</div\>
+\</li\>
+\<li class=\"level1\"\>\<div class=\"li\"\> Browse our \<a href=\"<https://www.analog.com/en/technical-documentation/resources/index.html>\" class=\"interwiki iw\_adi\" title=\"<https://www.analog.com/en/technical-documentation/resources/index.html>\"\>technical documentation\</a\> for application notes, white papers, etc.\</div\>
+\</li\>
+\<li class=\"level1\"\>\<div class=\"li\"\> Use our \<a href=\"<https://www.analog.com/en/pSearch.html>\" class=\"interwiki iw\_adi\" title=\"<https://www.analog.com/en/pSearch.html>\"\>product selection tools\</a\> for finding products for your design.\</div\>
+\</li\>
+\<li class=\"level1\"\>\<div class=\"li\"\> Maybe you don\'t have enough rights to continue. Perhaps you forgot to login?\</div\>
+\</li\>
+\</ul\>
+
+\<p\>
+If you are still struggling, please \<a href=\"[mailto:external%20%5Bdot%5D%20webmaster%20%5Bat%5D%20wiki%20%5Bdot%5D%20analog%20%5Bdot%5D%20com](mailto:external%20%5Bdot%5D%20webmaster%20%5Bat%5D%20wiki%20%5Bdot%5D%20analog%20%5Bdot%5D%20com)\" class=\"mail\" title=\"external \[dot\] webmaster \[at\] wiki \[dot\] analog \[dot\] com\"\>contact us\</a\> for assistance with this page.
+\</p\>
+
+\<p\>
+Again, we apologize for the inconvenience this has caused.
+\</p\>
+
+\<p\>
+Best regards,\<br/\>
+
+\<abbr title=\"Analog Devices, Inc.\"\>ADI\</abbr\> Webmaster
+\</p\>
+
+\</div\>
+
+\<h1 class=\"sectionedit1\" id=\"login\"\>Login\</h1\>
+\<div class=\"level1\"\>
+
+\<p\>
+Until January 2011, the \<a href=\"/start\" class=\"wikilink1\" title=\"start\" data-wiki-id=\"start\"\>Analog Devices Wiki\</a\> will use a different authentication mechanism (username/password) than the rest of the analog.com domain (sorry). After Jan2011, the wiki will use the registration mechanism from the main Analog Devices web site at \<a href=\"<http://my.analog.com>\" class=\"urlextern\" target=\"\_blank\" title=\"<http://my.analog.com>\" rel=\"ugc nofollow noopener\"\><http://my.analog.com>\</a\>. At this time, these temporary wiki accounts will be retired.
+\</p\>
+
+\<p\>
+\<strong\>Remember\</strong\>: You only need to be logged in to edit a page. Anyone (not logged in) can view pages.
+\</p\>
+
+\<p\>
+For now, enter your authentication credentials below to log in. You need to have cookies enabled to log in.
+\</p\>
+
+\</div\>
+\<div class=\"centeralign\"\>
+\<form id=\"dw[login\" action=\"/resources/tools-software/linux-drivers/iio-dac/ad5686\" method=\"post\" accept-charset=\"utf-8\" class=\"doku\_form\"\>\<input type=\"hidden\" name=\"sectok\" value=\"\" /\>\<input type=\"hidden\" name=\"id\" value=\"resources:tools-software:linux-drivers:iio-dac:ad5686\" /\>\<input type=\"hidden\" name=\"do\" value=\"login\" /\>\<div class=\"no\"\>\<fieldset \>
+\<legend\>Log In\</legend\>\<label for=\"focus]{.underline}this\" class=\"block\"\>
+\<span\>Username\</span\>
+\<input name=\"u\" type=\"text\" id=\"focus[this\" class=\"edit\" value=\"\" /\>
+\</label\>\<br\>
+\<label class=\"block\"\>
+\<span\>Password\</span\>
+\<input name=\"p\" type=\"password\" class=\"block edit\" value=\"\" /\>
+\</label\>\<br\>
+\<label for=\"remember]{.underline}me\"\>
+\<input name=\"r\" type=\"checkbox\" value=\"1\" id=\"remember\_\_me\" /\>
+\<span\>Remember me\</span\>
+\</label\>\<button value=\"1\" type=\"submit\"\>Log In\</button\>\</fieldset\>\</div\>\<p\>You don\'t have an account yet? Just get one: \<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=register\" title=\"Register\" rel=\"nofollow\" class=\"register\"\>Register\</a\>\</p\>\<p\>Forgotten your password? Get a new one: \<a href=\"/resources/tools-software/linux-drivers/iio-dac/ad5686?do=resendpwd\" title=\"Set new password\" rel=\"nofollow\" class=\"resendpwd\"\>Set new password\</a\>\</p\>\</form\>\</div\>
+
+```{=markdown}
+```
+                      <!-- wikipage stop -->
+                  </div>
+
+```
+```
+```{=markdown}
+```
+                  <div class="docInfo"></div>
+
+```
+```
+```{=markdown}
+```
+                                  </div>
+          </div>
+          <!-- /content -->
+
+```
+```
+```{=markdown}
+```
+          <hr class="a11y"/>
+
+```
+```
+```{=markdown}
+```
+          <!-- PAGE ACTIONS -->
+          <div id="dokuwiki__pagetools">
+              <h3 class="a11y">Page Tools</h3>
+              <div class="tools">
+                  <ul>
+                      <li class="show"><a href="/resources/tools-software/linux-drivers/iio-dac/ad5686?do=" title="Read [v]" rel="nofollow" accesskey="v"><span>Read</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5V9M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m9 16v-2H6v2h9m3-4v-2H6v2h12z"/></svg></a></li><li class="revs"><a href="/resources/tools-software/linux-drivers/iio-dac/ad5686?do=revisions" title="History [o]" rel="nofollow" accesskey="o"><span>History</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11 7v5.11l4.71 2.79.79-1.28-4-2.37V7m0-5C8.97 2 5.91 3.92 4.27 6.77L2 4.5V11h6.5L5.75 8.25C6.96 5.73 9.5 4 12.5 4a7.5 7.5 0 0 1 7.5 7.5 7.5 7.5 0 0 1-7.5 7.5c-3.27 0-6.03-2.09-7.06-5h-2.1c1.1 4.03 4.77 7 9.16 7 5.24 0 9.5-4.25 9.5-9.5A9.5 9.5 0 0 0 12.5 2z"/></svg></a></li><li class="backlink"><a href="/resources/tools-software/linux-drivers/iio-dac/ad5686?do=backlink" title="Backlinks" rel="nofollow"><span>Backlinks</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10.59 13.41c.41.39.41 1.03 0 1.42-.39.39-1.03.39-1.42 0a5.003 5.003 0 0 1 0-7.07l3.54-3.54a5.003 5.003 0 0 1 7.07 0 5.003 5.003 0 0 1 0 7.07l-1.49 1.49c.01-.82-.12-1.64-.4-2.42l.47-.48a2.982 2.982 0 0 0 0-4.24 2.982 2.982 0 0 0-4.24 0l-3.53 3.53a2.982 2.982 0 0 0 0 4.24m2.82-4.24c.39-.39 1.03-.39 1.42 0a5.003 5.003 0 0 1 0 7.07l-3.54 3.54a5.003 5.003 0 0 1-7.07 0 5.003 5.003 0 0 1 0-7.07l1.49-1.49c-.01.82.12 1.64.4 2.43l-.47.47a2.982 2.982 0 0 0 0 4.24 2.982 2.982 0 0 0 4.24 0l3.53-3.53a2.982 2.982 0 0 0 0-4.24.973.973 0 0 1 0-1.42z"/></svg></a></li><li class="menuitemfolded"><a href="javascript:void(0);" title="Fold/unfold all" rel="nofollow" class="fold_unfold_all_new" onclick="fold_unfold_all();"><span>Fold/unfold all</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M 2,0 L 6.5,3 L 2,6 z M 8,6.6 L 12.5,9.6 L 8,12.6 z M 14,13.2 L 20,13.2 L 17,17.7 z"/></svg></a></li><li class="top"><a href="#dokuwiki__top" title="[ Back to top ] [t]" rel="nofollow" accesskey="t"><span>[ Back to top ]</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg></a></li>                    </ul>
+              </div>
+          </div>
+      </div>
+      <!-- /wrapper -->
+
+```
+```
+```{=markdown}
+```
+  </div>
+  <!-- /container -->
+
+```
+```
+\</div\>
+\<!\-- /site \--\>
+
+﻿\<a class=\"backtotop\" href=\"\#header\"\> \</a\>
+\<footer class=\"footer\" id=\"footer\"\>
+
+```{=markdown}
+```
+  <div class="component GlobalShortFooter">
+      <div class="component-content">
+          <footer class='footer app-js__footer'>
+              <div class='footer__desktop-footer'>
+                  <div class='footer__legal-bumper'>
+                      <div>
+                          <ul>
+                              <li role="listitem" class="body-small"><a
+                                  href="https://www.analog.com/en/who-we-are/legal-and-risk-oversight.html"
+                                  class="custom-click-track footer__link"
+                                  custom-click-track-values="Footer|Legal and Risk|/en/who-we-are/legal-and-risk-oversight.html">Legal
+                                  and Risk</a></li>
+                              <li role="listitem" class="body-small"><a
+                                  href="https://www.analog.com/en/who-we-are/legal-and-risk-oversight/accessibility-statement.html"
+                                  class="custom-click-track footer__link"
+                                  custom-click-track-values="Footer|Accessibility|/en/who-we-are/legal-and-risk-oversight/accessibility-statement.html">Accessibility</a>
+                              </li>
+                              <li role="listitem" class="body-small"><a
+                                  href="https://www.analog.com/en/who-we-are/legal-and-risk-oversight/data-privacy/privacy-policy.html"
+                                  class="custom-click-track footer__link"
+                                  custom-click-track-values="Footer|Privacy Policy|/en/who-we-are/legal-and-risk-oversight/data-privacy/privacy-policy.html">Privacy
+                                  Policy</a></li>
+                              <li role="listitem" class="body-small"><a
+                                  href="https://www.analog.com/en/lp/001/privacy-settings.html"
+                                  class="custom-click-track footer__link"
+                                  custom-click-track-values="Footer|Privacy Settings|/en/lp/001/privacy-settings.html">Privacy
+                                  Settings</a></li>
+                              <li role="listitem" class="body-small"><a href="https://www.analog.com/en/cookie-notice.html"
+                                                                        class="custom-click-track footer__link footer__modal-btn ot-sdk-show-settings"
+                                                                        id="ot-sdk-link"
+                                                                        custom-click-track-values="Footer|Cookie Settings|/en/cookie-notice.html">Cookie
+                                  Settings</a></li>
+                          </ul>
+                      </div>
+                      <a href="https://beian.miit.gov.cn/"
+                         class="body-small footer__ipc-link-others">沪ICP备09046653号-1</a>
+                      <div><p class='footer__copyright body-small-alt-inverse'>©2024 Analog Devices, Inc. All Rights
+                          Reserved</p></div>
+                  </div>
+              </div>
+              <div class='footer__mobile-footer'>
+                  <div class='footer__mobile-legal-bumper'>
+                      <div>
+                          <ul>
+                              <li class="body-small"><a href="https://www.analog.com/en/who-we-are/legal-and-risk-oversight.html" class="">Legal
+                                  and Risk</a></li>
+                              <li class="body-small"><a
+                                  href="https://www.analog.com/en/who-we-are/legal-and-risk-oversight/accessibility-statement.html"
+                                  class="">Accessibility</a></li>
+                              <li class="body-small"><a
+                                  href="https://www.analog.com/en/who-we-are/legal-and-risk-oversight/data-privacy/privacy-policy.html"
+                                  class="">Privacy Policy</a></li>
+                              <li class="body-small"><a
+                                  href="https://www.analog.com/en/who-we-are/legal-and-risk-oversight/data-privacy.html" class="">Privacy
+                                  Settings</a></li>
+                              <li class="body-small"><a href="https://www.analog.com/en/cookie-notice.html" class="">Cookie Settings</a>
+                              </li>
+                          </ul>
+                      </div>
+                      <a href="https://beian.miit.gov.cn/" class="body-small footer__mobile-ipc-link-others">沪ICP备09046653号-1</a>
+                      <div><p class='footer__mobile-copyright body-small-alt-inverse'>©2024 Analog Devices, Inc. All
+                          Rights Reserved</p></div>
+                  </div>
+              </div>
+          </footer>
+      </div>
+  </div>
+
+```
+```
+```{=markdown}
+```
+  <script type="text/javascript">
+      var analytics = '//assets.adobedtm.com/bc68b7886092/2a726ea8b70d/launch-a4a6d55de309.min.js';
+      var cookiesToDelete = [{ "Domain": ".analog.com", "Cookie": ["__qca", "adiHintCookie", "bCrumbs", "cookieAccepted", "dmdbase_cdc", "ELOQUA", "FedAuthentication", "gpv_p14", "gpv_v100", "myAnalog_id", "Mysite_info", "s_cc", "s_dfa", "s_fid", "s_gad", "s_gpv", "s_invisit", "s_lv", "s_nr", "s_ptc", "s_sq", "s_vi", "s_vnum", "es_visited", "AdiSessionAuthCookie", "AdiSecureDlCookie"] }, { "Domain": ".investor.analog.com", "Cookie": ["ADI_BRIEFCASE", "ADI_SESSION"] }, { "Domain": "careers.analog.com", "Cookie": ["in_ref", "Per_UniqueID", "PLAY_SESSION", "VISITED_COUNTRY", "VISITED_LANG", "ext_trk", "_gat_UA-84784380-31"] }, { "Domain": "distiadmin-dev.corpnt.analog.com", "Cookie": ["ASP.NET_SessionId"] }, { "Domain": "distributor-dev.corpnt.analog.com", "Cookie": ["FedAuth1", "FedAuth", "ipe_30155_fov", "ipe.30155.pageViewedCount", "ipe_s", "_sdsat_Email Address", "dmdbase", "_sdsat_DevQaOrProd"] }, { "Domain": "ez.analog.com", "Cookie": ["containerSecurityToken", "jive.security.context", "X-JCAPI-Token ", "BIGipServerpool_vanity_analog.jiveon.com", "JSESSIONID", "jive.login.ts"] }, { "Domain": "form.analog.com", "Cookie": ["AdiSessionAuthCookie", "FedAuth1", "FedAuth", "ASP.NET_SessionId", "AlteonP", "ipe_30155_fov", "ipe.30155.pageViewedCount", "ipe_s", "_sdsat_DevQaOrProd", "adicftlassetdata", "AdiSessionAuthCookie", "_sdsat_Membership Status", "_sdsat_Email Address"] }, { "Domain": "registration.analog.com", "Cookie": ["ipe_30155_fov", "ipe.30155.pageViewedCount", "ipe_s", "registration-dev.corpnt.analog.com", "_sdsat_Email Address", "FedAuth1", "FedAuth", "_sdsat_Membership Status", "AlteonP", "ASP.NET_SessionId"] }, { "Domain": "sdk.analog.com", "Cookie": ["dmdbase", "_sdsat_DevQaOrProd", "ipe_30155_fov", "ipe.30155.pageViewedCount", "_sdsat_Membership Status", "_sdsat_Email Address", "ipe_s", "AdiSessionAuthCookie", "FedAuth1"] }, { "Domain": "shoppingcart.analog.com", "Cookie": ["ipe_30155_fov", "ipe.30155.pageViewedCount", "ipe_s", "dmdbase", "_sdsat_DevQaOrProd", "_sdsat_Membership Status", "_sdsat_Email Address", "ASP.NET_SessionId", "adiSessionAuth", "FedAuth", "FedAuth1", "analogp", "USERID", "SHOPPINGCARTID", "DISTI_COUNTRY_CODE", "AlteonP"] }, { "Domain": "webuseradmin.analog.com", "Cookie": ["ASP.NET_SessionId"] }, { "Domain": "wiki.analog.com", "Cookie": ["DokuWiki", "DW<hash>", "DOKU_PREFS"] }, { "Domain": "www.analog.com", "Cookie": ["__atuvc", "__atuvs", "_sdsat_Email Address", "_sdsat_Membership Status", "DisclaimerConfirmation", "dmdbase", "downloadGoals", "sc.ASP.NET_SESSIONID", "sc.Status", "SC_ANALYTICS_GLOBAL_COOKIE", "website#lang", "ipe.30155.pageViewedCount", "ipe_30155_fov", "ipe_s", "_sdsat_DevQaOrProd", "ASP.NET_SessionId"] }];
+  </script>
+  <script type="text/javascript">
+      var ADIAssetsPath = "//assets.analog.com";
+      var cookiesToDelete = [{ "Domain": ".analog.com", "Cookie": ["__qca", "adiHintCookie", "bCrumbs", "cookieAccepted", "dmdbase_cdc", "ELOQUA", "FedAuthentication", "gpv_p14", "gpv_v100", "myAnalog_id", "Mysite_info", "s_cc", "s_dfa", "s_fid", "s_gad", "s_gpv", "s_invisit", "s_lv", "s_nr", "s_ptc", "s_sq", "s_vi", "s_vnum", "es_visited", "AdiSessionAuthCookie", "AdiSecureDlCookie"] }, { "Domain": ".investor.analog.com", "Cookie": ["ADI_BRIEFCASE", "ADI_SESSION"] }, { "Domain": "careers.analog.com", "Cookie": ["in_ref", "Per_UniqueID", "PLAY_SESSION", "VISITED_COUNTRY", "VISITED_LANG", "ext_trk", "_gat_UA-84784380-31"] }, { "Domain": "distiadmin-dev.corpnt.analog.com", "Cookie": ["ASP.NET_SessionId"] }, { "Domain": "distributor-dev.corpnt.analog.com", "Cookie": ["FedAuth1", "FedAuth", "ipe_30155_fov", "ipe.30155.pageViewedCount", "ipe_s", "_sdsat_Email Address", "dmdbase", "_sdsat_DevQaOrProd"] }, { "Domain": "ez.analog.com", "Cookie": ["containerSecurityToken", "jive.security.context", "X-JCAPI-Token ", "BIGipServerpool_vanity_analog.jiveon.com", "JSESSIONID", "jive.login.ts"] }, { "Domain": "form.analog.com", "Cookie": ["AdiSessionAuthCookie", "FedAuth1", "FedAuth", "ASP.NET_SessionId", "AlteonP", "ipe_30155_fov", "ipe.30155.pageViewedCount", "ipe_s", "_sdsat_DevQaOrProd", "adicftlassetdata", "AdiSessionAuthCookie", "_sdsat_Membership Status", "_sdsat_Email Address"] }, { "Domain": "registration.analog.com", "Cookie": ["ipe_30155_fov", "ipe.30155.pageViewedCount", "ipe_s", "registration-dev.corpnt.analog.com", "_sdsat_Email Address", "FedAuth1", "FedAuth", "_sdsat_Membership Status", "AlteonP", "ASP.NET_SessionId"] }, { "Domain": "sdk.analog.com", "Cookie": ["dmdbase", "_sdsat_DevQaOrProd", "ipe_30155_fov", "ipe.30155.pageViewedCount", "_sdsat_Membership Status", "_sdsat_Email Address", "ipe_s", "AdiSessionAuthCookie", "FedAuth1"] }, { "Domain": "shoppingcart.analog.com", "Cookie": ["ipe_30155_fov", "ipe.30155.pageViewedCount", "ipe_s", "dmdbase", "_sdsat_DevQaOrProd", "_sdsat_Membership Status", "_sdsat_Email Address", "ASP.NET_SessionId", "adiSessionAuth", "FedAuth", "FedAuth1", "analogp", "USERID", "SHOPPINGCARTID", "DISTI_COUNTRY_CODE", "AlteonP"] }, { "Domain": "webuseradmin.analog.com", "Cookie": ["ASP.NET_SessionId"] }, { "Domain": "wiki.analog.com", "Cookie": ["DokuWiki", "DW<hash>", "DOKU_PREFS"] }, { "Domain": "www.analog.com", "Cookie": ["__atuvc", "__atuvs", "_sdsat_Email Address", "_sdsat_Membership Status", "DisclaimerConfirmation", "dmdbase", "downloadGoals", "sc.ASP.NET_SESSIONID", "sc.Status", "SC_ANALYTICS_GLOBAL_COOKIE", "website#lang", "ipe.30155.pageViewedCount", "ipe_30155_fov", "ipe_s", "_sdsat_DevQaOrProd", "ASP.NET_SessionId"] }];
+  </script>
+  <script>
+      /* Copyright 2011-2015 iPerceptions, Inc. All rights reserved. Do not distribute. iPerceptions provides this code 'as is' without warranty of any kind, either express or implied. */
+      window.iperceptionskey = 'acafac0d-3b8a-4d30-8a98-6cbcd5256d93';
+      (function() { var a = document.createElement('script'),
+          b = document.getElementsByTagName('body')[0];
+          a.type = 'text/javascript';
+          a.defer = true;
+          a.src = '//universal.iperceptions.com/wrapper.js';
+          b.appendChild(a); })();
+  </script>
+
+```
+```
+\</footer\>
+\<script type=\"text/javascript\"\>
+
+```{=markdown}
+```
+          if(typeof(_satellite) != 'undefined') {
+          _satellite.pageBottom();
+          }
+      </script>
+
+```
+```
+\<div class=\"a11y\"
+
+```{=markdown}
+```
+   style="float: left"><img src="/lib/exe/taskrunner.php?id=resources%3Atools-software%3Alinux-drivers%3Aiio-dac%3Aad5686&amp;1712703259" width="2" height="1" alt="" /></div>
+
+```
+```
+\</body\>
+\</html\>

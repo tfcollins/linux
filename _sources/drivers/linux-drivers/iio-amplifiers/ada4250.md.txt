@@ -1,0 +1,256 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-amplifiers/ada4250
+title: ADA4250 Programmable Gain Instrumentation Amplifier Linux Driver
+---
+
+ADA4250 Programmable Gain Instrumentation Amplifier Linux Driver
+================================================================
+
+Supported Devices
+-----------------
+
+-   [ADA4250](https://www.google.com/search?q=ADA4250&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-ADA4250-ARDZ](https://www.google.com/search?q=EVAL-ADA4250-ARDZ&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface PGA amplifiers.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=master?drivers/iio/amplifiers/ada4250.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/amplifiers/ada4250.c&amp;btnI=lucky">WIP</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/amplifiers/ada4250.c&amp;btnI=lucky">drivers/iio/amplifiers/ada4250.c</a></td>
+</tr>
+<tr class="even">
+<td>Documentation</td>
+<td><a href="https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio</a></td>
+</tr>
+</tbody>
+</table>
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+
+# properties
+
+**compatible:**
+
+-   enum:
+    -   adi,ada4250
+
+**reg:**
+
+-   maxItems: 1
+
+**avdd-supply:**
+
+-   description: analog voltage regulator (see regulator/regulator.txt)
+
+**adi,refbuf-enable:**
+
+-   description: Enable internal buffer to drive the reference pin.
+-   type: boolean
+
+**required:**
+
+-   compatible
+-   reg
+-   avdd-supply
+
+#### Example
+
+``` {.c}
+    spi {
+      #address-cells = <1>;
+      #size-cells = <0>;
+      status = "okay";
+      ada4250@0{
+        compatible = "adi,ada4250";
+        reg = <0>;
+        avdd-supply = <&avdd>;
+      };
+    };
+```
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The ADA4250 Driver depends on **CONFIG\_SPI**
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+                Amplifiers  --->
+                    <*> Analog Devices ADA4250 Instrumentation Amplifier
+
+```
+```
+Hardware configuration
+======================
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+root:/sys/bus/iio/devices\> **iio:device0**
+
+root:/\> **ls -l**
+-r\--r\--r\-- 1 root root 4096 May 6 12:20 dev
+-r\--r\--r\-- 1 root root 4096 May 6 12:20 name
+-rw-r\--r\-- 1 root root 4096 May 6 13:00 out\_voltage0\_calibbias
+-r\--r\--r\-- 1 root root 4096 May 6 12:20 out\_voltage0\_calibbias\_available
+-rw-r\--r\-- 1 root root 4096 May 6 13:00 out\_voltage0\_hardwaregain
+-r\--r\--r\-- 1 root root 4096 May 6 12:20 out\_voltage0\_hardwaregain\_available
+-rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_voltage0\_offset
+lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -\> ../../../../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 May 6 12:20 uevent
+```
+:::
+
+
+##### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/iio\\:device0/**
+root:/\> **cat name**
+ada4250
+```
+:::
+
+
+##### Set ChannelY Gain
+
+/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_hardwaregain\
+Hardware applied gain factor. If shared across all channels,
+\<type\>\_hardwaregain is used.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cat out\_voltage0\_hardwaregain\_available**
+0 1 2 3 4 5 6 7
+
+root:/\> **cat out\_voltage0\_hardwaregain**
+0
+
+root:/\> **echo 1 \> out\_voltage0\_hardwaregain**
+root:/\> **cat out\_voltage0\_hardwaregain**
+1
+```
+:::
+
+
+##### Set ChannelY Current Bias Set
+
+/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_calibbias\
+Current bias for different ranges of the sensor offset calibration. If shared across all channels,
+\<type\>\_calibbias is used.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cat out\_voltage0\_calibbias\_available**
+0 1 2 3
+
+root:/\> **cat out\_voltage0\_calibbias**
+0
+
+root:/\> **echo 2 \> out\_voltage0\_calibbias**
+root:/\> **cat out\_voltage0\_calibbias**
+2
+```
+:::
+
+
+##### Set ChannelY Offset value
+
+/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_offset\
+Sensor offset calibration value in uV. If shared across all channels,
+\<type\>\_offset is used.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cat out\_voltage0\_offset**
+0
+
+root:/\> **echo -32000 \> out\_voltage0\_offset**
+root:/\> **cat out\_voltage0\_offset**
+-31752
+```
+:::
+
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

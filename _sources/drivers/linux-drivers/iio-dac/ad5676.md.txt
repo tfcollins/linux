@@ -1,0 +1,479 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-dac/ad5676
+title: AD5696R: Quad, 16-Bit nanoDAC+ with 2 ppm/°C On-Chip Reference and I2C Interface
+---
+
+nanoDAC+ IIO DAC Linux Driver
+=============================
+
+Supported Devices
+-----------------
+
+This driver supports the
+
+-   [AD5310R](https://www.google.com/search?q=AD5310R&btnI=lucky)
+-   [AD5311R](https://www.google.com/search?q=AD5311R&btnI=lucky)
+-   [AD5671R](https://www.google.com/search?q=AD5671R&btnI=lucky)
+-   [AD5672R](https://www.google.com/search?q=AD5672R&btnI=lucky)
+-   [AD5673R](https://www.google.com/search?q=AD5673R&btnI=lucky)
+-   [AD5674R](https://www.google.com/search?q=AD5674R&btnI=lucky)
+-   [AD5675R](https://www.google.com/search?q=AD5675R&btnI=lucky)
+-   [AD5676](https://www.google.com/search?q=AD5676&btnI=lucky)
+-   [AD5676R](https://www.google.com/search?q=AD5676R&btnI=lucky)
+-   [AD5677R](https://www.google.com/search?q=AD5677R&btnI=lucky)
+-   [AD5679R](https://www.google.com/search?q=AD5679R&btnI=lucky)
+-   [AD5683R](https://www.google.com/search?q=AD5683R&btnI=lucky)
+-   [AD5684R](https://www.google.com/search?q=AD5684R&btnI=lucky)
+-   [AD5685R](https://www.google.com/search?q=AD5685R&btnI=lucky)
+-   [AD5686](https://www.google.com/search?q=AD5686&btnI=lucky)
+-   [AD5686R](https://www.google.com/search?q=AD5686R&btnI=lucky)
+-   [AD5691R](https://www.google.com/search?q=AD5691R&btnI=lucky)
+-   [AD5692R](https://www.google.com/search?q=AD5692R&btnI=lucky)
+-   [AD5693](https://www.google.com/search?q=AD5693&btnI=lucky)
+-   [AD5693R](https://www.google.com/search?q=AD5693R&btnI=lucky)
+-   [AD5694](https://www.google.com/search?q=AD5694&btnI=lucky)
+-   [AD5694R](https://www.google.com/search?q=AD5694R&btnI=lucky)
+-   [AD5695R](https://www.google.com/search?q=AD5695R&btnI=lucky)
+-   [AD5696](https://www.google.com/search?q=AD5696&btnI=lucky)
+-   [AD5696R](https://www.google.com/search?q=AD5696R&btnI=lucky)
+
+# Reference Circuits
+
+-   [CN0229](https://www.google.com/search?q=CN0229&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-AD5677RSDZ](https://www.google.com/search?q=EVAL-AD5677RSDZ&btnI=lucky)
+-   [EVAL-AD5679RSDZ](https://www.google.com/search?q=EVAL-AD5679RSDZ&btnI=lucky)
+-   [EVAL-AD5683RSDZ](https://www.google.com/search?q=EVAL-AD5683RSDZ&btnI=lucky)
+-   [EVAL-AD5684RSDZ](https://www.google.com/search?q=EVAL-AD5684RSDZ&btnI=lucky)
+-   [EVAL-AD5686RSDZ](https://www.google.com/search?q=EVAL-AD5686RSDZ&btnI=lucky)
+-   [EVAL-AD5693RSDZ](https://www.google.com/search?q=EVAL-AD5693RSDZ&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi-channel serial interface DACs.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/">git</a></td>
+<td><a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/iio/dac/">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/ad5686.c">https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/ad5686.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/ad5686.h">https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/ad5686.h</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/ad5686-spi.c">https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/ad5686-spi.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/ad5696-i2c.c">https://github.com/analogdevicesinc/linux/blob/master/drivers/iio/dac/ad5696-i2c.c</a></td>
+</tr>
+</tbody>
+</table>
+
+Devicetree
+----------
+
+Required devicetree properties for spi devices:
+
+-   compatible: Needs to be the name of the device. E.g. \"ad5676\"
+-   reg: The chipselect number used for the device
+-   spi-max-frequency: Maximum SPI clock frequency.
+-   spi-cpol: Needs to be set for the correct SPI mode
+-   vcc-supply: Phandle to the fixed regulator
+-   interrupts: the interrupt used for buffer sampling
+-   pwms: pwm pin used as the interrupt source
+
+```{=markdown}
+```
+        adc_vref: fixedregulator@0 {
+            compatible = "regulator-fixed";
+        regulator-name = "fixed-supply";
+        regulator-min-microvolt = <2500000>;
+        regulator-max-microvolt = <2500000>;
+        regulator-boot-on;
+    };
+
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "okay";
+
+    ad5676@0 {
+        compatible = "ad5676";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        spi-cpha;
+        vcc-supply = <&adc_vref>;
+
+             interrupts = <25 IRQ_TYPE_EDGE_RISING>;          
+             interrupt-parent = <&gpio>;                      
+                                                                                   
+             pwms = <&pwm 0 100>;                             
+             pwm-names = "pwm-trigger";
+    };
+
+```
+```
+Required devicetree properties for i2c devices:
+
+-   compatible: Needs to be the name of the device. E.g. \"AD5696\"
+-   reg: The chipselect number used for the device
+-   vcc-supply: Phandle to the fixed regulator
+-   interrupts: the interrupt used for buffer sampling
+-   pwms: pwm pin used as the interrupt source
+
+```{=markdown}
+```
+        adc_vref: fixedregulator@0 {
+            compatible = "regulator-fixed";
+        regulator-name = "fixed-supply";
+        regulator-min-microvolt = <2500000>;
+        regulator-max-microvolt = <2500000>;
+        regulator-boot-on;
+    };
+
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "okay";
+
+    ad5696@e {
+            compatible = "ad5696";
+            reg = <0xe>;
+            vcc-supply = <&adc_vref>;
+
+                 interrupts = <25 IRQ_TYPE_EDGE_RISING>;          
+                 interrupt-parent = <&gpio>;                      
+                                                                                   
+                 pwms = <&pwm 0 100>;                             
+                 pwm-names = "pwm-trigger";
+    };
+
+```
+```
+Driver testing
+==============
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+
+root:/sys/bus/iio/devices\> **cd iio\\:device0**
+
+root:/sys/bus/iio/devices/iio:device0\> **ls -l**
+drwxr-xr-x 2 root root 0 Jul 31 15:17 buffer
+-r\--r\--r\-- 1 root root 4096 Jul 31 15:17 dev
+-r\--r\--r\-- 1 root root 4096 Jul 31 15:17 name
+lrwxrwxrwx 1 root root 0 Jul 31 15:17 of\_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/ad5679r\@0
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage0\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage0\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage0\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage10\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage10\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage10\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage11\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage11\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage11\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage12\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage12\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage12\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage13\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage13\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage13\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage14\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage14\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage14\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage15\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage15\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage15\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage1\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage1\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage1\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage2\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage2\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage2\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage3\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage3\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage3\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage4\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage4\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage4\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage5\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage5\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage5\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage6\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage6\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage6\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage7\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage7\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage7\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage8\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage8\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage8\_raw
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage9\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage9\_powerdown\_mode
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage9\_raw
+-r\--r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage\_powerdown\_mode\_available
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage\_sampling\_frequency
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 out\_voltage\_scale
+drwxr-xr-x 2 root root 0 Jul 31 15:17 power
+drwxr-xr-x 2 root root 0 Jul 31 15:17 scan\_elements
+lrwxrwxrwx 1 root root 0 Jul 31 15:17 subsystem -\> ../../../../../../../../bus/iio
+drwxr-xr-x 2 root root 0 Jul 31 15:17 trigger
+-rw-r\--r\-- 1 root root 4096 Jul 31 15:17 uevent
+```
+:::
+
+
+##### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat name**
+ad5696
+```
+:::
+
+
+##### Show scale
+
+**Description:**\
+scale to be applied to in\_voltage0\_raw in order to obtain the measured voltage in millivolts.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> \*\*cat out\_voltage\_scale \*\*
+0.038146972
+```
+:::
+
+
+##### Set channel Y output voltage
+
+**Description:**\
+/sys/bus/iio/devices/deviceX/out\_voltageY\_raw\
+Raw (unscaled, no bias etc.) output voltage for
+channel Y.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **echo 10000 \> out\_voltage0\_raw**
+```
+:::
+
+
+**U** = *out\_voltage0\_raw \* out\_voltage\_scale* = 10000 \* 0.038140 = **381.40 *mV***
+
+##### List available power down modes
+
+/sys/bus/iio/devices/deviceX/out\_powerdown\_mode\_available
+
+**Description:**\
+Lists all available output power down modes.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat out\_voltage\_powerdown\_mode\_available**
+1kohm\_to\_gnd 100kohm\_to\_gnd three\_state
+```
+:::
+
+
+##### Set channel Y power down mode
+
+/sys/bus/iio/devices/deviceX/out\_voltageY\_powerdown\_mode
+
+**Description:**\
+Specifies the output power down mode.
+DAC output stage is disconnected from the amplifier and\
+
+<table>
+<tbody>
+<tr class="odd">
+<td>1kohm_to_gnd</td>
+<td>connected to ground via an 1kOhm resistor</td>
+</tr>
+<tr class="even">
+<td>100kohm_to_gnd</td>
+<td>connected to ground via an 100kOhm resistor</td>
+</tr>
+<tr class="odd">
+<td>three_state</td>
+<td>left floating</td>
+</tr>
+</tbody>
+</table>
+
+For a list of available output power down options read
+out\_voltageX\_powerdown\_mode\_available.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **echo three\_state \> out\_voltage0\_powerdown\_mode**
+root:/sys/bus/iio/devices/iio:device0\> **cat out\_voltage0\_powerdown\_mode**
+three\_state
+```
+:::
+
+
+##### Enable power down mode on output Y
+
+/sys/bus/iio/devices/deviceX/out\_voltageY\_powerdown
+
+**Description:**\
+Writing 1 causes output Y to enter the power down mode specified
+by the corresponding out\_voltageY\_powerdown\_mode. Clearing returns to
+normal operation. Y may be suppressed if all outputs are
+controlled together.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **echo 1 \> out\_voltage0\_powerdown**
+root:/sys/bus/iio/devices/iio:device0\> **cat out\_voltage0\_powerdown**
+1
+root:/sys/bus/iio/devices/iio:device0\> **echo 0 \> out\_voltage0\_powerdown**
+root:/sys/bus/iio/devices/iio:device0\> **cat out\_voltage0\_powerdown**
+0
+```
+:::
+
+
+Buffer Support
+==============
+
+**Description:**\
+The nanoDAC family of devices has buffer support for changing the output of the DAC channels. To achieve this a PWM signal is used as the device trigger to output data. Using a sampling frequency attribute the period of the PWM signal can be changed. The sampling frequency is in Hz.
+
+\<note important\>In order to use this functionality the **interrupt** pin must be tied to the **PWM** generation pin\</note\>
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0 \$ cat out\_voltage\_sampling\_frequency
+1000
+root\@analog:/sys/bus/iio/devices/iio:device0\# echo 2000 \> out\_voltage\_sampling\_frequency
+root\@analog:/sys/bus/iio/devices/iio:device0\# cat out\_voltage\_sampling\_frequency
+2000
+```
+:::
+
+
+###### Enable buffered channels
+
+**Description:**\
+The user has to enable on what channels to output the buffer samples. The samples are interleaved in the following in the order of the enabled channels.
+
+**Example:**\
+\<note tip\>**sample\_ch0|sample\_ch1|sample\_ch2**\</note\>
+If only channel 1 is enabled the buffer samples will have the following configuration:
+\<note tip\>**sample\_ch1|sample\_ch1|sample\_ch1**\</note\>
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0\# cd scan\_elements/
+root\@analog:/sys/bus/iio/devices/iio:device0/scan\_elements\# ls
+out\_voltage0\_en out\_voltage10\_type out\_voltage12\_index out\_voltage14\_en out\_voltage15\_type out\_voltage2\_index out\_voltage4\_en out\_voltage5\_type out\_voltage7\_index out\_voltage9\_en
+out\_voltage0\_index out\_voltage11\_en out\_voltage12\_type out\_voltage14\_index out\_voltage1\_en out\_voltage2\_type out\_voltage4\_index out\_voltage6\_en out\_voltage7\_type out\_voltage9\_index
+out\_voltage0\_type out\_voltage11\_index out\_voltage13\_en out\_voltage14\_type out\_voltage1\_index out\_voltage3\_en out\_voltage4\_type out\_voltage6\_index out\_voltage8\_en out\_voltage9\_type
+out\_voltage10\_en out\_voltage11\_type out\_voltage13\_index out\_voltage15\_en out\_voltage1\_type out\_voltage3\_index out\_voltage5\_en out\_voltage6\_type out\_voltage8\_index
+out\_voltage10\_index out\_voltage12\_en out\_voltage13\_type out\_voltage15\_index out\_voltage2\_en out\_voltage3\_type out\_voltage5\_index out\_voltage7\_en out\_voltage8\_type
+root\@analog:/sys/bus/iio/devices/iio:device0/scan\_elements\# echo 1 \> out\_voltage0\_en
+
+root\@analog:/sys/bus/iio/devices/iio:device0/scan\_elements\# cd ../buffer/
+root\@analog:/sys/bus/iio/devices/iio:device0/buffer\# ls
+data\_available enable length watermark
+root\@analog:/sys/bus/iio/devices/iio:device0/buffer\# echo 1 \> enable
+```
+:::
+
+
+**Sending a buffer sample example:**\
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0/buffer\# echo -n -e \'\\x22\\x33\' \> /dev/iio\\:device0
+```
+:::
+
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

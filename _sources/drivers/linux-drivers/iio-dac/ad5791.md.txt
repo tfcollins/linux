@@ -1,0 +1,460 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-dac/ad5791
+title: AD5791: 1 ppm 20-Bit, ±1 LSB INL, Voltage Output DAC
+---
+
+AD5791 IIO DAC Linux Driver
+===========================
+
+Supported Devices
+-----------------
+
+-   [AD5760](https://www.google.com/search?q=AD5760&btnI=lucky)
+-   [AD5780](https://www.google.com/search?q=AD5780&btnI=lucky)
+-   [AD5781](https://www.google.com/search?q=AD5781&btnI=lucky)
+-   [AD5790](https://www.google.com/search?q=AD5790&btnI=lucky)
+-   [AD5791](https://www.google.com/search?q=AD5791&btnI=lucky)
+
+Reference Circuits
+------------------
+
+-   [CN0177](https://www.google.com/search?q=CN0177&btnI=lucky)
+-   [CN0191](https://www.google.com/search?q=CN0191&btnI=lucky)
+-   [CN0200](https://www.google.com/search?q=CN0200&btnI=lucky)
+-   [CN0257](https://www.google.com/search?q=CN0257&btnI=lucky)
+-   [CN0278](https://www.google.com/search?q=CN0278&btnI=lucky)
+-   [CN0318](https://www.google.com/search?q=CN0318&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-AD5760SDZ](https://www.google.com/search?q=EVAL-AD5760SDZ&btnI=lucky)
+-   [EVAL-AD5780SDZ](https://www.google.com/search?q=EVAL-AD5780SDZ&btnI=lucky)
+-   [EVAL-AD5781SDZ](https://www.google.com/search?q=EVAL-AD5781SDZ&btnI=lucky)
+-   [EVAL-AD5790SDZ](https://www.google.com/search?q=EVAL-AD5790SDZ&btnI=lucky)
+-   [EVAL-AD5791SDZ](https://www.google.com/search?q=EVAL-AD5791SDZ&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single-channel serial interface DACs.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5791.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5791.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5791.c&amp;btnI=lucky">drivers/iio/dac/ad5791.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5791.h&amp;btnI=lucky">drivers/iio/dac/ad5791.h</a></td>
+</tr>
+</tbody>
+</table>
+
+Example platform device initialization
+======================================
+
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+
+The reference voltage may vary between boards and models. The platform\_data for the device\'s \"struct device\" holds this information.
+
+``` {.c}
+/**
+ * struct ad5791_platform_data - platform specific information
+ * @vref_pos_mv:    Vdd Positive Analog Supply Volatge (mV)
+ * @vref_neg_mv:    Vdd Negative Analog Supply Volatge (mV)
+ * @use_rbuf_gain2: ext. amplifier connected in gain of two configuration
+ */
+
+struct ad5791_platform_data {
+    u16             vref_pos_mv;
+    u16             vref_neg_mv;
+    bool                use_rbuf_gain2;
+};
+```
+
+:::{NOTE} <!-- ATTRS: tip\="" -->
+
+This driver supports also an alternative way of specifying the reference voltage, by using the Linux regulator framework.
+
+:::
+
+
+Specifying reference voltage via the regulator framework
+--------------------------------------------------------
+
+Below example specifies a 30 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
+
+``` {.c}
+# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+static struct regulator_consumer_supply ad5791_consumer_supplies_vdd[] = {
+    REGULATOR_SUPPLY("vdd", "spi0.3"),
+};
+
+static struct regulator_init_data stamp_avdd_reg_init_data = {
+    .constraints    = {
+        .name   = "10V0",
+        .valid_ops_mask = REGULATOR_CHANGE_STATUS,
+    },
+    .consumer_supplies = ad5791_consumer_supplies_vdd,
+    .num_consumer_supplies = ARRAY_SIZE(ad5791_consumer_supplies_vdd),
+};
+
+static struct fixed_voltage_config stamp_vdd_pdata = {
+    .supply_name    = "board+10V0",
+    .microvolts = 10000000,
+    .gpio       = -EINVAL,
+    .enabled_at_boot = 0,
+    .init_data  = &stamp_avdd_reg_init_data,
+};
+static struct platform_device brd_voltage_regulator_vdd = {
+    .name       = "reg-fixed-voltage",
+    .id     = 0,
+    .num_resources  = 0,
+    .dev        = {
+        .platform_data  = &stamp_vdd_pdata,
+    },
+};
+
+static struct regulator_consumer_supply ad5791_consumer_supplies_vss[] = {
+    REGULATOR_SUPPLY("vss", "spi0.3"),
+};
+
+static struct regulator_init_data stamp_avss_reg_init_data = {
+    .constraints    = {
+        .name   = "-10V0",
+        .valid_ops_mask = REGULATOR_CHANGE_STATUS,
+    },
+    .consumer_supplies = ad5791_consumer_supplies_vss,
+    .num_consumer_supplies = ARRAY_SIZE(ad5791_consumer_supplies_vss),
+};
+
+static struct fixed_voltage_config stamp_vss_pdata = {
+    .supply_name    = "board-10V0",
+    .microvolts = 10000000,
+    .gpio       = -EINVAL,
+    .enabled_at_boot = 0,
+    .init_data  = &stamp_avss_reg_init_data,
+};
+static struct platform_device brd_voltage_regulator_vss = {
+    .name       = "reg-fixed-voltage",
+    .id     = 1,
+    .num_resources  = 0,
+    .dev        = {
+        .platform_data  = &stamp_vss_pdata,
+    },
+};
+## endif
+```
+
+``` {.c}
+static struct platform_device *board_devices[] __initdata = {
+# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+    &brd_voltage_regulator_vss,
+    &brd_voltage_regulator_vdd,
+## endif
+};
+```
+
+``` {.c}
+static int __init board_init(void)
+{
+    [--snip--]
+
+    platform_add_devices(board_devices, ARRAY_SIZE(board_devices));
+
+    [--snip--]
+
+    return 0;
+}
+arch_initcall(board_init);
+```
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+
+Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
+It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+
+``` {.c}
+static struct spi_board_info board_spi_board_info[] __initdata = {
+## if defined(CONFIG_AD5791) || \
+    defined(CONFIG_AD5791
+_MODULE)
+    {
+        /* the modalias must be the same as spi device driver name */
+        .modalias = "ad5791", /* Name of spi_driver for this device */
+        .max_speed_hz = 1000000,     /* max spi clock (SCK) speed in HZ */
+        .bus_num = 0, /* Framework bus number */
+        .chip_select = 3, /* Framework chip select */
+        .platform_data = &ad5791_pdata,
+        .mode = SPI_MODE_3,
+    },
+## endif
+};
+```
+
+``` {.c}
+static int __init board_init(void)
+{
+    [--snip--]
+
+    spi_register_board_info(board_spi_board_info, ARRAY_SIZE(board_spi_board_info));
+
+    [--snip--]
+
+    return 0;
+}
+arch_initcall(board_init);
+```
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The AD5791 Driver depends on **CONFIG\_SPI**
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        ...
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            ...
+            Digital to analog converters  ---> 
+                ...
+                <*>   Analog Devices AD5760/AD5780/AD5781/AD5790/AD5791 DAC SPI driver
+                ...
+            ...
+        ...
+
+
+```
+```
+Hardware configuration
+======================
+
+![ad5791\_eval\_lr.jpg](/software/driver/linux/ad5791_eval_lr.jpg){width="600"}
+
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+device0
+
+root:/sys/bus/iio/devices\> **cd device0**
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
+drwxr-xr-x 2 root root 0 Jan 4 12:28 .
+drwxr-xr-x 3 root root 0 Jan 4 12:28 ..
+-r\--r\--r\-- 1 root root 4096 Jan 4 12:28 name
+-rw-r\--r\-- 1 root root 4096 Jan 4 12:29 out\_voltage0\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jan 4 12:30 out\_voltage0\_raw
+-rw-r\--r\-- 1 root root 4096 Jan 4 12:28 out\_voltage\_powerdown\_mode
+-r\--r\--r\-- 1 root root 4096 Jan 4 12:28 out\_voltage\_powerdown\_mode\_available
+-r\--r\--r\-- 1 root root 4096 Jan 4 12:28 out\_voltage\_scale
+lrwxrwxrwx 1 root root 0 Jan 4 12:28 subsystem -\> ../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 Jan 4 12:28 uevent
+```
+:::
+
+
+##### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+ad5791
+```
+:::
+
+
+##### Show scale
+
+**Description:**\
+scale to be applied to out\_voltage0\_raw in order to obtain the measured voltage in millivolts.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage\_scale**
+0.019
+```
+:::
+
+
+##### Set channel Y output voltage
+
+**Description:**\
+/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_raw\
+Raw (unscaled, no bias etc.) output voltage for
+channel Y.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> echo 131579 \> out\_voltage0\_raw
+```
+:::
+
+
+**U** = *out\_voltage0\_raw \* out\_voltage\_scale* = 131579 \* 0.019 = **2500.001 *mV***
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> echo -131579 \> out\_voltage0\_raw
+```
+:::
+
+
+**U** = *out\_voltage0\_raw \* out\_voltage\_scale* = -131579 \* 0.019 = **-2500.001 *mV***
+
+##### List available power down modes
+
+/sys/bus/iio/devices/iio:deviceX/out\_voltage\_powerdown\_mode\_available
+
+**Description:**\
+Lists all available output power down modes.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage\_powerdown\_mode\_available**
+6kohm\_to\_gnd three\_state
+```
+:::
+
+
+##### Set power down mode
+
+/sys/bus/iio/devices/iio:deviceX/out\_voltage\_powerdown\_mode
+
+**Description:**\
+Specifies the output power down mode.
+DAC output stage is disconnected from the amplifier and\
+
+<table>
+<tbody>
+<tr class="odd">
+<td>6kohm_to_gnd</td>
+<td>connected to ground via an 6kOhm resistor</td>
+</tr>
+<tr class="even">
+<td>three_state</td>
+<td>left floating</td>
+</tr>
+</tbody>
+</table>
+
+For a list of available output power down options read
+out\_voltage\_powerdown\_mode\_available.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo three\_state \> out\_voltage\_powerdown\_mode**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage\_powerdown\_mode**
+three\_state
+```
+:::
+
+
+##### Enable power down mode on output Y
+
+/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_powerdown
+
+**Description:**\
+Writing 1 causes output Y to enter the power down mode specified
+by the corresponding out\_voltageY\_powerdown\_mode. Clearing returns to
+normal operation. Y may be suppressed if all outputs are
+controlled together.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 1 \> out\_voltage0\_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage0\_powerdown**
+1
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 0 \> out\_voltage0\_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage0\_powerdown**
+0
+```
+:::
+
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -1,0 +1,467 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-transceiver/adar1000
+title: ADAR1000: 8 GHz to 16 GHz, 4-Channel, X Band and Ku Band Beamformer
+---
+
+ADAR1000 8 GHz to 16 GHz, 4-Channel, X Band and KuBand Beamformer Linux device driver
+=====================================================================================
+
+The ADAR1000 is a 4-channel, X and Ku frequency band, beamforming core chip for phased arrays. This device operates in half-duplex between receive and transmit modes. In receive mode, input signals pass through four receive channels and are combined in a common RF\_IO pin. In transmit mode, the RF\_IO input signal is split and passes through the four transmit channels. In both modes, the ADAR1000 provides a ≥31 dB gain adjustment range and a full 360° phase adjustment range in the radio frequency (RF) path, with 6-bit resolution (less than ≤0.5 dB and 2.8°, respectively).
+
+Supported Devices
+-----------------
+
+-   [ADAR1000](https://www.google.com/search?q=ADAR1000&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [eval-adar1000](https://www.google.com/search?q=eval-adar1000&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting RF Transceivers.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/adar1000.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/adar1000.c&amp;btnI=lucky">No</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master/drivers/iio/beamformer/adar1000.c&amp;btnI=lucky">drivers/iio/beamformer/adar1000.c</a></td>
+</tr>
+<tr class="even">
+<td>devicetree bindings</td>
+<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/adc/adi,adar1000.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/adc/adi,adar1000.yaml</a></td>
+</tr>
+</tbody>
+</table>
+
+Example Linux Device-Tree Initialization
+========================================
+
+The ADAR1000 driver is a spi-bus driver and can currently only be instantiated via device tree.
+
+Required devicetree properties:
+
+-   compatible: Should always be \"adi,adar1000\"
+-   reg: SPI slave select number
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RPI Device Tree</td>
+<td><a href="https://github.com/analogdevicesinc/linux/tree/rpi-4.19.y/arch/arm/boot/dts/overlays/rpi-adar1000-overlay.dts">rpi-adar1000-overlay.dts</a></td>
+</tr>
+</tbody>
+</table>
+
+Enabling Linux driver support
+=============================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The ADAR1000 driver depends on **CONFIG\_SPI**
+
+:::
+
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+    <*>     Industrial I/O support --->
+        --- Industrial I/O support
+        -*-   Enable ring buffer support within IIO
+        -*-     Industrial I/O lock free software ring
+        -*-   Enable triggered sampling support
+
+              *** Analog to digital converters ***
+        [--snip--]
+
+        <*>   Analog Devices ADAR1000 Beamformer driver 
+
+        [--snip--]
+
+```
+```
+Driver testing / API
+====================
+
+\<note important\>SPI writes and reads for certain attributes are delayed because of how the hardware behaves. So, updates to certain properties take a couple of seconds to be reflected in a read-back from hardware.\</note\>
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+[**General attribute naming convention:**]{.underline}\
+in\_voltage0\_\[...\]: targets RX1\
+in\_voltage1\_\[...\]: targets RX2\
+out\_voltage0\_\[...\]: targets TX1\
+out\_voltage1\_\[...\]: targets TX2\
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0 iio:device1 iio:device2 iio:device3
+
+root:/sys/bus/iio/devices\> **cd iio:device0**
+
+root:/sys/bus/iio/devices/iio:device1\# ls -l
+total 0
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 bias\_current\_rx
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 bias\_current\_rx\_lna
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 bias\_current\_tx
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 bias\_current\_tx\_drv
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 dev
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 gen\_clk\_cycles
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_temp0\_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage0\_RX\_beam\_pos\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage0\_RX\_beam\_pos\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage0\_RX\_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage0\_RX\_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage0\_RX\_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage1\_RX\_beam\_pos\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage1\_RX\_beam\_pos\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage1\_RX\_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage1\_RX\_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage1\_RX\_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage2\_RX\_beam\_pos\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage2\_RX\_beam\_pos\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage2\_RX\_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage2\_RX\_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage2\_RX\_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage3\_RX\_beam\_pos\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage3\_RX\_beam\_pos\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage3\_RX\_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage3\_RX\_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage3\_RX\_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage\_bias\_set\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage\_bias\_set\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage\_sequence\_end
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in\_voltage\_sequence\_start
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 label
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 lna\_bias\_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 lna\_bias\_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 name
+lrwxrwxrwx 1 root root 0 Oct 27 09:10 of\_node -\> ../../../../../../../../firmware/devicetree/base/fpga-axi\@0/axi\_quad\_spi\@85200000/adar1000\@1/dev\@0
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_beam\_pos\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_beam\_pos\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_detector\_en
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_pa\_bias\_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_pa\_bias\_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage0\_TX\_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_beam\_pos\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_beam\_pos\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_detector\_en
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_pa\_bias\_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_pa\_bias\_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage1\_TX\_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_beam\_pos\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_beam\_pos\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_detector\_en
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_pa\_bias\_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_pa\_bias\_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage2\_TX\_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_beam\_pos\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_beam\_pos\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_detector\_en
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_pa\_bias\_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_pa\_bias\_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage3\_TX\_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage\_bias\_set\_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage\_bias\_set\_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage\_sequence\_end
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out\_voltage\_sequence\_start
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 phase\_table\_config
+drwxrwxrwx 2 root root 0 Oct 27 09:10 power
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 reset
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 rx\_lna\_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 rx\_vga\_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 rx\_vm\_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 sequencer\_enable
+lrwxrwxrwx 1 root root 0 Oct 27 09:10 subsystem -\> ../../../../../../../../bus/iio
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 tx\_lna\_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 tx\_vga\_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 tx\_vm\_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 uevent
+root:/sys/bus/iio/devices/iio:device0\#
+```
+:::
+
+
+Show device name
+----------------
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat name**
+adar1000
+```
+:::
+
+
+RX/TX Phase Control
+-------------------
+
+The default phase control is provided by table 13 of the [ADAR1000 datasheet](https://www.google.com/search?q=media/en/technical-documentation/data-sheets/ADAR1000.pdf&btnI=lucky). This is the configuration used at device startup.
+
+Standard Table:
+
+<table>
+<thead>
+<tr class="header">
+<th>Phase (Degrees)</th>
+<th>I Reg (Hex)</th>
+<th>Q Reg (Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0 ... 360</td>
+<td>0x3F</td>
+<td>0x20</td>
+</tr>
+</tbody>
+</table>
+
+Custom phase tables can be loaded automatically during driver probe or anytime later via the phase\_table\_config sysfs attribute.
+Tables must be stored in the /firmware folder, or compiled into the kernel using the CONFIG\_FIRMWARE\_IN\_KERNEL, CONFIG\_EXTRA\_FIRMWARE config options.
+The table loaded during driver probe can be specified using following device tree property:
+
+**adi,phasetable-name** = \"adar1000\_std\_phasetable\";
+
+In case no table is specified or loaded, the driver will continue to use the provided standard phase table.
+
+Phase table is stored in a human readable file, with the format specified below.
+
+Example: [adar1000\_std\_phasetable](https://www.google.com/search?q=master?firmware/adar1000_std_phasetable&btnI=lucky)
+
+```{=markdown}
+```
+ <phasetable [ADAR1000] table entries=no_of_entries>
+ phase_in_degrees, reg_I, reg_Q
+ phase_in_degrees, reg_I, reg_Q
+ phase_in_degrees, reg_I, reg_Q
+ …
+ </phasetable>
+
+```
+```
+**Assumptions:**\
+
+-   phase tables must be monotonic
+
+# Loading a gain table
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0\# ls /firmware/adar\*
+adar1000\_std\_phasetable
+
+root\@analog:/sys/bus/iio/devices/iio:device0\# cat /firmware/adar1000\_std\_phasetable \> phase\_table\_config
+```
+:::
+
+
+#### Reading a gain table
+
+Reading the phase\_table\_config attribute returns the current phase table that is loaded into the IC.
+The printed format matches the format used in the phasetable file.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root\@analog:/sys/bus/iio/devices/iio:device0\# cat phase\_table\_config
+\<phasetable ADAR1000 table entries=64\>
+0.000, 0x3F, 0x20
+2.812, 0x3F, 0x21
+5.625, 0x3F, 0x23
+8.437, 0x3F, 0x24
+11.250, 0x3F, 0x26
+14.040, 0x3E, 0x27
+16.875, 0x3E, 0x28
+19.687, 0x3D, 0x2A
+22.500, 0x3D, 0x2B
+25.312, 0x3C, 0x2D
+
+\[\--snip\--\]
+
+165.937, 0x1E, 0x27
+168.750, 0x1E, 0x26
+171.562, 0x1F, 0x24
+174.375, 0x1F, 0x23
+177.187, 0x1F, 0x21
+\</phasetable\>
+```
+:::
+
+
+RAM memory access
+-----------------
+
+On-chip RAM is provided for storing phase and amplitude settings for up to 121 beam positions and seven bias settings for both transmit and receive modes.
+
+#### Save/Load beam position
+
+A beam position can be written to ram and loaded afterwards from that memory location (index).
+
+##### Save beam position command
+
+```{=markdown}
+```
+echo 0, -11.0, 15.4 > /sys/bus/iio/devices/iio\:device0/in_voltage1_RX_beam_pos_save
+
+```
+```
+This command can be decoded using this enumeration:
+\<note tip\>beam\_position, gain\_value, phase\_value\</note\>
+Values for **gain\_value** and **phase\_value** must be in integer and fractional part. **beam\_position** can take values from 0 to 120.
+
+##### Load beam position command
+
+```{=markdown}
+```
+echo 10 > in_voltage1_RX_beam_pos_load
+
+```
+```
+To load a position just write the position number in the load attribute for the required channel.
+
+#### Save/Load bias settings
+
+Seven memory locations are also provided for storing bias settings for all the transmit and receive channel subcircuits.
+
+##### Save RX bias settings
+
+```{=markdown}
+```
+echo 0, 1, 2, 3, 4 > in_voltage_bias_set_save
+
+```
+```
+The values written here correspond the the following diagram:
+
+\<note tip\>bias\_setting\_index, LNA\_BIAS\_OFF, LNA\_BIAS\_ON, BIAS\_CURRENT\_RX, BIAS\_CURRENT\_RX\_LNA\</note\>
+
+##### Save TX bias settings
+
+```{=markdown}
+```
+echo 1, 10, 2, 3, 5, 6, 7, 8, 9, 10, 11 > out_voltage_bias_set_save
+
+```
+```
+The values written here correspond the the following diagram:
+
+\<note tip\>bias\_setting\_index, CH1\_PA\_BIAS\_OFF, CH2\_PA\_BIAS\_OFF, CH3\_PA\_BIAS\_OFF, CH1\_PA\_BIAS\_ON, CH2\_PA\_BIAS\_ON, CH3\_PA\_BIAS\_ON, CH4\_PA\_BIAS\_OFF, CH4\_PA\_BIAS\_ON, BIAS\_CURRENT\_TX, BIAS\_CURRENT\_TX\_DRV\</note\>
+
+##### Load bias settings
+
+```{=markdown}
+```
+echo 5 > out_voltage_bias_set_load
+echo  > in_voltage_bias_set_load
+
+```
+```
+For loading a different bias setting the operations is the same for RX and TX channels.
+
+#### Memory sequencer
+
+The beam can be stepped sequentially through the positions stored in memory. To use this feature the following steps must be executed:
+
+1.  load sequence start
+2.  load sequence end
+3.  enable sequencer
+4.  generate clock cycles
+5.  pulse TX/RX Load pin
+
+```{=markdown}
+```
+echo 10 > in_voltage_sequence_start
+echo 20 > in_voltage_sequence_end
+echo 1 > sequencer_enable
+echo 1 > gen_clk_cycles
+
+```
+```
+Low level register access via debugfs (direct\_reg\_access)
+===========================================================
+
+![iio\_snippets\#low\_level\_register\_access\_via\_debugfs\_direct\_reg\_access&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn)
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

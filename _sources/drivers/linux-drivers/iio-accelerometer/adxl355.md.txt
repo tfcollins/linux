@@ -1,0 +1,384 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-accelerometer/adxl355
+title: ADXL355: Low Noise, Low Drift, Low Power, 3-Axis MEMS Accelerometers
+---
+
+ADXL355 Low Noise, Low Drift, Low Power, 3-Axis MEMS Accelerometers
+===================================================================
+
+Supported Devices
+-----------------
+
+-   [ADXL355](https://www.google.com/search?q=ADXL355&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-ADXL355-PMDZ](https://www.google.com/search?q=EVAL-ADXL355-PMDZ&btnI=lucky)
+-   [EVAL-ADXL35X](https://www.google.com/search?q=EVAL-ADXL35X&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface accelerometers.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/iio/accel/adxl355_core.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/accel/adxl355_core.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>core driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl355_core.c&amp;btnI=lucky">drivers/iio/accel/adxl355_core.c</a></td>
+</tr>
+<tr class="even">
+<td>spi driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl355_spi.c&amp;btnI=lucky">drivers/iio/accel/adxl355_spi.c</a></td>
+</tr>
+<tr class="odd">
+<td>i2c driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl355_i2c.c&amp;btnI=lucky">drivers/iio/accel/adxl355_i2c.c</a></td>
+</tr>
+<tr class="even">
+<td>header</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl355.h&amp;btnI=lucky">drivers/iio/accel/adxl355.h</a></td>
+</tr>
+<tr class="odd">
+<td>Documentation</td>
+<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/accel/adi,adxl355.yaml&amp;btnI=lucky">adi,adxl355.yaml</a></td>
+</tr>
+</tbody>
+</table>
+
+Example platform device initialization
+======================================
+
+Required devicetree properties:
+
+-   compatible: Needs to be the name of the device. E.g. \"adi,adxl355\"
+-   reg: the I2C address or SPI chip select number for the device
+
+Required properties for SPI bus usage:
+
+-   spi-max-frequency: Maximum SPI clock frequency.
+
+Optional properties:
+
+-   interrupts: a list of interrupt specifiers
+
+Example for a SPI device node:
+
+```{=markdown}
+```
+        #include <dt-bindings/gpio/gpio.h>
+        #include <dt-bindings/interrupt-controller/irq.h>
+        spi {
+                #address-cells = <1>;
+                #size-cells = <0>;
+                accelerometer@0 {
+                        compatible = "adi,adxl355";
+                        reg = <0>;
+                        spi-max-frequency = <1000000>;
+                        interrupt-parent = <&gpio>;
+                        interrupts = <25 IRQ_TYPE_EDGE_RISING>;
+                        interrupt-names = "DRDY";
+                };
+        };
+
+```
+```
+Example for a I2C device node:
+
+```{=markdown}
+```
+       i2c {
+                #address-cells = <1>;
+                #size-cells = <0>;
+                /* Example for a I2C device node */
+                accelerometer@1d {
+                        compatible = "adi,adxl355";
+                        reg = <0x1d>;
+                        interrupt-parent = <&gpio>;
+                        interrupts = <25 IRQ_TYPE_EDGE_RISING>;
+                        interrupt-names = "DRDY";
+                };
+        };
+
+```
+```
+Driver testing
+==============
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+
+root:/sys/bus/iio/devices\> **cd iio\\:device0**
+
+root:/sys/bus/iio/devices/iio:device0\> **ls -l**
+drwxr-xr-x 2 root root 0 Nov 11 15:44 buffer
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 current\_timestamp\_clock
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 dev
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_filter\_high\_pass\_3db\_frequency
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_filter\_high\_pass\_3db\_frequency\_available
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_sampling\_frequency
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_sampling\_frequency\_available
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_scale
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_x\_calibbias
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_x\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_y\_calibbias
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_y\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_z\_calibbias
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_z\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_temp\_offset
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_temp\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_temp\_scale
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 name
+drwxr-xr-x 2 root root 0 Nov 11 15:44 power
+drwxr-xr-x 2 root root 0 Nov 11 15:44 scan\_elements
+lrwxrwxrwx 1 root root 0 Nov 11 15:44 subsystem -\> ../../bus/iio
+drwxr-xr-x 2 root root 0 Nov 11 15:44 trigger
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 uevent
+
+```
+:::
+
+
+# Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat name**
+adxl355
+```
+:::
+
+
+##### Show scale
+
+**Description:**\
+scale to be applied to in\_accel\_\*\_raw in order to obtain the acceleration.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_scale**
+0.000038245
+```
+:::
+
+
+##### Show axis x measurement
+
+**Description:**\
+Raw unscaled acceleration measurement on x axis
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_x\_raw**
+-33631
+```
+:::
+
+
+##### Set sampling frequency
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_sampling\_frequency\_available**
+4000.000000 2000.000000 1000.000000 500.000000 250.000000 125.000000 62.500000 31.250000 15.625000 7.813000 3.906000
+
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_sampling\_frequency**
+6400
+root:/sys/bus/iio/devices/iio:device0\> **echo 4000 \> in\_accel\_sampling\_frequency**
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_sampling\_frequency**
+4000.000000
+```
+:::
+
+
+##### Show available bandwidths for the current set frequency
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_filter\_low\_pass\_3db\_frequency\_available**
+0.000000 9.880000 2.483360 0.621800 0.154480 0.038160 0.009520
+root:/sys/bus/iio/devices/iio:device0\>
+```
+:::
+
+
+##### Change the bandwidth
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_filter\_low\_pass\_3db\_frequency\_available**
+0.000000 9.880000 2.483360 0.621800 0.154480 0.038160 0.009520
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_filter\_low\_pass\_3db\_frequency**
+0
+root:/sys/bus/iio/devices/iio:device0\> **echo 0.621800 \> in\_accel\_filter\_low\_pass\_3db\_frequency**
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_accel\_filter\_low\_pass\_3db\_frequency**
+0.621800
+```
+:::
+
+
+#### Trigger management
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat trigger/current\_trigger**
+adxl355-dev-\*
+```
+:::
+
+
+#### Buffer management
+
+**Description:**\
+The scan\_elements directory contains interfaces for elements that will be captured for a single triggered sample set in the buffer
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0/scan\_elements\> **ls -l**
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_x\_en
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_x\_index
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_x\_type
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_y\_en
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_y\_index
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_y\_type
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_z\_en
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_z\_index
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_accel\_z\_type
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_temp\_en
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_temp\_index
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_temp\_type
+-rw-r\--r\-- 1 root root 4096 Nov 11 15:44 in\_timestamp\_en
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_timestamp\_index
+-r\--r\--r\-- 1 root root 4096 Nov 11 15:44 in\_timestamp\_type
+root:/sys/bus/iio/devices/iio:device0/scan\_elements\>
+```
+:::
+
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0/buffer\> ls
+data\_available enable length watermark
+root:/sys/bus/iio/devices/iio:device0/buffer\>
+```
+:::
+
+
+-   Set the buffer length:
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0/buffer\> **echo 1024 \> length**
+```
+:::
+
+
+-   Enable the buffer:
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0/buffer\> **echo 1 \> enable**
+```
+:::
+
+
+To read samples:
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0/buffer\> **cat /dev/iio:device0**
+```
+:::
+
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

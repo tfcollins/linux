@@ -1,0 +1,219 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-temperature/ltc2983
+title: LTM2985: Multi-Sensor Digital Temperature Measurement System
+---
+
+LTC2983/LTC2984/LTC2986/LTM2985 Multi-Sensor Digital Temperature Measurement System Driver
+==========================================================================================
+
+Supported Devices
+-----------------
+
+-   [LTC2983](https://www.google.com/search?q=LTC2983&btnI=lucky)
+-   [LTC2984](https://www.google.com/search?q=LTC2984&btnI=lucky)
+-   [LTC2986](https://www.google.com/search?q=LTC2986&btnI=lucky)
+-   [LTM2985](https://www.google.com/search?q=LTM2985&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [DC2296A](https://www.google.com/search?q=DC2296A&btnI=lucky)
+-   [DC2296A-KIT](https://www.google.com/search?q=DC2296A-KIT&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting temperature sensors.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/iio/temperature/ltc2983.c&amp;btnI=lucky">drivers/iio/temperature/ltc2983.c</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/temperature/ltc2983.c&amp;btnI=lucky">yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=drivers/iio/temperature/ltc2983.c&amp;btnI=lucky">drivers/iio/temperature/ltc2983.c</a></td>
+</tr>
+<tr class="even">
+<td>Documentation</td>
+<td><a href="https://www.google.com/search?q=Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml&amp;btnI=lucky">adi,ltc2983.yaml</a></td>
+</tr>
+</tbody>
+</table>
+
+Example SPI device initialization
+=================================
+
+The devices can only be instantiated via device tree, along with all the sensors attached to it.
+
+Adding Linux driver support
+===========================
+
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig").
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The LTC2983 driver depends **CONFIG\_SPI**.
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+    <*>     Industrial I/O support --->
+        --- Industrial I/O support
+            [--snip--]
+              Temperature sensors --->
+        [--snip--]
+            -*- Analog Devices Multi-Sensor Digital Temperature Measurement System
+        [--snip--]
+
+```
+```
+Hardware configuration
+======================
+
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices/iio:device0\> **ls -l**
+-r\--r\--r\-- 1 root root 4096 Nov 16 11:17 dev
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in\_temp0\_thermistor\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in\_temp1\_rtd\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in\_temp2\_diode\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in\_temp3\_thermocouple\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in\_temp\_scale
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in\_voltage0\_direct\_adc\_raw
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in\_voltage\_scale
+-r\--r\--r\-- 1 root root 4096 Nov 16 11:17 name
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 of\_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/ltc2983\@0
+drwxr-xr-x 2 root root 0 Nov 16 11:17 power
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 subsystem -\> ../../../../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 uevent
+root:/sys/bus/iio/devices/iio:device0\>
+```
+:::
+
+
+# Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat name**
+ltc2983
+```
+:::
+
+
+##### Show temperature
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_temp0\_thermistor\_raw**
+1048576
+```
+:::
+
+
+###### Show temperature scale
+
+**Description:**\
+scale to be applied to in\_tempX\_\${sensor\_type}\_raw in order to obtain the measured temperature in °C or °F (depending on chip configuration).
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_temp\_scale**
+0.000976562
+```
+:::
+
+
+##### Show voltage
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_voltage0\_direct\_adc\_raw**
+2621440
+```
+:::
+
+
+##### Show Voltage scale
+
+**Description:**\
+scale to be applied to in\_voltageX\_direct\_adc\_raw in order to obtain the measured voltage in Volts
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat in\_voltage\_scale**
+0.000000476
+```
+:::
+
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

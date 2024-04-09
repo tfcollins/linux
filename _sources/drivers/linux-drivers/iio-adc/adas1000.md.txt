@@ -1,0 +1,856 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/adas1000
+title: ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE)
+---
+
+ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver
+============================================================================================
+
+Supported Devices
+-----------------
+
+-   [ADAS1000](https://www.google.com/search?q=ADAS1000&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-ADAS1000SDZ](https://www.google.com/search?q=EVAL-ADAS1000SDZ&btnI=lucky)
+
+Reference Circuits
+------------------
+
+-   [CN0308](https://www.google.com/search?q=CN0308&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel serial interface ADCs.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=adas1000?drivers/iio/adc/adas1000.c&amp;btnI=lucky">drivers/iio/adc/adas1000.c</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/adc/adas1000.c&amp;btnI=lucky">In progress</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=adas1000?drivers/iio/adc/adas1000.c&amp;btnI=lucky">drivers/iio/adc/adas1000.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="https://www.google.com/search?q=adas1000?include/linux/platform_data/adas1000.h&amp;btnI=lucky">include/linux/platform_data/adas1000.h</a></td>
+</tr>
+</tbody>
+</table>
+
+Example platform device initialization
+======================================
+
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+
+``` {.c}
+/**
+ * struct adas1000_platform_data - ADAS1000 platform data
+ * @enbale_vref_buffer: If true enable the vref buffer
+ * @use_external_clock: If true use the external clock applied at the XTAL pin
+ * @driver_external_common_mode: If true drive the internal common mode signal
+ *  to the external common mode pin.
+ * @use_external_common_mode: If true use the signal applied at the external
+ *  common mode pin as the common mode signal.
+ * @high_perfomance: If true configure the ADAS1000 for high performance mode.
+ **/
+struct adas1000_platform_data {
+    bool enable_vref_buffer;
+    bool use_external_clock;
+    bool drive_external_common_mode;
+    bool use_external_common_mode;
+    bool high_performance;
+};
+```
+
+``` {.c}
+static struct adas1000_platform_data pdata {
+    .enable_vref_buffer = true,
+    .high_performance = true,
+};
+```
+
+If no platform data is provided the driver will use the device\'s default setting for all registers.
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+
+Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
+It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+
+``` {.c}
+static struct spi_board_info board_spi_board_info[] __initdata = {
+    {
+        .modalias = "adas1000",
+        .max_speed_hz = 10000000,     /* max spi clock (SCK) speed in HZ */
+        .bus_num = 0,
+        .chip_select = GPIO_PF10 + MAX_CTRL_CS, /* CS, change it for your board */
+        .platform_data = &adas1000_pdata,
+        .mode = SPI_MODE_0,
+    },
+};
+```
+
+``` {.c}
+static int __init board_init(void)
+{
+    [--snip--]
+
+    spi_register_board_info(board_spi_board_info, ARRAY_SIZE(board_spi_board_info));
+
+    [--snip--]
+
+    return 0;
+}
+arch_initcall(board_init);
+```
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The ADAS1000 Driver depends on **CONFIG\_SPI**
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            [--snip--]
+            Analog to digital converters  --->  
+                *** Analog to digital converters ***
+                [--snip--]
+                <*> Analog Devices ADAS1000 ECG driver
+                [--snip--]
+
+
+```
+```
+Hardware configuration
+======================
+
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0 trigger0
+
+root:/sys/bus/iio/devices\> **cd iio:device0**
+
+root:/sys/devices/platform/bfin-spi.0/spi0.12/iio:device0\> **ls -l**
+drwxr-xr-x 2 root root 0 Jan 1 00:00 buffer
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 dev
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency\_available
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage-voltage\_offset
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage-voltage\_sampling\_frequency
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage-voltage\_sampling\_frequency\_available
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage-voltage\_scale
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage-voltage\_scale\_available
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0-voltage2\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0-voltage5\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1-voltage0\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1-voltage2\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1-voltage5\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage2-voltage5\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage3-voltage5\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage4-voltage5\_calibscale
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 name
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_voltage6\_calibration\_offset
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_voltage6\_calibration\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_voltage6\_calibration\_raw
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_voltage6\_calibration\_scale
+drwxr-xr-x 2 root root 0 Jan 1 00:00 power
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_out\_select
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_out\_select\_available
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_powerdown
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_summing\_junction\_ce\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_summing\_junction\_la\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_summing\_junction\_ll\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_summing\_junction\_ra\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_summing\_junction\_v1\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 rld\_summing\_junction\_v2\_en
+drwxr-xr-x 2 root root 0 Jan 1 00:00 scan\_elements
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 shield\_driver\_powerdown
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../../../../bus/iio
+drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 uevent
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 vcm\_summing\_junction\_ce\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 vcm\_summing\_junction\_la\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 vcm\_summing\_junction\_ll\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 vcm\_summing\_junction\_ra\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 vcm\_summing\_junction\_v1\_en
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:00 vcm\_summing\_junction\_v2\_en
+
+root:/sys/devices/platform/bfin-spi.0/spi0.12/iio:device0\>
+```
+:::
+
+
+# Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0/\> **cat name**
+adas1000
+```
+:::
+
+
+Contains the device name, this will always be \"adas1000\" for the adas1000 driver.
+
+##### List available low filter frequencies
+
+**Description:**\
+in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency\_available
+
+Lists all available low pass filter frequencies, which may be set by writing to in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency\_available**
+40 150 250 400
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+##### Set and show low filter frequency
+
+**Description:**\
+in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency
+
+Writing to this file will set the low pass filter frequency, reading from this file will show the currently selected low pass filter.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency**
+40
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 250 \> in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_filter\_low\_pass\_3db\_frequency**
+250
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+The low pass filter will only be active when sampling with 2kHz base frequency.
+:::
+
+
+=== List available sampling frequencies ===
+**Description:**\
+in\_voltage-voltage\_sampling\_frequency\_available
+
+Lists all available sampling frequencies, which may be set by writing to in\_voltage-voltage\_sampling\_frequency.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_sampling\_frequency\_available**
+128000 64000 32000 16000 8000 4000 2000 1000 500
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+The only actuall supported sampling rates by the ADAS1000 are 128000, 16000 and 2000, all other sampling rates will be achieved by using a 2x or 4x decimation filter.
+:::
+
+
+##### Set and show filter frequency
+
+**Description:**\
+in\_voltage-voltage\_sampling\_frequency
+
+Writing to this file will set the sampling frequency, reading from the file will return the currently selected sampling frequency.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_sampling\_frequency**
+4000
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+Setting a new sampling frequency can be done by writing to the file.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 8000 \> in\_voltage-voltage\_sampling\_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_sampling\_frequency**
+8000
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+##### List available ADC gain values
+
+**Description:**\
+in\_voltage-voltage\_scale\_available
+
+List the available ADC gain settings, which can be set using in\_voltage-voltage\_scale.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_scale\_available**
+0.000019618 0.000013079 0.000009809 0.000006539
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+##### Set and ADC gain value
+
+**Description:**\
+in\_voltage-voltage\_scale
+
+Scale to be applied to in\_voltageY-voltageZ\_raw in order to obtain the measured voltage in millivolts.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_scale**
+0.000019618
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 0.000006539 \> in\_voltage-voltage\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage-voltage\_scale**
+0.000006539
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+##### Set ADC calibration gain
+
+**Description:**\
+in\_voltage0-voltage2\_calibscale\
+in\_voltage0-voltage5\_calibscale\
+in\_voltage1-voltage0\_calibscale\
+in\_voltage1-voltage2\_calibscale\
+in\_voltage1-voltage5\_calibscale\
+in\_voltage2-voltage5\_calibscale\
+in\_voltage3-voltage5\_calibscale\
+in\_voltage4-voltage5\_calibscale\
+Set the channel calibration gain. Writing to these files will set the calibration gain for the respective channel. Valid values are in the range of -2048 to 2047.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 1020 \> in\_voltage0-voltage2\_calibscale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in\_voltage0-voltage2\_calibscale**
+1020
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+ in\_voltage0-voltage2\_calibscale and in\_voltage0-voltage5\_calibscale, in\_voltage1-voltage0\_calibscale and in\_voltage1-voltage5\_calibscale, in\_voltage1-voltage2\_calibscale and in\_voltage2-voltage5\_calibscale refer to the same set of calibration data.
+:::
+
+
+##### List available Right Leg drive outputs
+
+**Description:**\
+rld\_out\_select\_available
+
+List available values for the rld\_out\_select file.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat rld\_out\_select\_available**
+rl la ll ra v1 v2
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+##### Select Right Leg drive output electrode
+
+**Description:**\
+rld\_out\_select
+
+Set the Right Leg drive output electrode.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo rl \> rld\_out\_select\_available**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat rld\_out\_select**
+rl
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
+```
+:::
+
+
+##### Enable/Disable Right Leg drive output
+
+**Description:**\
+rld\_powerdown
+
+Enable or disable the Right Leg drive output. Writing a \'0\' to this file will enable the Right Leg drive, writing a \'1\' to this file will enable the Right Leg drive.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat rld\_powerdown
+1
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> echo 0 \> rld\_powerdown
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat rld\_powerdown
+0
+```
+:::
+
+
+##### Setup Right Leg drive summing junction configuration
+
+**Description:**\
+rld\_summing\_junction\_ce\_en\
+rld\_summing\_junction\_la\_en\
+rld\_summing\_junction\_ll\_en\
+rld\_summing\_junction\_ra\_en\
+rld\_summing\_junction\_v1\_en\
+rld\_summing\_junction\_v2\_en
+
+Writing a \'1\' to a file will add the respective channel to the Right Leg driver summing junction, writing a \'0\' will remove it.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat rld\_summing\_junction\_la\_en
+1
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> echo 1 \> rld\_summing\_junction\_v2\_en
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat rld\_summing\_junction\_v2\_en
+1
+```
+:::
+
+
+##### Setup VCM summing junction configuration
+
+**Description:**\
+vcm\_summing\_junction\_ce\_en\
+vcm\_summing\_junction\_la\_en\
+vcm\_summing\_junction\_ll\_en\
+vcm\_summing\_junction\_ra\_en\
+vcm\_summing\_junction\_v1\_en\
+vcm\_summing\_junction\_v2\_en
+
+Writing a \'1\' to a file will add the respective channel to the VCM summing junction, writing a \'0\' will remove it.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat vcm\_summing\_junction\_ra\_en
+0
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> echo 1 \> vcm\_summing\_junction\_ra\_en
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat vcm\_summing\_junction\_ra\_en
+1
+```
+:::
+
+
+##### Enable/Disable shield driver
+
+**Description:**\
+shield\_driver\_powerdown
+
+Enable or disable the shield driver. Writing a \'0\' to this file will enable the shild driver, writing a \'1\' to this file will enable the shield driver.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat shield\_driver\_powerdown
+1
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> echo 0 \> shield\_driver\_powerdown
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat shield\_driver\_powerdown
+0
+```
+:::
+
+
+out\_voltage6\_calibration\_offset
+
+##### Enable/Disable calibration DAC
+
+**Description:**\
+out\_voltage6\_calibration\_powerdown
+
+Enable or disable the calibration DAC. Writing a \'0\' to this file will enable the calibration DAC, writing a \'1\' to this file will disable the calibration DAC.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat out\_voltage6\_calibration\_raw
+1
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> echo 0 \> out\_voltage6\_calibration\_powerdown
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat out\_voltage6\_calibration\_raw
+0
+```
+:::
+
+
+##### Set calibration DAC output value
+
+**Description:**\
+out\_voltage6\_calibration\_raw
+
+Sets the calibration DAC output value. Valid values are in the range of 0-1023.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> echo 100 \> out\_voltage6\_calibration\_raw
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat out\_voltage6\_calibration\_raw
+100
+```
+:::
+
+
+##### Show calibration DAC scale
+
+**Description:**\
+out\_voltage6\_calibration\_scale
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0\> cat out\_voltage6\_calibration\_scale
+0.002346
+```
+:::
+
+
+Vout = (out\_voltage6\_calibration\_offset + out\_voltage6\_calibration\_raw) \* out\_voltage6\_calibration\_scale
+
+##### Debugfs
+
+The adas1000 driver exposes also some files, which are meant for debugging purposes, in debugfs. These files can be used to read the OPSTAT register and to configure the testtone generator.
+
+root:/sys/kernel/debug/iio/iio:device0\> ls
+direct\_reg\_access pll\_locked testtone\_la\_en testtone\_v1\_en
+fuse\_crc\_failure testtone\_en testtone\_ll\_en testtone\_v2\_en
+fuse\_status testtone\_frequency testtone\_out\_en
+pll\_lock\_lost testtone\_internal testtone\_ra\_en
+root:/sys/kernel/debug/iio/iio:device0\>
+
+##### Direct register read and write acccess
+
+**Description:**\
+direct\_reg\_access
+
+Allows direct register access to the device. To write to a register write the register address and the register value seperated by a space to the file.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/kernel/debug/iio/iio:device0\> echo 0x12 0x17 \> direct\_reg\_access
+```
+:::
+
+
+To read a register value, first write the register address to the file followed by a read.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/kernel/debug/iio/iio:device0\> echo 0x05 \> direct\_reg\_access
+root:/sys/kernel/debug/iio/iio:device0\> cat direct\_reg\_access
+```
+:::
+
+
+##### Check fuse CRC status
+
+**Description:**\
+fuse\_crc\_failure
+
+\'1\' if a fuse CRC failure has been detected, \'0\' otherwise.
+
+##### Check fuse status
+
+**Description:**\
+fuse\_status
+
+\'0\' if the fuse bits have been read, \'1\' otherwise.
+
+##### Check PLL status
+
+**Description:**\
+pll\_locked
+
+\'1\' if the PLL is locked, \'0\' otherwise.
+
+##### Enable testtone
+
+**Description:**\
+testtone\_en
+
+Enable the testtone generator.
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+If both the testtone and the calibration DAC are enabled, the testtone will take precedence.
+:::
+
+
+##### Set testtone frequnecy
+
+**Description:**\
+testtone\_frequency
+
+Select the testtone frequency and waveform.
+
+Valid values are:
+
+-   1: 1 Hz square wave
+-   10: 10 Hz sine wave
+-   150: 150 Hz sine wave
+
+##### Enable internal testtone routing
+
+**Description:**\
+testtone\_internal
+
+Route the testtone signal internally ECG channels.
+
+##### Enable external testtone output
+
+**Description:**\
+testtone\_out\_en
+
+Enables or disables testtone output to the external CAL\_DAC\_IO pin.
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+The testtone signal will be routed to the CAL\_DAC\_IO pin by default and only if internal routing is enabled this switch will have an effect.
+:::
+
+
+###### Enable testtone routing to individual ECG channels
+
+**Description:**\
+testtone\_la\_en\
+testtone\_ll\_en\
+testtone\_ra\_en\
+testtone\_v1\_en\
+testtone\_v2\_en\
+Enables the internal testtone routing to the individual ECG channels.
+
+Trigger management
+------------------
+
+The adas1000 driver will register a IIO trigger for the device. The trigger will be hooked up to the devices DATARDY IRQ. Normally you would want to use this trigger as the trigger for the device.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0/\> **echo adas1000-dev0 \> trigger/current\_trigger**
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0/\> **cat trigger/current\_trigger**
+adas1000-dev0
+```
+:::
+
+
+Buffer management
+-----------------
+
+![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0/scan\_elements\> **ls**
+in\_voltage0-voltage2\_en in\_voltage1-voltage5\_en
+in\_voltage0-voltage2\_index in\_voltage1-voltage5\_index
+in\_voltage0-voltage2\_type in\_voltage1-voltage5\_type
+in\_voltage0-voltage5\_en in\_voltage2-voltage5\_en
+in\_voltage0-voltage5\_index in\_voltage2-voltage5\_index
+in\_voltage0-voltage5\_type in\_voltage2-voltage5\_type
+in\_voltage1-voltage0\_en in\_voltage3-voltage5\_en
+in\_voltage1-voltage0\_index in\_voltage3-voltage5\_index
+in\_voltage1-voltage0\_type in\_voltage3-voltage5\_type
+in\_voltage1-voltage2\_en in\_voltage4-voltage5\_en
+in\_voltage1-voltage2\_index in\_voltage4-voltage5\_index
+in\_voltage1-voltage2\_type in\_voltage4-voltage5\_type
+root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.18/iio:device0/scan\_elements\>
+```
+:::
+
+
+<table>
+<thead>
+<tr class="header">
+<th>Channel</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>in_voltage0-voltage2</td>
+<td>LA-RA (LEAD I)</td>
+</tr>
+<tr class="even">
+<td>in_voltage1-voltage0</td>
+<td>LL-LA (LEAD II)</td>
+</tr>
+<tr class="odd">
+<td>in_voltage1-voltage2</td>
+<td>LL-RA (LEAD III)</td>
+</tr>
+<tr class="even">
+<td>in_voltage0-voltage5</td>
+<td>LA-VCM</td>
+</tr>
+<tr class="odd">
+<td>in_voltage1-voltage5</td>
+<td>LL-VCM</td>
+</tr>
+<tr class="even">
+<td>in_voltage2-voltage5</td>
+<td>RA-VCM</td>
+</tr>
+<tr class="odd">
+<td>in_voltage3-voltage5</td>
+<td>V1-VCM (V1')</td>
+</tr>
+<tr class="even">
+<td>in_voltage4-voltage5</td>
+<td>V2-VCM (V2')</td>
+</tr>
+</tbody>
+</table>
+
+If any of the first three channels is selected the device will operate in Lead mode, otherwise it will operate in single-end mode.
+If channels from the first three channels are selected channels from the second three channels can not be selected and vice versa.
+
+![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

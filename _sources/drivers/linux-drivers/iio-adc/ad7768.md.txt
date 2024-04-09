@@ -1,0 +1,195 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad7768
+title: AD7768: 24-Bit, Simultaneous Sampling, Power Scaling ADC
+---
+
+AD7768 IIO Precision ADC Linux Driver
+=====================================
+
+Supported Devices
+-----------------
+
+This driver supports the
+
+-   [AD7768](https://www.google.com/search?q=AD7768&btnI=lucky)
+-   [AD7768-4](https://www.google.com/search?q=AD7768-4&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-AD7768](https://www.google.com/search?q=EVAL-AD7768&btnI=lucky)
+-   [EVAL-AD7768-4](https://www.google.com/search?q=EVAL-AD7768-4&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single channel serial interface ADCs.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=master/drivers/iio/adc/ad7768.c&amp;btnI=lucky">git</a></td>
+<td>[In progress...]</td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master/drivers/iio/adc/ad7768.c&amp;btnI=lucky">master/drivers/iio/adc/ad7768.c</a></td>
+</tr>
+<tr class="even">
+<td>devicetree bindings</td>
+<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml</a></td>
+</tr>
+<tr class="odd">
+<td>hdl project</td>
+<td><a href="https://github.com/analogdevicesinc/hdl/tree/hdl_2017_r1/projects/ad7768evb">hdl</a></td>
+</tr>
+</tbody>
+</table>
+
+Example Linux Device-Tree Initialization
+========================================
+
+Required properties:
+
+-   compatible: Must be one of \"adi,ad7768\", \"adi,ad7768-4\".
+-   reg: SPI chip select number for the device.
+-   clocks: phandle to master clock of the device.
+-   clock-names: Must be \"mclk\".
+-   spi-max-frequency: See Documentation/devicetree/bindings/spi/spi-bus.txt.
+-   dmas: DMA specifier, consisting of a phandle to DMA controller node.
+-   dma-names: Must be \"rx\".
+-   vref-supply: phandle to the regulator for ADC reference voltage.
+
+Optional properties:
+
+-   reset-gpios: Reset GPIO.
+-   adi,data-lines: Number of DOUTx pins channels data is output on. Default value: 1.
+
+**NOTE:** The *adi,data-lines* value is determined by the configuration of the AD7768/AD7768-4 chip\'s FORMATx pins. These pins are read on power-up and dictate the number of data lines (DOUTx) on which the ADC conversions are output.
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AD7768 Device Tree</td>
+<td><a href="https://www.google.com/search?q=master?arch/arm/boot/dts/zynq-zed-adv7511-ad7768.dts&amp;btnI=lucky">zynq-zed-adv7511-ad7768.dts</a></td>
+</tr>
+</tbody>
+</table>
+
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%\="" -->
+**TIP:**
+An example program which uses the interface can be found here:
+
+-   [IIO Oscilloscope](/resources/tools-software/linux-software/iio_oscilloscope)
+
+
+:::
+\
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+
+root:/sys/bus/iio/devices\> **cd iio\\:device0**
+
+root:/sys/bus/iio/devices/iio:device0\> **ls -l**
+total 0
+drwxr-xr-x 2 root root 0 Apr 2 21:43 buffer
+drwxr-xr-x 2 root root 0 Apr 2 21:43 buffer0
+-r\--r\--r\-- 1 root root 4096 Apr 2 21:43 dev
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 filter\_type
+-r\--r\--r\-- 1 root root 4096 Apr 2 21:43 filter\_type\_available
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 in\_voltage\_scale
+-r\--r\--r\-- 1 root root 4096 Apr 2 21:43 name
+lrwxrwxrwx 1 root root 0 Apr 2 21:43 of\_node -\> ../../../../../../../../firmware/devicetree/base/axi/spi\@e0006000/adc\@0
+drwxr-xr-x 2 root root 0 Apr 2 21:43 power
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 power\_mode
+-r\--r\--r\-- 1 root root 4096 Apr 2 21:43 power\_mode\_available
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:43 sampling\_frequency
+-r\--r\--r\-- 1 root root 4096 Apr 2 21:43 sampling\_frequency\_available
+drwxr-xr-x 2 root root 0 Apr 2 21:42 scan\_elements
+lrwxrwxrwx 1 root root 0 Apr 2 21:42 subsystem -\> ../../../../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 Apr 2 21:42 uevent
+```
+:::
+
+
+# Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> **cat name**
+ad7768
+```
+:::
+
+
+##### Show scale
+
+**Description:**\
+scale to be applied to in\_voltage0\_raw in order to obtain the measured voltage in millivolts.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/bus/iio/devices/iio:device0\> \*\*cat in\_voltage\_scale \*\*
+0.000488281
+```
+:::
+
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -1,0 +1,137 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/adf4360
+title: ADF4360-9: Clock Generator PLL with Integrated VCO
+---
+
+ADF4360 Integrated Integer-N Synthesizer/VCO
+============================================
+
+Supported Devices
+-----------------
+
+-   [ADF4360-0](https://www.google.com/search?q=ADF4360-0&btnI=lucky)
+-   [ADF4360-1](https://www.google.com/search?q=ADF4360-1&btnI=lucky)
+-   [ADF4360-2](https://www.google.com/search?q=ADF4360-2&btnI=lucky)
+-   [ADF4360-3](https://www.google.com/search?q=ADF4360-3&btnI=lucky)
+-   [ADF4360-4](https://www.google.com/search?q=ADF4360-4&btnI=lucky)
+-   [ADF4360-5](https://www.google.com/search?q=ADF4360-5&btnI=lucky)
+-   [ADF4360-6](https://www.google.com/search?q=ADF4360-6&btnI=lucky)
+-   [ADF4360-7](https://www.google.com/search?q=ADF4360-7&btnI=lucky)
+-   [ADF4360-8](https://www.google.com/search?q=ADF4360-8&btnI=lucky)
+-   [ADF4360-9](https://www.google.com/search?q=ADF4360-9&btnI=lucky)
+
+Description
+-----------
+
+The ADF4360 is a fully integrated integer-N synthesizer and voltage controlled oscillator (VCO).
+Control of all the on-chip registers is through a simple 3-wire interface. The device operates with a power supply ranging from 3.0 V to 3.6 V and can be powered down when not in use.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adf4360.c&amp;btnI=lucky">drivers/iio/frequency/adf4360.c</a></td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adf4360.c&amp;btnI=lucky">drivers/iio/frequency/adf4360.c</a></td>
+</tr>
+<tr class="even">
+<td>Documentation</td>
+<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/frequency/adi,adf4360.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/frequency/adi,adf4360.yaml</a></td>
+</tr>
+</tbody>
+</table>
+
+Enabling the driver
+===================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The ADF4360 Driver depends on **CONFIG\_SPI**
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+    <*>  Industrial I/O support --->
+             Frequency Synthesizers DDS/PLL  ---> 
+                 Clock Generator/Distribution  --->
+                 <*>  Analog Devices ADF4360 Wideband Synthesizer
+
+
+```
+```
+Adding a device tree entry
+--------------------------
+
+# Device tree example
+
+The following example instantiates the adf4360 driver for a adf4360-7 device connected on the SPI bus to the chip-select line 0.
+
+```{=markdown}
+```
+/ {
+    clocks {
+        adf_ref_clock: clock@0 {
+            #clock-cells = <0>;
+            compatible = "fixed-clock";
+            clock-frequency = <25000000>;
+            clock-output-names = "adf_ref_clock";
+        };
+    };
+];
+
+&spi {
+    adf4360: pll@0 {
+        compatible = "adi,adf4360-7";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+
+        #clock-cells = <0>;
+
+        clocks = <&adf_ref_clock>;
+        clock-names = "clkin";
+        clock-output-names = "adf4360-7";
+
+        adi,loop-filter-charge-pump-current-microamp = <1870>;
+        adi,loop-filter-pfd-frequency-hz = <2500000>;
+        adi,power-up-frequency-hz = <1000000000>;
+    };
+
+};
+
+```
+```

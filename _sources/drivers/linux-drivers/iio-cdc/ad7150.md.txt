@@ -1,0 +1,395 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-cdc/ad7150
+title: AD7156: Ultra-Low Power, 1.8 V, 3 mm × 3 mm, 2-Channel, Capacitance Converter
+---
+
+AD7150 IIO Capacitance to Digital Converter Linux Driver
+========================================================
+
+Supported Devices
+-----------------
+
+-   [AD7150](https://www.google.com/search?q=AD7150&btnI=lucky)
+-   [AD7151](https://www.google.com/search?q=AD7151&btnI=lucky)
+-   [AD7156](https://www.google.com/search?q=AD7156&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-AD7150EBZ](https://www.google.com/search?q=EVAL-AD7150EBZ&btnI=lucky)
+-   [EVAL-AD7156EBZ](https://www.google.com/search?q=EVAL-AD7156EBZ&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single and multi channel serial interface Capacitance to Digital Converters.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/iio/cdc/ad7150.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/cdc/ad7150.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=drivers/iio/cdc/ad7150.c&amp;btnI=lucky">drivers/iio/cdc/ad7150.c</a></td>
+</tr>
+</tbody>
+</table>
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+
+Depending on the converter IC used, you may need to set the I2C\_BOARD\_INFO name accordingly, matching your part name.
+
+<table>
+<thead>
+<tr class="header">
+<th>ADI part number</th>
+<th>I2C_BOARD_INFO Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AD7150</td>
+<td>ad7150</td>
+</tr>
+<tr class="even">
+<td>AD7151</td>
+<td>ad7151</td>
+</tr>
+<tr class="odd">
+<td>AD7156</td>
+<td>ad7156</td>
+</tr>
+</tbody>
+</table>
+
+``` {.c}
+static struct i2c_board_info __initdata board_i2c_board_info[] = {
+# if defined(CONFIG_AD7150) || defined(CONFIG_AD7150_MODULE)
+    {
+        I2C_BOARD_INFO("ad7150", 0x48),
+    },
+## endif
+};
+```
+
+``` {.c}
+static int __init board_init(void)
+{
+    [--snip--]
+
+    i2c_register_board_info(0, board_i2c_board_info,
+                ARRAY_SIZE(board_i2c_board_info));
+    [--snip--]
+
+    return 0;
+}
+arch_initcall(board_init);
+```
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The driver depends on **CONFIG\_I2C**
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        [*] Staging drivers  --->
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
+                -*-   Enable ring buffer support within IIO
+                -*-     Industrial I/O lock free software ring
+                -*-   Enable triggered sampling support
+
+                [--snip--]
+
+                ***
+ Analog to digital converters ***
+                <*>   Analog Devices AD7150/1/6 capacitive sensor driver
+
+                [--snip--]
+
+
+```
+```
+Hardware configuration
+======================
+
+![](/resources/tools-software/linux-drivers/iio-adc/ad7150_eval_lr.jpg){width="600"}
+
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+root:/sys/bus/iio/devices\> **cd iio:device0**
+
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **ls -l**
+-r\--r\--r\-- 1 root root 4096 Jan 3 04:21 dev
+drwxr-xr-x 2 root root 0 Jan 3 04:21 events
+-rw-r\--r\-- 1 root root 4096 Jan 3 04:21 in\_capacitance0\_mean\_raw
+-r\--r\--r\-- 1 root root 4096 Jan 3 04:21 in\_capacitance0\_raw
+-rw-r\--r\-- 1 root root 4096 Jan 3 04:21 in\_capacitance1\_mean\_raw
+-r\--r\--r\-- 1 root root 4096 Jan 3 04:21 in\_capacitance1\_raw
+-r\--r\--r\-- 1 root root 4096 Jan 3 04:21 name
+drwxr-xr-x 2 root root 0 Jan 3 04:21 power
+lrwxrwxrwx 1 root root 0 Jan 3 04:21 subsystem -\> ../../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 Jan 3 04:21 uevent
+```
+:::
+
+
+##### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat name**
+ad7150
+```
+:::
+
+
+##### Show channel CIN1(+) measurement
+
+<table>
+<thead>
+<tr class="header">
+<th>ADC Input Pair</th>
+<th>Comment</th>
+<th>Channel name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CIN1(+)</td>
+<td>actual value</td>
+<td>in_capacitance0_raw</td>
+</tr>
+<tr class="even">
+<td>CIN1(+)</td>
+<td>average value</td>
+<td>in_capacitance0_mean_raw</td>
+</tr>
+<tr class="odd">
+<td>CIN2(+)</td>
+<td>actual value</td>
+<td>in_capacitance1_raw</td>
+</tr>
+<tr class="even">
+<td>CIN2(+)</td>
+<td>average value</td>
+<td>in_capacitance1_mean_raw</td>
+</tr>
+</tbody>
+</table>
+
+**Description:**\
+Raw unscaled capacitance measurement on channel in\_capacitance0\_raw
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance0\_raw**
+26640
+```
+:::
+
+
+##### Show channel CIN1(+) average measurement
+
+**Description:**\
+Raw unscaled capacitance measurement on channel in\_capacitance0\_mean\_raw
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance0\_mean\_raw**
+26273
+```
+:::
+
+
+Hardware Events
+===============
+
+![iio\_snippets\#Event Management&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Event Management&firstseconly&noeditbtn)
+
+![iio\_snippets\#Typical event attributes&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical event attributes&firstseconly&noeditbtn)
+
+Supported Events
+----------------
+
+<table>
+<thead>
+<tr class="header">
+<th>Event Attributes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Channel 1</td>
+</tr>
+<tr class="even">
+<td>in_capacitance0_mag_adaptive_falling_en</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance0_mag_adaptive_falling_timeout</td>
+</tr>
+<tr class="even">
+<td>in_capacitance0_mag_adaptive_falling_value</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance0_mag_adaptive_rising_en</td>
+</tr>
+<tr class="even">
+<td>in_capacitance0_mag_adaptive_rising_timeout</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance0_mag_adaptive_rising_value</td>
+</tr>
+<tr class="even">
+<td>in_capacitance0_thresh_adaptive_falling_en</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance0_thresh_adaptive_falling_timeout</td>
+</tr>
+<tr class="even">
+<td>in_capacitance0_thresh_adaptive_falling_value</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance0_thresh_adaptive_rising_en</td>
+</tr>
+<tr class="even">
+<td>in_capacitance0_thresh_adaptive_rising_timeout</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance0_thresh_adaptive_rising_value</td>
+</tr>
+<tr class="even">
+<td>in_capacitance0_thresh_falling_en</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance0_thresh_falling_value</td>
+</tr>
+<tr class="even">
+<td>in_capacitance0_thresh_rising_en</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance0_thresh_rising_value</td>
+</tr>
+<tr class="even">
+<td>Channel 2</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance1_mag_adaptive_falling_en</td>
+</tr>
+<tr class="even">
+<td>in_capacitance1_mag_adaptive_falling_timeout</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance1_mag_adaptive_falling_value</td>
+</tr>
+<tr class="even">
+<td>in_capacitance1_mag_adaptive_rising_en</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance1_mag_adaptive_rising_timeout</td>
+</tr>
+<tr class="even">
+<td>in_capacitance1_mag_adaptive_rising_value</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance1_thresh_adaptive_falling_en</td>
+</tr>
+<tr class="even">
+<td>in_capacitance1_thresh_adaptive_falling_timeout</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance1_thresh_adaptive_falling_value</td>
+</tr>
+<tr class="even">
+<td>in_capacitance1_thresh_adaptive_rising_en</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance1_thresh_adaptive_rising_timeout</td>
+</tr>
+<tr class="even">
+<td>in_capacitance1_thresh_adaptive_rising_value</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance1_thresh_falling_en</td>
+</tr>
+<tr class="even">
+<td>in_capacitance1_thresh_falling_value</td>
+</tr>
+<tr class="odd">
+<td>in_capacitance1_thresh_rising_en</td>
+</tr>
+<tr class="even">
+<td>in_capacitance1_thresh_rising_value</td>
+</tr>
+</tbody>
+</table>
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

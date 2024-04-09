@@ -1,0 +1,303 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-dac/ad5421
+title: AD5421: 16-Bit, Serial Input, Loop-Powered, 4mA to 20mA DA
+---
+
+AD5421 IIO DAC Linux Driver
+===========================
+
+Supported Devices
+-----------------
+
+-   [AD5421](https://www.google.com/search?q=AD5421&btnI=lucky)
+
+# Reference Circuits
+
+-   [CN0267](https://www.google.com/search?q=CN0267&btnI=lucky)
+-   [CN0278](https://www.google.com/search?q=CN0278&btnI=lucky)
+-   [CN0382](https://www.google.com/search?q=CN0382&btnI=lucky)
+
+Evaluation Boards
+-----------------
+
+-   [EVAL-AD5421SDZ](https://www.google.com/search?q=EVAL-AD5421SDZ&btnI=lucky)
+
+Description
+-----------
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi-channel serial interface DACs.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+Source Code
+===========
+
+Status
+------
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5421.c&amp;btnI=lucky">git</a></td>
+<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5421.c&amp;btnI=lucky">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+Files
+-----
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5421.c&amp;btnI=lucky">drivers/iio/dac/ad5421.c</a></td>
+</tr>
+</tbody>
+</table>
+
+Example platform device initialization
+======================================
+
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+
+The ad5421 platform data is used to describe how the chip is configured on a specific board.
+
+``` {.c}
+/**
+ * enum ad5421_current_range - Current range the AD5421 is configured for.
+ * @AD5421_CURRENT_RANGE_4mA_20mA: 4 mA to 20 mA (RANGE1,0 pins = 00)
+ * @AD5421_CURRENT_RANGE_3mA8_21mA: 3.8 mA to 21 mA (RANGE1,0 pins = x1)
+ * @AD5421_CURRENT_RANGE_3mA2_24mA: 3.2 mA to 24 mA (RANGE1,0 pins = 10)
+ */
+
+enum ad5421_current_range {
+    AD5421_CURRENT_RANGE_4mA_20mA,
+    AD5421_CURRENT_RANGE_3mA8_21mA,
+    AD5421_CURRENT_RANGE_3mA2_24mA,
+};
+
+/**
+ * struct ad5421_platform_data - AD5421 DAC driver platform data
+ * @external_vref: whether an external reference voltage is used or not
+ * @current_range: Current range the AD5421 is configured for
+ */
+
+struct ad5421_platform_data {
+    bool external_vref;
+    enum ad5421_current_range current_range;
+};
+```
+
+If no platform data is given, the driver will assume an internal reference voltage and a current range of 4 mA to 20 mA.
+
+``` {.c}
+struct ad5421_platform_data ad5421_pdata {
+    .external_vref = true,
+    .current_range = AD5421_CURRENT_RANGE_3mA2_24mA,
+};
+
+static int __init board_init(void)
+{
+    [--snip--]
+
+    platform_add_devices(board_devices, ARRAY_SIZE(board_devices));
+
+    [--snip--]
+
+    return 0;
+}
+arch_initcall(board_init);
+```
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+
+``` {.c}
+static struct spi_board_info board_spi_board_info[] __initdata = {
+## if defined(CONFIG_AD5421_SPI) || \
+    defined(CONFIG_AD5421_SPI_MODULE)
+    {
+        /* the modalias must be the same as spi device driver name */
+        .modalias = "ad5421", /* Name of spi_driver for this device */
+        .max_speed_hz = 30000000,     /* max spi clock (SCK) speed in HZ */
+        .bus_num = 0, /* Framework bus number */
+        .chip_select = 3, /* Framework chip select */
+        .mode = SPI_MODE_2,
+        .irq = IRQ_PF4,
+        .platform_data = &ad5421_pdata,
+    },
+## endif
+};
+```
+
+Adding Linux driver support
+===========================
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+:::{NOTE} <!-- ATTRS: round="" help\="" -->
+
+The ad5421 Driver depends on **CONFIG\_SPI**
+
+:::
+
+
+```{=markdown}
+```
+Linux Kernel Configuration
+    Device Drivers  --->
+        ...
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            ...
+            Digital to analog converters  ---> 
+                ...
+                <*>  Analog Devices AD5421 DAC driver
+                ...
+            ...
+        ...
+
+```
+```
+Hardware configuration
+======================
+
+Driver testing
+==============
+
+![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/\> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices\> ls
+iio:device0
+
+root:/sys/bus/iio/devices\> **cd iio:device0**
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:03 dev
+-r\--r\--r\-- 1 root root 4096 Jan 1 00:03 name
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current0\_calibbias
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current0\_calibscale
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current0\_raw
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current\_offset
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current\_scale
+drwxr-xr-x 2 root root 0 Jan 1 00:03 power
+lrwxrwxrwx 1 root root 0 Jan 1 00:03 subsystem -\> ../../../../../bus/iio
+-rw-r\--r\-- 1 root root 4096 Jan 1 00:03 uevent
+```
+:::
+
+
+##### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+ad5421
+```
+:::
+
+
+##### Show scale
+
+**Description:**\
+/sys/bus/iio/devices/iio:deviceX/out\_current\_scale\
+scale to be applied to out\_current0\_raw in order to obtain the outputted current in milliampere.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_current\_scale**
+0.000244
+```
+:::
+
+
+##### Show offset
+
+**Description:**\
+/sys/bus/iio/devices/iio:deviceX/out\_current\_offset\
+offset to be applied to out\_current0\_raw in order to obtain the outputted current in milliampere.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_current\_offset**
+16384
+```
+:::
+
+
+##### Set channel Y output current
+
+**Description:**\
+/sys/bus/iio/devices/iio:deviceX/out\_currentY\_raw\
+Raw (unscaled, no bias etc.) output current for
+channel Y.
+
+:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
+:::{HINT} <!-- ATTRS: info\="" -->
+This specifies any shell prompt running on the target
+:::
+
+```bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 10000 \> out\_current0\_raw**
+```
+:::
+
+
+**I** = *( out\_current0\_raw + out\_current\_offset ) \* out\_current\_scale* = (10000 + 16384) \* 0.000244 *mA* = **6.437696 *mA***
+
+##### Calibrate channel Y gain
+
+**Description:**\
+/sys/bus/iio/devices/iio:deviceX/out\_currentY\_calibscale\
+Each channel has an adjustable gain which can be used to calibrate the channel\'s scale and compensate for full-scale errors. The default value is 65535.
+
+If scale calibration is used the following formula can be used calculate the output current:
+
+**I** = *( ( out\_currentY\_raw \* ( out\_currentY\_calibscale + 1 ) ) / 2\^16 + out\_currentY\_calibbias + out\_current\_offset ) \* out\_currentY\_scale*
+
+##### Calibrate channel Y offset
+
+**Description:**\
+/sys/bus/iio/devices/iio:deviceX/out\_currentY\_calibbias\
+Each channel has an adjustable offset which can be used to calibrate the channel\'s offset and compensate for zero-scale errors. The default value is 0.
+
+If offset calibration is used the following formula can be used calculate the output current:
+
+**I** = *( ( out\_currentY\_raw \* ( out\_currentY\_calibscale + 1 ) ) / 2\^16 + out\_currentY\_calibbias + out\_current\_offset ) \* out\_currentY\_scale*
+
+More Information
+================
+
+![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
