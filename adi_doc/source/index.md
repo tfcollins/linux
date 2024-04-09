@@ -22,7 +22,7 @@ graph TB
 
 ::: {toctree}
 guides/build
-drivers/index
+drivers_index
 :::
 
 # Indices and tables

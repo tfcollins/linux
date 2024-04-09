@@ -1,0 +1,44 @@
+name: Build Sphinx Doc
+
+on:
+  push:
+    branches:
+      - master
+      - tfcollins/adi-doc
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+    
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: '3.10'
+    
+        - name: Install dependencies
+          run: |
+            cd adi_doc
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+            sudo apt install pandoc -y
+            cd ..
+
+        - name: Generate Driver Doc
+          run: |
+            cd adi_doc/tools/pandoc
+            python generate_driver_doc.py
+            cd ../..
+    
+        - name: Build documentation
+          run: |
+            cd adi_doc
+            make html
+
+        - name: Deploy documentation
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./adi_doc/build/html
