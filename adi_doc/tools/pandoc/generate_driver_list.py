@@ -203,5 +203,6 @@ print("\nMoving index files")
 source_folder = os.path.abspath("generated")
 drivers_index = os.path.join(source_folder, "drivers_index.md")
 target_file = os.path.abspath(os.path.join("..", "..", "source", "drivers_index.md"))
-os.remove(target_file)
+if os.path.exists(target_file):
+    os.remove(target_file)
 shutil.move(drivers_index, target_file)
