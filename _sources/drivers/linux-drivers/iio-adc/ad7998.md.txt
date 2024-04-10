@@ -3,34 +3,33 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7999: 4-Channel, 8-Bit ADC with I2C Compatible Interface in 8-Lead SOT-23
 ---
 
-AD7998 IIO ADC Linux Driver
-===========================
+# AD7998 IIO ADC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD7991](https://www.google.com/search?q=AD7991&btnI=lucky)
--   [AD7992](https://www.google.com/search?q=AD7992&btnI=lucky)
--   [AD7993](https://www.google.com/search?q=AD7993&btnI=lucky)
--   [AD7994](https://www.google.com/search?q=AD7994&btnI=lucky)
--   [AD7995](https://www.google.com/search?q=AD7995&btnI=lucky)
--   [AD7997](https://www.google.com/search?q=AD7997&btnI=lucky)
--   [AD7998](https://www.google.com/search?q=AD7998&btnI=lucky)
--   [AD7999](https://www.google.com/search?q=AD7999&btnI=lucky)
+-   [AD7991](adi>AD7991)
+-   [AD7992](adi>AD7992)
+-   [AD7993](adi>AD7993)
+-   [AD7994](adi>AD7994)
+-   [AD7995](adi>AD7995)
+-   [AD7997](adi>AD7997)
+-   [AD7998](adi>AD7998)
+-   [AD7999](adi>AD7999)
 
 #### Reference Circuits
 
--   [CN0288](https://www.google.com/search?q=CN0288&btnI=lucky)
--   [CN0301](https://www.google.com/search?q=CN0301&btnI=lucky)
+-   [CN0288](adi>CN0288)
+-   [CN0301](adi>CN0301)
 
 #### Evaluation Boards
 
--   [EVAL-AD7991EBZ](https://www.google.com/search?q=EVAL-AD7991EBZ&btnI=lucky)
--   [EVAL-AD7992EBZ](https://www.google.com/search?q=EVAL-AD7992EBZ&btnI=lucky)
--   [EVAL-AD7993EBZ](https://www.google.com/search?q=EVAL-AD7993EBZ&btnI=lucky)
--   [EVAL-AD7994EBZ](https://www.google.com/search?q=EVAL-AD7994EBZ&btnI=lucky)
--   [EVAL-AD7995EBZ](https://www.google.com/search?q=EVAL-AD7995EBZ&btnI=lucky)
--   [EVAL-AD7997EBZ](https://www.google.com/search?q=EVAL-AD7997EBZ&btnI=lucky)
--   [EVAL-AD7998EBZ](https://www.google.com/search?q=EVAL-AD7998EBZ&btnI=lucky)
+-   [EVAL-AD7991EBZ](adi>EVAL-AD7991EBZ)
+-   [EVAL-AD7992EBZ](adi>EVAL-AD7992EBZ)
+-   [EVAL-AD7993EBZ](adi>EVAL-AD7993EBZ)
+-   [EVAL-AD7994EBZ](adi>EVAL-AD7994EBZ)
+-   [EVAL-AD7995EBZ](adi>EVAL-AD7995EBZ)
+-   [EVAL-AD7997EBZ](adi>EVAL-AD7997EBZ)
+-   [EVAL-AD7998EBZ](adi>EVAL-AD7998EBZ)
 
 #### Description
 
@@ -38,8 +37,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -52,8 +50,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad799x.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad799x.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad799x.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad799x.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -70,13 +68,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad799x.c&amp;btnI=lucky">drivers/iio/adc/ad799x.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad799x.c">drivers/iio/adc/ad799x.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -92,7 +89,7 @@ this driver requires specifying the reference voltage, by using the Linux regula
 
 Below example specifies a 2.5 Volt reference for the I2C device 0-0024 on I2C-Bus 0. (**0-0024**)
 
-``` {.c}
+``` c
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad7998_consumer_supplies[] = {
     REGULATOR_SUPPLY("vref", "0-0024"),
@@ -125,7 +122,7 @@ static struct platform_device brd_voltage_regulator = {
 ## endif
 ```
 
-``` {.c}
+``` c
 static struct platform_device *board_devices[] __initdata = {
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
@@ -133,7 +130,7 @@ static struct platform_device *board_devices[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -151,7 +148,7 @@ arch_initcall(board_init);
 
 Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name accordingly, matching your part name.
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
 ## if defined(CONFIG_AD799X) || defined(CONFIG_AD799X_MODULE)
     {
@@ -163,7 +160,7 @@ static struct i2c_board_info __initdata board_i2c_board_info[] = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -216,8 +213,7 @@ Required devicetree properties:
                    };
             };
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -246,11 +242,9 @@ The AD7998 Driver depends on **CONFIG_I2C**
 
                     [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -380,7 +374,6 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/scan_elements
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

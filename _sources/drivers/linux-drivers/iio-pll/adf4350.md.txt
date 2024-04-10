@@ -3,31 +3,30 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADF4351: Wideband Synthesizer with Integrated VCO
 ---
 
-ADF4350 IIO Wideband Synthesizer Linux Driver
-=============================================
+# ADF4350 IIO Wideband Synthesizer Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [ADF4350](https://www.google.com/search?q=ADF4350&btnI=lucky)
--   [ADF4351](https://www.google.com/search?q=ADF4351&btnI=lucky)
+-   [ADF4350](adi>ADF4350)
+-   [ADF4351](adi>ADF4351)
 
 #### Reference Circuits
 
--   [CN0134](https://www.google.com/search?q=CN0134&btnI=lucky)
--   [CN0144](https://www.google.com/search?q=CN0144&btnI=lucky)
--   [CN0147](https://www.google.com/search?q=CN0147&btnI=lucky)
--   [CN0232](https://www.google.com/search?q=CN0232&btnI=lucky)
--   [CN0239](https://www.google.com/search?q=CN0239&btnI=lucky)
--   [CN0245](https://www.google.com/search?q=CN0245&btnI=lucky)
--   [CN0285](https://www.google.com/search?q=CN0285&btnI=lucky)
--   [CN0294](https://www.google.com/search?q=CN0294&btnI=lucky)
--   [CN0311](https://www.google.com/search?q=CN0311&btnI=lucky)
--   [CN0360](https://www.google.com/search?q=CN0360&btnI=lucky)
+-   [CN0134](adi>CN0134)
+-   [CN0144](adi>CN0144)
+-   [CN0147](adi>CN0147)
+-   [CN0232](adi>CN0232)
+-   [CN0239](adi>CN0239)
+-   [CN0245](adi>CN0245)
+-   [CN0285](adi>CN0285)
+-   [CN0294](adi>CN0294)
+-   [CN0311](adi>CN0311)
+-   [CN0360](adi>CN0360)
 
 #### Evaluation Boards
 
--   [ADF4350 Eval Board](https://www.google.com/search?q=EVAL-ADF4350EB1Z&btnI=lucky)
--   [ADF4351 Eval Board](https://www.google.com/search?q=EVAL-ADF4351EB1Z&btnI=lucky)
+-   [ADF4350 Eval Board](adi>EVAL-ADF4350EB1Z)
+-   [ADF4351 Eval Board](adi>EVAL-ADF4351EB1Z)
 
 #### Description
 
@@ -35,8 +34,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -49,8 +47,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/adf4350.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/adf4350.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/adf4350.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/adf4350.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -67,31 +65,30 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/adf4350.c&amp;btnI=lucky">drivers/iio/frequency/adf4350.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/adf4350.c">drivers/iio/frequency/adf4350.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/iio/frequency/adf4350.h&amp;btnI=lucky">include/linux/iio/frequency/adf4350.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/iio/frequency/adf4350.h">include/linux/iio/frequency/adf4350.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350</a></td>
+<td><a href="git.linux.org&gt;Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350">Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=Documentation/devicetree/bindings/iio/frequency/adf4350.txt&amp;btnI=lucky">Documentation/devicetree/bindings/iio/frequency/adf4350.txt</a></td>
+<td><a href="git.linux.org&gt;Documentation/devicetree/bindings/iio/frequency/adf4350.txt">Documentation/devicetree/bindings/iio/frequency/adf4350.txt</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 The reference frequency and GPIO numbers may vary between boards. The platform_data for the device's "struct device" holds this information.
 
-``` {.c}
+``` c
 /**
  * struct adf4350_platform_data - platform specific information
  * @clkin:      REFin frequency in Hz.
@@ -126,7 +123,7 @@ struct adf4350_platform_data {
 };
 ```
 
-``` {.c}
+``` c
 static struct adf4350_platform_data adf4351_pdata = {
     .clkin = 10000000,
     .channel_spacing = 10000,
@@ -144,7 +141,7 @@ static struct adf4350_platform_data adf4351_pdata = {
 Depending on the DDS IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_ADF4350) || defined(CONFIG_ADF4350_MODULE)
     {
@@ -159,7 +156,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -173,8 +170,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Devicetree bindings
--------------------
+### Devicetree bindings
 
     Required properties:
         - compatible: Should be one of
@@ -260,8 +256,7 @@ Devicetree bindings
                 adi,mute-till-lock-enable;
             };
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -287,11 +282,9 @@ The ADF4350 Driver depends on **CONFIG_SPI**
                     <*>   Analog Devices ADF4350/ADF4351 Wideband Synthesizers
                 [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -438,7 +431,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0> **cat out_altvoltageY
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

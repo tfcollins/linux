@@ -3,31 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7768: 24-Bit, Simultaneous Sampling, Power Scaling ADC
 ---
 
-AD7768 IIO Precision ADC Linux Driver
-=====================================
+# AD7768 IIO Precision ADC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
 This driver supports the
 
--   [AD7768](https://www.google.com/search?q=AD7768&btnI=lucky)
--   [AD7768-4](https://www.google.com/search?q=AD7768-4&btnI=lucky)
+-   [AD7768](adi>AD7768)
+-   [AD7768-4](adi>AD7768-4)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD7768](https://www.google.com/search?q=EVAL-AD7768&btnI=lucky)
--   [EVAL-AD7768-4](https://www.google.com/search?q=EVAL-AD7768-4&btnI=lucky)
+-   [EVAL-AD7768](adi>EVAL-AD7768)
+-   [EVAL-AD7768-4](adi>EVAL-AD7768-4)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -38,13 +36,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master/drivers/iio/adc/ad7768.c&amp;btnI=lucky">git</a></td>
+<td><a href="linux.github&gt;master/drivers/iio/adc/ad7768.c">git</a></td>
 <td>[In progress...]</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -56,11 +54,11 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master/drivers/iio/adc/ad7768.c&amp;btnI=lucky">master/drivers/iio/adc/ad7768.c</a></td>
+<td><a href="linux.github&gt;master/drivers/iio/adc/ad7768.c">master/drivers/iio/adc/ad7768.c</a></td>
 </tr>
 <tr class="even">
 <td>devicetree bindings</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml">Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml</a></td>
 </tr>
 <tr class="odd">
 <td>hdl project</td>
@@ -69,8 +67,7 @@ Source Code
 </tbody>
 </table>
 
-Example Linux Device-Tree Initialization
-----------------------------------------
+## Example Linux Device-Tree Initialization
 
 Required properties:
 
@@ -100,13 +97,12 @@ Optional properties:
 <tbody>
 <tr class="odd">
 <td>AD7768 Device Tree</td>
-<td><a href="https://www.google.com/search?q=master?arch/arm/boot/dts/zynq-zed-adv7511-ad7768.dts&amp;btnI=lucky">zynq-zed-adv7511-ad7768.dts</a></td>
+<td><a href="linux.github&gt;master?arch/arm/boot/dts/zynq-zed-adv7511-ad7768.dts">zynq-zed-adv7511-ad7768.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -153,7 +149,7 @@ lrwxrwxrwx 1 root root 0 Apr 2 21:42 subsystem -> ../../../../../../../../bus/ii
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -167,7 +163,7 @@ ad7768
 :::
 
 
-###### Show scale
+##### Show scale
 
 **Description:**
 scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.
@@ -184,7 +180,6 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_voltage_scale **
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

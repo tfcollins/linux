@@ -3,17 +3,16 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7153: 1-Channel, 12-Bit Capacitance to Digital Converter
 ---
 
-AD7152 IIO Capacitance to Digital Converter Linux Driver
-========================================================
+# AD7152 IIO Capacitance to Digital Converter Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD7152](https://www.google.com/search?q=AD7152&btnI=lucky)
--   [AD7153](https://www.google.com/search?q=AD7153&btnI=lucky)
+-   [AD7152](adi>AD7152)
+-   [AD7153](adi>AD7153)
 
 #### Evaluation Boards
 
--   [EVAL-AD7152EBZ](https://www.google.com/search?q=EVAL-AD7152EBZ&btnI=lucky)
+-   [EVAL-AD7152EBZ](adi>EVAL-AD7152EBZ)
 
 #### Description
 
@@ -29,8 +28,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 
 ![](scrape>adi>AD7153#description)
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -43,8 +41,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/cdc/ad7152.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/cdc/ad7152.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/cdc/ad7152.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/cdc/ad7152.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -61,7 +59,7 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/cdc/ad7152.c&amp;btnI=lucky">drivers/staging/iio/cdc/ad7152.c</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/cdc/ad7152.c">drivers/staging/iio/cdc/ad7152.c</a></td>
 </tr>
 </tbody>
 </table>
@@ -89,7 +87,7 @@ Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name 
 </tbody>
 </table>
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
 ## if defined(CONFIG_AD7152) || defined(CONFIG_AD7152_MODULE)
     {
@@ -99,7 +97,7 @@ static struct i2c_board_info __initdata board_i2c_board_info[] = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -113,8 +111,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -143,13 +140,11 @@ The driver depends on **CONFIG_I2C**
 
                     [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-![](/resources/tools-software/linux-drivers/iio-cdc/ad7152_eval_lr.jpg){width="600"}
+![ad7152_eval_lr.jpg](/resources/tools-software/linux-drivers/iio-cdc/ad7152_eval_lr.jpg){width="600" query="?600"}
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -430,7 +425,6 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_cap
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,43 +3,41 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/regu
 title: AD5821: 120 mA, Current Sinking, 10-Bit, I2C® DAC
 ---
 
-AD5398 Regulator Current Sink DAC Linux Driver
-==============================================
+# AD5398 Regulator Current Sink DAC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD5398](https://www.google.com/search?q=AD5398&btnI=lucky)
--   [AD5821](https://www.google.com/search?q=AD5821&btnI=lucky)
+-   [AD5398](adi>AD5398)
+-   [AD5821](adi>AD5821)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD5821EBZ](https://www.google.com/search?q=EVAL-AD5821EBZ&btnI=lucky)
+-   [EVAL-AD5821EBZ](adi>EVAL-AD5821EBZ)
 
-#### Description
+### Description
 
 AD5398 and AD5821 is a single 10-bit DAC with 120mA output current sink capability. I2C bus is connected to enable/disable output and set the proper output current value. This driver adapts to voltage and current regulator framework in Linux kernel.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
 <th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: left;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/regulator/ad5398.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/regulator/ad5398.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/regulator/ad5398.c">git</a></td>
+<td style="text-align: left;"><a href="git.linux.org&gt;drivers/regulator/ad5398.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -51,13 +49,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/regulator/ad5398.c&amp;btnI=lucky">drivers/regulator/ad5398.c</a></td>
+<td><a href="git.linux.org&gt;drivers/regulator/ad5398.c">drivers/regulator/ad5398.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -78,7 +75,7 @@ Select voltage and current regulator framework support and enable AD5398/AD5821 
             <M>   Userspace regulator consumer support
             <*>   Analog Devices AD5398/AD5821 regulators
 
-##### Customize Device Parameters
+#### Customize Device Parameters
 
 The platform info defined in bf537-stamp board file is for ad5398 and ad5821 only. If you want to customize this driver for other compatible current regulator DAC, you should revise the platform information accordingly.
 
@@ -100,7 +97,7 @@ The platform info defined in bf537-stamp board file is for ad5398 and ad5821 onl
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad5398_userspace_comsumer_data{} c linux-kernel>
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad5398_userspace_consumer_device{} c linux-kernel>
 
-##### Driver Testing
+#### Driver Testing
 
 Check regulator driver initialization information at kernel booting.
 

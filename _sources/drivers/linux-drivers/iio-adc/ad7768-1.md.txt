@@ -3,27 +3,25 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7768-1: 24-Bit, Power Scaling, Sigma-Delta ADC
 ---
 
-AD7768-1 IIO Low Power Sigma-Delta ADC Linux Driver
-===================================================
+# AD7768-1 IIO Low Power Sigma-Delta ADC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD7768-1](https://www.google.com/search?q=AD7768-1&btnI=lucky)
+-   [AD7768-1](adi>AD7768-1)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD7768-1](https://www.google.com/search?q=EVAL-AD7768-1&btnI=lucky)
+-   [EVAL-AD7768-1](adi>EVAL-AD7768-1)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -40,7 +38,7 @@ Source Code
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -57,7 +55,7 @@ Source Code
 </tbody>
 </table>
 
-#### Devicetree
+### Devicetree
 
 Required devicetree properties:
 
@@ -106,8 +104,7 @@ Required devicetree properties:
             clock-names = "mclk";
         };
 
-Driver testing
---------------
+## Driver testing
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -140,7 +137,7 @@ drwxr-xr-x 2 root root 0 Oct 12 22:15 trigger
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -154,7 +151,7 @@ ad7768-1
 :::
 
 
-###### Show scale
+##### Show scale
 
 **Description:**
 scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.
@@ -171,7 +168,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_voltage_scale**
 :::
 
 
-###### Show channel 0 measurement
+##### Show channel 0 measurement
 
 **Description:**
 Raw unscaled voltage measurement on channel 0
@@ -190,7 +187,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_voltage0_raw**
 
 **U** = *in_voltage0_raw * in_voltage_scale* = 2040915 * 0.000488281= **996.54 *mV***
 
-###### Set sampling frequency / update rate
+##### Set sampling frequency / update rate
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -208,7 +205,7 @@ root:/sys/bus/iio/devices/iio:device0>
 :::
 
 
-###### Show available bandwidths for the current set frequency
+##### Show available bandwidths for the current set frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -225,7 +222,7 @@ root:/sys/bus/iio/devices/iio:device0>
 :::
 
 
-###### Change the bandwidth
+##### Change the bandwidth
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -245,7 +242,7 @@ root:/sys/bus/iio/devices/iio:device0>
 :::
 
 
-#### Trigger management
+### Trigger management
 
 :::{NOTE} <!-- ATTRS: round="" help="" -->
 
@@ -266,7 +263,7 @@ ad7768-1-dev0
 :::
 
 
-#### Buffer management
+### Buffer management
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -314,8 +311,7 @@ Description of the scan element data storage within the buffer and therefore in 
 **in_voltageX_index / in_voltageX-voltageY_index / timestamp_index:**
 A single positive integer specifying the position of this scan element in the buffer. Note these are not dependent on what is enabled and may not be contiguous. Thus for user-space to establish the full layout these must be used in conjunction with all _en attributes to establish which channels are present, and the relevant _type attributes to establish the data storage format.
 
-Low level register access via debugfs (direct_reg_access)
------------------------------------------------------------
+## Low level register access via debugfs (direct_reg_access)
 
 Some IIO drivers feature an optional debug facility, allowing users to read or write registers directly. Special care needs to be taken when using this feature, since you can modify registers on the back of the driver. Accessing debugfs requires root privileges.
 
@@ -387,7 +383,6 @@ root@analog:/sys/kernel/debug/iio/iio:device0#
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

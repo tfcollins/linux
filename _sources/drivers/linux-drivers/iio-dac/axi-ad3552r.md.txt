@@ -3,8 +3,7 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD3552R: Dual Channel, 16-Bit, 33 MUPS, Multispan, Multi-IO SPI DAC
 ---
 
-AD3552R Dual Channel, 16-Bit, 33 MUPS, Multispan, Multi-IO SPI DAC Linux device driver
-======================================================================================
+# AD3552R Dual Channel, 16-Bit, 33 MUPS, Multispan, Multi-IO SPI DAC Linux device driver
 
 The AD3552R is a low drift, dual channel, ultra-fast, 16-bit accuracy, current output
 digital-to-analog
@@ -17,26 +16,25 @@ to 5 V, 0 V to 10 V, −5 V to +5 V, and −10 V to +10 V, and custom intermedia
 16-bit resolution. The DAC can operate in fast mode for maximum speed or precision mode for maximum
 accuracy.
 
-# Supported Devices
+### Supported Devices
 
--   [AD3552R](https://www.google.com/search?q=AD3552R&btnI=lucky)
+-   [AD3552R](adi>AD3552R)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD3552RFMC1Z](https://www.google.com/search?q=EVAL-AD3552R&btnI=lucky)
--   [EVAL-AD3552RFMC2Z](https://www.google.com/search?q=EVAL-AD3552R&btnI=lucky)
+-   [EVAL-AD3552RFMC1Z](adi>EVAL-AD3552R)
+-   [EVAL-AD3552RFMC2Z](adi>EVAL-AD3552R)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting RF Transceivers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of
 converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -47,13 +45,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=cn0585_v1?drivers/iio/dac/axi-ad3552r.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=cn0585_v1?drivers/iio/dac/axi-ad3552r.c&amp;btnI=lucky">No</a></td>
+<td><a href="linux.github&gt;cn0585_v1?drivers/iio/dac/axi-ad3552r.c">git</a></td>
+<td><a href="linux.github&gt;cn0585_v1?drivers/iio/dac/axi-ad3552r.c">No</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -65,13 +63,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=cn0585_v1?drivers/iio/dac/axi-ad3552r.c&amp;btnI=lucky">drivers/iio/dac/axi-ad3552r.c</a></td>
+<td><a href="linux.github&gt;cn0585_v1?drivers/iio/dac/axi-ad3552r.c">drivers/iio/dac/axi-ad3552r.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example Linux Device-Tree Initialization
-----------------------------------------
+## Example Linux Device-Tree Initialization
 
 Required devicetree properties:
 
@@ -106,20 +103,18 @@ Example:
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=EVAL-AD3552R&amp;btnI=lucky">EVAL-AD3552R</a> Device Tree</td>
-<td><a href="https://www.google.com/search?q=ad3552r_eval?/arch/arm/boot/dts/zynq-zed-adv7511-axi-ad3552r_evb.dts&amp;btnI=lucky">zynq-zed-adv7511-axi-ad3552r_evb.dts</a></td>
+<td><a href="adi&gt;EVAL-AD3552R">EVAL-AD3552R</a> Device Tree</td>
+<td><a href="linux.github&gt;ad3552r_eval?/arch/arm/boot/dts/zynq-zed-adv7511-axi-ad3552r_evb.dts">zynq-zed-adv7511-axi-ad3552r_evb.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -139,11 +134,9 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 
             [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing / API
---------------------
+## Driver testing / API
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -186,7 +179,7 @@ root:/sys/bus/iio/devices/iio:device1#
 :::
 
 
-#### Show device name
+### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -200,7 +193,7 @@ root:/sys/bus/iio/devices/iio:device1> **cat name**
 :::
 
 
-#### DAC sampling rate (sampling_frequency)
+### DAC sampling rate (sampling_frequency)
 
 Read only attribute which returns the DAC sampling rate in Hz.
 
@@ -219,7 +212,6 @@ root@analog:/sys/bus/iio/devices/iio:device1#
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

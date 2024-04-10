@@ -3,27 +3,26 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5392: 8-Channel 14-Bit 3 V/5 V Single-Supply Voltage-Output DAC
 ---
 
-AD5380 IIO Multi-Channel DAC Linux Driver
-=========================================
+# AD5380 IIO Multi-Channel DAC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD5380](https://www.google.com/search?q=AD5380&btnI=lucky)
--   [AD5381](https://www.google.com/search?q=AD5381&btnI=lucky)
--   [AD5382](https://www.google.com/search?q=AD5382&btnI=lucky)
--   [AD5383](https://www.google.com/search?q=AD5383&btnI=lucky)
--   [AD5384](https://www.google.com/search?q=AD5384&btnI=lucky)
--   [AD5390](https://www.google.com/search?q=AD5390&btnI=lucky)
--   [AD5391](https://www.google.com/search?q=AD5391&btnI=lucky)
--   [AD5392](https://www.google.com/search?q=AD5392&btnI=lucky)
+-   [AD5380](adi>AD5380)
+-   [AD5381](adi>AD5381)
+-   [AD5382](adi>AD5382)
+-   [AD5383](adi>AD5383)
+-   [AD5384](adi>AD5384)
+-   [AD5390](adi>AD5390)
+-   [AD5391](adi>AD5391)
+-   [AD5392](adi>AD5392)
 
 #### Evaluation Boards
 
--   [EVAL-AD5380EBZ](https://www.google.com/search?q=EVAL-AD5380EBZ&btnI=lucky)
--   [EVAL-AD5382EBZ](https://www.google.com/search?q=EVAL-AD5382EBZ&btnI=lucky)
--   [EVAL-AD5390EBZ](https://www.google.com/search?q=EVAL-AD5390EBZ&btnI=lucky)
--   [EVAL-AD5391EBZ](https://www.google.com/search?q=EVAL-AD5391EBZ&btnI=lucky)
--   [EVAL-AD5392EBZ](https://www.google.com/search?q=EVAL-AD5392EBZ&btnI=lucky)
+-   [EVAL-AD5380EBZ](adi>EVAL-AD5380EBZ)
+-   [EVAL-AD5382EBZ](adi>EVAL-AD5382EBZ)
+-   [EVAL-AD5390EBZ](adi>EVAL-AD5390EBZ)
+-   [EVAL-AD5391EBZ](adi>EVAL-AD5391EBZ)
+-   [EVAL-AD5392EBZ](adi>EVAL-AD5392EBZ)
 
 #### Description
 
@@ -31,8 +30,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -45,8 +43,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5380.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5380.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5380.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5380.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -63,13 +61,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5380.c&amp;btnI=lucky">drivers/iio/dac/ad5380.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5380.c">drivers/iio/dac/ad5380.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 #### Specifying reference voltage via the regulator framework
 
@@ -78,7 +75,7 @@ The supply should be called "vref".
 
 Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 
-``` {.c}
+``` c
 ## if IS_ENABLED(CONFIG_REGULATOR_FIXED_VOLTAGE)
 static struct regulator_consumer_supply ad5380_consumer_supplies[] = {
     REGULATOR_SUPPLY("vref", "spi0.3"),
@@ -111,7 +108,7 @@ static struct platform_device brd_voltage_regulator = {
 ## endif
 ```
 
-``` {.c}
+``` c
 static struct platform_device *board_devices[] __initdata = {
 ## if IS_ENABLED(CONFIG_REGULATOR_FIXED_VOLTAGE)
     &brd_voltage_regulator
@@ -119,7 +116,7 @@ static struct platform_device *board_devices[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -138,7 +135,7 @@ arch_initcall(board_init);
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if IS_ENABLED(CONFIG_AD5380)
     {
@@ -153,7 +150,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -211,7 +208,7 @@ The I2C device id depends on the AD0 and AD1 pin settings and needs to be set ac
 
 In this example we assume ADDR0=0 and ADDR1=0.
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
     [--snip--]
@@ -223,7 +220,7 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
 ```
 
-``` {.c}
+``` c
 static int __init stamp_init(void)
 {
     [--snip--]
@@ -236,8 +233,7 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -262,11 +258,9 @@ The AD5380 Driver depends on **CONFIG_SPI_MASTER** or **CONFIG_I2C**
                 ...
             ...
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -456,7 +450,6 @@ three_state
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,28 +3,26 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: SSM2604: Low Power Audio Codec
 ---
 
-SSM2602 Sound CODEC Linux Driver
-================================
+# SSM2602 Sound CODEC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [SSM2602](https://www.google.com/search?q=SSM2602&btnI=lucky)
--   [SSM2603](https://www.google.com/search?q=SSM2603&btnI=lucky)
--   [SSM2604](https://www.google.com/search?q=SSM2604&btnI=lucky)
+-   [SSM2602](adi>SSM2602)
+-   [SSM2603](adi>SSM2603)
+-   [SSM2604](adi>SSM2604)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [SSM2603-EVALZ](https://www.google.com/search?q=SSM2603-EVALZ&btnI=lucky)
--   [SSM2604-EVALZ](https://www.google.com/search?q=SSM2604-EVALZ&btnI=lucky)
+-   [SSM2603-EVALZ](adi>SSM2603-EVALZ)
+-   [SSM2604-EVALZ](adi>SSM2604-EVALZ)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0282](https://www.google.com/search?q=CN0282&btnI=lucky)
+-   [CN0282](adi>CN0282)
 
-Source Code
------------
+## Source Code
 
-###### Status
+#### Status
 
 <table>
 <thead>
@@ -35,13 +33,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ssm2602.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ssm2602.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ssm2602.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ssm2602.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-##### Files
+#### Files
 
 <table>
 <thead>
@@ -53,27 +51,26 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ssm2602.c&amp;btnI=lucky">sound/soc/codecs/ssm2602.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ssm2602.c">sound/soc/codecs/ssm2602.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ssm2602.h&amp;btnI=lucky">sound/soc/codecs/ssm2602.h</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ssm2602.h">sound/soc/codecs/ssm2602.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example device initialization
------------------------------
+## Example device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-##### SPI
+#### SPI
 
 SPI can be used for the SSM2602 if in SPI mode (MODE pin set to 1).
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
     [--snip--]
     {
@@ -87,7 +84,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -101,13 +98,13 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-##### I2C
+#### I2C
 
 I2C can be used for the SSM2602, SSM2603, SSM2604. For the SSM2602 make sure that it is in I2C mode (MODE pin set to 0).
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
     [--snip--]
@@ -119,7 +116,7 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
 ```
 
-``` {.c}
+``` c
 static int __init stamp_init(void)
 {
     [--snip--]
@@ -132,7 +129,7 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-#### ASoC DAPM Widgets
+### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -181,7 +178,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### ALSA Controls
+### ALSA Controls
 
 <table>
 <thead>
@@ -270,11 +267,11 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### DAI configuration
+### DAI configuration
 
 The codec driver registers one DAI named **"ssm2602-hifi"**.
 
-##### Supported DAI formats
+#### Supported DAI formats
 
 <table>
 <thead>
@@ -373,7 +370,7 @@ The codec driver registers one DAI named **"ssm2602-hifi"**.
 </tbody>
 </table>
 
-##### Supported SYSCLK rates
+#### Supported SYSCLK rates
 
 The codecs system clock can be configured for various input rates. When configuring the codec system clock use SSM2602_SYSCLK for the clock id.
 
@@ -410,9 +407,9 @@ The following list contains the supported system clock rates and their resulting
 </tbody>
 </table>
 
-##### Example DAI configuration
+#### Example DAI configuration
 
-``` {.c}
+``` c
 static struct snd_soc_card bf5xx_ssm2602;
 
 static int bf5xx_ssm2602_hw_params(struct snd_pcm_substream *substream,
@@ -458,12 +455,11 @@ static struct snd_soc_dai_link bf5xx_ssm2602_dai_link[] = {
 };
 ```
 
-SSM2604 evaluation board driver
--------------------------------
+## SSM2604 evaluation board driver
 
-#### Source
+### Source
 
-###### Status
+#### Status
 
 <table>
 <thead>
@@ -474,13 +470,13 @@ SSM2604 evaluation board driver
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=linux-kernel?sound/soc/blackfin/bf5xx-ssm2602.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/blackfin/bf5xx-ssm2602.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="bfgit&gt;linux-kernel?sound/soc/blackfin/bf5xx-ssm2602.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/blackfin/bf5xx-ssm2602.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### As a Module
+### As a Module
 
 To add support for the built-in codec SSM2602 of BF52xC to the kernel build system, a few things must be enabled properly for things to work. The configuration is as following:
 
@@ -513,20 +509,20 @@ I2C bus is used to configure the codec. So, if the audio driver is built into ke
 
 Doing this will create modules (outside the kernel). The modules will be inserted automatically when it is needed. You can also build sound driver into kernel.
 
-#### Testing the built in kernel driver
+### Testing the built in kernel driver
 
 If audio is configured as modules, skip this section. If audio is built into kernel and you have booted the kernel, there are a few things to check to ensure audio is working:
 
-1.  Check the boot messages to see if you have booted the correct kernel. During kernel boot, it should print out: `Advanced Linux Sound Architecture Driver Version 1.0.12rc1 (Thu Jun 22 13:55:50 2006 UTC).
-    ASoC version 0.13.1
-    dma rx:3 tx:4, err irq:15, regs:ffc00800
-    ssm2602 Audio Codec 0.1<6>dma_alloc_init: dma_page @ 0x03011000 - 512 pages at 0x03e00000
-    asoc: SSM2602 <-> bf5xx-i2s-0 mapping ok
-    ALSA device list:
-      #0: bf5xx_ssm2602 (SSM2602)
-    `
+1.  Check the boot messages to see if you have booted the correct kernel. During kernel boot, it should print out:
+        Advanced Linux Sound Architecture Driver Version 1.0.12rc1 (Thu Jun 22 13:55:50 2006 UTC).
+        ASoC version 0.13.1
+        dma rx:3 tx:4, err irq:15, regs:ffc00800
+        ssm2602 Audio Codec 0.1<6>dma_alloc_init: dma_page @ 0x03011000 - 512 pages at 0x03e00000
+        asoc: SSM2602 <-> bf5xx-i2s-0 mapping ok
+        ALSA device list:
+          #0: bf5xx_ssm2602 (SSM2602)
 
-#### Testing the audio module
+### Testing the audio module
 
 ```bashroot:~> **modprobe snd-ssm2602**
 root:~> **modprobe snd-pcm-oss**
@@ -549,7 +545,7 @@ root:~> **tone**
 TONE: generating sine wave at 1000 Hz...
 ```
 
-#### Testing Audio
+### Testing Audio
 
 1.  Check the output ```bashroot:~> **tone**
 

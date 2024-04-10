@@ -3,35 +3,33 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADF5356: Microwave Wideband Synthesizer with Integrated VCO
 ---
 
-ADF5355 IIO Wideband Synthesizer Linux Driver
-=============================================
+# ADF5355 IIO Wideband Synthesizer Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADF4355](https://www.google.com/search?q=ADF4355&btnI=lucky)
--   [ADF4355-2](https://www.google.com/search?q=ADF4355-2&btnI=lucky)
--   [ADF4355-3](https://www.google.com/search?q=ADF4355-3&btnI=lucky)
--   [ADF5355](https://www.google.com/search?q=ADF5355&btnI=lucky)
--   [ADF5356](https://www.google.com/search?q=ADF5356&btnI=lucky)
+-   [ADF4355](adi>ADF4355)
+-   [ADF4355-2](adi>ADF4355-2)
+-   [ADF4355-3](adi>ADF4355-3)
+-   [ADF5355](adi>ADF5355)
+-   [ADF5356](adi>ADF5356)
 
-#### Reference Circuits
+### Reference Circuits
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [ADF4355 Eval Board](https://www.google.com/search?q=EVAL-ADF4355&btnI=lucky)
--   [ADF5355 Eval Board](https://www.google.com/search?q=EVAL-ADF5355&btnI=lucky)
--   [ADF5356 Eval Board](https://www.google.com/search?q=EVAL-ADF5356&btnI=lucky)
+-   [ADF4355 Eval Board](adi>EVAL-ADF4355)
+-   [ADF5355 Eval Board](adi>EVAL-ADF5355)
+-   [ADF5356 Eval Board](adi>EVAL-ADF5356)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface PLL Synthesizers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -42,13 +40,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adf5355.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adf5355.c&amp;btnI=lucky">WIP</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/adf5355.c">git</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/adf5355.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -60,27 +58,26 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adf5355.c&amp;btnI=lucky">master?drivers/iio/frequency/adf5355.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/adf5355.c">master?drivers/iio/frequency/adf5355.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?include/linux/iio/frequency/adf5355.h&amp;btnI=lucky">master?include/linux/iio/frequency/adf5355.h</a></td>
+<td><a href="linux.github&gt;master?include/linux/iio/frequency/adf5355.h">master?include/linux/iio/frequency/adf5355.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/frequency/adf5355.txt&amp;btnI=lucky">master?Documentation/devicetree/bindings/iio/frequency/adf5355.txt</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/adf5355.txt">master?Documentation/devicetree/bindings/iio/frequency/adf5355.txt</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 The reference frequency and GPIO numbers may vary between boards. The platform_data for the device's "struct device" holds this information.
 
-``` {.c}
+``` c
 /**
  * struct adf5355_platform_data - platform specific information
  * @name:       Optional device name.
@@ -149,8 +146,7 @@ The reference frequency and GPIO numbers may vary between boards. The platform_d
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-Devicetree bindings
--------------------
+## Devicetree bindings
 
     Required properties:
         - compatible: Should be one of
@@ -268,8 +264,7 @@ Devicetree bindings
         };
     };
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -295,11 +290,9 @@ The ADF5355 Driver depends on **CONFIG_SPI**
                     <*>   Analog Devices ADF5355/ADF4355 Wideband Synthesizers
                 [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -333,7 +326,7 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1#
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -347,7 +340,7 @@ adf5355
 :::
 
 
-###### Set Output Frequency
+##### Set Output Frequency
 
 /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency
 Stores PLL Y frequency in Hz. Reading returns the
@@ -366,7 +359,7 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# cat out_altvoltage0
 :::
 
 
-###### Set reference frequency
+##### Set reference frequency
 
 /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_refin_frequency
 Sets PLL Y REFin frequency in Hz. In some clock chained
@@ -387,7 +380,7 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# cat out_altvoltage_
 :::
 
 
-###### Enable Power-Down
+##### Enable Power-Down
 
 /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown
 If available, this attribute allows the user to power down
@@ -407,7 +400,6 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# cat out_altvoltage0
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

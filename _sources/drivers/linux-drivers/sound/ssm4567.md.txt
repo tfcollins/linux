@@ -3,21 +3,19 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: SSM4567: Digital 2.5 W, 5.1 V, Boost Class-D Audio Amplifier with Output Sensing
 ---
 
-SSM4567 Audio Amplifier Linux Driver
-====================================
+# SSM4567 Audio Amplifier Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [SSM4567](https://www.google.com/search?q=SSM4567&btnI=lucky)
+-   [SSM4567](adi>SSM4567)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-SSM4567Z](https://www.google.com/search?q=EVAL-SSM4567Z&btnI=lucky)
+-   [EVAL-SSM4567Z](adi>EVAL-SSM4567Z)
 
-Source Code
------------
+## Source Code
 
-##### Status
+#### Status
 
 <table>
 <thead>
@@ -28,13 +26,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=ssm4329?sound/soc/codecs/ssm4567.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ssm4567.c&amp;btnI=lucky">yes</a></td>
+<td><a href="linux.github&gt;ssm4329?sound/soc/codecs/ssm4567.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ssm4567.c">yes</a></td>
 </tr>
 </tbody>
 </table>
 
-##### Files
+#### Files
 
 <table>
 <thead>
@@ -46,17 +44,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=asoc-ssm4329?sound/soc/codecs/ssm4567.c&amp;btnI=lucky">sound/soc/codecs/ssm4567.c</a></td>
+<td><a href="linux.github&gt;asoc-ssm4329?sound/soc/codecs/ssm4567.c">sound/soc/codecs/ssm4567.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=asoc-ssm4329?sound/soc/codecs/ssm4567.h&amp;btnI=lucky">sound/soc/codecs/ssm4567.h</a></td>
+<td><a href="linux.github&gt;asoc-ssm4329?sound/soc/codecs/ssm4567.h">sound/soc/codecs/ssm4567.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example device initialization
------------------------------
+## Example device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -83,7 +80,7 @@ The I2C address of the SSM4567 depends on the setting of the ADDR pin.
 </tbody>
 </table>
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
     [--snip--]
@@ -95,7 +92,7 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
 ```
 
-``` {.c}
+``` c
 static int __init stamp_init(void)
 {
     [--snip--]
@@ -108,7 +105,7 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-#### Devicetree
+### Devicetree
 
     i2s: i2c@41600000 {
         compatible = "...;
@@ -123,7 +120,7 @@ arch_initcall(board_init);
         };
     };
 
-#### ASoC DAPM Widgets
+### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -140,7 +137,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### ALSA Controls
+### ALSA Controls
 
 <table>
 <thead>
@@ -189,11 +186,11 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### DAI configuration
+### DAI configuration
 
 The amplifier driver registers one DAIs, one for each serial port. The DAI is named **"ssm4567-hifi"**
 
-##### Supported DAI formats
+#### Supported DAI formats
 
 <table>
 <thead>
@@ -292,7 +289,7 @@ The amplifier driver registers one DAIs, one for each serial port. The DAI is na
 </tbody>
 </table>
 
-##### TDM configuration
+#### TDM configuration
 
 If you want to use the SSM4567 in TDM mode you can configure it using snd_soc_dai_set_tdm_slot() from you ASoC board driver.
 
@@ -305,7 +302,7 @@ The following restrictions apply to the parameters of snd_soc_dai_set_tdm_slot()
 
 Example:
 
-``` {.c}
+``` c
 static int ssm4567_link_init(struct snd_soc_pcm_runtime *rtd)
 {
     int ret;
@@ -323,9 +320,9 @@ static struct snd_soc_dai_link ssm4567_dai_link = {
 };
 ```
 
-##### Example DAI configuration
+#### Example DAI configuration
 
-``` {.c}
+``` c
 static const struct snd_soc_dapm_widget ssm4567_zed_widgets[] = {
     SND_SOC_DAPM_SPK("Speaker", NULL),
 };
@@ -357,13 +354,13 @@ static struct snd_soc_card ssm4567_zed_card = {
 };
 ```
 
-##### Multi SSM4567 Example configuration
+#### Multi SSM4567 Example configuration
 
 This example shows how to setup a ASoC board driver for a system with two SSM4567, one driving the left speaker and the other driving the right speaker. In this example the left SSM4567 is at I2C address 0x34 (ADDR=0) and the right SSM4567 is at I2S address 0x35 (ADDR=1).
 
 Note support for multiple CODECs on a single DAI link requires Linux v3.17 or higher.
 
-``` {.c}
+``` c
 static int ssm4567_link_init(struct snd_soc_pcm_runtime *rtd)
 {
     int ret;
@@ -443,7 +440,7 @@ static struct snd_soc_card ssm4567_zed_card = {
 };
 ```
 
-#### More information
+### More information
 
 -    [SSM4329 Linux Driver](SSM4329)
 

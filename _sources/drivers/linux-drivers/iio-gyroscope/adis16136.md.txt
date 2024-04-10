@@ -3,30 +3,28 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADIS16137: ±1000°/Sec Precision Angular Rate Sensor
 ---
 
-ADIS16136 IIO Inertial Measurement Unit Linux Driver
-====================================================
+# ADIS16136 IIO Inertial Measurement Unit Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADIS16133](https://www.google.com/search?q=ADIS16133&btnI=lucky)
--   [ADIS16135](https://www.google.com/search?q=ADIS16135&btnI=lucky)
--   [ADIS16136](https://www.google.com/search?q=ADIS16136&btnI=lucky)
--   [ADIS16137](https://www.google.com/search?q=ADIS16137&btnI=lucky) (Linux v4.3+)
+-   [ADIS16133](adi>ADIS16133)
+-   [ADIS16135](adi>ADIS16135)
+-   [ADIS16136](adi>ADIS16136)
+-   [ADIS16137](adi>ADIS16137) (Linux v4.3+)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [ADIS16IMU1/PCBZ](https://www.google.com/search?q=EVAL-ADIS16IMU1&btnI=lucky)
+-   [ADIS16IMU1/PCBZ](adi>EVAL-ADIS16IMU1)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Inertial Measurement Units (IMU).
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -37,13 +35,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/gyro/adis16136.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/gyro/adis16136.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/gyro/adis16136.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/gyro/adis16136.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -55,7 +53,7 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/gyro/adis16136.c&amp;btnI=lucky">drivers/iio/gyro/adis16136.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/gyro/adis16136.c">drivers/iio/gyro/adis16136.c</a></td>
 </tr>
 </tbody>
 </table>
@@ -65,7 +63,7 @@ Source Code
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
     {
         .modalias = "adis16136",
@@ -78,7 +76,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -92,8 +90,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -118,11 +115,9 @@ The ADIS16136 driver depends on **CONFIG_SPI_MASTER**
                 ...
             ...
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -159,10 +154,10 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0>
 :::
 
 
-#### ADIS16136 device attributes
+### ADIS16136 device attributes
 
 For a detailed description please see:
-[Documentation/ABI/testing/sysfs-bus-iio](https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&btnI=lucky)
+[Documentation/ABI/testing/sysfs-bus-iio](git.linux.org>Documentation/ABI/testing/sysfs-bus-iio)
 
 <table>
 <thead>
@@ -219,7 +214,7 @@ For a detailed description please see:
 </tbody>
 </table>
 
-##### Show device name
+#### Show device name
 
 The `name` file contains the name of the device. This will match the product id. E.g. `adis16136` for the adis16136.
 
@@ -235,7 +230,7 @@ adis16136
 :::
 
 
-##### Set sampling frequency
+#### Set sampling frequency
 
 The sampling frequency of the device can be set by writing the desired value to the `sampling_frequency` file. The driver will automatically round up to the nearest supported sampling frequency.
 
@@ -255,7 +250,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat sampling_frequen
 :::
 
 
-##### Show channel value
+#### Show channel value
 
 A channel value can be read from its `_raw` attribute. The value returned by the `_raw` attribute is the raw value as reported by the device. To get the processed value of the channel in a standardized unit add the channels `_offset` attribute to the `_raw` value and multiply the result by `_scale` attribute. If no `_offset` attribute is present assume 0 for the offset.
 
@@ -283,7 +278,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat in_anglvel_scale
 
 `Z-axis acceleration = in_anglvel_x_raw * in_anglvel_scale = TBD = TBD rad per second`
 
-##### Set channel bandwidth
+#### Set channel bandwidth
 
 The channel bandwidth can be set by writing the desired value to the channels `in_anglvel_filter_low_pass_3db_frequency` attribute. The driver will automatically round up to the nearest supported bandwidth.
 
@@ -305,7 +300,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat in_anglvel_filte
 :::
 
 
-#### Trigger management
+### Trigger management
 
 :::{NOTE} <!-- ATTRS: round="" help="" -->
 
@@ -331,7 +326,7 @@ For the adis16133 and adis16135 the trigger will be called adis16133-dev0 and ad
 :::
 
 
-#### Buffer management
+### Buffer management
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -364,11 +359,10 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan_elements>
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
 
-#### IMU Evaluation Board User Guides
+### IMU Evaluation Board User Guides
 
 -   [ADIS1613x Evaluation on the EVAL-ADIS](/resources/eval/user-guides/inertial-mems/gyroscopes/adis1613x)

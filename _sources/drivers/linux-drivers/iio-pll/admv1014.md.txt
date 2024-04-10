@@ -3,27 +3,25 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADMV1014: 24 GHz to 44 GHz, Wideband, Microwave Downconverter
 ---
 
-ADMV1014 24 GHz to 44 GHz, Wideband, Microwave Downconverter
-============================================================
+# ADMV1014 24 GHz to 44 GHz, Wideband, Microwave Downconverter
 
-# Supported Devices
+### Supported Devices
 
--   [ADMV1014](https://www.google.com/search?q=ADMV1014&btnI=lucky)
+-   [ADMV1014](adi>ADMV1014)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADMV1014](https://www.google.com/search?q=EVAL-ADMV1014&btnI=lucky)
+-   [EVAL-ADMV1014](adi>EVAL-ADMV1014)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Microwave converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -34,13 +32,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/admv1014.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/admv1014.c&amp;btnI=lucky">WIP</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/admv1014.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/admv1014.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -52,18 +50,18 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/admv1014.c&amp;btnI=lucky">drivers/iio/frequency/admv1014.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/admv1014.c">drivers/iio/frequency/admv1014.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio</a></td>
+<td><a href="git.linux.org&gt;Documentation/ABI/testing/sysfs-bus-iio">Documentation/ABI/testing/sysfs-bus-iio</a></td>
 </tr>
 </tbody>
 </table>
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-##### properties
+#### properties
 
 **compatible:**
 
@@ -186,9 +184,9 @@ Source Code
 -   clock-names
 -   vcm-supply
 
-##### Example
+#### Example
 
-``` {.c}
+``` c
 spi {
       #address-cells = <1>;
       #size-cells = <0>;
@@ -210,8 +208,7 @@ spi {
     };
 ```
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -230,8 +227,7 @@ The ADMV1014 Driver depends on **CONFIG_SPI**
                     Frequency  --->
                         <*> Analog Devices ADMV1014 Microwave Downconverter
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -261,7 +257,7 @@ lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -> ../../../../../../../../bus/ii
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -276,7 +272,7 @@ admv1014
 :::
 
 
-###### Set ChannelY Gain
+##### Set ChannelY Gain
 
 /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_hardwaregain
 Gain factor. If shared across all channels,
@@ -299,7 +295,7 @@ root:/> **cat out_altvoltage0_hardwaregain**
 :::
 
 
-###### Set ChannelY Offset value
+##### Set ChannelY Offset value
 
 /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_offset
 Offset value. If shared across all channels,
@@ -321,7 +317,7 @@ root:/> **cat out_altvoltage0_offset**
 :::
 
 
-###### Set ChannelY Phase value
+##### Set ChannelY Phase value
 
 /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_phase
 Phase value. If shared across all channels,
@@ -343,7 +339,6 @@ root:/> **cat out_altvoltage0_phase**
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

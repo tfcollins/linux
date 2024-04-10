@@ -3,25 +3,23 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: AD1839A: 2 ADC, 6 DAC 96 kHz, 24-Bit Sigma Delta Codec
 ---
 
-AD1836 Sound CODEC Linux Driver
-===============================
+# AD1836 Sound CODEC Linux Driver
 
-# Supported devices
+### Supported devices
 
--   [AD1835A](https://www.google.com/search?q=AD1835A&btnI=lucky)
--   [AD1836A](https://www.google.com/search?q=AD1836A&btnI=lucky)
--   [AD1838A](https://www.google.com/search?q=AD1838A&btnI=lucky)
--   [AD1837A](https://www.google.com/search?q=AD1837A&btnI=lucky)
--   [AD1839A](https://www.google.com/search?q=AD1839A&btnI=lucky)
+-   [AD1835A](adi>AD1835A)
+-   [AD1836A](adi>AD1836A)
+-   [AD1838A](adi>AD1838A)
+-   [AD1837A](adi>AD1837A)
+-   [AD1839A](adi>AD1839A)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [AD1836AZ-DBRD](https://www.google.com/search?q=AD1836AZ-DBRD&btnI=lucky)
+-   [AD1836AZ-DBRD](adi>AD1836AZ-DBRD)
 
-Source Code
------------
+## Source Code
 
-##### Status
+#### Status
 
 <table>
 <thead>
@@ -32,13 +30,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ad1836.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ad1836.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ad1836.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ad1836.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-##### Files
+#### Files
 
 <table>
 <thead>
@@ -50,23 +48,22 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ad1836.c&amp;btnI=lucky">sound/soc/codecs/ad1836.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ad1836.c">sound/soc/codecs/ad1836.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ad1836.h&amp;btnI=lucky">sound/soc/codecs/ad1836.h</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ad1836.h">sound/soc/codecs/ad1836.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example device initialization
------------------------------
+## Example device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 You need to set the modalias of your SPI info according to your codec. Valid values are "ad1835", "ad1836", "ad1837", "ad1838" and "ad1839". You'll also have to adjust bus_num and chip_select according to your board setup.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
     [--snip--]
     {
@@ -80,7 +77,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -94,7 +91,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-#### ASoC DAPM Widgets
+### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -138,7 +135,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### ALSA Controls
+### ALSA Controls
 
 <table>
 <thead>
@@ -217,7 +214,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### DAI Configuration
+### DAI Configuration
 
 The CODEC driver registers one DAI named depending on the chip model used.
 
@@ -244,7 +241,7 @@ The CODEC driver registers one DAI named depending on the chip model used.
 </tbody>
 </table>
 
-##### Supported DAI formats
+#### Supported DAI formats
 
 <table>
 <thead>
@@ -343,9 +340,9 @@ The CODEC driver registers one DAI named depending on the chip model used.
 </tbody>
 </table>
 
-##### Example DAI Configuration
+#### Example DAI Configuration
 
-``` {.c}
+``` c
 static int bf5xx_ad1836_hw_params(struct snd_pcm_substream *substream,
     struct snd_pcm_hw_params *params)
 {
@@ -384,10 +381,9 @@ static struct snd_soc_dai_link bf5xx_ad1836_dai = {
 };
 ```
 
-AD1836 evaluation board driver
-------------------------------
+## AD1836 evaluation board driver
 
-#### Adding Kernel Support - As a module
+### Adding Kernel Support - As a module
 
 To add support for the built-in codec AD183X of BF5XX to the kernel build system, a few things must be enabled properly for things to work.The configuration is as following:
 
@@ -406,7 +402,7 @@ To add support for the built-in codec AD183X of BF5XX to the kernel build system
 
 Doing this will create modules (outside the kernel). The modules will be inserted automatically when it is needed. You can also build sound driver into kernel.
 
-##### Testing the built in kernel driver
+#### Testing the built in kernel driver
 
 If audio is configured as modules, skip this section. If audio is built into kernel and you have booted the kernel, there are a few things to check to ensure audio is working:
 
@@ -422,7 +418,7 @@ If audio is configured as modules, skip this section. If audio is built into ker
           ALSA device list:
             #0: bf5xx_ad183x (AD183X)
 
-##### Testing the audio module
+#### Testing the audio module
 
     root:/> modprobe snd-ad183x
     dma rx:3 tx:4, err irq:45, regs:ffc00800
@@ -448,7 +444,7 @@ If audio is configured as modules, skip this section. If audio is built into ker
     root:~> tone
     TONE: generating sine wave at 1000 Hz...
 
-#### Driver testing
+### Driver testing
 
 1.  Check the output
 

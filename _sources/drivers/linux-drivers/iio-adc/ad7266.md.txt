@@ -3,33 +3,31 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7266: Differential/Single-Ended Input, Dual, Simultaneous Sampling, 2 MSPS, 12-Bit, 3-Channel SAR A/D Converter
 ---
 
-AD7266 Differential/Single-Ended Input, Dual, Simultaneous Sampling, 2 MSPS, 12-Bit, 3-Channel SAR A/D Converter Linux Driver
-=============================================================================================================================
+# AD7266 Differential/Single-Ended Input, Dual, Simultaneous Sampling, 2 MSPS, 12-Bit, 3-Channel SAR A/D Converter Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD7265](https://www.google.com/search?q=AD7265&btnI=lucky)
--   [AD7266](https://www.google.com/search?q=AD7266&btnI=lucky)
+-   [AD7265](adi>AD7265)
+-   [AD7266](adi>AD7266)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0187](https://www.google.com/search?q=CN0187&btnI=lucky)
+-   [CN0187](adi>CN0187)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD7265EDZ](https://www.google.com/search?q=EVAL-AD7265EDZ&btnI=lucky)
--   [EVAL-AD7266EDZ](https://www.google.com/search?q=EVAL-AD7266EDZ&btnI=lucky)
+-   [EVAL-AD7265EDZ](adi>EVAL-AD7265EDZ)
+-   [EVAL-AD7266EDZ](adi>EVAL-AD7266EDZ)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -40,13 +38,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7266.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7266.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad7266.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad7266.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -58,23 +56,23 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7266.c&amp;btnI=lucky">drivers/iio/adc/ad7266.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad7266.c">drivers/iio/adc/ad7266.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/platform_data/ad7266.h&amp;btnI=lucky">include/linux/platform_data/ad7266.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/platform_data/ad7266.h">include/linux/platform_data/ad7266.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 The AD7265/AD7266 supports different operating modes, which can be configured via external pins. To properly interpret the data from the chip the driver has to know which mode it is configured for. This is done using platform data. If the AD (address) pins of the chip are hook up to GPIOs to be able to change the sampled inputs at runtime the GPIOs can be specified via the platform data as well. If GPIOs are used the `fixed_addr` field must be set to false.
 
-``` {.c}
+``` c
+
 /*
  * ad7266_range - AD7266 reference voltage range
  * @AD7266_RANGE_VREF: Device is configured for input range 0V - VREF
@@ -118,7 +116,7 @@ struct ad7266_platform_data {
 };
 ```
 
-``` {.c}
+``` c
 static struct ad7266_platform_data pdata = {
     .range = AD7266_RANGE_2VREF,
     .mode = AD7266_MODE_SINGLE_ENDED,
@@ -129,7 +127,7 @@ static struct ad7266_platform_data pdata = {
 
 If no platform data is provided the driver assumes differential 0V-VREF operation with a fixed address. This corresponds to the following platform data.
 
-``` {.c}
+``` c
 static struct ad7266_platform_data ad7266_pdata_default = {
     .range = AD7266_RANGE_VREF,
     .mode = AD7266_MODE_DIFF,
@@ -142,7 +140,7 @@ static struct ad7266_platform_data ad7266_pdata_default = {
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
     {
         .modalias = "ad7266",
@@ -155,7 +153,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -169,8 +167,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -195,11 +192,9 @@ The AD7266 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -237,7 +232,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.12/iio:device0>
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -251,7 +246,7 @@ ad7266
 :::
 
 
-###### Show scale for differential input channels
+##### Show scale for differential input channels
 
 **Description:**
 in_voltage-voltage_scale
@@ -271,7 +266,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
 :::
 
 
-###### Show differential channel measurement
+##### Show differential channel measurement
 
 **Description:**
 in_voltageY-voltageZ_raw
@@ -327,7 +322,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.12/iio:device0> **cat in_voltage0-vol
 
 **U** = *in_voltage0-voltage1_raw * in_voltage-voltage_scale* = 100 * 0.610350 = **61.035 *mV***
 
-###### Show scale for single-ended input channels
+##### Show scale for single-ended input channels
 
 **Description:**
 in_voltage_scale
@@ -347,7 +342,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0>
 :::
 
 
-###### Show single-ended channel measurement
+##### Show single-ended channel measurement
 
 **Description:**
 in_voltageY_raw
@@ -368,7 +363,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.12/iio:device0> **cat in_voltage0_raw
 
 **U** = *in_voltage0 * in_voltage_scale* = 100 * 0.610350 = **61.035 *mV***
 
-#### Trigger management
+### Trigger management
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -401,7 +396,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0/scan_elements>
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

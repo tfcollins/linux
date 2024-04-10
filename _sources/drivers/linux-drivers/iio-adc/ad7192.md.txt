@@ -3,34 +3,33 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7195: 4.8 kHz, Ultralow Noise, 24-Bit Sigma-Delta ADC with PGA and AC Excitation
 ---
 
-AD7192 IIO High Precision ADC Linux Driver
-==========================================
+# AD7192 IIO High Precision ADC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD7190](https://www.google.com/search?q=AD7190&btnI=lucky)
--   [AD7192](https://www.google.com/search?q=AD7192&btnI=lucky)
--   [AD7193](https://www.google.com/search?q=AD7193&btnI=lucky) (Upstream 4.6+)
--   [AD7194](https://www.google.com/search?q=AD7194&btnI=lucky)
--   [AD7195](https://www.google.com/search?q=AD7195&btnI=lucky)
+-   [AD7190](adi>AD7190)
+-   [AD7192](adi>AD7192)
+-   [AD7193](adi>AD7193) (Upstream 4.6+)
+-   [AD7194](adi>AD7194)
+-   [AD7195](adi>AD7195)
 
 #### Reference Circuits
 
--   [CN0119](https://www.google.com/search?q=CN0119&btnI=lucky)
--   [CN0102](https://www.google.com/search?q=CN0102&btnI=lucky)
--   [CN0155](https://www.google.com/search?q=CN0155&btnI=lucky)
--   [CN0209](https://www.google.com/search?q=CN0209&btnI=lucky)
--   [CN0251](https://www.google.com/search?q=CN0251&btnI=lucky)
--   [CN0287](https://www.google.com/search?q=CN0287&btnI=lucky)
--   [CN0371](https://www.google.com/search?q=CN0371&btnI=lucky)
+-   [CN0119](adi>CN0119)
+-   [CN0102](adi>CN0102)
+-   [CN0155](adi>CN0155)
+-   [CN0209](adi>CN0209)
+-   [CN0251](adi>CN0251)
+-   [CN0287](adi>CN0287)
+-   [CN0371](adi>CN0371)
 
 #### Evaluation Boards
 
--   [EVAL-AD7190EBZ](https://www.google.com/search?q=EVAL-AD7190EBZ&btnI=lucky)
--   [EVAL-AD7192EBZ](https://www.google.com/search?q=EVAL-AD7192EBZ&btnI=lucky)
--   [EVAL-AD7193EBZ](https://www.google.com/search?q=EVAL-AD7193EBZ&btnI=lucky)
--   [EVAL-AD7194EBZ](https://www.google.com/search?q=EVAL-AD7194EBZ&btnI=lucky)
--   [EVAL-AD7195EBZ](https://www.google.com/search?q=EVAL-AD7195EBZ&btnI=lucky)
+-   [EVAL-AD7190EBZ](adi>EVAL-AD7190EBZ)
+-   [EVAL-AD7192EBZ](adi>EVAL-AD7192EBZ)
+-   [EVAL-AD7193EBZ](adi>EVAL-AD7193EBZ)
+-   [EVAL-AD7194EBZ](adi>EVAL-AD7194EBZ)
+-   [EVAL-AD7195EBZ](adi>EVAL-AD7195EBZ)
 
 #### Description
 
@@ -38,8 +37,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -52,8 +50,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7192.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7192.c&amp;btnI=lucky">yes</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/adc/ad7192.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/adc/ad7192.c">yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -70,23 +68,22 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7192.c&amp;btnI=lucky">drivers/staging/iio/adc/ad7192.c</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/adc/ad7192.c">drivers/staging/iio/adc/ad7192.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7192.h&amp;btnI=lucky">drivers/staging/iio/adc/ad7192.h</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/adc/ad7192.h">drivers/staging/iio/adc/ad7192.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 The reference voltage may vary between boards and models. The platform_data for the device's "struct device" holds this information.
 
-``` {.c}
+``` c
 /**
  * struct ad7192_platform_data - platform/board specific information
  * @vref_mv:        the external reference voltage in millivolt
@@ -120,7 +117,7 @@ struct ad7192_platform_data {
 };
 ```
 
-``` {.c}
+``` c
 static struct ad7192_platform_data ad7192_pdata = {
     .vref_mv        = 3300,
     .clock_source_sel   = 2,
@@ -139,7 +136,7 @@ static struct ad7192_platform_data ad7192_pdata = {
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD7192) 
     || defined(CONFIG_AD7192_MODULE)
@@ -156,7 +153,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -170,8 +167,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Device tree support
--------------------
+### Device tree support
 
 Device tree is the new method for describing non-discoverable hardware in Linux. This replaces former structure based method. For configuring a device using this drivers please follow the example bellow:
 
@@ -236,8 +232,7 @@ Device tree is the new method for describing non-discoverable hardware in Linux.
 <note important> Interrupt pin connection - interrupts = <25 0x2>; this line means that gpio pin 25 is used for the interrupt and it must be connect to the DOUT/RDY pin of AD7192 along with the SPI MISO.
 </note>
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -265,13 +260,11 @@ The AD7192 Driver depends on **CONFIG_SPI**
 
                     [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-![](/resources/tools-software/linux-drivers/iio-adc/ad7192_eval_lr.jpg){width="600"}
+![ad7192_eval_lr.jpg](/resources/tools-software/linux-drivers/iio-adc/ad7192_eval_lr.jpg){width="600" query="?600"}
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -645,7 +638,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0/scan_elements>
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

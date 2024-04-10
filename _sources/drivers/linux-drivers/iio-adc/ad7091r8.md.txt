@@ -3,20 +3,19 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7091R-8: 8-Channel, 12-bit Ultra Low Power ADC
 ---
 
-AD7091R-2/-4/-8 ADC Linux Driver
-================================
+# AD7091R-2/-4/-8 ADC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD7091R-2](https://www.google.com/search?q=AD7091R-2&btnI=lucky)
--   [AD7091R-4](https://www.google.com/search?q=AD7091R-4&btnI=lucky)
--   [AD7091R-8](https://www.google.com/search?q=AD7091R-8&btnI=lucky)
+-   [AD7091R-2](adi>AD7091R-2)
+-   [AD7091R-4](adi>AD7091R-4)
+-   [AD7091R-8](adi>AD7091R-8)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD7091R-2](https://www.google.com/search?q=en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/eval-ad7091r-2.html&btnI=lucky)
+-   [EVAL-AD7091R-2](adi>en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/eval-ad7091r-2.html)
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -27,13 +26,13 @@ AD7091R-2/-4/-8 ADC Linux Driver
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=&gt;drivers/iio/adc/ad7091r8.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7091r8.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;&gt;drivers/iio/adc/ad7091r8.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad7091r8.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -45,39 +44,38 @@ AD7091R-2/-4/-8 ADC Linux Driver
 <tbody>
 <tr class="odd">
 <td>header</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7091r-base.h&amp;btnI=lucky">drivers/iio/adc/ad7091r-base.h</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad7091r-base.h">drivers/iio/adc/ad7091r-base.h</a></td>
 </tr>
 <tr class="even">
 <td>base driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7091r-base.c&amp;btnI=lucky">drivers/iio/adc/ad7091r-base.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad7091r-base.c">drivers/iio/adc/ad7091r-base.c</a></td>
 </tr>
 <tr class="odd">
 <td>chip driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7091r8.c&amp;btnI=lucky">drivers/iio/adc/ad7091r8.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad7091r8.c">drivers/iio/adc/ad7091r8.c</a></td>
 </tr>
 <tr class="even">
 <td>devicetree bindings</td>
-<td><a href="https://www.google.com/search?q=Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml</a></td>
+<td><a href="git.linux.org&gt;Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml">Documentation/devicetree/bindings/iio/adc/adi,ad7091r5.yaml</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Overview
+### Overview
 
-The [ad7091r-2](https://www.google.com/search?q=ad7091r-2&btnI=lucky), [ad7091r-4](https://www.google.com/search?q=ad7091r-4&btnI=lucky), and [AD7091r-8](https://www.google.com/search?q=AD7091r-8&btnI=lucky) are 2-/4-/8-channel, ultra lowpower power dissipation, 1 MSPS successive approximation register (SAR) analog-to-digital converter (ADC). The AD7091R-2/-4/-8 ADCs are multichannel versions of [AD7091r](https://www.google.com/search?q=AD7091r&btnI=lucky). The AD7091R-2/AD7091R-4/AD7091R-8 operates from a single 2.7 V to 5.25 V power supply and is capable of achieving a sampling rate of 1 MSPS.
+The [ad7091r-2](adi>ad7091r-2), [ad7091r-4](adi>ad7091r-4), and [AD7091r-8](adi>AD7091r-8) are 2-/4-/8-channel, ultra lowpower power dissipation, 1 MSPS successive approximation register (SAR) analog-to-digital converter (ADC). The AD7091R-2/-4/-8 ADCs are multichannel versions of [AD7091r](adi>AD7091r). The AD7091R-2/AD7091R-4/AD7091R-8 operates from a single 2.7 V to 5.25 V power supply and is capable of achieving a sampling rate of 1 MSPS.
 
-The [AD7091R-2/AD7091R-4/AD7091R-8](https://www.google.com/search?q=media/en/technical-documentation/data-sheets/AD7091R-2_7091R-4_7091R-8.pdf&btnI=lucky) family offers up to eight single-ended analog input channels with a channel sequencer that allows a preprogrammed selection of channels to be converted sequentially.
+The [AD7091R-2/AD7091R-4/AD7091R-8](adi>media/en/technical-documentation/data-sheets/AD7091R-2_7091R-4_7091R-8.pdf) family offers up to eight single-ended analog input channels with a channel sequencer that allows a preprogrammed selection of channels to be converted sequentially.
 
 The conversion process and data acquisition are controlled using the CONVST pin, which is pulsed on every read to the conversion result register. Writing and reading to registers other than the conversion result register will not trigger a pulse on the CONVST line.
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
 Use the test points for interfacing the EVAL-AD7091R-xSDZ with a machine running Linux.
 
-The instructions below describe how to set up [EVAL-AD7091R-xSDZ](https://www.google.com/search?q=en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/eval-ad7091r-2.html&btnI=lucky) with [RPI-4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/).
+The instructions below describe how to set up [EVAL-AD7091R-xSDZ](adi>en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/eval-ad7091r-2.html) with [RPI-4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/).
 
-The evaluation board default configuration is intended to work with [EVAL-SDP-CB1Z](https://www.google.com/search?q=en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/SDP-B.html&btnI=lucky) so it must be adapted to connect to a different platform.
+The evaluation board default configuration is intended to work with [EVAL-SDP-CB1Z](adi>en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/SDP-B.html) so it must be adapted to connect to a different platform.
 
 For the jumper links, use the following configuration:
 
@@ -130,7 +128,7 @@ Use a soldering iron to change a few soldering links.
 
 After the changes in the link positions and soldering links, the EVAL-AD7091R-xSDZ evaluation board should look like the following.
 
-![](/resources/tools-software/linux-drivers/iio-adc/ad7091r8/eval-ad7091r-8-links.jpg){.align-center width="600"}
+![eval-ad7091r-8-links.jpg](/resources/tools-software/linux-drivers/iio-adc/ad7091r8/eval-ad7091r-8-links.jpg){.align-center width="600" query="?600"}
 
 There are a number of connections to make between the ADC evaluation board and the Linux machine.
 
@@ -201,14 +199,13 @@ Where J4 is the external VDRIVE and GND power connector and J9 is the external V
 
 Here is how it looks after everything is connected.
 
-![](/resources/tools-software/linux-drivers/iio-adc/ad7091r8/eval-ad7091r-8-sdz-raspberrypi.jpg){.align-center width="600"}
+![eval-ad7091r-8-sdz-raspberrypi.jpg](/resources/tools-software/linux-drivers/iio-adc/ad7091r8/eval-ad7091r-8-sdz-raspberrypi.jpg){.align-center width="600" query="?600"}
 
 The collection of jumpers looks messy and hard to follow so review the textual description in case of doubt.
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
-#### Enabling the driver
+### Enabling the driver
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -233,21 +230,21 @@ The AD7091R8 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-#### Adding a device tree entry
+### Adding a device tree entry
 
-##### Required properties
+#### Required properties
 
 -   **compatible**: Must be one of "adi,ad7091r2", "adi,ad7091r4", "adi,ad7091r8".
 -   **reg**: number of SPI chip select id for the device.
 -   **adi,conversion-start-gpios**: Device tree identifier of the CONVST pin.
 -   **reset-gpios**: Device tree identifier of the RESET pin.
 
-##### Optional properties
+#### Optional properties
 
 -   **vref-supply**: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.
     see: Documentation/devicetree/bindings/regulator/regulator.txt
 
-##### Device tree generic example
+#### Device tree generic example
 
         #include <dt-bindings/interrupt-controller/irq.h>
         #include <dt-bindings/gpio/gpio.h>
@@ -267,7 +264,7 @@ The AD7091R8 Driver depends on **CONFIG_SPI**
             };
         };
 
-##### Device tree overlay example
+#### Device tree overlay example
 
     // SPDX-License-Identifier: GPL-2.0
 
@@ -314,8 +311,7 @@ The AD7091R8 Driver depends on **CONFIG_SPI**
         status = "disabled";
     };
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -329,7 +325,7 @@ An example program whiroot@analog:/sys/bus/iio/devices# ls -lch uses the interfa
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -343,7 +339,7 @@ ad7091r-8
 :::
 
 
-###### Show channel scale
+##### Show channel scale
 
 **Description:**
 Scale to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts
@@ -404,7 +400,7 @@ marcelo@raspberrypi:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage6_raw
 :::
 
 
-###### Play with IIO events
+##### Play with IIO events
 
 **Description:**
 IIO events are a way for the IIO subsystem to notify applications when some event of importance happens.
@@ -523,7 +519,6 @@ Event: time: 1703012646651554473, type: voltage, channel: 6, evtype: thresh, dir
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

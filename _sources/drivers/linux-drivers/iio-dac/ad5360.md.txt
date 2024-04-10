@@ -3,30 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5373: 40-Channel, 14-Bit, Serial Input, Voltage-Output DAC
 ---
 
-AD5360 IIO Multi-Channel DAC Linux Driver
-=========================================
+# AD5360 IIO Multi-Channel DAC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD5360](https://www.google.com/search?q=AD5360&btnI=lucky)
--   [AD5361](https://www.google.com/search?q=AD5361&btnI=lucky)
--   [AD5362](https://www.google.com/search?q=AD5362&btnI=lucky)
--   [AD5363](https://www.google.com/search?q=AD5363&btnI=lucky)
--   [AD5370](https://www.google.com/search?q=AD5370&btnI=lucky)
--   [AD5371](https://www.google.com/search?q=AD5371&btnI=lucky)
--   [AD5372](https://www.google.com/search?q=AD5372&btnI=lucky)
--   [AD5373](https://www.google.com/search?q=AD5373&btnI=lucky)
+-   [AD5360](adi>AD5360)
+-   [AD5361](adi>AD5361)
+-   [AD5362](adi>AD5362)
+-   [AD5363](adi>AD5363)
+-   [AD5370](adi>AD5370)
+-   [AD5371](adi>AD5371)
+-   [AD5372](adi>AD5372)
+-   [AD5373](adi>AD5373)
 
 #### Evaluation Boards
 
--   [EVAL-AD5360EBZ](https://www.google.com/search?q=EVAL-AD5360EBZ&btnI=lucky)
--   [EVAL-AD5361EBZ](https://www.google.com/search?q=EVAL-AD5361EBZ&btnI=lucky)
--   [EVAL-AD5362EBZ](https://www.google.com/search?q=EVAL-AD5362EBZ&btnI=lucky)
--   [EVAL-AD5363EBZ](https://www.google.com/search?q=EVAL-AD5363EBZ&btnI=lucky)
--   [EVAL-AD5370EBZ](https://www.google.com/search?q=EVAL-AD5370EBZ&btnI=lucky)
--   [EVAL-AD5371EBZ](https://www.google.com/search?q=EVAL-AD5371EBZ&btnI=lucky)
--   [EVAL-AD5372EBZ](https://www.google.com/search?q=EVAL-AD5372EBZ&btnI=lucky)
--   [EVAL-AD5373EBZ](https://www.google.com/search?q=EVAL-AD5373EBZ&btnI=lucky)
+-   [EVAL-AD5360EBZ](adi>EVAL-AD5360EBZ)
+-   [EVAL-AD5361EBZ](adi>EVAL-AD5361EBZ)
+-   [EVAL-AD5362EBZ](adi>EVAL-AD5362EBZ)
+-   [EVAL-AD5363EBZ](adi>EVAL-AD5363EBZ)
+-   [EVAL-AD5370EBZ](adi>EVAL-AD5370EBZ)
+-   [EVAL-AD5371EBZ](adi>EVAL-AD5371EBZ)
+-   [EVAL-AD5372EBZ](adi>EVAL-AD5372EBZ)
+-   [EVAL-AD5373EBZ](adi>EVAL-AD5373EBZ)
 
 #### Description
 
@@ -34,8 +33,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -48,8 +46,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5360.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5360.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5360.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5360.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -66,15 +64,14 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5360.c&amp;btnI=lucky">drivers/iio/dac/ad5360.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5360.c">drivers/iio/dac/ad5360.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example device tree
--------------------
+### Example device tree
 
-``` {.c}
+``` c
     fragment@0 {
         target-path = "/";
         __overlay__ {
@@ -115,8 +112,7 @@ Example device tree
 };
 ```
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 #### Specifying reference voltage via the regulator framework
 
@@ -125,7 +121,7 @@ In this example all 4 reference voltage are supplied by the same regulator.
 
 Except for the AD5371 devices expect two supplies named "vref0" and "vref1". The AD5371 expects a third supply named "vref2".
 
-``` {.c}
+``` c
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad5360_consumer_supplies[] = {
     REGULATOR_SUPPLY("vref0", "spi0.3"),
@@ -160,7 +156,7 @@ static struct platform_device brd_voltage_regulator = {
 ## endif
 ```
 
-``` {.c}
+``` c
 static struct platform_device *board_devices[] __initdata = {
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
@@ -168,7 +164,7 @@ static struct platform_device *board_devices[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -187,7 +183,7 @@ arch_initcall(board_init);
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD5360_SPI) || 
     defined(CONFIG_AD5360_SPI_MODULE)
@@ -203,7 +199,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -217,8 +213,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -243,11 +238,9 @@ The AD5360 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -379,7 +372,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage_powe
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,20 +3,19 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: HMC540S: 1 dB LSB Silicon MMIC 4-Bit Digital Positive Control Attenuator 0.1 - 8 GHz
 ---
 
-HMC425A Digital Step Attenuator Linux Driver
-============================================
+# HMC425A Digital Step Attenuator Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [HMC425A](https://www.google.com/search?q=HMC425A&btnI=lucky)
--   [HMC540S](https://www.google.com/search?q=HMC540S&btnI=lucky)
+-   [HMC425A](adi>HMC425A)
+-   [HMC540S](adi>HMC540S)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-HMC425A](https://www.google.com/search?q=EVAL-HMC425A&btnI=lucky)
--   [EVAL-HMC540S](https://www.google.com/search?q=EVAL-HMC540S&btnI=lucky)
+-   [EVAL-HMC425A](adi>EVAL-HMC425A)
+-   [EVAL-HMC540S](adi>EVAL-HMC540S)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting Digital Step Attenuator IIO devices with gpio interface.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
@@ -24,10 +23,9 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 
 -   HMC425A 0.5 dB LSB GaAs MMIC 6-BIT DIGITAL POSITIVE CONTROL ATTENUATOR, 2.2 - 8.0 GHz
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -38,13 +36,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/amplifiers/hmc425a.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/amplifiers/hmc425a.c&amp;btnI=lucky">WIP</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/amplifiers/hmc425a.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/amplifiers/hmc425a.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -56,18 +54,18 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/amplifiers/hmc425a.c&amp;btnI=lucky">drivers/iio/amplifiers/hmc425a.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/amplifiers/hmc425a.c">drivers/iio/amplifiers/hmc425a.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio</a></td>
+<td><a href="git.linux.org&gt;Documentation/ABI/testing/sysfs-bus-iio">Documentation/ABI/testing/sysfs-bus-iio</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Devicetree
+### Devicetree
 
-##### properties
+#### properties
 
 **compatible:**
 
@@ -89,9 +87,9 @@ Source Code
 -   compatible
 -   ctrl-gpios
 
-##### Example
+#### Example
 
-``` {.c}
+``` c
     #include <dt-bindings/gpio/gpio.h>
 
     &gpio {
@@ -111,8 +109,7 @@ Source Code
     }
 ```
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -131,11 +128,9 @@ The HMC425A Driver depends on **CONFIG_GPIOLIB**
                     Amplifiers  --->
                         <*> Analog Devices HMC425A DSA
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -162,7 +157,7 @@ lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -> ../../../../../../../../../bus
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -177,7 +172,7 @@ hmc425a
 :::
 
 
-###### Set ChannelY Gain
+##### Set ChannelY Gain
 
 /sys/bus/iio/devices/iio:deviceX/out_voltageY_hardwaregain
 Hardware applied gain factor. If shared across all channels,
@@ -199,7 +194,6 @@ root:/> **cat out_voltage0_hardwaregain**
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

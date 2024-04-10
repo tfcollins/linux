@@ -3,31 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE)
 ---
 
-ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver
-============================================================================================
+# ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADAS1000](https://www.google.com/search?q=ADAS1000&btnI=lucky)
+-   [ADAS1000](adi>ADAS1000)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADAS1000SDZ](https://www.google.com/search?q=EVAL-ADAS1000SDZ&btnI=lucky)
+-   [EVAL-ADAS1000SDZ](adi>EVAL-ADAS1000SDZ)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0308](https://www.google.com/search?q=CN0308&btnI=lucky)
+-   [CN0308](adi>CN0308)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -38,13 +36,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=adas1000?drivers/iio/adc/adas1000.c&amp;btnI=lucky">drivers/iio/adc/adas1000.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/adas1000.c&amp;btnI=lucky">In progress</a></td>
+<td><a href="linux.github&gt;adas1000?drivers/iio/adc/adas1000.c">drivers/iio/adc/adas1000.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/adas1000.c">In progress</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -56,21 +54,20 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=adas1000?drivers/iio/adc/adas1000.c&amp;btnI=lucky">drivers/iio/adc/adas1000.c</a></td>
+<td><a href="linux.github&gt;adas1000?drivers/iio/adc/adas1000.c">drivers/iio/adc/adas1000.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=adas1000?include/linux/platform_data/adas1000.h&amp;btnI=lucky">include/linux/platform_data/adas1000.h</a></td>
+<td><a href="linux.github&gt;adas1000?include/linux/platform_data/adas1000.h">include/linux/platform_data/adas1000.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-``` {.c}
+``` c
 /**
  * struct adas1000_platform_data - ADAS1000 platform data
  * @enbale_vref_buffer: If true enable the vref buffer
@@ -90,7 +87,7 @@ struct adas1000_platform_data {
 };
 ```
 
-``` {.c}
+``` c
 static struct adas1000_platform_data pdata {
     .enable_vref_buffer = true,
     .high_performance = true,
@@ -104,7 +101,7 @@ If no platform data is provided the driver will use the device's default setting
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
     {
         .modalias = "adas1000",
@@ -117,7 +114,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -131,8 +128,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -155,11 +151,9 @@ The ADAS1000 Driver depends on **CONFIG_SPI**
                     <*> Analog Devices ADAS1000 ECG driver
                     [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -225,7 +219,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.12/iio:device0>
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -241,7 +235,7 @@ adas1000
 
 Contains the device name, this will always be "adas1000" for the adas1000 driver.
 
-###### List available low filter frequencies
+##### List available low filter frequencies
 
 **Description:**
 in_voltage-voltage_filter_low_pass_3db_frequency_available
@@ -261,7 +255,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
 :::
 
 
-###### Set and show low filter frequency
+##### Set and show low filter frequency
 
 **Description:**
 in_voltage-voltage_filter_low_pass_3db_frequency
@@ -313,7 +307,7 @@ The only actuall supported sampling rates by the ADAS1000 are 128000, 16000 and 
 :::
 
 
-###### Set and show filter frequency
+##### Set and show filter frequency
 
 **Description:**
 in_voltage-voltage_sampling_frequency
@@ -349,7 +343,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
 :::
 
 
-###### List available ADC gain values
+##### List available ADC gain values
 
 **Description:**
 in_voltage-voltage_scale_available
@@ -369,7 +363,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
 :::
 
 
-###### Set and ADC gain value
+##### Set and ADC gain value
 
 **Description:**
 in_voltage-voltage_scale
@@ -392,7 +386,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
 :::
 
 
-###### Set ADC calibration gain
+##### Set ADC calibration gain
 
 **Description:**
 in_voltage0-voltage2_calibscale
@@ -424,7 +418,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
 :::
 
 
-###### List available Right Leg drive outputs
+##### List available Right Leg drive outputs
 
 **Description:**
 rld_out_select_available
@@ -444,7 +438,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
 :::
 
 
-###### Select Right Leg drive output electrode
+##### Select Right Leg drive output electrode
 
 **Description:**
 rld_out_select
@@ -465,7 +459,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
 :::
 
 
-###### Enable/Disable Right Leg drive output
+##### Enable/Disable Right Leg drive output
 
 **Description:**
 rld_powerdown
@@ -487,7 +481,7 @@ root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0> cat r
 :::
 
 
-###### Setup Right Leg drive summing junction configuration
+##### Setup Right Leg drive summing junction configuration
 
 **Description:**
 rld_summing_junction_ce_en
@@ -514,7 +508,7 @@ root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0> cat r
 :::
 
 
-###### Setup VCM summing junction configuration
+##### Setup VCM summing junction configuration
 
 **Description:**
 vcm_summing_junction_ce_en
@@ -541,7 +535,7 @@ root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0> cat v
 :::
 
 
-###### Enable/Disable shield driver
+##### Enable/Disable shield driver
 
 **Description:**
 shield_driver_powerdown
@@ -565,7 +559,7 @@ root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0> cat s
 
 out_voltage6_calibration_offset
 
-###### Enable/Disable calibration DAC
+##### Enable/Disable calibration DAC
 
 **Description:**
 out_voltage6_calibration_powerdown
@@ -587,7 +581,7 @@ root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0> cat o
 :::
 
 
-###### Set calibration DAC output value
+##### Set calibration DAC output value
 
 **Description:**
 out_voltage6_calibration_raw
@@ -607,7 +601,7 @@ root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0> cat o
 :::
 
 
-###### Show calibration DAC scale
+##### Show calibration DAC scale
 
 **Description:**
 out_voltage6_calibration_scale
@@ -626,7 +620,7 @@ root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0> cat o
 
 Vout = (out_voltage6_calibration_offset + out_voltage6_calibration_raw) * out_voltage6_calibration_scale
 
-###### Debugfs
+##### Debugfs
 
 The adas1000 driver exposes also some files, which are meant for debugging purposes, in debugfs. These files can be used to read the OPSTAT register and to configure the testtone generator.
 
@@ -637,7 +631,7 @@ fuse_status testtone_frequency testtone_out_en
 pll_lock_lost testtone_internal testtone_ra_en
 root:/sys/kernel/debug/iio/iio:device0>
 
-###### Direct register read and write acccess
+##### Direct register read and write acccess
 
 **Description:**
 direct_reg_access
@@ -669,28 +663,28 @@ root:/sys/kernel/debug/iio/iio:device0> cat direct_reg_access
 :::
 
 
-###### Check fuse CRC status
+##### Check fuse CRC status
 
 **Description:**
 fuse_crc_failure
 
 '1' if a fuse CRC failure has been detected, '0' otherwise.
 
-###### Check fuse status
+##### Check fuse status
 
 **Description:**
 fuse_status
 
 '0' if the fuse bits have been read, '1' otherwise.
 
-###### Check PLL status
+##### Check PLL status
 
 **Description:**
 pll_locked
 
 '1' if the PLL is locked, '0' otherwise.
 
-###### Enable testtone
+##### Enable testtone
 
 **Description:**
 testtone_en
@@ -702,7 +696,7 @@ If both the testtone and the calibration DAC are enabled, the testtone will take
 :::
 
 
-###### Set testtone frequnecy
+##### Set testtone frequnecy
 
 **Description:**
 testtone_frequency
@@ -715,14 +709,14 @@ Valid values are:
 -   10: 10 Hz sine wave
 -   150: 150 Hz sine wave
 
-###### Enable internal testtone routing
+##### Enable internal testtone routing
 
 **Description:**
 testtone_internal
 
 Route the testtone signal internally ECG channels.
 
-###### Enable external testtone output
+##### Enable external testtone output
 
 **Description:**
 testtone_out_en
@@ -734,7 +728,7 @@ The testtone signal will be routed to the CAL_DAC_IO pin by default and only if 
 :::
 
 
-####### Enable testtone routing to individual ECG channels
+##### Enable testtone routing to individual ECG channels
 
 **Description:**
 testtone_la_en
@@ -744,7 +738,7 @@ testtone_v1_en
 testtone_v2_en
 Enables the internal testtone routing to the individual ECG channels.
 
-#### Trigger management
+### Trigger management
 
 The adas1000 driver will register a IIO trigger for the device. The trigger will be hooked up to the devices DATARDY IRQ. Normally you would want to use this trigger as the trigger for the device.
 
@@ -761,7 +755,7 @@ adas1000-dev0
 :::
 
 
-#### Buffer management
+### Buffer management
 
 ![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
@@ -837,7 +831,6 @@ If channels from the first three channels are selected channels from the second 
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

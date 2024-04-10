@@ -3,30 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7781: 20-Bit, Pin-Programmable, Ultralow Power Sigma-Delta ADC
 ---
 
-AD7780 IIO Low Power Sigma-Delta ADC Linux Driver
-=================================================
+# AD7780 IIO Low Power Sigma-Delta ADC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD7170](https://www.google.com/search?q=AD7170&btnI=lucky)
--   [AD7171](https://www.google.com/search?q=AD7171&btnI=lucky)
--   [AD7780](https://www.google.com/search?q=AD7780&btnI=lucky)
--   [AD7781](https://www.google.com/search?q=AD7781&btnI=lucky)
+-   [AD7170](adi>AD7170)
+-   [AD7171](adi>AD7171)
+-   [AD7780](adi>AD7780)
+-   [AD7781](adi>AD7781)
 
 #### Reference Circuits
 
--   [CN0107](https://www.google.com/search?q=CN0107&btnI=lucky)
--   [CN0108](https://www.google.com/search?q=CN0108&btnI=lucky)
--   [CN0188](https://www.google.com/search?q=CN0188&btnI=lucky)
--   [CN0218](https://www.google.com/search?q=CN0218&btnI=lucky)
--   [CN0240](https://www.google.com/search?q=CN0240&btnI=lucky)
+-   [CN0107](adi>CN0107)
+-   [CN0108](adi>CN0108)
+-   [CN0188](adi>CN0188)
+-   [CN0218](adi>CN0218)
+-   [CN0240](adi>CN0240)
 
 #### Evaluation Boards
 
--   [EVAL-AD7170EBZ](https://www.google.com/search?q=EVAL-AD7170EBZ&btnI=lucky)
--   [EVAL-AD7171EBZ](https://www.google.com/search?q=EVAL-AD7171EBZ&btnI=lucky)
--   [EVAL-AD7780EBZ](https://www.google.com/search?q=EVAL-AD7780EBZ&btnI=lucky)
--   [EVAL-AD7781EBZ](https://www.google.com/search?q=EVAL-AD7781EBZ&btnI=lucky)
+-   [EVAL-AD7170EBZ](adi>EVAL-AD7170EBZ)
+-   [EVAL-AD7171EBZ](adi>EVAL-AD7171EBZ)
+-   [EVAL-AD7780EBZ](adi>EVAL-AD7780EBZ)
+-   [EVAL-AD7781EBZ](adi>EVAL-AD7781EBZ)
 
 #### Description
 
@@ -34,8 +33,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -48,8 +46,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7780.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7780.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/adc/ad7780.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/adc/ad7780.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -66,17 +64,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7780.c&amp;btnI=lucky">drivers/staging/iio/adc/ad7780.c</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/adc/ad7780.c">drivers/staging/iio/adc/ad7780.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7780.h&amp;btnI=lucky">drivers/staging/iio/adc/ad7780.h</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/adc/ad7780.h">drivers/staging/iio/adc/ad7780.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -84,7 +81,7 @@ The reference voltage may vary between boards and models. The platform_data for 
 
 <source trunk/drivers/staging/iio/adc/ad7780.h:ad7780_platform_data{} c linux-kernel>
 
-``` {.c}
+``` c
 static struct ad7780_platform_data __initdata ad7780_pdata = {
     .vref_mv    = 2500,
     .gpio_pdrst = GPIO_PF10,
@@ -116,7 +113,7 @@ This driver supports also an alternative way of specifying the reference voltage
 
 Below example specifies a 3.3 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 
-``` {.c}
+``` c
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad7780_consumer_supplies[] = {
     REGULATOR_SUPPLY("vcc", "spi0.3"),
@@ -149,7 +146,7 @@ static struct platform_device brd_voltage_regulator = {
 ## endif
 ```
 
-``` {.c}
+``` c
 static struct platform_device *board_devices[] __initdata = {
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
@@ -157,7 +154,7 @@ static struct platform_device *board_devices[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -176,7 +173,7 @@ arch_initcall(board_init);
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD7780) || 
     defined(CONFIG_AD7780_MODULE)
@@ -194,7 +191,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -208,8 +205,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -237,11 +233,9 @@ The AD7780 Driver depends on **CONFIG_SPI**
 
                     [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -316,7 +310,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat in0_raw**
 
 **U** = *in_voltage0_raw * in_scale* = -1 * 0.00029 = **-0.00029 *mV***
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

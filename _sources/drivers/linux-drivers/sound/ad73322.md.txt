@@ -3,13 +3,11 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: AD73322L: Dual-Channel, 3 V Front-End Processor for General Purpose Applications Including Speech and Telephony
 ---
 
-AD73322
-=======
+# AD73322
 
-This driver is written for a custome board which has 4 cascaded AD73322s,but since there is a macro(NUM_DEVICES_CHAIN)to decide how many DAC/ADC pairs are connected,so it should be a generic driver for [AD73322](https://www.google.com/search?q=AD73322&btnI=lucky).
+This driver is written for a custome board which has 4 cascaded AD73322s,but since there is a macro(NUM_DEVICES_CHAIN)to decide how many DAC/ADC pairs are connected,so it should be a generic driver for [AD73322](adi>AD73322).
 
-Adding Kernel Support
----------------------
+## Adding Kernel Support
 
 To add support for the AD73322 to the kernel build system, a few things must be enabled properly for things to work.
 The configuration is as following:
@@ -31,7 +29,7 @@ The configuration is as following:
 1.  "Blackfin Audio SPORT port" has 3 options:0,1 or 2,if you only have one card on SPORT0 or SPORT1,then input 0 or 1.if you have 2 cards on both SPORT0 and SPORT1 then input 2.
 2.  Default PF pins used above may have been requested by other devices,if so, you need either disable that device or select another one.
 
-# Testing the built in kernel driver
+### Testing the built in kernel driver
 
 If audio is configured as modules, skip this section. If audio is built into kernel and you have booted the kernel, you need to check if audio is working:
 Check the boot messages to see if you have booted the correct kernel. During kernel booting,
@@ -43,8 +41,7 @@ it should print out message like this(There are two cards on both SPORT0 and SPO
       #0: Analog Devices AD73322 at PF10 SPORT0 rx/tx dma 3/4 err irq 45
       #1: Analog Devices AD73322 at PF14 SPORT1 rx/tx dma 5/6 err irq 46
 
-Usage notes
------------
+## Usage notes
 
 **Configure file:**
 
@@ -119,7 +116,6 @@ and index of device is mapped to index of ADC/DAC in cascade mode),a configure f
     root:/> arecord -D plughw:0,1 -d 5 a.wav
     root:/> aplay -D plughw:0,1 a.wav
 
-Driver Souce code note
-----------------------
+## Driver Souce code note
 
 As mentioned above this driver is written for a customer board( with 4 cascaded AD73322 on it),and there are wrong mappings between the input Jacks and and input data lines on the board,so a function named get_cap_slotindex is implemented to correct it.Normally,it is not necessary and just get the slot_index by NUM_DEVICE_CHAN-(index+1),please refer to playback side functions.Also please feel free to tell the author if you find that something need be changed for your card,Since we want it to be more generic.

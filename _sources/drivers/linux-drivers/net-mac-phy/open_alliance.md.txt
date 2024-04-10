@@ -3,17 +3,16 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/net-
 title: Open Alliance - 10BASE-T1x MAC-PHY Serial Interface
 ---
 
-Open Alliance TC6-10BASE-T1x MAC-PHY Serial Interface
-=====================================================
+# Open Alliance TC6-10BASE-T1x MAC-PHY Serial Interface
 
-# Supported Devices
+### Supported Devices
 
--   [ADIN1110](https://www.google.com/search?q=ADIN1110&btnI=lucky)
--   [ADIN2111](https://www.google.com/search?q=ADIN2111&btnI=lucky)
+-   [ADIN1110](adi>ADIN1110)
+-   [ADIN2111](adi>ADIN2111)
 
-#### Supported Boards
+### Supported Boards
 
-#### Description
+### Description
 
 The IEEE 802.3cg project defines two 10 Mbit/s PHYs operating over a single pair of conductors. The
 10BASE-T1L (Clause 146) is a long reach PHY supporting full duplex point-to-point operation over 1 km of
@@ -33,10 +32,9 @@ The MAC-PHY solution integrates an IEEE Clause 4 MAC and a 10BASE-T1x PHY exposi
 Peripheral Interface (SPI) to the host microcontroller. This also enables the addition of Ethernet functionality
 to existing low-end microcontrollers which do not integrate a MAC controller.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <tbody>
@@ -45,21 +43,21 @@ Source Code
 <td>Mainlined?</td>
 </tr>
 <tr class="even">
-<td><a href="https://www.google.com/search?q=adin1110-open-alliance/drivers/net/ethernet/open_alliance.c&amp;btnI=lucky">open_alliance.c</a></td>
+<td><a href="linux.github&gt;adin1110-open-alliance/drivers/net/ethernet/open_alliance.c">open_alliance.c</a></td>
 <td>No</td>
 </tr>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=adin1110-open-alliance/include/linux/open_alliance.h&amp;btnI=lucky">open_alliance.h</a></td>
+<td><a href="linux.github&gt;adin1110-open-alliance/include/linux/open_alliance.h">open_alliance.h</a></td>
 <td>No</td>
 </tr>
 <tr class="even">
-<td><a href="https://www.google.com/search?q=adin1110-open-alliance/drivers/net/ethernet/adi/adin1110.c&amp;btnI=lucky">adin1110.c</a></td>
+<td><a href="linux.github&gt;adin1110-open-alliance/drivers/net/ethernet/adi/adin1110.c">adin1110.c</a></td>
 <td>No</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -71,21 +69,20 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>API</td>
-<td><a href="https://www.google.com/search?q=adin1110-open-alliance/drivers/net&amp;btnI=lucky">drivers/net/ethernet/open_alliance.c</a></td>
+<td><a href="linux.github&gt;adin1110-open-alliance/drivers/net">drivers/net/ethernet/open_alliance.c</a></td>
 </tr>
 <tr class="even">
 <td>API</td>
-<td><a href="https://www.google.com/search?q=adin1110-open-alliance/include/linux&amp;btnI=lucky">include/linux/open_alliance.h</a></td>
+<td><a href="linux.github&gt;adin1110-open-alliance/include/linux">include/linux/open_alliance.h</a></td>
 </tr>
 <tr class="odd">
 <td>Driver</td>
-<td><a href="https://www.google.com/search?q=adin1110-open-alliance/drivers/net/ethernet/adi/&amp;btnI=lucky">drivers/net/ethernet/adi/adin1110.c</a></td>
+<td><a href="linux.github&gt;adin1110-open-alliance/drivers/net/ethernet/adi/">drivers/net/ethernet/adi/adin1110.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -118,8 +115,7 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
                     -> Ethernet driver support (ETHERNET [=y])                                                                                                                                                 
         Selects: CRC8 [=y]
 
-Driver testing
---------------
+## Driver testing
 
 This requires that another 10BASE-T1L PHY be connected to the other end of the network cable, or that a media converter be used to convert to normal twisted-pair ethernet that standard ethernet cables use.
 
@@ -127,7 +123,7 @@ ADIN1110 communicates with the host via SPI. For 10 Mbps bandwidth, SPI frequenc
 
 Connect to host the SCLK, CS_N, SDI, SDO and INT_N. (The INT_N is mandatory, see DT bindings). RX frames and sent TX frames are signaled to the host by INT_N IRQ pin.
 
-#### Device Tree
+### Device Tree
 
 ADIN1110 probes via devicetree.
 
@@ -161,7 +157,7 @@ ADIN1110 probes via devicetree.
         };
     };
 
-#### ifconfig
+### ifconfig
 
 This tool will display the general status of the available network interfaces. If they've obtained an IP address, RX packets/errors/dropped/etc, TX packets/errors/dropped/etc, MAC address, etc.
 
@@ -179,7 +175,7 @@ Check error/dropped counters too.
             TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
             device interrupt 55
 
-#### ethtool
+### ethtool
 
 This tool queries the MAC & PHY via the MAC driver. The MAC driver also allows access to the PHY registers.
 ethtool can be used to show & override link settings and other parameters for the MAC & PHY.
@@ -191,7 +187,7 @@ Links for the tool:
 
 <note tip>Some features of ethtool described here are available in newer versions of ethtool. If some of them don't work, consider upgrading or getting a newer version</note>
 
-##### Example: Seeing MAC & PHY info
+#### Example: Seeing MAC & PHY info
 
     Settings for eth1:
         Supported ports: [ TP MII ]

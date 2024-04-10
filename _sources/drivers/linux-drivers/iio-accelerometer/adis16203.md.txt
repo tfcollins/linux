@@ -3,16 +3,15 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADIS16203: Programmable 360° Inclinometer
 ---
 
-ADIS16203 IIO Programmable 360 Degrees Inclinometer Linux Driver
-================================================================
+# ADIS16203 IIO Programmable 360 Degrees Inclinometer Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [ADIS16203](https://www.google.com/search?q=ADIS16203&btnI=lucky)
+-   [ADIS16203](adi>ADIS16203)
 
 #### Evaluation Boards
 
--   [ADIS16203/PCBZ](https://www.google.com/search?q=EVAL-ADIS16203&btnI=lucky)
+-   [ADIS16203/PCBZ](adi>EVAL-ADIS16203)
 
 #### Description
 
@@ -20,8 +19,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -34,8 +32,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/accel/adis16203_core.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/accel/adis16203_core.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/accel/adis16203_core.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/accel/adis16203_core.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -52,19 +50,19 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/accel/adis16203_core.c&amp;btnI=lucky">drivers/staging/iio/accel/adis16203_core.c</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/accel/adis16203_core.c">drivers/staging/iio/accel/adis16203_core.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/accel/adis16203_ring.c&amp;btnI=lucky">drivers/staging/iio/accel/adis16203_ring.c</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/accel/adis16203_ring.c">drivers/staging/iio/accel/adis16203_ring.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/accel/adis16203_trigger.c&amp;btnI=lucky">drivers/staging/iio/accel/adis16203_trigger.c</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/accel/adis16203_trigger.c">drivers/staging/iio/accel/adis16203_trigger.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/accel/adis16203.h&amp;btnI=lucky">drivers/staging/iio/accel/adis16203.h</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/accel/adis16203.h">drivers/staging/iio/accel/adis16203.h</a></td>
 </tr>
 </tbody>
 </table>
@@ -74,7 +72,7 @@ Source Code
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_ADIS16203) 
     || defined(CONFIG_ADIS16203_MODULE)
@@ -91,7 +89,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -105,8 +103,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -133,11 +130,9 @@ The ADIS16203 Driver depends on **CONFIG_SPI**
                     <*>   Analog Devices ADIS16203 Programmable 360 Degrees Inclinometer
                     [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -195,7 +190,7 @@ adis16203
 ###### ADIS16203 device attributes
 
 For a detailed description please see:
-[drivers/staging/iio/Documentation/sysfs-bus-iio](https://www.google.com/search?q=drivers/staging/iio/Documentation/sysfs-bus-iio&btnI=lucky)
+[drivers/staging/iio/Documentation/sysfs-bus-iio](staging.kernel.org>drivers/staging/iio/Documentation/sysfs-bus-iio)
 
 <table>
 <thead>
@@ -305,7 +300,6 @@ in_incli_y_type in_timestamp_type in_voltage1_type
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

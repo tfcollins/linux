@@ -3,17 +3,16 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/net-
 title: ADIN1300 - Robust, Industrial, Low Latency 10/100/1000 Gigabit Ethernet PHY
 ---
 
-ADIN1300/ADIN1200 PHY Linux Driver
-==================================
+# ADIN1300/ADIN1200 PHY Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADIN1200](https://www.google.com/search?q=ADIN1200&btnI=lucky)
--   [ADIN1300](https://www.google.com/search?q=ADIN1300&btnI=lucky)
+-   [ADIN1200](adi>ADIN1200)
+-   [ADIN1300](adi>ADIN1300)
 
-#### Supported Boards
+### Supported Boards
 
-#### Description
+### Description
 
 The ADIN1200 is a low power single port 10/100 Mb Ethernet transceiver with low latency specifications primarily designed for industrial Ethernet applications.
 
@@ -27,27 +26,26 @@ The PHY can be interfaced with the following: MII, RGMII, RGMII with internal de
 
 <note important>The RMII interface requires an external 50 MHz clock reference, and as such requires a bit more consideration when designing the layout. This makes it more difficult to configure it entirely from software</note>
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/net/phy/adin.c&amp;btnI=lucky">drivers/net/phy/adin.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/net/phy/adin.c&amp;btnI=lucky">Yes</a></td>
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/net/phy/adin.c">drivers/net/phy/adin.c</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/net/phy/adin.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -59,11 +57,11 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/net/phy/adin.c&amp;btnI=lucky">drivers/net/phy/adin.c</a></td>
+<td><a href="linux.github&gt;master?drivers/net/phy/adin.c">drivers/net/phy/adin.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/net/adi,adin.yaml&amp;btnI=lucky">adi,adin.yaml</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/net/adi,adin.yaml">adi,adin.yaml</a></td>
 </tr>
 </tbody>
 </table>
@@ -80,18 +78,17 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>compatibility layer 4.19</td>
-<td><a href="https://www.google.com/search?q=2019_R2?drivers/net/phy/adin-compat.h&amp;btnI=lucky">drivers/net/phy/adin-compat.h</a></td>
+<td><a href="linux.github&gt;2019_R2?drivers/net/phy/adin-compat.h">drivers/net/phy/adin-compat.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 The ADIN PHY driver instantiates via Linux's phylib framework, which is typically enabled on most systems.
 
 Depending on the MAC driver that is used and the operating mode (MII, RGMII, RMII), a device-tree entry for the PHY may or may-not be needed.
-The PHY can be configured via HW pins ([see datasheet](https://www.google.com/search?q=media/en/technical-documentation/data-sheets/ADIN1300.pdf&btnI=lucky)), or via SW.
+The PHY can be configured via HW pins ([see datasheet](adi>media/en/technical-documentation/data-sheets/ADIN1300.pdf)), or via SW.
 
 **Optional properties (for MAC):**
 
@@ -136,8 +133,7 @@ The PHY can be configured via HW pins ([see datasheet](https://www.google.com/se
             };
         };
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -161,8 +157,7 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
        Defined at drivers/net/phy/Kconfig:208  
        Depends on: NETDEVICES [=y] && PHYLIB [=y]
 
-Driver testing
---------------
+## Driver testing
 
 Short version is: a cable is plugged into the ethernet port (to which the PHY is associated) and traffic starts to happen, as in a normal Linux OS environment.
 
@@ -174,7 +169,7 @@ If NetworkManager isn't running, it sometimes works to obtain a DHCP lease via *
 
 </note>
 
-#### ifconfig
+### ifconfig
 
 This tool will display the general status of the available network interfaces. If they've obtained an IP address, RX packets/errors/dropped/etc, TX packets/errors/dropped/etc, MAC address, etc.
 
@@ -206,7 +201,7 @@ Typically, if both TX & RX values are incremented, it means that it is working. 
               collisions:0 txqueuelen:1000 
               RX bytes:480 (480.0 B)  TX bytes:480 (480.0 B)
 
-#### ethtool
+### ethtool
 
 This tool queries the MAC & PHY via the MAC driver. The MAC driver should also allows access to the PHY registers.
 
@@ -221,7 +216,7 @@ Links for the tool:
 
 <note tip>Some features of ethtool described here are available in newer versions of ethtool. If some of them don't work, consider upgrading or getting a newer version</note>
 
-##### Example: Seeing MAC & PHY info
+#### Example: Seeing MAC & PHY info
 
     root@analog:~# ethtool eth0
     Settings for eth0:
@@ -252,13 +247,13 @@ Links for the tool:
             Auto-negotiation: on
             Link detected: yes
 
-##### Example: changing link speeds
+#### Example: changing link speeds
 
     ethtool -s eth0 speed 10 duplex full autoneg off
     ethtool -s eth0 speed 100 duplex full autoneg off
     ethtool -s eth0 autoneg on
 
-##### Example: MDI/MDIX/Auto-MDIX configuration
+#### Example: MDI/MDIX/Auto-MDIX configuration
 
 The PHY supports configuration of the MDI/MDI-X auto-switch for twisted pairs. This can also be configured via ethtool.
 
@@ -266,7 +261,7 @@ The PHY supports configuration of the MDI/MDI-X auto-switch for twisted pairs. T
     ethtool -s eth0 mdix off # MDI mode manual
     ethtool -s eth0 mdix on # MDIX mode manual
 
-##### Example: PHY statistics
+#### Example: PHY statistics
 
 <note important>make sure to not confuse PHY stats with default stats. Ethtool provides stats from the MAC, via **ethtool --statistics eth0** or **ethtool -S eth0**</note>
 
@@ -283,7 +278,7 @@ The PHY supports configuration of the MDI/MDI-X auto-switch for twisted pairs. T
          dribble_bits_frames_count: 0
          false_carrier_events_count: 0
 
-#### phytool
+### phytool
 
 This tool is not very official, but it is very powerful for PHYs.
 It's currently hosted here: <https://github.com/wkz/phytool>
@@ -302,14 +297,14 @@ Example for reading the PHY ID:
     root@analog:~# phytool read eth0/0/0x3
     0xbc30
 
-##### Accessing PHY-core registers
+#### Accessing PHY-core registers
 
 All registers from 0x00 to 0x1f (which are defined by the IEEE standard) can be accessed with just
 
     phytool read eth0/0/<reg-addr>
     phytool write eth0/0/<reg-addr>
 
-##### Reading an MMD reg
+#### Reading an MMD reg
 
 Since only Clause 22 is available accessing MMD regs needs to be done via registers 0x10 & 0x11.
 
@@ -321,14 +316,14 @@ Example reading FcFrmCntL reg (lower half of the **total_frames_checked_count** 
     root@analog:~# phytool read eth0/0/0x11
     0x01c5
 
-##### Writing an MMD reg
+#### Writing an MMD reg
 
 Example resetting the PHY:
 
     root@analog:~# phytool write eth0/0/0x10 0xFF0C
     root@analog:~# phytool write eth0/0/0x11 0x1
 
-#### adintool.sh - convenience phytool wrapper
+### adintool.sh - convenience phytool wrapper
 
 <note warning>This tool requires sudo/root access and will do changes to the system. Use it with caution on a development system. Also, this tool can leave the PHY into a undetermined state of functioning, which may require a reset of the chip, or a reboot of the system to put the PHY back into a working state together with the attached MAC.
 </note>
@@ -337,7 +332,7 @@ Link: <https://github.com/analogdevicesinc/wiki-scripts/blob/master/linux/adinto
 
 When downloading, make sure the script is made executable.
 
-##### Usage
+#### Usage
 
     Usage: adintool.sh <command> [args]
       setup - setup phytool and ethtool required for demo
@@ -350,14 +345,14 @@ When downloading, make sure the script is made executable.
                                 WARNING: puts device into special mode.
                                          device won't send data during this mode
 
-##### First setup
+#### First setup
 
 Needs be run the first time.
 Make sure that there is internet connectivity and then install basic things:
 
     ./adintool.sh setup
 
-##### dump_regs
+#### dump_regs
 
 The most useful command is to dump registers. This will read all registers that are specified in the datasheet and show their current value.
 
@@ -367,7 +362,7 @@ Example:
 
     ./adintool.sh dump_regs eth0 [could be eth1]
 
-##### cable_diagnostics
+#### cable_diagnostics
 
 This runs a sequence of register changes to put the PHY into diagnostics mode, which interrupts normal operation.
 
@@ -375,7 +370,7 @@ Then a diagnostics will be run on the cable and the results of the registers wil
 
     ./adintool.sh cable_diagnostics eth0
 
-#### Throughput testing - iperf
+### Throughput testing - iperf
 
 This is a more system-general test but it also validates the PHY.
 
@@ -392,7 +387,7 @@ and on another system
 
 Then reverse the commands on the hosts. iperf only works in one direction.
 
-#### Data integrity testing
+### Data integrity testing
 
 One one side, generate a file with random data (say 1GB)
 
@@ -410,8 +405,7 @@ On the other host check the hash
     sha256sum test.data
     <SHA256-hash-of-data> == should be identical with the first hash
 
-Ethernet pointers
------------------
+## Ethernet pointers
 
 -   netdev mailing list: <netdev@vger.kernel.org>
 -   [Ethernet Controller bindings doc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-controller.yaml)

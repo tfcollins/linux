@@ -3,23 +3,21 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: ADAU1979: Quad ADC (4.5V Input)
 ---
 
-ADAU1977 Sound CODEC Linux Driver
-=================================
+# ADAU1977 Sound CODEC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADAU1977](https://www.google.com/search?q=ADAU1977&btnI=lucky)
--   [ADAU1978](https://www.google.com/search?q=ADAU1978&btnI=lucky)
--   [ADAU1979](https://www.google.com/search?q=ADAU1979&btnI=lucky)
+-   [ADAU1977](adi>ADAU1977)
+-   [ADAU1978](adi>ADAU1978)
+-   [ADAU1979](adi>ADAU1979)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADAU1977Z](https://www.google.com/search?q=EVAL-ADAU1977Z&btnI=lucky)
+-   [EVAL-ADAU1977Z](adi>EVAL-ADAU1977Z)
 
-Source Code
------------
+## Source Code
 
-##### Status
+#### Status
 
 <table>
 <thead>
@@ -30,13 +28,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1977.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1977.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1977.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1977.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-##### Files
+#### Files
 
 <table>
 <thead>
@@ -48,35 +46,34 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1977.c&amp;btnI=lucky">sound/soc/codecs/adau1977.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1977.c">sound/soc/codecs/adau1977.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1977-spi.c&amp;btnI=lucky">sound/soc/codecs/adau1977-spi.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1977-spi.c">sound/soc/codecs/adau1977-spi.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1977-i2c.c&amp;btnI=lucky">sound/soc/codecs/adau1977-i2c.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1977-i2c.c">sound/soc/codecs/adau1977-i2c.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1977.h&amp;btnI=lucky">sound/soc/codecs/adau1977.h</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1977.h">sound/soc/codecs/adau1977.h</a></td>
 </tr>
 <tr class="odd">
 <td>platform data</td>
-<td><a href="https://www.google.com/search?q=include/linux/platform_data/adau1977.h&amp;btnI=lucky">include/linux/platform_data/adau1977.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/platform_data/adau1977.h">include/linux/platform_data/adau1977.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example device initialization
------------------------------
+## Example device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 The platform data for the ADAU1977 allow to specify the MICBIAS pin voltage. If no platform data is specified (i.e. set to NULL) the default voltage of 8.5 V will be used.
 
-``` {.c}
+``` c
 /**
  * enum adau1977_micbias - ADAU1977 MICBIAS pin voltage setting
  * @ADAU1977_MICBIAS_5V0: MICBIAS is set to 5.0 V
@@ -110,13 +107,13 @@ struct adau1977_platform_data {
 };
 ```
 
-#### Voltage Supplies
+### Voltage Supplies
 
 The ADAU1977 driver expects a regulator supply for the AVDD voltage to be specified. This allows the driver to disable the supply when not needed, which helps to conserve power. Additionally the driver optionally accepts a supply for the DVDD voltage. If a supply for the DVDD voltage is specified the driver will use that regulator and disable the internal LDO.
 
 When using machine board files to register the device the regulators can be specified in the board file.
 
-``` {.c}
+``` c
 static struct regulator_consumer_supply adau1977_avdd_consumer_supplies[] = {
     REGULATOR_SUPPLY("AVDD", "spi0.1"),
 };
@@ -179,7 +176,7 @@ static struct platform_device adau1977_dvdd_voltage_regulator = {
 
 When using devicetree the regulators should be specified in the devicetree. For more on how to specify the regulators using devicetree see the [regulator devicetree bindings documentation](http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/regulator/regulator.txt) and the devicetree examples below in the SPI and I2C sections.
 
-###### Devicetree bindings
+### Devicetree bindings
 
 The ADAU1977 driver is fully devicetree compatible. Depending on the bus type the device is connected to different properties must/can be specified.
 
@@ -212,7 +209,7 @@ The ADAU1977 driver is fully devicetree compatible. Depending on the bus type th
 -   **reg**: The SPI chipselect signal of the SPI master associated with this chip
 -   **spi-max-frequency**: Maximum spi frequency to use.
 
-#### I2C
+### I2C
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
@@ -252,7 +249,7 @@ The I2C device id depends on the ADDR0 and ADDR1 pin settings and needs to be se
 
 In this example we assume ADDR0=0 and ADDR1=0.
 
-``` {.c}
+``` c
 static struct adau1977_platform_data adau1977_pdata = {
     .micbias = ADAU1977_MICBIAS_6V5,
 };
@@ -269,7 +266,7 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
 ```
 
-``` {.c}
+``` c
 static int __init stamp_init(void)
 {
     [--snip--]
@@ -282,7 +279,7 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-###### Devicetree
+#### Devicetree
 
     codec_supply: fixedregulator@0 {
         compatible = "regulator-fixed";
@@ -306,11 +303,11 @@ arch_initcall(board_init);
         };
     };
 
-#### SPI
+### SPI
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-``` {.c}
+``` c
 static struct adau1977_platform_data adau1977_pdata = {
     .micbias = ADAU1977_MICBIAS_7V5,
 };
@@ -329,7 +326,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -343,7 +340,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-###### Devicetree
+#### Devicetree
 
     codec_supply: fixedregulator@0 {
         compatible = "regulator-fixed";
@@ -369,8 +366,7 @@ arch_initcall(board_init);
         };
     };
 
-ASoC DAPM Widgets
------------------
+## ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -414,8 +410,7 @@ ASoC DAPM Widgets
 </tbody>
 </table>
 
-ALSA Controls
--------------
+## ALSA Controls
 
 <table>
 <thead>
@@ -476,12 +471,11 @@ ALSA Controls
 </tbody>
 </table>
 
-DAI configuration
------------------
+## DAI configuration
 
 The codec driver registers one DAI: **adau1977-hifi**
 
-#### Supported DAI formats
+### Supported DAI formats
 
 <table>
 <thead>
@@ -598,11 +592,11 @@ The codec driver registers one DAI: **adau1977-hifi**
 </tbody>
 </table>
 
-#### System clock configuration
+### System clock configuration
 
 The sysclk can either be provided by the internal PLL derived from the MCLK signal or by the LRCLK signal.
 
-``` {.c}
+``` c
 enum adau1977_clk_id {
     ADAU1977_SYSCLK,
 };
@@ -617,7 +611,7 @@ If the MCLK is used the supported sampling rates of the device is constraint to 
 
 For some hardware configurations it might be possible to change the MCLK frequency at runtime (e.g. to support both 44.1kHz and 48kHz based sample rates). In this case in order for the CODEC driver to not set any sample rate constraints the sysclk frequency should be set to 0 until it has been decided which MCLK frequency is used. This can for example be implemented by setting the sysclk to 0 in the machine driver's startup callback and setting it to the actual frequency in the hw_params callback.
 
-#### TDM configuration
+### TDM configuration
 
 The TDM mode of the ADAU1977 can be configured using the snd_soc_dai_set_tdm_slot() function.
 
@@ -628,7 +622,7 @@ The TDM mode of the ADAU1977 can be configured using the snd_soc_dai_set_tdm_slo
 
 Example TDM configuration:
 
-``` {.c}
+``` c
     ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x00, 0x0f, 4, 32);
 ```
 
@@ -636,15 +630,15 @@ To configure whether the unused TDM slots should be tristated or actively driven
 
 Example tristate configuration:
 
-``` {.c}
+``` c
     ret = snd_soc_dai_set_tristate(codec_dai, true);
 ```
 
-#### Example machine driver configuration
+### Example machine driver configuration
 
-##### Fixed MCLK
+#### Fixed MCLK
 
-``` {.c}
+``` c
 static int eval_adau1977_init(struct snd_soc_pcm_runtime *rtd)
 {
     return snd_snd_soc_codec_set_sysclk_set_sysclk(rtd->codec, ADAU1977_SYSCLK,
@@ -665,9 +659,9 @@ static struct snd_soc_dai_link eval_adau1977_dai = {
 };
 ```
 
-##### Configurable MCLK
+#### Configurable MCLK
 
-``` {.c}
+``` c
 static int eval_adau1977_init(struct snd_soc_pcm_runtime *rtd)
 {
     return snd_snd_soc_codec_set_sysclk_set_sysclk(rtd->codec, ADAU1977_SYSCLK,

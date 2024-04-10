@@ -3,22 +3,21 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5504: High Voltage, Quad Channel 12-Bit Voltage Output DAC
 ---
 
-AD5504 IIO High Voltage ADC Linux Driver
-========================================
+# AD5504 IIO High Voltage ADC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD5504](https://www.google.com/search?q=AD5504&btnI=lucky)
--   [AD5501](https://www.google.com/search?q=AD5501&btnI=lucky)
+-   [AD5504](adi>AD5504)
+-   [AD5501](adi>AD5501)
 
 #### Reference Circuits
 
--   [CN0193](https://www.google.com/search?q=CN0193&btnI=lucky)
+-   [CN0193](adi>CN0193)
 
 #### Evaluation Boards
 
--   [EVAL-AD5504EBZ](https://www.google.com/search?q=EVAL-AD5504EBZ&btnI=lucky)
--   [EVAL-AD5501EBZ](https://www.google.com/search?q=EVAL-AD5501EBZ&btnI=lucky)
+-   [EVAL-AD5504EBZ](adi>EVAL-AD5504EBZ)
+-   [EVAL-AD5501EBZ](adi>EVAL-AD5501EBZ)
 
 #### Description
 
@@ -26,22 +25,21 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5504.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5504.c&amp;btnI=lucky">Yes</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/dac/ad5504.c">git</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/dac/ad5504.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -58,23 +56,22 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5504.c&amp;btnI=lucky">drivers/iio/dac/ad5504.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5504.c">drivers/iio/dac/ad5504.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5504.h&amp;btnI=lucky">drivers/iio/dac/ad5504.h</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5504.h">drivers/iio/dac/ad5504.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 The reference voltage may vary between boards and models. The platform_data for the device's "struct device" holds this information.
 
-``` {.c}
+``` c
 static struct ad5504_platform_data ad5504_pdata = {
     .vref_mv = 30000,
 };
@@ -91,7 +88,7 @@ This driver supports also an alternative way of specifying the reference voltage
 
 Below example specifies a 30 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 
-``` {.c}
+``` c
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad5504_consumer_supplies[] = {
     REGULATOR_SUPPLY("vcc", "spi0.3"),
@@ -124,7 +121,7 @@ static struct platform_device brd_voltage_regulator = {
 ## endif
 ```
 
-``` {.c}
+``` c
 static struct platform_device *board_devices[] __initdata = {
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator,
@@ -132,7 +129,7 @@ static struct platform_device *board_devices[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -151,7 +148,7 @@ arch_initcall(board_init);
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD5504) || 
     defined(CONFIG_AD5504_MODULE)
@@ -168,7 +165,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -182,8 +179,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -205,13 +201,11 @@ The AD5504 Driver depends on **CONFIG_SPI**
                 <*>   Analog Devices AD5504/AD5501 DAC spi driver
                 [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-![ad5504_eval_lr.jpg](/software/driver/linux/ad5504_eval_lr.jpg){width="600"}
+![ad5504_eval_lr.jpg](/software/driver/linux/ad5504_eval_lr.jpg){width="600" query="?600"}
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -379,7 +373,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage0_pow
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

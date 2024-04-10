@@ -3,16 +3,15 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/net-
 title: ADIN1110 - Robust, Industrial, Low Power 10BASE-T1L Ethernet MAC-PHY
 ---
 
-ADIN1110 10BASE-T1L MAC-PHY Linux Driver
-========================================
+# ADIN1110 10BASE-T1L MAC-PHY Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADIN1110](https://www.google.com/search?q=ADIN1110&btnI=lucky)
+-   [ADIN1110](adi>ADIN1110)
 
-#### Supported Boards
+### Supported Boards
 
-#### Description
+### Description
 
 The ADIN1110 is a low power single port 10BASE-T1L MACPHY designed for industrial Ethernet applications. It integrates an Ethernet PHY core with a MAC and all the associated analog circuitry, input and output clock buffering.
 
@@ -21,10 +20,9 @@ intrinsic safety applications. The ADIN1110 has an integrated voltage supply mon
 
 The device has a 4-wire SPI interface for communication between the MAC and host processor.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <tbody>
@@ -33,13 +31,13 @@ Source Code
 <td>Mainlined?</td>
 </tr>
 <tr class="even">
-<td><a href="https://www.google.com/search?q=master/drivers/net/ethernet/adi/adin1110.c&amp;btnI=lucky">adin1110.c</a></td>
+<td><a href="linux.github&gt;master/drivers/net/ethernet/adi/adin1110.c">adin1110.c</a></td>
 <td>Yes</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -51,13 +49,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master/drivers/net/ethernet/adi&amp;btnI=lucky">drivers/net/ethernet/adi/adin1110.c</a></td>
+<td><a href="linux.github&gt;master/drivers/net/ethernet/adi">drivers/net/ethernet/adi/adin1110.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -83,8 +80,7 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
        Depends on: NETDEVICES [=y] && ETHERNET [=y] && NET_VENDOR_ADI [=y] && SPI [=y]
        Selects: CRC8 [=y]
 
-Driver testing
---------------
+## Driver testing
 
 This requires that another 10BASE-T1L PHY be connected to the other end of the network cable, or that a media converter be used to convert to normal twisted-pair ethernet that standard ethernet cables use.
 
@@ -94,7 +90,7 @@ Connect to host the SCLK, CS_N, SDI, SDO and INT_N. (The INT_N is mandatory, see
 
 [ADIN1110 Quick Start Guide](/resources/quick-start/adin1110_linux_quick_start_guide)
 
-#### Device Tree
+### Device Tree
 
 ADIN1110 probes via devicetree.
 
@@ -126,7 +122,7 @@ ADIN1110 probes via devicetree.
         };
     };
 
-#### ifconfig
+### ifconfig
 
 This tool will display the general status of the available network interfaces. If they've obtained an IP address, RX packets/errors/dropped/etc, TX packets/errors/dropped/etc, MAC address, etc.
 
@@ -144,7 +140,7 @@ Check error/dropped counters too.
             TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
             device interrupt 55
 
-#### ethtool
+### ethtool
 
 This tool queries the MAC & PHY via the MAC driver. The MAC driver also allows access to the PHY registers.
 ethtool can be used to show & override link settings and other parameters for the MAC & PHY.
@@ -156,7 +152,7 @@ Links for the tool:
 
 <note tip>Some features of ethtool described here are available in newer versions of ethtool. If some of them don't work, consider upgrading or getting a newer version</note>
 
-##### Example: Seeing MAC & PHY info
+#### Example: Seeing MAC & PHY info
 
     Settings for eth1:
         Supported ports: [ TP MII ]
@@ -180,7 +176,7 @@ Links for the tool:
         Auto-negotiation: on
         Link detected: yes
 
-##### Example: Renaming ethernet interface
+#### Example: Renaming ethernet interface
 
 Renaming an ethernet interface from the generic ethx name to a custom name is done by adding a udev rule.
 Check:
@@ -198,7 +194,7 @@ Coppy the phys_switch_id to the bellow udev rule:
 
 phys_switch_id can differ from device to device. It is a unique identifier for each device on that specific system.
 
-##### Example: changing link autonegotiation
+#### Example: changing link autonegotiation
 
 Since the PHY can only do 10 Mbps full-duplex, the only operation possible here is to disable auto-negotiation and set preferred/forced master/slave
 
@@ -210,7 +206,7 @@ Since the PHY can only do 10 Mbps full-duplex, the only operation possible here 
     ethtool -s eth1 autoneg on master-slave forced-master
     ethtool -s eth1 autoneg on master-slave forced-slave
 
-##### Example: checking PHY statistics
+#### Example: checking PHY statistics
 
     root@analog:~# ethtool --phy-statistics eth1
     PHY statistics:
@@ -225,7 +221,7 @@ Since the PHY can only do 10 Mbps full-duplex, the only operation possible here 
          odd_preamble_packet_count: 0
          false_carrier_events_count: 0
 
-#### Throughput testing - iperf
+### Throughput testing - iperf
 
 This is a more system-general test but it also validates the PHY.
 
@@ -242,7 +238,7 @@ and on another system
 
 Then reverse the commands on the hosts. iperf only works in one direction.
 
-#### Data integrity testing
+### Data integrity testing
 
 One one side, generate a file with random data (say 1GB)
 
@@ -260,8 +256,7 @@ On the other host check the hash
     sha256sum test.data
     <SHA256-hash-of-data> == should be identical with the first hash
 
-Ethernet pointers
------------------
+## Ethernet pointers
 
 -   netdev mailing list: <netdev@vger.kernel.org>
 -   [Ethernet Controller bindings doc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-controller.yaml)

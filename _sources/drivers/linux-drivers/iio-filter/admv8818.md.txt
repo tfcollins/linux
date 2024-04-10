@@ -3,20 +3,19 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADMV8818: 2 GHz to 18 GHz, Digitally Tunable, High-Pass and Low-Pass Filter
 ---
 
-ADMV8818 2GHz to 18GHz, Digitally Tunable High-Pass and Low-PASS Filter Linux Driver
-====================================================================================
+# ADMV8818 2GHz to 18GHz, Digitally Tunable High-Pass and Low-PASS Filter Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADMV8818](https://www.google.com/search?q=ADMV8818&btnI=lucky)
+-   [ADMV8818](adi>ADMV8818)
 
-#### Supported Boards
+### Supported Boards
 
 This driver supports the
 
--   [EVAL-ADMV8818](https://www.google.com/search?q=EVAL-ADMV8818&btnI=lucky)
+-   [EVAL-ADMV8818](adi>EVAL-ADMV8818)
 
-#### Description
+### Description
 
 The ADMV8818-EP is a fully monolithic microwave integrated circuit (MMIC) that features a digitally selectable frequency of operation. The device features four independently controlled high-pass filters (HPFs) and four independently controlled low-pass filters (LPFs) that span the 2 GHz to 18 GHz frequency range.
 
@@ -24,27 +23,26 @@ The flexible architecture of the ADMV8818-EP allows the 3 dB cutoff frequency (f
 
 This tunable filter can be used as a smaller alternative to large switched filter banks and cavity tuned filters, and this device provides a dynamically adjustable solution in advanced communications applications.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/filter/admv8818.c&amp;btnI=lucky">drivers/iio/filter/admv8818.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/filter/admv8818.c&amp;btnI=lucky">YES</a></td>
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/filter/admv8818.c">drivers/iio/filter/admv8818.c</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/filter/admv8818.c">YES</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -56,15 +54,15 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/filter/admv8818.c&amp;btnI=lucky">drivers/iio/filter/admv8818.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/filter/admv8818.c">drivers/iio/filter/admv8818.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/filter/adi,admv8818.yaml&amp;btnI=lucky">adi,admv8818.yaml</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/filter/adi,admv8818.yaml">adi,admv8818.yaml</a></td>
 </tr>
 <tr class="odd">
 <td>ABI documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/ABI/testing/sysfs-bus-iio-filter-admv8818&amp;btnI=lucky">sysfs-bus-iio-filter-admv8818</a></td>
+<td><a href="linux.github&gt;master?Documentation/ABI/testing/sysfs-bus-iio-filter-admv8818">sysfs-bus-iio-filter-admv8818</a></td>
 </tr>
 </tbody>
 </table>
@@ -81,13 +79,12 @@ Example device tree
 <tbody>
 <tr class="odd">
 <td>dts</td>
-<td><a href="https://www.google.com/search?q=rpi-5.10.y?arch/arm/boot/dts/overlays/rpi-admv8818-overlay.dts&amp;btnI=lucky">rpi-admv8818-overlay.dts</a></td>
+<td><a href="linux.github&gt;rpi-5.10.y?arch/arm/boot/dts/overlays/rpi-admv8818-overlay.dts">rpi-admv8818-overlay.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 The ADF4371 driver is a SPI bus driver and can be instantiated via device tree.
 
@@ -123,8 +120,7 @@ The ADF4371 driver is a SPI bus driver and can be instantiated via device tree.
           };
         };
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -136,8 +132,7 @@ The ADMV8818 driver depends on **SPI** and selects **REGMAP_SPI**
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -149,11 +144,9 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
                      Filters --->
                                  <*> Analog Devices ADMV8818 High-Pass and Low-Pass Filter
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -189,7 +182,7 @@ root@analog:/sys/bus/iio/devices/iio:device0#
 :::
 
 
-#### Show device name
+### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -203,7 +196,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat name**
 :::
 
 
-#### Read channel bandwidth frequency
+### Read channel bandwidth frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -217,7 +210,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_band_
 :::
 
 
-#### Set channel bandwidth frequency
+### Set channel bandwidth frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -232,7 +225,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_band_
 :::
 
 
-#### Read channel center frequency
+### Read channel center frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -246,7 +239,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_band_
 :::
 
 
-#### Set channel center frequency
+### Set channel center frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -261,7 +254,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_band_
 :::
 
 
-#### Read low pass 3db frequency
+### Read low pass 3db frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -275,7 +268,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_low_p
 :::
 
 
-#### Set channel low pass 3db frequency
+### Set channel low pass 3db frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -290,7 +283,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_low_p
 :::
 
 
-#### Read high pass 3db frequency
+### Read high pass 3db frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -304,7 +297,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_high_
 :::
 
 
-#### Set channel high pass 3db frequency
+### Set channel high pass 3db frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -319,7 +312,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_high_
 :::
 
 
-#### Read scale
+### Read scale
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -333,7 +326,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_scale**
 :::
 
 
-#### Set channel scale
+### Set channel scale
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -348,7 +341,7 @@ root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_scale**
 :::
 
 
-#### Filter mode
+### Filter mode
 
 The mode allows the user to access enable/disable/register/unregister the clock rate notifier. Valid values that can be written:
 
@@ -369,7 +362,6 @@ bypass
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

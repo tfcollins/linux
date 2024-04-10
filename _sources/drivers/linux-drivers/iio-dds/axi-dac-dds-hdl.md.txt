@@ -3,30 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD9739A: 14-Bit, 2.5 GSPS, RF D/A Converter
 ---
 
-AXI DAC HDL Linux Driver
-========================
+# AXI DAC HDL Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD9122](https://www.google.com/search?q=AD9122&btnI=lucky)
--   [AD9136](https://www.google.com/search?q=AD9136&btnI=lucky)
--   [AD9144](https://www.google.com/search?q=AD9144&btnI=lucky)
--   [AD9152](https://www.google.com/search?q=AD9152&btnI=lucky)
--   [AD9154](https://www.google.com/search?q=AD9154&btnI=lucky)
--   [AD9162](https://www.google.com/search?q=AD9162&btnI=lucky)
--   [AD9171](https://www.google.com/search?q=AD9171&btnI=lucky)
--   [AD9172](https://www.google.com/search?q=AD9172&btnI=lucky)
--   [AD9173](https://www.google.com/search?q=AD9173&btnI=lucky)
--   [AD9174](https://www.google.com/search?q=AD9174&btnI=lucky)
--   [AD9175](https://www.google.com/search?q=AD9175&btnI=lucky)
--   [AD9176](https://www.google.com/search?q=AD9176&btnI=lucky)
--   [AD9361](https://www.google.com/search?q=AD9361&btnI=lucky)
--   [AD9364](https://www.google.com/search?q=AD9364&btnI=lucky)
--   [AD9371](https://www.google.com/search?q=AD9371&btnI=lucky)
--   [AD9739A](https://www.google.com/search?q=AD9739A&btnI=lucky)
--   [AD9783](https://www.google.com/search?q=AD9783&btnI=lucky)
+-   [AD9122](adi>AD9122)
+-   [AD9136](adi>AD9136)
+-   [AD9144](adi>AD9144)
+-   [AD9152](adi>AD9152)
+-   [AD9154](adi>AD9154)
+-   [AD9162](adi>AD9162)
+-   [AD9171](adi>AD9171)
+-   [AD9172](adi>AD9172)
+-   [AD9173](adi>AD9173)
+-   [AD9174](adi>AD9174)
+-   [AD9175](adi>AD9175)
+-   [AD9176](adi>AD9176)
+-   [AD9361](adi>AD9361)
+-   [AD9364](adi>AD9364)
+-   [AD9371](adi>AD9371)
+-   [AD9739A](adi>AD9739A)
+-   [AD9783](adi>AD9783)
 
-#### Supported Boards
+### Supported Boards
 
 This driver supports the
 
@@ -43,10 +42,10 @@ This driver supports the
 -   [EVALUATING THE AD9780/AD9781/AD9783 DIGITAL-TO-ANALOG CONVERTERS](/resources/eval/dpg/eval-ad9783)
 -   [AD9783 Evaluation Board, DAC-FMC Interposer & Xilinx Reference Design](/resources/fpga/xilinx/interposer/ad9783)
 -   [ADRV9371 FMC Card](resources/eval/user-guides/mykonos)
--   [ADRV9009 & ADRV9008 Prototyping Platform User Guide](/resources/eval/user-guides/adrv9009)
+-   [ADRV9009 &amp; ADRV9008 Prototyping Platform User Guide](/resources/eval/user-guides/adrv9009)
 -   [AD9171/AD9172/AD9173/AD9174/AD9175/AD9176 Evaluation Board](/resources/eval/dpg/eval-ad9172)
 
-#### Supported HDL Cores
+### Supported HDL Cores
 
 -   [Generic AXI DAC](/resources/fpga/docs/axi_dac_ip)
 -   [DAC JESD204B Transport Peripheral](/resources/fpga/peripherals/jesd204/jesd204_tpl_dac)
@@ -55,11 +54,11 @@ This driver supports the
 -   [AXI_AD9371](/resources/fpga/docs/axi_ad9371)
 -   [AXI_AD9783](/resources/fpga/docs/axi_ad9783)
 
-#### Sub device Documentation (linked mode)
+### Sub device Documentation (linked mode)
 
 -   [AD9172 DAC Linux Driver](/resources/tools-software/linux-drivers/iio-dds/ad9172)
 
-#### Description
+### Description
 
 The AXI DAC DDS HDL driver is the driver for various HDL interface cores which are used on different FPGA designs. The driver is implemented as an Linux IIO driver. It's register map can be found here: [Base register map (common to all cores)](/resources/fpga/docs/hdl/regmap)
 
@@ -79,29 +78,28 @@ A good example for this case is the [AXI_AD9361](/resources/fpga/docs/axi_ad9361
 The HDL/FPGA transport layer capture core driver portion implements a polyphase dual tone DDS core per channel together with an DMA based waveform buffer mechanism.
 The buffer can be filled by arbitrary data, which is then typically cyclically repeated or used in a streaming fashion.
 
-![](/resources/tools-software/linux-drivers/iio-dds/axi-dac-dds-overview.png){.align-center width="800"}
+![axi-dac-dds-overview.png](/resources/tools-software/linux-drivers/iio-dds/axi-dac-dds-overview.png){.align-center width="800" query="?800"}
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/cf_axi_dds.c&amp;btnI=lucky">drivers/iio/frequency/cf_axi_dds.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/cf_axi_dds.c&amp;btnI=lucky">WIP</a></td>
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.c">drivers/iio/frequency/cf_axi_dds.c</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/frequency/cf_axi_dds.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -113,37 +111,36 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ad9122.c&amp;btnI=lucky">drivers/iio/frequency/ad9122.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9122.c">drivers/iio/frequency/ad9122.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ad9144.c&amp;btnI=lucky">drivers/iio/frequency/ad9144.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9144.c">drivers/iio/frequency/ad9144.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ad9162.c&amp;btnI=lucky">drivers/iio/frequency/ad9162.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9162.c">drivers/iio/frequency/ad9162.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ad9172.c&amp;btnI=lucky">drivers/iio/frequency/ad9172.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9172.c">drivers/iio/frequency/ad9172.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/cf_axi_dds.c&amp;btnI=lucky">drivers/iio/frequency/cf_axi_dds.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.c">drivers/iio/frequency/cf_axi_dds.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/cf_axi_dds_buffer_stream.c&amp;btnI=lucky">drivers/iio/frequency/cf_axi_dds_buffer_stream.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds_buffer_stream.c">drivers/iio/frequency/cf_axi_dds_buffer_stream.c</a></td>
 </tr>
 <tr class="odd">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/cf_axi_dds.h&amp;btnI=lucky">drivers/iio/frequency/cf_axi_adc.h</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.h">drivers/iio/frequency/cf_axi_adc.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 The AXI DAC/DDS driver is a platform driver and can only be instantiated via device tree.
 
@@ -234,8 +231,7 @@ Example:
         };
     };  
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -247,8 +243,7 @@ The AXI ADC HDL driver may depend on **CONFIG_SPI**
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -269,16 +264,14 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 
             [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
 In case the driver probes successfully and the device gets instantiated.
 Your systems kernel messages should include a line, which may look like the one shown below.
 
     cf_axi_dds 79024000.cf-ad9361-dds-core-lpc: Analog Devices CF_AXI_DDS_DDS MASTER (8.00.b) at 0x79024000 mapped to 0xf0998000, probed DDS AD9361
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -355,7 +348,7 @@ root@analog:/sys/bus/iio/devices/iio:device2#
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -369,7 +362,7 @@ cf-ad9361-dds-core-lpc
 :::
 
 
-###### Show/Set DDS frequency
+##### Show/Set DDS frequency
 
 Values are in Hz.
 
@@ -388,7 +381,7 @@ root@analog:/sys/bus/iio/devices/iio:device2# **cat out_altvoltage0_TX1_I_F1_fre
 :::
 
 
-###### Show/Set DDS Phase
+##### Show/Set DDS Phase
 
 Values are in milli degrees.
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
@@ -406,20 +399,20 @@ root@analog:/sys/bus/iio/devices/iio:device2# **cat out_altvoltage0_TX1_I_F1_pha
 :::
 
 
-###### Enable/Disable DDS Channel
+##### Enable/Disable DDS Channel
 
 1 for enable, 0 for disable.
 
 With the introduction of the big channel MUX (REG_CHAN_CNTRL_7, DAC_DDS_SEL) starting with HDV Version > 7.00, the RAW attribute has some side effects, that need to be understood.
 In many situations for example when the Buffer mode is used, it's not desirable to write this attribute.
 
-####### HDL Version < 7.00.a
+###### HDL Version < 7.00.a
 
-![](/resources/tools-software/linux-drivers/iio-dds/dds_data_sel_v7-.png){width="500"}
+![dds_data_sel_v7-.png](/resources/tools-software/linux-drivers/iio-dds/dds_data_sel_v7-.png){width="500" query="?500"}
 
-####### HDL Version > 7.00.a
+###### HDL Version > 7.00.a
 
-![](/resources/tools-software/linux-drivers/iio-dds/dds_data_sel_v7+.png){width="500"}
+![dds_data_sel_v7+.png](/resources/tools-software/linux-drivers/iio-dds/dds_data_sel_v7+.png){width="500" query="?500"}
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -433,7 +426,7 @@ root@analog:/sys/bus/iio/devices/iio:device2# **cat out_altvoltage0_TX1_I_F1_raw
 :::
 
 
-###### Show/Set DDS Scale
+##### Show/Set DDS Scale
 
 DDS amplitude: range 0.00 ... 1.00 (relative to full scale)
 
@@ -459,7 +452,7 @@ root@analog:/sys/bus/iio/devices/iio:device2# **cat out_altvoltage0_TX1_I_F1_sca
 :::
 
 
-###### DAC internal or external Gain, DC Offset, and Phase adjustments
+##### DAC internal or external Gain, DC Offset, and Phase adjustments
 
 Depending on the platform. These attributes may control converter internal or external processing blocks.
 
@@ -491,7 +484,7 @@ out_voltage1_phase:0
 :::
 
 
-###### External synchronization
+##### External synchronization
 
 The [DAC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_dac) core supports the [EXT_SYNC](/resources/fpga/peripherals/jesd204/jesd204_tpl_dac#External_synchronization) feature, allowing to synchronize multiple channels within a DAC or across multiple instances.
 This feature can also synchronize between the [ADC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_adc) and [DAC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_dac) core.
@@ -515,7 +508,7 @@ signal or 'disarm' otherwise.
 ```
 -   `trigger_manual`: Setting this key will issue an external sync event if it is hooked up inside the fabric. This key has an effect only the EXT_SYNC synthesis parameter is set.
 
-####### Example:
+###### Example:
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -537,7 +530,7 @@ root@analog:/sys/bus/iio/devices/iio:device3# **cat sync_start_enable**
 :::
 
 
-#### Buffer management
+### Buffer management
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -576,11 +569,11 @@ total 0
 
 ![iio_snippets#typical_adc_scan_elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#typical_adc_scan_elements&noheader&firstseconly&noeditbtn)
 
-#### Low level register access
+### Low level register access
 
 ![iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn)
 
-#### AD9122 Clocking concept
+### AD9122 Clocking concept
 
 There are three different clocks associated with the DAC.
 
@@ -690,7 +683,6 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# **echo 61440000 > o
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

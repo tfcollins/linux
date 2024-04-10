@@ -1,22 +1,20 @@
-ADGS1408/ADGS1409 8:1/Dual 4:1 Muxes Linux Driver
-=================================================
+# ADGS1408/ADGS1409 8:1/Dual 4:1 Muxes Linux Driver
 
 ### Supported Devices
 
--   [ADGS1408](https://www.google.com/search?q=ADGS1408&btnI=lucky)
--   [ADGS1409](https://www.google.com/search?q=ADGS1409&btnI=lucky)
+-   [ADGS1408](adi>ADGS1408)
+-   [ADGS1409](adi>ADGS1409)
 
 ### Evaluation Boards
 
--   [EVAL-ADGS1408SDZ](https://www.google.com/search?q=EVAL-ADGS1408SDZ&btnI=lucky)
+-   [EVAL-ADGS1408SDZ](adi>EVAL-ADGS1408SDZ)
 
 ### Description
 
 This is a mux controller subsystem driver, with an interface for accessing mux controllers. This is done in such a way
 that several consumers can independently access the same mux controller if one controller controls several multiplexers, thus allowing sharing.
 
-Source Code
------------
+## Source Code
 
 ### Status
 
@@ -29,7 +27,7 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=rpi-4.14.y?drivers/mux/adgs140x.c&amp;btnI=lucky">git</a></td>
+<td><a href="linux.github&gt;rpi-4.14.y?drivers/mux/adgs140x.c">git</a></td>
 <td>[No]</td>
 </tr>
 </tbody>
@@ -47,7 +45,7 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=rpi-4.14.y?drivers/mux/adgs140x.c&amp;btnI=lucky">drivers/mux/adgs140x.c</a></td>
+<td><a href="linux.github&gt;rpi-4.14.y?drivers/mux/adgs140x.c">drivers/mux/adgs140x.c</a></td>
 </tr>
 </tbody>
 </table>
@@ -59,7 +57,7 @@ Required devicetree properties:
 -   compatible: Needs to be the name of the device. E.g. \"adi,adgs1408\"
 -   reg: The chipselect number used for the device
 -   spi-max-frequency: Maximum SPI clock frequency.
--   \#mux-control-cells:is required to be \<0\>
+-   #mux-control-cells:is required to be \<0\>
 
 ```{=html}
 <!-- -->
@@ -107,8 +105,7 @@ The mux controller extends the ADC\'s IO channel that is selected. In this case 
 
 in this case voltage0 from ad7298 is the channels multiplexed in IIO.
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
 \"make qconfig\")
@@ -132,39 +129,37 @@ If the multiplexer is used to select a signal that is fed to an IIO device, then
                 ...
             ...
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
-Since we are using an IIO ADC (AD7298) then our mux will have an IIO device folder in /sys/bus/iio/devices/iio:deviceX with the name adc-mux\@3.
+Since we are using an IIO ADC (AD7298) then our mux will have an IIO device folder in /sys/bus/iio/devices/iio:deviceX with the name adc-mux@3.
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
 \<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
 \<xterm\>
-root\@raspberrypi:/sys/bus/iio/devices/iio:device1\# ls -l
+root@raspberrypi:/sys/bus/iio/devices/iio:device1# ls -l
 total 0
 -r\--r\--r\-- 1 root root 4096 Jul 17 13:21 dev
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage0\_raw
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage0\_scale
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage1\_raw
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage1\_scale
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage2\_raw
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage2\_scale
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage3\_raw
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage3\_scale
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage4\_raw
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage4\_scale
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage5\_raw
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage5\_scale
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage6\_raw
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage6\_scale
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage7\_raw
--rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in\_voltage7\_scale
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage0_raw
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage0_scale
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage1_raw
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage1_scale
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage2_raw
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage2_scale
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage3_raw
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage3_scale
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage4_raw
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage4_scale
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage5_raw
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage5_scale
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage6_raw
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage6_scale
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage7_raw
+-rw-r\--r\-- 1 root root 4096 Jul 17 13:21 in_voltage7_scale
 -r\--r\--r\-- 1 root root 4096 Jul 17 13:21 name
-lrwxrwxrwx 1 root root 0 Jul 17 13:21 of\_node -\> ../../../../firmware/devicetree/base/adc-mux\@3
+lrwxrwxrwx 1 root root 0 Jul 17 13:21 of_node -\> ../../../../firmware/devicetree/base/adc-mux@3
 drwxr-xr-x 2 root root 0 Jul 17 13:21 power
 lrwxrwxrwx 1 root root 0 Jul 17 13:21 subsystem -\> ../../../../bus/iio
 -rw-r\--r\-- 1 root root 4096 Jul 17 13:21 uevent
@@ -174,25 +169,24 @@ lrwxrwxrwx 1 root root 0 Jul 17 13:21 subsystem -\> ../../../../bus/iio
 
 \<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
 \<xterm\>
-root\@raspberrypi:/sys/bus/iio/devices/iio:device1\# cat name
-adc-mux\@3
+root@raspberrypi:/sys/bus/iio/devices/iio:device1# cat name
+adc-mux@3
 \</xterm\>\</WRAP\>
 
 ##### Get Voltage on channel Y
 
 **Description:**\
-/sys/bus/iio/devices/iio:deviceX/in\_voltageY\_raw\
+/sys/bus/iio/devices/iio:deviceX/in_voltageY_raw\
 This will select channel Y of the multiplexer and feed it to the input channel of the ADC that is physically connected to the mux.
 
 \<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
 \<xterm\>
-root\@raspberrypi:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_raw
+root@raspberrypi:/sys/bus/iio/devices/iio:device1# cat in_voltage0_raw
 4095
 \</xterm\>\</WRAP\>
 
 \<wrap info\>The other attributes correspond to the ADC and can be viewed from here.\</wrap\>
 
-More Information
-----------------
+## More Information
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

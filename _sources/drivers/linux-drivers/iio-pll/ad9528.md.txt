@@ -3,14 +3,13 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD9528: JESD204B Clock Generator with 14 LVDS/HSTL Outputs
 ---
 
-AD9528 Low Jitter Clock Generator Linux Driver
-==============================================
+# AD9528 Low Jitter Clock Generator Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD9528](https://www.google.com/search?q=AD9528&btnI=lucky)
+-   [AD9528](adi>AD9528)
 
-#### Description
+### Description
 
 The AD9528 is a two-stage PLL with an integrated JESD204B SYSREF generator for multiple device synchronization.
 
@@ -31,12 +30,11 @@ The AD9528 generates two outputs (Output 1 and Output 2) with a maximum frequenc
 
 Please see also here: [Changing the VCXO frequency](/resources/eval/user-guides/rf-trx-vcxo-and-profiles)
 
-![](/resources/tools-software/linux-drivers/iio-pll/ad9528.jpg){.align-center width="900"}
+![ad9528.jpg](/resources/tools-software/linux-drivers/iio-pll/ad9528.jpg){.align-center width="900" query="?900"}
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -47,13 +45,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ad9528.c&amp;btnI=lucky">drivers/iio/frequency/ad9528.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9528.c">drivers/iio/frequency/ad9528.c</a></td>
 <td>No</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -65,21 +63,20 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ad9528.c&amp;btnI=lucky">drivers/iio/frequency/ad9528.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9528.c">drivers/iio/frequency/ad9528.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?include/linux/iio/frequency/ad9528.h&amp;btnI=lucky">include/linux/iio/frequency/ad9528.h</a></td>
+<td><a href="linux.github&gt;master?include/linux/iio/frequency/ad9528.h">include/linux/iio/frequency/ad9528.h</a></td>
 </tr>
 <tr class="odd">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?include/dt-bindings/iio/frequency/ad9528.h&amp;btnI=lucky">include/dt-bindings/iio/frequency/ad9528.h</a></td>
+<td><a href="linux.github&gt;master?include/dt-bindings/iio/frequency/ad9528.h">include/dt-bindings/iio/frequency/ad9528.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Enabling the driver
--------------------
+## Enabling the driver
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -98,9 +95,9 @@ The AD9528 Driver depends on **CONFIG_SPI**
                      Clock Generator/Distribution  --->
                      <*>  Analog Devices AD9528 Low Jitter Clock Generator
 
-#### Adding a device tree entry
+### Adding a device tree entry
 
-##### Available properties
+#### Available properties
 
 -   **compatible**: Must be one of:
     -   "adi,ad9528"
@@ -143,7 +140,7 @@ The AD9528 Driver depends on **CONFIG_SPI**
 -   **adi,cpole1**: PLL2 loop filter Cpole1 capacitor value
 -   **adi,rzero-bypass-en**: Bypass Rzero
 
-##### Adding channels
+#### Adding channels
 
 Channels can be specified using child nodes. The following properties are applicable to them:
 
@@ -162,7 +159,7 @@ Channels can be specified using child nodes. The following properties are applic
     -   SOURCE_VCXO_INV,
     -   SOURCE_SYSREF_VCXO_INV.
 
-##### Device tree example
+#### Device tree example
 
 The following example instanciates the ad9528 driver for a AD9528 device connected on the SPI bus to the chip-select line 0.
 

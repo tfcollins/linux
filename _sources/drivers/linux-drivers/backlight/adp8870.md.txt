@@ -3,20 +3,19 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/back
 title: ADP8870: Charge Pump Parallel Backlight Driver with Image Content PWM Input
 ---
 
-ADP8870 Back-light LED Linux Driver
-===================================
+# ADP8870 Back-light LED Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [ADP8870](https://www.google.com/search?q=ADP8870&btnI=lucky)
+-   [ADP8870](adi>ADP8870)
 
 #### Evaluation Boards
 
--   [ADP8870DBCB-EVALZ](https://www.google.com/search?q=ADP8870DBCB-EVALZ&btnI=lucky)
+-   [ADP8870DBCB-EVALZ](adi>ADP8870DBCB-EVALZ)
 
 #### Description
 
-![](/software/driver/linux/adp8870_typical_operating_circuit.jpg)
+![adp8870_typical_operating_circuit.jpg](/software/driver/linux/adp8870_typical_operating_circuit.jpg)
 
 #### Configuration
 
@@ -40,8 +39,7 @@ LED:
 -   Configurable Fade Law functions
 -   Configurable Brightness/Intensity in 128 steps from [0..255]
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -54,8 +52,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/video/backlight/adp8870_bl.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/video/backlight/adp8870_bl.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/video/backlight/adp8870_bl.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/video/backlight/adp8870_bl.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -72,17 +70,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/video/backlight/adp8870_bl.c&amp;btnI=lucky">drivers/video/backlight/adp8870_bl.c</a></td>
+<td><a href="git.linux.org&gt;drivers/video/backlight/adp8870_bl.c">drivers/video/backlight/adp8870_bl.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/i2c/adp8870.h&amp;btnI=lucky">include/linux/i2c/adp8870.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/i2c/adp8870.h">include/linux/i2c/adp8870.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Instructions / Theory of operation
-----------------------------------
+### Instructions / Theory of operation
 
 #### Backlight control
 
@@ -127,8 +124,7 @@ For more information read linux/Documentaion/leds-class.txt
     ; **brightness** : get/set LED brightness (an integer between 0 and 255)
     ; **max_brightness** : the maximum brightness value.
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -140,7 +136,7 @@ Includes what LEDs are available, feature selections and default initialization.
 :::
 
 
-``` {.c}
+``` c
 ## include <linux/i2c/adp8870.h>
 ```
 
@@ -149,7 +145,7 @@ Includes what LEDs are available, feature selections and default initialization.
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
-``` {.C}
+``` C
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 ## if defined(CONFIG_BACKLIGHT_ADP8870) || defined(CONFIG_BACKLIGHT_ADP8870_MODULE)
     {
@@ -160,8 +156,7 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 }
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -184,42 +179,41 @@ Device Drivers --->
 
 ```
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
 There is no dedicated Blackfin STAMP evaluation board for the ADP8870.
 During test and driver development we used the ADP8870 Evaluation Mother/Daughter Board.
 
-![](/software/driver/linux/adp8870_adaptor_board_lr.jpg){width="512"}
+![adp8870_adaptor_board_lr.jpg](/software/driver/linux/adp8870_adaptor_board_lr.jpg){width="512" query="?512"}
 
 It can be easily wired to the Blackfin STAMP TWI/I2C header.
 
 <table>
 <thead>
 <tr class="header">
-<th>BF537-STAMP (P10) TWI/I2C header</th>
+<th style="text-align: left;">BF537-STAMP (P10) TWI/I2C header</th>
 <th></th>
 <th>ADP886x Adaptor Board (J30)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>PIN</td>
+<td style="text-align: left;">PIN</td>
 <td>Function</td>
 <td>PIN/Function</td>
 </tr>
 <tr class="even">
-<td>5</td>
+<td style="text-align: left;">5</td>
 <td>SCL</td>
 <td>SCL</td>
 </tr>
 <tr class="odd">
-<td>6</td>
+<td style="text-align: left;">6</td>
 <td>SDA</td>
 <td>SDA</td>
 </tr>
 <tr class="even">
-<td>20</td>
+<td style="text-align: left;">20</td>
 <td>GND</td>
 <td>GND</td>
 </tr>
@@ -230,8 +224,7 @@ Leave J31 and J32 open (these jumpers connect the SCL and SDA to the cypress chi
 
 The ADP8870 chip still needs Vin (to power the chip), Vddio (to pull nRST and nINT high), and Vboard (to power the ALS sensor on the daughter card). These are provided through the USB port and then get regulated down (Vin becomes 3.6V, Vddio is 2.7V, and Vboard is around 4 V). So even though you won't be using the USB to program the part, it would still be easiest to plug the board into a USB port just to power Vin, Vddio, and Vboard. Of course, if you want, you can power these supplies from a lab bench power supply. In that case, move LK1, 2, and 3 to the "EXT" position and apply the signals to J29.
 
-Driver testing
---------------
+### Driver testing
 
 #### Driver compiled as a module
 
@@ -348,5 +341,4 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/leds/adp8870-
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/leds/adp8870-led7>
 ```
 
-More Information
-----------------
+### More Information

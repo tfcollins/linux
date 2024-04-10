@@ -3,27 +3,25 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADRF6780: 5.9 GHz to 23.6 GHz, Wideband, Microwave Upconverter
 ---
 
-ADRF6780 5.9 GHz to 23.6 GHz, Wideband, Microwave Upconverter
-=============================================================
+# ADRF6780 5.9 GHz to 23.6 GHz, Wideband, Microwave Upconverter
 
-# Supported Devices
+### Supported Devices
 
--   [ADRF6780](https://www.google.com/search?q=ADRF6780&btnI=lucky)
+-   [ADRF6780](adi>ADRF6780)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADRF6780](https://www.google.com/search?q=EVAL-ADRF6780&btnI=lucky)
+-   [EVAL-ADRF6780](adi>EVAL-ADRF6780)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Microwave converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -34,13 +32,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adrf6780.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/adrf6780.c&amp;btnI=lucky">WIP</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/adrf6780.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/adrf6780.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -52,18 +50,18 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adrf6780.c&amp;btnI=lucky">drivers/iio/frequency/adrf6780.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/adrf6780.c">drivers/iio/frequency/adrf6780.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio</a></td>
+<td><a href="git.linux.org&gt;Documentation/ABI/testing/sysfs-bus-iio">Documentation/ABI/testing/sysfs-bus-iio</a></td>
 </tr>
 </tbody>
 </table>
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-##### properties
+#### properties
 
 **compatible:**
 
@@ -171,9 +169,9 @@ Source Code
 -   clocks
 -   clock-names
 
-##### Example
+#### Example
 
-``` {.c}
+``` c
 spi {
       spi {
       #address-cells = <1>;
@@ -189,8 +187,7 @@ spi {
     };
 ```
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -209,8 +206,7 @@ The ADRF6780 Driver depends on **CONFIG_SPI**
                     Frequency  --->
                         <*> Analog Devices ADRF6780 Microwave Upconverter
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -238,7 +234,7 @@ lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -> ../../../../../../../../bus/ii
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -253,7 +249,7 @@ adrf6780
 :::
 
 
-###### Set ChannelY Raw value
+##### Set ChannelY Raw value
 
 /sys/bus/iio/devices/iio:deviceX/out_voltageY_raw
 ADC raw value. If shared across all channels,
@@ -272,7 +268,7 @@ root:/> **cat out_voltage0_raw**
 :::
 
 
-###### Set ChannelY Scale value
+##### Set ChannelY Scale value
 
 /sys/bus/iio/devices/iio:deviceX/out_voltageY_scale
 RDAC Linearize. If shared across all channels,
@@ -295,7 +291,7 @@ root:/> **cat out_voltage0_scale**
 :::
 
 
-###### Set ChannelY Phase value
+##### Set ChannelY Phase value
 
 /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_phase
 Phase value. If shared across all channels,
@@ -317,7 +313,6 @@ root:/> **cat out_altvoltage0_phase**
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

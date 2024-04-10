@@ -3,22 +3,21 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5421: 16-Bit, Serial Input, Loop-Powered, 4mA to 20mA DA
 ---
 
-AD5421 IIO DAC Linux Driver
-===========================
+# AD5421 IIO DAC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD5421](https://www.google.com/search?q=AD5421&btnI=lucky)
+-   [AD5421](adi>AD5421)
 
 ##### Reference Circuits
 
--   [CN0267](https://www.google.com/search?q=CN0267&btnI=lucky)
--   [CN0278](https://www.google.com/search?q=CN0278&btnI=lucky)
--   [CN0382](https://www.google.com/search?q=CN0382&btnI=lucky)
+-   [CN0267](adi>CN0267)
+-   [CN0278](adi>CN0278)
+-   [CN0382](adi>CN0382)
 
 #### Evaluation Boards
 
--   [EVAL-AD5421SDZ](https://www.google.com/search?q=EVAL-AD5421SDZ&btnI=lucky)
+-   [EVAL-AD5421SDZ](adi>EVAL-AD5421SDZ)
 
 #### Description
 
@@ -26,8 +25,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -40,8 +38,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5421.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5421.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5421.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5421.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -58,19 +56,18 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5421.c&amp;btnI=lucky">drivers/iio/dac/ad5421.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5421.c">drivers/iio/dac/ad5421.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 The ad5421 platform data is used to describe how the chip is configured on a specific board.
 
-``` {.c}
+``` c
 /**
  * enum ad5421_current_range - Current range the AD5421 is configured for.
  * @AD5421_CURRENT_RANGE_4mA_20mA: 4 mA to 20 mA (RANGE1,0 pins = 00)
@@ -98,7 +95,7 @@ struct ad5421_platform_data {
 
 If no platform data is given, the driver will assume an internal reference voltage and a current range of 4 mA to 20 mA.
 
-``` {.c}
+``` c
 struct ad5421_platform_data ad5421_pdata {
     .external_vref = true,
     .current_range = AD5421_CURRENT_RANGE_3mA2_24mA,
@@ -119,7 +116,7 @@ arch_initcall(board_init);
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD5421_SPI) || 
     defined(CONFIG_AD5421_SPI_MODULE)
@@ -137,8 +134,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -163,11 +159,9 @@ The ad5421 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -288,7 +282,6 @@ If offset calibration is used the following formula can be used calculate the ou
 
 **I** = *( ( out_currentY_raw * ( out_currentY_calibscale + 1 ) ) / 2^16 + out_currentY_calibbias + out_current_offset ) * out_currentY_scale*
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

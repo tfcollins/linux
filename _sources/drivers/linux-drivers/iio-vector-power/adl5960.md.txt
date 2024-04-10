@@ -3,18 +3,17 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADL5960: 10 MHz to 20 GHz, Integrated Vector Network Analyzer Front-End
 ---
 
-ADL5960 10 MHz to 20 GHz, Integrated Vector Network Analyzer Front-End Linux Driver
-===================================================================================
+# ADL5960 10 MHz to 20 GHz, Integrated Vector Network Analyzer Front-End Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADL5960](https://www.google.com/search?q=ADL5960&btnI=lucky)
+-   [ADL5960](adi>ADL5960)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [ADL5960-EVALZ](https://www.google.com/search?q=ADL5960-EVALZ&btnI=lucky)
+-   [ADL5960-EVALZ](adi>ADL5960-EVALZ)
 
-#### Description
+### Description
 
 The ADL5960 is a wideband, vector network analyzer front-end that consists of a bidirectional bridge, downconverters, programmable IF amplifiers, and a configurable local oscillator (LO) interface.
 
@@ -22,10 +21,9 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -36,13 +34,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adl5960.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/adl5960.c&amp;btnI=lucky">WIP</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/adl5960.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/adl5960.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -54,26 +52,26 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adl5960.c&amp;btnI=lucky">drivers/iio/frequency/adl5960.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/adl5960.c">drivers/iio/frequency/adl5960.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/ABI/testing/sysfs-bus-iio-frequency-adl5960&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio-frequency-adl5960</a></td>
+<td><a href="linux.github&gt;master?Documentation/ABI/testing/sysfs-bus-iio-frequency-adl5960">Documentation/ABI/testing/sysfs-bus-iio-frequency-adl5960</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio</a></td>
+<td><a href="git.linux.org&gt;Documentation/ABI/testing/sysfs-bus-iio">Documentation/ABI/testing/sysfs-bus-iio</a></td>
 </tr>
 <tr class="even">
 <td>dt-bindings</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/frequency/adi,adl5960.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/frequency/adi,adl5960.yaml</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/adi,adl5960.yaml">Documentation/devicetree/bindings/iio/frequency/adi,adl5960.yaml</a></td>
 </tr>
 </tbody>
 </table>
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-##### Devicetree properties
+#### Devicetree properties
 
     compatible:
       enum:
@@ -118,9 +116,9 @@ Source Code
     - clocks
     - clock-names
 
-##### Example
+#### Example
 
-``` {.c}
+``` c
   spi {
     adl5960-1@0 {
       compatible = "adi,adl5960";
@@ -135,8 +133,7 @@ Source Code
   };
 ```
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -155,8 +152,7 @@ The ADL5960 Driver depends on **CONFIG_SPI**
                 RF Font-Ends --->
                    <*> Analog Devices ADL5960 Vector Network Analyzer Front-End"
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -223,7 +219,7 @@ root@analog:/sys/bus/iio/devices/iio:device7#
 :::
 
 
-###### LO Frequency
+##### LO Frequency
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/in_altvoltage0_lo_frequency`
 **Description:**
@@ -231,7 +227,7 @@ Stores the Local Oscillator (LO) frequency in Hz.
 Reading returns the actual frequency in Hz.
 The values take the in_altvoltage0_lo_mode into account.
 
-###### LO Mode
+##### LO Mode
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/in_altvoltage0_lo_mode`
 **Description:**
@@ -244,7 +240,7 @@ of the ADL5960 using a 6 GHz synthesizer as the LO source.
 This attribute Configures the LO path multiplier/divider
 or bypass. Reading returns the actual mode.
 
-###### Available LO Modes
+##### Available LO Modes
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/in_altvoltage0_lo_mode_available`
 **Description:**
@@ -282,7 +278,7 @@ in_altvoltage0_lo_mode attribute:
 </tbody>
 </table>
 
-###### Offset Frequency
+##### Offset Frequency
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/in_altvoltage1_offset_frequency`
 **Description:**
@@ -291,14 +287,14 @@ Reading returns the actual frequency in Hz.
 The values do not take the in_altvoltage1_offset_mode into
 account. Please see in_altvoltage1_if_frequency.
 
-####### Offset Frequency Modes
+##### Offset Frequency Modes
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/in_altvoltage1_offset_mode`
 **Description:**
 This attribute Configures the Offset path divider and modes.
 Reading returns the actual mode.
 
-###### Available Offset Frequency Modes
+##### Available Offset Frequency Modes
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/in_altvoltage1_offset_mode_available`
 **Description:**
@@ -336,7 +332,7 @@ in_altvoltage1_offset_mode attribute:
 </tbody>
 </table>
 
-###### IF Frequency
+##### IF Frequency
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/in_altvoltage1_if_frequency`
 **Description:**
@@ -345,7 +341,7 @@ Reading returns the actual frequency in Hz.
 The values take the in_altvoltage1_offset_mode into
 account.
 
-###### Forward Gain
+##### Forward Gain
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/out_voltage0_forward_hardwaregain`
 **Description:**
@@ -353,7 +349,7 @@ Stores the gain of the IF amplifier in the Forward path,
 to the (IFFP, IFFM) output, in 6dB steps.
 Reading returns the actual gain in dB.
 
-###### Reflected Gain
+##### Reflected Gain
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/out_voltage1_reverse_hardwaregain`
 **Description:**
@@ -361,7 +357,7 @@ Stores the gain of the IF amplifier in the Reverse path,
 to the (IFRP, IFRM) output, in 6dB steps.
 Reading returns the actual gain in dB.
 
-###### IF Filter Cutoff Frequency
+##### IF Filter Cutoff Frequency
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/out_voltage_filter_low_pass_3db_frequency`
 **Description:**
@@ -369,13 +365,12 @@ Stores the corner frequency of the narrow (CIF2) & wideband (CIF1)
 bandwidth IF filter in Hz.
 Reading returns the actual frequency in Hz.
 
-###### Device Temperature
+##### Device Temperature
 
 **What:** `/sys/bus/iio/devices/iio:deviceX/in_temp0_input`
 **Description:**
 Scaled device (die) temperature measurement in milli degrees Celsius.
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

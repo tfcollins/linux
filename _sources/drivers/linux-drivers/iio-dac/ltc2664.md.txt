@@ -3,8 +3,7 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: LTC2664: Quad 16-Bit/12-Bit ±10V VOUT SoftSpan DACs with 10ppm/°C Max Reference
 ---
 
-LTC2664 IIO DAC Linux Driver
-============================
+# LTC2664 IIO DAC Linux Driver
 
 The LTC2664 is a family of four-channel, 16-/12-bit ±10V digital-to-analog converters with integrated precision references. They are guaranteed monotonic and have built-in rail-to-rail output buffers. These SoftSpan™ DACs offer five output ranges up to ±10V. The range of each channel is independently programmable, or the part can be hardware-configured for operation in a fixed range.
 
@@ -12,24 +11,23 @@ The integrated 2.5V reference is buffered separately to each channel; an externa
 
 The SPI/Microwire-compatible 3-wire serial interface operates on logic levels as low as 1.71V at clock rates up to 50MHz.
 
-# Supported Devices
+### Supported Devices
 
--   [LTC2664](https://www.google.com/search?q=LTC2664&btnI=lucky)
+-   [LTC2664](adi>LTC2664)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [DC2376A-A](https://www.google.com/search?q=DC2376A-A&btnI=lucky)
+-   [DC2376A-A](adi>DC2376A-A)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single-channel serial interface DACs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -40,13 +38,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ltc2664.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ltc2664.c&amp;btnI=lucky">WIP</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ltc2664.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ltc2664.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -58,19 +56,18 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/dac/ltc2664.c&amp;btnI=lucky">master?drivers/iio/dac/ltc2664.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/dac/ltc2664.c">master?drivers/iio/dac/ltc2664.c</a></td>
 </tr>
 <tr class="even">
 <td>dt-bindings</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml&amp;btnI=lucky">master?Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml">master?Documentation/devicetree/bindings/iio/dac/adi,ltc2664.yaml</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
-#### Devicetree
+### Devicetree
 
 Required devicetree properties:
 
@@ -156,8 +153,7 @@ Optional devicetree properties:
         };
     };
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -288,7 +284,7 @@ root@analog:~#
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -302,7 +298,7 @@ ltc2664
 :::
 
 
-###### Show scale
+##### Show scale
 
 **Description:**
 scale to be applied to out_voltage0_raw and out_voltage1_raw in order to obtain the measured voltage in millivolts.
@@ -319,7 +315,7 @@ root@analog:/sys/bus/iio/devices/iio:device0> **cat out_voltage_scale**
 :::
 
 
-###### Show offset
+##### Show offset
 
 **Description:**
 /sys/bus/iio/devices/iio:deviceX/out_offset_raw
@@ -338,7 +334,7 @@ root@analog:/sys/bus/iio/devices/iio:device0> **cat out_voltage_offset**
 :::
 
 
-###### Set channel Y output voltage
+##### Set channel Y output voltage
 
 **Description:**
 /sys/bus/iio/devices/iio:deviceX/out_voltageY_raw
@@ -358,7 +354,7 @@ root@analog:/sys/bus/iio/devices/iio:device0> **echo 10000 > out_voltage0_raw**
 
 **U** = *(out_voltage0_raw + out_voltage0_offset) * out_voltage0_scale* = (10000 - 32768) * 0.305175781*mV* = **-6948.24 *mV***
 
-###### Enable power down mode on output Y
+##### Enable power down mode on output Y
 
 /sys/bus/iio/devices/iio:deviceX/out_voltageY_powerdown
 
@@ -381,17 +377,16 @@ root@analog:/sys/bus/iio/devices/iio:device0> **cat out_voltage0_powerdown**
 :::
 
 
-Test example
-------------
+## Test example
 
 **Using:**
 
--   [DC2376A-A](https://www.google.com/search?q=DC2376A-A&btnI=lucky) LTC2664-16 Demo Board
--   [PMD-RPI-INTZ](https://www.google.com/search?q=PMD-RPI-INTZ&btnI=lucky) Raspberry Pi to PMOD/QuikEval™/LTpowerPlay® Adaptor HAT
+-   [DC2376A-A](adi>DC2376A-A) LTC2664-16 Demo Board
+-   [PMD-RPI-INTZ](adi>PMD-RPI-INTZ) Raspberry Pi to PMOD/QuikEval™/LTpowerPlay® Adaptor HAT
 -   Raspberry Pi 4
 -   [iio_attr](/resources/tools-software/linux-software/libiio/iio_attr) part of the Libiio package.
 
-![](/resources/tools-software/linux-drivers/iio-dac/ltc2664.jpg){.align-center width="600"}
+![ltc2664.jpg](/resources/tools-software/linux-drivers/iio-dac/ltc2664.jpg){.align-center width="600" query="?600"}
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -425,7 +420,6 @@ root@analog:~#
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

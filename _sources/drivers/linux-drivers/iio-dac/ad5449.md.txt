@@ -3,30 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5449: Dual 12-Bit, High Bandwidth, Multiplying DACs with Serial Interface
 ---
 
-AD5449 IIO DAC Linux Driver
-===========================
+# AD5449 IIO DAC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD5415](https://www.google.com/search?q=AD5415&btnI=lucky)
--   [AD5426](https://www.google.com/search?q=AD5426&btnI=lucky)
--   [AD5429](https://www.google.com/search?q=AD5429&btnI=lucky)
--   [AD5432](https://www.google.com/search?q=AD5432&btnI=lucky)
--   [AD5439](https://www.google.com/search?q=AD5439&btnI=lucky)
--   [AD5443](https://www.google.com/search?q=AD5443&btnI=lucky)
--   [AD5449](https://www.google.com/search?q=AD5449&btnI=lucky)
+-   [AD5415](adi>AD5415)
+-   [AD5426](adi>AD5426)
+-   [AD5429](adi>AD5429)
+-   [AD5432](adi>AD5432)
+-   [AD5439](adi>AD5439)
+-   [AD5443](adi>AD5443)
+-   [AD5449](adi>AD5449)
 
 #### Reference Circuits
 
--   [CN0143](https://www.google.com/search?q=CN0143&btnI=lucky)
--   [CN0151](https://www.google.com/search?q=CN0151&btnI=lucky)
+-   [CN0143](adi>CN0143)
+-   [CN0151](adi>CN0151)
 
 #### Evaluation Boards
 
--   [EVAL-AD5415SDZ](https://www.google.com/search?q=EVAL-AD5415&btnI=lucky)
--   [EVAL-AD5443-DBRDZ](https://www.google.com/search?q=EVAL-AD5443-DBRDZ&btnI=lucky)
--   [EVAL-AD5443SDZ](https://www.google.com/search?q=EVAL-AD5443&btnI=lucky)
--   [EVAL-AD5449SDZ](https://www.google.com/search?q=EVAL-AD5449&btnI=lucky)
+-   [EVAL-AD5415SDZ](adi>EVAL-AD5415)
+-   [EVAL-AD5443-DBRDZ](adi>EVAL-AD5443-DBRDZ)
+-   [EVAL-AD5443SDZ](adi>EVAL-AD5443)
+-   [EVAL-AD5449SDZ](adi>EVAL-AD5449)
 
 #### Description
 
@@ -34,8 +33,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -48,8 +46,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5449.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5449.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5449.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5449.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -66,23 +64,22 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5449.c&amp;btnI=lucky">drivers/iio/dac/ad5449.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5449.c">drivers/iio/dac/ad5449.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/platform_data/ad5449.h&amp;btnI=lucky">include/linux/platform_data/ad5449.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/platform_data/ad5449.h">include/linux/platform_data/ad5449.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 #### Specifying reference voltage via the regulator framework
 
 Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 
-``` {.c}
+``` c
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad5449_consumer_supplies[] = {
     REGULATOR_SUPPLY("vcc", "spi0.3"),
@@ -117,7 +114,7 @@ static struct platform_device brd_voltage_regulator = {
 ## endif
 ```
 
-``` {.c}
+``` c
 static struct platform_device *board_devices[] __initdata = {
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
@@ -125,7 +122,7 @@ static struct platform_device *board_devices[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -145,7 +142,7 @@ Depending on the converter IC used, you may need to set the modalias accordingly
 
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
     {
         /* the modalias must be the same as spi device driver name */
@@ -158,7 +155,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -172,8 +169,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -198,8 +194,7 @@ The AD5449 Driver depends on **CONFIG_SPI**
             ...
         ...
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -285,7 +280,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> echo 1234 > out_voltag
 
 **U** = *out_voltage0_raw * out_voltage_scale* = 1234 * 0.152mV = **187.568 *mV***
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

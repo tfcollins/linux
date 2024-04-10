@@ -3,25 +3,23 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/clk/
 title: AD9545: Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner
 ---
 
-AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner
-========================================================================================
+# AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner
 
-# Supported Devices
+### Supported Devices
 
--   [AD9545](https://www.google.com/search?q=AD9545&btnI=lucky)
+-   [AD9545](adi>AD9545)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD9545](https://www.google.com/search?q=EVAL-AD9545&btnI=lucky)
+-   [EVAL-AD9545](adi>EVAL-AD9545)
 
-#### Description
+### Description
 
 This is a Common Clock Framework subsystem driver. There are two drivers (sharing the same core implementation) for the AD9545 since the device supports both SPI and I2C interfaces. The underlying bus is abstracted in the core implementation by using regmap.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -32,25 +30,25 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master/drivers/clk/adi/clk-ad9545.c&amp;btnI=lucky">drivers/clk/adi/clk-ad9545.c</a></td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.c">drivers/clk/adi/clk-ad9545.c</a></td>
 <td>No</td>
 </tr>
 <tr class="even">
-<td><a href="https://www.google.com/search?q=master/drivers/clk/adi/clk-ad9545-i2c.c&amp;btnI=lucky">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-i2c.c">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
 <td>No</td>
 </tr>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master/drivers/clk/adi/clk-ad9545-spi.c&amp;btnI=lucky">drivers/clk/adi/clk-ad9545-spi.c</a></td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-spi.c">drivers/clk/adi/clk-ad9545-spi.c</a></td>
 <td>No</td>
 </tr>
 <tr class="even">
-<td><a href="https://www.google.com/search?q=master/drivers/clk/adi/clk-ad9545.h&amp;btnI=lucky">drivers/clk/adi/clk-ad9545.h</a></td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.h">drivers/clk/adi/clk-ad9545.h</a></td>
 <td>No</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -62,25 +60,24 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="https://www.google.com/search?q=master/drivers/clk/adi/clk-ad9545.c&amp;btnI=lucky">drivers/clk/adi/clk-ad9545.c</a></td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.c">drivers/clk/adi/clk-ad9545.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master/drivers/clk/adi/clk-ad9545-i2c.c&amp;btnI=lucky">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-i2c.c">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master/drivers/clk/adi/clk-ad9545-spi.c&amp;btnI=lucky">drivers/clk/adi/clk-ad9545-spi.c</a></td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-spi.c">drivers/clk/adi/clk-ad9545-spi.c</a></td>
 </tr>
 <tr class="even">
 <td>core include</td>
-<td><a href="https://www.google.com/search?q=master/drivers/clk/adi/clk-ad9545.h&amp;btnI=lucky">drivers/clk/adi/clk-ad9545.h</a></td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.h">drivers/clk/adi/clk-ad9545.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example I2C & SPI device initialization
----------------------------------------
+## Example I2C & SPI device initialization
 
 The AD9545 supports both I2C and SPI interfaces, so one of the drivers can be used depending on which kind of device is instantiated. Currently, the devices can only be instantiated via device tree.
 
@@ -119,10 +116,9 @@ Example I2C:
             };
     };
 
-For more supported devicetree properties take a look to [dt-bindings](https://www.google.com/search?q=master/Documentation/devicetree/bindings/clock/clk-ad9545.yaml&btnI=lucky).
+For more supported devicetree properties take a look to [dt-bindings](linux.github>master/Documentation/devicetree/bindings/clock/clk-ad9545.yaml).
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig").
 :::{NOTE} <!-- ATTRS: round="" help="" -->
@@ -132,8 +128,7 @@ The AD9545 SPI driver depends **CONFIG_SPI** and the AD9545 I2C driver depends o
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -143,10 +138,9 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
             -*- Analog Devices AD9545 via I2C
             -*- Analog Devices AD9545 via SPI
 
-Driver testing
---------------
+## Driver testing
 
-#### CLOCK device files
+### CLOCK device files
 
 Common Clock Framework provides debugfs files for each clock registered:
 
@@ -253,11 +247,9 @@ The active clock tree can be viewed with:
      hsm                                  0        0        0           0          0     0  50000        0
      vec                                  0        0        0           0          0     0  50000        0
 
-More Information
-----------------
+## More Information
 
-CLOCK pointers
---------------
+## CLOCK pointers
 
 -   CLOCK mailing list: <linux-clk@vger.kernel.org>
 -   [CLOCK Linux Kernel Documentation](https://www.kernel.org/doc/Documentation/clk.txt)

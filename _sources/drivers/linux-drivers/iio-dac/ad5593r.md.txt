@@ -3,22 +3,21 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5593R: 8 Channel, 12-Bit, Configurable ADC/DAC with on-chip Reference, I2C interface
 ---
 
-AD5593R IIO DAC/ADC Linux Driver
-================================
+# AD5593R IIO DAC/ADC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD5593R](https://www.google.com/search?q=AD5593R&btnI=lucky)
+-   [AD5593R](adi>AD5593R)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0229](https://www.google.com/search?q=CN0229&btnI=lucky)
+-   [CN0229](adi>CN0229)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD5593R](https://www.google.com/search?q=EVAL-AD5593R&btnI=lucky)
+-   [EVAL-AD5593R](adi>EVAL-AD5593R)
 
-#### Description
+### Description
 
 ![ad5593r_bd.png](/software/driver/linux/ad5593r_bd.png){.align-right}
 
@@ -28,10 +27,9 @@ When an I/Ox pin is configured as an analog input, it is connected to a 12-bit A
 The I/Ox pins can also be configured as digital, general-purpose input or output (GPIO) pins. The state of the GPIO pins can be set or read back by accessing the GPIO write data register or the GPIO read configuration register, respectively, via an I2C write or read operation.
 The AD5593R have an integrated 2.5 V, 25 ppm/°C reference, which is turned off by default, and an integrated temperature indicator, which gives an indication of the die temperature. The temperature value is read back as part of an ADC read sequence.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -42,13 +40,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5592r-base.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5592r-base.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5592r-base.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5592r-base.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -60,36 +58,34 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/dac/ad5592r-base.c&amp;btnI=lucky">drivers/iio/dac/ad5592r-base.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/dac/ad5592r-base.c">drivers/iio/dac/ad5592r-base.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/dac/ad5592r-base.h&amp;btnI=lucky">drivers/iio/dac/ad5592r-base.h</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/dac/ad5592r-base.h">drivers/iio/dac/ad5592r-base.h</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/dac/ad5593r.c&amp;btnI=lucky">drivers/iio/dac/ad5593r.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/dac/ad5593r.c">drivers/iio/dac/ad5593r.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?include/dt-bindings/iio/adi,ad5592r.h&amp;btnI=lucky">include/dt-bindings/iio/adi,ad5592r.h</a></td>
+<td><a href="linux.github&gt;master?include/dt-bindings/iio/adi,ad5592r.h">include/dt-bindings/iio/adi,ad5592r.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/dac/ad5592r.txt&amp;btnI=lucky">Documentation/devicetree/bindings/iio/dac/ad5592r.txt</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/dac/ad5592r.txt">Documentation/devicetree/bindings/iio/dac/ad5592r.txt</a></td>
 </tr>
 </tbody>
 </table>
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-![ad5592r_eval.jpg](/software/driver/linux/ad5592r_eval.jpg){width="600"}
+![ad5592r_eval.jpg](/software/driver/linux/ad5592r_eval.jpg){width="600" query="?600"}
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
-#### Enabling the driver
+### Enabling the driver
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -114,9 +110,9 @@ The AD5593R Driver depends on **CONFIG_I2C**
                 ...
             ...
 
-#### Adding a device tree entry
+### Adding a device tree entry
 
-##### Required properties
+#### Required properties
 
 -   **compatible**: Must be one of:
     -   "adi,ad5593r"
@@ -145,14 +141,14 @@ The AD5593R Driver depends on **CONFIG_I2C**
       * CH_OFFSTATE_OUT_TRISTATE (the pin is tristated output)        
               
 
-##### Optional properties
+#### Optional properties
 
 -   **vref-supply**: Phandle to the external reference voltage supply. This should only be set if there is an external reference voltage connected to the VREF pin. If the property is not set the internal 2.5V reference is used.
 -   **reset-gpios** : GPIO spec for the RESET pin. If specified, it will be asserted during driver probe.
 -   **gpio-controller**: Marks the device node as a GPIO controller.
 -   **#gpio-cells**: Should be 2. The first cell is the GPIO number and the second cell specifies GPIO flags, as defined in <dt-bindings/gpio/gpio.h>.
 
-##### Device tree example
+#### Device tree example
 
 The following example instanciates the ad5593r driver for a AD5593R device connected on a I2C bus. It sets the I/O0 port as a DAC, the I/O1 port as ADC. I/O2 and I/O3 are configured for primary function DAC the additional ADC can measure the voltage being provided by the DAC. This feature can monitor the output voltage to detect short circuits or overload conditions. I/O4 is connected to the ground with a pull-down resistor. The other I/Os are registered with the Linux GPIO subsystem.
 
@@ -205,8 +201,7 @@ The following example instanciates the ad5593r driver for a AD5593R device conne
 
     };
 
-Driver testing
---------------
+## Driver testing
 
 If the driver correctly detected the device, the "iio_info" program should inform us about the available channels:
 
@@ -251,8 +246,7 @@ If the driver correctly detected the device, the "iio_info" program should infor
                                     attr 1: raw value: 680
                                     attr 2: scale value: 452.147700000
 
-IIO sysfs interface
--------------------
+## IIO sysfs interface
 
     root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# ls -al
     total 0
@@ -303,7 +297,7 @@ IIO sysfs interface
     uevent:OF_COMPATIBLE_0=adi,ad5593r
     uevent:OF_COMPATIBLE_N=1
 
-#### Show device name
+### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -317,7 +311,7 @@ ad5593r
 :::
 
 
-#### Scales
+### Scales
 
 The output range of the DAC is 0 V to VREF or 0 V to 2 × VREF.
 **out_voltage_scale** is used to select the high or low range.
@@ -329,7 +323,7 @@ The input range of the ADC is 0 V to VREF or 0 V to 2 × VREF.
 Without external reference the driver selects the internal 2500mV VREF reference.
 So the scale computes as 2500mV/2^12 = 0.610351562 or 5000mV/2^12 = 1.220703124.
 
-##### Show current scale
+#### Show current scale
 
 **Description:**
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.
@@ -346,7 +340,7 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **cat out_voltage_s
 :::
 
 
-##### Show available scales
+#### Show available scales
 
 **Description:**
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.
@@ -363,7 +357,7 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **cat in_voltage_sc
 :::
 
 
-##### Change scales
+#### Change scales
 
 **Description:**
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.
@@ -381,7 +375,7 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **cat in_voltage_sc
 :::
 
 
-#### Get channel Y input voltage
+### Get channel Y input voltage
 
 Description:
 Raw unscaled voltage measurement on channel Y
@@ -402,7 +396,7 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# cat in_voltage3_raw
 
 U = in_voltage3_raw * in_voltage_scale = 1491 * 0.610351562 = 910 mV
 
-#### Set channel Y output voltage
+### Set channel Y output voltage
 
 **Description:**
 Raw (unscaled, no bias etc.) output voltage for channel Y.
@@ -420,19 +414,19 @@ root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# echo 1638 > out_vol
 
 **U** = *out_voltage0_raw * out_voltage_scale* = 1638 * 0.610351562 = **999.76 *mV***
 
-#### Example obtaining the temperature in °C
+### Example obtaining the temperature in °C
 
 T = ( in_temp_raw + in_temp_offset ) * in_temp_scale
 
 T = ( 810 - 753 ) * 376.78975 = 21477 mdeg C = 21.5 °C
 
-For more information see also here: [IIO Kernel Documentation](https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&btnI=lucky)
+For more information see also here: [IIO Kernel Documentation](git.linux.org>Documentation/ABI/testing/sysfs-bus-iio)
 
-#### GPIO Testing
+### GPIO Testing
 
 The GPIO sysfs interface allows users to manipulate any GPIO from userspace. Userspace utilizes a sysfs control interface to dynamically request and release individual GPIOs. Once a GPIO has been requested, writing to the newly created path allows you to control the direction and the data while reading from it returns the GPIO data (which usually corresponds to a 0 or 1 which represents the signal level).
 
-For more information see also here: [GPIO Kernel Documentation](https://www.google.com/search?q=Documentation/gpio/sysfs.txt&btnI=lucky)
+For more information see also here: [GPIO Kernel Documentation](git.linux.org>Documentation/gpio/sysfs.txt)
 
     root@linaro-ubuntu-desktop:~# cd /sys/class/gpio/
     root@linaro-ubuntu-desktop:/sys/class/gpio# ls

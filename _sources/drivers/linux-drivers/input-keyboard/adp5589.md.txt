@@ -3,18 +3,17 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/inpu
 title: ADP5589: Keypad Decoder and I/O Expansion
 ---
 
-ADP5589 Input Keyboard and GPIO Linux Driver
-============================================
+# ADP5589 Input Keyboard and GPIO Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [ADP5589](https://www.google.com/search?q=ADP5589&btnI=lucky)
--   [ADP5585](https://www.google.com/search?q=ADP5585&btnI=lucky)
+-   [ADP5589](adi>ADP5589)
+-   [ADP5585](adi>ADP5585)
 
 #### Evaluation Boards
 
--   [ADP5589CP-EVALZ](https://www.google.com/search?q=ADP5589CP-EVALZ&btnI=lucky)
--   [ADP5585CP-EVALZ](https://www.google.com/search?q=ADP5585CP-EVALZ&btnI=lucky)
+-   [ADP5589CP-EVALZ](adi>ADP5589CP-EVALZ)
+-   [ADP5585CP-EVALZ](adi>ADP5585CP-EVALZ)
 -   [PMOD-IOXP](http://digilentinc.com/Products/Detail.cfm?NavPath=2,401,960&Prod=PMOD-IOXP)
 
 ##### Description
@@ -50,8 +49,7 @@ load and interrupt latencies.
 -   Configurable keypad scan cycle times.
 -   Unused row and column pins are exported as general-purpose inputs/outputs to GPIOLIB
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -64,8 +62,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/input/keyboard/adp5589-keys.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/input/keyboard/adp5589-keys.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/input/keyboard/adp5589-keys.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/input/keyboard/adp5589-keys.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -82,17 +80,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/input/keyboard/adp5589-keys.c&amp;btnI=lucky">drivers/input/keyboard/adp5589-keys.c</a></td>
+<td><a href="git.linux.org&gt;drivers/input/keyboard/adp5589-keys.c">drivers/input/keyboard/adp5589-keys.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/input/adp5589.h&amp;btnI=lucky">include/linux/input/adp5589.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/input/adp5589.h">include/linux/input/adp5589.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -100,7 +97,7 @@ Example platform device initialization
 
 **Example key-map for an 4x4 matrix as found on the ADP5589 evaluation board.**
 
-``` {.c}
+``` c
 ## include <linux/input/adp5589.h>
 static const unsigned short adp5589_keymap[ADP5589_KEYMAPSIZE] = {
     [0]  = KEY_1,
@@ -131,7 +128,7 @@ use gpio_start = **-1** for **dynamic allocation**
 :::
 
 
-``` {.c}
+``` c
 static const struct adp5589_gpio_platform_data adp5589_gpio_data = {
     .gpio_start = 50,
 };
@@ -139,7 +136,7 @@ static const struct adp5589_gpio_platform_data adp5589_gpio_data = {
 
 **Declare two Input Switch Events (EV_SW), mapped to ROW6 and ROW7.**
 
-``` {.c}
+``` c
 static const struct adp5589_gpi_map adp5589_gpimap[] = {
     {
         .pin = ADP5589_GPI_PIN_ROW6,
@@ -151,7 +148,7 @@ static const struct adp5589_gpi_map adp5589_gpimap[] = {
 };
 ```
 
-``` {.c}
+``` c
 static struct adp5589_kpad_platform_data adp5589_kpad_data = {
     /* KEYPAD Config */
     .keypad_en_mask = ADP_COL(0) | ADP_COL(1) | ADP_COL(2) | ADP_COL(3) |
@@ -202,7 +199,7 @@ static struct adp5589_kpad_platform_data adp5589_kpad_data = {
 </tbody>
 </table>
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
 ## if defined(CONFIG_KEYBOARD_ADP5589) || defined(CONFIG_KEYBOARD_ADP5589_MODULE)
     {
@@ -214,7 +211,7 @@ static struct i2c_board_info __initdata board_i2c_board_info[] = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -228,8 +225,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -284,10 +280,9 @@ The ADP5589 Driver depends on **CONFIG_I2C**
 
 ```
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-![](/software/driver/linux/adp5589_demo_brd_and_stamp.jpg){width="600"}
+![adp5589_demo_brd_and_stamp.jpg](/software/driver/linux/adp5589_demo_brd_and_stamp.jpg){width="600" query="?600"}
 
 There is no dedicated Blackfin STAMP evaluation board for the ADP5589.
 During test and driver development we used the ADP5589 Demo Mother/Daughter Board.
@@ -297,47 +292,46 @@ It can be easily wired to the Blackfin STAMP TWI/I2C header.
 <table>
 <thead>
 <tr class="header">
-<th>BF537-STAMP (P10) TWI/I2C header</th>
+<th style="text-align: left;">BF537-STAMP (P10) TWI/I2C header</th>
 <th></th>
 <th>ADP5589 Daughter Board</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>PIN</td>
+<td style="text-align: left;">PIN</td>
 <td>Function</td>
 <td>PIN/Function</td>
 </tr>
 <tr class="even">
-<td>2</td>
+<td style="text-align: left;">2</td>
 <td>(+3.3V)</td>
 <td>VDD</td>
 </tr>
 <tr class="odd">
-<td>5</td>
+<td style="text-align: left;">5</td>
 <td>SCL</td>
 <td>SCL</td>
 </tr>
 <tr class="even">
-<td>6</td>
+<td style="text-align: left;">6</td>
 <td>SDA</td>
 <td>SDA</td>
 </tr>
 <tr class="odd">
-<td>10</td>
+<td style="text-align: left;">10</td>
 <td>PORTG0</td>
 <td>/INT</td>
 </tr>
 <tr class="even">
-<td>20</td>
+<td style="text-align: left;">20</td>
 <td>GND</td>
 <td>GND</td>
 </tr>
 </tbody>
 </table>
 
-Driver testing
---------------
+### Driver testing
 
 #### Driver loading
 
@@ -424,7 +418,7 @@ Event: time 212464.528823, -------------- Report Sync ------------
 #### GPIO test
 
 In this particular configuration example, GPIO50 will map to ROW3.
-For more information read [GPIO Kernel Documentation](https://www.google.com/search?q=Documentation/gpio.txt&btnI=lucky)
+For more information read [GPIO Kernel Documentation](git.linux.org>Documentation/gpio.txt)
 
 ##### Access using the sysfs interface for userspace
 
@@ -447,53 +441,52 @@ root:/sys/devices/virtual/gpio/gpio50> **echo low > direction**
 root:/sys/devices/virtual/gpio/gpio50> **echo high > direction**
 ```
 
-PMOD-IOXP
----------
+### PMOD-IOXP
 
 The PMOD-IOXP is an PMOD board made by Digilent Inc. which features the ADP5589.
 
 The following example shows how to connect the PMOD-IOXP to a Blackfin BF537-STAMP board and a PMOD-KYPD. Also
 
-##### Hardware configuration
+###### Hardware configuration
 
-![](/resources/tools-software/linux-drivers/input-keyboard/pmodioxp.jpg){width="300"}
+![pmodioxp.jpg](/resources/tools-software/linux-drivers/input-keyboard/pmodioxp.jpg){width="300" query="?300"}
 
 <table>
 <thead>
 <tr class="header">
-<th>BF537-STAMP (P10) TWI/I2C header</th>
+<th style="text-align: left;">BF537-STAMP (P10) TWI/I2C header</th>
 <th></th>
 <th>PMOD-IOXP</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>PIN</td>
+<td style="text-align: left;">PIN</td>
 <td>Function</td>
 <td>PIN/Function</td>
 </tr>
 <tr class="even">
-<td>2</td>
+<td style="text-align: left;">2</td>
 <td>(+3.3V)</td>
 <td>VDD</td>
 </tr>
 <tr class="odd">
-<td>5</td>
+<td style="text-align: left;">5</td>
 <td>SCL</td>
 <td>SCL</td>
 </tr>
 <tr class="even">
-<td>6</td>
+<td style="text-align: left;">6</td>
 <td>SDA</td>
 <td>SDA</td>
 </tr>
 <tr class="odd">
-<td>10</td>
+<td style="text-align: left;">10</td>
 <td>PORTG0</td>
 <td>/INT</td>
 </tr>
 <tr class="even">
-<td>20</td>
+<td style="text-align: left;">20</td>
 <td>GND</td>
 <td>GND</td>
 </tr>
@@ -502,7 +495,7 @@ The following example shows how to connect the PMOD-IOXP to a Blackfin BF537-STA
 
 ##### Software configuration
 
-``` {.c}
+``` c
 ## include <linux/input/adp5589.h>
 static const unsigned short adp5589_keymap[ADP5589_KEYMAPSIZE] = {
        [ADP5589_KEY(0, 0)]      = KEY_D,
@@ -554,11 +547,10 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 }
 ```
 
-More Information
-----------------
+### More Information
 
--   [Linux Input drivers kernel documentation](https://www.google.com/search?q=Documentation/input/input.txt&btnI=lucky)
--   [GPIO kernel documentation](https://www.google.com/search?q=Documentation/gpio.txt&btnI=lucky)
--   [How to instantiate I2C devices kernel documentation](https://www.google.com/search?q=Documentation/i2c/instantiating-devices&btnI=lucky)
+-   [Linux Input drivers kernel documentation](git.linux.org>Documentation/input/input.txt)
+-   [GPIO kernel documentation](git.linux.org>Documentation/gpio.txt)
+-   [How to instantiate I2C devices kernel documentation](git.linux.org>Documentation/i2c/instantiating-devices)
 
 ![](page>resources/tools-software/linux-drivers/snippets#input_pointers&noheader&firstseconly&noeditbtn)

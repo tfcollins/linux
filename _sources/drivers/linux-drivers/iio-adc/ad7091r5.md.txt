@@ -3,32 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7091R-5: 4-Channel, 12-bit Ultra Low Power ADC
 ---
 
-AD7091R5 ADC Linux Driver
-=========================
+# AD7091R5 ADC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD7091R-5](https://www.google.com/search?q=AD7091R-5&btnI=lucky)
+-   [AD7091R-5](adi>AD7091R-5)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD7091R-5SDZ](https://www.google.com/search?q=EVAL-AD7091R-5SDZ&btnI=lucky)
+-   [EVAL-AD7091R-5SDZ](adi>EVAL-AD7091R-5SDZ)
 
-#### Description
+### Description
 
 The AD7091R-5 is a 12-bit, multichannel, ultralow power, successive approximation analog-to-digital converter (ADC).
 
-![](/software/driver/linux/ad7091r5_bd.png){.align-center width="400"}
+![ad7091r5_bd.png](/software/driver/linux/ad7091r5_bd.png){.align-center width="400" query="?400"}
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-![](/software/driver/linux/ad7091r5.jpg){.align-center width="600"}
+![ad7091r5.jpg](/software/driver/linux/ad7091r5.jpg){.align-center width="600" query="?600"}
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
-#### Enabling the driver
+### Enabling the driver
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -53,19 +50,19 @@ The AD7091R5 Driver depends on **CONFIG_I2C**
                 ...
             ...
 
-#### Adding a device tree entry
+### Adding a device tree entry
 
-##### Required properties
+#### Required properties
 
 -   **compatible**: Must be "adi,ad7091r5".
 -   **reg**: I2C address for the device.
 
-##### Optional properties
+#### Optional properties
 
 -   **vref-supply**: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.
     see: Documentation/devicetree/bindings/regulator/regulator.txt
 
-##### Device tree example
+#### Device tree example
 
     adc@0 {
         compatible: "adi,ad7091r5";

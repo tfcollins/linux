@@ -3,21 +3,20 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7280A: Lithium Ion Battery Monitoring System
 ---
 
-AD7280A IIO Lithium Ion Battery Monitoring System Linux Driver
-==============================================================
+# AD7280A IIO Lithium Ion Battery Monitoring System Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD7280A](https://www.google.com/search?q=AD7280A&btnI=lucky)
+-   [AD7280A](adi>AD7280A)
 
 #### Reference Circuits
 
--   [CN0197](https://www.google.com/search?q=CN0197&btnI=lucky)
--   [CN0235](https://www.google.com/search?q=CN0235&btnI=lucky)
+-   [CN0197](adi>CN0197)
+-   [CN0235](adi>CN0235)
 
 #### Evaluation Boards
 
--   [EVAL-AD7280AEDZ](https://www.google.com/search?q=EVAL-AD7280AEDZ&btnI=lucky)
+-   [EVAL-AD7280AEDZ](adi>EVAL-AD7280AEDZ)
 
 #### Description
 
@@ -32,8 +31,7 @@ without the need for individual device isolation.
 
 The driver automatically detects then number of devices present and creates the iio device files accordingly.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -46,8 +44,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7280a.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7280a.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/adc/ad7280a.c">git</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/adc/ad7280a.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -64,23 +62,22 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7280a.c&amp;btnI=lucky">drivers/staging/iio/adc/ad7280a.c</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/adc/ad7280a.c">drivers/staging/iio/adc/ad7280a.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/adc/ad7280a.h&amp;btnI=lucky">drivers/staging/iio/adc/ad7280a.h</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/adc/ad7280a.h">drivers/staging/iio/adc/ad7280a.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 Some device parameter may vary between applications and use cases. The platform_data for the device's "struct device" holds this information.
 
-``` {.c}
+``` c
 ## define AD7280A_ACQ_TIME_400ns          0
 ## define AD7280A_ACQ_TIME_800ns          1
 ## define AD7280A_ACQ_TIME_1200ns         2
@@ -107,12 +104,15 @@ struct ad7280_platform_data {
 :::{NOTE} <!-- ATTRS: tip="" -->
 
 In case platform_data is not present or set to NULL, the driver will use following defaults:
-`static const struct ad7280_platform_data ad7280_default_pdata = {
+
+``` c
+static const struct ad7280_platform_data ad7280_default_pdata = {
     .acquisition_time = AD7280A_ACQ_TIME_400ns,
     .conversion_averaging = AD7280A_CONV_AVG_DIS,
     .thermistor_term_en = true,
 };
-`{.c}
+```
+
 
 :::
 
@@ -122,7 +122,7 @@ In case platform_data is not present or set to NULL, the driver will use followi
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD7280A) || 
     defined(CONFIG_AD7280A_MODULE)
@@ -138,7 +138,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -152,8 +152,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -181,13 +180,11 @@ The AD7280A Driver depends on **CONFIG_SPI**
 
                     [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-![](/resources/tools-software/linux-drivers/iio-adc/ad7280_eval_lr.jpg){width="600"}
+![ad7280_eval_lr.jpg](/resources/tools-software/linux-drivers/iio-adc/ad7280_eval_lr.jpg){width="600" query="?600"}
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -472,7 +469,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.18/device0/device0:event0> **cat in-i
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,20 +3,19 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: ADAU1373: Low Power Codec with Speaker and Headphone Amplifier
 ---
 
-ADAU1373 Sound CODEC Linux Driver
-=================================
+# ADAU1373 Sound CODEC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADAU1373](https://www.google.com/search?q=ADAU1373&btnI=lucky)
+-   [ADAU1373](adi>ADAU1373)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADAU1373Z](https://www.google.com/search?q=EVAL-ADAU1373Z&btnI=lucky)
+-   [EVAL-ADAU1373Z](adi>EVAL-ADAU1373Z)
 
-##### Source Code
+### Source Code
 
-###### Status
+#### Status
 
 <table>
 <thead>
@@ -27,13 +26,13 @@ ADAU1373 Sound CODEC Linux Driver
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1373.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1373.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1373.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1373.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-###### Files
+#### Files
 
 <table>
 <thead>
@@ -45,28 +44,28 @@ ADAU1373 Sound CODEC Linux Driver
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1373.c&amp;btnI=lucky">sound/soc/codecs/adau1373.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1373.c">sound/soc/codecs/adau1373.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1373.h&amp;btnI=lucky">sound/soc/codecs/adau1373.h</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1373.h">sound/soc/codecs/adau1373.h</a></td>
 </tr>
 <tr class="odd">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/sound/adau1373.h&amp;btnI=lucky">include/sound/adau1373.h</a></td>
+<td><a href="git.linux.org&gt;include/sound/adau1373.h">include/sound/adau1373.h</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Example device initialization
+### Example device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-##### I2C
+#### I2C
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
     [--snip--]
@@ -78,7 +77,7 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
 ```
 
-``` {.c}
+``` c
 static int __init stamp_init(void)
 {
     [--snip--]
@@ -91,7 +90,7 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-#### ASoC DAPM Widgets
+### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -188,7 +187,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### ALSA Controls
+### ALSA Controls
 
 <table>
 <thead>
@@ -493,11 +492,11 @@ Valid values: "Channel1", "Channel2", "Channel3", "Channel4", "Channel5"</td>
 </tbody>
 </table>
 
-#### PLL Configuration
+### PLL Configuration
 
 The ADAU1373 features two PLLs:
 
-``` {.c}
+``` c
 enum adau1373_pll {
     ADAU1373_PLL1 = 0,
     ADAU1373_PLL2 = 1,
@@ -506,7 +505,7 @@ enum adau1373_pll {
 
 Each PLLs input frequency can be selected from a variety of signals:
 
-``` {.c}
+``` c
 enum adau1373_pll_src {
     ADAU1373_PLL_SRC_MCLK1 = 0,
     ADAU1373_PLL_SRC_BCLK1 = 1,
@@ -527,7 +526,7 @@ The input frequency must configured to be between 7813 and 27000000 Hz. The outp
 
 The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you'd normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
 
-#### DAI configuration
+### DAI configuration
 
 The codec driver registers three DAIs:
 
@@ -535,7 +534,7 @@ The codec driver registers three DAIs:
 -   "adau1373-aif2" (Digital Audio Interface B)
 -   "adau1373-aif3" (Digital Audio Interface C)
 
-##### Supported DAI formats
+#### Supported DAI formats
 
 <table>
 <thead>
@@ -634,20 +633,20 @@ The codec driver registers three DAIs:
 </tbody>
 </table>
 
-##### DAI sysclk
+#### DAI sysclk
 
 The DAIs can either use PLL1 or PLL2 as source. When configuring a DAI its rate should be set to the rate of the source PLL.
 
-``` {.c}
+``` c
 enum adau1373_clk_src {
     ADAU1373_CLK_SRC_PLL1 = 0,
     ADAU1373_CLK_SRC_PLL2 = 1,
 };
 ```
 
-##### Example DAI configuration
+#### Example DAI configuration
 
-``` {.c}
+``` c
 static int bfin_eval_adau1373_hw_params(struct snd_pcm_substream *substream,
     struct snd_pcm_hw_params *params)
 {
@@ -731,33 +730,32 @@ static struct snd_soc_dai_link bfin_eval_adau1373_dai = {
 };
 ```
 
-ADAU1373 evaluation board driver
---------------------------------
+## ADAU1373 evaluation board driver
 
-There is no dedicated Blackfin STAMP evaluation board for the ADAU1373. During test and driver development we used the [EVAL-ADAU1373](https://www.google.com/search?q=EVAL-ADAU1373&btnI=lucky) board.
+There is no dedicated Blackfin STAMP evaluation board for the ADAU1373. During test and driver development we used the [EVAL-ADAU1373](adi>EVAL-ADAU1373) board.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
-#### Source
+### Source
 
-###### Status
+#### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=sound/soc/blackfin/bfin-eval-adau1373.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/blackfin/bfin-eval-adau1373.c&amp;btnI=lucky">yes</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;sound/soc/blackfin/bfin-eval-adau1373.c">git</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;sound/soc/blackfin/bfin-eval-adau1373.c">yes</a></td>
 </tr>
 </tbody>
 </table>
 
-###### Files
+#### Files
 
 <table>
 <thead>
@@ -769,12 +767,12 @@ It can be easily wired to the Blackfin STAMP SPORT header.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/blackfin/bfin-eval-adau1373.c&amp;btnI=lucky">sound/soc/blackfin/bfin-eval-adau1373.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/blackfin/bfin-eval-adau1373.c">sound/soc/blackfin/bfin-eval-adau1373.c</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Kernel configuration
+### Kernel configuration
 
     Device Drivers  --->
     [*] I2C support  --->
@@ -791,7 +789,7 @@ Enable ALSA SoC evaluation board driver:
     <M>     ALSA for SoC audio support  --->
     <M>       Support for the EVAL-ADAU1373 boards on Blackfin eval boards
 
-#### Hardware configuration
+### Hardware configuration
 
 Connect the STAMP SPORT 0 port (P6) to the EVAL-ADAU1373 J23 and J28 headers.
 
@@ -844,7 +842,7 @@ Note that the SPORT has separate signals for the capture and playback clocks, wh
 </tbody>
 </table>
 
-#### Driver testing
+### Driver testing
 
 Load the driver and make sure the sound card is properly instantiated.
 

@@ -3,17 +3,16 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: LTC6953: Ultralow Jitter, 4.5GHz Clock Distributor with 11 Outputs, JESD204B/JESD204C
 ---
 
-LTC6952 Ultralow Jitter, 4.5GHz PLL, JESD204B/JESD204C Linux Driver
-===================================================================
+# LTC6952 Ultralow Jitter, 4.5GHz PLL, JESD204B/JESD204C Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [LTC6952](https://www.google.com/search?q=LTC6952&btnI=lucky)
--   [LTC6953](https://www.google.com/search?q=LTC6953&btnI=lucky)
+-   [LTC6952](adi>LTC6952)
+-   [LTC6953](adi>LTC6953)
 
-#### Description
+### Description
 
-The [LTC6952](https://www.google.com/search?q=LTC6952&btnI=lucky) is a high performance, ultralow jitter, JESD204B/C clock generation and distribution IC. It includes a Phase Locked Loop (PLL) core, consisting of a reference divider, phase-frequency detector (PFD) with a phase-lock indicator, ultralow noise charge pump and integer feedback divider.
+The [LTC6952](adi>LTC6952) is a high performance, ultralow jitter, JESD204B/C clock generation and distribution IC. It includes a Phase Locked Loop (PLL) core, consisting of a reference divider, phase-frequency detector (PFD) with a phase-lock indicator, ultralow noise charge pump and integer feedback divider.
 
 The LTC6952's eleven outputs can be configured is up to five JESD204B/C subclass 1 device clock/SYSREF pairs plus one general purpose output, or simply eleven general purpose clock outputs for non-JESD204B/C applications.
 
@@ -21,10 +20,9 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -35,13 +33,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ltc6952.c&amp;btnI=lucky">drivers/iio/frequency/ltc6952.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ltc6952.c">drivers/iio/frequency/ltc6952.c</a></td>
 <td>No</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -53,17 +51,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ltc6952.c&amp;btnI=lucky">drivers/iio/frequency/ltc6952.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ltc6952.c">drivers/iio/frequency/ltc6952.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/frequency/adi,ltc6952.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/frequency/adi,ltc6952.yaml</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/adi,ltc6952.yaml">Documentation/devicetree/bindings/iio/frequency/adi,ltc6952.yaml</a></td>
 </tr>
 </tbody>
 </table>
 
-Enabling the driver
--------------------
+## Enabling the driver
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -82,11 +79,11 @@ The LTC6952 Driver depends on **CONFIG_SPI**
                      Clock Generator/Distribution  --->
                      <*> Analog Devices LTC6952 Clock Ultralow Jitter with JESD204B/C
 
-#### Adding a device tree entry
+### Adding a device tree entry
 
-##### Available properties
+#### Available properties
 
-####### Required properties:
+###### Required properties:
 
 -   **compatible**: Should be "adi,ltc6952".
 -   **reg**: SPI chip select number.
@@ -95,7 +92,7 @@ The LTC6952 Driver depends on **CONFIG_SPI**
 -   **adi,ref-frequency-hz**: Reference input frequency. This is fed in the reference divider.
 -   **clock-output-names**: An array of 11 elements, representing the names of the output clocks.
 
-##### Adding channels
+#### Adding channels
 
 Channels can be specified using child nodes. The following properties are applicable to them:
 
@@ -105,7 +102,7 @@ Channels can be specified using child nodes. The following properties are applic
 -   **adi,digital-delay**: Each output divider can have the start time of the output delayed by integer multiples of half of the VCO period after a synchronization event.
 -   **adi,analog-delay**: Each output has a fine analog delay feature to further adjust its output delay time (tADELx) in small steps.
 
-##### Device tree example
+#### Device tree example
 
 The following example instantiates the LTC6962 driver for a LTC6962 device connected on the SPI bus to the chip-select line 0.
 

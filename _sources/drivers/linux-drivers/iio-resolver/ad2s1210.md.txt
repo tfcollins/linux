@@ -3,35 +3,33 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD2S1210: Variable Resolution, 10-Bit to 16-Bit R/D Converter with Reference Oscillator
 ---
 
-AD2S1210 IIO Resolver-to-Digital Converter Linux Driver
-=======================================================
+# AD2S1210 IIO Resolver-to-Digital Converter Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD2S1210](https://www.google.com/search?q=AD2S1210&btnI=lucky)
+-   [AD2S1210](adi>AD2S1210)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD2S1210SDZ](https://www.google.com/search?q=EVAL-AD2S1210SDZ&btnI=lucky)
+-   [EVAL-AD2S1210SDZ](adi>EVAL-AD2S1210SDZ)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0192](https://www.google.com/search?q=CN0192&btnI=lucky)
--   [CN0276](https://www.google.com/search?q=CN0276&btnI=lucky)
--   [CN0317](https://www.google.com/search?q=CN0317&btnI=lucky)
+-   [CN0192](adi>CN0192)
+-   [CN0276](adi>CN0276)
+-   [CN0317](adi>CN0317)
 
-#### Description
+### Description
 
--   [Product Page](https://www.google.com/search?q=ad2s1200&btnI=lucky)
+-   [Product Page](adi>ad2s1200)
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting Resolver-to-Digital Converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -48,9 +46,9 @@ Source Code
 </tbody>
 </table>
 
-Support for the AD2S1210 is in mainline for kernel v6.7 and is backported to v6.1 of the [ADI tree](https://www.google.com/search?q=linux&btnI=lucky). Some additional features are slated for v6.8. The device was previously supported by a staging driver with a different ABI.
+Support for the AD2S1210 is in mainline for kernel v6.7 and is backported to v6.1 of the [ADI tree](repo>linux). Some additional features are slated for v6.8. The device was previously supported by a staging driver with a different ABI.
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -62,17 +60,16 @@ Support for the AD2S1210 is in mainline for kernel v6.7 and is backported to v6.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/resolver/ad2s1210.c&amp;btnI=lucky">drivers/iio/resolver/ad2s1210.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/resolver/ad2s1210.c">drivers/iio/resolver/ad2s1210.c</a></td>
 </tr>
 <tr class="even">
 <td>devicetree</td>
-<td><a href="https://www.google.com/search?q=Documentation/devicetree/bindings/iio/resolver/adi,ad2s1210.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/resolver/adi,ad2s1210.yaml</a></td>
+<td><a href="git.linux.org&gt;Documentation/devicetree/bindings/iio/resolver/adi,ad2s1210.yaml">Documentation/devicetree/bindings/iio/resolver/adi,ad2s1210.yaml</a></td>
 </tr>
 </tbody>
 </table>
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -100,15 +97,14 @@ The Driver depends on **CONFIG_SPI**
 
                     [--snip--]
 
-Driver Usage
-------------
+## Driver Usage
 
 To configure the chip, use the attributes according to the device register to IIO ABI mapping below:
 
 <table>
 <thead>
 <tr class="header">
-<th>Register</th>
+<th style="text-align: left;">Register</th>
 <th>Addr</th>
 <th>IIO ABI (sysfs)</th>
 <th>Units</th>
@@ -117,98 +113,98 @@ To configure the chip, use the attributes according to the device register to II
 </thead>
 <tbody>
 <tr class="odd">
-<td>DOS Overrange Threshold</td>
+<td style="text-align: left;">DOS Overrange Threshold</td>
 <td>0x89</td>
 <td>events/in_altvoltage0_thresh_rising_value</td>
 <td>mV</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>DOS Mismatch Threshold</td>
+<td style="text-align: left;">DOS Mismatch Threshold</td>
 <td>0x8A</td>
 <td>events/in_altvoltage0_mag_rising_value</td>
 <td>mV</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>DOS Reset Maximum Threshold</td>
+<td style="text-align: left;">DOS Reset Maximum Threshold</td>
 <td>0x8B</td>
 <td>events/in_altvoltage0_mag_rising_reset_max</td>
 <td>mV</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>DOS Reset Minimum Threshold</td>
+<td style="text-align: left;">DOS Reset Minimum Threshold</td>
 <td>0x8C</td>
 <td>events/in_altvoltage0_mag_rising_reset_min</td>
 <td>mV</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>LOT High Threshold</td>
+<td style="text-align: left;">LOT High Threshold</td>
 <td>0x8D</td>
 <td>events/in_angl1_thresh_rising_value</td>
 <td>Radians</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>LOT Low Threshold</td>
+<td style="text-align: left;">LOT Low Threshold</td>
 <td>0x8E</td>
 <td>events/in_angl1_thresh_rising_hysteresis</td>
 <td>Radians</td>
 <td>The value written to the LOT low register is high value minus the hysteresis.</td>
 </tr>
 <tr class="odd">
-<td>Excitation Frequency</td>
+<td style="text-align: left;">Excitation Frequency</td>
 <td>0x91</td>
 <td>out_altvoltage0_frequency</td>
 <td>Hz</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Control</td>
+<td style="text-align: left;">Control</td>
 <td>0x92</td>
 <td>*as bit fields*</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>Phase lock range</td>
+<td style="text-align: left;">Phase lock range</td>
 <td>D5</td>
 <td>events/in_phase0_mag_rising_value</td>
 <td>Radians</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Hysteresis</td>
+<td style="text-align: left;">Hysteresis</td>
 <td>D4</td>
 <td>in_angl0_hysteresis</td>
 <td></td>
 <td>Convert to radians by multiplying channel scale</td>
 </tr>
 <tr class="odd">
-<td>Encoder resolution</td>
+<td style="text-align: left;">Encoder resolution</td>
 <td>D3:2</td>
 <td>*not implemented*</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Resolution</td>
+<td style="text-align: left;">Resolution</td>
 <td>D1:0</td>
 <td>*device tree: assigned-resolution-bits*</td>
 <td>Bits</td>
 <td>10, 12, 14, or 16</td>
 </tr>
 <tr class="odd">
-<td>Soft Reset</td>
+<td style="text-align: left;">Soft Reset</td>
 <td>0xF0</td>
 <td></td>
 <td></td>
 <td>Soft reset is performed when `out_altvoltage0_frequency` is written.</td>
 </tr>
 <tr class="even">
-<td>Fault</td>
+<td style="text-align: left;">Fault</td>
 <td>0xFF</td>
 <td>*not implemented*</td>
 <td></td>
@@ -217,7 +213,7 @@ To configure the chip, use the attributes according to the device register to II
 </tbody>
 </table>
 
-#### Interfacing With the AD2S1210 via iio_attr
+### Interfacing With the AD2S1210 via iio_attr
 
 Accessing a list of channels:
 
@@ -274,7 +270,7 @@ dev 'ad2s1210', channel 'anglvel0' (input), attr 'scale', value '0.023968449'
 :::
 
 
-#### Interfacing With the AD2S1210 via /sys/bus
+### Interfacing With the AD2S1210 via /sys/bus
 
 Alternatively, you can read and write data directly from the device path in /sys/bus:
 
@@ -425,7 +421,7 @@ root@setup-2-zed:/sys/bus/iio/devices/iio:device1# echo 1 > in_angl0_hysteresis
 :::
 
 
-#### Triggered buffer
+### Triggered buffer
 
 To generate samples using the triggered buffer, you will need a trigger. You can create an hrtimer trigger and test it by retrieving samples like this:
 
@@ -475,7 +471,7 @@ root@setup-2-zed:~# iio_attr -d test sampling_frequency 10000
 :::
 
 
-#### Reading IIO Events
+### Reading IIO Events
 
 See [iio_event_monitor](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/iio/iio_event_monitor.c) for an example of a program designed to read IIO events.
 
@@ -484,88 +480,87 @@ Fault to event mapping:
 <table>
 <thead>
 <tr class="header">
-<th>Fault</th>
-<th></th>
-<th>Channel</th>
-<th>Type</th>
+<th style="text-align: left;">Fault</th>
+<th style="text-align: center;"></th>
+<th style="text-align: left;">Channel</th>
+<th style="text-align: left;">Type</th>
 <th>Direction</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Sine/cosine inputs clipped</td>
-<td>D7</td>
-<td>altvoltage1</td>
-<td>mag</td>
+<td style="text-align: left;">Sine/cosine inputs clipped</td>
+<td style="text-align: center;">D7</td>
+<td style="text-align: left;">altvoltage1</td>
+<td style="text-align: left;">mag</td>
 <td>either</td>
 <td>The chip does not differentiate between fault on sine vs. cosine so there will also be an event on the altvoltage2 channel.</td>
 </tr>
 <tr class="even">
-<td>Sine/cosine inputs below LOS</td>
-<td>D6</td>
-<td>altvoltage0</td>
-<td>thresh</td>
+<td style="text-align: left;">Sine/cosine inputs below LOS</td>
+<td style="text-align: center;">D6</td>
+<td style="text-align: left;">altvoltage0</td>
+<td style="text-align: left;">thresh</td>
 <td>falling</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>Sine/cosine inputs exceed DOS overrange</td>
-<td>D5</td>
-<td>altvoltage0</td>
-<td>thresh</td>
+<td style="text-align: left;">Sine/cosine inputs exceed DOS overrange</td>
+<td style="text-align: center;">D5</td>
+<td style="text-align: left;">altvoltage0</td>
+<td style="text-align: left;">thresh</td>
 <td>rising</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Sine/cosine inputs exceed DOS mismatch</td>
-<td>D4</td>
-<td>altvoltage0</td>
-<td>mag</td>
+<td style="text-align: left;">Sine/cosine inputs exceed DOS mismatch</td>
+<td style="text-align: center;">D4</td>
+<td style="text-align: left;">altvoltage0</td>
+<td style="text-align: left;">mag</td>
 <td>rising</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>Tracking error exceeds LOT</td>
-<td>D3</td>
-<td>angl1</td>
-<td>thresh</td>
+<td style="text-align: left;">Tracking error exceeds LOT</td>
+<td style="text-align: center;">D3</td>
+<td style="text-align: left;">angl1</td>
+<td style="text-align: left;">thresh</td>
 <td>rising</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Velocity exceeds maximum tracking rate</td>
-<td>D2</td>
-<td>anglvel0</td>
-<td>mag</td>
+<td style="text-align: left;">Velocity exceeds maximum tracking rate</td>
+<td style="text-align: center;">D2</td>
+<td style="text-align: left;">anglvel0</td>
+<td style="text-align: left;">mag</td>
 <td>rising</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>Phase error exceeds phase lock range</td>
-<td>D1</td>
-<td>phase0</td>
-<td>mag</td>
+<td style="text-align: left;">Phase error exceeds phase lock range</td>
+<td style="text-align: center;">D1</td>
+<td style="text-align: left;">phase0</td>
+<td style="text-align: left;">mag</td>
 <td>rising</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>Configuration parity error</td>
-<td>D0</td>
-<td>*writes to kernel log*</td>
-<td></td>
+<td style="text-align: left;">Configuration parity error</td>
+<td style="text-align: center;">D0</td>
+<td style="text-align: left;">*writes to kernel log*</td>
+<td style="text-align: left;"></td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 
-Usage With the EVAL-AD2S1210SDZ Evaluation Board
-------------------------------------------------
+## Usage With the EVAL-AD2S1210SDZ Evaluation Board
 
-#### Interfacing With a Raspberry Pi
+### Interfacing With a Raspberry Pi
 
-##### Wiring
+#### Wiring
 
 <table>
 <thead>
@@ -747,29 +742,28 @@ Usage With the EVAL-AD2S1210SDZ Evaluation Board
 </tbody>
 </table>
 
-##### Device Tree
+#### Device Tree
 
 Add `dtoverlay=ad2s1210` to `/boot/config.txt`.
 
 Overlay: [ad2s1210-overlay.dts](https://raw.githubusercontent.com/analogdevicesinc/linux/rpi-6.1.y/arch/arm/boot/dts/overlays/ad2s1210-overlay.dts)
 
-##### Sample Images
+#### Sample Images
 
 Eval board connections:
 
-![](/resources/tools-software/linux-drivers/iio-resolver/img_20231206_135017785_hdr.jpg){width="400"}
+![img_20231206_135017785_hdr.jpg](/resources/tools-software/linux-drivers/iio-resolver/img_20231206_135017785_hdr.jpg){width="400" query="?400"}
 
 Raspberry Pi connections:
 
-![](/resources/tools-software/linux-drivers/iio-resolver/img_20231206_135039086.jpg){width="400"}
+![img_20231206_135039086.jpg](/resources/tools-software/linux-drivers/iio-resolver/img_20231206_135039086.jpg){width="400" query="?400"}
 
-#### Zedboard
+### Zedboard
 
-![](/resources/tools-software/linux-drivers/iio-resolver/img_20231207_080341.jpg){width="400"}
+![img_20231207_080341.jpg](/resources/tools-software/linux-drivers/iio-resolver/img_20231207_080341.jpg){width="400" query="?400"}
 
 See [ad2s1210_sdz](/resources/eval/user-guides/ad2s1210_sdz) for a detailed setup guide
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

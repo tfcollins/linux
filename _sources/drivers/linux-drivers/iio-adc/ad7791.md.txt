@@ -3,54 +3,52 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7791: 24-Bit, Single-Channel, Ultra Low Power, Sigma-Delta A/D Converter
 ---
 
-AD7791 IIO Low Power Sigma-Delta ADC Linux Driver
-=================================================
+# AD7791 IIO Low Power Sigma-Delta ADC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD7787](https://www.google.com/search?q=AD7787&btnI=lucky)
--   [AD7788](https://www.google.com/search?q=AD7788&btnI=lucky)
--   [AD7789](https://www.google.com/search?q=AD7789&btnI=lucky)
--   [AD7790](https://www.google.com/search?q=AD7790&btnI=lucky)
--   [AD7791](https://www.google.com/search?q=AD7791&btnI=lucky)
+-   [AD7787](adi>AD7787)
+-   [AD7788](adi>AD7788)
+-   [AD7789](adi>AD7789)
+-   [AD7790](adi>AD7790)
+-   [AD7791](adi>AD7791)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0216](https://www.google.com/search?q=CN0216&btnI=lucky)
--   [CN0271](https://www.google.com/search?q=CN0271&btnI=lucky)
--   [CN0354](https://www.google.com/search?q=CN0354&btnI=lucky)
+-   [CN0216](adi>CN0216)
+-   [CN0271](adi>CN0271)
+-   [CN0354](adi>CN0354)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD7791EBZ](https://www.google.com/search?q=EVAL-AD7791EBZ&btnI=lucky)
+-   [EVAL-AD7791EBZ](adi>EVAL-AD7791EBZ)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7791.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7791.c&amp;btnI=lucky">Yes</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/adc/ad7791.c">git</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/adc/ad7791.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -62,21 +60,20 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad7791.c&amp;btnI=lucky">drivers/iio/adc/ad7791.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/ad7791.c">drivers/iio/adc/ad7791.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/platform_data/ad7791.h&amp;btnI=lucky">include/linux/platform_data/ad7791.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/platform_data/ad7791.h">include/linux/platform_data/ad7791.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-``` {.c}
+``` c
 /**
  * struct ad7791_platform_data - AD7791 device platform data
  * @buffered: If set to true configure the device for buffered input mode.
@@ -91,7 +88,7 @@ struct ad7791_platform_data {
 };
 ```
 
-``` {.c}
+``` c
 static struct ad7791_platform_data ad7791_pdata =  {
     .buffered = true,
     .burnout_current = false,
@@ -104,7 +101,7 @@ static struct ad7791_platform_data ad7791_pdata =  {
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
     {
         .modalias = "ad7791",
@@ -118,7 +115,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -132,8 +129,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -158,13 +154,11 @@ The AD7791 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-![](/resources/tools-software/linux-drivers/iio-adc/ad7791_eval_lr.jpg){width="600"}
+![ad7791_eval_lr.jpg](/resources/tools-software/linux-drivers/iio-adc/ad7791_eval_lr.jpg){width="600" query="?600"}
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -206,7 +200,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0>
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -220,7 +214,7 @@ ad7791
 :::
 
 
-###### Show available sampling frequencies / update rates
+##### Show available sampling frequencies / update rates
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -234,7 +228,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat sampling_frequen
 :::
 
 
-###### Set sampling frequency / update rate
+##### Set sampling frequency / update rate
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -252,7 +246,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0>
 :::
 
 
-###### Show supply voltage
+##### Show supply voltage
 
 **Description:**
 Shows the AVDD supply voltage
@@ -273,7 +267,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage_suppl
 
 **U** = *(in_voltage1_supply_raw + in_voltage1_supply_offset) * in_voltage_supply_scale* = 7817399 * 0.000697374 = **3270.95608958 *mV***
 
-###### Show in_voltage0-voltage0_raw measurement
+##### Show in_voltage0-voltage0_raw measurement
 
 **Description:**
 Raw unscaled voltage measurement on channel 0
@@ -315,7 +309,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage0-volt
 
 **U** = *(in_voltage0-voltage0_raw + in_voltage0-voltage0_offset) * in_voltage-voltage_scale* = 6710665 * 0.000596046 = **999.95619165 *mV***
 
-#### Trigger management
+### Trigger management
 
 :::{NOTE} <!-- ATTRS: round="" help="" -->
 
@@ -336,7 +330,7 @@ ad7791-dev0
 :::
 
 
-#### Buffer management
+### Buffer management
 
 ![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
@@ -361,7 +355,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0/scan_elements>
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

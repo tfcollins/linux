@@ -3,34 +3,32 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD6676: Wideband IF Receiver Subsystem
 ---
 
-AD6676 Wideband IF Receiver Subsystem Linux device driver
-=========================================================
+# AD6676 Wideband IF Receiver Subsystem Linux device driver
 
 The AD6676 is a highly integrated IF subsystem that can digitize radio frequency (RF) bands up to 160 MHz in width centered on an intermediate frequency (IF) of 70 MHz to 450 MHz.
 
-# Supported Devices
+### Supported Devices
 
--   [AD6676](https://www.google.com/search?q=AD6676&btnI=lucky)
+-   [AD6676](adi>AD6676)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [AD6676-EBZ](https://www.google.com/search?q=AD6676EBZ&btnI=lucky)
+-   [AD6676-EBZ](adi>AD6676EBZ)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [AD6676-EBZ](https://www.google.com/search?q=AD6676EBZ&btnI=lucky)
+-   [AD6676-EBZ](adi>AD6676EBZ)
 -   [AD6676 : Design Tools and Startup Guide for the AD6676 evaluation board, a high dynamic range, Wideband Receiver](/resources/eval/ad6676-wideband_rx_subsystem_ad6676ebz)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting RF Transceivers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -41,13 +39,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad6676.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad6676.c&amp;btnI=lucky">No</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad6676.c">git</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad6676.c">No</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -59,16 +57,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad6676.c&amp;btnI=lucky">drivers/iio/adc/ad6676.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad6676.c">drivers/iio/adc/ad6676.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad6676.h&amp;btnI=lucky">drivers/iio/adc/ad6676.h</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad6676.h">drivers/iio/adc/ad6676.h</a></td>
 </tr>
 </tbody>
 </table>
 
-##### Related Device Drivers
+#### Related Device Drivers
 
 <table>
 <thead>
@@ -80,21 +78,20 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_core.c">drivers/iio/adc/cf_axi_adc_core.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_ring_stream.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_ring_stream.c">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
 </tr>
 <tr class="odd">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc.h&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc.h</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc.h">drivers/iio/adc/cf_axi_adc.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example Linux Device-Tree Initialization
-----------------------------------------
+## Example Linux Device-Tree Initialization
 
 The AD6676 driver is a spi-bus driver and can currently only be instantiated via device tree.
 
@@ -113,13 +110,12 @@ Required devicetree properties:
 <tbody>
 <tr class="odd">
 <td>AD6676-EBZ Device Tree</td>
-<td><a href="https://www.google.com/search?q=master?arch/arm/boot/dts/zynq-zc706-adv7511-ad6676-fmc.dts&amp;btnI=lucky">zynq-zc706-adv7511-ad6676-fmc.dts</a></td>
+<td><a href="linux.github&gt;master?arch/arm/boot/dts/zynq-zc706-adv7511-ad6676-fmc.dts">zynq-zc706-adv7511-ad6676-fmc.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Device Driver Customization
----------------------------
+## Device Driver Customization
 
 <table>
 <thead>
@@ -216,8 +212,7 @@ Device Driver Customization
 </tbody>
 </table>
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -229,8 +224,7 @@ The AD6676 driver depends on **CONFIG_SPI**
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -250,11 +244,9 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 
             [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing / API
---------------------
+## Driver testing / API
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -264,7 +256,7 @@ An example program which uses the interface can be found here:
 
 -   [IIO Oscilloscope](/resources/tools-software/linux-software/iio_oscilloscope)
 
-![](/resources/tools-software/linux-drivers/iio-adc/ad6676-osc-screenshot.png){.align-center width="600"}
+![ad6676-osc-screenshot.png](/resources/tools-software/linux-drivers/iio-adc/ad6676-osc-screenshot.png){.align-center width="600" query="?600"}
 
 
 :::
@@ -313,7 +305,7 @@ root:/sys/bus/iio/devices/iio:device1#
 :::
 
 
-#### Show device name
+### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -327,7 +319,7 @@ root:/sys/bus/iio/devices/iio:device1> **cat name**
 :::
 
 
-#### ADC frequency FADC (in_voltage_adc_frequency)
+### ADC frequency FADC (in_voltage_adc_frequency)
 
 The clock frequency of the ADC. Maximizing the clock frequency is helpful when the IF or bandwidth are high.
 A lower clock frequency reduces power consumption and is appropriate for low IFs and narrow bandwidths.
@@ -358,7 +350,7 @@ HDL or Hardware's JESD204B Core and Gigabit Transceiver (GT) doesn't support cha
 :::
 
 
-#### Complex IQ Data Rate (in_voltage_sampling_frequency)
+### Complex IQ Data Rate (in_voltage_sampling_frequency)
 
 The complex (I/Q) data rate in SPS.
 The AD6676 supports decimation factors (DFs) of 12, 16, 24 and 32.
@@ -379,7 +371,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_sampling_frequenc
 :::
 
 
-#### IF intermediate frequency (in_voltage_intermediate_frequency)
+### IF intermediate frequency (in_voltage_intermediate_frequency)
 
 The IF (intermediate frequency) to which the ADC is tuned.
 The AD6676 supports IFs from 70 to 450 MHz provided the external inductors are chosen appropriately.
@@ -417,7 +409,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_intermediate_freq
 :::
 
 
-#### Bandwidth (in_voltage_bandwidth)
+### Bandwidth (in_voltage_bandwidth)
 
 The bandwidth of the ADC. Since the AD6676 uses delta-sigma technology,
 the available bandwidth is a relatively small fraction of the ADC clock rate and
@@ -438,7 +430,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_bandwidth**
 :::
 
 
-#### Bandwidth Margins (in_voltage_bw_margin_[low|high])
+### Bandwidth Margins (in_voltage_bw_margin_[low|high])
 
 Lower (in_voltage_bw_margin_low) and upper (in_voltage_bw_margin_high) bandwidth margins for the noise-shaping profile of the ADC.
 
@@ -460,7 +452,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_bw_margin_low**
 :::
 
 
-#### Bandwidth Margin IF (in_voltage_bw_margin_if)
+### Bandwidth Margin IF (in_voltage_bw_margin_if)
 
 Displacement of the resonance frequency (F1Shift) of the first resonator within the ADC from band-center.
 Typically 0 is appropriate, but in the widest bandwidth modes positive shifts can be used to reduce
@@ -481,7 +473,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_bw_margin_if**
 :::
 
 
-#### Full-Scale (in_voltage_scale)
+### Full-Scale (in_voltage_scale)
 
 One of the convenient features of the AD6676 is that the full-scale of its ADC is
 relatively small and adjustable over a 12-dB range [1.00 .. 0.25]
@@ -506,7 +498,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_scale**
 :::
 
 
-#### Attenuation Control (in_voltage_hardwaregain)
+### Attenuation Control (in_voltage_hardwaregain)
 
 The AD6676 contains a 50-ohm input attenuator programmable in 1-dB steps.
 Use this device attribute to set the attenuator's attenuation.
@@ -530,7 +522,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_hardwaregain**
 :::
 
 
-#### Shuffle Control (in_voltage_shuffler_control)
+### Shuffle Control (in_voltage_shuffler_control)
 
 The AD6676 includes dynamic reordering of the comparators within the ADC in order to
 break up the spurious tones and distortion products associated with a fixed ordering.
@@ -560,7 +552,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_shuffler_control*
 :::
 
 
-#### Shuffle Threshold (in_voltage_shuffler_thresh)
+### Shuffle Threshold (in_voltage_shuffler_thresh)
 
 In order to obtain the spur-reduction benefits of shuffling at large signal levels while
 retaining the low noise of not shuffling when the signal is small, the AD6676 supports
@@ -586,7 +578,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_shuffler_thresh**
 :::
 
 
-#### Test Modes (in_voltage_test_mode)
+### Test Modes (in_voltage_test_mode)
 
 Interface test modes supported by the AD6676.
 
@@ -607,16 +599,15 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat in_voltage_test_mode**
 :::
 
 
-#### JESD204B Interface Testing
+### JESD204B Interface Testing
 
 Below Eyes were captured on a Xilinx ZC706 after > 4 hours of operation:
 
 [JESD204B Eye Scan](/resources/tools-software/linux-software/jesd_eye_scan)
 
-![LANE0](/resources/tools-software/linux-drivers/iio-adc/ad6676_lane0_9.54e-08bert.png){.align-left width="300"}
-![LANE1](/resources/tools-software/linux-drivers/iio-adc/ad6676_lane1_9.54e-08bert.png){.align-left width="300"}
+![LANE0](/resources/tools-software/linux-drivers/iio-adc/ad6676_lane0_9.54e-08bert.png){.align-left width="300" query="?300"}
+![LANE1](/resources/tools-software/linux-drivers/iio-adc/ad6676_lane1_9.54e-08bert.png){.align-left width="300" query="?300"}
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

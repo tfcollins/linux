@@ -3,26 +3,24 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/hwmo
 title: LTC2947: High Precision Power and Energy Monitor
 ---
 
-LTC2947 High Precision Power and Energy Monitor
-===============================================
+# LTC2947 High Precision Power and Energy Monitor
 
-# Supported Devices
+### Supported Devices
 
--   [LTC2947](https://www.google.com/search?q=LTC2947&btnI=lucky)
+-   [LTC2947](adi>LTC2947)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [DC2334A](https://www.google.com/search?q=DC2334A&btnI=lucky)
--   [DC2574A-KIT](https://www.google.com/search?q=DC2574A-KIT&btnI=lucky)
+-   [DC2334A](adi>DC2334A)
+-   [DC2574A-KIT](adi>DC2574A-KIT)
 
-#### Description
+### Description
 
 This is a Hardware Monitor subsystem driver. There are two driver's (sharing the same core implementation) for the LTC2947 since the device supports both SPI and I2C interfaces. The underlying bus is abstracted in the core implementation by using regmap. The Hwmon subsystem provides a unified framework for drivers doing hardware monitoring. It exposes a set of sysfs file that should follow the [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -33,25 +31,25 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-core.c&amp;btnI=lucky">drivers/hwmon/ltc2947-core.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-core.c&amp;btnI=lucky">yes</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-core.c">drivers/hwmon/ltc2947-core.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-core.c">yes</a></td>
 </tr>
 <tr class="even">
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-i2c.c&amp;btnI=lucky">drivers/hwmon/ltc2947-i2c.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-i2c.c&amp;btnI=lucky">yes</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-i2c.c">drivers/hwmon/ltc2947-i2c.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-i2c.c">yes</a></td>
 </tr>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-spi.c&amp;btnI=lucky">drivers/hwmon/ltc2947-spi.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-spi.c&amp;btnI=lucky">yes</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-spi.c">drivers/hwmon/ltc2947-spi.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-spi.c">yes</a></td>
 </tr>
 <tr class="even">
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947.h&amp;btnI=lucky">drivers/hwmon/ltc2947.h</a></td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947.h&amp;btnI=lucky">yes</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947.h">drivers/hwmon/ltc2947.h</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947.h">yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -63,25 +61,24 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-core.c&amp;btnI=lucky">drivers/hwmon/ltc2947-core.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-core.c">drivers/hwmon/ltc2947-core.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-i2c.c&amp;btnI=lucky">drivers/hwmon/ltc2947-i2c.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-i2c.c">drivers/hwmon/ltc2947-i2c.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon/ltc2947-spi.c&amp;btnI=lucky">drivers/hwmon/ltc2947-spi.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-spi.c">drivers/hwmon/ltc2947-spi.c</a></td>
 </tr>
 <tr class="even">
 <td>core include</td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon//ltc2947.h&amp;btnI=lucky">drivers/hwmon/ltc2947.h</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon//ltc2947.h">drivers/hwmon/ltc2947.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example I2C & SPI device initialization
----------------------------------------
+## Example I2C & SPI device initialization
 
 The LTC2947 supports both I2C and SPI interfaces, so one of the drivers can be used depending on which kind of device is instantiated. Currently, the devices can only be instantiated via device tree.
 
@@ -120,10 +117,9 @@ Example I2C:
             };
     };
 
-For more supported devicetree properties take a look to [dt-bindings](https://www.google.com/search?q=master?Documentation/devicetree/bindings/hwmon/adi,ltc2947.yaml&btnI=lucky).
+For more supported devicetree properties take a look to [dt-bindings](linux.github>master?Documentation/devicetree/bindings/hwmon/adi,ltc2947.yaml).
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig").
 :::{NOTE} <!-- ATTRS: round="" help="" -->
@@ -133,8 +129,7 @@ The LTC2947 SPI driver depends **CONFIG_SPI** and the LTC2947 I2C driver depends
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -148,13 +143,11 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
                 <*> Analog Devices LTC2947 High Precision Power and Energy Monitor over SPI
             [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
-#### HWMON device files
+### HWMON device files
 
 Each and every HWMON device has a device folder under /sys/class/hwmon/hwmonX, where X is the hwmon device index. Under every of these directory folders there are a set of files, depending on what kind of hardware monitoring is supported (temperature, voltage). In order to determine which hwmon device corresponds to which hardware chip, the user can read the name file under /sys/class/hwmon/hwmonX/name.
 
@@ -254,7 +247,7 @@ root:/sys/class/hwmon/hwmon1>
 
 For each type of monitored value (current, power), the file will look like **${type}_${monitored_value}_${channel}**, where **${monitored_value}** can be the current value, the high threshold, etc... The channel is the index when, for example, a device can monitor more than one voltage. For more information on the files format, take a look to [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
 
-##### Show device name
+#### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -268,7 +261,7 @@ ltc2947
 :::
 
 
-##### Show current values
+#### Show current values
 
 The device supports readings of current, voltage, power, temperature and energy. To get, for example, the value of the monitored voltage:
 
@@ -284,7 +277,7 @@ root:/sys/class/hwmon/hwmon1> **cat in0_input**
 :::
 
 
-##### Show highest read value
+#### Show highest read value
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -298,7 +291,7 @@ root:/sys/class/hwmon/hwmon1> **cat in0_highest**
 :::
 
 
-##### Show lowest read value
+#### Show lowest read value
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -312,7 +305,7 @@ root:/sys/class/hwmon/hwmon1> **cat in0_lowest**
 :::
 
 
-##### Show high threshold
+#### Show high threshold
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -326,7 +319,7 @@ root:/sys/class/hwmon/hwmon1> **cat in0_max**
 :::
 
 
-##### Show low threshold
+#### Show low threshold
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -340,7 +333,7 @@ root:/sys/class/hwmon/hwmon1> **cat in0_min**
 :::
 
 
-###### Show high threshold alarm
+#### Show high threshold alarm
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -354,7 +347,7 @@ root:/sys/class/hwmon/hwmon1> **cat in0_max_alarm**
 :::
 
 
-###### Show low threshold alarm
+#### Show low threshold alarm
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -368,7 +361,7 @@ root:/sys/class/hwmon/hwmon1> **cat in0_min_alarm**
 :::
 
 
-##### Show fault
+#### Show fault
 
 When the **${type}_${channel}_fault** files are present, the user can read these files to look for faulty cases. If reading this file returns 1, then the readings for that channel are invalid and should be discarded...
 
@@ -384,7 +377,7 @@ root:/sys/class/hwmon/hwmon1> **cat in0_fault**
 :::
 
 
-##### Show label
+#### Show label
 
 Some channels, support a label attribute which specifies the name of the channel being monitored.
 
@@ -400,7 +393,7 @@ DVCC
 :::
 
 
-##### Show Overflow alarm
+#### Show Overflow alarm
 
 These properties are custom and not part of the sysfs-hwmon interface. However, the device set's an alarm when register overflow is near for accumulated values (in this case, energy).
 
@@ -416,7 +409,7 @@ root:/sys/class/hwmon/hwmon1> **cat energy1_overflow_alarm**
 :::
 
 
-##### Set High threshold
+#### Set High threshold
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -429,7 +422,7 @@ root:/sys/class/hwmon/hwmon1> **echo 5500 > in0_max**
 :::
 
 
-##### Set Low threshold
+#### Set Low threshold
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -442,7 +435,7 @@ root:/sys/class/hwmon/hwmon1> **echo 4500 > in0_min**
 :::
 
 
-##### Reset History
+#### Reset History
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -455,11 +448,9 @@ root:/sys/class/hwmon/hwmon1> **echo 1 > in0_reset_history**
 :::
 
 
-More Information
-----------------
+## More Information
 
-HWMON pointers
---------------
+## HWMON pointers
 
 -   HWMON mailing list: <linux-hwmon@vger.kernel.org>
 -   [HWMON Linux Kernel Documentation](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/hwmon)

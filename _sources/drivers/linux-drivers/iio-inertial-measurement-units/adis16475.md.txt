@@ -3,38 +3,36 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADIS16507: Precision, Miniature MEMs IMU
 ---
 
-ADIS16475 IIO Inertial Measurement Unit Linux Driver
-====================================================
+# ADIS16475 IIO Inertial Measurement Unit Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADIS16465](https://www.google.com/search?q=ADIS16465&btnI=lucky)
--   [ADIS16467](https://www.google.com/search?q=ADIS16467&btnI=lucky)
--   [ADIS16470](https://www.google.com/search?q=ADIS16470&btnI=lucky)
--   [ADIS16475](https://www.google.com/search?q=ADIS16475&btnI=lucky)
--   [ADIS16477](https://www.google.com/search?q=ADIS16477&btnI=lucky)
--   [ADIS16500](https://www.google.com/search?q=ADIS16500&btnI=lucky)
--   [ADIS16505](https://www.google.com/search?q=ADIS16505&btnI=lucky)
--   [ADIS16507](https://www.google.com/search?q=ADIS16507&btnI=lucky)
+-   [ADIS16465](adi>ADIS16465)
+-   [ADIS16467](adi>ADIS16467)
+-   [ADIS16470](adi>ADIS16470)
+-   [ADIS16475](adi>ADIS16475)
+-   [ADIS16477](adi>ADIS16477)
+-   [ADIS16500](adi>ADIS16500)
+-   [ADIS16505](adi>ADIS16505)
+-   [ADIS16507](adi>ADIS16507)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [ADIS16IMU4/PCBZ](https://www.google.com/search?q=EVAL-ADIS16IMU4&btnI=lucky)
--   [EVAL-ADIS2](https://www.google.com/search?q=EVAL-ADIS2&btnI=lucky)
--   [ADIS16470/PCB](https://www.google.com/search?q=EVAL-ADIS16470&btnI=lucky)
--   [ADIS16475-x/PCB](https://www.google.com/search?q=EVAL-ADIS16475&btnI=lucky)
--   [ADIS16477-x/PCB](https://www.google.com/search?q=EVAL-ADIS16477&btnI=lucky)
+-   [ADIS16IMU4/PCBZ](adi>EVAL-ADIS16IMU4)
+-   [EVAL-ADIS2](adi>EVAL-ADIS2)
+-   [ADIS16470/PCB](adi>EVAL-ADIS16470)
+-   [ADIS16475-x/PCB](adi>EVAL-ADIS16475)
+-   [ADIS16477-x/PCB](adi>EVAL-ADIS16477)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Inertial Measurement Units (IMU).
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -45,13 +43,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/imu/adis16475.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/imu/adis16475.c&amp;btnI=lucky">yes</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/imu/adis16475.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/imu/adis16475.c">yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -63,16 +61,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/imu/adis16475.c&amp;btnI=lucky">drivers/iio/imu/adis16475.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/imu/adis16475.c">drivers/iio/imu/adis16475.c</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Devicetree
+### Devicetree
 
 Analog Devices ADIS16475 and similar IMUs
 
-##### Required properties for the ADIS16475:
+#### Required properties for the ADIS16475:
 
 -   compatible: Must be one of
     -   "adi,adis16465-1"
@@ -110,7 +108,7 @@ Analog Devices ADIS16475 and similar IMUs
        * IRQF_TRIGGER_RISING
        * IRQF_TRIGGER_FALLING
 
-##### Optional properties
+#### Optional properties
 
 -   reset-gpios: must be the device tree identifier of the RESET pin. As the line is active low, it should be marked GPIO_ACTIVE_LOW.
 -   spi-max-frequency: Max SPI frequency to use see: Documentation/devicetree/bindings/spi/spi-bus.txt. The maximum supported value is 2MHz.
@@ -133,7 +131,7 @@ Analog Devices ADIS16475 and similar IMUs
         * 1900 to 2100 Hz.
     * adi,burst32-enable: In this mode, a burst reading contains calibrated gyroscope and accelerometer data in 32-bit format. This mode is only supported by adis1650x devices!
 
-##### Example
+#### Example
 
         imu@0 {
                    compatible = "adi,adis16475-3";
@@ -145,10 +143,9 @@ Analog Devices ADIS16475 and similar IMUs
                    interrupt-parent = <&gpio>;
            };
 
-For more supported devicetree properties take a look to [dt-bindings](https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/imu/adi,adis16475.yaml&btnI=lucky).
+For more supported devicetree properties take a look to [dt-bindings](linux.github>master?Documentation/devicetree/bindings/iio/imu/adi,adis16475.yaml).
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -173,8 +170,7 @@ The adis16475 driver depends on **CONFIG_SPI_MASTER**
                     <*> Analog Devices ADIS16475 and similar IMU driver
                     [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
 The evaluation kits simplify the process of connecting an IMU to an embedded processor system using a 16-pin, 1mm ribbon cable. For a detailed description check the links (on the beginning of the page) for the appropriated evaluation kit.
 Here is an example of basic connection from one ADIS device interface connector to the host:(microprocessor):
@@ -244,10 +240,10 @@ root:/sys/bus/iio/devices/iio:device0>
 :::
 
 
-#### ADIS16475 device attributes
+### ADIS16475 device attributes
 
 For a detailed description please see:
-[Documentation/ABI/testing/sysfs-bus-iio](https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&btnI=lucky)
+[Documentation/ABI/testing/sysfs-bus-iio](git.linux.org>Documentation/ABI/testing/sysfs-bus-iio)
 
 <table>
 <thead>
@@ -352,7 +348,7 @@ For a detailed description please see:
 </tbody>
 </table>
 
-##### Show device name
+#### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -366,7 +362,7 @@ adis16477-1
 :::
 
 
-##### Set sampling frequency
+#### Set sampling frequency
 
 The sampling frequency of the device can be set by writing the desired value to the `sampling_frequency` file. The driver will automatically round up to the nearest supported sampling frequency.
 
@@ -387,7 +383,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat sampling_frequency**
 :::
 
 
-##### Show channel value
+#### Show channel value
 
 A channel value can be read from its `_raw` attribute. The value returned by the `_raw` attribute is the raw value as reported by the device. To get the processed value of the channel in a standardized unit add the channels `_offset` attribute to the `_raw` value and multiply the result by `_scale` attribute. If no `_offset` attribute is present assume 0 for the offset.
 
@@ -416,7 +412,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_accel_scale**
 
 `Z-axis acceleration = in_accel_z_raw * in_accel_scale = 52612913 * 0.000000187 m/s^2 = 9.838 m/s^2`
 
-##### Set gyro and accel bandwidth
+#### Set gyro and accel bandwidth
 
 The gyro and accel bandwidth can be set by writing the desired value to the `filter_low_pass_3db_frequency` attribute. The driver will automatically round up to the nearest supported bandwidth.
 
@@ -436,7 +432,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat filter_low_pass_3db_frequency**
 :::
 
 
-#### Trigger management
+### Trigger management
 
 :::{NOTE} <!-- ATTRS: round="" help="" -->
 
@@ -457,7 +453,7 @@ adis16477-1-dev0
 :::
 
 
-#### Buffer management
+### Buffer management
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -525,7 +521,6 @@ From the above list, note the following 2 elements:
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,25 +3,23 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/hwmo
 title: Fan Control IP core: Core to control the fan used for cooling Xilinx Zynq Ultrascale+ MPSoC
 ---
 
-Fan Control HDL CORE driver
-===========================
+# Fan Control HDL CORE driver
 
-# Supported Devices
+### Supported Devices
 
 [axi_fan_control](/resources/fpga/docs/axi_fan_control)
 
-##### Supported boards
+#### Supported boards
 
 [ADRV9009-ZU11EG RF System-on-Module](/resources/eval/user-guides/adrv9009-zu11eg?s[]=zu11eg)
 
-###### Description
+##### Description
 
 This is a Hardware Monitor subsystem driver. The Hwmon subsystem provides a unified framework for drivers doing hardware monitoring. It exposes a set of sysfs files that should follow the [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -32,13 +30,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/hwmon/axi_fan_control.c&amp;btnI=lucky">drivers/hwmon/axi_fan_control.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/hwmon/axi_fan_control.c&amp;btnI=lucky">WIP</a></td>
+<td><a href="linux.github&gt;master?drivers/hwmon/axi_fan_control.c">drivers/hwmon/axi_fan_control.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/axi_fan_control.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -50,13 +48,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/hwmon/axi_fan_control.c&amp;btnI=lucky">drivers/hwmon/axi_fan_control.c</a></td>
+<td><a href="linux.github&gt;master?drivers/hwmon/axi_fan_control.c">drivers/hwmon/axi_fan_control.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 The AXI FAN CONTROL driver is a platform driver and can currently only be instantiated via device tree.
 
@@ -81,14 +78,12 @@ Required devicetree properties:
             adi,pulses-per-revolution = <2>;
     };
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -101,13 +96,11 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
                 <*> Analog Devices FAN Control HDL Core driver
             [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
-#### HWMON device files
+### HWMON device files
 
 Each and every HWMON device has a device folder under /sys/class/hwmon/hwmonX, where X is the hwmon device index. Under every of these directory folders there are a set of files, depending on what kind of hardware monitoring is supported (temperature, voltage). In order to determine which hwmon device corresponds to which hardware chip, the user can read the name file under /sys/class/hwmon/hwmonX/name.
 
@@ -144,7 +137,7 @@ root:/sys/class/hwmon/hwmon0>
 
 For more information on the files format and accepted values, take a look to [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
 
-##### Show device name
+#### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -158,7 +151,7 @@ axi_fan_control
 :::
 
 
-##### Show FAN input (in RPM)
+#### Show FAN input (in RPM)
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -172,7 +165,7 @@ root:/sys/class/hwmon/hwmon0> **cat fan1_input**
 :::
 
 
-##### Show FAN label
+#### Show FAN label
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -186,7 +179,7 @@ SOM FAN
 :::
 
 
-##### Show PWM input
+#### Show PWM input
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -200,7 +193,7 @@ root:/sys/class/hwmon/hwmon0> **cat pwm1**
 :::
 
 
-##### Show Temperature input (in milliC)
+#### Show Temperature input (in milliC)
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -214,7 +207,7 @@ root:/sys/class/hwmon/hwmon0> **cat temp1_input**
 :::
 
 
-##### Show Temperature label
+#### Show Temperature label
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -228,7 +221,7 @@ SYSMON4
 :::
 
 
-##### Show fault
+#### Show fault
 
 When reading **fan1_fault** returns 1, that means that either the FAN is physically not working/broken or the tacho signal fails to stay within its designated frequency interval.
 
@@ -244,7 +237,7 @@ root:/sys/class/hwmon/hwmon0> **cat fan1_fault**
 :::
 
 
-##### Set PWM value
+#### Set PWM value
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -257,11 +250,9 @@ root:/sys/class/hwmon/hwmon0> **echo 250 > pwm1**
 :::
 
 
-More Information
-----------------
+## More Information
 
-HWMON pointers
---------------
+## HWMON pointers
 
 -   HWMON mailing list: <linux-hwmon@vger.kernel.org>
 -   [HWMON Linux Kernel Documentation](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/hwmon)

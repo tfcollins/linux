@@ -3,22 +3,21 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADIS16497: Tactical Grade, Six Degrees of Freedom Inertial Sensor
 ---
 
-ADIS16480 IIO Inertial Measurement Unit Linux Driver
-====================================================
+# ADIS16480 IIO Inertial Measurement Unit Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [ADIS16375](https://www.google.com/search?q=ADIS16375&btnI=lucky)
--   [ADIS16480](https://www.google.com/search?q=ADIS16480&btnI=lucky)
--   [ADIS16485](https://www.google.com/search?q=ADIS16485&btnI=lucky)
--   [ADIS16488](https://www.google.com/search?q=ADIS16488&btnI=lucky)
--   [ADIS16490](https://www.google.com/search?q=ADIS16490&btnI=lucky)
--   [ADIS16495](https://www.google.com/search?q=ADIS16495&btnI=lucky)
--   [ADIS16497](https://www.google.com/search?q=ADIS16497&btnI=lucky)
+-   [ADIS16375](adi>ADIS16375)
+-   [ADIS16480](adi>ADIS16480)
+-   [ADIS16485](adi>ADIS16485)
+-   [ADIS16488](adi>ADIS16488)
+-   [ADIS16490](adi>ADIS16490)
+-   [ADIS16495](adi>ADIS16495)
+-   [ADIS16497](adi>ADIS16497)
 
 #### Evaluation Boards
 
--   [ADIS16IMU1/PCBZ](https://www.google.com/search?q=EVAL-ADIS16IMU1&btnI=lucky)
+-   [ADIS16IMU1/PCBZ](adi>EVAL-ADIS16IMU1)
 
 #### Description
 
@@ -26,8 +25,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -40,8 +38,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/imu/adis16480.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/imu/adis16480.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/imu/adis16480.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/imu/adis16480.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -58,7 +56,7 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/imu/adis16480.c&amp;btnI=lucky">drivers/iio/imu/adis16480.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/imu/adis16480.c">drivers/iio/imu/adis16480.c</a></td>
 </tr>
 </tbody>
 </table>
@@ -68,7 +66,7 @@ Source Code
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_adis16480) 
     || defined(CONFIG_adis16480_MODULE)
@@ -86,7 +84,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -186,8 +184,7 @@ Each DIOx pin supports only one function at a time (data ready line selection or
             adi,ext-clk-pin = "DIO1";
            };
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -212,10 +209,9 @@ The adis16480 driver depends on **CONFIG_SPI_MASTER**
                     <*> Analog Devices ADIS16480 and similar IMU driver
                     [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-The [ADIS16IMU1/PCBZ](https://www.google.com/search?q=EVAL-ADIS16IMU1&btnI=lucky) is the primary breakout board for the ADIS1649x products. This breakout board simplifies the process of connecting an ADIS1649x IMU to an embedded processor system using a 16-pin, 1mm ribbon cable. For a detailed description, please see: [/resources/eval/user-guides/inertial-mems/imu/adis1649x](/resources/eval/user-guides/inertial-mems/imu/adis1649x)
+The [ADIS16IMU1/PCBZ](adi>EVAL-ADIS16IMU1) is the primary breakout board for the ADIS1649x products. This breakout board simplifies the process of connecting an ADIS1649x IMU to an embedded processor system using a 16-pin, 1mm ribbon cable. For a detailed description, please see: [/resources/eval/user-guides/inertial-mems/imu/adis1649x](/resources/eval/user-guides/inertial-mems/imu/adis1649x)
 Here is an example of basic connection from the ADIS1649X interface connector to the host (microprocessor):
 
     ADIS1649X       HOST MICROPROCESSOR
@@ -227,8 +223,7 @@ Here is an example of basic connection from the ADIS1649X interface connector to
 
 Note: IRQ GPIO can be connected to any DIOx pin. See the Devicetree section.
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -294,7 +289,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0>
 #### ADIS16480 device attributes
 
 For a detailed description please see:
-[Documentation/ABI/testing/sysfs-bus-iio](https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&btnI=lucky)
+[Documentation/ABI/testing/sysfs-bus-iio](git.linux.org>Documentation/ABI/testing/sysfs-bus-iio)
 
 <table>
 <thead>
@@ -579,8 +574,7 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan_elements>
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
 

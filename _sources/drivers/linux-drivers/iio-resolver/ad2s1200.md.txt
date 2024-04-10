@@ -3,31 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD2S1205: 12-Bit R/D Converter with Reference Oscillator
 ---
 
-AD2S1200 IIO Resolver-to-Digital Converter Linux Driver
-=======================================================
+# AD2S1200 IIO Resolver-to-Digital Converter Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD2S1200](https://www.google.com/search?q=AD2S1200&btnI=lucky)
--   [AD2S1205](https://www.google.com/search?q=AD2S1205&btnI=lucky)
+-   [AD2S1200](adi>AD2S1200)
+-   [AD2S1205](adi>AD2S1205)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD2S1200SDZ](https://www.google.com/search?q=EVAL-AD2S1200SDZ&btnI=lucky)
--   [EVAL-AD2S1205SDZ](https://www.google.com/search?q=EVAL-AD2S1205SDZ&btnI=lucky)
+-   [EVAL-AD2S1200SDZ](adi>EVAL-AD2S1200SDZ)
+-   [EVAL-AD2S1205SDZ](adi>EVAL-AD2S1205SDZ)
 
-#### Description
+### Description
 
--   [Product Page](https://www.google.com/search?q=ad2s1200&btnI=lucky)
+-   [Product Page](adi>ad2s1200)
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting Resolver-to-Digital Converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -38,13 +36,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/resolver/ad2s1200.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/resolver/ad2s1200.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/resolver/ad2s1200.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/resolver/ad2s1200.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -56,13 +54,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/resolver/ad2s1200.c&amp;btnI=lucky">drivers/staging/iio/resolver/ad2s1200.c</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/resolver/ad2s1200.c">drivers/staging/iio/resolver/ad2s1200.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -90,8 +87,7 @@ The Driver depends on **CONFIG_SPI**
 
                     [--snip--]
 
-Driver Usage
-------------
+## Driver Usage
 
 The device file path may looks like,
 
@@ -102,36 +98,35 @@ There are two files:
 <table>
 <thead>
 <tr class="header">
-<th>File Name</th>
-<th>Permission</th>
-<th>Usage</th>
+<th style="text-align: center;">File Name</th>
+<th style="text-align: center;">Permission</th>
+<th style="text-align: center;">Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>pos_vel</td>
-<td>read only</td>
-<td>12 bits unsigned angular value and 12 bits signed velocity value</td>
+<td style="text-align: center;">pos_vel</td>
+<td style="text-align: center;">read only</td>
+<td style="text-align: center;">12 bits unsigned angular value and 12 bits signed velocity value</td>
 </tr>
 <tr class="even">
-<td>pos</td>
-<td>read only</td>
-<td>12 bits unsigned angular value</td>
+<td style="text-align: center;">pos</td>
+<td style="text-align: center;">read only</td>
+<td style="text-align: center;">12 bits unsigned angular value</td>
 </tr>
 <tr class="odd">
-<td>vel</td>
-<td>read only</td>
-<td>12 bits signed velocity value</td>
+<td style="text-align: center;">vel</td>
+<td style="text-align: center;">read only</td>
+<td style="text-align: center;">12 bits signed velocity value</td>
 </tr>
 <tr class="even">
-<td>description</td>
-<td>read only</td>
-<td>description about this chip</td>
+<td style="text-align: center;">description</td>
+<td style="text-align: center;">read only</td>
+<td style="text-align: center;">description about this chip</td>
 </tr>
 </tbody>
 </table>
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

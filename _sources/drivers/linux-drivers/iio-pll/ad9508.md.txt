@@ -3,24 +3,22 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD9508: 1.65 GHz Clock Fanout Buffer with Output Dividers and Delay Adjust
 ---
 
-AD9508 1.65 GHz Clock Fanout Buffer with Output Dividers and Delay Adjust Linux Driver
-======================================================================================
+# AD9508 1.65 GHz Clock Fanout Buffer with Output Dividers and Delay Adjust Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD9508](https://www.google.com/search?q=AD9508&btnI=lucky)
+-   [AD9508](adi>AD9508)
 
-#### Description
+### Description
 
 The AD9508 provides clock fanout capability in a design that emphasizes low jitter to maximize system performance. This device benefits applications like clocking data converters with demanding phase noise and low jitter requirements.
 There are four independent differential clock outputs, each with various types of logic levels available. Available logic types include LVDS (1.65 GHz), HSTL (1.65 GHz), and 1.8 V CMOS (250 MHz). In 1.8 V CMOS output mode, the differential output becomes two CMOS single-ended signals. The CMOS outputs are 1.8 V logic levels, regardless of the operating supply voltage.
 Each output has a programmable divider that can be bypassed or be set to divide by any integer up to 1024. In addition, the AD9508 supports a coarse output phase adjustment between the outputs.
 The device can also be pin programmed for various fixed configurations at power-up without the need for SPI or I2C programming.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -31,13 +29,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ad9508.c&amp;btnI=lucky">drivers/iio/frequency/ad9508.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9508.c">drivers/iio/frequency/ad9508.c</a></td>
 <td>No</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -49,21 +47,20 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/ad9508.c&amp;btnI=lucky">drivers/iio/frequency/ad9508.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9508.c">drivers/iio/frequency/ad9508.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?include/linux/iio/frequency/ad9508.h&amp;btnI=lucky">include/linux/iio/frequency/ad9508.h</a></td>
+<td><a href="linux.github&gt;master?include/linux/iio/frequency/ad9508.h">include/linux/iio/frequency/ad9508.h</a></td>
 </tr>
 <tr class="odd">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?include/dt-bindings/iio/frequency/ad9508.h&amp;btnI=lucky">include/dt-bindings/iio/frequency/ad9508.h</a></td>
+<td><a href="linux.github&gt;master?include/dt-bindings/iio/frequency/ad9508.h">include/dt-bindings/iio/frequency/ad9508.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Enabling the driver
--------------------
+## Enabling the driver
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -82,9 +79,9 @@ The ad9508 Driver depends on **CONFIG_SPI**
                      Clock Generator/Distribution  --->
                      <*>  Analog Devices AD9508 Clock Fanout Buffer
 
-#### Adding a device tree entry
+### Adding a device tree entry
 
-##### Device tree example
+#### Device tree example
 
 The following example instanciates the ad9508 driver for a ad9508-3 device connected on the SPI bus to the chip-select line 1.
 

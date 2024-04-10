@@ -3,22 +3,21 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADF4169: Direct Modulation/Fast Waveform Generating, 13.5 GHz, Fractional-N Frequency Synthesizer
 ---
 
-ADF4159 IIO Direct Modulation/Fast Waveform Generating Synthesizer Linux Driver
-===============================================================================
+# ADF4159 IIO Direct Modulation/Fast Waveform Generating Synthesizer Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADF4159](https://www.google.com/search?q=ADF4159&btnI=lucky)
--   [ADF4169](https://www.google.com/search?q=ADF4169&btnI=lucky)
+-   [ADF4159](adi>ADF4159)
+-   [ADF4169](adi>ADF4169)
 
-#### Supported Boards
+### Supported Boards
 
 This driver supports the
 
--   [EV-ADF4159EB1Z](https://www.google.com/search?q=EV-ADF4159EB1Z&btnI=lucky)
--   [EV-ADF4159EB3Z](https://www.google.com/search?q=EV-ADF4159EB3Z&btnI=lucky)
+-   [EV-ADF4159EB1Z](adi>EV-ADF4159EB1Z)
+-   [EV-ADF4159EB3Z](adi>EV-ADF4159EB3Z)
 
-#### Description
+### Description
 
 The ADF4159 is a 13 GHz, fractional-N frequency synthesizer with modulation and both fast and slow waveform generation capability. The part uses a 25-bit fixed modulus, allowing subhertz frequency resolution.
 
@@ -35,27 +34,26 @@ Applications
 -   Instrumentation
 -   FMCW radars
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adf4159.c&amp;btnI=lucky">drivers/iio/frequency/adf4159.c</a></td>
-<td>WIP</td>
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/frequency/adf4159.c">drivers/iio/frequency/adf4159.c</a></td>
+<td style="text-align: center;">WIP</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -67,15 +65,15 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/adf4159.c&amp;btnI=lucky">drivers/iio/frequency/adf4159.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/adf4159.c">drivers/iio/frequency/adf4159.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/frequency/adf4159.yaml&amp;btnI=lucky">adf4159.yaml</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/adf4159.yaml">adf4159.yaml</a></td>
 </tr>
 <tr class="odd">
 <td>ABI documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4159&amp;btnI=lucky">sysfs-bus-iio-frequency-adf4159</a></td>
+<td><a href="linux.github&gt;master?Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4159">sysfs-bus-iio-frequency-adf4159</a></td>
 </tr>
 </tbody>
 </table>
@@ -92,13 +90,12 @@ Example device tree
 <tbody>
 <tr class="odd">
 <td>dts</td>
-<td><a href="https://www.google.com/search?q=rpi-5.4.y?arch/arm/boot/dts/overlays/rpi-adf4159-overlay.dts&amp;btnI=lucky">rpi-adf4159-overlay.dts</a></td>
+<td><a href="linux.github&gt;rpi-5.4.y?arch/arm/boot/dts/overlays/rpi-adf4159-overlay.dts">rpi-adf4159-overlay.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 The adf4159 driver is a SPI bus driver and can be instantiated via device tree.
 
@@ -176,8 +173,7 @@ The adf4159 driver is a SPI bus driver and can be instantiated via device tree.
                 //adi,txdata-trigger-enable;
             };
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -189,8 +185,7 @@ The adf4159 driver depends on **SPI** and selects **REGMAP_SPI**
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -203,11 +198,9 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
                                  *** Phase-Locked Loop (PLL) frequency synthesizers ***
                                  <*> Analog Devices ADF4159/ADF4169 Waveform Generating Synthesizers
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -245,7 +238,7 @@ root@analog:/sys/bus/iio/devices/iio:device1#
 :::
 
 
-#### Show device name
+### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -259,7 +252,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat name**
 :::
 
 
-#### Read output frequency
+### Read output frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -273,7 +266,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency**
 :::
 
 
-#### Set output frequency
+### Set output frequency
 
 Frequencies are in Hz
 
@@ -290,7 +283,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency**
 :::
 
 
-#### Output power down
+### Output power down
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -307,9 +300,9 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_powerdown**
 :::
 
 
-#### Ramp modes
+### Ramp modes
 
-![](/resources/tools-software/linux-drivers/iio-pll/adf4159_ramp.png){.align-center width="600"}
+![adf4159_ramp.png](/resources/tools-software/linux-drivers/iio-pll/adf4159_ramp.png){.align-center width="600" query="?600"}
 
 The `ramp_mode` attribute allows the user to control the output ramp mode of the chip.
 Valid values that can be written:
@@ -337,7 +330,7 @@ continuous_sawtooth
 :::
 
 
-#### Ramp mode deviation step
+### Ramp mode deviation step
 
 This attribute sets the `deviation_step` in Hz. Values can be positive or negative.
 Negative values result in a ramp down.
@@ -357,7 +350,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_de
 :::
 
 
-#### Ramp mode deviation range
+### Ramp mode deviation range
 
 This attribute sets the `deviation_range` in Hz.
 
@@ -376,7 +369,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_de
 :::
 
 
-#### Ramp mode deviation time
+### Ramp mode deviation time
 
 This attribute sets the `deviation_time` in us.
 
@@ -395,7 +388,7 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_de
 :::
 
 
-#### Full device control via IIO debugfs
+### Full device control via IIO debugfs
 
 This device features an additional debugfs ABI, allowing the user to control additional features of the chip.
 Such as dual-ramp modes, muxout mappings, modulation features etc.
@@ -480,7 +473,6 @@ root@analog:~# **iio_attr -c adf4159 altvoltage0 powerdown 0**
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

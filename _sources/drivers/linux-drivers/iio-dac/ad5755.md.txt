@@ -3,27 +3,26 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5757: Quad Channel, 16-Bit, Serial Input, 4-20 mA Output DAC, Dynamic Power Control, HART Connectivity
 ---
 
-AD5755 IIO Multi-Channel DAC Linux Driver
-=========================================
+# AD5755 IIO Multi-Channel DAC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD5735](https://www.google.com/search?q=AD5735&btnI=lucky)
--   [AD5737](https://www.google.com/search?q=AD5737&btnI=lucky)
--   [AD5755](https://www.google.com/search?q=AD5755&btnI=lucky)
--   [AD5755-1](https://www.google.com/search?q=AD5755-1&btnI=lucky)
--   [AD5757](https://www.google.com/search?q=AD5757&btnI=lucky)
+-   [AD5735](adi>AD5735)
+-   [AD5737](adi>AD5737)
+-   [AD5755](adi>AD5755)
+-   [AD5755-1](adi>AD5755-1)
+-   [AD5757](adi>AD5757)
 
 #### Reference Circuits
 
--   [CN0198](https://www.google.com/search?q=CN0198&btnI=lucky)
--   [CN0328](https://www.google.com/search?q=CN0328&btnI=lucky)
+-   [CN0198](adi>CN0198)
+-   [CN0328](adi>CN0328)
 
 #### Evaluation Boards
 
--   [EVAL-AD5755SDZ](https://www.google.com/search?q=EVAL-AD5755SDZ&btnI=lucky)
--   [EVAL-AD5755-1SDZ](https://www.google.com/search?q=EVAL-AD5755-1SDZ&btnI=lucky)
--   [EVAL-AD5757SDZ](https://www.google.com/search?q=EVAL-AD5757SDZ&btnI=lucky)
+-   [EVAL-AD5755SDZ](adi>EVAL-AD5755SDZ)
+-   [EVAL-AD5755-1SDZ](adi>EVAL-AD5755-1SDZ)
+-   [EVAL-AD5757SDZ](adi>EVAL-AD5757SDZ)
 
 #### Description
 
@@ -31,8 +30,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -45,8 +43,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5755.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5755.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5755.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5755.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -63,20 +61,19 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5755.c&amp;btnI=lucky">drivers/iio/dac/ad5755.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5755.c">drivers/iio/dac/ad5755.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD5755_SPI) || 
     defined(CONFIG_AD5755_SPI_MODULE)
@@ -92,7 +89,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -106,8 +103,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -132,11 +128,9 @@ The AD5755 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -312,7 +306,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage2_pow
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

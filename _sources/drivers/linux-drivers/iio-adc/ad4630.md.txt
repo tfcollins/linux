@@ -3,23 +3,22 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADAQ4224: 24-Bit, 2 MSPS μModule Data Acquisition Solution
 ---
 
-AD4630 ADC Linux Driver
-=======================
+# AD4630 ADC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD4030-24](https://www.google.com/search?q=AD4030-24&btnI=lucky)
--   [AD4630-16](https://www.google.com/search?q=AD4630-16&btnI=lucky)
--   [AD4630-24](https://www.google.com/search?q=AD4630-24&btnI=lucky)
--   [ADAQ4216](https://www.google.com/search?q=ADAQ4216&btnI=lucky)
--   [ADAQ4220](https://www.google.com/search?q=ADAQ4220&btnI=lucky)
--   [ADAQ4224](https://www.google.com/search?q=ADAQ4224&btnI=lucky)
+-   [AD4030-24](adi>AD4030-24)
+-   [AD4630-16](adi>AD4630-16)
+-   [AD4630-24](adi>AD4630-24)
+-   [ADAQ4216](adi>ADAQ4216)
+-   [ADAQ4220](adi>ADAQ4220)
+-   [ADAQ4224](adi>ADAQ4224)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD4630-24](https://www.google.com/search?q=en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/EVAL-AD4630-24.html&btnI=lucky)
+-   [EVAL-AD4630-24](adi>en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/EVAL-AD4630-24.html)
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -30,13 +29,13 @@ AD4630 ADC Linux Driver
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master/drivers/iio/adc/ad4630.c&amp;btnI=lucky">git</a></td>
+<td><a href="linux.github&gt;master/drivers/iio/adc/ad4630.c">git</a></td>
 <td>[No]</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -48,28 +47,28 @@ AD4630 ADC Linux Driver
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master/drivers/iio/adc/ad4630.c&amp;btnI=lucky">master/drivers/iio/adc/ad4630.c</a></td>
+<td><a href="linux.github&gt;master/drivers/iio/adc/ad4630.c">master/drivers/iio/adc/ad4630.c</a></td>
 </tr>
 <tr class="even">
 <td>devicetree bindings</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/adc/adi,ad4630.yaml&amp;btnI=lucky">Documentation/devicetree/bindings/iio/adc/adi,ad4630.yaml</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/adc/adi,ad4630.yaml">Documentation/devicetree/bindings/iio/adc/adi,ad4630.yaml</a></td>
 </tr>
 <tr class="odd">
 <td>devicetree for ad4630</td>
-<td><a href="https://www.google.com/search?q=master?arch/arm/boot/dts/zynq-zed-adv7511-ad4630-24.dts&amp;btnI=lucky">arch/arm/boot/dts/zynq-zed-adv7511-ad4630-24.dts</a></td>
+<td><a href="linux.github&gt;master?arch/arm/boot/dts/zynq-zed-adv7511-ad4630-24.dts">arch/arm/boot/dts/zynq-zed-adv7511-ad4630-24.dts</a></td>
 </tr>
 <tr class="even">
 <td>devicetree for adaq4224</td>
-<td><a href="https://www.google.com/search?q=master?arch/arm/boot/dts/zynq-zed-adv7511-adaq4224-24.dts&amp;btnI=lucky">arch/arm/boot/dts/zynq-zed-adv7511-adaq4224-24.dts</a></td>
+<td><a href="linux.github&gt;master?arch/arm/boot/dts/zynq-zed-adv7511-adaq4224-24.dts">arch/arm/boot/dts/zynq-zed-adv7511-adaq4224-24.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Overview
+### Overview
 
-The [ad4030-24](https://www.google.com/search?q=ad4030-24&btnI=lucky), [ad4630-16](https://www.google.com/search?q=ad4630-16&btnI=lucky), and [ad4630-24](https://www.google.com/search?q=ad4630-24&btnI=lucky) are 24-bit, 2 MSPS SAR ADCs highly configurable through an extensive configuration register list.
+The [ad4030-24](adi>ad4030-24), [ad4630-16](adi>ad4630-16), and [ad4630-24](adi>ad4630-24) are 24-bit, 2 MSPS SAR ADCs highly configurable through an extensive configuration register list.
 
-#### Enabling the driver
+### Enabling the driver
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -94,9 +93,9 @@ The AD4630 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-#### Adding a device tree entry
+### Adding a device tree entry
 
-##### Required properties
+#### Required properties
 
 -   **compatible**: Must be one of "adi,ad7091r2", "adi,ad7091r4", "adi,ad7091r8".
 -   **reg**: number of SPI chip select id for the device.
@@ -107,12 +106,12 @@ The AD4630 Driver depends on **CONFIG_SPI**
 -   **pwms**: phandles for the PWM device used as conversion start trigger.
 -   **pwm-names**: name for PWM devices
 
-##### Optional properties
+#### Optional properties
 
 -   **vref-supply**: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.
     see: Documentation/devicetree/bindings/regulator/regulator.txt
 
-##### Device tree example
+#### Device tree example
 
     // SPDX-License-Identifier: GPL-2.0
     /*
@@ -240,8 +239,7 @@ The AD4630 Driver depends on **CONFIG_SPI**
         };
     };
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -255,7 +253,7 @@ An example program whiroot@analog:/sys/bus/iio/devices# ls -lch uses the interfa
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -269,7 +267,7 @@ adaq4224
 :::
 
 
-###### Show channel scale
+##### Show channel scale
 
 **Description:**
 Scale to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts
@@ -286,7 +284,7 @@ root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_scale
 :::
 
 
-###### Show channel list of available scales
+##### Show channel list of available scales
 
 **Description:**
 List of available scales to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts. This affects the gain applied to the input signal before ADC sampling. This attribute is available for ADAQ devices only.
@@ -303,7 +301,7 @@ root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_scale_available
 :::
 
 
-###### Show channel calibration offset
+##### Show channel calibration offset
 
 **Description:**
 Hardware applied calibration offset (calibbias). This is a hardware supported offset that can be applied to compensate for variation between different instances of the part.
@@ -320,7 +318,7 @@ root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_calibbias
 :::
 
 
-###### Show channel calibration scale
+##### Show channel calibration scale
 
 **Description:**
 Hardware applied calibration scale factor.
@@ -337,7 +335,6 @@ root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_calibscale
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

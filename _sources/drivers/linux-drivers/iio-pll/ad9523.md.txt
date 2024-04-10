@@ -3,17 +3,16 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD9523-1: Low Jitter Clock Generator with 14 LVPECL/LVDS/HSTL/29 LVCMOS Outputs
 ---
 
-AD9523 Low Jitter Clock Generator Linux Driver
-==============================================
+# AD9523 Low Jitter Clock Generator Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD9523-1](https://www.google.com/search?q=AD9523-1&btnI=lucky)
--   [AD9523](https://www.google.com/search?q=AD9523&btnI=lucky)
+-   [AD9523-1](adi>AD9523-1)
+-   [AD9523](adi>AD9523)
 
 #### Evaluation Boards
 
--   [AD9523-1/PCBZ](https://www.google.com/search?q=EVAL-AD9523-1&btnI=lucky)
+-   [AD9523-1/PCBZ](adi>EVAL-AD9523-1)
 
 #### Description
 
@@ -21,8 +20,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -35,8 +33,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/ad9523.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/ad9523.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/ad9523.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/ad9523.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -53,27 +51,26 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/frequency/ad9523.c&amp;btnI=lucky">drivers/iio/frequency/ad9523.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/frequency/ad9523.c">drivers/iio/frequency/ad9523.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/iio/frequency/ad9523.h&amp;btnI=lucky">include/linux/iio/frequency/ad9523.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/iio/frequency/ad9523.h">include/linux/iio/frequency/ad9523.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9523&amp;btnI=lucky">Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9523</a></td>
+<td><a href="git.linux.org&gt;Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9523">Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9523</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 The reference frequency and GPIO numbers may vary between boards. The platform_data for the device's "struct device" holds this information.
 
-``` {.c}
+``` c
 /**
  * struct ad9523_channel_spec - Output channel configuration
  *
@@ -194,7 +191,7 @@ struct ad9523_platform_data {
 };
 ```
 
-``` {.c}
+``` c
 struct ad9523_channel_spec ad9523_channels[] = {
     {   /* ZD output */
         .channel_num = 0,
@@ -328,7 +325,7 @@ struct ad9523_platform_data ad9523_pdata_lpc = {
 Depending on the IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD9523) || defined(CONFIG_AD9523_MODULE)
     {
@@ -342,7 +339,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -356,8 +353,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -379,11 +375,9 @@ The AD9523 Driver depends on **CONFIG_SPI**
                     <*> Analog Devices AD9523 Low Jitter Clock Generator 
                 [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -601,7 +595,6 @@ root:/> **echo 1 > sync_dividers**
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,15 +3,14 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: HMC7043: High Performance, 3.2 GHz, 14-Output Fanout Buffer
 ---
 
-HMC7044 Clock Jitter Attenuator with JESD204B Linux Driver
-==========================================================
+# HMC7044 Clock Jitter Attenuator with JESD204B Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [HMC7044](https://www.google.com/search?q=HMC7044&btnI=lucky)
--   [HMC7043](https://www.google.com/search?q=HMC7043&btnI=lucky)
+-   [HMC7044](adi>HMC7044)
+-   [HMC7043](adi>HMC7043)
 
-#### Description
+### Description
 
 HMC7044 is a high performance, dual-loop, integer-N jitter attenuator capable of performing reference selection and generation of ultralow phase noise frequencies for high speed data converters with either parallel or serial (JESD204B type) interfaces.
 
@@ -22,10 +21,9 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -36,13 +34,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/hmc7044.c&amp;btnI=lucky">drivers/iio/frequency/hmc7044.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/hmc7044.c">drivers/iio/frequency/hmc7044.c</a></td>
 <td>No</td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -54,17 +52,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/frequency/hmc7044.c&amp;btnI=lucky">drivers/iio/frequency/hmc7044.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/hmc7044.c">drivers/iio/frequency/hmc7044.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/frequency/hmc7044.txt&amp;btnI=lucky">Documentation/devicetree/bindings/iio/frequency/hmc7044.txt</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/hmc7044.txt">Documentation/devicetree/bindings/iio/frequency/hmc7044.txt</a></td>
 </tr>
 </tbody>
 </table>
 
-Enabling the driver
--------------------
+## Enabling the driver
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -83,11 +80,11 @@ The HMC7044 Driver depends on **CONFIG_SPI**
                      Clock Generator/Distribution  --->
                      <*>  Analog Devices HMC7044, HMC7043 Clock Jitter Attenuator with JESD204B
 
-#### Adding a device tree entry
+### Adding a device tree entry
 
-##### Available properties
+#### Available properties
 
-####### Required properties:
+###### Required properties:
 
 -   **compatible**: Should be "adi,hmc7044".
 -   **reg**: SPI chip select number.
@@ -99,7 +96,7 @@ The HMC7044 Driver depends on **CONFIG_SPI**
 -   **adi,gpo-controls**: An array of 4 elements (each corresponding to GPO1, GPO2, GPO3 and GPO4, respectively), representing the GPO selection (Bits [7:2]), the GPO mode (Bit [1]) and the GPO enable bit ([0]) - see registers 0x0050, 0x0051, 0x0052, 0x0053.
 -   **clock-output-names**: An array of 14 elements, representing the names of the output clocks.
 
-####### Optional properties:
+###### Optional properties:
 
 -   **adi,pll1-loop-bandwidth-hz**: The PLL1 loop bandwidth. If this is not specified, 200 will be used by default.
 -   **adi,sysref-timer-divider**: This sets the internal beat frequency of the master timer, which controls synchronization and pulse generator events. It should be set to a submultiple of the lowest output SYSREF frequency, no faster than 4 MHz. If this is not specified, 1024 will be used by default.
@@ -110,7 +107,7 @@ The HMC7044 Driver depends on **CONFIG_SPI**
 -   **adi,clkin3-buffer-mode**: CLKIN3 Input Buffer Control, for specifying the Input Buffer Mode (Bits [4:1]) and the Buffer enable bit ([0]) - see register 0x000D. If this is not specified, 0 will be used by default.
 -   **adi,oscin-buffer-mode**: OSCIN Input Buffer Control, for specifying the Input Buffer Mode (Bits [4:1]) and the Buffer enable bit ([0]) - see register 0x000E. If this is not specified, 0 will be used by default.
 
-##### Adding channels
+#### Adding channels
 
 Channels can be specified using child nodes. The following properties are applicable to them:
 
@@ -137,7 +134,7 @@ Channels can be specified using child nodes. The following properties are applic
     -   2 = other channel of pair
     -   3 = input VCO clock.
 
-##### Device tree example
+#### Device tree example
 
 The following example instanciates the hmc7044 driver for a HMC7044 device connected on the SPI bus to the chip-select line 0.
 

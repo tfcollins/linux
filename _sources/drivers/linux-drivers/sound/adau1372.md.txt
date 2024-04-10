@@ -3,21 +3,19 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: ADAU1372: Quad ADC, Dual DAC, Low Latency, Low Power Codec
 ---
 
-ADAU1372 Sound CODEC Linux Driver
-=================================
+# ADAU1372 Sound CODEC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADAU1372](https://www.google.com/search?q=ADAU1372&btnI=lucky)
+-   [ADAU1372](adi>ADAU1372)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADAU1372](https://www.google.com/search?q=EVAL-ADAU1372&btnI=lucky)
+-   [EVAL-ADAU1372](adi>EVAL-ADAU1372)
 
-Source Code
------------
+## Source Code
 
-##### Status
+#### Status
 
 <table>
 <thead>
@@ -28,13 +26,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=asoc-adau1372?sound/soc/codecs/adau1372.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adau1372.c&amp;btnI=lucky">WiP</a></td>
+<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adau1372.c">WiP</a></td>
 </tr>
 </tbody>
 </table>
 
-##### Files
+#### Files
 
 <table>
 <thead>
@@ -46,29 +44,28 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=asoc-adau1372?sound/soc/codecs/adau1372.c&amp;btnI=lucky">sound/soc/codecs/adau1372.c</a></td>
+<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372.c">sound/soc/codecs/adau1372.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=asoc-adau1372?sound/soc/codecs/adau1372-i2c.c&amp;btnI=lucky">sound/soc/codecs/adau1372-i2c.c</a></td>
+<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372-i2c.c">sound/soc/codecs/adau1372-i2c.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=asoc-adau1372?sound/soc/codecs/adau1372-spi.c&amp;btnI=lucky">sound/soc/codecs/adau1372-spi.c</a></td>
+<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372-spi.c">sound/soc/codecs/adau1372-spi.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=asoc-adau1372?sound/soc/codecs/adau1372.h&amp;btnI=lucky">sound/soc/codecs/adau1372.h</a></td>
+<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372.h">sound/soc/codecs/adau1372.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example device initialization
------------------------------
+## Example device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-##### I2C
+#### I2C
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
@@ -108,7 +105,7 @@ The I2C device id depends on the ADDR0 and ADDR1 pin settings and needs to be se
 
 In this example we assume ADDR0=0 and ADDR1=0.
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
     [--snip--]
@@ -120,7 +117,7 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
 ```
 
-``` {.c}
+``` c
 static int __init stamp_init(void)
 {
     [--snip--]
@@ -133,11 +130,11 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-##### SPI
+#### SPI
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-#### ASoC DAPM Widgets
+### ASoC DAPM Widgets
 
 The driver registers a set of input, output and supply DAPM widgets which represent the physical input and output signals of the device. For maximum power-saving these are widgets should be used in the machine driver DAPM routing to accurately model the external connections of the device.
 
@@ -192,342 +189,176 @@ The driver registers a set of input, output and supply DAPM widgets which repres
 </tbody>
 </table>
 
-#### ALSA Controls
+### ALSA Controls
 
 <table>
 <tbody>
 <tr class="odd">
 <td>&lt; - 16em &gt;</td>
-<td></td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Name</td>
-<td>Description</td>
-<td>Configuration</td>
 </tr>
 <tr class="odd">
 <td>ADC 0 Capture Switch</td>
-<td>Digital mute control for the first ADC path.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>ADC 0 Capture Volume</td>
-<td>Digital attenuation volume control for the first ADC path.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>ADC 0+1 Bias</td>
-<td>ADC0 and ADC1 bias current setting. Available settings:<br />
-"Normal operation"<br />
-"Enhanced performance"<br />
-"Power saving"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>ADC 0+1 High-Pass-Filter</td>
-<td>High-Pass-Filter configuration for the first and second ADC path. Available settings:<br />
-"Off"<br />
-"1 Hz"<br />
-"4 Hz"<br />
-"8 Hz"</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>ADC 1 Capture Switch</td>
-<td>Digital mute control for the second ADC path.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>ADC 1 Capture Volume</td>
-<td>Digital attenuation volume control for the second ADC path.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>ADC 2 Capture Switch</td>
-<td>Digital mute control for the third ADC path.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>ADC 2 Capture Volume</td>
-<td>Digital attenuation volume control for the third ADC path.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>ADC 2+3 Bias</td>
-<td>ADC2 and ADC3 bias current setting. Available settings:<br />
-"Normal operation"<br />
-"Enhanced performance"<br />
-"Power saving"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>ADC 2+3 High-Pass-Filter</td>
-<td>High-Pass-Filter configuration for the third and fourth ADC path. Available settings:<br />
-"Off"<br />
-"1 Hz"<br />
-"4 Hz"<br />
-"8 Hz"</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>ADC 3 Capture Switch</td>
-<td>Digital mute control for the fourth ADC path.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>ADC 3 Capture Volume</td>
-<td>Digital attenuation volume control for the fourth ADC path.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>AFE 0+1 Bias</td>
-<td>Analog Front-End 0 and Analog Front-End 1 bias current setting. Available settings:<br />
-"Normal operation"<br />
-"Extreme power saving"<br />
-"Enhanced performance"<br />
-"Power saving"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>AFE 2+3 Bias</td>
-<td>Analog Front-End 2 and Analog Front-End 3 bias current setting. Available settings:<br />
-"Normal operation"<br />
-"Extreme power saving"<br />
-"Enhanced performance"<br />
-"Power saving"</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>DAC 0 Mux</td>
-<td>Source select for the first DAC. Available settings:<br />
-"Input ASRC0"<br />
-"Input ASRC1"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>DAC 0 Playback Switch</td>
-<td>Digital mute control for the first DAC path.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>DAC 0 Playback Volume</td>
-<td>Digital attenuation volume control for the first DAC path.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>DAC 0+1 Bias</td>
-<td>DAC bias current setting. Available settings:<br />
-"Normal operation"<br />
-"Power saving"<br />
-"Superior performance"<br />
-"Enhanced performance"</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>DAC 1 Mux</td>
-<td>Source select for the second DAC. Available settings:<br />
-"Input ASRC0"<br />
-"Input ASRC1"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>DAC 1 Playback Switch</td>
-<td>Digital mute control for the second DAC path.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>DAC 1 Playback Volume</td>
-<td>Digital attenuation volume control for the second DAC path.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Decimator 0+1 Capture Mux</td>
-<td>Decimator 0 and 1 input select. Available settings:<br />
-"ADC"<br />
-"DMIC"</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Decimator 2+3 Capture Mux</td>
-<td>Decimator 2 and 3 input select. Available settings:<br />
-"ADC"<br />
-"DMIC"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Headphone Bias</td>
-<td>Headphone output bias current setting. Available settings:<br />
-"Normal operation"<br />
-"Extreme power saving"<br />
-"Enhanced performance"<br />
-"Power saving"</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Input ASRC Playback Mux</td>
-<td>Input sample-rate-converter input select: Available settings:<br />
-"Serial Input 0+1"<br />
-"Serial Input 2+3"<br />
-"Serial Input 4+5"<br />
-"Serial Input 6+7"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Microphone Bias</td>
-<td>Microphone input bias current setting. Available settings:<br />
-"Normal operation"<br />
-"Extreme power saving"<br />
-"Enhanced performance"<br />
-"Power saving"</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Output ASRC0 Mux</td>
-<td>Output sample-rate-converter 0 input select. Available settings:<br />
-"Decimator0"<br />
-"Decimator1"<br />
-"Decimator2"<br />
-"Decimator3"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Output ASRC1 Mux</td>
-<td>Output sample-rate-converter 1 input select. Available settings: See Output ASRC0 Mux</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Output ASRC2 Mux</td>
-<td>Output sample-rate-converter 2 input select. Available settings: See Output ASRC0 Mux</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Output ASRC3 Mux</td>
-<td>Output sample-rate-converter 3 input select. Available settings: See Output ASRC0 Mux</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>PGA 0 Boost Capture Volume</td>
-<td>Input PGA 0 additional 10dB gain volume.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>PGA 0 Capture Switch</td>
-<td>Input PGA 0 mute control.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>PGA 0 Capture Volume</td>
-<td>Input PGA 0 gain volume control.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>PGA 1 Boost Capture Volume</td>
-<td>Input PGA 1 additional 10dB gain volume.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>PGA 1 Capture Switch</td>
-<td>Input PGA 1 mute control.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>PGA 1 Capture Volume</td>
-<td>Input PGA 1 gain volume control.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>PGA 2 Boost Capture Volume</td>
-<td>Input PGA 2 additional 10dB gain volume.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>PGA 2 Capture Switch</td>
-<td>Input PGA 2 mute control.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>PGA 2 Capture Volume</td>
-<td>Input PGA 2 gain volume control.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>PGA 3 Boost Capture Volume</td>
-<td>Input PGA 3 additional 10dB gain volume.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>PGA 3 Capture Switch</td>
-<td>Input PGA 3 mute control.</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>PGA 3 Capture Volume</td>
-<td>Input PGA 3 gain volume control.</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Serial Output 0 Capture Mux</td>
-<td>Serial output channel 0 input select. Available settings:<br />
-"Output ASRC0"<br />
-"Output ASRC1"<br />
-"Output ASRC2"<br />
-"Output ASRC3"<br />
-"Serial Input 0"<br />
-"Serial Input 1"<br />
-"Serial Input 2"<br />
-"Serial Input 3"<br />
-"Serial Input 4"<br />
-"Serial Input 5"<br />
-"Serial Input 6"<br />
-"Serial Input 7"</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Serial Output 1 Capture Mux</td>
-<td>Serial output channel 1 input select. Available settings: See Serial Output 0 Capture Mux</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Serial Output 2 Capture Mux</td>
-<td>Serial output channel 2 input select. Available settings: See Serial Output 0 Capture Mux</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Serial Output 3 Capture Mux</td>
-<td>Serial output channel 3 input select. Available settings: See Serial Output 0 Capture Mux</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Serial Output 4 Capture Mux</td>
-<td>Serial output channel 4 input select. Available settings: See Serial Output 0 Capture Mux</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Serial Output 5 Capture Mux</td>
-<td>Serial output channel 5 input select. Available settings: See Serial Output 0 Capture Mux</td>
-<td></td>
 </tr>
 <tr class="odd">
 <td>Serial Output 6 Capture Mux</td>
-<td>Serial output channel 6 input select. Available settings: See Serial Output 0 Capture Mux</td>
-<td></td>
 </tr>
 <tr class="even">
 <td>Serial Output 7 Capture Mux</td>
-<td>Serial output channel 7 input select. Available settings: See Serial Output 0 Capture Mux</td>
-<td></td>
 </tr>
 </tbody>
 </table>
 
-#### DAI configuration
+### DAI configuration
 
 The codec driver registers one DAI: **adau1372**
 
 This DAI has a capture and a playback interface which share the clocking and are synchronous to each other. Which means they have to run in the same configuration.
 
-##### Supported DAI formats
+#### Supported DAI formats
 
 <table>
 <thead>
@@ -626,11 +457,11 @@ This DAI has a capture and a playback interface which share the clocking and are
 </tbody>
 </table>
 
-##### DAI sysclk
+#### DAI sysclk
 
-##### Example DAI configuration
+#### Example DAI configuration
 
-#### TDM configuration
+### TDM configuration
 
 The ADAU1372 has TDM support.
 
@@ -640,10 +471,10 @@ The ADAU1372 has TDM support.
 
 Example TDM configuration:
 
-``` {.c}
+``` c
     ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x3, 0x3, 8, 24);
 ```
 
-#### More information
+### More information
 
 ![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)

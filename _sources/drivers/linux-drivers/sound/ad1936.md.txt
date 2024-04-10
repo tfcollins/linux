@@ -3,29 +3,27 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: ADAU1328: 2 ADC/8 DAC with PLL, 192 kHz, 24-Bit Codec
 ---
 
-AD1936 Sound CODEC Linux Driver
-===============================
+# AD1936 Sound CODEC Linux Driver
 
-# Supported devices
+### Supported devices
 
--   [AD1933](https://www.google.com/search?q=AD1933&btnI=lucky)
--   [AD1934](https://www.google.com/search?q=AD1934&btnI=lucky)
--   [AD1936](https://www.google.com/search?q=AD1936&btnI=lucky)
--   [AD1937](https://www.google.com/search?q=AD1937&btnI=lucky)
--   [AD1938](https://www.google.com/search?q=AD1938&btnI=lucky)
--   [AD1939](https://www.google.com/search?q=AD1939&btnI=lucky)
--   [ADAU1328](https://www.google.com/search?q=ADAU1328&btnI=lucky)
+-   [AD1933](adi>AD1933)
+-   [AD1934](adi>AD1934)
+-   [AD1936](adi>AD1936)
+-   [AD1937](adi>AD1937)
+-   [AD1938](adi>AD1938)
+-   [AD1939](adi>AD1939)
+-   [ADAU1328](adi>ADAU1328)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD1937AZ](https://www.google.com/search?q=EVAL-AD1937AZ&btnI=lucky)
--   [EVAL-AD1938AZ](https://www.google.com/search?q=EVAL-AD1938AZ&btnI=lucky)
--   [EVAL-AD1939AZ](https://www.google.com/search?q=EVAL-AD1939AZ&btnI=lucky)
+-   [EVAL-AD1937AZ](adi>EVAL-AD1937AZ)
+-   [EVAL-AD1938AZ](adi>EVAL-AD1938AZ)
+-   [EVAL-AD1939AZ](adi>EVAL-AD1939AZ)
 
-Source Code
------------
+## Source Code
 
-##### Status
+#### Status
 
 <table>
 <thead>
@@ -36,13 +34,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ad193x.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ad193x.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ad193x.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ad193x.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-##### Files
+#### Files
 
 <table>
 <thead>
@@ -54,23 +52,22 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ad193x.c&amp;btnI=lucky">sound/soc/codecs/ad193x.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ad193x.c">sound/soc/codecs/ad193x.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/ad193x.h&amp;btnI=lucky">sound/soc/codecs/ad193x.h</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/ad193x.h">sound/soc/codecs/ad193x.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example device initialization
------------------------------
+## Example device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 You need to set the modalias of your SPI info according to your codec. Valid values are "ad1935" and "ad1937", You'll also have to adjust bus_num and chip_select according to your board setup.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
     [--snip--]
     {
@@ -84,7 +81,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -98,7 +95,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-#### ASoC DAPM Widgets
+### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -135,7 +132,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### ALSA Controls
+### ALSA Controls
 
 <table>
 <thead>
@@ -196,7 +193,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-#### DAI Configuration
+### DAI Configuration
 
 <table>
 <thead>
@@ -211,7 +208,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-##### Supported DAI formats
+#### Supported DAI formats
 
 <table>
 <thead>
@@ -310,9 +307,9 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-##### Example DAI Configuration
+#### Example DAI Configuration
 
-``` {.c}
+``` c
 static int bf5xx_ad193x_hw_params(struct snd_pcm_substream *substream,
     struct snd_pcm_hw_params *params)
 {
@@ -351,10 +348,9 @@ static struct snd_soc_dai_link bf5xx_ad193x_dai = {
 };
 ```
 
-AD193X evaluation board driver
-------------------------------
+## AD193X evaluation board driver
 
-#### Adding Kernel Support - As a module
+### Adding Kernel Support - As a module
 
 To add support for the built-in codec AD193X of BF5XX to the kernel build system, a few things must be enabled properly for things to work.The configuration is as following:
 

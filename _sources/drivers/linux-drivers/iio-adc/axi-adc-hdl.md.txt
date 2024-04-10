@@ -3,30 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD9684: 14-Bit, 500 MSPS LVDS, Dual Analog-to-Digital Converter
 ---
 
-AXI ADC HDL Linux Driver
-========================
+# AXI ADC HDL Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD6676](https://www.google.com/search?q=AD6676&btnI=lucky)
--   [AD9208](https://www.google.com/search?q=AD9208&btnI=lucky)
--   [AD9234](https://www.google.com/search?q=AD9234&btnI=lucky)
--   [AD9250](https://www.google.com/search?q=AD9250&btnI=lucky)
--   [AD9265](https://www.google.com/search?q=AD9265&btnI=lucky)
--   [AD9361](https://www.google.com/search?q=AD9361&btnI=lucky)
--   [AD9364](https://www.google.com/search?q=AD9364&btnI=lucky)
--   [AD9371](https://www.google.com/search?q=AD9371&btnI=lucky)
--   [AD9434](https://www.google.com/search?q=AD9434&btnI=lucky)
--   [AD9467](https://www.google.com/search?q=AD9467&btnI=lucky)
--   [AD9625](https://www.google.com/search?q=AD9625&btnI=lucky)
--   [AD9643](https://www.google.com/search?q=AD9643&btnI=lucky)
--   [AD9649](https://www.google.com/search?q=AD9649&btnI=lucky)
--   [AD9652](https://www.google.com/search?q=AD9652&btnI=lucky)
--   [AD9680](https://www.google.com/search?q=AD9680&btnI=lucky)
--   [AD9683](https://www.google.com/search?q=AD9683&btnI=lucky)
--   [AD9684](https://www.google.com/search?q=AD9684&btnI=lucky)
+-   [AD6676](adi>AD6676)
+-   [AD9208](adi>AD9208)
+-   [AD9234](adi>AD9234)
+-   [AD9250](adi>AD9250)
+-   [AD9265](adi>AD9265)
+-   [AD9361](adi>AD9361)
+-   [AD9364](adi>AD9364)
+-   [AD9371](adi>AD9371)
+-   [AD9434](adi>AD9434)
+-   [AD9467](adi>AD9467)
+-   [AD9625](adi>AD9625)
+-   [AD9643](adi>AD9643)
+-   [AD9649](adi>AD9649)
+-   [AD9652](adi>AD9652)
+-   [AD9680](adi>AD9680)
+-   [AD9683](adi>AD9683)
+-   [AD9684](adi>AD9684)
 
-#### Supported Boards
+### Supported Boards
 
 This driver supports the
 * [AD-FMCOMMS1-EBZ FMC Card](resources/eval/user-guides/ad-fmcomms1-ebz)
@@ -45,44 +44,43 @@ This driver supports the
 -   [AD9265 Native FMC Card](resources/fpga/xilinx/fmc/ad9265)
 -   [ADRV9371 FMC Card](resources/eval/user-guides/mykonos)
 
-#### Sub device Documentation (linked mode)
+### Sub device Documentation (linked mode)
 
 -   [AD9208 ADC Linux Driver](/resources/tools-software/linux-drivers/iio-adc/ad9208)
 
-#### Description
+### Description
 
 The AXI ADC HDL driver is the driver for [Generic AXI ADC IP core](/resources/fpga/docs/axi_adc_ip) which is used on various FPGA designs. The driver is implemented as an Linux IIO driver. It's register map can be found here: [Base register map (common to all cores)](/resources/fpga/docs/hdl/regmap)
 
 This driver is split into two parts. A control driver let's call it SPI-ADC which configures the converter internal control registers, this part is typically instantiated via the SPI bus.
-(see: [ad9467.c](https://www.google.com/search?q=master?drivers/iio/adc/ad9467.c&btnI=lucky), [ad9361_conv.c](https://www.google.com/search?q=master?drivers/iio/adc/ad9361_conv.c&btnI=lucky) or [ad9371_conv.c](https://www.google.com/search?q=mykonos?drivers/iio/adc/ad9361_conv.c&btnI=lucky))
+(see: [ad9467.c](linux.github>master?drivers/iio/adc/ad9467.c), [ad9361_conv.c](linux.github>master?drivers/iio/adc/ad9361_conv.c) or [ad9371_conv.c](linux.github>mykonos?drivers/iio/adc/ad9361_conv.c))
 Device probing for the data capture driver (AXI-ADC) which controls the AXI HDL core registers and the DMA, is delayed until the SPI control driver is fully probed.
 The device tree phandle "**spibus-connected**" is used to connect the capture driver with is SPI control driver. This split is required since the AXI-ADC and the SPI-ADC parts are instantiated via different busses. The AXI-ADC driver registers the IIO device, the SPI-ADC instance doesn't. However a shared data structure (struct axiadc_converter) is used so that the methods local to the SPI-ADC driver can extend the IIO attributes provided the AXI-ADC driver. There is also a callback provided (post_setup) which calls a from the AXI-ADC into the AXI-SPI driver after the AXI-ADC is fully alive. This post setup callback is then typically used to finally configure the digital data path, test and tune the digital data interface etc.
 
 For the **AD9361** and **AD9371** family of transceivers, things are a bit more differentiated. In fact these devices have a separate IIO device for the radio control portion.
-We call them the PHY devices. ([ad9361.c](https://www.google.com/search?q=master?drivers/iio/adc/ad9361.c&btnI=lucky) and [ad9371.c](https://www.google.com/search?q=master?drivers/iio/adc/ad9371.c&btnI=lucky) ) The **PHY** drivers are intended to be independent from our AXI-ADC capture drivers and underlying HDL designs.
+We call them the PHY devices. ([ad9361.c](linux.github>master?drivers/iio/adc/ad9361.c) and [ad9371.c](linux.github>master?drivers/iio/adc/ad9371.c) ) The **PHY** drivers are intended to be independent from our AXI-ADC capture drivers and underlying HDL designs.
 Therefore things related to the AXI-ADC driver are located in the ad93X1_conv.c files.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_core.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">WIP</a></td>
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_core.c">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/adc/cf_axi_adc_core.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -94,49 +92,48 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad6676.c&amp;btnI=lucky">drivers/iio/adc/ad6676.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad6676.c">drivers/iio/adc/ad6676.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9208.c&amp;btnI=lucky">drivers/iio/adc/ad9208.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9208.c">drivers/iio/adc/ad9208.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9467.c&amp;btnI=lucky">drivers/iio/adc/ad9467.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9467.c">drivers/iio/adc/ad9467.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9680.c&amp;btnI=lucky">drivers/iio/adc/ad9680.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9680.c">drivers/iio/adc/ad9680.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9361_conv.c&amp;btnI=lucky">drivers/iio/adc/ad9361_conv.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9361_conv.c">drivers/iio/adc/ad9361_conv.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9361_conv.c&amp;btnI=lucky">drivers/iio/adc/ad9371_conv.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9361_conv.c">drivers/iio/adc/ad9371_conv.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/adrv9009_conv.c&amp;btnI=lucky">drivers/iio/adc/adrv9009_conv.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/adrv9009_conv.c">drivers/iio/adc/adrv9009_conv.c</a></td>
 </tr>
 <tr class="even">
 <td>core driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_core.c">drivers/iio/adc/cf_axi_adc_core.c</a></td>
 </tr>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_ring_stream.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_ring_stream.c">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
 </tr>
 <tr class="even">
 <td>core include</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc.h&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc.h</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc.h">drivers/iio/adc/cf_axi_adc.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 The AXI ADC driver is a platform driver and can currently only be instantiated via device tree.
 
@@ -217,8 +214,7 @@ Example:
         };
     }; 
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -230,37 +226,33 @@ The AXI ADC HDL driver depends on **CONFIG_SPI**
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
 
-`Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-        -*-   Enable ring buffer support within IIO
-        -*-     Industrial I/O lock free software ring
-        -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            -*-   Enable ring buffer support within IIO
+            -*-     Industrial I/O lock free software ring
+            -*-   Enable triggered sampling support
 
-              *** Analog to digital converters ***
-        [--snip--]
-            -*- Analog Devices High-Speed AXI ADC driver core             
-                <*> Analog Devices AD9208 and similar high speed ADCs         
-                <*> Analog Devices AD9371 RF Transceiver driver               
-                <*> Analog Devices ADRV9009/ADRV9008 RF Transceiver driver    
-                <*> Analog Devices AD6676 Wideband IF Receiver driver         
-                <*> Analog Devices AD9467 etc. high speed ADCs                
-                <*> Analog Devices AD9680 and similar high speed ADCs 
-        [--snip--]
-`
+                  *** Analog to digital converters ***
+            [--snip--]
+                -*- Analog Devices High-Speed AXI ADC driver core             
+                    <*> Analog Devices AD9208 and similar high speed ADCs         
+                    <*> Analog Devices AD9371 RF Transceiver driver               
+                    <*> Analog Devices ADRV9009/ADRV9008 RF Transceiver driver    
+                    <*> Analog Devices AD6676 Wideband IF Receiver driver         
+                    <*> Analog Devices AD9467 etc. high speed ADCs                
+                    <*> Analog Devices AD9680 and similar high speed ADCs 
+            [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -302,7 +294,7 @@ root:/sys/bus/iio/devices/iio:device4>
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -316,7 +308,7 @@ cf-ad9643-core-lpc
 :::
 
 
-###### Show scale
+##### Show scale
 
 **Description:**
 scale to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts.
@@ -333,7 +325,7 @@ root:/sys/bus/iio/devices/iio:device4> **cat in_voltage_scale**
 :::
 
 
-###### Show available scales
+##### Show available scales
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -347,7 +339,7 @@ root:/sys/bus/iio/devices/iio:device4> **cat in_voltage_scale_available**
 :::
 
 
-###### Set ADC calibration gain
+##### Set ADC calibration gain
 
 **Description:**
 in_voltage0_calibscale
@@ -366,7 +358,7 @@ root:/sys/bus/iio/devices/iio:device4> **cat in_voltage0_calibscale**
 :::
 
 
-###### Set ADC calibration bias
+##### Set ADC calibration bias
 
 **Description:**
 in_voltage0_calibbias
@@ -385,7 +377,7 @@ root:/sys/bus/iio/devices/iio:device4> **cat in_voltage0_calibscale**
 :::
 
 
-###### Show available ADC test modes
+##### Show available ADC test modes
 
 **Description:**
 Show available test modes supported by the underlying ADC.
@@ -403,7 +395,7 @@ off midscale_short pos_fullscale neg_fullscale checkerboard pn_long pn_short one
 :::
 
 
-###### Set ADC test mode
+##### Set ADC test mode
 
 **Description:**
 in_voltage0_test_mode
@@ -425,7 +417,7 @@ root:/sys/bus/iio/devices/iio:device4> **echo off > in_voltage0_test_mode**
 :::
 
 
-###### External Synchronization
+##### External Synchronization
 
 The [ADC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_adc) core supports the [EXT_SYNC](/resources/fpga/peripherals/jesd204/jesd204_tpl_adc#External_synchronization) feature, allowing to synchronize multiple channels within a ADC or across multiple instances.
 This feature can also synchronize between the [ADC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_adc) and [DAC TPL HDL](/resources/fpga/peripherals/jesd204/jesd204_tpl_dac) core.
@@ -449,7 +441,7 @@ signal or 'disarm' otherwise.
 ```
 -   `trigger_manual`: Setting this key will issue an external sync event if it is hooked up inside the fabric. This key has an effect only the EXT_SYNC synthesis parameter is set.
 
-####### Example:
+###### Example:
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -471,7 +463,7 @@ root@analog:/sys/bus/iio/devices/iio:device3# **cat sync_start_enable**
 :::
 
 
-#### Buffer management
+### Buffer management
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -509,7 +501,6 @@ root:/sys/bus/iio/devices/iio:device4/scan_elements>
 
 ![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

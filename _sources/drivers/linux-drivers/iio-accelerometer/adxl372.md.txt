@@ -3,27 +3,25 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADXL372: Micropower 3-Axis MEMS Accelerometer, Programmable Digital Output, ±200 g Range
 ---
 
-ADXL372 Input 3-Axis Digital Accelerometer Linux Driver
-=======================================================
+# ADXL372 Input 3-Axis Digital Accelerometer Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADXL372](https://www.google.com/search?q=ADXL372&btnI=lucky)
+-   [ADXL372](adi>ADXL372)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADXL372Z](https://www.google.com/search?q=EVAL-ADXL372Z&btnI=lucky)
+-   [EVAL-ADXL372Z](adi>EVAL-ADXL372Z)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting dual or quad channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -34,13 +32,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/accel/adxl372.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/accel/adxl372.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/accel/adxl372.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/accel/adxl372.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -52,27 +50,27 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl372.c&amp;btnI=lucky">drivers/iio/accel/adxl372.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/accel/adxl372.c">drivers/iio/accel/adxl372.c</a></td>
 </tr>
 <tr class="even">
 <td>spi driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl372_spi.c&amp;btnI=lucky">drivers/iio/accel/adxl372_spi.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/accel/adxl372_spi.c">drivers/iio/accel/adxl372_spi.c</a></td>
 </tr>
 <tr class="odd">
 <td>i2c driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/accel/adxl372_i2c.c&amp;btnI=lucky">drivers/iio/accel/adxl372_i2c.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/accel/adxl372_i2c.c">drivers/iio/accel/adxl372_i2c.c</a></td>
 </tr>
 <tr class="even">
 <td>header</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/iio/accel/adxl372.h&amp;btnI=lucky">drivers/iio/accel/adxl372.h</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/iio/accel/adxl372.h">drivers/iio/accel/adxl372.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/accel/adxl345.txt&amp;btnI=lucky">adxl345.txt</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/accel/adxl345.txt">adxl345.txt</a></td>
 </tr>
 <tr class="even">
 <td>ABI documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/ABI/testing/sysfs-bus-iio-accel-adxl372&amp;btnI=lucky">sysfs-bus-iio-accel-adxl372</a></td>
+<td><a href="linux.github&gt;master?Documentation/ABI/testing/sysfs-bus-iio-accel-adxl372">sysfs-bus-iio-accel-adxl372</a></td>
 </tr>
 </tbody>
 </table>
@@ -89,13 +87,12 @@ Example device tree
 <tbody>
 <tr class="odd">
 <td>dts</td>
-<td><a href="https://www.google.com/search?q=rpi-4.19.y?arch/arm/boot/dts/overlays/rpi-adxl372-overlay.dts&amp;btnI=lucky">rpi-adxl372-overlay.dts</a></td>
+<td><a href="linux.github&gt;rpi-4.19.y?arch/arm/boot/dts/overlays/rpi-adxl372-overlay.dts">rpi-adxl372-overlay.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 Required devicetree properties:
 
@@ -137,8 +134,7 @@ Example for a I2C device node:
             interrupt-parent = <&gpio>;
         };
 
-Driver testing
---------------
+## Driver testing
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -176,7 +172,7 @@ drwxr-xr-x 2 root root 0 Oct 25 04:25 trigger
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -190,7 +186,7 @@ adxl372
 :::
 
 
-###### Show scale
+##### Show scale
 
 **Description:**
 scale to be applied to in_accel_*_raw in order to obtain the acceleration.
@@ -207,7 +203,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_accel_scale**
 :::
 
 
-###### Show axis x measurement
+##### Show axis x measurement
 
 **Description:**
 Raw unscaled acceleration measurement on x axis
@@ -224,7 +220,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_accel_x_raw**
 :::
 
 
-###### Set sampling frequency
+##### Set sampling frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -243,7 +239,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_accel_sampling_frequency**
 :::
 
 
-###### Show available bandwidths for the current set frequency
+##### Show available bandwidths for the current set frequency
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -260,7 +256,7 @@ root:/sys/bus/iio/devices/iio:device0>
 :::
 
 
-###### Change the bandwidth
+##### Change the bandwidth
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -285,7 +281,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_accel_filter_low_pass_3db_freque
 :::
 
 
-#### Using the FIFO Buffer
+### Using the FIFO Buffer
 
 **Description:**
 The ADXL372 includes a deep, 512 sample FIFO buffer. The 512 FIFO samples can be allotted in several ways, such as the following:
@@ -295,7 +291,7 @@ The ADXL372 includes a deep, 512 sample FIFO buffer. The 512 FIFO samples can be
 -   512 sample sets of single-axis data
 -   170 sets of impact event peak (x, y, z)
 
-##### Trigger management
+#### Trigger management
 
 **Description:**
 The FIFO is configured in **Stream Mode** and **FIFO_FULL** interrupt is enabled. The interrupt will be triggered when the FIFO watermark is reached.
@@ -312,7 +308,7 @@ adxl372-dev-*
 :::
 
 
-##### Buffer management
+#### Buffer management
 
 **Description:**
 The scan_elements directory contains interfaces for elements that will be captured for a single triggered sample set in the buffer
@@ -436,8 +432,7 @@ root:/sys/bus/iio/devices/iio:device0/buffer> **cat /dev/iio:device0**
 :::
 
 
-Low level register access via debugfs (direct_reg_access)
------------------------------------------------------------
+## Low level register access via debugfs (direct_reg_access)
 
 Some IIO drivers feature an optional debug facility, allowing users to read or write registers directly. Special care needs to be taken when using this feature, since you can modify registers on the back of the driver. Accessing debugfs requires root privileges.
 
@@ -509,7 +504,6 @@ root@analog:/sys/kernel/debug/iio/iio:device0#
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

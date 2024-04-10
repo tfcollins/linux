@@ -3,20 +3,19 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5780: SYSTEM READY, 18-BIT ±1 LSB INL, Voltage Output DAC
 ---
 
-AD5764 IIO Quad-Channel DAC Linux Driver
-========================================
+# AD5764 IIO Quad-Channel DAC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD5744](https://www.google.com/search?q=AD5744&btnI=lucky)
--   [AD5744R](https://www.google.com/search?q=AD5744R&btnI=lucky)
--   [AD5764](https://www.google.com/search?q=AD5764&btnI=lucky)
--   [AD5764R](https://www.google.com/search?q=AD5764R&btnI=lucky)
+-   [AD5744](adi>AD5744)
+-   [AD5744R](adi>AD5744R)
+-   [AD5764](adi>AD5764)
+-   [AD5764R](adi>AD5764R)
 
 #### Evaluation Boards
 
--   [EVAL-AD5764EBZ](https://www.google.com/search?q=EVAL-AD5764EBZ&btnI=lucky)
--   [EVAL-AD5764REBZ](https://www.google.com/search?q=EVAL-AD5764REBZ&btnI=lucky)
+-   [EVAL-AD5764EBZ](adi>EVAL-AD5764EBZ)
+-   [EVAL-AD5764REBZ](adi>EVAL-AD5764REBZ)
 
 #### Description
 
@@ -24,8 +23,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -38,8 +36,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5764.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5764.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5764.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5764.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -56,13 +54,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5764.c&amp;btnI=lucky">drivers/iio/dac/ad5764.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5764.c">drivers/iio/dac/ad5764.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 #### Specifying reference voltage via the regulator framework
 
@@ -72,7 +69,7 @@ The supplys must be be called "vrefAB" and "vrefCD".
 
 Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 
-``` {.c}
+``` c
 ## if IS_ENABLED(CONFIG_REGULATOR_FIXED_VOLTAGE)
 static struct regulator_consumer_supply ad5764_consumer_supplies[] = {
     REGULATOR_SUPPLY("vrefAB", "spi0.3"),
@@ -106,7 +103,7 @@ static struct platform_device brd_voltage_regulator = {
 ## endif
 ```
 
-``` {.c}
+``` c
 static struct platform_device *board_devices[] __initdata = {
 ## if IS_ENABLED(CONFIG_REGULATOR_FIXED_VOLTAGE)
     &brd_voltage_regulator
@@ -114,7 +111,7 @@ static struct platform_device *board_devices[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -133,7 +130,7 @@ arch_initcall(board_init);
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if IS_ENABLED(CONFIG_AD5764)
     {
@@ -148,7 +145,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -162,8 +159,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -188,11 +184,9 @@ The AD5764 Driver depends on **CONFIG_SPI_MASTER**
                 ...
             ...
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -319,7 +313,6 @@ Each channel has an adjustable gain which can be used to calibrate the channel's
 /sys/bus/iio/devices/iio:deviceX/out_voltageY_calibbias
 Each channel has an adjustable offset which can be used to calibrate the channel's offset and compensate for zero-scale errors. The default value is 0. The minimum value is -128, the maximum value is 127.
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

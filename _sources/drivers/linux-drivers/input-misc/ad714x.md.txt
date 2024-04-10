@@ -3,31 +3,30 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/inpu
 title: AD7148: CapTouch® Programmable Controller for Single-Electrode Capacitance Sensors
 ---
 
-AD714X Input CapTouch® Programmable Controller Linux Driver
-===========================================================
+# AD714X Input CapTouch® Programmable Controller Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD7142](https://www.google.com/search?q=AD7142&btnI=lucky)
--   [AD7143](https://www.google.com/search?q=AD7143&btnI=lucky)
--   [AD7147](https://www.google.com/search?q=AD7147&btnI=lucky)
--   [AD7147A](https://www.google.com/search?q=AD7147A&btnI=lucky)
--   [AD7148](https://www.google.com/search?q=AD7148&btnI=lucky)
+-   [AD7142](adi>AD7142)
+-   [AD7143](adi>AD7143)
+-   [AD7147](adi>AD7147)
+-   [AD7147A](adi>AD7147A)
+-   [AD7148](adi>AD7148)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD7147EBZ](https://www.google.com/search?q=EVAL-AD7147EBZ&btnI=lucky)
--   [EVAL-AD7147-1EBZ](https://www.google.com/search?q=EVAL-AD7147-1EBZ&btnI=lucky)
+-   [EVAL-AD7147EBZ](adi>EVAL-AD7147EBZ)
+-   [EVAL-AD7147-1EBZ](adi>EVAL-AD7147-1EBZ)
 
-#### Description
+### Description
 
-##### Capacitance Touch Sensors
+#### Capacitance Touch Sensors
 
 Capacitance sensors detect a change in capacitance when something or someone approaches or touches the sensor. The technique has been used in industrial applications for many years to measure liquid levels, humidity, and material composition. A newer application, coming into widespread use, is in human-to-machine interfaces. Mechanical buttons, switches, and jog wheels have long been used as the interface between the user and the machine. Because of their many drawbacks, however, interface designers have been increasingly looking for more reliable solutions. Capacitive sensors can be used in the same manner as buttons, but they also can function with greater versatility, for example, when implementing a 128-position scroll bar.
 
-For more info on how these types of sensors work, take a peek at the [ADI web site](https://www.google.com/search?q=library/analogDialogue/archives/40-10/cap_sensors.html&btnI=lucky).
+For more info on how these types of sensors work, take a peek at the [ADI web site](adi>library/analogDialogue/archives/40-10/cap_sensors.html).
 
-##### Overview
+#### Overview
 
 Implementing a capacitive touch sensor solution using the AD714x requires three components:
 
@@ -50,14 +49,13 @@ Many options for implementing the user interface are available to the designer, 
 
 The number of sensors that can be implemented using a single device depends on the type of sensors required. The AD7142 has 14 capacitance input pins and 12 conversion channels, the AD7143 and AD7148 have 8 capacitance input pins and 8 conversion channels, and the AD7147 and AD7147A have 13 capacitance input pins and 12 conversion channels.
 
-#### Configuration
+### Configuration
 
-#### Software configurable features
+### Software configurable features
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -68,13 +66,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/input/misc/ad714x.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/input/misc/ad714x.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/input/misc/ad714x.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/input/misc/ad714x.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -86,19 +84,19 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/input/misc/ad714x.c&amp;btnI=lucky">drivers/input/misc/ad714x.c</a></td>
+<td><a href="git.linux.org&gt;drivers/input/misc/ad714x.c">drivers/input/misc/ad714x.c</a></td>
 </tr>
 <tr class="even">
 <td>i2c bus support</td>
-<td><a href="https://www.google.com/search?q=drivers/input/misc/ad714x-i2c.c&amp;btnI=lucky">drivers/input/misc/ad714x-i2c.c</a></td>
+<td><a href="git.linux.org&gt;drivers/input/misc/ad714x-i2c.c">drivers/input/misc/ad714x-i2c.c</a></td>
 </tr>
 <tr class="odd">
 <td>spi bus support</td>
-<td><a href="https://www.google.com/search?q=drivers/input/misc/ad714x-spi.c&amp;btnI=lucky">drivers/input/misc/ad714x-spi.c</a></td>
+<td><a href="git.linux.org&gt;drivers/input/misc/ad714x-spi.c">drivers/input/misc/ad714x-spi.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/input/ad714x.h&amp;btnI=lucky">include/linux/input/ad714x.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/input/ad714x.h">include/linux/input/ad714x.h</a></td>
 </tr>
 </tbody>
 </table>
@@ -111,8 +109,7 @@ linux-2.6.x/drivers/input/misc/ad714x-i2c.c.
 ad714x.c fulfills the common arithmetic and state machines for sliders, keypads, touchpads and so on. ad714x-spi.c and ad714x-i2c.c, which call common probe/remove entries in ad714x.c, merge the bottom ad714x driver into Linux SPI/I2C device driver framework. The code included works with the AD7142 and AD7147 demo board.
 Note that this code is covered under the GPL - if you want non-GPL source, have a look at ADI's Web site.
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -131,8 +128,7 @@ For AD7147 demo board, the platform information is:
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7147_spi_button_plat{} c linux-kernel>
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7147_spi_platform_data{} c linux-kernel>
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 To select it from menuconfig:
 
@@ -143,21 +139,19 @@ To select it from menuconfig:
            <*>     support I2C bus connection
            <*>     support SPI bus connection
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-![](/software/driver/linux/ad7142_schematic.jpg){width="800"}
+![ad7142_schematic.jpg](/software/driver/linux/ad7142_schematic.jpg){width="800" query="?800"}
 
 We connected the AD7142 demo board to the TWI/I2C connector and AD7147 demo board to the SPI connector on the BF537 STAMP board.
 
-![](/software/driver/linux/ad7142_stamp537.jpg)
+![ad7142_stamp537.jpg](/software/driver/linux/ad7142_stamp537.jpg)
 
 For BF537 STAMP board, please set SW5-3 off as the interrupt input.
 
 And For AD7147 eval-board, please set S4-2 on and other positions off.
 
-Driver testing
---------------
+## Driver testing
 
 Some testing output from the event_test application:
 
@@ -198,7 +192,6 @@ Some testing output from the event_test application:
     Event: time 402.942508, type 1 (Key), code 295 (BaseBtn2), value 1
     Event: time 402.942516, type 0 (Reset), code 0 (Reset), value 0
 
-More Information
-----------------
+## More Information
 
 ![](page>resources/tools-software/linux-drivers/snippets#input_pointers&noheader&firstseconly&noeditbtn)

@@ -3,29 +3,27 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/soun
 title: ADAV803: Audio Codec for Recordable DVD
 ---
 
-ADAV80X Sound CODEC Linux Driver
-================================
+# ADAV80X Sound CODEC Linux Driver
 
-# Supported devices
+### Supported devices
 
--   [ADAV801](https://www.google.com/search?q=ADAV801&btnI=lucky)
--   [ADAV803](https://www.google.com/search?q=ADAV803&btnI=lucky)
+-   [ADAV801](adi>ADAV801)
+-   [ADAV803](adi>ADAV803)
 
 ADAV801 and ADAV803 differs in serial interface. ADAV801 uses SPI, while ADAV803 uses I2C.
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0219](https://www.google.com/search?q=CN0219&btnI=lucky)
+-   [CN0219](adi>CN0219)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADAV801EBZ](https://www.google.com/search?q=EVAL-ADAV801EBZ&btnI=lucky)
--   [EVAL-ADAV803EBZ](https://www.google.com/search?q=EVAL-ADAV803EBZ&btnI=lucky)
+-   [EVAL-ADAV801EBZ](adi>EVAL-ADAV801EBZ)
+-   [EVAL-ADAV803EBZ](adi>EVAL-ADAV803EBZ)
 
-Source Code
------------
+## Source Code
 
-###### Status
+#### Status
 
 <table>
 <thead>
@@ -36,13 +34,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adav80x.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adav80x.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adav80x.c">git</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adav80x.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-###### Files
+#### Files
 
 <table>
 <thead>
@@ -54,19 +52,18 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adav80x.c&amp;btnI=lucky">sound/soc/codecs/adav80x.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adav80x.c">sound/soc/codecs/adav80x.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=sound/soc/codecs/adav80x.h&amp;btnI=lucky">sound/soc/codecs/adav80x.h</a></td>
+<td><a href="git.linux.org&gt;sound/soc/codecs/adav80x.h">sound/soc/codecs/adav80x.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Supported Features
-------------------
+## Supported Features
 
-#### ASoC DAPM widgets
+### ASoC DAPM widgets
 
 <table>
 <thead>
@@ -95,7 +92,7 @@ Supported Features
 </tbody>
 </table>
 
-#### ALSA controls
+### ALSA controls
 
 <table>
 <thead>
@@ -148,7 +145,7 @@ Supported Features
 </tbody>
 </table>
 
-#### Supported DAI formats
+### Supported DAI formats
 
 <table>
 <thead>
@@ -247,39 +244,38 @@ Supported Features
 </tbody>
 </table>
 
-#### Currently unsupported features
+### Currently unsupported features
 
 -   Automatic level control
 -   on-chip sample rate converter (Both serial ports have to use the same sample rate)
 -   S/PDIF input and output
 
-ADAV80X evaluation board driver
--------------------------------
+## ADAV80X evaluation board driver
 
 There is no dedicated Blackfin STAMP evaluation board for the ADAV80X. During test and driver development we used the EVAL-ADAV801/ADAV803 board.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
-#### Source Code
+### Source Code
 
-###### Status
+#### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=linux-kernel?sound/soc/blackfin/bfin-eval-adav80x.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=sound/soc/blackfin/bfin-eval-adav80x.c&amp;btnI=lucky">Yes</a></td>
+<td style="text-align: center;"><a href="bfgit&gt;linux-kernel?sound/soc/blackfin/bfin-eval-adav80x.c">git</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;sound/soc/blackfin/bfin-eval-adav80x.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-###### Files
+#### Files
 
 <table>
 <thead>
@@ -291,12 +287,12 @@ It can be easily wired to the Blackfin STAMP SPORT header.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=sound/soc/blackfin/bfin-eval-adav80x.c&amp;btnI=lucky">sound/soc/blackfin/bfin-eval-adav80x.c</a></td>
+<td><a href="git.linux.org&gt;sound/soc/blackfin/bfin-eval-adav80x.c">sound/soc/blackfin/bfin-eval-adav80x.c</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Kernel configuration
+### Kernel configuration
 
 For ADAV801, enable SPI:
 
@@ -322,7 +318,7 @@ Enable ALSA SoC evaluation board driver:
     <M>     ALSA for SoC audio support  --->
     <M>       Support for the EVAL-ADAV80X boards on Blackfin eval boards
 
-#### Hardware configuration
+### Hardware configuration
 
 Default setting for the 12-way DIP switch: from SW11 to SW0 - 110001110001.
 Keep all switch and jumpers as default value defined in the manual, except:
@@ -333,7 +329,7 @@ Keep all switch and jumpers as default value defined in the manual, except:
 To test using BF537-STAMP board, connect **play** and **rec** port on the ADAV80X evaluation board with SPORT0 on STAMP.
 Connect **CPORT** pins also to corresponding pins STAMP. Also, please make sure to connect the **GND** of the two boards together to get better signal.
 
-#### Driver testing
+### Driver testing
 
 Load the driver and make sure the sound card is properly instantiated.
 

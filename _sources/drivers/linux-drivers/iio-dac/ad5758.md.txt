@@ -3,29 +3,27 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5758: Single Channel, 16-Bit, Current/Voltage Output DAC, Dynamic Power Control, HART Connectivity
 ---
 
-AD5758 IIO DAC Linux Driver
-===========================
+# AD5758 IIO DAC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
 This driver supports the
 
--   [AD5758](https://www.google.com/search?q=AD5758&btnI=lucky)
+-   [AD5758](adi>AD5758)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD5758](https://www.google.com/search?q=EVAL-AD5758&btnI=lucky)
+-   [EVAL-AD5758](adi>EVAL-AD5758)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi-channel serial interface DACs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -36,13 +34,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5758.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5758.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5758.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5758.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -54,12 +52,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5758.c&amp;btnI=lucky">drivers/iio/dac/ad5758.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5758.c">drivers/iio/dac/ad5758.c</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Devicetree
+### Devicetree
 
 Required properties for the AD5758:
 
@@ -93,8 +91,7 @@ Optional properties:
                     adi,slew = <1 200000 12>;
                     adi,range = <1>;
 
-Driver testing
---------------
+## Driver testing
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -121,7 +118,7 @@ lrwxrwxrwx 1 root root 0 May 23 09:14 subsystem -> ../../../../../../../../bus/i
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -135,7 +132,7 @@ ad5758
 :::
 
 
-###### Show scale
+##### Show scale
 
 **Description:**
 scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.
@@ -152,7 +149,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat out_voltage_scale **
 :::
 
 
-###### Set channel 0 output voltage
+##### Set channel 0 output voltage
 
 **Description:**
 /sys/bus/iio/devices/deviceX/out_voltage0_raw
@@ -172,7 +169,7 @@ root:/sys/bus/iio/devices/iio:device0> **echo 32767 > out_voltage0_raw**
 
 **U** = *out_voltage0_raw * out_voltage_scale* = 32767 * 0.152587890 = **4999.84 *mV***
 
-###### Enable power down mode on output 0
+##### Enable power down mode on output 0
 
 /sys/bus/iio/devices/deviceX/out_voltage0_powerdown
 
@@ -196,7 +193,6 @@ root:/sys/bus/iio/devices/iio:device0> **cat out_voltage0_powerdown**
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

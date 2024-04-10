@@ -3,61 +3,59 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD9697: 14-Bit, 1300 MSPS, JESD204B, Analog-to-Digital Converter
 ---
 
-AD9208 ADC Linux Driver
-=======================
+# AD9208 ADC Linux Driver
 
 This driver is used in conjunction with the [AXI ADC HDL Linux Driver](/resources/tools-software/linux-drivers/iio-adc/axi-adc-hdl)
 
-# Supported Devices
+### Supported Devices
 
--   [AD6684](https://www.google.com/search?q=AD6684&btnI=lucky)
--   [AD6688](https://www.google.com/search?q=AD6688&btnI=lucky)
--   [AD9208](https://www.google.com/search?q=AD9208&btnI=lucky)
--   [AD9680](https://www.google.com/search?q=AD9680&btnI=lucky)
--   [AD9689](https://www.google.com/search?q=AD9689&btnI=lucky)
--   [AD9694](https://www.google.com/search?q=AD9694&btnI=lucky)
--   [AD9695](https://www.google.com/search?q=AD9695&btnI=lucky)
--   [AD9697](https://www.google.com/search?q=AD9697&btnI=lucky)
+-   [AD6684](adi>AD6684)
+-   [AD6688](adi>AD6688)
+-   [AD9208](adi>AD9208)
+-   [AD9680](adi>AD9680)
+-   [AD9689](adi>AD9689)
+-   [AD9694](adi>AD9694)
+-   [AD9695](adi>AD9695)
+-   [AD9697](adi>AD9697)
 
-#### Supported Boards
+### Supported Boards
 
 This driver supports the
 * [EVALUATING THE AD9208 / AD9689 ANALOG-TO-DIGITAL CONVERTER](/resources/eval/ad9208-3000ebz)
 
-#### Supported HDL Cores
+### Supported HDL Cores
 
 -   [ADC JESD204B Transport Peripheral](/resources/fpga/peripherals/jesd204/jesd204_tpl_adc)
 -   [AD9208-DUAL-EBZ HDL reference design](/resources/eval/user-guides/ad9208_dual_ebz/ad9208_dual_ebz_hdl)
 
-#### Description
+### Description
 
-![](/resources/tools-software/linux-drivers/iio-adc/ad9208-fbl.png){.align-center width="400"}
+![ad9208-fbl.png](/resources/tools-software/linux-drivers/iio-adc/ad9208-fbl.png){.align-center width="400" query="?400"}
 
 The AD9208 is a dual, 14-bit, 3 GSPS analog-to-digital converter (ADC). The device has an on-chip buffer and a sample-and-hold circuit designed for low power, small size, and ease of use. This product is designed to support communications applications capable of direct sampling wide bandwidth analog signals of up to 5 GHz. The −3 dB bandwidth of the ADC input is 9 GHz. The AD9208 is optimized for wide input bandwidth, high sampling rate, excellent linearity, and low power in a small package.
 
 The dual ADC cores feature a multistage, differential pipelined architecture with integrated output error correction logic. Each ADC features wide bandwidth inputs supporting a variety of user-selectable input ranges. An integrated voltage reference eases design considerations. The analog input and clock signals are differential inputs. The ADC data outputs are internally connected to four digital downconverters (DDCs) through a crossbar mux. Each DDC consists of up to five cascaded signal processing stages: a 48-bit frequency translator (numerically controlled oscillator (NCO)), and up to four half-band decimation filters. The NCO has the option to select preset bands over the general-purpose input/output (GPIO) pins, which enables the selection of up to three bands. Operation of the AD9208 between the DDC modes is selectable via SPI-programmable profiles. In addition to the DDC blocks, the AD9208 has several functions that simplify the automatic gain control (AGC) function in a communications receiver. The programmable threshold detector allows monitoring of the incoming signal power using the fast detect control bits in Register 0x0245 of the ADC. If the input signal level exceeds the programmable threshold, the fast detect indicator goes high. Because this threshold indicator has low latency, the user can quickly turn down the system gain to avoid an overrange condition at the ADC input. In addition to the fast detect outputs, the AD9208 also offers signal monitoring capability. The signal monitoring block provides additional information about the signal being digitized by the ADC. The user can configure the Subclasss 1 JESD204B-based high speed serialized output in a variety of one-lane, two-lane, four-lane, and eight-lane configurations, depending on the DDC configuration and the acceptable lane rate of the receiving logic device. Multidevice synchronization is supported through the SYSREF± and SYNCINB± input pins. The AD9208 has flexible power-down options that allow significant power savings when desired. All of these features can be programmed using a 3-wire serial port interface (SPI). This product is protected by a U.S. patent.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9208.c&amp;btnI=lucky">drivers/iio/adc/ad9208.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/adc/ad9208.c&amp;btnI=lucky">WIP</a></td>
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/adc/ad9208.c">drivers/iio/adc/ad9208.c</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/adc/ad9208.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -69,27 +67,27 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9208.c&amp;btnI=lucky">drivers/iio/adc/ad9208.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9208.c">drivers/iio/adc/ad9208.c</a></td>
 </tr>
 <tr class="even">
 <td>API driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/ad9208&amp;btnI=lucky">drivers/iio/adc/ad9208</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9208">drivers/iio/adc/ad9208</a></td>
 </tr>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_core.c">drivers/iio/adc/cf_axi_adc_core.c</a></td>
 </tr>
 <tr class="even">
 <td>core driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_ring_stream.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_ring_stream.c">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
 </tr>
 <tr class="odd">
 <td>core include</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc.h&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc.h</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc.h">drivers/iio/adc/cf_axi_adc.h</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/adc/adi,ad9208.txt&amp;btnI=lucky">adi,ad9208.txt</a></td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/adc/adi,ad9208.txt">adi,ad9208.txt</a></td>
 </tr>
 </tbody>
 </table>
@@ -106,21 +104,20 @@ Example device trees
 <tbody>
 <tr class="odd">
 <td>dtsi</td>
-<td><a href="https://www.google.com/search?q=master?arch/microblaze/boot/dts/adi-dual-ad9208.dtsi&amp;btnI=lucky">adi-dual-ad9208.dtsi</a></td>
+<td><a href="linux.github&gt;master?arch/microblaze/boot/dts/adi-dual-ad9208.dtsi">adi-dual-ad9208.dtsi</a></td>
 </tr>
 <tr class="even">
 <td>dts</td>
-<td><a href="https://www.google.com/search?q=master?arch/microblaze/boot/dts/vcu118_dual_ad9208.dts&amp;btnI=lucky">vcu118_dual_ad9208.dts</a></td>
+<td><a href="linux.github&gt;master?arch/microblaze/boot/dts/vcu118_dual_ad9208.dts">vcu118_dual_ad9208.dts</a></td>
 </tr>
 <tr class="odd">
 <td>dts</td>
-<td><a href="https://www.google.com/search?q=master?arch/arm64/boot/dts/xilinx/zynqmp-zcu102-rev10-ad9208.dts&amp;btnI=lucky">zynqmp-zcu102-rev10-ad9208.dts</a></td>
+<td><a href="linux.github&gt;master?arch/arm64/boot/dts/xilinx/zynqmp-zcu102-rev10-ad9208.dts">zynqmp-zcu102-rev10-ad9208.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Example devicetree SPI device initialization
---------------------------------------------
+## Example devicetree SPI device initialization
 
 **Analog Devices AD9208 (and similar) JESD204B Analog-to-Digital Converter (ADC)**
 
@@ -323,8 +320,7 @@ Example devicetree SPI device initialization
             };
         };
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -336,8 +332,7 @@ The AD9208 driver depends on **CONFIG_SPI**
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -356,8 +351,7 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
                     <*> Analog Devices AD9208 and similar high speed ADCs
             [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
 In case the driver probes and the device instantiates without errors.
 Your systems kernel messages should include some lines,
@@ -412,8 +406,7 @@ jesd204: /axi/spi@e0006000/ad9680@2,jesd204:1,parent=spi0.2: JESD204[0] transiti
 jesd204: /axi/spi@e0006000/ad9680@2,jesd204:1,parent=spi0.2: JESD204[0] transition link_running -> opt_post_running_stage
 ```
 
-Driver testing
---------------
+## Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -457,7 +450,7 @@ root@analog:/sys/bus/iio/devices/iio:device1#
 
 Documentation for IIO device the subfolders, device and channel attributes can be found here: [AXI ADC HDL Linux Driver](/resources/tools-software/linux-drivers/iio-adc/axi-adc-hdl)
 
-#### Show device name
+### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -471,7 +464,6 @@ root@analog:/sys/bus/iio/devices/iio:device1# **cat name**
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,31 +3,29 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7388: 4-Channel, 4 MSPS, 12-Bit, Dual, Simultaneous Sampling SAR ADCs
 ---
 
-AD738x IIO Dual Channel Serial ADC Linux Driver
-===============================================
+# AD738x IIO Dual Channel Serial ADC Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD7380](https://www.google.com/search?q=AD7380&btnI=lucky)
--   [AD7381](https://www.google.com/search?q=AD7381&btnI=lucky)
--   [AD7386](https://www.google.com/search?q=AD7386&btnI=lucky)
--   [AD7387](https://www.google.com/search?q=AD7387&btnI=lucky)
--   [AD7388](https://www.google.com/search?q=AD7388&btnI=lucky)
+-   [AD7380](adi>AD7380)
+-   [AD7381](adi>AD7381)
+-   [AD7386](adi>AD7386)
+-   [AD7387](adi>AD7387)
+-   [AD7388](adi>AD7388)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD738xFMCZ](https://www.google.com/search?q=EVAL-AD738xFMCZ&btnI=lucky)
+-   [EVAL-AD738xFMCZ](adi>EVAL-AD738xFMCZ)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting dual or quad channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -44,7 +42,7 @@ Source Code
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -61,7 +59,7 @@ Source Code
 </tbody>
 </table>
 
-#### Devicetree
+### Devicetree
 
 Required devicetree properties:
 
@@ -94,8 +92,7 @@ Required devicetree properties:
             vref-supply = <&adc_vref>;
         };
 
-Driver testing
---------------
+## Driver testing
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -126,7 +123,7 @@ drwxr-xr-x 2 root root 0 Sep 12 20:11 trigger
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -140,7 +137,7 @@ ad7380
 :::
 
 
-###### Show scale
+##### Show scale
 
 **Description:**
 scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.
@@ -157,7 +154,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_voltage_scale**
 :::
 
 
-###### Show channel 0 measurement
+##### Show channel 0 measurement
 
 **Description:**
 Raw unscaled voltage measurement on channel 0
@@ -176,7 +173,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_voltage0_raw**
 
 **U** = *in_voltage0_raw * in_voltage_scale* = 28583 * 0.076293945 = **2180.70 *mV***
 
-#### Trigger management
+### Trigger management
 
 If deviceX supports triggered sampling, it's a so called trigger consumer and there will be an additional folder /sys/bus/iio/device/iio:deviceX/trigger. In this folder there is a file called current_trigger, allowing controlling and viewing the current trigger source connected to deviceX. Available trigger sources can be identified by reading the name file /sys/bus/iio/devices/triggerY/name. The same trigger source can connect to multiple devices, so a single trigger may initialize data capture or reading from a number of sensors, converters, etc.
 
@@ -257,7 +254,7 @@ trigger0
 :::
 
 
-#### Buffer management
+### Buffer management
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -305,7 +302,6 @@ Description of the scan element data storage within the buffer and therefore in 
 **in_voltageX_index / in_voltageX-voltageY_index / timestamp_index:**
 A single positive integer specifying the position of this scan element in the buffer. Note these are not dependent on what is enabled and may not be contiguous. Thus for user-space to establish the full layout these must be used in conjunction with all _en attributes to establish which channels are present, and the relevant _type attributes to establish the data storage format.
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

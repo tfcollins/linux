@@ -3,23 +3,21 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD74413R: Quad-Channel, Software Configurable Input and Output
 ---
 
-AD74413R/AD74412R Quad-Channel, Software Configurable, Input and Output Circuit Linux Driver
-============================================================================================
+# AD74413R/AD74412R Quad-Channel, Software Configurable, Input and Output Circuit Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [AD74413R](https://www.google.com/search?q=AD74413R&btnI=lucky)
--   [AD74412R](https://www.google.com/search?q=AD74412R&btnI=lucky)
+-   [AD74413R](adi>AD74413R)
+-   [AD74412R](adi>AD74412R)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-AD74413R](https://www.google.com/search?q=EVAL-AD74413R&btnI=lucky)
--   [EVAL-AD74412R](https://www.google.com/search?q=EVAL-AD74412R&btnI=lucky)
+-   [EVAL-AD74413R](adi>EVAL-AD74413R)
+-   [EVAL-AD74412R](adi>EVAL-AD74412R)
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -30,13 +28,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/addac/ad74413r.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/addac/ad74413r.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/addac/ad74413r.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/addac/ad74413r.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -48,11 +46,11 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/addac/ad74413r.c&amp;btnI=lucky">ad74413r.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/addac/ad74413r.c">ad74413r.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="https://www.google.com/search?q=master?./Documentation/devicetree/bindings/iio/addac/adi,ad74413r.yaml&amp;btnI=lucky">adi,ad74413r.yaml</a></td>
+<td><a href="linux.github&gt;master?./Documentation/devicetree/bindings/iio/addac/adi,ad74413r.yaml">adi,ad74413r.yaml</a></td>
 </tr>
 </tbody>
 </table>
@@ -69,13 +67,12 @@ Example device tree
 <tbody>
 <tr class="odd">
 <td>dts</td>
-<td><a href="https://www.google.com/search?q=rpi-5.15.y?arch/arm/boot/dts/overlays/rpi-ad74413r-overlay.dts&amp;btnI=lucky">rpi-ad74413r-overlay.dts</a></td>
+<td><a href="linux.github&gt;rpi-5.15.y?arch/arm/boot/dts/overlays/rpi-ad74413r-overlay.dts">rpi-ad74413r-overlay.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Driver testing
---------------
+## Driver testing
 
 When configured with channel 0 as voltage output, channel 1 as current
 output, channel 2 as voltage input and channel 3 as current input, the
@@ -131,7 +128,7 @@ drwxr-xr-x 2 root root 0 Aug 17 09:56 trigger
 :::
 
 
-###### Show device name
+##### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -145,7 +142,7 @@ ad74413r
 :::
 
 
-###### Show raw measurement
+##### Show raw measurement
 
 **Description:**
 Raw measurement of current on channel 0.
@@ -162,7 +159,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_current0_raw**
 :::
 
 
-###### Show scale
+##### Show scale
 
 **Description:**
 Scale to be applied to the raw measurement of current on channel 0 in order to obtain the actual current.
@@ -179,7 +176,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_current0_scale**
 :::
 
 
-###### Set sampling frequency
+##### Set sampling frequency
 
 **Description:**
 Show available sampling frequencies and select one for channel 0.
@@ -201,7 +198,7 @@ root:/sys/bus/iio/devices/iio:device0> **cat in_current0_sampling_frequency**
 :::
 
 
-##### Buffer management
+#### Buffer management
 
 **Description:**
 The scan_elements directory contains interfaces for elements that will be captured for a single triggered sample set in the buffer
@@ -316,8 +313,7 @@ root:/sys/bus/iio/devices/iio:device0/buffer> **cat /dev/iio:device0**
 :::
 
 
-Low level register access via debugfs (direct_reg_access)
------------------------------------------------------------
+## Low level register access via debugfs (direct_reg_access)
 
 Some IIO drivers feature an optional debug facility, allowing users to read or write registers directly. Special care needs to be taken when using this feature, since you can modify registers on the back of the driver. Accessing debugfs requires root privileges.
 
@@ -366,7 +362,6 @@ root@analog:/sys/kernel/debug/iio/iio:device0> cat direct_reg_access
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

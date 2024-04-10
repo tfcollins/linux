@@ -3,30 +3,28 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADAQ8092: 14-Bit, 105 MSPS, μModule
 ---
 
-ADAQ8092 14-Bit, 105 MSPS, μModule Linux device driver
-======================================================
+# ADAQ8092 14-Bit, 105 MSPS, μModule Linux device driver
 
 The ADAQ8092 is a 14-bit, 105 MSPS, high-speed dual-channel data acquisition (DAQ) μModule solution. The device incorporates signal conditioning, an analog-to-digital (ADC) driver, a voltage reference, and an ADC in a single package via system in package (SiP) technology. μModule solutions simplify the development of high-speed data acquisition systems by transferring the design
 burden, component selection, optimization, and layout from the designer to the device. The ADAQ8092 enables a 6× footprint reduction.
 
-# Supported Devices
+### Supported Devices
 
--   [ADAQ8092](https://www.google.com/search?q=ADAQ8092&btnI=lucky)
+-   [ADAQ8092](adi>ADAQ8092)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADAQ8092](https://www.google.com/search?q=EVAL-ADAQ8092&btnI=lucky)
+-   [EVAL-ADAQ8092](adi>EVAL-ADAQ8092)
 
-#### Description
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting RF Transceivers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -37,13 +35,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/adaq8092.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/adaq8092.c&amp;btnI=lucky">No</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/adaq8092.c">git</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/adaq8092.c">No</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -55,12 +53,12 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/adaq8092.c&amp;btnI=lucky">drivers/iio/adc/adaq8092.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/adaq8092.c">drivers/iio/adc/adaq8092.c</a></td>
 </tr>
 </tbody>
 </table>
 
-##### Related Device Drivers
+#### Related Device Drivers
 
 <table>
 <thead>
@@ -72,17 +70,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc_core.c&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_core.c">drivers/iio/adc/cf_axi_adc_core.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=master?drivers/iio/adc/cf_axi_adc.h&amp;btnI=lucky">drivers/iio/adc/cf_axi_adc.h</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc.h">drivers/iio/adc/cf_axi_adc.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example Linux Device-Tree Initialization
-----------------------------------------
+## Example Linux Device-Tree Initialization
 
 The ADAQ8092 driver is a spi-bus driver and can currently only be instantiated via device tree.
 
@@ -101,13 +98,12 @@ Required devicetree properties:
 <tbody>
 <tr class="odd">
 <td>EVAL-ADAQ8092 Device Tree</td>
-<td><a href="https://www.google.com/search?q=master?arch/arm/boot/dts/zynq-zed-adv7511-adaq8092.dts&amp;btnI=lucky">zynq-zed-adv7511-adaq8092.dts</a></td>
+<td><a href="linux.github&gt;master?arch/arm/boot/dts/zynq-zed-adv7511-adaq8092.dts">zynq-zed-adv7511-adaq8092.dts</a></td>
 </tr>
 </tbody>
 </table>
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -119,8 +115,7 @@ The ADAQ8092 driver depends on **SPI**
 :::
 
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -140,11 +135,9 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 
             [--snip--]
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing / API
---------------------
+## Driver testing / API
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -180,7 +173,7 @@ root:/sys/bus/iio/devices/iio:device1#
 :::
 
 
-#### Show device name
+### Show device name
 
 :::{NOTE} <!-- ATTRS: box="" bggreen="" -->
 :::{HINT} <!-- ATTRS: info="" -->
@@ -194,7 +187,7 @@ root:/sys/bus/iio/devices/iio:device1> **cat name**
 :::
 
 
-#### ADC sampling frequency (sampling_frequency)
+### ADC sampling frequency (sampling_frequency)
 
 Read only attribute which returns the ADC sampling rate in Hz.
 
@@ -212,7 +205,6 @@ root@analog:/sys/bus/iio/devices/iio:device1# **echo 200000000 > sampling_freque
 :::
 
 
-More Information
-----------------
+## More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

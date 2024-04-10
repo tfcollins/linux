@@ -3,37 +3,35 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: ADXRS453: High Performance, Digital Output Gyroscope
 ---
 
-ADXRS450 IIO Gyroscope Linux Driver
-===================================
+# ADXRS450 IIO Gyroscope Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [ADXRS450](https://www.google.com/search?q=ADXRS450&btnI=lucky)
--   [ADXRS453](https://www.google.com/search?q=ADXRS453&btnI=lucky)
+-   [ADXRS450](adi>ADXRS450)
+-   [ADXRS453](adi>ADXRS453)
 
 #### Evaluation Boards
 
--   [EVAL-ADXL313-Z-M](https://www.google.com/search?q=EVAL-ADXL313-Z-M&btnI=lucky)
--   [EVAL-ADXRS450Z](https://www.google.com/search?q=EVAL-ADXRS450Z&btnI=lucky)
--   [EVAL-ADXRS453Z](https://www.google.com/search?q=EVAL-ADXRS453Z&btnI=lucky)
+-   [EVAL-ADXL313-Z-M](adi>EVAL-ADXL313-Z-M)
+-   [EVAL-ADXRS450Z](adi>EVAL-ADXRS450Z)
+-   [EVAL-ADXRS453Z](adi>EVAL-ADXRS453Z)
 -   [PmodGYRO2](http://www.digilentinc.com/Products/Detail.cfm?Prod=PMOD-GYRO2)
 
 ##### ADXRS450: ±300°/sec High Vibration Immunity Digital Gyro
 
 ![](scrape>adi>ADXRS450#description)
 
--   [Product Page](https://www.google.com/search?q=ADXRS450&btnI=lucky)
+-   [Product Page](adi>ADXRS450)
 -   ![](scrape>adi>ADXRS450#datasheet-details)
 
 ##### ADXRS453: ±300°/sec High Vibration Immunity Digital Gyro
 
 ![](scrape>adi>ADXRS453#description)
 
--   [Product Page](https://www.google.com/search?q=ADXRS453&btnI=lucky)
+-   [Product Page](adi>ADXRS453)
 -   ![](scrape>adi>ADXRS453#datasheet-details)
 
-Adding ADXRS450 to the Kernel
------------------------------
+### Adding ADXRS450 to the Kernel
 
 To add support for the ADXRS450 to the kernel build system, a few things must be enabled properly for things to work.The configuration is as following:
 
@@ -52,8 +50,7 @@ The ADXRS450 Driver depends on **CONFIG_SPI**
             <*>     Industrial I/O support  --->
               <M>   Analog Devices ADXRS450/3 Digital Output Gyroscope SPI driver
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -66,8 +63,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/gyro/adxrs450.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/gyro/adxrs450.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/gyro/adxrs450.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/gyro/adxrs450.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -84,19 +81,18 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/gyro/adxrs450.c&amp;btnI=lucky">drivers/iio/gyro/adxrs450.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/gyro/adxrs450.c">drivers/iio/gyro/adxrs450.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 Below is an example which is used on Blackfin board file.
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_ADXRS450) 
     || defined(CONFIG_ADXRS450_MODULE)
@@ -111,7 +107,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -125,15 +121,13 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-![EVAL-ADXRS450](/software/driver/linux/adxrs450_eval_lr.jpg){.align-left width="600"}
+![EVAL-ADXRS450](/software/driver/linux/adxrs450_eval_lr.jpg){.align-left width="600" query="?600"}
 
-![PmodGYRO2](/resources/tools-software/linux-drivers/iio-gyroscope/pmodgyro2_lr.jpg){.align-left width="600"}
+![PmodGYRO2](/resources/tools-software/linux-drivers/iio-gyroscope/pmodgyro2_lr.jpg){.align-left width="600" query="?600"}
 
-Driver testing
---------------
+### Driver testing
 
 ###### Module loading
 
@@ -299,7 +293,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0> **cat in_temp0_raw**
 
 **T** = *in_temp0_raw* * *in_temp0_scale* = 105 * 200 = 21000 milli degree Celsius
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,50 +3,48 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/regu
 title: ADP5022: Dual 3 MHz, 600 mA Buck Regulator with 150 mA LDO
 ---
 
-ADP150 Regulator Fixed Voltage Linux Driver
-===========================================
+# ADP150 Regulator Fixed Voltage Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADP122](https://www.google.com/search?q=ADP122&btnI=lucky)
--   [ADP123](https://www.google.com/search?q=ADP123&btnI=lucky)
--   [ADP124](https://www.google.com/search?q=ADP124&btnI=lucky)
--   [ADP125](https://www.google.com/search?q=ADP125&btnI=lucky)
--   [ADP150](https://www.google.com/search?q=ADP150&btnI=lucky)
--   [ADP5022](https://www.google.com/search?q=ADP5022&btnI=lucky)
+-   [ADP122](adi>ADP122)
+-   [ADP123](adi>ADP123)
+-   [ADP124](adi>ADP124)
+-   [ADP125](adi>ADP125)
+-   [ADP150](adi>ADP150)
+-   [ADP5022](adi>ADP5022)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [ADP122-3.3-EVALZ](https://www.google.com/search?q=EVAL-ADP122&btnI=lucky)
--   [ADP123-EVALZ](https://www.google.com/search?q=ADP123-EVALZ&btnI=lucky)
--   [ADP124-3.3-EVALZ](https://www.google.com/search?q=EVAL-ADP124&btnI=lucky)
--   [ADP125CP-EVALZ](https://www.google.com/search?q=ADP125CP-EVALZ&btnI=lucky)
--   [ADP150CB-3.3-EVALZ](https://www.google.com/search?q=EVAL-ADP150&btnI=lucky)
+-   [ADP122-3.3-EVALZ](adi>EVAL-ADP122)
+-   [ADP123-EVALZ](adi>ADP123-EVALZ)
+-   [ADP124-3.3-EVALZ](adi>EVAL-ADP124)
+-   [ADP125CP-EVALZ](adi>ADP125CP-EVALZ)
+-   [ADP150CB-3.3-EVALZ](adi>EVAL-ADP150)
 
-##### Reference Circuits
+#### Reference Circuits
 
--   [CN0134](https://www.google.com/search?q=CN0134&btnI=lucky)
--   [CN0144](https://www.google.com/search?q=CN0144&btnI=lucky)
--   [CN0147](https://www.google.com/search?q=CN0147&btnI=lucky)
--   [CN0285](https://www.google.com/search?q=CN0285&btnI=lucky)
--   [CN0228](https://www.google.com/search?q=CN0228&btnI=lucky)
--   [CN0290](https://www.google.com/search?q=CN0290&btnI=lucky)
--   [CN0311](https://www.google.com/search?q=CN0311&btnI=lucky)
+-   [CN0134](adi>CN0134)
+-   [CN0144](adi>CN0144)
+-   [CN0147](adi>CN0147)
+-   [CN0285](adi>CN0285)
+-   [CN0228](adi>CN0228)
+-   [CN0290](adi>CN0290)
+-   [CN0311](adi>CN0311)
 
-#### Description
+### Description
 
 The fixed regulator voltage driver can be used to control these chips.
 Please connect the **EN**able switch pin to any available GPIO port on your CPU.
 This driver adapts to voltage and current regulator framework in Linux kernel.
 
-#### Configuration
+### Configuration
 
-#### Software configurable features
+### Software configurable features
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -57,13 +55,13 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/regulator/fixed.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/regulator/fixed.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/regulator/fixed.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/regulator/fixed.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -75,17 +73,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/regulator/fixed.c&amp;btnI=lucky">drivers/regulator/fixed.c</a></td>
+<td><a href="git.linux.org&gt;drivers/regulator/fixed.c">drivers/regulator/fixed.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=include/linux/regulator/fixed.h&amp;btnI=lucky">include/linux/regulator/fixed.h</a></td>
+<td><a href="git.linux.org&gt;include/linux/regulator/fixed.h">include/linux/regulator/fixed.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 The default platform info defined in bf537-stamp board file is for ad122. If you want to customize this driver for other switch only regulator, you should revise the platform information accordingly.
 
@@ -103,8 +100,7 @@ The default platform info defined in bf537-stamp board file is for ad122. If you
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp122_userspace_comsumer_data{} c linux-kernel>
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp122_userspace_consumer_device{} c linux-kernel>
 
-Adding Linux driver support
----------------------------
+## Adding Linux driver support
 
 Enable generic GPIO lib in kernel option.
 
@@ -118,11 +114,9 @@ Select voltage and current regulator framework support and enable adp_switch dri
         <*>   Fixed voltage regulator support
         <*>   Userspace regulator consumer support
 
-Hardware configuration
-----------------------
+## Hardware configuration
 
-Driver testing
---------------
+## Driver testing
 
 Check regulator driver initialization information at kernel booting.
 
@@ -163,5 +157,4 @@ Insert user space consumer driver module and check usability.
     root:/> cat sys/devices/platform/reg-userspace-consumer.0/state
     enabled
 
-More Information
-----------------
+## More Information

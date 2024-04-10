@@ -3,23 +3,22 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD7747: 24-Bit Capacitance-to-Digital Converter with Temperature Sensor
 ---
 
-AD7746 IIO Capacitance to Digital Converter Linux Driver
-========================================================
+# AD7746 IIO Capacitance to Digital Converter Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD7745](https://www.google.com/search?q=AD7745&btnI=lucky)
--   [AD7746](https://www.google.com/search?q=AD7746&btnI=lucky)
--   [AD7747](https://www.google.com/search?q=AD7747&btnI=lucky)
+-   [AD7745](adi>AD7745)
+-   [AD7746](adi>AD7746)
+-   [AD7747](adi>AD7747)
 
 #### Reference Circuits
 
--   [CN0346](https://www.google.com/search?q=CN0346&btnI=lucky)
+-   [CN0346](adi>CN0346)
 
 #### Evaluation Boards
 
--   [EVAL-AD7746EBZ](https://www.google.com/search?q=EVAL-AD7746EBZ&btnI=lucky)
--   [EVAL-AD7747EBZ](https://www.google.com/search?q=EVAL-AD7747EBZ&btnI=lucky)
+-   [EVAL-AD7746EBZ](adi>EVAL-AD7746EBZ)
+-   [EVAL-AD7747EBZ](adi>EVAL-AD7747EBZ)
 
 #### Description
 
@@ -27,8 +26,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -41,8 +39,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/cdc/ad7746.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/cdc/ad7746.c&amp;btnI=lucky">git</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/cdc/ad7746.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/cdc/ad7746.c">git</a></td>
 </tr>
 </tbody>
 </table>
@@ -59,11 +57,11 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/cdc/ad7746.c&amp;btnI=lucky">drivers/staging/iio/cdc/ad7746.c</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/cdc/ad7746.c">drivers/staging/iio/cdc/ad7746.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=drivers/staging/iio/cdc/ad7746.h&amp;btnI=lucky">drivers/staging/iio/cdc/ad7746.h</a></td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/cdc/ad7746.h">drivers/staging/iio/cdc/ad7746.h</a></td>
 </tr>
 </tbody>
 </table>
@@ -95,7 +93,7 @@ Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name 
 </tbody>
 </table>
 
-``` {.c}
+``` c
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
 ## if defined(CONFIG_AD7746) || defined(CONFIG_AD7746_MODULE)
     {
@@ -105,7 +103,7 @@ static struct i2c_board_info __initdata board_i2c_board_info[] = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -119,8 +117,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -149,13 +146,11 @@ The driver depends on **CONFIG_I2C**
 
                     [--snip--]
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-![](/resources/tools-software/linux-drivers/iio-cdc/ad7746_eval_lr.jpg){width="600"}
+![ad7746_eval_lr.jpg](/resources/tools-software/linux-drivers/iio-cdc/ad7746_eval_lr.jpg){width="600" query="?600"}
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -525,7 +520,6 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_cap
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -3,16 +3,15 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/net-
 title: ADIN1100 - Robust, Industrial, Low Power 10BASE-T1L Ethernet PHY
 ---
 
-ADIN1100 10BASE-T1L PHY Linux Driver
-====================================
+# ADIN1100 10BASE-T1L PHY Linux Driver
 
-# Supported Devices
+### Supported Devices
 
--   [ADIN1100](https://www.google.com/search?q=ADIN1100&btnI=lucky)
+-   [ADIN1100](adi>ADIN1100)
 
-#### Supported Boards
+### Supported Boards
 
-#### Description
+### Description
 
 The ADIN1100 is a low power single port 10BASE-T1L transceiver designed for industrial Ethernet applications and is compliant with the IEEE 802.3cg Ethernet standard for long reach 10 Mb/s Single Pair Ethernet. It integrates an Ethernet PHY core with all the associated analog circuitry, input and output clock buffering, the management interface control register and subsystem registers, as well as the MAC interface and control logic to manage the reset and clock control and pin configuration.
 
@@ -26,27 +25,26 @@ The MDIO interface is a two-wire serial interface for communication between a ho
 
 The ADIN1100 is available in a 6 mm × 6 mm 40-ld package.
 
-Source Code
------------
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
 <tr class="header">
-<th>Source</th>
-<th>Mainlined?</th>
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=master?drivers/net/phy/adin1100.c&amp;btnI=lucky">drivers/net/phy/adin1100.c</a></td>
-<td><a href="https://www.google.com/search?q=drivers/net/phy/adin-t1l.c&amp;btnI=lucky">In Progress</a></td>
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/net/phy/adin1100.c">drivers/net/phy/adin1100.c</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/net/phy/adin-t1l.c">In Progress</a></td>
 </tr>
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -58,18 +56,17 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=master?drivers/net/phy/adin1100.c&amp;btnI=lucky">drivers/net/phy/adin1100.c</a></td>
+<td><a href="linux.github&gt;master?drivers/net/phy/adin1100.c">drivers/net/phy/adin1100.c</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+## Example platform device initialization
 
 The ADIN 10BASE-T1L PHY driver instantiates via Linux's phylib framework, which is typically enabled on most systems.
 
 Depending on the MAC driver that is used and the operating mode (MII, RMII), a device-tree entry for the PHY may or may-not be needed.
-The PHY can be configured via HW pins ([see datasheet](https://www.google.com/search?q=media/en/technical-documentation/data-sheets/ADIN1100.pdf&btnI=lucky)).
+The PHY can be configured via HW pins ([see datasheet](adi>media/en/technical-documentation/data-sheets/ADIN1100.pdf)).
 
 **Optional properties (for MAC):**
 
@@ -103,8 +100,7 @@ The PHY can be configured via HW pins ([see datasheet](https://www.google.com/se
             };
         };
 
-Enabling Linux driver support
------------------------------
+## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -128,8 +124,7 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
        Defined at drivers/net/phy/Kconfig:208  
        Depends on: NETDEVICES [=y] && PHYLIB [=y]
 
-Driver testing
---------------
+## Driver testing
 
 This requires that another 10BASE-T1L PHY be connected to the other end of the network cable, or that a media converter be used to convert to normal twisted-pair ethernet that standard ethernet cables use.
 
@@ -139,7 +134,7 @@ If NetworkManager isn't running, it sometimes works to obtain a DHCP lease via *
 
 </note>
 
-#### ifconfig
+### ifconfig
 
 This tool will display the general status of the available network interfaces. If they've obtained an IP address, RX packets/errors/dropped/etc, TX packets/errors/dropped/etc, MAC address, etc.
 
@@ -171,7 +166,7 @@ Typically, if both TX & RX values are incremented, it means that it is working. 
               collisions:0 txqueuelen:1000 
               RX bytes:480 (480.0 B)  TX bytes:480 (480.0 B)
 
-#### ethtool
+### ethtool
 
 This tool queries the MAC & PHY via the MAC driver. The MAC driver should also allows access to the PHY registers.
 
@@ -186,7 +181,7 @@ Links for the tool:
 
 <note tip>Some features of ethtool described here are available in newer versions of ethtool. If some of them don't work, consider upgrading or getting a newer version</note>
 
-##### Example: Seeing MAC & PHY info
+#### Example: Seeing MAC & PHY info
 
     root@analog:~# ethtool eth0
     Settings for eth0:
@@ -211,7 +206,7 @@ Links for the tool:
             Auto-negotiation: on
             Link detected: yes
 
-##### Example: changing link autonegotiation
+#### Example: changing link autonegotiation
 
 Since the PHY can only do 10 Mbps full-duplex, the only operation possible here is to disable auto-negotiation and set preferred/forced master/slave
 
@@ -223,7 +218,7 @@ Since the PHY can only do 10 Mbps full-duplex, the only operation possible here 
     ethtool -s eth0 autoneg on master-slave forced-master
     ethtool -s eth0 autoneg on master-slave forced-slave
 
-##### ADIN1100 cable test tool
+#### ADIN1100 cable test tool
 
 ADIN1100 supports multiple cable diagnostics options.
 Some of them could not be added in the driver as ethtool ops.
@@ -311,7 +306,7 @@ Check command line formatting via:
             Example : adin10spe_phy_tool eth1 0 software-power-down True
     root@analog:~/adin1100# 
 
-#### Throughput testing - iperf
+### Throughput testing - iperf
 
 This is a more system-general test but it also validates the PHY.
 
@@ -328,7 +323,7 @@ and on another system
 
 Then reverse the commands on the hosts. iperf only works in one direction.
 
-#### Data integrity testing
+### Data integrity testing
 
 One one side, generate a file with random data (say 1GB)
 
@@ -346,8 +341,7 @@ On the other host check the hash
     sha256sum test.data
     <SHA256-hash-of-data> == should be identical with the first hash
 
-Ethernet pointers
------------------
+## Ethernet pointers
 
 -   netdev mailing list: <netdev@vger.kernel.org>
 -   [Ethernet Controller bindings doc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-controller.yaml)

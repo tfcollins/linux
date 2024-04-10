@@ -3,18 +3,17 @@ wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-
 title: AD5664R: Quad, 16-Bit nanoDAC® with 5ppm/°C On-Chip Reference
 ---
 
-AD5624 IIO Quad-Channel DAC Linux Driver
-========================================
+# AD5624 IIO Quad-Channel DAC Linux Driver
 
-# Supported Devices
+#### Supported Devices
 
--   [AD5624R](https://www.google.com/search?q=AD5624R&btnI=lucky)
--   [AD5644R](https://www.google.com/search?q=AD5644R&btnI=lucky)
--   [AD5664R](https://www.google.com/search?q=AD5664R&btnI=lucky)
+-   [AD5624R](adi>AD5624R)
+-   [AD5644R](adi>AD5644R)
+-   [AD5664R](adi>AD5664R)
 
 #### Evaluation Boards
 
--   [EVAL-AD5664REBZ](https://www.google.com/search?q=EVAL-AD5664REBZ&btnI=lucky)
+-   [EVAL-AD5664REBZ](adi>EVAL-AD5664REBZ)
 
 #### Description
 
@@ -22,8 +21,7 @@ This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem d
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-Source Code
------------
+### Source Code
 
 #### Status
 
@@ -36,8 +34,8 @@ Source Code
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5624r_spi.c&amp;btnI=lucky">git</a></td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5624r_spi.c&amp;btnI=lucky">Yes</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5624r_spi.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5624r_spi.c">Yes</a></td>
 </tr>
 </tbody>
 </table>
@@ -54,17 +52,16 @@ Source Code
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5624r_spi.c&amp;btnI=lucky">drivers/iio/dac/ad5624r_spi.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5624r_spi.c">drivers/iio/dac/ad5624r_spi.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="https://www.google.com/search?q=drivers/iio/dac/ad5624r.h&amp;btnI=lucky">drivers/iio/dac/ad5624r.h</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/dac/ad5624r.h">drivers/iio/dac/ad5624r.h</a></td>
 </tr>
 </tbody>
 </table>
 
-Example platform device initialization
---------------------------------------
+### Example platform device initialization
 
 #### Specifying reference voltage via the regulator framework
 
@@ -84,7 +81,7 @@ specifying the reference voltage via the regulator framework is not mandatory.
 
 Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 
-``` {.c}
+``` c
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad5624_consumer_supplies[] = {
     REGULATOR_SUPPLY("vcc", "spi0.3"),
@@ -117,7 +114,7 @@ static struct platform_device brd_voltage_regulator = {
 ## endif
 ```
 
-``` {.c}
+``` c
 static struct platform_device *board_devices[] __initdata = {
 ## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
@@ -125,7 +122,7 @@ static struct platform_device *board_devices[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -144,7 +141,7 @@ arch_initcall(board_init);
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
-``` {.c}
+``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
 ## if defined(CONFIG_AD5624R_SPI) || 
     defined(CONFIG_AD5624R_SPI_MODULE)
@@ -160,7 +157,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 };
 ```
 
-``` {.c}
+``` c
 static int __init board_init(void)
 {
     [--snip--]
@@ -174,8 +171,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Adding Linux driver support
----------------------------
+### Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 "make qconfig")
@@ -200,11 +196,9 @@ The AD5624 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-Hardware configuration
-----------------------
+### Hardware configuration
 
-Driver testing
---------------
+### Driver testing
 
 ![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -378,7 +372,6 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage0_pow
 :::
 
 
-More Information
-----------------
+### More Information
 
 ![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
