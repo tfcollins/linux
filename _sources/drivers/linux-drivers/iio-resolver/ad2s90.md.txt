@@ -6,13 +6,11 @@ title: AD2S90: Low Cost, Complete 12-Bit Resolver-to-Digital Converter
 AD2S90 IIO Resolver-to-Digital Converter Linux Driver
 =====================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD2S90](https://www.google.com/search?q=AD2S90&btnI=lucky)
 
-Description
------------
+#### Description
 
 ![](scrape>adi>AD2S90#description)
 
@@ -23,10 +21,9 @@ The industrial I/O subsystem provides a unified framework for drivers for many d
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -43,8 +40,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -62,50 +58,41 @@ Files
 </table>
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The Driver depends on **CONFIG\_SPI**
+The Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Resolver to digital converters ***
-                [--snip--]
+                          *** Resolver to digital converters ***
+                    [--snip--]
 
-                <*>   Analog Devices AD2S90 driver
+                    <*>   Analog Devices AD2S90 driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Driver Usage
-============
+------------
 
 The device file path may looks like,
 
-```{=markdown}
-```
-/sys/devices/platform/bfin-spi.0/spi0.3/iio/device0/ad2s90>
+    /sys/devices/platform/bfin-spi.0/spi0.3/iio/device0/ad2s90>
 
-```
-```
 There are two files:
 
 <table>
@@ -131,6 +118,6 @@ There are two files:
 </table>
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

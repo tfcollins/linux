@@ -6,30 +6,26 @@ title: AD5758: Single Channel, 16-Bit, Current/Voltage Output DAC, Dynamic Power
 AD5758 IIO DAC Linux Driver
 ===========================
 
-Supported Devices
------------------
+# Supported Devices
 
 This driver supports the
 
 -   [AD5758](https://www.google.com/search?q=AD5758&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD5758](https://www.google.com/search?q=EVAL-AD5758&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi-channel serial interface DACs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -46,8 +42,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -64,153 +59,144 @@ Files
 </tbody>
 </table>
 
-Devicetree
-----------
+#### Devicetree
 
 Required properties for the AD5758:
 
--   compatible: Must be \"adi,ad5758\"
+-   compatible: Must be "adi,ad5758"
 -   reg: SPI chip select number for the device
--   spi-max-frequency: Max SPI frequency to use (\< 50000000)
+-   spi-max-frequency: Max SPI frequency to use (< 50000000)
 -   spi-cpha: is the only mode that is supported
 
 Optional properties:
 
-```{=markdown}
-```
- * reset-gpios : GPIO spec for the RESET pin. If specified, it will be asserted during driver probe.
- * adi,dc-dc-mode: Mode of operation of the dc-to-dc converter
- * adi,dc-dc-ilim: The dc-to-dc converter current limit
- * adi,slew: Array of slewrate settings should contain 3 fields:
- * adi,range: The output range
+     * reset-gpios : GPIO spec for the RESET pin. If specified, it will be asserted during driver probe.
+     * adi,dc-dc-mode: Mode of operation of the dc-to-dc converter
+     * adi,dc-dc-ilim: The dc-to-dc converter current limit
+     * adi,slew: Array of slewrate settings should contain 3 fields:
+     * adi,range: The output range
 
-```
-```
-```{=markdown}
-```
-    #address-cells = <1>;
-    #size-cells = <0>;
-    status = "okay";
+        #address-cells = <1>;
+        #size-cells = <0>;
+        status = "okay";
 
-    ad5758@0 {
-                compatible = "adi,ad5758";
-                reg = <0>;
-                spi-max-frequency = <1000000>;
-                spi-cpha;
+        ad5758@0 {
+                    compatible = "adi,ad5758";
+                    reg = <0>;
+                    spi-max-frequency = <1000000>;
+                    spi-cpha;
 
-                reset-gpios = <&gpio 22 0>;  /* optional */
+                    reset-gpios = <&gpio 22 0>;  /* optional */
 
-                adi,dc-dc-mode = <2>;
-                adi,dc-dc-ilim = <200>;
-                adi,slew = <1 200000 12>;
-                adi,range = <1>;
+                    adi,dc-dc-mode = <2>;
+                    adi,dc-dc-ilim = <200>;
+                    adi,slew = <1 200000 12>;
+                    adi,range = <1>;
 
-```
-```
 Driver testing
-==============
+--------------
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio\\:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/bus/iio/devices/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 May 23 09:14 dev
--rw-r\--r\-- 1 root root 4096 May 23 09:14 out\_voltage0\_powerdown
--rw-r\--r\-- 1 root root 4096 May 23 09:14 out\_voltage0\_raw
--rw-r\--r\-- 1 root root 4096 May 23 09:14 out\_voltage\_scale
--r\--r\--r\-- 1 root root 4096 May 23 09:14 name
+root:/sys/bus/iio/devices/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 May 23 09:14 dev
+-rw-r--r-- 1 root root 4096 May 23 09:14 out_voltage0_powerdown
+-rw-r--r-- 1 root root 4096 May 23 09:14 out_voltage0_raw
+-rw-r--r-- 1 root root 4096 May 23 09:14 out_voltage_scale
+-r--r--r-- 1 root root 4096 May 23 09:14 name
 drwxr-xr-x 2 root root 0 May 23 09:14 power
-lrwxrwxrwx 1 root root 0 May 23 09:14 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 May 23 09:14 uevent
+lrwxrwxrwx 1 root root 0 May 23 09:14 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 May 23 09:14 uevent
 ```
 :::
 
 
-# Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat name**
+root:/sys/bus/iio/devices/iio:device0> **cat name**
 ad5758
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
-scale to be applied to in\_voltage0\_raw in order to obtain the measured voltage in millivolts.
+**Description:**
+scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> \*\*cat out\_voltage\_scale \*\*
+root:/sys/bus/iio/devices/iio:device0> **cat out_voltage_scale **
 0.152587890
 ```
 :::
 
 
-##### Set channel 0 output voltage
+###### Set channel 0 output voltage
 
-**Description:**\
-/sys/bus/iio/devices/deviceX/out\_voltage0\_raw\
+**Description:**
+/sys/bus/iio/devices/deviceX/out_voltage0_raw
 Raw (unscaled, no bias etc.) output voltage for
 channel 0.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **echo 32767 \> out\_voltage0\_raw**
+root:/sys/bus/iio/devices/iio:device0> **echo 32767 > out_voltage0_raw**
 ```
 :::
 
 
-**U** = *out\_voltage0\_raw \* out\_voltage\_scale* = 32767 \* 0.152587890 = **4999.84 *mV***
+**U** = *out_voltage0_raw * out_voltage_scale* = 32767 * 0.152587890 = **4999.84 *mV***
 
-##### Enable power down mode on output 0
+###### Enable power down mode on output 0
 
-/sys/bus/iio/devices/deviceX/out\_voltage0\_powerdown
+/sys/bus/iio/devices/deviceX/out_voltage0_powerdown
 
-**Description:**\
+**Description:**
 Writing 1 causes output 0 to enter the power down mode. Clearing returns to
 normal operation.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **echo 1 \> out\_voltage0\_powerdown**
-root:/sys/bus/iio/devices/iio:device0\> **cat out\_voltage0\_powerdown**
+root:/sys/bus/iio/devices/iio:device0> **echo 1 > out_voltage0_powerdown**
+root:/sys/bus/iio/devices/iio:device0> **cat out_voltage0_powerdown**
 1
-root:/sys/bus/iio/devices/iio:device0\> **echo 0 \> out\_voltage0\_powerdown**
-root:/sys/bus/iio/devices/iio:device0\> **cat out\_voltage0\_powerdown**
+root:/sys/bus/iio/devices/iio:device0> **echo 0 > out_voltage0_powerdown**
+root:/sys/bus/iio/devices/iio:device0> **cat out_voltage0_powerdown**
 0
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

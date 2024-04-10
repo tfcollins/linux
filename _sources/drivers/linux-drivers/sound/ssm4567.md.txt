@@ -6,20 +6,18 @@ title: SSM4567: Digital 2.5 W, 5.1 V, Boost Class-D Audio Amplifier with Output 
 SSM4567 Audio Amplifier Linux Driver
 ====================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [SSM4567](https://www.google.com/search?q=SSM4567&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-SSM4567Z](https://www.google.com/search?q=EVAL-SSM4567Z&btnI=lucky)
 
 Source Code
-===========
+-----------
 
-# Status
+##### Status
 
 <table>
 <thead>
@@ -36,7 +34,7 @@ Source Code
 </tbody>
 </table>
 
-#### Files
+##### Files
 
 <table>
 <thead>
@@ -58,7 +56,7 @@ Source Code
 </table>
 
 Example device initialization
-=============================
+-----------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -110,28 +108,22 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-Devicetree
-----------
+#### Devicetree
 
-```{=markdown}
-```
-i2s: i2c@41600000 {
-    compatible = "...;
-    ...
+    i2s: i2c@41600000 {
+        compatible = "...;
+        ...
 
-    #size-cells = <0>;
-    #address-cells = <1>;
-            
-    ssm4567: ssm4567@34 {
-        compatible = "adi,ssm4567";
-        reg = <0x34>;
+        #size-cells = <0>;
+        #address-cells = <1>;
+                
+        ssm4567: ssm4567@34 {
+            compatible = "adi,ssm4567";
+            reg = <0x34>;
+        };
     };
-};
 
-```
-```
-ASoC DAPM Widgets
------------------
+#### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -148,8 +140,7 @@ ASoC DAPM Widgets
 </tbody>
 </table>
 
-ALSA Controls
--------------
+#### ALSA Controls
 
 <table>
 <thead>
@@ -198,12 +189,11 @@ ALSA Controls
 </tbody>
 </table>
 
-DAI configuration
------------------
+#### DAI configuration
 
-The amplifier driver registers one DAIs, one for each serial port. The DAI is named **\"ssm4567-hifi\"**
+The amplifier driver registers one DAIs, one for each serial port. The DAI is named **"ssm4567-hifi"**
 
-#### Supported DAI formats
+##### Supported DAI formats
 
 <table>
 <thead>
@@ -302,14 +292,14 @@ The amplifier driver registers one DAIs, one for each serial port. The DAI is na
 </tbody>
 </table>
 
-#### TDM configuration
+##### TDM configuration
 
-If you want to use the SSM4567 in TDM mode you can configure it using snd\_soc\_dai\_set\_tdm\_slot() from you ASoC board driver.
+If you want to use the SSM4567 in TDM mode you can configure it using snd_soc_dai_set_tdm_slot() from you ASoC board driver.
 
-The following restrictions apply to the parameters of snd\_soc\_dai\_set\_tdm\_slot().
+The following restrictions apply to the parameters of snd_soc_dai_set_tdm_slot().
 
--   **tx\_mask** specifies the output channel mapping for the serial port. This must either be 0, or the same as rx\_mask.
--   **rx\_mask** specifies the input channel mapping for the serial port. There must be exactly one bit set in this mask which selects the slot that is used.
+-   **tx_mask** specifies the output channel mapping for the serial port. This must either be 0, or the same as rx_mask.
+-   **rx_mask** specifies the input channel mapping for the serial port. There must be exactly one bit set in this mask which selects the slot that is used.
 -   **slots** should be between 1 and 8
 -   **width** must be either 32, 48, 64
 
@@ -333,7 +323,7 @@ static struct snd_soc_dai_link ssm4567_dai_link = {
 };
 ```
 
-#### Example DAI configuration
+##### Example DAI configuration
 
 ``` {.c}
 static const struct snd_soc_dapm_widget ssm4567_zed_widgets[] = {
@@ -367,7 +357,7 @@ static struct snd_soc_card ssm4567_zed_card = {
 };
 ```
 
-#### Multi SSM4567 Example configuration
+##### Multi SSM4567 Example configuration
 
 This example shows how to setup a ASoC board driver for a system with two SSM4567, one driving the left speaker and the other driving the right speaker. In this example the left SSM4567 is at I2C address 0x34 (ADDR=0) and the right SSM4567 is at I2S address 0x35 (ADDR=1).
 
@@ -453,8 +443,7 @@ static struct snd_soc_card ssm4567_zed_card = {
 };
 ```
 
-More information
-----------------
+#### More information
 
 -    [SSM4329 Linux Driver](SSM4329)
 

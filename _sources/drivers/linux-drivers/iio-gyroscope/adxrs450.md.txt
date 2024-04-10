@@ -6,28 +6,26 @@ title: ADXRS453: High Performance, Digital Output Gyroscope
 ADXRS450 IIO Gyroscope Linux Driver
 ===================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADXRS450](https://www.google.com/search?q=ADXRS450&btnI=lucky)
 -   [ADXRS453](https://www.google.com/search?q=ADXRS453&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-ADXL313-Z-M](https://www.google.com/search?q=EVAL-ADXL313-Z-M&btnI=lucky)
 -   [EVAL-ADXRS450Z](https://www.google.com/search?q=EVAL-ADXRS450Z&btnI=lucky)
 -   [EVAL-ADXRS453Z](https://www.google.com/search?q=EVAL-ADXRS453Z&btnI=lucky)
 -   [PmodGYRO2](http://www.digilentinc.com/Products/Detail.cfm?Prod=PMOD-GYRO2)
 
-# ADXRS450: ±300°/sec High Vibration Immunity Digital Gyro
+##### ADXRS450: ±300°/sec High Vibration Immunity Digital Gyro
 
 ![](scrape>adi>ADXRS450#description)
 
 -   [Product Page](https://www.google.com/search?q=ADXRS450&btnI=lucky)
 -   ![](scrape>adi>ADXRS450#datasheet-details)
 
-#### ADXRS453: ±300°/sec High Vibration Immunity Digital Gyro
+##### ADXRS453: ±300°/sec High Vibration Immunity Digital Gyro
 
 ![](scrape>adi>ADXRS453#description)
 
@@ -35,34 +33,29 @@ Evaluation Boards
 -   ![](scrape>adi>ADXRS453#datasheet-details)
 
 Adding ADXRS450 to the Kernel
-=============================
+-----------------------------
 
 To add support for the ADXRS450 to the kernel build system, a few things must be enabled properly for things to work.The configuration is as following:
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADXRS450 Driver depends on **CONFIG\_SPI**
+The ADXRS450 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-  Device Drivers  --->
-        <*>     Industrial I/O support  --->
-          <M>   Analog Devices ADXRS450/3 Digital Output Gyroscope SPI driver
+    Linux Kernel Configuration
+      Device Drivers  --->
+            <*>     Industrial I/O support  --->
+              <M>   Analog Devices ADXRS450/3 Digital Output Gyroscope SPI driver
 
-```
-```
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -79,8 +72,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -98,7 +90,7 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 Below is an example which is used on Blackfin board file.
 
@@ -106,7 +98,7 @@ Below is an example which is used on Blackfin board file.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-## if defined(CONFIG_ADXRS450) \
+## if defined(CONFIG_ADXRS450) 
     || defined(CONFIG_ADXRS450_MODULE)
     {
         .modalias = "adxrs450",
@@ -134,180 +126,180 @@ arch_initcall(board_init);
 ```
 
 Hardware configuration
-======================
+----------------------
 
 ![EVAL-ADXRS450](/software/driver/linux/adxrs450_eval_lr.jpg){.align-left width="600"}
 
 ![PmodGYRO2](/resources/tools-software/linux-drivers/iio-gyroscope/pmodgyro2_lr.jpg){.align-left width="600"}
 
 Driver testing
-==============
+--------------
 
-##### Module loading
+###### Module loading
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **modprobe adxrs450**
+root:/> **modprobe adxrs450**
 adxrs450 spi0.18: The Part ID is 0x5201
 adxrs450 spi0.18: The Serial Number is 0xbaf2
 ```
 :::
 
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> \*\*cd iio:device0 \*\*
+root:/sys/bus/iio/devices> **cd iio:device0 **
 
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 3 16:24 dev
--rw-r\--r\-- 1 root root 4096 Jan 3 16:24 in\_anglvel\_z\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 3 16:24 in\_anglvel\_z\_quadrature\_correction\_raw
--r\--r\--r\-- 1 root root 4096 Jan 3 16:24 in\_anglvel\_z\_raw
--rw-r\--r\-- 1 root root 4096 Jan 3 16:24 in\_anglvel\_z\_scale
--r\--r\--r\-- 1 root root 4096 Jan 3 16:24 in\_temp0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 3 16:24 in\_temp0\_scale
--r\--r\--r\-- 1 root root 4096 Jan 3 16:24 name
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **ls -l**
+-r--r--r-- 1 root root 4096 Jan 3 16:24 dev
+-rw-r--r-- 1 root root 4096 Jan 3 16:24 in_anglvel_z_calibbias
+-rw-r--r-- 1 root root 4096 Jan 3 16:24 in_anglvel_z_quadrature_correction_raw
+-r--r--r-- 1 root root 4096 Jan 3 16:24 in_anglvel_z_raw
+-rw-r--r-- 1 root root 4096 Jan 3 16:24 in_anglvel_z_scale
+-r--r--r-- 1 root root 4096 Jan 3 16:24 in_temp0_raw
+-rw-r--r-- 1 root root 4096 Jan 3 16:24 in_temp0_scale
+-r--r--r-- 1 root root 4096 Jan 3 16:24 name
 drwxr-xr-x 2 root root 0 Jan 3 16:24 power
-lrwxrwxrwx 1 root root 0 Jan 3 16:24 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 3 16:24 uevent
+lrwxrwxrwx 1 root root 0 Jan 3 16:24 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 3 16:24 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0> **cat name**
 adxrs450
 ```
 :::
 
 
-###### Show angular rate scale
+####### Show angular rate scale
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0\> **cat in\_anglvel\_z\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0> **cat in_anglvel_z_scale**
 0.000218166
 ```
 :::
 
 
-##### Show angular rate
+###### Show angular rate
 
 Rotate the device and read angular rate sampling values from sysfs nodes like this:
 
-###### Rotate in positive direction
+####### Rotate in positive direction
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **cat in\_anglvel\_z\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **cat in_anglvel_z_raw**
 42
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **cat in\_anglvel\_z\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **cat in_anglvel_z_raw**
 1456
 ```
 :::
 
 
-###### Rotate in negative direction
+####### Rotate in negative direction
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **cat in\_anglvel\_z\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **cat in_anglvel_z_raw**
 -1657
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **cat in\_anglvel\_z\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **cat in_anglvel_z_raw**
 -17215
 ```
 :::
 
 
-##### Show quadrature correction
+###### Show quadrature correction
 
 This attribute is used to read the amount of quadrature error present in the device at a given time.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **cat in\_anglvel\_z\_quadrature\_correction\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **cat in_anglvel_z_quadrature_correction_raw**
 9
 ```
 :::
 
 
-##### Set dynamic null correction
+###### Set dynamic null correction
 
 This attribute is used to make small adjustments to the rateout of the device.
 This 10-bit value allows the user to adjust the static rateout of the device by up to ±6.4°/sec.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **cat in\_gyro\_z\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **cat in_gyro_z_raw**
 40
 
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **echo 40 \> in\_anglvel\_z\_calibbias**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **echo 40 > in_anglvel_z_calibbias**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 \> **cat in\_anglvel\_z\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0 > **cat in_anglvel_z_raw**
 1
 ```
 :::
 
 
-##### Show temperature
+###### Show temperature
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0\> **cat in\_temp0\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0> **cat in_temp0_scale**
 200
-root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0\> **cat in\_temp0\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.18/iio:device0> **cat in_temp0_raw**
 105
 ```
 :::
 
 
-**T** = *in\_temp0\_raw* \* *in\_temp0\_scale* = 105 \* 200 = 21000 milli degree Celsius
+**T** = *in_temp0_raw* * *in_temp0_scale* = 105 * 200 = 21000 milli degree Celsius
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

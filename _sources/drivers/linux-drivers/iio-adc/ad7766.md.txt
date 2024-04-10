@@ -6,8 +6,7 @@ title: AD7767: 24-Bit, 8.5 mW, 109 dB, 128 kSPS ADC
 AD7766 24-Bit, 8.5 mW, 109 dB, 128 kSPS/64 kSPS/32 kSPS ADCs IIO Linux Driver
 =============================================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD7766](https://www.google.com/search?q=AD7766&btnI=lucky)
 -   [AD7766-1](https://www.google.com/search?q=AD7766&btnI=lucky)
@@ -16,24 +15,21 @@ Supported Devices
 -   [AD7767-1](https://www.google.com/search?q=AD7767&btnI=lucky)
 -   [AD7767-2](https://www.google.com/search?q=AD7767&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD7766](https://www.google.com/search?q=EVAL-AD7766&btnI=lucky)
 -   [EVAL-AD7767](https://www.google.com/search?q=EVAL-AD7767&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -50,8 +46,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -69,14 +64,13 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-Specifying reference voltage via the regulator framework
---------------------------------------------------------
+#### Specifying reference voltage via the regulator framework
 
-:::{NOTE} <!-- ATTRS: tip\="" -->
+:::{NOTE} <!-- ATTRS: tip="" -->
 
 This driver supports also an alternative way of specifying the reference voltage, by using the Linux regulator framework.
 
@@ -140,7 +134,7 @@ arch_initcall(board_init);
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
@@ -171,42 +165,38 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD7766 Driver depends on **CONFIG\_SPI\_MASTER**
+The AD7766 Driver depends on **CONFIG_SPI_MASTER**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        -*- Industrial I/O support  --->  
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            -*- Industrial I/O support  --->  
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Analog to digital converters ***
-                    [--snip--]
-                        <*>   Analog Devices AD7766/AD7767 ADC driver
-                    [--snip--]
+                          *** Analog to digital converters ***
+                        [--snip--]
+                            <*>   Analog Devices AD7766/AD7767 ADC driver
+                        [--snip--]
 
-```
-```
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
@@ -214,86 +204,86 @@ This specifies any shell prompt running on the target
 
 > **cd /sys/bus/iio/devices/**
 
-/sys/bus/iio/devices\> ls
+/sys/bus/iio/devices> ls
 iio:device0
-/sys/bus/iio/devices\> **cd iio:device0**
+/sys/bus/iio/devices> **cd iio:device0**
 
-/sys/bus/iio/devices/iio:device0\> **ls -l**
+/sys/bus/iio/devices/iio:device0> **ls -l**
 drwxrwxrwx 2 root root 0 Jan 1 1970 buffer
--rw-rw-rw- 1 root root 4096 Jan 1 1970 in\_voltage\_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 in_voltage_scale
 -rw-rw-rw- 1 root root 4096 Jan 1 1970 name
--rw-rw-rw- 1 root root 4096 Jan 1 1970 sampling\_frequency
-drwxrwxrwx 2 root root 0 Jan 1 1970 scan\_elements
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 sampling_frequency
+drwxrwxrwx 2 root root 0 Jan 1 1970 scan_elements
 drwxrwxrwx 2 root root 0 Jan 1 1970 trigger
 
-/sys/bus/iio/devices/iio:device0\> **ls -l buffer**
+/sys/bus/iio/devices/iio:device0> **ls -l buffer**
 -rw-rw-rw- 1 root root 4096 Jan 1 1970 enable
 -rw-rw-rw- 1 root root 4096 Jan 1 1970 length
 -rw-rw-rw- 1 root root 4096 Jan 1 1970 watermark
 
-/sys/bus/iio/devices/iio:device0\> **ls -l scan\_elements**
--rw-rw-rw- 1 root root 4096 Jan 1 1970 in\_timestamp\_en
--rw-rw-rw- 1 root root 4096 Jan 1 1970 in\_timestamp\_index
--rw-rw-rw- 1 root root 4096 Jan 1 1970 in\_timestamp\_type
--rw-rw-rw- 1 root root 4096 Jan 1 1970 in\_voltage0\_en
--rw-rw-rw- 1 root root 4096 Jan 1 1970 in\_voltage0\_index
--rw-rw-rw- 1 root root 4096 Jan 1 1970 in\_voltage0\_type
+/sys/bus/iio/devices/iio:device0> **ls -l scan_elements**
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 in_timestamp_en
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 in_timestamp_index
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 in_timestamp_type
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 in_voltage0_en
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 in_voltage0_index
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 in_voltage0_type
 
-/sys/bus/iio/devices/iio:device0\> **ls -l trigger**
--rw-rw-rw- 1 root root 4096 Jan 1 1970 current\_trigger
+/sys/bus/iio/devices/iio:device0> **ls -l trigger**
+-rw-rw-rw- 1 root root 4096 Jan 1 1970 current_trigger
 ```
 :::
 
 
-# Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-/sys/bus/iio/devices/iio:device0\> **cat name**
+/sys/bus/iio/devices/iio:device0> **cat name**
 ad7766
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
+**Description:**
 Scale to be applied to the captured sample data in order to obtain the measured voltage in millivolts.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-/sys/bus/iio/devices/iio:device0\> **cat in\_voltage\_scale**
+/sys/bus/iio/devices/iio:device0> **cat in_voltage_scale**
 0.000298023
 ```
 :::
 
 
-##### Show data output rate
+###### Show data output rate
 
-**Description:**\
+**Description:**
 Shows the data output rate of the converter in Hz.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-/sys/bus/iio/devices/iio:device0\> **cat sampling\_frequency**
+/sys/bus/iio/devices/iio:device0> **cat sampling_frequency**
 125000
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

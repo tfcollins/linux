@@ -6,36 +6,31 @@ title: AD7747: 24-Bit Capacitance-to-Digital Converter with Temperature Sensor
 AD7746 IIO Capacitance to Digital Converter Linux Driver
 ========================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD7745](https://www.google.com/search?q=AD7745&btnI=lucky)
 -   [AD7746](https://www.google.com/search?q=AD7746&btnI=lucky)
 -   [AD7747](https://www.google.com/search?q=AD7747&btnI=lucky)
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [CN0346](https://www.google.com/search?q=CN0346&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD7746EBZ](https://www.google.com/search?q=EVAL-AD7746EBZ&btnI=lucky)
 -   [EVAL-AD7747EBZ](https://www.google.com/search?q=EVAL-AD7747EBZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single and multi channel serial interface Capacitance to Digital Converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -52,8 +47,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -76,7 +70,7 @@ Files
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
-Depending on the converter IC used, you may need to set the I2C\_BOARD\_INFO name accordingly, matching your part name.
+Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name accordingly, matching your part name.
 
 <table>
 <thead>
@@ -103,7 +97,7 @@ Depending on the converter IC used, you may need to set the I2C\_BOARD\_INFO nam
 
 ``` {.c}
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
-# if defined(CONFIG_AD7746) || defined(CONFIG_AD7746_MODULE)
+## if defined(CONFIG_AD7746) || defined(CONFIG_AD7746_MODULE)
     {
         I2C_BOARD_INFO("ad7746", 0x48),
     },
@@ -126,154 +120,149 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The driver depends on **CONFIG\_I2C**
+The driver depends on **CONFIG_I2C**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ri
-ng
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ri
+    ng
+                    -*-   Enable triggered sampling support
 
-                [--snip--]
+                    [--snip--]
 
-                *** Analog to digital converters ***
-                <*>   Analog Devices AD7745, AD7746 AD7747 capacitive sensor driver
+                    *** Analog to digital converters ***
+                    <*>   Analog Devices AD7745, AD7746 AD7747 capacitive sensor driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Hardware configuration
-======================
+----------------------
 
 ![](/resources/tools-software/linux-drivers/iio-cdc/ad7746_eval_lr.jpg){width="600"}
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 dev
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance-capacitance\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance-capacitance\_scale
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance0-capacitance2\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance0-capacitance2\_offset
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance0-capacitance2\_raw
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 1 11:17 in\_capacitance0\_calibbias\_calibration
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance0\_calibscale
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 1 11:17 in\_capacitance0\_calibscale\_calibration
--rw-r\--r\-- 1 root root 4096 Jan 1 11:19 in\_capacitance0\_offset
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance1-capacitance3\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance1-capacitance3\_offset
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance1-capacitance3\_raw
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 1 11:17 in\_capacitance1\_calibbias\_calibration
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance1\_calibscale
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 1 11:17 in\_capacitance1\_calibscale\_calibration
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance1\_offset
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance1\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance\_sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance\_sampling\_frequency\_available
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_capacitance\_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_temp0\_input
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_temp1\_input
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 1 11:17 in\_voltage0\_calibscale\_calibration
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_voltage0\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_voltage1\_supply\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_voltage\_sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 in\_voltage\_sampling\_frequency\_available
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_voltage\_scale
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 in\_voltage\_supply\_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 11:17 name
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 1 11:17 dev
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance-capacitance_calibbias
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance-capacitance_scale
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance0-capacitance2_calibscale
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance0-capacitance2_offset
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance0-capacitance2_raw
+--w------- 1 root root 4096 Jan 1 11:17 in_capacitance0_calibbias_calibration
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance0_calibscale
+--w------- 1 root root 4096 Jan 1 11:17 in_capacitance0_calibscale_calibration
+-rw-r--r-- 1 root root 4096 Jan 1 11:19 in_capacitance0_offset
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance0_raw
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance1-capacitance3_calibscale
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance1-capacitance3_offset
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance1-capacitance3_raw
+--w------- 1 root root 4096 Jan 1 11:17 in_capacitance1_calibbias_calibration
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance1_calibscale
+--w------- 1 root root 4096 Jan 1 11:17 in_capacitance1_calibscale_calibration
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance1_offset
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance1_raw
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance_calibbias
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance_sampling_frequency
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance_sampling_frequency_available
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_capacitance_scale
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_temp0_input
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_temp1_input
+--w------- 1 root root 4096 Jan 1 11:17 in_voltage0_calibscale_calibration
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_voltage0_raw
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_voltage1_supply_raw
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_voltage_sampling_frequency
+-r--r--r-- 1 root root 4096 Jan 1 11:17 in_voltage_sampling_frequency_available
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_voltage_scale
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 in_voltage_supply_scale
+-r--r--r-- 1 root root 4096 Jan 1 11:17 name
 drwxr-xr-x 2 root root 0 Jan 1 11:17 power
-lrwxrwxrwx 1 root root 0 Jan 1 11:17 subsystem -\> ../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 1 11:17 uevent
+lrwxrwxrwx 1 root root 0 Jan 1 11:17 subsystem -> ../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 1 11:17 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat name**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat name**
 ad7746
 ```
 :::
 
 
-##### Show available sampling frequencies / update rates
+###### Show available sampling frequencies / update rates
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance\_sampling\_frequency\_available**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance_sampling_frequency_available**
 91 84 50 26 16 13 11 9
 
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_voltage\_sampling\_frequency\_available**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_voltage_sampling_frequency_available**
 50 31 16 8
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0>
 ```
 :::
 
 
-##### Set sampling frequency / update rate
+###### Set sampling frequency / update rate
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance\_sampling\_frequency**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance_sampling_frequency**
 91
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **echo 50 \> in\_capacitance\_sampling\_frequency**
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance\_sampling\_frequency**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **echo 50 > in_capacitance_sampling_frequency**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance_sampling_frequency**
 50
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0>
 
 ```
 :::
 
 
-##### Show scales for single and differential input channels
+###### Show scales for single and differential input channels
 
 Lists all available scales for the input and input pairs:
 
@@ -312,22 +301,22 @@ Lists all available scales for the input and input pairs:
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance\_scale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance_scale**
 0.000000488
 ```
 :::
 
 
-##### Show channel CIN1(+) measurement
+###### Show channel CIN1(+) measurement
 
-**Description:**\
-Raw unscaled capacitance measurement on channel in\_capacitance0\_raw
+**Description:**
+Raw unscaled capacitance measurement on channel in_capacitance0_raw
 
 <table>
 <thead>
@@ -364,24 +353,24 @@ Raw unscaled capacitance measurement on channel in\_capacitance0\_raw
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance0\_raw**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance0_raw**
 14914
 ```
 :::
 
 
-**U** = *in\_capacitance0\_raw \* in\_capacitance\_scale* = 14914 \* 0.000000488 = **0.007278032 *pF***
+**U** = *in_capacitance0_raw * in_capacitance_scale* = 14914 * 0.000000488 = **0.007278032 *pF***
 
-##### Show internal temperature measurement
+###### Show internal temperature measurement
 
-**Description:**\
-Scaled temperature measurement on channel in\_temp0\_input. Results are in millidegrees Celsius.
+**Description:**
+Scaled temperature measurement on channel in_temp0_input. Results are in millidegrees Celsius.
 
 <table>
 <thead>
@@ -402,26 +391,26 @@ Scaled temperature measurement on channel in\_temp0\_input. Results are in milli
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_temp0\_input**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_temp0_input**
 28756
 ```
 :::
 
 
-**T** = *in\_temp0\_input* = 28756 = **28.756 *°C***
+**T** = *in_temp0_input* = 28756 = **28.756 *°C***
 
-##### Set channel common mode offset (CAPDAC)
+###### Set channel common mode offset (CAPDAC)
 
-**Description:**\
-If known for a device, offset to be added to \<type\>\[Y\]\_raw prior
-to scaling by \<type\>\[Y\]\_scale in order to obtain value in the
-\<type\> units as specified in \<type\>\[y\]\_raw documentation.
+**Description:**
+If known for a device, offset to be added to <type>[Y]_raw prior
+to scaling by <type>[Y]_scale in order to obtain value in the
+<type> units as specified in <type>[y]_raw documentation.
 
 <table>
 <thead>
@@ -455,7 +444,7 @@ to scaling by \<type\>\[Y\]\_scale in order to obtain value in the
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
 The AD7745/AD7746 CDC full-scale input range is ±4.096 pF.
 The part can accept a higher capacitance on the input and the
@@ -465,78 +454,78 @@ can be balanced by programmable on-chip CAPDACs.
 :::
 
 
-**Example 4pF Offset:**\
-**in\_capacitance0\_offset** = *Offset / in\_capacitance\_scale* = 4pF / 0.000000488 = **8196721**
+**Example 4pF Offset:**
+**in_capacitance0_offset** = *Offset / in_capacitance_scale* = 4pF / 0.000000488 = **8196721**
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **echo 8196721 \> in\_capacitance0\_offset**
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance0\_offset**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **echo 8196721 > in_capacitance0_offset**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance0_offset**
 8127504
 ```
 :::
 
 
-##### Perform channel gain calibration
+###### Perform channel gain calibration
 
-**Description:**\
-Triggers gain calibration on channel in\_capacitance0 or in\_capacitance1
+**Description:**
+Triggers gain calibration on channel in_capacitance0 or in_capacitance1
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **echo 1 \> in\_capacitance1\_calibscale\_calibration**
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance1\_calibscale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **echo 1 > in_capacitance1_calibscale_calibration**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance1_calibscale**
 1.000000
 ```
 :::
 
 
-##### Set channel gain coefficient
+###### Set channel gain coefficient
 
-**Description:**\
-Write gain coefficient for channel in\_capacitance0 or in\_capacitance1
+**Description:**
+Write gain coefficient for channel in_capacitance0 or in_capacitance1
 Valid range is between 1.0 and 1.99999999.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **echo 1.5 \> in\_capacitance1\_calibscale**
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance1\_calibscale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **echo 1.5 > in_capacitance1_calibscale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance1_calibscale**
 1.500000
 ```
 :::
 
 
-##### Perform channel offset calibration
+###### Perform channel offset calibration
 
-**Description:**\
-Triggers offset calibration on channel in\_capacitance0 or in\_capacitance1
+**Description:**
+Triggers offset calibration on channel in_capacitance0 or in_capacitance1
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **echo 1 \> in\_capacitance1\_calibbias\_calibration**
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in\_capacitance\_calibbias**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **echo 1 > in_capacitance1_calibbias_calibration**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance_calibbias**
 0
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

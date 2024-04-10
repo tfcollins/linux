@@ -6,34 +6,30 @@ title: AD5421: 16-Bit, Serial Input, Loop-Powered, 4mA to 20mA DA
 AD5421 IIO DAC Linux Driver
 ===========================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD5421](https://www.google.com/search?q=AD5421&btnI=lucky)
 
-# Reference Circuits
+##### Reference Circuits
 
 -   [CN0267](https://www.google.com/search?q=CN0267&btnI=lucky)
 -   [CN0278](https://www.google.com/search?q=CN0278&btnI=lucky)
 -   [CN0382](https://www.google.com/search?q=CN0382&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD5421SDZ](https://www.google.com/search?q=EVAL-AD5421SDZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi-channel serial interface DACs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -50,8 +46,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -69,7 +64,7 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -126,7 +121,7 @@ arch_initcall(board_init);
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-## if defined(CONFIG_AD5421_SPI) || \
+## if defined(CONFIG_AD5421_SPI) || 
     defined(CONFIG_AD5421_SPI_MODULE)
     {
         /* the modalias must be the same as spi device driver name */
@@ -143,161 +138,157 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ad5421 Driver depends on **CONFIG\_SPI**
+The ad5421 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        ...
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
+    Linux Kernel Configuration
+        Device Drivers  --->
             ...
-            Digital to analog converters  ---> 
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
                 ...
-                <*>  Analog Devices AD5421 DAC driver
+                Digital to analog converters  ---> 
+                    ...
+                    <*>  Analog Devices AD5421 DAC driver
+                    ...
                 ...
             ...
-        ...
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 1 00:03 dev
--r\--r\--r\-- 1 root root 4096 Jan 1 00:03 name
--rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current0\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current0\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current\_offset
--rw-r\--r\-- 1 root root 4096 Jan 1 00:03 out\_current\_scale
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 1 00:03 dev
+-r--r--r-- 1 root root 4096 Jan 1 00:03 name
+-rw-r--r-- 1 root root 4096 Jan 1 00:03 out_current0_calibbias
+-rw-r--r-- 1 root root 4096 Jan 1 00:03 out_current0_calibscale
+-rw-r--r-- 1 root root 4096 Jan 1 00:03 out_current0_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:03 out_current_offset
+-rw-r--r-- 1 root root 4096 Jan 1 00:03 out_current_scale
 drwxr-xr-x 2 root root 0 Jan 1 00:03 power
-lrwxrwxrwx 1 root root 0 Jan 1 00:03 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 1 00:03 uevent
+lrwxrwxrwx 1 root root 0 Jan 1 00:03 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 1 00:03 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat name**
 ad5421
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_current\_scale\
-scale to be applied to out\_current0\_raw in order to obtain the outputted current in milliampere.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_current_scale
+scale to be applied to out_current0_raw in order to obtain the outputted current in milliampere.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_current\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_current_scale**
 0.000244
 ```
 :::
 
 
-##### Show offset
+###### Show offset
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_current\_offset\
-offset to be applied to out\_current0\_raw in order to obtain the outputted current in milliampere.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_current_offset
+offset to be applied to out_current0_raw in order to obtain the outputted current in milliampere.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_current\_offset**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_current_offset**
 16384
 ```
 :::
 
 
-##### Set channel Y output current
+###### Set channel Y output current
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_currentY\_raw\
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_currentY_raw
 Raw (unscaled, no bias etc.) output current for
 channel Y.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 10000 \> out\_current0\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 10000 > out_current0_raw**
 ```
 :::
 
 
-**I** = *( out\_current0\_raw + out\_current\_offset ) \* out\_current\_scale* = (10000 + 16384) \* 0.000244 *mA* = **6.437696 *mA***
+**I** = *( out_current0_raw + out_current_offset ) * out_current_scale* = (10000 + 16384) * 0.000244 *mA* = **6.437696 *mA***
 
-##### Calibrate channel Y gain
+###### Calibrate channel Y gain
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_currentY\_calibscale\
-Each channel has an adjustable gain which can be used to calibrate the channel\'s scale and compensate for full-scale errors. The default value is 65535.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_currentY_calibscale
+Each channel has an adjustable gain which can be used to calibrate the channel's scale and compensate for full-scale errors. The default value is 65535.
 
 If scale calibration is used the following formula can be used calculate the output current:
 
-**I** = *( ( out\_currentY\_raw \* ( out\_currentY\_calibscale + 1 ) ) / 2\^16 + out\_currentY\_calibbias + out\_current\_offset ) \* out\_currentY\_scale*
+**I** = *( ( out_currentY_raw * ( out_currentY_calibscale + 1 ) ) / 2^16 + out_currentY_calibbias + out_current_offset ) * out_currentY_scale*
 
-##### Calibrate channel Y offset
+###### Calibrate channel Y offset
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_currentY\_calibbias\
-Each channel has an adjustable offset which can be used to calibrate the channel\'s offset and compensate for zero-scale errors. The default value is 0.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_currentY_calibbias
+Each channel has an adjustable offset which can be used to calibrate the channel's offset and compensate for zero-scale errors. The default value is 0.
 
 If offset calibration is used the following formula can be used calculate the output current:
 
-**I** = *( ( out\_currentY\_raw \* ( out\_currentY\_calibscale + 1 ) ) / 2\^16 + out\_currentY\_calibbias + out\_current\_offset ) \* out\_currentY\_scale*
+**I** = *( ( out_currentY_raw * ( out_currentY_calibscale + 1 ) ) / 2^16 + out_currentY_calibbias + out_current_offset ) * out_currentY_scale*
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

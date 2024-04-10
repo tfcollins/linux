@@ -8,41 +8,36 @@ AD9361 high performance, highly integrated RF Agile Transceiver™ Linux device 
 
 The AD9361 is a high performance, highly integrated RF Agile Transceiver™. Its programmability and wideband capability make it ideal for a broad range of transceiver applications. The device combines an RF front end with a flexible mixed-signal baseband section and integrated frequency synthesizers, simplifying design-in by providing a configurable digital interface to a processor.
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD9361](https://www.google.com/search?q=AD9361&btnI=lucky)
 -   [AD9363](https://www.google.com/search?q=AD9363&btnI=lucky)
 -   [AD9364](https://www.google.com/search?q=AD9364&btnI=lucky)
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [AD-FMCOMMS2-EBZ](https://www.google.com/search?q=AD-FMCOMMS2-EBZ&btnI=lucky)
 -   [AD-FMCOMMS3-EBZ](https://www.google.com/search?q=AD-FMCOMMS3-EBZ&btnI=lucky)
 -   [AD-FMCOMMS4-EBZ](https://www.google.com/search?q=AD-FMCOMMS4-EBZ&btnI=lucky)
 -   [AD-FMCOMMS5-EBZ](https://www.google.com/search?q=AD-FMCOMMS5-EBZ&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [AD-FMCOMMS2-EBZ](https://www.google.com/search?q=AD-FMCOMMS2-EBZ&btnI=lucky)
 -   [AD-FMCOMMS3-EBZ](https://www.google.com/search?q=AD-FMCOMMS3-EBZ&btnI=lucky)
 -   [AD-FMCOMMS4-EBZ](https://www.google.com/search?q=AD-FMCOMMS4-EBZ&btnI=lucky)
 -   [AD-FMCOMMS5-EBZ](https://www.google.com/search?q=AD-FMCOMMS5-EBZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting RF Transceivers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -59,8 +54,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -89,7 +83,7 @@ Files
 </tbody>
 </table>
 
-# Related Device Drivers
+##### Related Device Drivers
 
 <table>
 <thead>
@@ -134,20 +128,20 @@ Files
 </table>
 
 Device Driver Customization
-===========================
+---------------------------
 
 Please follow the link here for detailed options and examples:
 
 -   [AD9361/AD9363/AD9364 Device Driver Customization](/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization)
 
 Example Linux Device-Tree Initialization
-========================================
+----------------------------------------
 
 The AD9361 driver is a spi-bus driver and can currently only be instantiated via device tree.
 
 Required devicetree properties:
 
--   compatible: Should always be \"adi,ad9361\", \"adi,ad9363\" or \"adi,ad9364\"
+-   compatible: Should always be "adi,ad9361", "adi,ad9363" or "adi,ad9364"
 -   reg: SPI slave select number
 
 <table>
@@ -174,52 +168,48 @@ Required devicetree properties:
 </table>
 
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD9361 driver depends on **CONFIG\_SPI**
+The AD9361 driver depends on **CONFIG_SPI**
 
 :::
 
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-        -*-   Enable ring buffer support within IIO
-        -*-     Industrial I/O lock free software ring
-        -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            -*-   Enable ring buffer support within IIO
+            -*-     Industrial I/O lock free software ring
+            -*-   Enable triggered sampling support
 
-              *** Analog to digital converters ***
-        [--snip--]
+                  *** Analog to digital converters ***
+            [--snip--]
 
-        <*>   Analog Devices AD9467 AD9643 High-Speed AXI ADC driver
+            <*>   Analog Devices AD9467 AD9643 High-Speed AXI ADC driver
 
-        [--snip--]
+            [--snip--]
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing / API
-====================
+--------------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%\="" -->
+:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%="" -->
 **TIP:**
 An example program which uses the interface can be found here:
 
@@ -228,9 +218,9 @@ An example program which uses the interface can be found here:
 
 
 :::
-\
 
-##### General attribute naming convention:
+
+###### General attribute naming convention:
 
 -   `in_voltage0_[…]`: targets RX1
 -   `in_voltage1_[…]`: targets RX2 (AD9361 in 2RX2TX mode only)
@@ -239,7 +229,7 @@ An example program which uses the interface can be found here:
 -   `out_altvoltage0_[…]`: targets RX LO
 -   `out_altvoltage1_[…]`: targets TX LO
 
-:::{NOTE} <!-- ATTRS: tip\="" -->
+:::{NOTE} <!-- ATTRS: tip="" -->
 
 Because of differences in silicon implementation; and the way an IIO device wants to be expressed as a device with channels and attributes, there may be specific attributes that are exposed on multiple channels, that control the same bit/register in the device (are duplicated for convenience or to match the IIO model). A specific example of this is:
 
@@ -251,118 +241,116 @@ There is only one bit in the device that controls both channels, and this is pro
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0 iio:device1 iio:device2 iio:device3 iio:device4
 
-root:/sys/bus/iio/devices\> **cd iio:device1**
+root:/sys/bus/iio/devices> **cd iio:device1**
 
-root:/sys/bus/iio/devices/iio:device1\# ls -l
+root:/sys/bus/iio/devices/iio:device1# ls -l
 total 0
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 calib\_mode
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 calib\_mode\_available
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 dcxo\_tune\_coarse
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 dcxo\_tune\_fine
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 dev
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 ensm\_mode
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 ensm\_mode\_available
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 15 13:49 filter\_fir\_config
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 in\_out\_voltage\_filter\_fir\_en
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 in\_temp0\_input
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 in\_voltage0\_gain\_control\_mode
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 in\_voltage0\_hardwaregain
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 in\_voltage0\_rf\_port\_select
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 in\_voltage0\_rssi
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 in\_voltage1\_gain\_control\_mode
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 in\_voltage1\_hardwaregain
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 in\_voltage1\_rf\_port\_select
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 in\_voltage1\_rssi
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 in\_voltage2\_offset
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 in\_voltage2\_raw
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 in\_voltage2\_scale
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 in\_voltage\_bb\_dc\_offset\_tracking\_en
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 in\_voltage\_filter\_fir\_en
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 in\_voltage\_gain\_control\_mode\_available
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 in\_voltage\_quadrature\_tracking\_en
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 in\_voltage\_rf\_bandwidth
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 in\_voltage\_rf\_dc\_offset\_tracking\_en
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 in\_voltage\_rf\_port\_select\_available
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 in\_voltage\_sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 name
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_altvoltage0\_RX\_LO\_fastlock\_load
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_altvoltage0\_RX\_LO\_fastlock\_recall
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_altvoltage0\_RX\_LO\_fastlock\_save
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_altvoltage0\_RX\_LO\_fastlock\_store
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 out\_altvoltage0\_RX\_LO\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_altvoltage1\_TX\_LO\_fastlock\_load
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_altvoltage1\_TX\_LO\_fastlock\_recall
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_altvoltage1\_TX\_LO\_fastlock\_save
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_altvoltage1\_TX\_LO\_fastlock\_store
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 out\_altvoltage1\_TX\_LO\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 out\_voltage0\_hardwaregain
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 out\_voltage0\_rf\_port\_select
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 out\_voltage0\_rssi
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 out\_voltage1\_hardwaregain
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_voltage1\_rf\_port\_select
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 out\_voltage1\_rssi
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_voltage2\_raw
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_voltage2\_scale
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_voltage3\_raw
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 out\_voltage3\_scale
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 out\_voltage\_filter\_fir\_en
--rw-r\--r\-- 1 root root 4096 Jan 15 13:32 out\_voltage\_rf\_bandwidth
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 out\_voltage\_rf\_port\_select\_available
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 out\_voltage\_sampling\_frequency
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 calib_mode
+-r--r--r-- 1 root root 4096 Jan 15 13:49 calib_mode_available
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 dcxo_tune_coarse
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 dcxo_tune_fine
+-r--r--r-- 1 root root 4096 Jan 15 13:49 dev
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 ensm_mode
+-r--r--r-- 1 root root 4096 Jan 15 13:49 ensm_mode_available
+--w------- 1 root root 4096 Jan 15 13:49 filter_fir_config
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 in_out_voltage_filter_fir_en
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 in_temp0_input
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 in_voltage0_gain_control_mode
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 in_voltage0_hardwaregain
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 in_voltage0_rf_port_select
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 in_voltage0_rssi
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 in_voltage1_gain_control_mode
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 in_voltage1_hardwaregain
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 in_voltage1_rf_port_select
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 in_voltage1_rssi
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 in_voltage2_offset
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 in_voltage2_raw
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 in_voltage2_scale
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 in_voltage_bb_dc_offset_tracking_en
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 in_voltage_filter_fir_en
+-r--r--r-- 1 root root 4096 Jan 15 13:49 in_voltage_gain_control_mode_available
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 in_voltage_quadrature_tracking_en
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 in_voltage_rf_bandwidth
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 in_voltage_rf_dc_offset_tracking_en
+-r--r--r-- 1 root root 4096 Jan 15 13:49 in_voltage_rf_port_select_available
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 in_voltage_sampling_frequency
+-r--r--r-- 1 root root 4096 Jan 15 13:49 name
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_altvoltage0_RX_LO_fastlock_load
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_altvoltage0_RX_LO_fastlock_recall
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_altvoltage0_RX_LO_fastlock_save
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_altvoltage0_RX_LO_fastlock_store
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 out_altvoltage0_RX_LO_frequency
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_altvoltage1_TX_LO_fastlock_load
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_altvoltage1_TX_LO_fastlock_recall
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_altvoltage1_TX_LO_fastlock_save
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_altvoltage1_TX_LO_fastlock_store
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 out_altvoltage1_TX_LO_frequency
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 out_voltage0_hardwaregain
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 out_voltage0_rf_port_select
+-r--r--r-- 1 root root 4096 Jan 15 13:49 out_voltage0_rssi
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 out_voltage1_hardwaregain
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_voltage1_rf_port_select
+-r--r--r-- 1 root root 4096 Jan 15 13:49 out_voltage1_rssi
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_voltage2_raw
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_voltage2_scale
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_voltage3_raw
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 out_voltage3_scale
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 out_voltage_filter_fir_en
+-rw-r--r-- 1 root root 4096 Jan 15 13:32 out_voltage_rf_bandwidth
+-r--r--r-- 1 root root 4096 Jan 15 13:49 out_voltage_rf_port_select_available
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 out_voltage_sampling_frequency
 drwxr-xr-x 2 root root 0 Jan 15 13:49 power
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 rx\_path\_rates
-lrwxrwxrwx 1 root root 0 Jan 15 13:49 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 15 13:33 trx\_rate\_governor
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 trx\_rate\_governor\_available
--r\--r\--r\-- 1 root root 4096 Jan 15 13:49 tx\_path\_rates
--rw-r\--r\-- 1 root root 4096 Jan 15 13:49 uevent
+-r--r--r-- 1 root root 4096 Jan 15 13:49 rx_path_rates
+lrwxrwxrwx 1 root root 0 Jan 15 13:49 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 15 13:33 trx_rate_governor
+-r--r--r-- 1 root root 4096 Jan 15 13:49 trx_rate_governor_available
+-r--r--r-- 1 root root 4096 Jan 15 13:49 tx_path_rates
+-rw-r--r-- 1 root root 4096 Jan 15 13:49 uevent
 
-root:/sys/bus/iio/devices/iio:device1\#
+root:/sys/bus/iio/devices/iio:device1#
 ```
 :::
 
 
-Show device name
-----------------
+#### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat name**
+root:/sys/bus/iio/devices/iio:device1> **cat name**
 ad9361-phy
 ```
 :::
 
 
-Enable State Machine Controls
------------------------------
+#### Enable State Machine Controls
 
-The AD9361 transceiver includes an Enable State Machine (ENSM), allowing real time control over the current state of the device. The ENSM has two possible control methods -- SPI control (writing ensm\_mode), and pin control (writing ensm\_mode = pinctrl).
+The AD9361 transceiver includes an Enable State Machine (ENSM), allowing real time control over the current state of the device. The ENSM has two possible control methods -- SPI control (writing ensm_mode), and pin control (writing ensm_mode = pinctrl).
 The ENSM is controlled asynchronously by writing SPI registers to advance the current state to the next state.
 The ENABLE and TXNRX pins allow real time control of the current state.
-The ENSM allows TDD or FDD operation depending on the configuration.\
+The ENSM allows TDD or FDD operation depending on the configuration.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat ensm\_mode\_available**
-sleep wait alert fdd pinctrl pinctrl\_fdd\_indep
+root:/sys/bus/iio/devices/iio:device1> **cat ensm_mode_available**
+sleep wait alert fdd pinctrl pinctrl_fdd_indep
 ```
 :::
 
@@ -373,7 +361,7 @@ sleep wait alert fdd pinctrl pinctrl\_fdd\_indep
 -   alert
 -   fdd
 -   pinctrl
--   pinctrl\_fdd\_indep (FDD Independent Mode)
+-   pinctrl_fdd_indep (FDD Independent Mode)
 
 **TDD Mode options:**
 
@@ -383,239 +371,232 @@ sleep wait alert fdd pinctrl pinctrl\_fdd\_indep
 -   tx
 -   pinctrl
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat ensm\_mode**
+root:/sys/bus/iio/devices/iio:device1> **cat ensm_mode**
 fdd
 
-root:/sys/bus/iio/devices/iio:device1\> **echo alert \> ensm\_mode**
-root:/sys/bus/iio/devices/iio:device1\> **cat ensm\_mode**
+root:/sys/bus/iio/devices/iio:device1> **echo alert > ensm_mode**
+root:/sys/bus/iio/devices/iio:device1> **cat ensm_mode**
 alert
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: left="" tip="" round="" box="" 100%\="" -->
-**NOTE:**\
+:::{NOTE} <!-- ATTRS: left="" tip="" round="" box="" 100%="" -->
+**NOTE:**
 Be aware if you you want to transition in TDD mode from RX to TX you have to go via ALERT.
-(Recent driver releases - do this now automatically\...)
+(Recent driver releases - do this now automatically...)
 
 You may want to checkout the ENSM Pin-Control test script here:
-[test\_ensm\_pinctrl.sh](https://github.com/analogdevicesinc/linux_image_ADI-scripts/blob/master/test_ensm_pinctrl.sh)
+[test_ensm_pinctrl.sh](https://github.com/analogdevicesinc/linux_image_ADI-scripts/blob/master/test_ensm_pinctrl.sh)
 
 :::
 
 
-Local Oscillator Control (LO)
------------------------------
+#### Local Oscillator Control (LO)
 
 The AD9361 transceiver contains two identical RFPLL synthesizers to generate the required LO signals.
 One is programmed for the RX channel and the other for the TX channel.
 The tuning range supported by this driver covers 70MHz to 6GHz (AD9363: 325-3800 MHz) with 2Hz tuning granularity.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-**cat out\_altvoltage0\_RX\_LO\_frequency**
+**cat out_altvoltage0_RX_LO_frequency**
 2400000000
-root:/sys/bus/iio/devices/iio:device1\> **echo 2450000000 \> out\_altvoltage0\_RX\_LO\_frequency**
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_altvoltage0\_RX\_LO\_frequency**
+root:/sys/bus/iio/devices/iio:device1> **echo 2450000000 > out_altvoltage0_RX_LO_frequency**
+root:/sys/bus/iio/devices/iio:device1> **cat out_altvoltage0_RX_LO_frequency**
 2450000000
 ```
 :::
 
 
-#### Local Oscillator Power-down
+##### Local Oscillator Power-down
 
 If both, the TX and RX Local Oscillators (LO) are set to the same frequency or very close to each other.
 The TX LO may leak into the RX path. Usually this is avoided in TDD mode, since always only one of the LOs is enabled at a given time. However sometimes it can be beneficial in FDD mode to turn the TX LO off. Care must be taken since TX LO in Power-down mode, will cause the TX QUAD calibration to fail.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **echo 0 \> out\_altvoltage1\_TX\_LO\_powerdown**
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_altvoltage1\_TX\_LO\_powerdown**
+root:/sys/bus/iio/devices/iio:device1> **echo 0 > out_altvoltage1_TX_LO_powerdown**
+root:/sys/bus/iio/devices/iio:device1> **cat out_altvoltage1_TX_LO_powerdown**
 0
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_altvoltage0\_RX\_LO\_powerdown**
+root:/sys/bus/iio/devices/iio:device1> **cat out_altvoltage0_RX_LO_powerdown**
 1
 ```
 :::
 
 
-#### External LO Support
+##### External LO Support
 
 The driver allows switching between external and internal LO on the fly.
-Writing 1 into out\_altvoltage0\_RX\_LO\_external/out\_altvoltage1\_TX\_LO\_external switches to external LO.
+Writing 1 into out_altvoltage0_RX_LO_external/out_altvoltage1_TX_LO_external switches to external LO.
 Respectively writing 0 switches back to the internal synthesizer.
 
-In case additional clocks are specified in the device tree (clock-names: \"ext\_tx\_lo\" \"ext\_rx\_lo\").
+In case additional clocks are specified in the device tree (clock-names: "ext_tx_lo" "ext_rx_lo").
 The driver automatically controls the external clock/PLL Synthesizer.
 
-\<note tip\>
+<note tip>
 This feature does not exist on the AD9363
-\</note\>
+</note>
 
 Example:
 
-```{=markdown}
-```
-    adc0_ad9361: ad9361-phy@0 {
+        adc0_ad9361: ad9361-phy@0 {
 
-        compatible = "adi,ad9361";
+            compatible = "adi,ad9361";
 
 
-        /* Clocks */
-        clocks = <&ad9361_clkin>, <&ad9361_ext_tx_lo>, <&ad9361_ext_rx_lo>;
-        clock-names = "ad9361_ext_refclk", "ext_tx_lo", "ext_rx_lo";
-        clock-output-names = "rx_sampl_clk", "tx_sampl_clk";
+            /* Clocks */
+            clocks = <&ad9361_clkin>, <&ad9361_ext_tx_lo>, <&ad9361_ext_rx_lo>;
+            clock-names = "ad9361_ext_refclk", "ext_tx_lo", "ext_rx_lo";
+            clock-output-names = "rx_sampl_clk", "tx_sampl_clk";
 
-
-```
-```
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-**cat out\_altvoltage0\_RX\_LO\_frequency**
+**cat out_altvoltage0_RX_LO_frequency**
 2400000000
-root:/sys/bus/iio/devices/iio:device1\> **echo 1 \> out\_altvoltage0\_RX\_LO\_external**
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_altvoltage0\_RX\_LO\_external**
+root:/sys/bus/iio/devices/iio:device1> **echo 1 > out_altvoltage0_RX_LO_external**
+root:/sys/bus/iio/devices/iio:device1> **cat out_altvoltage0_RX_LO_external**
 1
 ```
 :::
 
 
-#### FASTLOCK MODE
+##### FASTLOCK MODE
 
 The device includes a Fast Lock mode that makes it possible to achieve faster than normal frequency changes by storing sets of synthesizer programming information (called "profiles") either into device registers or the BB processor's memory space to be recalled at a later time.
 The Fast Lock mode eliminates most of the overhead of synthesizer programming by allowing up to 8 full RX profiles and 8 full TX profiles of frequency configuration information (including VCO cal results) to be stored in the device for faster frequency changes.
 In order to use a particular profile, first it must be configured. Typically, this would be accomplished at powerup, but a new or updated profile can be defined at any convenient time.
 
-:::{NOTE} <!-- ATTRS: left="" tip="" round="" box="" 100%\="" -->
-**NOTE:**\
+:::{NOTE} <!-- ATTRS: left="" tip="" round="" box="" 100%="" -->
+**NOTE:**
 You may want to checkout the Fastlock Pin-Control test script here:
-[test\_tx\_fastlock\_pinctrl.sh](https://github.com/analogdevicesinc/linux_image_ADI-scripts/blob/master/test_tx_fastlock_pinctrl.sh)
+[test_tx_fastlock_pinctrl.sh](https://github.com/analogdevicesinc/linux_image_ADI-scripts/blob/master/test_tx_fastlock_pinctrl.sh)
 
 :::
 
 
-##### Create Profile
+###### Create Profile
 
-To create a profile tune the synthesizer and then write the target profile number into out\_altvoltageX\_fastlock\_store.
+To create a profile tune the synthesizer and then write the target profile number into out_altvoltageX_fastlock_store.
 
 Valid profile range is from 0..7
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **echo 4242000000 \> out\_altvoltage0\_RX\_LO\_frequency**
-root:/sys/bus/iio/devices/iio:device1\> **echo 0 \> out\_altvoltage0\_RX\_LO\_fastlock\_store**
+root:/sys/bus/iio/devices/iio:device1> **echo 4242000000 > out_altvoltage0_RX_LO_frequency**
+root:/sys/bus/iio/devices/iio:device1> **echo 0 > out_altvoltage0_RX_LO_fastlock_store**
 ```
 :::
 
 
-##### Recall Profile
+###### Recall Profile
 
-To recall a profile write the target profile number into out\_altvoltageX\_fastlock\_recall.
+To recall a profile write the target profile number into out_altvoltageX_fastlock_recall.
 Valid profile range is from 0..7.
 
-Reading out\_altvoltageX\_fastlock\_recall returns the current profile number
+Reading out_altvoltageX_fastlock_recall returns the current profile number
 or --EINVAL if in normal synthesizer mode.
 
-When in fastlock pin select mode (adi,\[tx|rx\]-fastlock-pincontrol-enable).
+When in fastlock pin select mode (adi,[tx|rx]-fastlock-pincontrol-enable).
 This file needs to be written once with a value, before the pin-control can be used.
 This will moves the device into fastlock mode.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **echo 0 \> out\_altvoltage0\_RX\_LO\_fastlock\_recall**
+root:/sys/bus/iio/devices/iio:device1> **echo 0 > out_altvoltage0_RX_LO_fastlock_recall**
 ```
 :::
 
 
-##### Saving a Profile
+###### Saving a Profile
 
 In order to use more than 8 Profiles -- an existing profile can be read back and stored by the user application.
 
-The format is: Profile\# val0,val1,val2,...,val15
+The format is: Profile# val0,val1,val2,...,val15
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> \*\* echo 0 \> out\_altvoltage0\_RX\_LO\_fastlock\_save \*\*
-root:/sys/bus/iio/devices/iio:device1\> \*\* cat out\_altvoltage0\_RX\_LO\_fastlock\_save \*\*
+root:/sys/bus/iio/devices/iio:device1> ** echo 0 > out_altvoltage0_RX_LO_fastlock_save **
+root:/sys/bus/iio/devices/iio:device1> ** cat out_altvoltage0_RX_LO_fastlock_save **
 0 240,0,202,204,12,80,24,16,187,255,60,238,113,233,93,174
 ```
 :::
 
 
-##### Loading a Profile
+###### Loading a Profile
 
 A previously saved profile can be loaded in any of the 8 available slots.
-Write the profile string into out\_altvoltageX\_fastlock\_load
+Write the profile string into out_altvoltageX_fastlock_load
 
-The format is: Profile\# val0,val1,val2,...,val15
+The format is: Profile# val0,val1,val2,...,val15
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> \*\* echo 0 240,0,202,204,12,80,24,16,187,255,60,238,113,233,93,174 \> out\_altvoltage0\_RX\_LO\_fastlock\_load \*\*
+root:/sys/bus/iio/devices/iio:device1> ** echo 0 240,0,202,204,12,80,24,16,187,255,60,238,113,233,93,174 > out_altvoltage0_RX_LO_fastlock_load **
 ```
 :::
 
 
-RX Signal Path
---------------
+#### RX Signal Path
 
-The AD9361 RX signal path passes downconverted signals (I and Q) to the baseband receiver section. The baseband RX signal path is composed of two programmable analog low-pass filters, a 12-bit ADC, and four stages of digital decimating filters. Each of the four decimating filters can be bypassed. The corner frequency for each low-pass filter is programmable via SPI registers. Figure below shows a block diagram for the AD9361 RX signal path. Note that both the I and Q paths are schematically identical to each other.\
+The AD9361 RX signal path passes downconverted signals (I and Q) to the baseband receiver section. The baseband RX signal path is composed of two programmable analog low-pass filters, a 12-bit ADC, and four stages of digital decimating filters. Each of the four decimating filters can be bypassed. The corner frequency for each low-pass filter is programmable via SPI registers. Figure below shows a block diagram for the AD9361 RX signal path. Note that both the I and Q paths are schematically identical to each other.
 ![RX Signal Path](/resources/tools-software/linux-drivers/iio-transceiver/rx_signal_path.png){.align-center width="800"}
 
-The high level in\_voltage\_sampling\_frequency attribute effectively controls the BBPLL frequency the ADC Sample clock and all following decimating filter blocks except the FIR block which is handled upon user configuration.
+The high level in_voltage_sampling_frequency attribute effectively controls the BBPLL frequency the ADC Sample clock and all following decimating filter blocks except the FIR block which is handled upon user configuration.
 This IIO device attribute allows the user to control the Baseband (BB) Sample Rate in Hz granularity in the range from 521KSPS up to 61.44MSPS, also depending on the FIR filter decimation chosen.
-in\_voltage\_sampling\_frequency as well as out\_voltage\_sampling\_frequency are not entirely independent, by default the both need to match unless adi,fdd-rx-rate-2tx-enable is enabled.
+in_voltage_sampling_frequency as well as out_voltage_sampling_frequency are not entirely independent, by default the both need to match unless adi,fdd-rx-rate-2tx-enable is enabled.
 Then RX rate can be twice the TX rate.
 
-:::{NOTE} <!-- ATTRS: left="" tip="" round="" box="" 100%\="" -->
-**NOTE:**\
+:::{NOTE} <!-- ATTRS: left="" tip="" round="" box="" 100%="" -->
+**NOTE:**
 In the minimum ADC rate is 25MSPS.
 Baseband rates below 2.083 MSPS (25MSPS/12) require FIR decimation/interpolation to be set.
 In other words the FIR filter needs to be configured and enabled.
-The minimum baseband rate with the FIR filter (decimate by 4) enabled is: 25MSPS /(4\*12) = 520.83 kSPS.
+The minimum baseband rate with the FIR filter (decimate by 4) enabled is: 25MSPS /(4*12) = 520.83 kSPS.
 
 Some example filters can be found here:[filters](https://github.com/analogdevicesinc/iio-oscilloscope/tree/master/filters)
 
@@ -623,24 +604,24 @@ Some example filters can be found here:[filters](https://github.com/analogdevice
 :::
 
 
-#### Setting / Querying the RX Sample Rate
+##### Setting / Querying the RX Sample Rate
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_sampling\_frequency**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_sampling_frequency**
 30720000
-root:/sys/bus/iio/devices/iio:device1\> **echo 10000000 \> in\_voltage\_sampling\_frequency**
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_sampling\_frequency**
+root:/sys/bus/iio/devices/iio:device1> **echo 10000000 > in_voltage_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_sampling_frequency**
 10000000
 ```
 :::
 
 
-#### List chosen RX Path Rates
+##### List chosen RX Path Rates
 
 This attribute lists the current rates in the various digital blocks.
 
@@ -686,36 +667,35 @@ This attribute lists the current rates in the various digital blocks.
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat rx\_path\_rates**
+root:/sys/bus/iio/devices/iio:device1> **cat rx_path_rates**
 BBPLL:983040000 ADC:245760000 R2:122880000 R1:61440000 RF:30720000 RXSAMP:30720000
 ```
 :::
 
 
-TX Signal Path
---------------
+#### TX Signal Path
 
-The AD9361 TX signal path receives 12-bit 2s complement data in I-Q format from the AD9361 digital interface, and each channel (I and Q) passes this data through four digital interpolating filters to a 12-bit DAC. Each of the four interpolating filters can be bypassed. The DAC's analog output is passed through two low pass filters prior to the RF mixer. The corner frequency for each low-pass filter is programmable via SPI registers. Figure 1 shows a block diagram for the AD9361 TX signal path. Note that both the I and the Q paths are schematically identical to each other. The four blocks leading up to the DAC in shown figure below comprise the digital filtering for the transmit path. These programmable filters provide the bandwidth limiting required prior to conversion from digital to analog. They also provide interpolation to translate from the input data rate to the rate needed for proper digital to analog conversion. In each filter, interpolation is performed first, followed by the filter transfer function.\
+The AD9361 TX signal path receives 12-bit 2s complement data in I-Q format from the AD9361 digital interface, and each channel (I and Q) passes this data through four digital interpolating filters to a 12-bit DAC. Each of the four interpolating filters can be bypassed. The DAC's analog output is passed through two low pass filters prior to the RF mixer. The corner frequency for each low-pass filter is programmable via SPI registers. Figure 1 shows a block diagram for the AD9361 TX signal path. Note that both the I and the Q paths are schematically identical to each other. The four blocks leading up to the DAC in shown figure below comprise the digital filtering for the transmit path. These programmable filters provide the bandwidth limiting required prior to conversion from digital to analog. They also provide interpolation to translate from the input data rate to the rate needed for proper digital to analog conversion. In each filter, interpolation is performed first, followed by the filter transfer function.
 ![TX Signal Path](/resources/tools-software/linux-drivers/iio-transceiver/tx_signal_path.png){.align-center width="800"}
 
-The high level out\_voltage\_sampling\_frequency attribute effectively controls the BBPLL frequency the ADC Sample clock, the DAC clock and all following interpolation filter blocks except the FIR block which is handled upon user configuration.
+The high level out_voltage_sampling_frequency attribute effectively controls the BBPLL frequency the ADC Sample clock, the DAC clock and all following interpolation filter blocks except the FIR block which is handled upon user configuration.
 This IIO device attribute allows the user to control the Baseband (BB) Sample Rate in Hz granularity in the range from 218KSPS up to 61.44MSPS, also depending on the FIR filter decimation chosen.
-out\_voltage\_sampling\_frequency as well as in\_voltage\_sampling\_frequency are not entirely independent, by default the both need to match unless adi,fdd-rx-rate-2tx-enable is set.
+out_voltage_sampling_frequency as well as in_voltage_sampling_frequency are not entirely independent, by default the both need to match unless adi,fdd-rx-rate-2tx-enable is set.
 Then RX rate can be twice the TX rate, however this mode needs to be supported by the FPGA/Baseband-Processor.
 The feedback clock must be externally divided.
 
-:::{NOTE} <!-- ATTRS: left="" tip="" round="" box="" 100%\="" -->
-**NOTE:**\
+:::{NOTE} <!-- ATTRS: left="" tip="" round="" box="" 100%="" -->
+**NOTE:**
 In the minimum ADC rate is 25MSPS.
 Baseband rates below 2.083 MSPS (25MSPS/12) require FIR decimation/interpolation to be set.
 In other words the FIR filter needs to be configured and enabled.
-The minimum baseband rate with the FIR filter (decimate by 4) enabled is: 25MSPS /(4\*12) = 520.83 kSPS.
+The minimum baseband rate with the FIR filter (decimate by 4) enabled is: 25MSPS /(4*12) = 520.83 kSPS.
 
 Some example filters can be found here:[filters](https://github.com/analogdevicesinc/iio-oscilloscope/tree/master/filters)
 
@@ -723,24 +703,24 @@ Some example filters can be found here:[filters](https://github.com/analogdevice
 :::
 
 
-#### Setting / Querying the TX Sample Rate
+##### Setting / Querying the TX Sample Rate
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage\_sampling\_frequency**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage_sampling_frequency**
 30720000
-root:/sys/bus/iio/devices/iio:device1\> **echo 10000000 \> out \_voltage\_sampling\_frequency**
-root:/sys/bus/iio/devices/iio:device1\> **cat out \_voltage\_sampling\_frequency**
+root:/sys/bus/iio/devices/iio:device1> **echo 10000000 > out _voltage_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device1> **cat out _voltage_sampling_frequency**
 10000000
 ```
 :::
 
 
-#### List chosen TX Path Rates
+##### List chosen TX Path Rates
 
 This attribute lists the current rates in the various digital blocks.
 
@@ -786,58 +766,56 @@ This attribute lists the current rates in the various digital blocks.
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat tx\_path\_rates**
+root:/sys/bus/iio/devices/iio:device1> **cat tx_path_rates**
 BBPLL:983040000 DAC:122880000 T2:122880000 T1:61440000 TF:30720000 TXSAMP:30720000
 ```
 :::
 
 
-Rate Governors
---------------
+#### Rate Governors
 
 The rate governor option allows the user to influence the ADC sample rate and decimation/interpolation rates chosen in the followed digital blocks.
 It mainly influences whether RX HB3/DEC3/ and TX HB3/INT3 decimates/interpolates by 3 or 2, thus resulting in an higher oversampling rate.
 Decimate by 3 doesn't necessarily produce higher performance. Therefore the default setting of Nominal is always a good option.
 
-#### List available Rate Governors
+##### List available Rate Governors
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat trx\_rate\_governor\_available**
-nominal highest\_osr
+root:/sys/bus/iio/devices/iio:device1> **cat trx_rate_governor_available**
+nominal highest_osr
 ```
 :::
 
 
-#### Selecting Rate Governor
+##### Selecting Rate Governor
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat trx\_rate\_governor**
-highest\_osr
-root:/sys/bus/iio/devices/iio:device1\> **echo nominal \> trx\_rate\_governor**
-root:/sys/bus/iio/devices/iio:device1\> **cat trx\_rate\_governor**
+root:/sys/bus/iio/devices/iio:device1> **cat trx_rate_governor**
+highest_osr
+root:/sys/bus/iio/devices/iio:device1> **echo nominal > trx_rate_governor**
+root:/sys/bus/iio/devices/iio:device1> **cat trx_rate_governor**
 nominal
 ```
 :::
 
 
-Digital FIR Filter controls
----------------------------
+#### Digital FIR Filter controls
 
 The last/first digital filter in the RX/TX signal path is a programmable poly-phase FIR filter. The RX/TX FIR filter can decimate/interpolate by a factor of 1, 2, or 4, or it can be bypassed if not needed. The filter taps are configurable in groups of 16 between a minimum of 16 and a maximum of 128 taps. The RX FIR also has a programmable gain of -12dB, -6dB, 0dB, or +6dB. The filter provides a fixed +6dB gain to maximize dynamic range, so the programmable gain is typically set to -6dB to produce a net gain of 0dB. The TX FIR also has a programmable gain setting of 0dB or -6dB. Be aware there are some limitations in terms of the maximum number of taps supported by the different clock ratios, please consult the AD9361 manual for more details.
 The AD9361 device driver will warn if a programmed filter doesn't match the limits.
@@ -849,203 +827,189 @@ In general the filters are either created using the:
 
 Some per-generated examples can be found here: [AD936x example filters](https://github.com/analogdevicesinc/iio-oscilloscope/tree/master/filters)
 
-#### Query current filter Configuration
+##### Query current filter Configuration
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat filter\_fir\_config**
+root:/sys/bus/iio/devices/iio:device1> **cat filter_fir_config**
 FIR Rx 0,0 Tx 0,0
 ```
 :::
 
 
-Return Value:\
-**Rx** \<Num Taps\>,\<Decimation factor\> **Tx** \<Num Taps\>,\<Interpolation factor\>\
+Return Value:
+**Rx** <Num Taps>,<Decimation factor> **Tx** <Num Taps>,<Interpolation factor>
 
-#### Load a Filter
+##### Load a Filter
 
 Query current filter Configuration
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat LTE20.txt \> filter\_fir\_config**
-root:/sys/bus/iio/devices/iio:device1\> **cat filter\_fir\_config**
+root:/sys/bus/iio/devices/iio:device1> **cat LTE20.txt > filter_fir_config**
+root:/sys/bus/iio/devices/iio:device1> **cat filter_fir_config**
 FIR Rx 128,2 Tx 128,2
 ```
 :::
 
 
-Each file requires a short header:\
+Each file requires a short header:
 
--   Lines prefixed with '\#' are ignored
+-   Lines prefixed with '#' are ignored
 -   Coefficients are signed 16-bit numbers
 -   Multiple filter files can be loaded until each RX and each TX has its own set of coefficients
 -   Syntax and examples shown below
 
-##### Syntax
+###### Syntax
 
 ```bash
-**RX** \[1,2,3(both)\] **GAIN** \[-12, -6, 0, 6\] **DEC** \[1,2,4\]
-**TX** \[1,2,3(both)\] **GAIN** \[-6, 0\] **INT** \[1,2,4\]
-\[**RRX** \<BBPLL ADC R2 R1 RF RXSAMP\>\]
-\[**RTX** \<BBPLL DAC T2 T1 TF TXSAMP\>\]
-\[**BWRX** \<RX RF Bandwidth\>\]
-\[**BWTX** \<RX TF Bandwidth\>\]
-\<tx-coef0, rx-coef0\>
-\<tx-coef1, rx-coef1\>
-\<..., ...\>
-\<tx-coefN-1, rx-coefN-1\>
+**RX** [1,2,3(both)] **GAIN** [-12, -6, 0, 6] **DEC** [1,2,4]
+**TX** [1,2,3(both)] **GAIN** [-6, 0] **INT** [1,2,4]
+[**RRX** <BBPLL ADC R2 R1 RF RXSAMP>]
+[**RTX** <BBPLL DAC T2 T1 TF TXSAMP>]
+[**BWRX** <RX RF Bandwidth>]
+[**BWTX** <RX TF Bandwidth>]
+<tx-coef0, rx-coef0>
+<tx-coef1, rx-coef1>
+<..., ...>
+<tx-coefN-1, rx-coefN-1>
 ```
 
-##### Examples
+###### Examples
 
-```{=markdown}
-```
-## RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
-## TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
-## tx,rx
-RX 3 GAIN -6 DEC 2
-TX 3 GAIN 0 INT 2
-RTX 983040000 245760000 245760000 122880000 61440000 30720000
-RRX 983040000 491520000 245760000 122880000 61440000 30720000
-BWTX 19365438
-BWRX 19365514
--5,49
-0,217
---snip--
+    #RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
+    #TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
+    #tx,rx
+    RX 3 GAIN -6 DEC 2
+    TX 3 GAIN 0 INT 2
+    RTX 983040000 245760000 245760000 122880000 61440000 30720000
+    RRX 983040000 491520000 245760000 122880000 61440000 30720000
+    BWTX 19365438
+    BWRX 19365514
+    -5,49
+    0,217
+    --snip--
 
-```
-```
-```{=markdown}
-```
-## RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
-## TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
-## tx,rx
-RX 3 GAIN -6 DEC 2
--5
-0
---snip--
+    #RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
+    #TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
+    #tx,rx
+    RX 3 GAIN -6 DEC 2
+    -5
+    0
+    --snip--
 
-```
-```
-```{=markdown}
-```
-## RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
-## TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
-## tx,rx
-TX 3 GAIN 0 INT 2
-49
-217
---snip--
+    #RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
+    #TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
+    #tx,rx
+    TX 3 GAIN 0 INT 2
+    49
+    217
+    --snip--
 
-```
-```
-##### Filter Enable / Disable
+###### Filter Enable / Disable
 
 To enable or disable the RX or TX path filters simply write 0,N or 1,Y to one of below
-control files. Combo attribute in\_out\_voltage\_filter\_fir\_en allows to simultaneously enable both filters.
+control files. Combo attribute in_out_voltage_filter_fir_en allows to simultaneously enable both filters.
 This might sometimes be necessary, depending on the RX/TX Path Sampling Frequency and FIR interpolation and decimation rates chosen.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_filter\_fir\_en**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_filter_fir_en**
 0
-root:/sys/bus/iio/devices/iio:device1\> **echo 1 \> in\_voltage\_filter\_fir\_en**
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_filter\_fir\_en**
+root:/sys/bus/iio/devices/iio:device1> **echo 1 > in_voltage_filter_fir_en**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_filter_fir_en**
 1
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage\_filter\_fir\_en**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage_filter_fir_en**
 0
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_out\_voltage\_filter\_fir\_en**
+root:/sys/bus/iio/devices/iio:device1> **cat in_out_voltage_filter_fir_en**
 0
 ```
 :::
 
 
-RF Bandwidth Analog Filter Control
-----------------------------------
+#### RF Bandwidth Analog Filter Control
 
-#### RX RF Bandwidth Control
+##### RX RF Bandwidth Control
 
 The AD9361 features several Rx Analog Filter Blocks (RX TIA LPF, RX BB LPF)
 Analog filtering before the ADC reduces spurious signal levels by removing mixer products and providing general low pass filtering prior to downconversion.
 The RX TIA LPF is a single-pole low-pass filter with a programmable 3dB corner frequency.
 The RX BB LPF is a third-order Butterworthlow-passfilter with a programmable 3dB corner frequency.
 
-These filters can be set by writing a single device attribute (in\_voltage\_rf\_bandwidth)
+These filters can be set by writing a single device attribute (in_voltage_rf_bandwidth)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_rf\_bandwidth**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_rf_bandwidth**
 18000000
-root:/sys/bus/iio/devices/iio:device1\> **echo 9000000 \> in\_voltage\_rf\_bandwidth**
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_rf\_bandwidth**
+root:/sys/bus/iio/devices/iio:device1> **echo 9000000 > in_voltage_rf_bandwidth**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_rf_bandwidth**
 9000000
 ```
 :::
 
 
-#### TX RF Bandwidth Control
+##### TX RF Bandwidth Control
 
 The AD9361 features several Tx Analog Filter Blocks (TX BB LPF, TX Secondary LPF)
 Analog filtering after the DAC reduces spurious outputs by removing sampling artifacts and providing general low pass filtering prior to upconversion.
 The TX BB LPF is a third-order Butterworth low-pass filter with a programmable 3dB corner frequency.
 The TX Secondary LPF is a single-polelow-passfilter with a programmable 3dB corner frequency.
 
-These filters can be set by writing a single device attribute (out\_voltage\_rf\_bandwidth)
+These filters can be set by writing a single device attribute (out_voltage_rf_bandwidth)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage\_rf\_bandwidth**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage_rf_bandwidth**
 18000000
-root:/sys/bus/iio/devices/iio:device1\> **echo 9000000 \> out\_voltage\_rf\_bandwidth**
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage\_rf\_bandwidth**
+root:/sys/bus/iio/devices/iio:device1> **echo 9000000 > out_voltage_rf_bandwidth**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage_rf_bandwidth**
 9000000
 ```
 :::
 
 
-RX Gain Control
----------------
+#### RX Gain Control
 
 The versatile and highly configurable AD9361 transceiver has several gain control modes that enable its use in a variety of applications. Fully automatic gain control (AGC) modes are available that address time division duplex (TDD) as well as frequency division duplex (FDD) scenarios. In addition, the AD9361 has manual gain control (MGC) options that allow the baseband processor (BBP) to control the gain.
 
@@ -1081,88 +1045,84 @@ Standard Tables:
 </tbody>
 </table>
 
-Custom gain tables can be loaded automatically during driver probe or anytime later via the gain\_table\_config sysfs attribute.
-Tables must be stored in the /lib/firmware folder, or compiled into the kernel using the CONFIG\_FIRMWARE\_IN\_KERNEL, CONFIG\_EXTRA\_FIRMWARE config options.
+Custom gain tables can be loaded automatically during driver probe or anytime later via the gain_table_config sysfs attribute.
+Tables must be stored in the /lib/firmware folder, or compiled into the kernel using the CONFIG_FIRMWARE_IN_KERNEL, CONFIG_EXTRA_FIRMWARE config options.
 The table loaded during driver probe can be specified using following device tree property:
 
-**adi,gaintable-name** = \"ad9361\_std\_gaintable\";
+**adi,gaintable-name** = "ad9361_std_gaintable";
 
 In case no table is specified or loaded, the driver will continue to use the provided standard gain tables.
 
 Gain tables are stored in a human readable file, with the format specified below. Up to 15 gain tables (for different frequency ranges, or gain table modes) can be provided in a single file.
 
-Example: [ad9361\_std\_gaintable](https://www.google.com/search?q=master?firmware/ad9361_std_gaintable&btnI=lucky)
+Example: [ad9361_std_gaintable](https://www.google.com/search?q=master?firmware/ad9361_std_gaintable&btnI=lucky)
 
-```{=markdown}
-```
-<list>   
- <gaintable [AD9361|AD9364] type=[FULL|SPLIT] dest=[1|2|3] start=FREQUENCY1_Hz end=FREQUENCY2_Hz>
- gain_in_dB, reg_0x131, reg_0x132, reg_0x133
- gain_in_dB, reg_0x131, reg_0x132, reg_0x133
- gain_in_dB, reg_0x131, reg_0x132, reg_0x133
- …
- </gaintable>
+    <list>   
+     <gaintable [AD9361|AD9364] type=[FULL|SPLIT] dest=[1|2|3] start=FREQUENCY1_Hz end=FREQUENCY2_Hz>
+     gain_in_dB, reg_0x131, reg_0x132, reg_0x133
+     gain_in_dB, reg_0x131, reg_0x132, reg_0x133
+     gain_in_dB, reg_0x131, reg_0x132, reg_0x133
+     …
+     </gaintable>
 
-...
+    ...
 
-</list>
+    </list>
 
-```
-```
-**Assumptions:**\
+**Assumptions:**
 
 -   Gain tables must be monotonic
--   gain\_in\_dB: is the absolute Gain in dB (signed char format: -128...127)
--   reg\_0x131: Ext LNA, Int LNA, & Mixer Gain Word
--   reg\_0x132: TIA & LPF Word
--   reg\_0x133: DC Cal bit & Dig Gain Word
+-   gain_in_dB: is the absolute Gain in dB (signed char format: -128...127)
+-   reg_0x131: Ext LNA, Int LNA, & Mixer Gain Word
+-   reg_0x132: TIA & LPF Word
+-   reg_0x133: DC Cal bit & Dig Gain Word
 -   end must be greater than start frequency (in Hz)
 -   There must be sufficient tables provided to support the entire used tuning range
 -   dest specifies the targeted RX. (1 = RX1, 2=RX2, 3=RX1 and RX2) (not used at the moment default is always RX1 and RX2)
 
-#### Loading a gain table
+##### Loading a gain table
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# ls /lib/firmware/ad9\*
-ad9361\_std\_gaintable
+root@analog:/sys/bus/iio/devices/iio:device1# ls /lib/firmware/ad9*
+ad9361_std_gaintable
 
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat /lib/firmware/ad9361\_std\_gaintable \> gain\_table\_config
+root@analog:/sys/bus/iio/devices/iio:device1# cat /lib/firmware/ad9361_std_gaintable > gain_table_config
 ```
 :::
 
 
-#### Reading a gain table
+##### Reading a gain table
 
-Reading the gain\_table\_config attribute returns the current gain table that is loaded into the transceiver IC.
+Reading the gain_table_config attribute returns the current gain table that is loaded into the transceiver IC.
 The printed format matches the format used in the gaintable file.
 
-Reading the gain table only displays the gain table that will be used with the current RX\_LO frequency setting.
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+Reading the gain table only displays the gain table that will be used with the current RX_LO frequency setting.
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> echo 2450000000 \> out\_altvoltage0\_RX\_LO\_frequency
-root:/sys/bus/iio/devices/iio:device1\> cat out\_altvoltage0\_RX\_LO\_frequency
+root:/sys/bus/iio/devices/iio:device1> echo 2450000000 > out_altvoltage0_RX_LO_frequency
+root:/sys/bus/iio/devices/iio:device1> cat out_altvoltage0_RX_LO_frequency
 2450000000
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat gain\_table\_config
-\<gaintable AD9361 type=FULL dest=3 start=1300000000 end=4000000000\>
+root@analog:/sys/bus/iio/devices/iio:device1# cat gain_table_config
+<gaintable AD9361 type=FULL dest=3 start=1300000000 end=4000000000>
 -3, 0x00, 0x00, 0x20
 -3, 0x00, 0x00, 0x00
 -3, 0x00, 0x00, 0x00
@@ -1178,26 +1138,26 @@ root\@analog:/sys/bus/iio/devices/iio:device1\# cat gain\_table\_config
 7, 0x01, 0x07, 0x00
 8, 0x01, 0x08, 0x00
 
-\[\--snip\--\]
+[--snip--]
 
 69, 0x6D, 0x38, 0x20
 70, 0x6E, 0x38, 0x20
 71, 0x6F, 0x38, 0x20
-\</gaintable\>
+</gaintable>
 ```
 :::
 
 
-#### Gain control modes
+##### Gain control modes
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_gain\_control\_mode\_available**
-manual fast\_attack slow\_attack hybrid
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_gain_control_mode_available**
+manual fast_attack slow_attack hybrid
 ```
 :::
 
@@ -1229,192 +1189,188 @@ manual fast\_attack slow\_attack hybrid
 </tbody>
 </table>
 
-#### Querying or Setting a Gain Control Mode
+##### Querying or Setting a Gain Control Mode
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage0\_gain\_control\_mode**
-slow\_attack
-root:/sys/bus/iio/devices/iio:device1\> **echo manual \> in\_voltage0\_gain\_control\_mode**
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage0\_gain\_control\_mode**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage0_gain_control_mode**
+slow_attack
+root:/sys/bus/iio/devices/iio:device1> **echo manual > in_voltage0_gain_control_mode**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage0_gain_control_mode**
 manual
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage1\_gain\_control\_mode**
-slow\_attack
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage1_gain_control_mode**
+slow_attack
 ```
 :::
 
 
-#### Reading the current Gain
+##### Reading the current Gain
 
 Supported in all available Gain control modes
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage0\_hardwaregain**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage0_hardwaregain**
 61.000000 dB
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage1\_hardwaregain**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage1_hardwaregain**
 71.000000 dB
 ```
 :::
 
 
-#### MGC setting the current Gain
+##### MGC setting the current Gain
 
 Only available in Manual Gain Control Mode (MGC)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **echo 42 \> in\_voltage0\_hardwaregain**
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage0\_hardwaregain**
+root:/sys/bus/iio/devices/iio:device1> **echo 42 > in_voltage0_hardwaregain**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage0_hardwaregain**
 42.000000 dB
 ```
 :::
 
 
-Tx Attenuation Control
-----------------------
+#### Tx Attenuation Control
 
 The TX attenuation/gain can be individually controlled for TX1 and TX2.
 The range is from 0 to -89.75 dB in 0.25dB steps.
 The nomenclature used here is gain instead of attenuation, so all values are expressed negative.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage0\_hardwaregain**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage0_hardwaregain**
 -10.000000 dB
-root:/sys/bus/iio/devices/iio:device1\> **echo -42.25 \> out\_voltage0\_hardwaregain**
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage0\_hardwaregain**
+root:/sys/bus/iio/devices/iio:device1> **echo -42.25 > out_voltage0_hardwaregain**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage0_hardwaregain**
 -42.250000 dB
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage1\_hardwaregain**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage1_hardwaregain**
 -10.000000 dB
 ```
 :::
 
 
-Received Strength Signal Indicator (RSSI)
------------------------------------------
+#### Received Strength Signal Indicator (RSSI)
 
 Given the wide variety of applications for which the AD9361 is suited, the received strength signal indicator (RSSI) may be setup in one of several configurations, allowing the user to optimize the RSSI to produce extremely accurate results with a minimum of BBP interaction. The AD9361 measures RSSI by measuring the power level in dB and compensating for the receive path gain. The various options available support both TDD and FDD applications. Note that the RSSI value is not in absolute units. Equating the RSSI read-back value to an absolute power level (e.g., in dBm) requires a system factory or bench calibration. To calibrate the RSSI word to an absolute reference, inject a signal into the antenna port of the completed system and read the RSSI word. From this test, generate a correction factor that equates the RSI word to the injected signal level at the antenna port.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage0\_rssi**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage0_rssi**
 104.50 dB
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage1\_rssi**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage1_rssi**
 116.75 dB
 ```
 :::
 
 
-TX Received Strength Signal Indicator (TX RSSI)
------------------------------------------------
+#### TX Received Strength Signal Indicator (TX RSSI)
 
 Recognizing that in TDD systems the receiver and transmitter are not operating simultaneously, the AD9361 provides the ability to reuse the receiver circuitry by multiplexing the power detector into the receive path. The receiver RSSI circuitry is then turned on during the transmit burst and results in accurate Tx RSSI measurements.
 
-:::{NOTE} <!-- ATTRS: tip="" round="" box="" 60%\="" -->
-**NOTE:**\
-This feature is only available in TX MONITOR MODE\
-set **in\_voltage0\_rf\_port\_select** to one of the following modes:
-**TX\_MONITOR**1, **TX\_MONITOR2** or **TX\_MONITOR1\_2**
+:::{NOTE} <!-- ATTRS: tip="" round="" box="" 60%="" -->
+**NOTE:**
+This feature is only available in TX MONITOR MODE
+set **in_voltage0_rf_port_select** to one of the following modes:
+**TX_MONITOR**1, **TX_MONITOR2** or **TX_MONITOR1_2**
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage0\_rssi**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage0_rssi**
 30.50 dB
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage1\_rssi**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage1_rssi**
 0.00 dB
 ```
 :::
 
 
-Calibration Mode Controls
--------------------------
+#### Calibration Mode Controls
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat calib\_mode\_available**
-auto manual manual\_tx\_quad tx\_quad rf\_dc\_offs rssi\_gain\_step
+root:/sys/bus/iio/devices/iio:device1> **cat calib_mode_available**
+auto manual manual_tx_quad tx_quad rf_dc_offs rssi_gain_step
 ```
 :::
 
@@ -1454,158 +1410,156 @@ auto manual manual\_tx\_quad tx\_quad rf\_dc\_offs rssi\_gain\_step
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat calib\_mode**
+root:/sys/bus/iio/devices/iio:device1> **cat calib_mode**
 auto
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> \*\*echo tx\_quad \> calib\_mode \*\*
+root:/sys/bus/iio/devices/iio:device1> **echo tx_quad > calib_mode **
 ```
 :::
 
 
-#### With optional calibration phase offset value
+##### With optional calibration phase offset value
 
 [Please see the FAQ for more information](https://www.google.com/search?q=docs/DOC-3143&btnI=lucky)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> \*\*echo tx\_quad 14 \> calib\_mode \*\*
+root:/sys/bus/iio/devices/iio:device1> **echo tx_quad 14 > calib_mode **
 ```
 :::
 
 
-##### Force tx quad phase search
+###### Force tx quad phase search
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> \*\*echo tx\_quad -2 \> calib\_mode \*\*
+root:/sys/bus/iio/devices/iio:device1> **echo tx_quad -2 > calib_mode **
 ```
 :::
 
 
-#### Calibration Tracking Controls
+##### Calibration Tracking Controls
 
 Writing 0, N or 1, Y to the below attributes either disables or enables the corresponding tracking option.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_quadrature\_tracking\_en**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_quadrature_tracking_en**
 1
-root:/sys/bus/iio/devices/iio:device1\> **echo 0 \> in\_voltage\_quadrature\_tracking\_en**
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_quadrature\_tracking\_en**
+root:/sys/bus/iio/devices/iio:device1> **echo 0 > in_voltage_quadrature_tracking_en**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_quadrature_tracking_en**
 0
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_bb\_dc\_offset\_tracking\_en**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_bb_dc_offset_tracking_en**
 1
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_rf\_dc\_offset\_tracking\_en**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_rf_dc_offset_tracking_en**
 1
 ```
 :::
 
 
-RF Port Selection
------------------
+#### RF Port Selection
 
 Each receive channel has 3 differential or 6 single ended inputs that can be multiplexed to the signal chain, likewise each transmitter has 2 differential outputs that can be chosen from.
 
-:::{NOTE} <!-- ATTRS: important\="" -->
+:::{NOTE} <!-- ATTRS: important="" -->
 
-This setting effects all ports simultaneously. For example, there is no ability to enable R1A and R2B ports, so there are no individual controls. Everything must use the name port, therefore the nomenclature of RxA (meaning it changes both channel 1 and channel 2, to the \"A\" port).
+This setting effects all ports simultaneously. For example, there is no ability to enable R1A and R2B ports, so there are no individual controls. Everything must use the name port, therefore the nomenclature of RxA (meaning it changes both channel 1 and channel 2, to the "A" port).
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: tip="" round="" box\="" -->
-**NOTE: Switching the RF INPUT port:**\
+:::{NOTE} <!-- ATTRS: tip="" round="" box="" -->
+**NOTE: Switching the RF INPUT port:**
 Switching the RF input port:
 
 During device driver initialization the driver runs the RF DC offset calibration only on the default RF input port specified with [these attributes](/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization#rf_port_input_select).
 So if using the RF RX B or C inputs along with the RF RX A input, you should run the calibration also, once with other input band/port selected.
-After calibrating each band, switching between from the A input to the B or C input should not require another calibration unless a large frequency change is made. Since the B and C inputs use the same calibration results, switching from input B to input C may require running the RF DC offset calibration.\
-See here: [Calibration Mode Controls: rf\_dc\_offs](/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls)
+After calibrating each band, switching between from the A input to the B or C input should not require another calibration unless a large frequency change is made. Since the B and C inputs use the same calibration results, switching from input B to input C may require running the RF DC offset calibration.
+See here: [Calibration Mode Controls: rf_dc_offs](/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls)
 
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: tip="" round="" box\="" -->
-**NOTE: Switching the RF OUTPUT port:**\
+:::{NOTE} <!-- ATTRS: tip="" round="" box="" -->
+**NOTE: Switching the RF OUTPUT port:**
 During device driver initialization the driver runs the TX Quadrature calibration only on the default RF output port specified with [these attributes](/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization#rf_port_output_select).
 During regular operation TX Quadrature is only run on the select RF output.
-However the TX quadrature calibration stores a separate set of calibration results for the RF TX\_A and TX\_B output path.
-So if switching the output, the calibration must be once manually triggered.\
-See here: [Calibration Mode Controls: tx\_quad](/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls)
+However the TX quadrature calibration stores a separate set of calibration results for the RF TX_A and TX_B output path.
+So if switching the output, the calibration must be once manually triggered.
+See here: [Calibration Mode Controls: tx_quad](/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls)
 
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat out\_voltage\_rf\_port\_select\_available**
+root:/sys/bus/iio/devices/iio:device1> **cat out_voltage_rf_port_select_available**
 A B
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_voltage\_rf\_port\_select\_available**
-A\_BALANCED B\_BALANCED C\_BALANCED A\_N A\_P B\_N B\_P C\_N C\_P TX\_MONITOR1 TX\_MONITOR2 TX\_MONITOR1\_2
-root:/sys/bus/iio/devices/iio:device1\> **echo B\_BALANCED \> in\_voltage0\_rf\_port\_select**
+root:/sys/bus/iio/devices/iio:device1> **cat in_voltage_rf_port_select_available**
+A_BALANCED B_BALANCED C_BALANCED A_N A_P B_N B_P C_N C_P TX_MONITOR1 TX_MONITOR2 TX_MONITOR1_2
+root:/sys/bus/iio/devices/iio:device1> **echo B_BALANCED > in_voltage0_rf_port_select**
 ```
 :::
 
 
-DCXO Tuning (digital controlled crystal oscillator)
----------------------------------------------------
+#### DCXO Tuning (digital controlled crystal oscillator)
 
-The AD9361 can either be clocked from an external clock source or a local [crystal oscillator](https://en.wikipedia.org/wiki/Crystal_oscillator) (XO). Since it\'s likely that a Crystal oscillator is not perfect - a digital correction (DCXO) can be used to tune the external component. This only works with AT cut fundamental mode crystal resonators with a load capacitance of less than 10pF which are connected between the XTALP and XTALN pins of the AD9361.
+The AD9361 can either be clocked from an external clock source or a local [crystal oscillator](https://en.wikipedia.org/wiki/Crystal_oscillator) (XO). Since it's likely that a Crystal oscillator is not perfect - a digital correction (DCXO) can be used to tune the external component. This only works with AT cut fundamental mode crystal resonators with a load capacitance of less than 10pF which are connected between the XTALP and XTALN pins of the AD9361.
 
-This is what ADI\'s [FMCOMMS2](/resources/eval/user-guides/ad-fmcomms2-ebz), [FMCOMMS3](/resources/eval/user-guides/ad-fmcomms3-ebz), and [FMCOMMS4](/resources/eval/user-guides/ad-fmcomms4-ebz) boards are using.
+This is what ADI's [FMCOMMS2](/resources/eval/user-guides/ad-fmcomms2-ebz), [FMCOMMS3](/resources/eval/user-guides/ad-fmcomms3-ebz), and [FMCOMMS4](/resources/eval/user-guides/ad-fmcomms4-ebz) boards are using.
 
 ![](/resources/tools-software/linux-drivers/iio-transceiver/dcxo.png){.align-right width="500"}
 By adjusting a capacitor within the AD9361, the resulting DCXO frequency can be adjusted to compensate for XO frequency tolerance and stability. `dcxo_tune_coarse` sets a coarse capacitor value while `dcxo_tune_fine` sets a fine capacitor value. Together, these two settings control the frequency of the DCXO. The resolution of the DCXO varies with coarse word with a worst case resolution (at coarse word = 0) of 0.0125 ppm. Using both coarse and fine words, the DCXO can vary the frequency over a ±60 ppm range.
@@ -1616,177 +1570,171 @@ The plot shows the variation of DCXO frequency over all possible variations of c
 
 The DCXO can be tuned using the coarse and fine tune attributes detailed below.
 
-\<note tip\>
+<note tip>
 This feature does not exist on the AD9363
-\</note\>
+</note>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat dcxo\_tune\_coarse**
+root:/sys/bus/iio/devices/iio:device1> **cat dcxo_tune_coarse**
 8
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat dcxo\_tune\_fine**
+root:/sys/bus/iio/devices/iio:device1> **cat dcxo_tune_fine**
 5920
-root:/sys/bus/iio/devices/iio:device1\> **echo 5930 \> dcxo\_tune\_fine**
-root:/sys/bus/iio/devices/iio:device1\> **cat dcxo\_tune\_fine**
+root:/sys/bus/iio/devices/iio:device1> **echo 5930 > dcxo_tune_fine**
+root:/sys/bus/iio/devices/iio:device1> **cat dcxo_tune_fine**
 5930
 ```
 :::
 
 
-XO Correction
--------------
+#### XO Correction
 
 For systems that are using single ended crystal oscillators, or an external clock source and driving it into the
-XTALN pin, some correction may be necessary. What happens in this case, is you digitally correct for the oscillator offset, by determining what the actual oscillator is, and then telling the system, so it can use that specific number in it\'s math for the PLL and sample rate calculations.
+XTALN pin, some correction may be necessary. What happens in this case, is you digitally correct for the oscillator offset, by determining what the actual oscillator is, and then telling the system, so it can use that specific number in it's math for the PLL and sample rate calculations.
 
 This is what the [FMCOMMS5](/resources/eval/user-guides/ad-fmcomms5-ebz), [ADI RF SOM1](https://www.google.com/search?q=adrv9364&btnI=lucky),
 [ADI RF SOM2](https://www.google.com/search?q=adrv9361&btnI=lucky) and the [PlutoSDR](/university/tools/pluto) use.
 
 Since every time this is written, it will re-calculate and re-program all the PLL settings (Tx LO, Rx LO, ADC and DAC sample rates), this should only be updated when disturbing the system is acceptable. (normally reprogramming the LO, or sample rates)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat xo\_correction**
+root:/sys/bus/iio/devices/iio:device1> **cat xo_correction**
 40000000
-root:/sys/bus/iio/devices/iio:device1\> **echo 40000005 \> xo\_correction**
-root:/sys/bus/iio/devices/iio:device1\> **cat xo\_correction**
+root:/sys/bus/iio/devices/iio:device1> **echo 40000005 > xo_correction**
+root:/sys/bus/iio/devices/iio:device1> **cat xo_correction**
 40000005
 ```
 :::
 
 
-Die Temperature Reading
------------------------
+#### Die Temperature Reading
 
 For accurate results this read back requires a one-point factory calibration.
 Determine the offset between this readback in millidegree Celsius and the known device temperature.
-Then adjust the device tree property \"adi,temp-sense-offset-signed\" with a proper offset in degrees Celsius.
+Then adjust the device tree property "adi,temp-sense-offset-signed" with a proper offset in degrees Celsius.
 In the OSC advanced plugin see AUX ADC/DAC/IO tab under Temp sensor offset.
 Also the absolute offset (signed char) is directly written into register 0x0B.
 
-Example:\
+Example:
 
 1.  Temp Sensor Offset (Reg 0x0B) = 0xCE = -50
-2.  in\_temp0\_input readback = 28123 m°C -\> temperature is 28 °C
+2.  in_temp0_input readback = 28123 m°C -> temperature is 28 °C
 3.  Actual device temperature 24 °C
 4.  OFFSETdelta = 24 - 28 = -4
 5.  Temp Sensor Offset (corrected) = -50 - 4 = -54 = 0xCA
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat in\_temp0\_input**
+root:/sys/bus/iio/devices/iio:device1> **cat in_temp0_input**
 29825
 ```
 :::
 
 
-AuxADC Reading
---------------
+#### AuxADC Reading
 
 There is an Auxiliary ADC on the chip - that can be read like any other IIO ADC.
 
 Attributes are:
 
--   in\_voltage2\_offset
--   in\_voltage2\_raw
--   in\_voltage2\_scale
+-   in_voltage2_offset
+-   in_voltage2_raw
+-   in_voltage2_scale
 
-To obtain the reading in mV calculate: *(in\_voltage2\_raw + in\_voltage2\_offset) \* in\_voltage2\_scale*
+To obtain the reading in mV calculate: *(in_voltage2_raw + in_voltage2_offset) * in_voltage2_scale*
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **grep \"\" in\_voltage2\_**\*
-in\_voltage2\_offset:57
-in\_voltage2\_raw:1494
-in\_voltage2\_scale:0.305250
+root:/sys/bus/iio/devices/iio:device1> **grep "" in_voltage2_***
+in_voltage2_offset:57
+in_voltage2_raw:1494
+in_voltage2_scale:0.305250
 ```
 :::
 
 
-AuxDAC Writing
---------------
+#### AuxDAC Writing
 
 There are 2 Auxiliary DACs on the chip.
 
 Attributes are:
 
--   out\_voltage2\_raw
--   out\_voltage2\_scale
--   out\_voltage3\_raw
--   out\_voltage3\_scale
+-   out_voltage2_raw
+-   out_voltage2_scale
+-   out_voltage3_raw
+-   out_voltage3_scale
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **grep \"\" out\_voltage2\* out\_voltage3**\*
-out\_voltage2\_raw:306
-out\_voltage2\_scale:1.000000
-out\_voltage3\_raw:306
-out\_voltage3\_scale:1.000000
-root:/sys/bus/iio/devices/iio:device1\> **echo 1000 \> out\_voltage2\_raw**
+root:/sys/bus/iio/devices/iio:device1> **grep "" out_voltage2* out_voltage3***
+out_voltage2_raw:306
+out_voltage2_scale:1.000000
+out_voltage3_raw:306
+out_voltage3_scale:1.000000
+root:/sys/bus/iio/devices/iio:device1> **echo 1000 > out_voltage2_raw**
 ```
 :::
 
 
-RSSI Gain Step Calibration
---------------------------
+#### RSSI Gain Step Calibration
 
-The RSSI gain step calibration can be run by setting **calib\_mode** to **rssi\_gain\_step** (See: [ad9361\#calibration\_mode\_controls](/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls)).
+The RSSI gain step calibration can be run by setting **calib_mode** to **rssi_gain_step** (See: [ad9361#calibration_mode_controls](/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls)).
 
-Once the calibration is done, the error tables can be read and loaded again anytime using the dedicated sysfs attribute. Since the gain step calibration register values are dependent on the LO frequency, specifying them is also possible (gain\_step\_calib\_reg\_val = Maximum LNA Gain LNA, Gain difference word for Index 0, LNA Gain difference word for Index 1, LNA Gain difference word for Index 2, LNA Gain difference word for Index 3).
+Once the calibration is done, the error tables can be read and loaded again anytime using the dedicated sysfs attribute. Since the gain step calibration register values are dependent on the LO frequency, specifying them is also possible (gain_step_calib_reg_val = Maximum LNA Gain LNA, Gain difference word for Index 0, LNA Gain difference word for Index 1, LNA Gain difference word for Index 2, LNA Gain difference word for Index 3).
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat rssi\_gain\_step\_error**
-lna\_error: 0 15 14 0
-mixer\_error: 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 0
-gain\_step\_calib\_reg\_val: 192 44 16 6 0
+root:/sys/bus/iio/devices/iio:device1> **cat rssi_gain_step_error**
+lna_error: 0 15 14 0
+mixer_error: 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 0
+gain_step_calib_reg_val: 192 44 16 6 0
 ```
 :::
 
 
 Advanced Debug Facilities
-=========================
+-------------------------
 
 The AD9361 driver supports a number of advanced debug controls via the kernel [debugfs](https://en.wikipedia.org/wiki/debugfs).
 How these device files/controls can be used is described here.
 The [AD936X Advanced Plugin](/resources/tools-software/linux-software/fmcomms2_advanced_plugin) directly controls these and adds a user friendly interface.
 
-Runtime Device Driver Customization
------------------------------------
+#### Runtime Device Driver Customization
 
 There is a large number of [AD9361 Device Driver Customization](/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization) options available. Typically these are supplied via [Devicetree](https://en.wikipedia.org/wiki/device_tree).
 However for debug and evaluation purposes these can be changed during runtime. Please note that changes will be lost if the device is unbinded or the platform is rebooted. Changes will only take affect once the `initialize` attribute is written `1`. It should also be noted that the AD9361 will take a RESET, so current settings done via the main IIO API will be lost. Accessing [debugfs](https://en.wikipedia.org/wiki/debugfs) requires root privileges. Only device files prefixed with `adi,` are [AD9361 Device Driver Customization Options](/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization).
@@ -1794,13 +1742,13 @@ However for debug and evaluation purposes these can be changed during runtime. P
 In order to identify if the IIO device in question (ad9361-phy) you first need to identify the IIO device number.
 Therefore read the name attribute of each IIO device
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~\# grep \"\" /sys/bus/iio/devices/iio\\:device\*/name
+root@analog:~# grep "" /sys/bus/iio/devices/iio:device*/name
 /sys/bus/iio/devices/iio:device0/name:ad7291
 **/sys/bus/iio/devices/iio:device1/name:ad9361-phy**
 /sys/bus/iio/devices/iio:device2/name:xadc
@@ -1808,22 +1756,22 @@ root\@analog:\~\# grep \"\" /sys/bus/iio/devices/iio\\:device\*/name
 /sys/bus/iio/devices/iio:device4/name:adf4351-udc-tx-pmod
 /sys/bus/iio/devices/iio:device5/name:cf-ad9361-dds-core-lpc
 /sys/bus/iio/devices/iio:device6/name:cf-ad9361-lpc
-root\@analog:\~\#
+root@analog:~#
 ```
 :::
 
 
 Change directory to **/sys/kernel/debug**/iio/ iio:deviceX.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~\# cd /sys/kernel/debug/iio/iio\\:device1
-root\@analog:/sys/kernel/debug/iio/iio:device1\# **ls**
-\[\--snip\--\]
+root@analog:~# cd /sys/kernel/debug/iio/iio:device1
+root@analog:/sys/kernel/debug/iio/iio:device1# **ls**
+[--snip--]
 adi,txmon-2-lo-cm
 adi,txmon-dc-tracking-enable
 adi,txmon-delay
@@ -1834,58 +1782,57 @@ adi,txmon-low-high-thresh
 adi,txmon-one-shot-mode-enable
 adi,update-tx-gain-in-alert-enable
 adi,xo-disable-use-ext-refclk-enable
-bist\_prbs
-bist\_timing\_analysis
-bist\_tone
-calibration\_switch\_control
-digital\_tune
-direct\_reg\_access
-gaininfo\_rx1
-gaininfo\_rx2
+bist_prbs
+bist_timing_analysis
+bist_tone
+calibration_switch_control
+digital_tune
+direct_reg_access
+gaininfo_rx1
+gaininfo_rx2
 initialize
 loopback
 ```
 :::
 
 
-#### Example to change the driver from FDD into TDD mode operation
+##### Example to change the driver from FDD into TDD mode operation
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# **cat adi,frequency-division-duplex-mode-enable**
+root@analog:/sys/kernel/debug/iio/iio:device1# **cat adi,frequency-division-duplex-mode-enable**
 1
 
-root\@analog:/sys/kernel/debug/iio/iio:device1\# **cat /sys/bus/iio/devices/iio\\:device1/ensm\_mode\_available**
-sleep wait alert **fdd pinctrl pinctrl\_fdd\_indep**
+root@analog:/sys/kernel/debug/iio/iio:device1# **cat /sys/bus/iio/devices/iio:device1/ensm_mode_available**
+sleep wait alert **fdd pinctrl pinctrl_fdd_indep**
 
-root\@analog:/sys/kernel/debug/iio/iio:device1\# **echo 0 \> adi,frequency-division-duplex-mode-enable**
-root\@analog:/sys/kernel/debug/iio/iio:device1\# **echo 1 \> initialize**
+root@analog:/sys/kernel/debug/iio/iio:device1# **echo 0 > adi,frequency-division-duplex-mode-enable**
+root@analog:/sys/kernel/debug/iio/iio:device1# **echo 1 > initialize**
 
-root\@analog:/sys/kernel/debug/iio/iio:device1\# **cat /sys/bus/iio/devices/iio\\:device1/ensm\_mode\_available**
+root@analog:/sys/kernel/debug/iio/iio:device1# **cat /sys/bus/iio/devices/iio:device1/ensm_mode_available**
 sleep wait alert **rx tx pinctrl**
 
 ```
 :::
 
 
-GPO Manual Control
-------------------
+#### GPO Manual Control
 
-This attribute allows controlling the GPO\[0..3\] via debugfs.
+This attribute allows controlling the GPO[0..3] via debugfs.
 In order to use these pins, `adi,gpo-manual-mode-enable` must be enabled.
 
-\<note warning\>Be aware that GPO manual mode can conflict with external LNA and
-automatic ENSM slave mode.\</note\>
+<note warning>Be aware that GPO manual mode can conflict with external LNA and
+automatic ENSM slave mode.</note>
 GPOs can be addressed individual 0..3 or
 altogether using 0xF as Identifier.
 
 **SYNTAX:**
 
-**gpo\_set** *\<Identifier\>* *\<Value\>*\
+**gpo_set** *<Identifier>* *<Value>*
 
 <table>
 <thead>
@@ -1916,29 +1863,28 @@ altogether using 0xF as Identifier.
 
 **Example**:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-\# cd /sys/kernel/debug/iio/iio\\:device1
-\# echo 1 \> adi,gpo-manual-mode-enable
-\# echo 0 1 \> gpo\_set
-\# echo 0 0 \> gpo\_set
-\# echo 0xF 0xF \> gpo\_set
-\# echo 0xF 0 \> gpo\_set
+# cd /sys/kernel/debug/iio/iio:device1
+# echo 1 > adi,gpo-manual-mode-enable
+# echo 0 1 > gpo_set
+# echo 0 0 > gpo_set
+# echo 0xF 0xF > gpo_set
+# echo 0xF 0 > gpo_set
 ```
 :::
 
 
-Build-In Self-Test (BIST)
--------------------------
+#### Build-In Self-Test (BIST)
 
 Controling these attribute files directly take effect and therefore don't require the `initialize` sequence.
 Test functionality exposed here is only meant to route or inject test patterns/data than can be used to validate the Digital Interface or functionality of the device.
 
-#### BIST Tone
+##### BIST Tone
 
 User selectable tone (with frequency and level selection), that can either injected into the RX or TX path.
 A MASK can be supplied to disable certain channels.
@@ -1946,7 +1892,7 @@ A masked channel (box check) is not driving any data.
 
 SYNTAX:
 
-**bist\_tone** *\<Injection Point\> \<Tone Frequency\> \<Tone Level\> \<Channel Mask\>*
+**bist_tone** *<Injection Point> <Tone Frequency> <Tone Level> <Channel Mask>*
 
 <table>
 <thead>
@@ -2074,24 +2020,24 @@ SYNTAX:
 
 **Example**: Inject -6dBFS tone at Fsample/32 into RX (all channels enabled)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# \*\*echo 2 0 6 0 \> bist\_tone \*\*
+root@analog:/sys/kernel/debug/iio/iio:device1# **echo 2 0 6 0 > bist_tone **
 ```
 :::
 
 
-#### PRBS
+##### PRBS
 
 Pseudorandom Binary Sequence ([PRBS](https://en.wikipedia.org/wiki/Pseudorandom_binary_sequence)) that can either injected into the RX or TX path.
 
 SYNTAX:
 
-**bist\_prbs** *\<Injection Point\>*
+**bist_prbs** *<Injection Point>*
 
 <table>
 <thead>
@@ -2122,27 +2068,27 @@ SYNTAX:
 
 **Example**: Inject PRBS into RX
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# \*\*echo 2 \> bist\_prbs \*\*
+root@analog:/sys/kernel/debug/iio/iio:device1# **echo 2 > bist_prbs **
 ```
 :::
 
 
-#### BIST Loopback
+##### BIST Loopback
 
 Allows either to digitally loopback TX data into the RX path or vice versa.
 
--   Digital TX -\> Digital RX loopback : The loopback happens inside the AD9361/4 close to the internal digital interface block. The entire RF section is bypassed. This can be used to validate (monitor on RX) the digital samples/symbols sent to the device.
--   RF RX -\> RF TX loopback : The loopback happens in the ADI provided HDL core. The Transmitter will transmit anything that the receiver receives. The entire RF chain is active (Sample rates, RF bandwidth and FIR settings will all effect the transmission.
+-   Digital TX -> Digital RX loopback : The loopback happens inside the AD9361/4 close to the internal digital interface block. The entire RF section is bypassed. This can be used to validate (monitor on RX) the digital samples/symbols sent to the device.
+-   RF RX -> RF TX loopback : The loopback happens in the ADI provided HDL core. The Transmitter will transmit anything that the receiver receives. The entire RF chain is active (Sample rates, RF bandwidth and FIR settings will all effect the transmission.
 
 **SYNTAX:**
 
-**loopback** *\<Mode\>*
+**loopback** *<Mode>*
 
 <table>
 <thead>
@@ -2167,35 +2113,35 @@ Allows either to digitally loopback TX data into the RX path or vice versa.
 </tbody>
 </table>
 
-**Example**: Digital TX -\> Digital RX
+**Example**: Digital TX -> Digital RX
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# \*\*echo 1 \> loopback \*\*
+root@analog:/sys/kernel/debug/iio/iio:device1# **echo 1 > loopback **
 ```
 :::
 
 
-#### BIST Timing Analysis
+##### BIST Timing Analysis
 
-**bist\_timing\_analysis**:
+**bist_timing_analysis**:
 See here: [Digital Interface Timing Verification](/resources/eval/user-guides/ad-fmcomms2-ebz/interface_timing_validation)
 
-#### Digital Tune
+##### Digital Tune
 
-**digital\_tune**:
+**digital_tune**:
 See here: [Digital Interface Timing Verification](/resources/eval/user-guides/ad-fmcomms2-ebz/interface_timing_validation)
 
-Low level register access via debugfs (direct\_reg\_access)
-===========================================================
+Low level register access via debugfs (direct_reg_access)
+-----------------------------------------------------------
 
-![iio\_snippets\#low\_level\_register\_access\_via\_debugfs\_direct\_reg\_access&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn)
+![iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn)
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

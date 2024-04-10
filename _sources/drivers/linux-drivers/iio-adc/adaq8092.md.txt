@@ -9,28 +9,24 @@ ADAQ8092 14-Bit, 105 MSPS, μModule Linux device driver
 The ADAQ8092 is a 14-bit, 105 MSPS, high-speed dual-channel data acquisition (DAQ) μModule solution. The device incorporates signal conditioning, an analog-to-digital (ADC) driver, a voltage reference, and an ADC in a single package via system in package (SiP) technology. μModule solutions simplify the development of high-speed data acquisition systems by transferring the design
 burden, component selection, optimization, and layout from the designer to the device. The ADAQ8092 enables a 6× footprint reduction.
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADAQ8092](https://www.google.com/search?q=ADAQ8092&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-ADAQ8092](https://www.google.com/search?q=EVAL-ADAQ8092&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting RF Transceivers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -47,8 +43,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -65,7 +60,7 @@ Files
 </tbody>
 </table>
 
-# Related Device Drivers
+##### Related Device Drivers
 
 <table>
 <thead>
@@ -87,13 +82,13 @@ Files
 </table>
 
 Example Linux Device-Tree Initialization
-========================================
+----------------------------------------
 
 The ADAQ8092 driver is a spi-bus driver and can currently only be instantiated via device tree.
 
 Required devicetree properties:
 
--   compatible: Should always be \"adaq8092\"
+-   compatible: Should always be "adaq8092"
 -   reg: SPI slave select number
 
 <table>
@@ -112,12 +107,12 @@ Required devicetree properties:
 </table>
 
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
 The ADAQ8092 driver depends on **SPI**
 
@@ -125,105 +120,99 @@ The ADAQ8092 driver depends on **SPI**
 
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-        -*-   Enable ring buffer support within IIO
-        -*-     Industrial I/O lock free software ring
-        -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            -*-   Enable ring buffer support within IIO
+            -*-     Industrial I/O lock free software ring
+            -*-   Enable triggered sampling support
 
-              *** Analog to digital converters ***
-        [--snip--]
+                  *** Analog to digital converters ***
+            [--snip--]
 
-        <*>   Analog Devices ADAQ8092 uModule Data Acquisition Module
+            <*>   Analog Devices ADAQ8092 uModule Data Acquisition Module
 
-        [--snip--]
+            [--snip--]
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing / API
-====================
+--------------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0 iio:device1
 
-root:/sys/bus/iio/devices\> **cd iio:device1**
+root:/sys/bus/iio/devices> **cd iio:device1**
 
-root:/sys/bus/iio/devices/iio:device1\# ls -l
+root:/sys/bus/iio/devices/iio:device1# ls -l
 drwxr-xr-x 5 root root 0 Jan 22 08:19 .
 drwxr-xr-x 4 root root 0 Jan 22 08:19 ..
 drwxr-xr-x 2 root root 0 Jan 22 08:19 buffer
--r\--r\--r\-- 1 root root 4096 Jan 22 08:19 dev
--rw-r\--r\-- 1 root root 4096 Jan 22 08:19 sampling frequency
--rw-r\--r\-- 1 root root 4096 Jan 22 08:19 in\_voltage0\_label
--rw-r\--r\-- 1 root root 4096 Jan 22 08:19 in\_voltage1\_label
--rw-r\--r\-- 1 root root 4096 Jan 22 08:19 sampling frequency
--r\--r\--r\-- 1 root root 4096 Jan 22 08:19 name
+-r--r--r-- 1 root root 4096 Jan 22 08:19 dev
+-rw-r--r-- 1 root root 4096 Jan 22 08:19 sampling frequency
+-rw-r--r-- 1 root root 4096 Jan 22 08:19 in_voltage0_label
+-rw-r--r-- 1 root root 4096 Jan 22 08:19 in_voltage1_label
+-rw-r--r-- 1 root root 4096 Jan 22 08:19 sampling frequency
+-r--r--r-- 1 root root 4096 Jan 22 08:19 name
 drwxr-xr-x 2 root root 0 Jan 22 08:19 power
-drwxr-xr-x 2 root root 0 Jan 22 08:19 scan\_elements
-lrwxrwxrwx 1 root root 0 Jan 22 08:19 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 22 08:19 uevent
+drwxr-xr-x 2 root root 0 Jan 22 08:19 scan_elements
+lrwxrwxrwx 1 root root 0 Jan 22 08:19 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 22 08:19 uevent
 
-root:/sys/bus/iio/devices/iio:device1\#
+root:/sys/bus/iio/devices/iio:device1#
 ```
 :::
 
 
-Show device name
-----------------
+#### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat name**
+root:/sys/bus/iio/devices/iio:device1> **cat name**
 **adaq8092**
 ```
 :::
 
 
-ADC sampling frequency (sampling\_frequency)
---------------------------------------------
+#### ADC sampling frequency (sampling_frequency)
 
 Read only attribute which returns the ADC sampling rate in Hz.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat sampling\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat sampling_frequency**
 **105000000**
-root\@analog:/sys/bus/iio/devices/iio:device1\# **echo 200000000 \> sampling\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device1# **echo 200000000 > sampling_frequency**
 -bash: echo: write error: Invalid argument
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

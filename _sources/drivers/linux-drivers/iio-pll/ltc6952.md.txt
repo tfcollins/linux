@@ -6,14 +6,12 @@ title: LTC6953: Ultralow Jitter, 4.5GHz Clock Distributor with 11 Outputs, JESD2
 LTC6952 Ultralow Jitter, 4.5GHz PLL, JESD204B/JESD204C Linux Driver
 ===================================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [LTC6952](https://www.google.com/search?q=LTC6952&btnI=lucky)
 -   [LTC6953](https://www.google.com/search?q=LTC6953&btnI=lucky)
 
-Description
------------
+#### Description
 
 The [LTC6952](https://www.google.com/search?q=LTC6952&btnI=lucky) is a high performance, ultralow jitter, JESD204B/C clock generation and distribution IC. It includes a Phase Locked Loop (PLL) core, consisting of a reference divider, phase-frequency detector (PFD) with a phase-lock indicator, ultralow noise charge pump and integer feedback divider.
 
@@ -24,10 +22,9 @@ The industrial I/O subsystem provides a unified framework for drivers for many d
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -44,8 +41,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -67,44 +63,39 @@ Files
 </table>
 
 Enabling the driver
-===================
+-------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The LTC6952 Driver depends on **CONFIG\_SPI**
+The LTC6952 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>  Industrial I/O support --->
-             Frequency Synthesizers DDS/PLL  ---> 
-                 Clock Generator/Distribution  --->
-                 <*> Analog Devices LTC6952 Clock Ultralow Jitter with JESD204B/C
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>  Industrial I/O support --->
+                 Frequency Synthesizers DDS/PLL  ---> 
+                     Clock Generator/Distribution  --->
+                     <*> Analog Devices LTC6952 Clock Ultralow Jitter with JESD204B/C
 
-```
-```
-Adding a device tree entry
---------------------------
+#### Adding a device tree entry
 
-# Available properties
+##### Available properties
 
-###### Required properties:
+####### Required properties:
 
--   **compatible**: Should be \"adi,ltc6952\".
+-   **compatible**: Should be "adi,ltc6952".
 -   **reg**: SPI chip select number.
--   **spi-max-frequency**: Max SPI frequency to use (\<= 20000000).
+-   **spi-max-frequency**: Max SPI frequency to use (<= 20000000).
 -   **adi,vco-frequency-hz**: The frequency of the VCO.
 -   **adi,ref-frequency-hz**: Reference input frequency. This is fed in the reference divider.
 -   **clock-output-names**: An array of 11 elements, representing the names of the output clocks.
 
-#### Adding channels
+##### Adding channels
 
 Channels can be specified using child nodes. The following properties are applicable to them:
 
@@ -114,37 +105,32 @@ Channels can be specified using child nodes. The following properties are applic
 -   **adi,digital-delay**: Each output divider can have the start time of the output delayed by integer multiples of half of the VCO period after a synchronization event.
 -   **adi,analog-delay**: Each output has a fine analog delay feature to further adjust its output delay time (tADELx) in small steps.
 
-#### Device tree example
+##### Device tree example
 
 The following example instantiates the LTC6962 driver for a LTC6962 device connected on the SPI bus to the chip-select line 0.
 
-```{=markdown}
-```
-ltc6952@0 {
-       compatible = "adi,ltc6952";
-       reg = <0>;
-       #address-cells = <1>;
-       #size-cells = <0>;
-       spi-max-frequency = <10000000>;
-       clock-output-names = "ltc6952_out0", "ltc6952_out1", "ltc6952_out2",
-         "ltc6952_out3", "ltc6952_out4", "ltc6952_out5", "ltc6952_out6",
-         "ltc6952_out7", "ltc6952_out8", "ltc6952_out9", "ltc6952_out10";
-       #clock-cells = <1>;
-       adi,vco-frequency-hz = <4000000000>;
-       adi,ref-frequency-hz = <100000000>;
-       ltc6952_c0: channel@0 {
-         reg = <0>;
-         adi,extended-name = "REF_CLK";
-         adi,divider = <10>;
-         adi,digital-delay = <100>;
-         adi,analog-delay = <0>;
-       };
-       ltc6952_c1: channel@1 {
-         reg = <1>;
-         adi,extended-name = "TEST_CLK";
-         adi,divider = <10>;
-       };
-     };
-
-```
-```
+    ltc6952@0 {
+           compatible = "adi,ltc6952";
+           reg = <0>;
+           #address-cells = <1>;
+           #size-cells = <0>;
+           spi-max-frequency = <10000000>;
+           clock-output-names = "ltc6952_out0", "ltc6952_out1", "ltc6952_out2",
+             "ltc6952_out3", "ltc6952_out4", "ltc6952_out5", "ltc6952_out6",
+             "ltc6952_out7", "ltc6952_out8", "ltc6952_out9", "ltc6952_out10";
+           #clock-cells = <1>;
+           adi,vco-frequency-hz = <4000000000>;
+           adi,ref-frequency-hz = <100000000>;
+           ltc6952_c0: channel@0 {
+             reg = <0>;
+             adi,extended-name = "REF_CLK";
+             adi,divider = <10>;
+             adi,digital-delay = <100>;
+             adi,analog-delay = <0>;
+           };
+           ltc6952_c1: channel@1 {
+             reg = <1>;
+             adi,extended-name = "TEST_CLK";
+             adi,divider = <10>;
+           };
+         };

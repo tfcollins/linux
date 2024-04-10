@@ -6,8 +6,7 @@ title: AD5669R: OCTAL, 16-BIT, I2C Voltage-Output denseDAC with 5 ppm/°C On-Chi
 AD5064 IIO Quad-Channel DAC Linux Driver
 ========================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD5024](https://www.google.com/search?q=AD5024&btnI=lucky)
 -   [AD5025](https://www.google.com/search?q=AD5025&btnI=lucky)
@@ -42,14 +41,12 @@ Supported Devices
 -   [LTC2627](https://www.google.com/search?q=LTC2627&btnI=lucky), (Upstream v4.5+)
 -   [LTC2629](https://www.google.com/search?q=LTC2629&btnI=lucky), (Upstream v4.5+)
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [CN0182](https://www.google.com/search?q=CN0182&btnI=lucky)
 -   [CN0183](https://www.google.com/search?q=CN0183&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD5064EBZ](https://www.google.com/search?q=EVAL-AD5064EBZ&btnI=lucky)
 -   [EVAL-AD5064-1EBZ](https://www.google.com/search?q=EVAL-AD5064-1EBZ&btnI=lucky)
@@ -60,18 +57,16 @@ Evaluation Boards
 -   [EVAL-AD5669RSDZ](https://www.google.com/search?q=EVAL-AD5669RSDZ&btnI=lucky)
 -   PMOD-DA4
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi-channel serial interface DACs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -88,8 +83,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -107,16 +101,15 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
-Specifying reference voltage via the regulator framework
---------------------------------------------------------
+#### Specifying reference voltage via the regulator framework
 
 Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 In this example all 4 reference voltage are supplied by the same regulator.
 
 ``` {.c}
-# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad5064_consumer_supplies[] = {
     REGULATOR_SUPPLY("vrefA", "spi0.3"),
     REGULATOR_SUPPLY("vrefB", "spi0.3"),
@@ -153,7 +146,7 @@ static struct platform_device brd_voltage_regulator = {
 
 ``` {.c}
 static struct platform_device *board_devices[] __initdata = {
-# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
 ## endif
 };
@@ -176,11 +169,11 @@ arch_initcall(board_init);
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-## if defined(CONFIG_AD5064_SPI) || \
+## if defined(CONFIG_AD5064_SPI) || 
     defined(CONFIG_AD5064_SPI_MODULE)
     {
         /* the modalias must be the same as spi device driver name */
@@ -209,162 +202,158 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD5064 Driver depends on **CONFIG\_SPI**
+The AD5064 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        ...
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
+    Linux Kernel Configuration
+        Device Drivers  --->
             ...
-            Digital to analog converters  ---> 
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
                 ...
-                <*>  Analog Devices AD5064 and similar multi-channel DAC driver
+                Digital to analog converters  ---> 
+                    ...
+                    <*>  Analog Devices AD5064 and similar multi-channel DAC driver
+                    ...
                 ...
             ...
-        ...
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 1 03:29 dev
--r\--r\--r\-- 1 root root 4096 Jan 1 03:29 name
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage0\_powerdown
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage0\_powerdown\_mode
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage0\_scale
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage1\_powerdown
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage1\_powerdown\_mode
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage1\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage1\_scale
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage2\_powerdown
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage2\_powerdown\_mode
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage2\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage2\_scale
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage3\_powerdown
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage3\_powerdown\_mode
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage3\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage3\_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 03:29 out\_voltage\_powerdown\_mode\_available
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 1 03:29 dev
+-r--r--r-- 1 root root 4096 Jan 1 03:29 name
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage0_powerdown
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage0_powerdown_mode
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage0_raw
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage0_scale
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage1_powerdown
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage1_powerdown_mode
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage1_raw
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage1_scale
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage2_powerdown
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage2_powerdown_mode
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage2_raw
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage2_scale
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage3_powerdown
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage3_powerdown_mode
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage3_raw
+-rw-r--r-- 1 root root 4096 Jan 1 03:29 out_voltage3_scale
+-r--r--r-- 1 root root 4096 Jan 1 03:29 out_voltage_powerdown_mode_available
 drwxr-xr-x 2 root root 0 Jan 3 16:50 power
-lrwxrwxrwx 1 root root 0 Jan 3 16:50 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 3 16:50 uevent
+lrwxrwxrwx 1 root root 0 Jan 3 16:50 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 3 16:50 uevent
 ```
 :::
 
 
 The number of channels depends on the chip model.
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat name**
 ad5064
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_scale\
-scale to be applied to out\_voltage0\_raw in order to obtain the measured voltage in millivolts.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_scale
+scale to be applied to out_voltage0_raw in order to obtain the measured voltage in millivolts.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage0\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage0_scale**
 0.038140
 ```
 :::
 
 
-##### Set channel Y output voltage
+###### Set channel Y output voltage
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_raw\
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw
 Raw (unscaled, no bias etc.) output voltage for
 channel Y.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 10000 \> out\_voltage0\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 10000 > out_voltage0_raw**
 ```
 :::
 
 
-**U** = *out\_voltage0\_raw \* out\_voltage0\_scale* = 10000 \* 0,038140 *mV* = **381,14 *mV***
+**U** = *out_voltage0_raw * out_voltage0_scale* = 10000 * 0,038140 *mV* = **381,14 *mV***
 
-##### List available power down modes
+###### List available power down modes
 
-/sys/bus/iio/devices/iio:deviceX/out\_voltage\_powerdown\_mode\_available
+/sys/bus/iio/devices/iio:deviceX/out_voltage_powerdown_mode_available
 
-**Description:**\
+**Description:**
 Lists all available output power down modes.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage\_powerdown\_mode\_available**
-1kohm\_to\_gnd 100kohm\_to\_gnd three\_state
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage_powerdown_mode_available**
+1kohm_to_gnd 100kohm_to_gnd three_state
 ```
 :::
 
 
-##### Set power down mode
+###### Set power down mode
 
-/sys/bus/iio/devices/iio:deviceX/out\_voltage\_powerdown\_mode
+/sys/bus/iio/devices/iio:deviceX/out_voltage_powerdown_mode
 
-**Description:**\
+**Description:**
 Specifies the output power down mode.
-DAC output stage is disconnected from the amplifier and\
+DAC output stage is disconnected from the amplifier and
 
 <table>
 <tbody>
@@ -384,54 +373,53 @@ DAC output stage is disconnected from the amplifier and\
 </table>
 
 For a list of available output power down options read
-out\_voltage\_powerdown\_mode\_available.
+out_voltage_powerdown_mode_available.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo three\_state \> out\_voltage\_powerdown\_mode**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage\_powerdown\_mode**
-three\_state
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo three_state > out_voltage_powerdown_mode**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage_powerdown_mode**
+three_state
 ```
 :::
 
 
-##### Enable power down mode on output Y
+###### Enable power down mode on output Y
 
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_powerdown
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_powerdown
 
-**Description:**\
+**Description:**
 Writing 1 causes output Y to enter the power down mode specified
-by the corresponding out\_voltageY\_powerdown\_mode. Clearing returns to
+by the corresponding out_voltageY_powerdown_mode. Clearing returns to
 normal operation.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 1 \> out\_voltage0\_powerdown**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage0\_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 1 > out_voltage0_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage0_powerdown**
 1
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 0 \> out\_voltage0\_powerdown**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage0\_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 0 > out_voltage0_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage0_powerdown**
 0
 ```
 :::
 
 
-PMOD-DA4
---------
+#### PMOD-DA4
 
 The PMOD-DA4 is a PMOD board made by Digilent Inc. which features the AD5628
 
 The following example shows how to connect the PMOD-DA4 to a Blackfin BF537-STAMP board.
 
-#### Hardware configuration
+##### Hardware configuration
 
 ![](/resources/tools-software/linux-drivers/iio-dac/pmodda4.jpg){width="300"}
 
@@ -485,6 +473,6 @@ The following example shows how to connect the PMOD-DA4 to a Blackfin BF537-STAM
 </table>
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

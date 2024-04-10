@@ -6,8 +6,7 @@ title: AD7999: 4-Channel, 8-Bit ADC with I2C Compatible Interface in 8-Lead SOT-
 AD7998 IIO ADC Linux Driver
 ===========================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD7991](https://www.google.com/search?q=AD7991&btnI=lucky)
 -   [AD7992](https://www.google.com/search?q=AD7992&btnI=lucky)
@@ -18,14 +17,12 @@ Supported Devices
 -   [AD7998](https://www.google.com/search?q=AD7998&btnI=lucky)
 -   [AD7999](https://www.google.com/search?q=AD7999&btnI=lucky)
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [CN0288](https://www.google.com/search?q=CN0288&btnI=lucky)
 -   [CN0301](https://www.google.com/search?q=CN0301&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD7991EBZ](https://www.google.com/search?q=EVAL-AD7991EBZ&btnI=lucky)
 -   [EVAL-AD7992EBZ](https://www.google.com/search?q=EVAL-AD7992EBZ&btnI=lucky)
@@ -35,18 +32,16 @@ Evaluation Boards
 -   [EVAL-AD7997EBZ](https://www.google.com/search?q=EVAL-AD7997EBZ&btnI=lucky)
 -   [EVAL-AD7998EBZ](https://www.google.com/search?q=EVAL-AD7998EBZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -63,8 +58,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -82,14 +76,13 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-Specifying reference voltage via the regulator framework
---------------------------------------------------------
+#### Specifying reference voltage via the regulator framework
 
-:::{NOTE} <!-- ATTRS: tip\="" -->
+:::{NOTE} <!-- ATTRS: tip="" -->
 
 In case the AD799x on-chip reference is not used,
 this driver requires specifying the reference voltage, by using the Linux regulator framework.
@@ -100,7 +93,7 @@ this driver requires specifying the reference voltage, by using the Linux regula
 Below example specifies a 2.5 Volt reference for the I2C device 0-0024 on I2C-Bus 0. (**0-0024**)
 
 ``` {.c}
-# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad7998_consumer_supplies[] = {
     REGULATOR_SUPPLY("vref", "0-0024"),
 };
@@ -134,7 +127,7 @@ static struct platform_device brd_voltage_regulator = {
 
 ``` {.c}
 static struct platform_device *board_devices[] __initdata = {
-# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
 ## endif
 };
@@ -156,7 +149,7 @@ arch_initcall(board_init);
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
-Depending on the converter IC used, you may need to set the I2C\_BOARD\_INFO name accordingly, matching your part name.
+Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name accordingly, matching your part name.
 
 ``` {.c}
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
@@ -184,219 +177,210 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Devicetree
-----------
+#### Devicetree
 
 Required devicetree properties:
 
--   compatible: Needs to be \"adi,\" followed by the name of the device. E.g. \"adi,ad7798\"
+-   compatible: Needs to be "adi," followed by the name of the device. E.g. "adi,ad7798"
 -   reg: The slave address used for the device
 -   vcc-supply: Phandle to the supply regulator
 
-```{=markdown}
+```{=html}
+<!-- -->
 ```
-       adc_supply: fixedregulator {
-               compatible = "regulator-fixed";
-               regulator-name = "fixed-supply";
-               regulator-min-microvolt = <3300000>;
-               regulator-max-microvolt = <3300000>;
-       };
+           adc_supply: fixedregulator {
+                   compatible = "regulator-fixed";
+                   regulator-name = "fixed-supply";
+                   regulator-min-microvolt = <3300000>;
+                   regulator-max-microvolt = <3300000>;
+           };
 
-       adc_vref: fixedregulator {
-               compatible = "regulator-fixed";
-               regulator-name = "fixed-supply";
-               regulator-min-microvolt = <2500000>;
-               regulator-max-microvolt = <2500000>;
-       };
-       
-       i2c: i2c@e0007000 {
-               #address-cells = <1>;
-               #size-cells = <0>;
-               compatible = "xlnx,xps-iic-2.00.a";
-               ...
+           adc_vref: fixedregulator {
+                   compatible = "regulator-fixed";
+                   regulator-name = "fixed-supply";
+                   regulator-min-microvolt = <2500000>;
+                   regulator-max-microvolt = <2500000>;
+           };
+           
+           i2c: i2c@e0007000 {
+                   #address-cells = <1>;
+                   #size-cells = <0>;
+                   compatible = "xlnx,xps-iic-2.00.a";
+                   ...
 
-               ad7798@24 {
-                       compatible = "adi,ad7798";
-                       reg = <0x24>;
-                       vcc-supply = <&adc_supply>;
-                       vref-supply = <&adc_vref>;
-               };
-        };
+                   ad7798@24 {
+                           compatible = "adi,ad7798";
+                           reg = <0x24>;
+                           vcc-supply = <&adc_supply>;
+                           vref-supply = <&adc_vref>;
+                   };
+            };
 
-```
-```
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD7998 Driver depends on **CONFIG\_I2C**
+The AD7998 Driver depends on **CONFIG_I2C**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Analog to digital converters ***
-                [--snip--]
+                          *** Analog to digital converters ***
+                    [--snip--]
 
-                <*>   Analog Devices AD799x ADC driver
-                -*-     Analog Devices AD799x: use ring buffer
+                    <*>   Analog Devices AD799x ADC driver
+                    -*-     Analog Devices AD799x: use ring buffer
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0 trigger0
 
-root:/sys/bus/iio/devices\> **cd device0**
+root:/sys/bus/iio/devices> **cd device0**
 
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0\> **ls -l**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0> **ls -l**
 drwxr-xr-x 5 root root 0 Jan 1 00:00 buffer
 drwxr-xr-x 2 root root 0 Jan 1 00:00 events
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage2\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage3\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage4\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage5\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage6\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage7\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage\_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 name
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../../../bus/iio
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage0_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage1_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage2_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage3_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage4_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage5_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage6_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage7_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage_scale
+-r--r--r-- 1 root root 4096 Jan 1 00:00 name
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -> ../../../../../../bus/iio
 drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 uevent
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0\> **cat name**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0> **cat name**
 ad7998
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
-scale to be applied to in\_voltage0\_raw in order to obtain the measured voltage in millivolts.
+**Description:**
+scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0\> **cat in\_voltage\_scale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0> **cat in_voltage_scale**
 1.000
 ```
 :::
 
 
-##### Show channel 0 measurement
+###### Show channel 0 measurement
 
-**Description:**\
+**Description:**
 Raw unscaled voltage measurement on channel 0
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0\> **cat in\_voltage0\_raw**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0> **cat in_voltage0_raw**
 1491
 ```
 :::
 
 
-**U** = *in\_voltage0\_raw \* in\_voltage\_scale* = 1491 \* 1.000 = **1491,00 *mV***
+**U** = *in_voltage0_raw * in_voltage_scale* = 1491 * 1.000 = **1491,00 *mV***
 
-Trigger management
-------------------
+#### Trigger management
 
-![iio\_snippets\#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn)
 
-#### Available standalone trigger drivers
+##### Available standalone trigger drivers
 
-![iio\_snippets\#Standalone trigger drivers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn)
+![iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn)
 
-Buffer management
------------------
+#### Buffer management
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/buffer\> **ls**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/buffer> **ls**
 **enable** **length**
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/buffer\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/buffer>
 ```
 :::
 
 
-![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/scan\_elements\> **ls**
-in\_voltage0\_en in\_voltage2\_index in\_voltage5\_en in\_voltage7\_index
-in\_voltage0\_index in\_voltage3\_en in\_voltage5\_index in\_voltage\_type
-in\_voltage1\_en in\_voltage3\_index in\_voltage6\_en timestamp\_en
-in\_voltage1\_index in\_voltage4\_en in\_voltage6\_index timestamp\_index
-in\_voltage2\_en in\_voltage4\_index in\_voltage7\_en timestamp\_type
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/scan\_elements\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/scan_elements> **ls**
+in_voltage0_en in_voltage2_index in_voltage5_en in_voltage7_index
+in_voltage0_index in_voltage3_en in_voltage5_index in_voltage_type
+in_voltage1_en in_voltage3_index in_voltage6_en timestamp_en
+in_voltage1_index in_voltage4_en in_voltage6_index timestamp_index
+in_voltage2_en in_voltage4_index in_voltage7_en timestamp_type
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/scan_elements>
 ```
 :::
 
 
-![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

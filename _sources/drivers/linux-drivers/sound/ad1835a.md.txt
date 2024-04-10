@@ -6,8 +6,7 @@ title: AD1839A: 2 ADC, 6 DAC 96 kHz, 24-Bit Sigma Delta Codec
 AD1836 Sound CODEC Linux Driver
 ===============================
 
-Supported devices
------------------
+# Supported devices
 
 -   [AD1835A](https://www.google.com/search?q=AD1835A&btnI=lucky)
 -   [AD1836A](https://www.google.com/search?q=AD1836A&btnI=lucky)
@@ -15,15 +14,14 @@ Supported devices
 -   [AD1837A](https://www.google.com/search?q=AD1837A&btnI=lucky)
 -   [AD1839A](https://www.google.com/search?q=AD1839A&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [AD1836AZ-DBRD](https://www.google.com/search?q=AD1836AZ-DBRD&btnI=lucky)
 
 Source Code
-===========
+-----------
 
-# Status
+##### Status
 
 <table>
 <thead>
@@ -40,7 +38,7 @@ Source Code
 </tbody>
 </table>
 
-#### Files
+##### Files
 
 <table>
 <thead>
@@ -62,11 +60,11 @@ Source Code
 </table>
 
 Example device initialization
-=============================
+-----------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-You need to set the modalias of your SPI info according to your codec. Valid values are \"ad1835\", \"ad1836\", \"ad1837\", \"ad1838\" and \"ad1839\". You\'ll also have to adjust bus\_num and chip\_select according to your board setup.
+You need to set the modalias of your SPI info according to your codec. Valid values are "ad1835", "ad1836", "ad1837", "ad1838" and "ad1839". You'll also have to adjust bus_num and chip_select according to your board setup.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
@@ -96,8 +94,7 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-ASoC DAPM Widgets
------------------
+#### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -141,8 +138,7 @@ ASoC DAPM Widgets
 </tbody>
 </table>
 
-ALSA Controls
--------------
+#### ALSA Controls
 
 <table>
 <thead>
@@ -221,8 +217,7 @@ ALSA Controls
 </tbody>
 </table>
 
-DAI Configuration
------------------
+#### DAI Configuration
 
 The CODEC driver registers one DAI named depending on the chip model used.
 
@@ -249,7 +244,7 @@ The CODEC driver registers one DAI named depending on the chip model used.
 </tbody>
 </table>
 
-#### Supported DAI formats
+##### Supported DAI formats
 
 <table>
 <thead>
@@ -348,7 +343,7 @@ The CODEC driver registers one DAI named depending on the chip model used.
 </tbody>
 </table>
 
-#### Example DAI Configuration
+##### Example DAI Configuration
 
 ``` {.c}
 static int bf5xx_ad1836_hw_params(struct snd_pcm_substream *substream,
@@ -390,220 +385,168 @@ static struct snd_soc_dai_link bf5xx_ad1836_dai = {
 ```
 
 AD1836 evaluation board driver
-==============================
+------------------------------
 
-Adding Kernel Support - As a module
------------------------------------
+#### Adding Kernel Support - As a module
 
 To add support for the built-in codec AD183X of BF5XX to the kernel build system, a few things must be enabled properly for things to work.The configuration is as following:
 
-```{=markdown}
-```
-Linux Kernel Configuration
-  Device Drivers  ---> 
-    Sound  ---> 
-      <M> Sound card support
-        Advanced Linux Sound Architecture  --->
-          <M> Advanced Linux Sound Architecture
-          < > Sequencer support
-          <M> OSS Mixer API 
-          <M> OSS PCM (digital audio) API
-          <M>   ALSA for SoC audio support  --->
-              <M>   SoC I2S(TDM mode) Audio for the ADI BF5xx chip
-              <M>   SoC AD183X Audio support for BF5xx                      
+    Linux Kernel Configuration
+      Device Drivers  ---> 
+        Sound  ---> 
+          <M> Sound card support
+            Advanced Linux Sound Architecture  --->
+              <M> Advanced Linux Sound Architecture
+              < > Sequencer support
+              <M> OSS Mixer API 
+              <M> OSS PCM (digital audio) API
+              <M>   ALSA for SoC audio support  --->
+                  <M>   SoC I2S(TDM mode) Audio for the ADI BF5xx chip
+                  <M>   SoC AD183X Audio support for BF5xx                      
 
-```
-```
 Doing this will create modules (outside the kernel). The modules will be inserted automatically when it is needed. You can also build sound driver into kernel.
 
-#### Testing the built in kernel driver
+##### Testing the built in kernel driver
 
 If audio is configured as modules, skip this section. If audio is built into kernel and you have booted the kernel, there are a few things to check to ensure audio is working:
 
 1.  Check the boot messages to see if you have booted the correct kernel. During kernel boot, it should print out:
 
-```{=markdown}
+```{=html}
+<!-- -->
 ```
-      Advanced Linux Sound Architecture Driver Version 1.0.12rc1 (Thu Jun 22 13:55:50 2006 UTC).
-      ASoC version 0.13.1
-      dma rx:3 tx:4, err irq:45, regs:
-      asoc: AD183X <-> bf5xx-tdm mapping ok
-      ALSA device list:
-        #0: bf5xx_ad183x (AD183X)
+          Advanced Linux Sound Architecture Driver Version 1.0.12rc1 (Thu Jun 22 13:55:50 2006 UTC).
+          ASoC version 0.13.1
+          dma rx:3 tx:4, err irq:45, regs:
+          asoc: AD183X <-> bf5xx-tdm mapping ok
+          ALSA device list:
+            #0: bf5xx_ad183x (AD183X)
 
-```
-```
-#### Testing the audio module
+##### Testing the audio module
 
-```{=markdown}
-```
-root:/> modprobe snd-ad183x
-dma rx:3 tx:4, err irq:45, regs:ffc00800
-asoc: AD183X <-> bf5xx-tdm mapping ok
-root:/> modprobe snd-pcm-oss
-root:/> lsmod
-Module                  Size  Used by
-snd_pcm_oss            28414  0
-snd_mixer_oss          10215  1 snd_pcm_oss
-snd_ad183x               801  0
-snd_bf5xx_tdm           1857  1 snd_ad183x
-snd_soc_ad183x          8033  1 snd_ad183x
-snd_soc_bf5xx_tdm       2157  1 snd_ad183x
-snd_soc_bf5xx_sport     9392  2 snd_bf5xx_tdm,snd_soc_bf5xx_tdm
-snd_soc_core           33839  4 snd_ad183x,snd_bf5xx_tdm,snd_soc_ad183x,snd_soc_bf5xx_tdm
-snd_pcm                44936  3 snd_pcm_oss,snd_bf5xx_tdm,snd_soc_core
-snd_page_alloc          2753  1 snd_pcm
-snd_timer              12412  1 snd_pcm
-snd                    32171  5 snd_pcm_oss,snd_mixer_oss,snd_soc_core,snd_pcm,snd_timer
-input_core             15713  1 snd
-soundcore               3591  1 snd
+    root:/> modprobe snd-ad183x
+    dma rx:3 tx:4, err irq:45, regs:ffc00800
+    asoc: AD183X <-> bf5xx-tdm mapping ok
+    root:/> modprobe snd-pcm-oss
+    root:/> lsmod
+    Module                  Size  Used by
+    snd_pcm_oss            28414  0
+    snd_mixer_oss          10215  1 snd_pcm_oss
+    snd_ad183x               801  0
+    snd_bf5xx_tdm           1857  1 snd_ad183x
+    snd_soc_ad183x          8033  1 snd_ad183x
+    snd_soc_bf5xx_tdm       2157  1 snd_ad183x
+    snd_soc_bf5xx_sport     9392  2 snd_bf5xx_tdm,snd_soc_bf5xx_tdm
+    snd_soc_core           33839  4 snd_ad183x,snd_bf5xx_tdm,snd_soc_ad183x,snd_soc_bf5xx_tdm
+    snd_pcm                44936  3 snd_pcm_oss,snd_bf5xx_tdm,snd_soc_core
+    snd_page_alloc          2753  1 snd_pcm
+    snd_timer              12412  1 snd_pcm
+    snd                    32171  5 snd_pcm_oss,snd_mixer_oss,snd_soc_core,snd_pcm,snd_timer
+    input_core             15713  1 snd
+    soundcore               3591  1 snd
 
-root:~> tone
-TONE: generating sine wave at 1000 Hz...
+    root:~> tone
+    TONE: generating sine wave at 1000 Hz...
 
-```
-```
-Driver testing
---------------
+#### Driver testing
 
 1.  Check the output
 
 ```bash
-root:\~\> **tone**
-TONE: generating sine wave at 1000 Hz\...
+root:~> **tone**
+TONE: generating sine wave at 1000 Hz...
 ```
 You should hear something out of the headphone Jack.
 
 1.  Check and set the audio mixer:
 
 ```bash
-root:/\> amixer
-Simple mixer control \'Playback Deemphasis\',0
+root:/> amixer
+Simple mixer control 'Playback Deemphasis',0
 
-```{=markdown}
-```
-Capabilities: enum
-Items: 'None' '44.1kHz' '32kHz' '48kHz'
-Item0: '48kHz'
+    Capabilities: enum
+    Items: 'None' '44.1kHz' '32kHz' '48kHz'
+    Item0: '48kHz'
 
-```
-```
-Simple mixer control \'ADC High Pass Filter\',0
+Simple mixer control 'ADC High Pass Filter',0
 
-```{=markdown}
-```
-Capabilities: pswitch pswitch-joined
-Playback channels: Mono
-Mono: Playback [on]
+    Capabilities: pswitch pswitch-joined
+    Playback channels: Mono
+    Mono: Playback [on]
 
-```
-```
-Simple mixer control \'ADC1\',0
+Simple mixer control 'ADC1',0
 
-```{=markdown}
-```
-Capabilities: pswitch
-Playback channels: Front Left - Front Right
-Mono:
-Front Left: Playback [on]
-Front Right: Playback [on]
+    Capabilities: pswitch
+    Playback channels: Front Left - Front Right
+    Mono:
+    Front Left: Playback [on]
+    Front Right: Playback [on]
 
-```
-```
-Simple mixer control \'ADC2\',0
+Simple mixer control 'ADC2',0
 
-```{=markdown}
-```
-Capabilities: pswitch
-Playback channels: Front Left - Front Right
-Mono:
-Front Left: Playback [on]
-Front Right: Playback [on]
+    Capabilities: pswitch
+    Playback channels: Front Left - Front Right
+    Mono:
+    Front Left: Playback [on]
+    Front Right: Playback [on]
 
-```
-```
-Simple mixer control \'DAC1\',0
+Simple mixer control 'DAC1',0
 
-```{=markdown}
-```
-Capabilities: volume pswitch
-Playback channels: Front Left - Front Right
-Capture channels: Front Left - Front Right
-Limits: 0 - 1023
-Front Left: 1023 [100%] Playback [on]
-Front Right: 1023 [100%] Playback [on]
+    Capabilities: volume pswitch
+    Playback channels: Front Left - Front Right
+    Capture channels: Front Left - Front Right
+    Limits: 0 - 1023
+    Front Left: 1023 [100%] Playback [on]
+    Front Right: 1023 [100%] Playback [on]
 
-```
-```
-Simple mixer control \'DAC2\',0
+Simple mixer control 'DAC2',0
 
-```{=markdown}
-```
-Capabilities: volume pswitch
-Playback channels: Front Left - Front Right
-Capture channels: Front Left - Front Right
-Limits: 0 - 1023
-Front Left: 1023 [100%] Playback [on]
-Front Right: 1023 [100%] Playback [on]
+    Capabilities: volume pswitch
+    Playback channels: Front Left - Front Right
+    Capture channels: Front Left - Front Right
+    Limits: 0 - 1023
+    Front Left: 1023 [100%] Playback [on]
+    Front Right: 1023 [100%] Playback [on]
+
+Simple mixer control 'DAC3',0
+
+    Capabilities: volume pswitch
+    Playback channels: Front Left - Front Right
+    Capture channels: Front Left - Front Right
+    Limits: 0 - 1023
+    Front Left: 1023 [100%] Playback [on]
+    Front Right: 1023 [100%] Playback [on]
+
+root:/> amixer sset 'DAC3' 200
+Simple mixer control 'DAC3',0
+
+    Capabilities: volume pswitch
+    Playback channels: Front Left - Front Right
+    Capture channels: Front Left - Front Right
+    Limits: 0 - 1023
+    Front Left: 200 [20%] Playback [on]
+    Front Right: 200 [20%] Playback [on]
 
 ```
-```
-Simple mixer control \'DAC3\',0
 
-```{=markdown}
-```
-Capabilities: volume pswitch
-Playback channels: Front Left - Front Right
-Capture channels: Front Left - Front Right
-Limits: 0 - 1023
-Front Left: 1023 [100%] Playback [on]
-Front Right: 1023 [100%] Playback [on]
+    Also you can run "alsamixer" to get graphic configuration interface, OSS-based "mixer" can work too.
+    - Check to make sure mp3s work (assuming you have built mp3play),
+      - The first step is to download a mp3 file onto the platform. The ''wget'' command assumes that networking is properly configured (you have an IP number, the default gateway is set, and DNS servers can be accessed), and working. ```bashroot:/> **cd /var**
 
-
-```
-```
-root:/\> amixer sset \'DAC3\' 200
-Simple mixer control \'DAC3\',0
-
-```{=markdown}
-```
-Capabilities: volume pswitch
-Playback channels: Front Left - Front Right
-Capture channels: Front Left - Front Right
-Limits: 0 - 1023
-Front Left: 200 [20%] Playback [on]
-Front Right: 200 [20%] Playback [on]
-
-```
-```
+root:/var> **wget <http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3>**
 ```
 
-```{=markdown}
-```
-Also you can run "alsamixer" to get graphic configuration interface, OSS-based "mixer" can work too.
-- Check to make sure mp3s work (assuming you have built mp3play),
-  - The first step is to download a mp3 file onto the platform. The ''wget'' command assumes that networking is properly configured (you have an IP number, the default gateway is set, and DNS servers can be accessed), and working. ```bashroot:/> **cd /var**
+      - Next, play it with mp3play: ```bashroot:/var> **mp3play ABCOWhosOnFirstclip.mp3**```
+    - You can play it in one step with: ```bashroot:~> **mp3play http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3**
 
-```
-```
-root:/var\> **wget <http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3>**
-```
-
-```{=markdown}
-```
-  - Next, play it with mp3play: ```bashroot:/var> **mp3play ABCOWhosOnFirstclip.mp3**```
-- You can play it in one step with: ```bashroot:~> **mp3play http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3**
-
-```
-```
 http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3: MPEG2-III (0 ms)
 ```
 
 1.  Optionally check to make sure the mic and headphone are working properly: ```bash
 
-root:\~\> **arecord -d 10 test.wav**
-Recording WAVE \"test.wav\" : Unsigned 8 bit, Rate 8000 Hz, Mono
-root:\~\> **aplay test.wav**
+root:~> **arecord -d 10 test.wav**
+Recording WAVE "test.wav" : Unsigned 8 bit, Rate 8000 Hz, Mono
+root:~> **aplay test.wav**
 ``` This should record 10 seconds of whatever is on the Line, and then play it back over the output.
 
-1.  You should also be able to do a \"talkthrough\", and hear on the speakers anything you put on the line. ```bashroot:\~\> **arecord | aplay**```
+1.  You should also be able to do a "talkthrough", and hear on the speakers anything you put on the line. ```bashroot:~> **arecord | aplay**```

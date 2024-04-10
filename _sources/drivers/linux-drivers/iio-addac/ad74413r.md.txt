@@ -6,23 +6,20 @@ title: AD74413R: Quad-Channel, Software Configurable Input and Output
 AD74413R/AD74412R Quad-Channel, Software Configurable, Input and Output Circuit Linux Driver
 ============================================================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD74413R](https://www.google.com/search?q=AD74413R&btnI=lucky)
 -   [AD74412R](https://www.google.com/search?q=AD74412R&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD74413R](https://www.google.com/search?q=EVAL-AD74413R&btnI=lucky)
 -   [EVAL-AD74412R](https://www.google.com/search?q=EVAL-AD74412R&btnI=lucky)
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -39,8 +36,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -79,157 +75,157 @@ Example device tree
 </table>
 
 Driver testing
-==============
+--------------
 
 When configured with channel 0 as voltage output, channel 1 as current
 output, channel 2 as voltage input and channel 3 as current input, the
 following structure is created under the corresponding IIO device.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio\\:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/bus/iio/devices/iio:device0\> **ls -l**
+root:/sys/bus/iio/devices/iio:device0> **ls -l**
 drwxr-xr-x 2 root root 0 Aug 17 09:56 buffer
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 dev
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current0\_offset
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current0\_raw
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current0\_sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current0\_sampling\_frequency\_available
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current0\_scale
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current3\_offset
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current3\_raw
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current3\_sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current3\_sampling\_frequency\_available
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current3\_scale
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage1\_offset
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage1\_raw
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage1\_sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage1\_sampling\_frequency\_available
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage1\_scale
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage2\_offset
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage2\_raw
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage2\_sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage2\_sampling\_frequency\_available
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage2\_scale
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 name
-lrwxrwxrwx 1 root root 0 Aug 17 09:56 of\_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/ad74413r\@0
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 out\_current1\_raw
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 out\_current1\_scale
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 out\_voltage0\_raw
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 out\_voltage0\_scale
+-r--r--r-- 1 root root 4096 Aug 17 09:56 dev
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current0_offset
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current0_raw
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current0_sampling_frequency
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_current0_sampling_frequency_available
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current0_scale
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current3_offset
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current3_raw
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current3_sampling_frequency
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_current3_sampling_frequency_available
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current3_scale
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage1_offset
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage1_raw
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage1_sampling_frequency
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_voltage1_sampling_frequency_available
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage1_scale
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage2_offset
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage2_raw
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage2_sampling_frequency
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_voltage2_sampling_frequency_available
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage2_scale
+-r--r--r-- 1 root root 4096 Aug 17 09:56 name
+lrwxrwxrwx 1 root root 0 Aug 17 09:56 of_node -> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ad74413r@0
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 out_current1_raw
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 out_current1_scale
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 out_voltage0_raw
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 out_voltage0_scale
 drwxr-xr-x 2 root root 0 Aug 17 09:56 power
-drwxr-xr-x 2 root root 0 Aug 17 09:56 scan\_elements
-lrwxrwxrwx 1 root root 0 Aug 17 09:56 subsystem -\> ../../../../../../../../bus/iio
+drwxr-xr-x 2 root root 0 Aug 17 09:56 scan_elements
+lrwxrwxrwx 1 root root 0 Aug 17 09:56 subsystem -> ../../../../../../../../bus/iio
 drwxr-xr-x 2 root root 0 Aug 17 09:56 trigger
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 uevent
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 uevent
 ```
 :::
 
 
-# Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat name**
+root:/sys/bus/iio/devices/iio:device0> **cat name**
 ad74413r
 ```
 :::
 
 
-##### Show raw measurement
+###### Show raw measurement
 
-**Description:**\
+**Description:**
 Raw measurement of current on channel 0.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat in\_current0\_raw**
+root:/sys/bus/iio/devices/iio:device0> **cat in_current0_raw**
 4608
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
+**Description:**
 Scale to be applied to the raw measurement of current on channel 0 in order to obtain the actual current.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat in\_current0\_scale**
+root:/sys/bus/iio/devices/iio:device0> **cat in_current0_scale**
 0.001525902
 ```
 :::
 
 
-##### Set sampling frequency
+###### Set sampling frequency
 
-**Description:**\
+**Description:**
 Show available sampling frequencies and select one for channel 0.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat in\_current0\_sampling\_frequency\_available**
+root:/sys/bus/iio/devices/iio:device0> **cat in_current0_sampling_frequency_available**
 10 20 1200 4800
-root:/sys/bus/iio/devices/iio:device0\> **cat in\_current0\_sampling\_frequency**
+root:/sys/bus/iio/devices/iio:device0> **cat in_current0_sampling_frequency**
 20
-root:/sys/bus/iio/devices/iio:device0\> **echo 4800 \> in\_current0\_sampling\_frequency**
-root:/sys/bus/iio/devices/iio:device0\> **cat in\_current0\_sampling\_frequency**
+root:/sys/bus/iio/devices/iio:device0> **echo 4800 > in_current0_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device0> **cat in_current0_sampling_frequency**
 4800
 ```
 :::
 
 
-#### Buffer management
+##### Buffer management
 
-**Description:**\
-The scan\_elements directory contains interfaces for elements that will be captured for a single triggered sample set in the buffer
+**Description:**
+The scan_elements directory contains interfaces for elements that will be captured for a single triggered sample set in the buffer
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cd scan\_elements/**
-root:/sys/bus/iio/devices/iio:device0/scan\_elements\> **ls -l**
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current0\_en
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current0\_index
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current0\_type
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current3\_en
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current3\_index
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_current3\_type
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage1\_en
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage1\_index
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage1\_type
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage2\_en
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage2\_index
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 in\_voltage2\_type
+root:/sys/bus/iio/devices/iio:device0> **cd scan_elements/**
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **ls -l**
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current0_en
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_current0_index
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_current0_type
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_current3_en
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_current3_index
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_current3_type
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage1_en
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_voltage1_index
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_voltage1_type
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 in_voltage2_en
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_voltage2_index
+-r--r--r-- 1 root root 4096 Aug 17 09:56 in_voltage2_type
 ```
 :::
 
@@ -238,116 +234,116 @@ Before enabling the buffer, a few steps need to be completed.
 
 -   For example, if we want to capture all input channels, we need to enable the scan elements:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0/scan\_elements\> **echo 1 \> in\_current0\_en**
-root:/sys/bus/iio/devices/iio:device0/scan\_elements\> **echo 1 \> in\_voltage1\_en**
-root:/sys/bus/iio/devices/iio:device0/scan\_elements\> **echo 1 \> in\_voltage2\_en**
-root:/sys/bus/iio/devices/iio:device0/scan\_elements\> **echo 1 \> in\_current3\_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **echo 1 > in_current0_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **echo 1 > in_voltage1_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **echo 1 > in_voltage2_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **echo 1 > in_current3_en**
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0/scan\_elements\> **cd ../buffer/**
-root:/sys/bus/iio/devices/iio:device0/buffer\> ls -l
--r\--r\--r\-- 1 root root 4096 Aug 17 09:56 data\_available
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 enable
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 length
--rw-r\--r\-- 1 root root 4096 Aug 17 09:56 watermark
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **cd ../buffer/**
+root:/sys/bus/iio/devices/iio:device0/buffer> ls -l
+-r--r--r-- 1 root root 4096 Aug 17 09:56 data_available
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 enable
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 length
+-rw-r--r-- 1 root root 4096 Aug 17 09:56 watermark
 ```
 :::
 
 
 -   Set the buffer length:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0/buffer\> **echo 1024 \> length**
+root:/sys/bus/iio/devices/iio:device0/buffer> **echo 1024 > length**
 ```
 :::
 
 
 -   Set the watermak:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0/buffer\> **echo 512 \> watermark**
+root:/sys/bus/iio/devices/iio:device0/buffer> **echo 512 > watermark**
 ```
 :::
 
 
 -   Enable the buffer:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0/buffer\> **echo 1 \> enable**
+root:/sys/bus/iio/devices/iio:device0/buffer> **echo 1 > enable**
 ```
 :::
 
 
 -   Read the samples:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0/buffer\> **cat /dev/iio:device0**
+root:/sys/bus/iio/devices/iio:device0/buffer> **cat /dev/iio:device0**
 ```
 :::
 
 
-Low level register access via debugfs (direct\_reg\_access)
-===========================================================
+Low level register access via debugfs (direct_reg_access)
+-----------------------------------------------------------
 
 Some IIO drivers feature an optional debug facility, allowing users to read or write registers directly. Special care needs to be taken when using this feature, since you can modify registers on the back of the driver. Accessing debugfs requires root privileges.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **/sys/kernel/debug/iio/iio:device0/**
-root:/sys/kernel/debug/iio/iio:device0\> ls direct\_reg\_access
-direct\_reg\_access
+root:/> **/sys/kernel/debug/iio/iio:device0/**
+root:/sys/kernel/debug/iio/iio:device0> ls direct_reg_access
+direct_reg_access
 ```
 :::
 
 
 Reading
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/kernel/debug/iio/iio:device0\> echo 0x45 \> direct\_reg\_access
-root:/sys/kernel/debug/iio/iio:device0\> cat direct\_reg\_access
+root:/sys/kernel/debug/iio/iio:device0> echo 0x45 > direct_reg_access
+root:/sys/kernel/debug/iio/iio:device0> cat direct_reg_access
 0x00
 ```
 :::
@@ -357,20 +353,20 @@ Writing
 
 Write ADDRESS VALUE
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device0\> echo 0x45 0xADAD \> direct\_reg\_access
-root\@analog:/sys/kernel/debug/iio/iio:device0\> cat direct\_reg\_access
+root@analog:/sys/kernel/debug/iio/iio:device0> echo 0x45 0xADAD > direct_reg_access
+root@analog:/sys/kernel/debug/iio/iio:device0> cat direct_reg_access
 0xADAD
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -6,23 +6,20 @@ title: ADIS16130: Digital Output, High-Precision Angular Rate Sensor
 ADIS16130 IIO High Precision Angular Rate Gyroscope Linux Driver
 ================================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADIS16130](https://www.google.com/search?q=ADIS16130&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Gyroscopes.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -39,8 +36,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -60,11 +56,11 @@ Files
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-# if defined(CONFIG_ADIS16130) \
+## if defined(CONFIG_ADIS16130) 
     || defined(CONFIG_ADIS16130_MODULE)
     {
         .modalias = "adis16130",
@@ -93,86 +89,81 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADIS16130 Driver depends on **CONFIG\_SPI**
+The ADIS16130 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Digital gyroscope sensors ***
-                [--snip--]
+                          *** Digital gyroscope sensors ***
+                    [--snip--]
 
-                <*>   Analog Devices ADIS16130 High Precision Angular Rate Sensor driver
+                    <*>   Analog Devices ADIS16130 High Precision Angular Rate Sensor driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> **ls**
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> **ls**
 iio:device0 trigger0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 3 20:40 dev
--r\--r\--r\-- 1 root root 4096 Jan 3 20:40 in\_gyro\_z\_raw
--r\--r\--r\-- 1 root root 4096 Jan 3 20:40 in\_temp0\_raw
--r\--r\--r\-- 1 root root 4096 Jan 3 20:40 name
+root:/sys/bus/iio/devices> **cd iio:device0**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 3 20:40 dev
+-r--r--r-- 1 root root 4096 Jan 3 20:40 in_gyro_z_raw
+-r--r--r-- 1 root root 4096 Jan 3 20:40 in_temp0_raw
+-r--r--r-- 1 root root 4096 Jan 3 20:40 name
 drwxr-xr-x 2 root root 0 Jan 3 20:40 power
-lrwxrwxrwx 1 root root 0 Jan 3 20:40 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 3 20:40 uevent
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\>
+lrwxrwxrwx 1 root root 0 Jan 3 20:40 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 3 20:40 uevent
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0>
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat name**
 adis16130
 ```
 :::
 
 
-##### ADIS16130 device attributes
+###### ADIS16130 device attributes
 
 For a detailed description please see:
 [drivers/staging/iio/Documentation/sysfs-bus-iio](https://www.google.com/search?q=drivers/staging/iio/Documentation/sysfs-bus-iio&btnI=lucky)
@@ -197,6 +188,6 @@ For a detailed description please see:
 </table>
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

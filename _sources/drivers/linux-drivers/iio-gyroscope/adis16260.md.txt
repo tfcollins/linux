@@ -6,8 +6,7 @@ title: ADIS16266: ±14,000°/sec Digital Gyroscope Sensor
 ADIS16260 IIO Programmable Low Power Gyroscope Linux Driver
 ===========================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADIS16250](https://www.google.com/search?q=ADIS16250&btnI=lucky)
 -   [ADIS16251](https://www.google.com/search?q=ADIS16251&btnI=lucky)
@@ -16,25 +15,22 @@ Supported Devices
 -   [ADIS16265](https://www.google.com/search?q=ADIS16265&btnI=lucky)
 -   [ADIS16266](https://www.google.com/search?q=ADIS16266&btnI=lucky) (Linux v4.3+)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [ADIS16260/PCBZ](https://www.google.com/search?q=EVAL-ADIS16260&btnI=lucky)
 -   [ADIS16265/PCBZ](https://www.google.com/search?q=EVAL-ADIS16265&btnI=lucky)
 -   [ADIS16266/PCBZ](https://www.google.com/search?q=EVAL-ADIS16265&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Gyroscopes.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -51,8 +47,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -88,11 +83,11 @@ Files
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-# if defined(CONFIG_ADIS16260) \
+## if defined(CONFIG_ADIS16260) 
     || defined(CONFIG_ADIS16260_MODULE)
     {
         .modalias = "adis16260",
@@ -122,101 +117,96 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADIS16260 Driver depends on **CONFIG\_SPI**
+The ADIS16260 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Digital gyroscope sensors ***
-                [--snip--]
+                          *** Digital gyroscope sensors ***
+                    [--snip--]
 
-                <*>   Analog Devices ADIS16260 Digital Gyroscope Sensor SPI driver
+                    <*>   Analog Devices ADIS16260 Digital Gyroscope Sensor SPI driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> **ls**
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> **ls**
 iio:device0 trigger0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0\> **ls -l**
+root:/sys/bus/iio/devices> **cd iio:device0**
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0> **ls -l**
 drwxr-xr-x 2 root root 0 Jan 4 06:12 buffer
--r\--r\--r\-- 1 root root 4096 Jan 4 06:12 dev
--r\--r\--r\-- 1 root root 4096 Jan 4 06:12 in\_angl\_x\_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 in\_gyro\_x\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 in\_gyro\_x\_calibscale
--r\--r\--r\-- 1 root root 4096 Jan 4 06:12 in\_gyro\_x\_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 in\_gyro\_x\_scale
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 in\_temp0\_offset
--r\--r\--r\-- 1 root root 4096 Jan 4 06:12 in\_temp0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 in\_temp0\_scale
--r\--r\--r\-- 1 root root 4096 Jan 4 06:12 in\_voltage0\_supply\_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 in\_voltage0\_supply\_scale
--r\--r\--r\-- 1 root root 4096 Jan 4 06:12 in\_voltage1\_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 in\_voltage1\_scale
--r\--r\--r\-- 1 root root 4096 Jan 4 06:12 name
+-r--r--r-- 1 root root 4096 Jan 4 06:12 dev
+-r--r--r-- 1 root root 4096 Jan 4 06:12 in_angl_x_raw
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 in_gyro_x_calibbias
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 in_gyro_x_calibscale
+-r--r--r-- 1 root root 4096 Jan 4 06:12 in_gyro_x_raw
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 in_gyro_x_scale
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 in_temp0_offset
+-r--r--r-- 1 root root 4096 Jan 4 06:12 in_temp0_raw
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 in_temp0_scale
+-r--r--r-- 1 root root 4096 Jan 4 06:12 in_voltage0_supply_raw
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 in_voltage0_supply_scale
+-r--r--r-- 1 root root 4096 Jan 4 06:12 in_voltage1_raw
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 in_voltage1_scale
+-r--r--r-- 1 root root 4096 Jan 4 06:12 name
 drwxr-xr-x 2 root root 0 Jan 4 06:12 power
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 4 06:12 reset
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Jan 4 06:12 sampling\_frequency\_available
-drwxr-xr-x 2 root root 0 Jan 4 06:12 scan\_elements
-lrwxrwxrwx 1 root root 0 Jan 4 06:12 subsystem -\> ../../../../../bus/iio
+--w------- 1 root root 4096 Jan 4 06:12 reset
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 sampling_frequency
+-r--r--r-- 1 root root 4096 Jan 4 06:12 sampling_frequency_available
+drwxr-xr-x 2 root root 0 Jan 4 06:12 scan_elements
+lrwxrwxrwx 1 root root 0 Jan 4 06:12 subsystem -> ../../../../../bus/iio
 drwxr-xr-x 2 root root 0 Jan 4 06:12 trigger
--rw-r\--r\-- 1 root root 4096 Jan 4 06:12 uevent
+-rw-r--r-- 1 root root 4096 Jan 4 06:12 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0> **cat name**
 adis16260
 ```
 :::
 
 
-##### ADIS16260 device attributes
+###### ADIS16260 device attributes
 
 For a detailed description please see:
 [drivers/staging/iio/Documentation/sysfs-bus-iio](https://www.google.com/search?q=drivers/staging/iio/Documentation/sysfs-bus-iio&btnI=lucky)
@@ -279,65 +269,63 @@ For a detailed description please see:
 </tbody>
 </table>
 
-Trigger management
-------------------
+#### Trigger management
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-This driver only supports it\'s own default trigger source **adis16260-dev0**
+This driver only supports it's own default trigger source **adis16260-dev0**
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0\> **cat trigger/current\_trigger**
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0> **cat trigger/current_trigger**
 adis16260-dev0
 ```
 :::
 
 
-Buffer management
------------------
+#### Buffer management
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0/buffer\> **ls**
-**bytes\_per\_datum** **enable** **length**
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0/buffer> **ls**
+**bytes_per_datum** **enable** **length**
 ```
 :::
 
 
-![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0/scan\_elements\>**ls**
-in\_angl\_x\_en in\_temp0\_en in\_voltage0\_supply\_en
-in\_angl\_x\_index in\_temp0\_index in\_voltage0\_supply\_index
-in\_angl\_x\_type in\_temp0\_type in\_voltage0\_supply\_type
-in\_gyro\_x\_en in\_timestamp\_en in\_voltage1\_en
-in\_gyro\_x\_index in\_timestamp\_index in\_voltage1\_index
-in\_gyro\_x\_type in\_timestamp\_type in\_voltage1\_type
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0/scan_elements>**ls**
+in_angl_x_en in_temp0_en in_voltage0_supply_en
+in_angl_x_index in_temp0_index in_voltage0_supply_index
+in_angl_x_type in_temp0_type in_voltage0_supply_type
+in_gyro_x_en in_timestamp_en in_voltage1_en
+in_gyro_x_index in_timestamp_index in_voltage1_index
+in_gyro_x_type in_timestamp_type in_voltage1_type
 ```
 :::
 
 
-![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

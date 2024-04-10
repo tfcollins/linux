@@ -6,23 +6,19 @@ title: AD9083 16-Channel, 125 MHz Bandwidth, JESD204B Analog-to-Digital Converte
 AD9083 Linux Driver
 ===================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD9083](https://www.google.com/search?q=AD9083&btnI=lucky)
 
-Supported Boards
-----------------
+#### Supported Boards
 
 -   [EVAL-AD9083](https://www.google.com/search?q=EVAL-AD9083&btnI=lucky)
 
-Supported HDL Cores
--------------------
+#### Supported HDL Cores
 
 -   [AD9083 FMC Card HDL Reference Design](/resources/eval/user-guides/ad9083/ad9083_evb_reference_hdl)
 
-Description
------------
+#### Description
 
 The AD9083 is a 16-channel, 125 MHz bandwidth, continuous
 time Σ-Δ (CTSD) ADC. The device features an on-chip,
@@ -53,14 +49,13 @@ The AD9083 has flexible power-down options that allow
 significant power savings when desired. All of these features
 can be programmed using a 1.8 V capable 3-wire serial port
 interface (SPI).
-The AD9083 is available in a Pb-free, 100-ball CSP\_BGA and is
+The AD9083 is available in a Pb-free, 100-ball CSP_BGA and is
 specified over the −40°C to +85°C industrial temperature range.
 
 Source Code
-===========
+-----------
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -81,7 +76,7 @@ Files
 </tbody>
 </table>
 
-# Example device trees
+##### Example device trees
 
 <table>
 <thead>
@@ -106,12 +101,12 @@ Files
 </tbody>
 </table>
 
-#### Interrelated Device Drivers
+##### Interrelated Device Drivers
 
 -   [JESD204 (FSM) Interface Linux Kernel Framework](/resources/tools-software/linux-drivers/jesd204/jesd204-fsm-framework)
 -   [JESD204 Interface Framework](/resources/fpga/peripherals/jesd204)
 
-##### Transport Layer Receive AXI-ADC driver
+###### Transport Layer Receive AXI-ADC driver
 
 <table>
 <thead>
@@ -138,7 +133,7 @@ Files
 
 **Documentation:** [AXI ADC HDL Linux Driver](/resources/tools-software/linux-drivers/iio-adc/axi-adc-hdl)
 
-##### Link Layer AXI JESD204B HDL driver
+###### Link Layer AXI JESD204B HDL driver
 
 <table>
 <thead>
@@ -164,7 +159,7 @@ Files
 -   [JESD204B/C Transmit Linux Driver](/[resources/tools-software/linux-drivers/jesd204/axi_jesd204_tx)
 -   [JESD204B/C Receive Linux Driver](/resources/tools-software/linux-drivers/jesd204/axi_jesd204_rx)
 
-##### PHY Layer AXI JESD204B GT (Gigabit Tranceiver) HDL driver (XILINX/ALTERA-INTEL)
+###### PHY Layer AXI JESD204B GT (Gigabit Tranceiver) HDL driver (XILINX/ALTERA-INTEL)
 
 <table>
 <thead>
@@ -183,48 +178,43 @@ Files
 
 **Documentation:**
 
--   [JESD204B/C AXI\_ADXCVR Highspeed Transceivers Linux Driver](/resources/tools-software/linux-drivers/jesd204/axi_adxcvr)
+-   [JESD204B/C AXI_ADXCVR Highspeed Transceivers Linux Driver](/resources/tools-software/linux-drivers/jesd204/axi_adxcvr)
 
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or \"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD9083 driver depends on **CONFIG\_SPI**
+The AD9083 driver depends on **CONFIG_SPI**
 
 :::
 
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-        -*-   Enable ring buffer support within IIO
-        -*-     Industrial I/O lock free software ring
-        -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            -*-   Enable ring buffer support within IIO
+            -*-     Industrial I/O lock free software ring
+            -*-   Enable triggered sampling support
 
-              *** Direct Digital Synthesis ***
-        [--snip--]
+                  *** Direct Digital Synthesis ***
+            [--snip--]
 
-        <*>   Analog Devices CoreFPGA AXI DDS driver
-        <*>   Analog Devices AD9083 16-Channel, 125 MHz Bandwidth, JESD204B ADC
+            <*>   Analog Devices CoreFPGA AXI DDS driver
+            <*>   Analog Devices AD9083 16-Channel, 125 MHz Bandwidth, JESD204B ADC
 
-        [--snip--]
+            [--snip--]
 
-```
-```
-Device Tree Example
--------------------
+#### Device Tree Example
 
 ``` {.c}
 ## include <dt-bindings/iio/adc/adi,ad9083.h>
@@ -275,52 +265,48 @@ Device Tree Example
 ```
 
 Driver testing
-==============
+--------------
 
 In case the driver probes successfully and the device gets instantiated.
 Your systems kernel messages should include some line, which may look like the one shown below.
 
-```{=markdown}
-```
-[    8.404405] ad9083 spi1.0: AD9083 Rev. 1 Grade 0 (API 1.0.1) probed
 
+    [    8.404405] ad9083 spi1.0: AD9083 Rev. 1 Grade 0 (API 1.0.1) probed
 
-```
-```
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices\# **ls**
-iio:device0 iio:device1 iio:device2 iio\_sysfs\_trigger
+root@analog:/sys/bus/iio/devices# **ls**
+iio:device0 iio:device1 iio:device2 iio_sysfs_trigger
 
-root\@analog:/sys/bus/iio/devices\# **cd iio:device2**
-root\@analog:/sys/bus/iio/devices/iio:device2\# **cat name**
+root@analog:/sys/bus/iio/devices# **cd iio:device2**
+root@analog:/sys/bus/iio/devices/iio:device2# **cat name**
 axi-ad9083-rx-hpc
-root\@analog:/sys/bus/iio/devices/iio:device2\# **ls -l**
+root@analog:/sys/bus/iio/devices/iio:device2# **ls -l**
 total 0
 drwxr-xr-x 2 root root 0 Jun 23 08:02 buffer
--r\--r\--r\-- 1 root root 4096 Jun 23 08:02 dev
--rw-r\--r\-- 1 root root 4096 Jun 23 08:02 jesd204\_fsm\_ctrl
--r\--r\--r\-- 1 root root 4096 Jun 23 08:02 jesd204\_fsm\_error
--r\--r\--r\-- 1 root root 4096 Jun 23 08:02 jesd204\_fsm\_paused
-\--w\-\-\-\-\-\-- 1 root root 4096 Jun 23 08:02 jesd204\_fsm\_resume
--r\--r\--r\-- 1 root root 4096 Jun 23 08:02 jesd204\_fsm\_state
--r\--r\--r\-- 1 root root 4096 Jun 23 08:02 name
-lrwxrwxrwx 1 root root 0 Jun 23 08:02 of\_node -\> ../../../../../firmware/devicetree/base/fpga-axi0
+-r--r--r-- 1 root root 4096 Jun 23 08:02 dev
+-rw-r--r-- 1 root root 4096 Jun 23 08:02 jesd204_fsm_ctrl
+-r--r--r-- 1 root root 4096 Jun 23 08:02 jesd204_fsm_error
+-r--r--r-- 1 root root 4096 Jun 23 08:02 jesd204_fsm_paused
+--w------- 1 root root 4096 Jun 23 08:02 jesd204_fsm_resume
+-r--r--r-- 1 root root 4096 Jun 23 08:02 jesd204_fsm_state
+-r--r--r-- 1 root root 4096 Jun 23 08:02 name
+lrwxrwxrwx 1 root root 0 Jun 23 08:02 of_node -> ../../../../../firmware/devicetree/base/fpga-axi0
 drwxr-xr-x 2 root root 0 Jun 23 08:02 power
-drwxr-xr-x 2 root root 0 Jun 23 08:02 scan\_elements
-lrwxrwxrwx 1 root root 0 Jun 23 08:02 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jun 23 08:02 uevent
+drwxr-xr-x 2 root root 0 Jun 23 08:02 scan_elements
+lrwxrwxrwx 1 root root 0 Jun 23 08:02 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jun 23 08:02 uevent
 ```
 :::
 
 
-Low level register access via debugfs (direct\_reg\_access)
-===========================================================
+Low level register access via debugfs (direct_reg_access)
+-----------------------------------------------------------
 
 Some IIO drivers feature an optional debug facility, allowing users to read or write registers directly. Special care needs to be taken when using this feature, since you can modify registers on the back of the driver. Accessing debugfs requires root privileges.
 
@@ -328,50 +314,50 @@ In order to identify if the IIO device in question feature this option you first
 
 Therefore read the name attribute of each IIO device
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices\# ls
-iio:device0 iio:device1 iio:device2 iio\_sysfs\_trigger
-root\@analog:/sys/bus/iio/devices\# cd iio:device2
-root\@analog:/sys/bus/iio/devices/iio:device2\# cat name
+root@analog:/sys/bus/iio/devices# ls
+iio:device0 iio:device1 iio:device2 iio_sysfs_trigger
+root@analog:/sys/bus/iio/devices# cd iio:device2
+root@analog:/sys/bus/iio/devices/iio:device2# cat name
 axi-ad9083-rx-hpc
 ```
 :::
 
 
-Change directory to /sys/kernel/debug/iio/iio:deviceX and check if the direct\_reg\_access file exists.
+Change directory to /sys/kernel/debug/iio/iio:deviceX and check if the direct_reg_access file exists.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~\# cd /sys/kernel/debug/iio/iio\\:device2/
-root\@analog:/sys/kernel/debug/iio/iio:device2\# ls direct\_reg\_access
-ls direct\_reg\_access
-root\@analog:/sys/kernel/debug/iio/iio:device2\#
+root@analog:~# cd /sys/kernel/debug/iio/iio:device2/
+root@analog:/sys/kernel/debug/iio/iio:device2# ls direct_reg_access
+ls direct_reg_access
+root@analog:/sys/kernel/debug/iio/iio:device2#
 ```
 :::
 
 
 Reading
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device2\# echo 0x0 \> direct\_reg\_access
+root@analog:/sys/kernel/debug/iio/iio:device2# echo 0x0 > direct_reg_access
 
-root\@analog:/sys/kernel/debug/iio/iio:device2\# cat direct\_reg\_access
+root@analog:/sys/kernel/debug/iio/iio:device2# cat direct_reg_access
 0xAD
-root\@analog:/sys/kernel/debug/iio/iio:device2\#
+root@analog:/sys/kernel/debug/iio/iio:device2#
 ```
 :::
 
@@ -380,21 +366,21 @@ Writing
 
 Write ADDRESS VALUE
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device2\# echo 0x3D 0x80 \> direct\_reg\_access
-root\@analog:/sys/kernel/debug/iio/iio:device2\# cat direct\_reg\_access
+root@analog:/sys/kernel/debug/iio/iio:device2# echo 0x3D 0x80 > direct_reg_access
+root@analog:/sys/kernel/debug/iio/iio:device2# cat direct_reg_access
 0x80
-root\@analog:/sys/kernel/debug/iio/iio:device2\#
+root@analog:/sys/kernel/debug/iio/iio:device2#
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

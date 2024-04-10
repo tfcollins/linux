@@ -6,20 +6,17 @@ title: AD2S1205: 12-Bit R/D Converter with Reference Oscillator
 AD2S1200 IIO Resolver-to-Digital Converter Linux Driver
 =======================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD2S1200](https://www.google.com/search?q=AD2S1200&btnI=lucky)
 -   [AD2S1205](https://www.google.com/search?q=AD2S1205&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD2S1200SDZ](https://www.google.com/search?q=EVAL-AD2S1200SDZ&btnI=lucky)
 -   [EVAL-AD2S1205SDZ](https://www.google.com/search?q=EVAL-AD2S1205SDZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 -   [Product Page](https://www.google.com/search?q=ad2s1200&btnI=lucky)
 
@@ -28,10 +25,9 @@ The industrial I/O subsystem provides a unified framework for drivers for many d
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -48,8 +44,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -67,50 +62,41 @@ Files
 </table>
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The Driver depends on **CONFIG\_SPI**
+The Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Resolver to digital converters ***
-                [--snip--]
+                          *** Resolver to digital converters ***
+                    [--snip--]
 
-                <*>   Analog Devices AD2S120x driver
+                    <*>   Analog Devices AD2S120x driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Driver Usage
-============
+------------
 
 The device file path may looks like,
 
-```{=markdown}
-```
-/sys/devices/platform/bfin-spi.0/spi0.3/iio/device0/ad2s120x>
+    /sys/devices/platform/bfin-spi.0/spi0.3/iio/device0/ad2s120x>
 
-```
-```
 There are two files:
 
 <table>
@@ -146,6 +132,6 @@ There are two files:
 </table>
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

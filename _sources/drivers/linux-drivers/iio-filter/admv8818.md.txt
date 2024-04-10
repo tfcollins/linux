@@ -6,20 +6,17 @@ title: ADMV8818: 2 GHz to 18 GHz, Digitally Tunable, High-Pass and Low-Pass Filt
 ADMV8818 2GHz to 18GHz, Digitally Tunable High-Pass and Low-PASS Filter Linux Driver
 ====================================================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADMV8818](https://www.google.com/search?q=ADMV8818&btnI=lucky)
 
-Supported Boards
-----------------
+#### Supported Boards
 
-This driver supports the\
+This driver supports the
 
 -   [EVAL-ADMV8818](https://www.google.com/search?q=EVAL-ADMV8818&btnI=lucky)
 
-Description
------------
+#### Description
 
 The ADMV8818-EP is a fully monolithic microwave integrated circuit (MMIC) that features a digitally selectable frequency of operation. The device features four independently controlled high-pass filters (HPFs) and four independently controlled low-pass filters (LPFs) that span the 2 GHz to 18 GHz frequency range.
 
@@ -28,10 +25,9 @@ The flexible architecture of the ADMV8818-EP allows the 3 dB cutoff frequency (f
 This tunable filter can be used as a smaller alternative to large switched filter banks and cavity tuned filters, and this device provides a dynamically adjustable solution in advanced communications applications.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -48,8 +44,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -92,306 +87,289 @@ Example device tree
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 The ADF4371 driver is a SPI bus driver and can be instantiated via device tree.
 
 **Required properties:**
 
 -   **compatible**: Should always be one of these:
-    -   \"adi,admv8818\"
+    -   "adi,admv8818"
 -   **reg**: SPI chip select number.
 -   **clocks**: a list of phandle, one for each entry in clock-names.
--   **clock-names**: Must include the following entry: \"rf\_in\"
+-   **clock-names**: Must include the following entry: "rf_in"
 
 **Optional properties:**
 
 -   **clock-scales**: The Common Clock Framework max rate is limited by MAX of unsigned long. For ADF4371/ADF4372 devices this is a deficiency. If specified, this property allows arbitrary scales. The first element in the array should be the multiplier and the second element should be the divider.
 -   **adi,bw-hz:**: Allows the user to increase the Bandpass Filter (BPF) bandwidth in Hz. Normally when invoked by the clk notifier, the driver sets the HPF cutoff close below the frequency and the LPF cutoff close above the frequency, and thus creating a BPF.
 
-```{=markdown}
+```{=html}
+<!-- -->
 ```
-Example:
+    Example:
 
-    spi {
-      #address-cells = <1>;
-      #size-cells = <0>;
-      admv8818@0 {
-        compatible = "adi,admv8818";
-        reg = <0>;
-        spi-max-frequency = <10000000>;
-        clocks = <&admv8818_rfin>;
-        clock-scales = <1 5>;
-        clock-names = "rf_in";
-        adi,bw-hz = /bits/ 64 <600000000>;
-      };
-    };
+        spi {
+          #address-cells = <1>;
+          #size-cells = <0>;
+          admv8818@0 {
+            compatible = "adi,admv8818";
+            reg = <0>;
+            spi-max-frequency = <10000000>;
+            clocks = <&admv8818_rfin>;
+            clock-scales = <1 5>;
+            clock-names = "rf_in";
+            adi,bw-hz = /bits/ 64 <600000000>;
+          };
+        };
 
-```
-```
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADMV8818 driver depends on **SPI** and selects **REGMAP\_SPI**
+The ADMV8818 driver depends on **SPI** and selects **REGMAP_SPI**
 
 :::
 
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-                 Filters --->
-                             <*> Analog Devices ADMV8818 High-Pass and Low-Pass Filter
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+                     Filters --->
+                                 <*> Analog Devices ADMV8818 High-Pass and Low-Pass Filter
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog:/sys/bus/iio/devices/iio:device0\# **cd /sys/bus/iio/devices/**
-root\@analog:/sys/bus/iio/devices\# **ls**
+analog:/sys/bus/iio/devices/iio:device0# **cd /sys/bus/iio/devices/**
+root@analog:/sys/bus/iio/devices# **ls**
 iio:device0
-root\@analog:/sys/bus/iio/devices\#
+root@analog:/sys/bus/iio/devices#
 
-root\@analog:/sys/bus/iio/devices\# **cd iio\\:device0**
-root\@analog:/sys/bus/iio/devices/iio:device0\# ls -l
+root@analog:/sys/bus/iio/devices# **cd iio:device0**
+root@analog:/sys/bus/iio/devices/iio:device0# ls -l
 total 0
--r\--r\--r\-- 1 root root 4096 Mar 24 08:38 dev
--r\--r\--r\-- 1 root root 4096 Mar 24 08:38 name
-lrwxrwxrwx 1 root root 0 Mar 24 08:38 of\_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/admv8818\@0
--rw-r\--r\-- 1 root root 4096 Mar 24 08:38 out\_altvoltage0\_filter\_band\_pass\_bandwidth\_3db\_frequency
--rw-r\--r\-- 1 root root 4096 Mar 24 08:38 out\_altvoltage0\_filter\_band\_pass\_center\_frequency
--rw-r\--r\-- 1 root root 4096 Mar 24 08:38 out\_altvoltage0\_filter\_high\_pass\_3db\_frequency
--rw-r\--r\-- 1 root root 4096 Mar 24 08:38 out\_altvoltage0\_filter\_low\_pass\_3db\_frequency
--rw-r\--r\-- 1 root root 4096 Mar 24 08:38 out\_altvoltage0\_mode
--r\--r\--r\-- 1 root root 4096 Mar 24 08:38 out\_altvoltage0\_mode\_available
--rw-r\--r\-- 1 root root 4096 Mar 24 08:38 out\_altvoltage0\_scale
+-r--r--r-- 1 root root 4096 Mar 24 08:38 dev
+-r--r--r-- 1 root root 4096 Mar 24 08:38 name
+lrwxrwxrwx 1 root root 0 Mar 24 08:38 of_node -> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/admv8818@0
+-rw-r--r-- 1 root root 4096 Mar 24 08:38 out_altvoltage0_filter_band_pass_bandwidth_3db_frequency
+-rw-r--r-- 1 root root 4096 Mar 24 08:38 out_altvoltage0_filter_band_pass_center_frequency
+-rw-r--r-- 1 root root 4096 Mar 24 08:38 out_altvoltage0_filter_high_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Mar 24 08:38 out_altvoltage0_filter_low_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Mar 24 08:38 out_altvoltage0_mode
+-r--r--r-- 1 root root 4096 Mar 24 08:38 out_altvoltage0_mode_available
+-rw-r--r-- 1 root root 4096 Mar 24 08:38 out_altvoltage0_scale
 drwxr-xr-x 2 root root 0 Mar 24 08:38 power
-lrwxrwxrwx 1 root root 0 Mar 24 08:38 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Mar 24 08:38 uevent
-root\@analog:/sys/bus/iio/devices/iio:device0\#
+lrwxrwxrwx 1 root root 0 Mar 24 08:38 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Mar 24 08:38 uevent
+root@analog:/sys/bus/iio/devices/iio:device0#
 ```
 :::
 
 
-Show device name
-----------------
+#### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat name**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat name**
 **admv8818**
 ```
 :::
 
 
-Read channel bandwidth frequency
---------------------------------
+#### Read channel bandwidth frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_filter\_band\_pass\_bandwidth\_3db\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_band_pass_bandwidth_3db_frequency**
 **750**
 ```
 :::
 
 
-Set channel bandwidth frequency
--------------------------------
+#### Set channel bandwidth frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 500 \> out\_altvoltage0\_filter\_band\_pass\_bandwidth\_3db\_frequency**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_filter\_band\_pass\_bandwidth\_3db\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo 500 > out_altvoltage0_filter_band_pass_bandwidth_3db_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_band_pass_bandwidth_3db_frequency**
 **734**
 ```
 :::
 
 
-Read channel center frequency
------------------------------
+#### Read channel center frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_filter\_band\_pass\_center\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_band_pass_center_frequency**
 **5055**
 ```
 :::
 
 
-Set channel center frequency
-----------------------------
+#### Set channel center frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 4000 \> out\_altvoltage0\_filter\_band\_pass\_bandwidth\_3db\_frequency**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_filter\_band\_pass\_center\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo 4000 > out_altvoltage0_filter_band_pass_bandwidth_3db_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_band_pass_center_frequency**
 **4023**
 ```
 :::
 
 
-Read low pass 3db frequency
----------------------------
+#### Read low pass 3db frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_filter\_low\_pass\_3db\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_low_pass_3db_frequency**
 **5430**
 ```
 :::
 
 
-Set channel low pass 3db frequency
-----------------------------------
+#### Set channel low pass 3db frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 8000 \> out\_altvoltage0\_filter\_low\_pass\_3db\_frequency**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_filter\_low\_pass\_3db\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo 8000 > out_altvoltage0_filter_low_pass_3db_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_low_pass_3db_frequency**
 **8200**
 ```
 :::
 
 
-Read high pass 3db frequency
-----------------------------
+#### Read high pass 3db frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_filter\_high\_pass\_3db\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_high_pass_3db_frequency**
 **4680**
 ```
 :::
 
 
-Set channel high pass 3db frequency
------------------------------------
+#### Set channel high pass 3db frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 6000 \> out\_altvoltage0\_filter\_high\_pass\_3db\_frequency**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_filter\_high\_pass\_3db\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo 6000 > out_altvoltage0_filter_high_pass_3db_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_filter_high_pass_3db_frequency**
 **5960**
 ```
 :::
 
 
-Read scale
-----------
+#### Read scale
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_scale**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_scale**
 **1000000**
 ```
 :::
 
 
-Set channel scale
------------------
+#### Set channel scale
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 10000000 \> out\_altvoltage0\_scale**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_scale**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo 10000000 > out_altvoltage0_scale**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_scale**
 **10000000**
 ```
 :::
 
 
-Filter mode
------------
+#### Filter mode
 
 The mode allows the user to access enable/disable/register/unregister the clock rate notifier. Valid values that can be written:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_mode\_available**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_mode_available**
 auto manual bypass
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_mode**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_mode**
 auto
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo bypass \> out\_altvoltage0\_mode**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_mode**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo bypass > out_altvoltage0_mode**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_mode**
 bypass
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

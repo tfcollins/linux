@@ -6,28 +6,24 @@ title: AD7291: 8-Channel, I2C, 12-Bit SAR ADC with Temperature Sensor
 AD7291 IIO ADC Linux Driver
 ===========================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD7291](https://www.google.com/search?q=AD7291&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD7291SDZ](https://www.google.com/search?q=EVAL-AD7291SDZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -44,8 +40,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -63,12 +58,11 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
-Specifying reference voltage via the regulator framework
---------------------------------------------------------
+#### Specifying reference voltage via the regulator framework
 
-:::{NOTE} <!-- ATTRS: tip\="" -->
+:::{NOTE} <!-- ATTRS: tip="" -->
 
 In case the AD7291 on-chip 2.5V reference is not used,
 this driver requires specifying the reference voltage, by using the Linux regulator framework.
@@ -79,7 +73,7 @@ this driver requires specifying the reference voltage, by using the Linux regula
 Below example specifies a 3.3 Volt reference for the I2C device 0-002a on I2C-Bus 0. (**0-002a**)
 
 ``` {.c}
-# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad7291_consumer_supplies[] = {
     REGULATOR_SUPPLY("vcc", "0-002a"),
 };
@@ -113,7 +107,7 @@ static struct platform_device brd_voltage_regulator = {
 
 ``` {.c}
 static struct platform_device *board_devices[] __initdata = {
-# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
 ## endif
 };
@@ -135,7 +129,7 @@ arch_initcall(board_init);
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
-Depending on the converter IC used, you may need to set the I2C\_BOARD\_INFO name accordingly, matching your part name.
+Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name accordingly, matching your part name.
 
 ``` {.c}
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
@@ -163,119 +157,114 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The driver depends on **CONFIG\_I2C**
+The driver depends on **CONFIG_I2C**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Analog to digital converters ***
-                [--snip--]
+                          *** Analog to digital converters ***
+                    [--snip--]
 
-                <*>   Analog Devices AD7291 ADC driver
+                    <*>   Analog Devices AD7291 ADC driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Hardware configuration
-======================
+----------------------
 
 ![](/resources/tools-software/linux-drivers/iio-adc/ad7291_eval_lr.jpg){width="600"}
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> **ls**
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> **ls**
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 dev
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 1 00:38 dev
 drwxr-xr-x 2 root root 0 Jan 1 00:38 events
--rw-r\--r\-- 1 root root 4096 Jan 1 00:38 in\_temp0\_mean\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_temp0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:38 in\_temp0\_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage0\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage1\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage2\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage3\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage4\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage5\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage6\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage7\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:38 in\_voltage\_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 00:38 name
+-rw-r--r-- 1 root root 4096 Jan 1 00:38 in_temp0_mean_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_temp0_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:38 in_temp0_scale
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_voltage0_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_voltage1_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_voltage2_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_voltage3_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_voltage4_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_voltage5_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_voltage6_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:38 in_voltage7_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:38 in_voltage_scale
+-r--r--r-- 1 root root 4096 Jan 1 00:38 name
 drwxr-xr-x 2 root root 0 Jan 1 00:38 power
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 1 00:38 reset
-lrwxrwxrwx 1 root root 0 Jan 1 00:38 subsystem -\> ../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 1 00:38 uevent
+--w------- 1 root root 4096 Jan 1 00:38 reset
+lrwxrwxrwx 1 root root 0 Jan 1 00:38 subsystem -> ../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 1 00:38 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0\> **cat name**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0> **cat name**
 ad7291
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**[Description:]{.underline}**\
-scale to be applied to in\_voltageX\_raw in order to obtain the measured voltage in millivolts.
+**[Description:]{.underline}**
+scale to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0\> **cat in\_voltage\_scale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0> **cat in_voltage_scale**
 0.610000
 ```
 :::
 
 
-##### Show channel 0 measurement
+###### Show channel 0 measurement
 
-**[Description:]{.underline}**\
+**[Description:]{.underline}**
 Raw unscaled voltage measurement on channel 0
 
 <table>
@@ -321,23 +310,23 @@ Raw unscaled voltage measurement on channel 0
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0\> **cat in\_voltage0\_raw**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0> **cat in_voltage0_raw**
 1641
 ```
 :::
 
 
-**U** = *in\_voltage0\_raw \* in\_voltage\_scale* = 1641 \* 0.610000 = **1001,01 *mV***
+**U** = *in_voltage0_raw * in_voltage_scale* = 1641 * 0.610000 = **1001,01 *mV***
 
-##### Show internal temperature
+###### Show internal temperature
 
-**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/in\_temp0\_raw\
+**[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/in_temp0_raw
 Shows raw unscaled temperature.
 
 <table>
@@ -359,31 +348,30 @@ Shows raw unscaled temperature.
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0\> **cat in\_temp0\_raw**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0> **cat in_temp0_raw**
 107
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0\> **cat in\_temp0\_scale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-002a/iio:device0> **cat in_temp0_scale**
 250
 ```
 :::
 
 
-**T** = in\_temp0\_raw \* in\_temp0\_scale = 107 \* 250 = 26750 = **26.75 *°C***
+**T** = in_temp0_raw * in_temp0_scale = 107 * 250 = 26750 = **26.75 *°C***
 
 Hardware Events
-===============
+---------------
 
-![iio\_snippets\#Event Management&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Event Management&firstseconly&noeditbtn)
+![iio_snippets#Event Management&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Event Management&firstseconly&noeditbtn)
 
-![iio\_snippets\#Typical event attributes&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical event attributes&firstseconly&noeditbtn)
+![iio_snippets#Typical event attributes&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical event attributes&firstseconly&noeditbtn)
 
-Supported Events
-----------------
+#### Supported Events
 
 <table>
 <thead>
@@ -558,6 +546,6 @@ Supported Events
 </table>
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

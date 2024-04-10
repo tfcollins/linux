@@ -6,25 +6,21 @@ title: AD2S1210: Variable Resolution, 10-Bit to 16-Bit R/D Converter with Refere
 AD2S1210 IIO Resolver-to-Digital Converter Linux Driver
 =======================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD2S1210](https://www.google.com/search?q=AD2S1210&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD2S1210SDZ](https://www.google.com/search?q=EVAL-AD2S1210SDZ&btnI=lucky)
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [CN0192](https://www.google.com/search?q=CN0192&btnI=lucky)
 -   [CN0276](https://www.google.com/search?q=CN0276&btnI=lucky)
 -   [CN0317](https://www.google.com/search?q=CN0317&btnI=lucky)
 
-Description
------------
+#### Description
 
 -   [Product Page](https://www.google.com/search?q=ad2s1200&btnI=lucky)
 
@@ -33,10 +29,9 @@ The industrial I/O subsystem provides a unified framework for drivers for many d
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -55,8 +50,7 @@ Status
 
 Support for the AD2S1210 is in mainline for kernel v6.7 and is backported to v6.1 of the [ADI tree](https://www.google.com/search?q=linux&btnI=lucky). Some additional features are slated for v6.8. The device was previously supported by a staging driver with a different ABI.
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -78,41 +72,36 @@ Files
 </table>
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The Driver depends on **CONFIG\_SPI**
+The Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Resolver to digital converters ***
-                [--snip--]
+                          *** Resolver to digital converters ***
+                    [--snip--]
 
-                <*>   Analog Devices AD2S1210 driver
+                    <*>   Analog Devices AD2S1210 driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Driver Usage
-============
+------------
 
 To configure the chip, use the attributes according to the device register to IIO ABI mapping below:
 
@@ -228,271 +217,267 @@ To configure the chip, use the attributes according to the device register to II
 </tbody>
 </table>
 
-Interfacing With the AD2S1210 via iio\_attr
--------------------------------------------
+#### Interfacing With the AD2S1210 via iio_attr
 
 Accessing a list of channels:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@setup-2-zed:\~ \$ iio\_attr ad2s1210 -c
-dev \'ad2s1210\', channel \'angl0\' (input, index: 0, format: be:U16/16\>\>0), found 5 channel-specific attributes
-dev \'ad2s1210\', channel \'anglvel0\' (input, index: 1, format: be:S16/16\>\>0), found 3 channel-specific attributes
-dev \'ad2s1210\', channel \'timestamp\' (input, index: 2, format: le:S64/64\>\>0), found 0 channel-specific attributes
-dev \'ad2s1210\', channel \'phase0\' (input), found 1 channel-specific attributes
-dev \'ad2s1210\', channel \'altvoltage0\' (output), found 3 channel-specific attributes
-dev \'ad2s1210\', channel \'altvoltage2\' (input), found 1 channel-specific attributes
-dev \'ad2s1210\', channel \'angl1\' (input), found 1 channel-specific attributes
-dev \'ad2s1210\', channel \'altvoltage0\' (input), found 1 channel-specific attributes
-dev \'ad2s1210\', channel \'altvoltage1\' (input), found 1 channel-specific attributes
+analog@setup-2-zed:~ $ iio_attr ad2s1210 -c
+dev 'ad2s1210', channel 'angl0' (input, index: 0, format: be:U16/16>>0), found 5 channel-specific attributes
+dev 'ad2s1210', channel 'anglvel0' (input, index: 1, format: be:S16/16>>0), found 3 channel-specific attributes
+dev 'ad2s1210', channel 'timestamp' (input, index: 2, format: le:S64/64>>0), found 0 channel-specific attributes
+dev 'ad2s1210', channel 'phase0' (input), found 1 channel-specific attributes
+dev 'ad2s1210', channel 'altvoltage0' (output), found 3 channel-specific attributes
+dev 'ad2s1210', channel 'altvoltage2' (input), found 1 channel-specific attributes
+dev 'ad2s1210', channel 'angl1' (input), found 1 channel-specific attributes
+dev 'ad2s1210', channel 'altvoltage0' (input), found 1 channel-specific attributes
+dev 'ad2s1210', channel 'altvoltage1' (input), found 1 channel-specific attributes
 ```
 :::
 
 
 For example, to get position channel **angl0**:
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@setup-2-zed:\~ \$ iio\_attr ad2s1210 -ci angl0
-dev \'ad2s1210\', channel \'angl0\' (input), attr \'hysteresis\', value \'1\'
-dev \'ad2s1210\', channel \'angl0\' (input), attr \'hysteresis\_available\', value \'0 1\'
-dev \'ad2s1210\', channel \'angl0\' (input), attr \'label\', value \'position\'
-dev \'ad2s1210\', channel \'angl0\' (input), attr \'raw\', value \'34114\'
-dev \'ad2s1210\', channel \'angl0\' (input), attr \'scale\', value \'0.000095874\'
+analog@setup-2-zed:~ $ iio_attr ad2s1210 -ci angl0
+dev 'ad2s1210', channel 'angl0' (input), attr 'hysteresis', value '1'
+dev 'ad2s1210', channel 'angl0' (input), attr 'hysteresis_available', value '0 1'
+dev 'ad2s1210', channel 'angl0' (input), attr 'label', value 'position'
+dev 'ad2s1210', channel 'angl0' (input), attr 'raw', value '34114'
+dev 'ad2s1210', channel 'angl0' (input), attr 'scale', value '0.000095874'
 ```
 :::
 
 
 Or velocity channel **anglvel0**:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@setup-2-zed:\~ \$ iio\_attr ad2s1210 -ci anglvel0
-dev \'ad2s1210\', channel \'anglvel0\' (input), attr \'label\', value \'velocity\'
-dev \'ad2s1210\', channel \'anglvel0\' (input), attr \'raw\', value \'0\'
-dev \'ad2s1210\', channel \'anglvel0\' (input), attr \'scale\', value \'0.023968449\'
+analog@setup-2-zed:~ $ iio_attr ad2s1210 -ci anglvel0
+dev 'ad2s1210', channel 'anglvel0' (input), attr 'label', value 'velocity'
+dev 'ad2s1210', channel 'anglvel0' (input), attr 'raw', value '0'
+dev 'ad2s1210', channel 'anglvel0' (input), attr 'scale', value '0.023968449'
 ```
 :::
 
 
-Interfacing With the AD2S1210 via /sys/bus
-------------------------------------------
+#### Interfacing With the AD2S1210 via /sys/bus
 
 Alternatively, you can read and write data directly from the device path in /sys/bus:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@setup-2-zed:\~ \$ cd /sys/bus/iio/devices/iio\\:device1/
+analog@setup-2-zed:~ $ cd /sys/bus/iio/devices/iio:device1/
 
-analog\@setup-2-zed:/sys/bus/iio/devices/iio:device1 \$ tree
+analog@setup-2-zed:/sys/bus/iio/devices/iio:device1 $ tree
 .
 ├── buffer
-│   ├── data\_available
+│   ├── data_available
 │   ├── direction
 │   ├── enable
 │   ├── length
 │   └── watermark
 ├── buffer0
-│   ├── data\_available
+│   ├── data_available
 │   ├── direction
 │   ├── enable
-│   ├── in\_angl0\_en
-│   ├── in\_angl0\_index
-│   ├── in\_angl0\_type
-│   ├── in\_anglvel0\_en
-│   ├── in\_anglvel0\_index
-│   ├── in\_anglvel0\_type
-│   ├── in\_timestamp\_en
-│   ├── in\_timestamp\_index
-│   ├── in\_timestamp\_type
+│   ├── in_angl0_en
+│   ├── in_angl0_index
+│   ├── in_angl0_type
+│   ├── in_anglvel0_en
+│   ├── in_anglvel0_index
+│   ├── in_anglvel0_type
+│   ├── in_timestamp_en
+│   ├── in_timestamp_index
+│   ├── in_timestamp_type
 │   ├── length
 │   └── watermark
-├── current\_timestamp\_clock
+├── current_timestamp_clock
 ├── dev
 ├── events
-│   ├── in\_altvoltage0\_mag\_rising\_label
-│   ├── in\_altvoltage0\_mag\_rising\_reset\_max
-│   ├── in\_altvoltage0\_mag\_rising\_reset\_max\_available
-│   ├── in\_altvoltage0\_mag\_rising\_reset\_min
-│   ├── in\_altvoltage0\_mag\_rising\_reset\_min\_available
-│   ├── in\_altvoltage0\_mag\_rising\_value
-│   ├── in\_altvoltage0\_mag\_rising\_value\_available
-│   ├── in\_altvoltage0\_thresh\_falling\_label
-│   ├── in\_altvoltage0\_thresh\_falling\_value
-│   ├── in\_altvoltage0\_thresh\_falling\_value\_available
-│   ├── in\_altvoltage0\_thresh\_rising\_label
-│   ├── in\_altvoltage0\_thresh\_rising\_value
-│   ├── in\_altvoltage0\_thresh\_rising\_value\_available
-│   ├── in\_altvoltage1\_mag\_either\_label
-│   ├── in\_altvoltage2\_mag\_either\_label
-│   ├── in\_angl1\_thresh\_rising\_hysteresis
-│   ├── in\_angl1\_thresh\_rising\_hysteresis\_available
-│   ├── in\_angl1\_thresh\_rising\_label
-│   ├── in\_angl1\_thresh\_rising\_value
-│   ├── in\_angl1\_thresh\_rising\_value\_available
-│   ├── in\_anglvel0\_mag\_rising\_label
-│   ├── in\_phase0\_mag\_rising\_label
-│   ├── in\_phase0\_mag\_rising\_value
-│   └── in\_phase0\_mag\_rising\_value\_available
-├── in\_altvoltage0\_label
-├── in\_altvoltage1\_label
-├── in\_altvoltage2\_label
-├── in\_angl0\_hysteresis
-├── in\_angl0\_hysteresis\_available
-├── in\_angl0\_label
-├── in\_angl0\_raw
-├── in\_angl0\_scale
-├── in\_angl1\_label
-├── in\_anglvel0\_label
-├── in\_anglvel0\_raw
-├── in\_anglvel0\_scale
-├── in\_phase0\_label
+│   ├── in_altvoltage0_mag_rising_label
+│   ├── in_altvoltage0_mag_rising_reset_max
+│   ├── in_altvoltage0_mag_rising_reset_max_available
+│   ├── in_altvoltage0_mag_rising_reset_min
+│   ├── in_altvoltage0_mag_rising_reset_min_available
+│   ├── in_altvoltage0_mag_rising_value
+│   ├── in_altvoltage0_mag_rising_value_available
+│   ├── in_altvoltage0_thresh_falling_label
+│   ├── in_altvoltage0_thresh_falling_value
+│   ├── in_altvoltage0_thresh_falling_value_available
+│   ├── in_altvoltage0_thresh_rising_label
+│   ├── in_altvoltage0_thresh_rising_value
+│   ├── in_altvoltage0_thresh_rising_value_available
+│   ├── in_altvoltage1_mag_either_label
+│   ├── in_altvoltage2_mag_either_label
+│   ├── in_angl1_thresh_rising_hysteresis
+│   ├── in_angl1_thresh_rising_hysteresis_available
+│   ├── in_angl1_thresh_rising_label
+│   ├── in_angl1_thresh_rising_value
+│   ├── in_angl1_thresh_rising_value_available
+│   ├── in_anglvel0_mag_rising_label
+│   ├── in_phase0_mag_rising_label
+│   ├── in_phase0_mag_rising_value
+│   └── in_phase0_mag_rising_value_available
+├── in_altvoltage0_label
+├── in_altvoltage1_label
+├── in_altvoltage2_label
+├── in_angl0_hysteresis
+├── in_angl0_hysteresis_available
+├── in_angl0_label
+├── in_angl0_raw
+├── in_angl0_scale
+├── in_angl1_label
+├── in_anglvel0_label
+├── in_anglvel0_raw
+├── in_anglvel0_scale
+├── in_phase0_label
 ├── name
-├── of\_node -\> ../../../../../../../../firmware/devicetree/base/axi/spi\@e0006000/ad2s1210\@0
-├── out\_altvoltage0\_frequency
-├── out\_altvoltage0\_frequency\_available
-├── out\_altvoltage0\_label
+├── of_node -> ../../../../../../../../firmware/devicetree/base/axi/spi@e0006000/ad2s1210@0
+├── out_altvoltage0_frequency
+├── out_altvoltage0_frequency_available
+├── out_altvoltage0_label
 ├── power
-│   ├── autosuspend\_delay\_ms
+│   ├── autosuspend_delay_ms
 │   ├── control
-│   ├── runtime\_active\_time
-│   ├── runtime\_status
-│   └── runtime\_suspended\_time
-├── scan\_elements
-│   ├── in\_angl0\_en
-│   ├── in\_angl0\_index
-│   ├── in\_angl0\_type
-│   ├── in\_anglvel0\_en
-│   ├── in\_anglvel0\_index
-│   ├── in\_anglvel0\_type
-│   ├── in\_timestamp\_en
-│   ├── in\_timestamp\_index
-│   └── in\_timestamp\_type
-├── subsystem -\> ../../../../../../../../bus/iio
+│   ├── runtime_active_time
+│   ├── runtime_status
+│   └── runtime_suspended_time
+├── scan_elements
+│   ├── in_angl0_en
+│   ├── in_angl0_index
+│   ├── in_angl0_type
+│   ├── in_anglvel0_en
+│   ├── in_anglvel0_index
+│   ├── in_anglvel0_type
+│   ├── in_timestamp_en
+│   ├── in_timestamp_index
+│   └── in_timestamp_type
+├── subsystem -> ../../../../../../../../bus/iio
 ├── trigger
-│   └── current\_trigger
+│   └── current_trigger
 ├── uevent
-└── waiting\_for\_supplier
+└── waiting_for_supplier
 
-analog\@setup-2-zed:/sys/bus/iio/devices/iio:device1 \$ cat name
+analog@setup-2-zed:/sys/bus/iio/devices/iio:device1 $ cat name
 ad2s1210
 
-analog\@setup-2-zed:/sys/bus/iio/devices/iio:device1 \$ cat in\_angl0\_raw
+analog@setup-2-zed:/sys/bus/iio/devices/iio:device1 $ cat in_angl0_raw
 34115
 ```
 :::
 
 
-Hysteresis can be enabled or disabled this way. To do so, first check the output of in\_angl0\_hysteresis\_available:
+Hysteresis can be enabled or disabled this way. To do so, first check the output of in_angl0_hysteresis_available:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@setup-2-zed:/sys/bus/iio/devices/iio:device1\# cat in\_angl0\_hysteresis\_available
+root@setup-2-zed:/sys/bus/iio/devices/iio:device1# cat in_angl0_hysteresis_available
 0 1
 ```
 :::
 
 
-To turn hysteresis off, write the first value from the output to in\_angl0\_hysteresis:
+To turn hysteresis off, write the first value from the output to in_angl0_hysteresis:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@setup-2-zed:/sys/bus/iio/devices/iio:device1\# echo 0 \> in\_angl0\_hysteresis
+root@setup-2-zed:/sys/bus/iio/devices/iio:device1# echo 0 > in_angl0_hysteresis
 ```
 :::
 
 
 To turn it on, write the second value (which is dependent on the assigned bits for resolution and may not always be 1):
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@setup-2-zed:/sys/bus/iio/devices/iio:device1\# echo 1 \> in\_angl0\_hysteresis
+root@setup-2-zed:/sys/bus/iio/devices/iio:device1# echo 1 > in_angl0_hysteresis
 ```
 :::
 
 
-Triggered buffer
-----------------
+#### Triggered buffer
 
 To generate samples using the triggered buffer, you will need a trigger. You can create an hrtimer trigger and test it by retrieving samples like this:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@setup-2-zed:\~\# mkdir /sys/kernel/config/iio/triggers/hrtimer/test
-root\@setup-2-zed:\~\# iio\_readdev ad2s1210 -t test -s 1000 -T 10000 | hd
+root@setup-2-zed:~# mkdir /sys/kernel/config/iio/triggers/hrtimer/test
+root@setup-2-zed:~# iio_readdev ad2s1210 -t test -s 1000 -T 10000 | hd
 WARNING: High-speed mode not enabled
-00000000 85 41 00 00 00 00 00 00 82 e1 7d ad 09 54 9e 17 |.A\...\.....}..T..|
-00000010 85 41 00 00 00 00 00 00 00 70 16 ae 09 54 9e 17 |.A\...\....p\...T..|
-00000020 85 42 00 00 00 00 00 00 5f 06 af ae 09 54 9e 17 |.B\...\...\_\....T..|
-00000030 85 41 00 00 00 00 00 00 3f a2 47 af 09 54 9e 17 |.A\...\...?.G..T..|
-00000040 85 42 00 00 00 00 00 00 7f 32 e0 af 09 54 9e 17 |.B\...\....2\...T..|
-00000050 85 41 00 00 00 00 00 00 41 c8 78 b0 09 54 9e 17 |.A\...\...A.x..T..|
-00000060 85 41 00 00 00 00 00 00 ab 64 11 b1 09 54 9e 17 |.A\...\....d\...T..|
-00000070 85 41 00 00 00 00 00 00 fb f6 a9 b1 09 54 9e 17 |.A\...\...\.....T..|
-00000080 85 41 00 00 00 00 00 00 85 8b 42 b2 09 54 9e 17 |.A\...\.....B..T..|
-00000090 85 41 ff ff 00 00 00 00 13 22 db b2 09 54 9e 17 |.A\...\....\"\...T..|
-000000a0 85 42 00 00 00 00 00 00 e3 b8 73 b3 09 54 9e 17 |.B\...\.....s..T..|
-000000b0 85 42 00 00 00 00 00 00 53 4f 0c b4 09 54 9e 17 |.B\...\...SO\...T..|
-000000c0 85 41 00 00 00 00 00 00 6a e8 a4 b4 09 54 9e 17 |.A\...\...j\....T..|
-000000d0 85 41 00 00 00 00 00 00 24 7d 3d b5 09 54 9e 17 |.A\...\...\$}=..T..|
-000000e0 85 41 ff ff 00 00 00 00 7c 13 d6 b5 09 54 9e 17 |.A\...\...|\....T..|
-000000f0 85 41 00 00 00 00 00 00 2c a9 6e b6 09 54 9e 17 |.A\...\...,.n..T..|
-\...
+00000000 85 41 00 00 00 00 00 00 82 e1 7d ad 09 54 9e 17 |.A........}..T..|
+00000010 85 41 00 00 00 00 00 00 00 70 16 ae 09 54 9e 17 |.A.......p...T..|
+00000020 85 42 00 00 00 00 00 00 5f 06 af ae 09 54 9e 17 |.B......_....T..|
+00000030 85 41 00 00 00 00 00 00 3f a2 47 af 09 54 9e 17 |.A......?.G..T..|
+00000040 85 42 00 00 00 00 00 00 7f 32 e0 af 09 54 9e 17 |.B.......2...T..|
+00000050 85 41 00 00 00 00 00 00 41 c8 78 b0 09 54 9e 17 |.A......A.x..T..|
+00000060 85 41 00 00 00 00 00 00 ab 64 11 b1 09 54 9e 17 |.A.......d...T..|
+00000070 85 41 00 00 00 00 00 00 fb f6 a9 b1 09 54 9e 17 |.A...........T..|
+00000080 85 41 00 00 00 00 00 00 85 8b 42 b2 09 54 9e 17 |.A........B..T..|
+00000090 85 41 ff ff 00 00 00 00 13 22 db b2 09 54 9e 17 |.A......."...T..|
+000000a0 85 42 00 00 00 00 00 00 e3 b8 73 b3 09 54 9e 17 |.B........s..T..|
+000000b0 85 42 00 00 00 00 00 00 53 4f 0c b4 09 54 9e 17 |.B......SO...T..|
+000000c0 85 41 00 00 00 00 00 00 6a e8 a4 b4 09 54 9e 17 |.A......j....T..|
+000000d0 85 41 00 00 00 00 00 00 24 7d 3d b5 09 54 9e 17 |.A......$}=..T..|
+000000e0 85 41 ff ff 00 00 00 00 7c 13 d6 b5 09 54 9e 17 |.A......|....T..|
+000000f0 85 41 00 00 00 00 00 00 2c a9 6e b6 09 54 9e 17 |.A......,.n..T..|
+...
 ```
 :::
 
 
-\<note important\> using the -t option to specify the trigger with iio\_readdev resets the sampling rate of the hrtimer trigger back to 100Hz!\</note\>
+<note important> using the -t option to specify the trigger with iio_readdev resets the sampling rate of the hrtimer trigger back to 100Hz!</note>
 
 For other apps, we probably want a high sample rate. You can change the rate like this:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@setup-2-zed:\~\# iio\_attr -d test sampling\_frequency 10000
+root@setup-2-zed:~# iio_attr -d test sampling_frequency 10000
 10000.000000
 ```
 :::
 
 
-Reading IIO Events
-------------------
+#### Reading IIO Events
 
-See [iio\_event\_monitor](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/iio/iio_event_monitor.c) for an example of a program designed to read IIO events.
+See [iio_event_monitor](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/iio/iio_event_monitor.c) for an example of a program designed to read IIO events.
 
 Fault to event mapping:
 
@@ -576,12 +561,11 @@ Fault to event mapping:
 </table>
 
 Usage With the EVAL-AD2S1210SDZ Evaluation Board
-================================================
+------------------------------------------------
 
-Interfacing With a Raspberry Pi
--------------------------------
+#### Interfacing With a Raspberry Pi
 
-# Wiring
+##### Wiring
 
 <table>
 <thead>
@@ -763,13 +747,13 @@ Interfacing With a Raspberry Pi
 </tbody>
 </table>
 
-#### Device Tree
+##### Device Tree
 
 Add `dtoverlay=ad2s1210` to `/boot/config.txt`.
 
 Overlay: [ad2s1210-overlay.dts](https://raw.githubusercontent.com/analogdevicesinc/linux/rpi-6.1.y/arch/arm/boot/dts/overlays/ad2s1210-overlay.dts)
 
-#### Sample Images
+##### Sample Images
 
 Eval board connections:
 
@@ -779,14 +763,13 @@ Raspberry Pi connections:
 
 ![](/resources/tools-software/linux-drivers/iio-resolver/img_20231206_135039086.jpg){width="400"}
 
-Zedboard
---------
+#### Zedboard
 
 ![](/resources/tools-software/linux-drivers/iio-resolver/img_20231207_080341.jpg){width="400"}
 
-See [ad2s1210\_sdz](/resources/eval/user-guides/ad2s1210_sdz) for a detailed setup guide
+See [ad2s1210_sdz](/resources/eval/user-guides/ad2s1210_sdz) for a detailed setup guide
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

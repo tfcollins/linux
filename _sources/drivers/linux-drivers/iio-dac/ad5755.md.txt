@@ -6,8 +6,7 @@ title: AD5757: Quad Channel, 16-Bit, Serial Input, 4-20 mA Output DAC, Dynamic P
 AD5755 IIO Multi-Channel DAC Linux Driver
 =========================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD5735](https://www.google.com/search?q=AD5735&btnI=lucky)
 -   [AD5737](https://www.google.com/search?q=AD5737&btnI=lucky)
@@ -15,31 +14,27 @@ Supported Devices
 -   [AD5755-1](https://www.google.com/search?q=AD5755-1&btnI=lucky)
 -   [AD5757](https://www.google.com/search?q=AD5757&btnI=lucky)
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [CN0198](https://www.google.com/search?q=CN0198&btnI=lucky)
 -   [CN0328](https://www.google.com/search?q=CN0328&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD5755SDZ](https://www.google.com/search?q=EVAL-AD5755SDZ&btnI=lucky)
 -   [EVAL-AD5755-1SDZ](https://www.google.com/search?q=EVAL-AD5755-1SDZ&btnI=lucky)
 -   [EVAL-AD5757SDZ](https://www.google.com/search?q=EVAL-AD5757SDZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi-channel serial interface DACs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -56,8 +51,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -75,16 +69,16 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-# if defined(CONFIG_AD5755_SPI) || \
+## if defined(CONFIG_AD5755_SPI) || 
     defined(CONFIG_AD5755_SPI_MODULE)
     {
         /* the modalias must be the same as spi device driver name */
@@ -113,216 +107,212 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD5755 Driver depends on **CONFIG\_SPI**
+The AD5755 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        ...
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
+    Linux Kernel Configuration
+        Device Drivers  --->
             ...
-            Digital to analog converters  ---> 
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
                 ...
-                <*>  Analog Devices AD5755/AD5755-1/AD5757/AD5735/AD5737 DAC driver
+                Digital to analog converters  ---> 
+                    ...
+                    <*>  Analog Devices AD5755/AD5755-1/AD5757/AD5735/AD5737 DAC driver
+                    ...
                 ...
             ...
-        ...
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 2 21:54 dev
--r\--r\--r\-- 1 root root 4096 Jan 2 21:54 name
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 2 21:54 dev
+-r--r--r-- 1 root root 4096 Jan 2 21:54 name
 
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current0\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current0\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current0\_offset
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current0\_scale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current0\_powerdown
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current1\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current1\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current1\_offset
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current1\_raw
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current1\_scale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_current1\_powerdown
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage2\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage2\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage2\_offset
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage2\_raw
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage2\_scale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage2\_powerdown
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage3\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage3\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage3\_offset
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage3\_raw
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage3\_scale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage3\_powerdown
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current0_calibbias
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current0_calibscale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current0_offset
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current0_raw
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current0_scale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current0_powerdown
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current1_calibbias
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current1_calibscale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current1_offset
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current1_raw
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current1_scale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_current1_powerdown
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage2_calibbias
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage2_calibscale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage2_offset
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage2_raw
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage2_scale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage2_powerdown
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage3_calibbias
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage3_calibscale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage3_offset
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage3_raw
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage3_scale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage3_powerdown
 drwxr-xr-x 2 root root 0 Jan 2 21:54 power
-lrwxrwxrwx 1 root root 0 Jan 2 21:54 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 uevent
+lrwxrwxrwx 1 root root 0 Jan 2 21:54 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat name**
 ad5755
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_scale\
-/sys/bus/iio/devices/iio:deviceX/out\_currentY\_scale\
-scale to be applied to out\_voltageY\_raw/out\_currentY\_raw in order to obtain the measured voltage in millivolts.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_scale
+/sys/bus/iio/devices/iio:deviceX/out_currentY_scale
+scale to be applied to out_voltageY_raw/out_currentY_raw in order to obtain the measured voltage in millivolts.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage2\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage2_scale**
 TBD
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_current0\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_current0_scale**
 0.000244100
 ```
 :::
 
 
-##### Show offset
+###### Show offset
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_offsetY\_raw\
-Raw offset to be applied to out\_voltageY\_raw in order to obtain the measured voltage in millivolts.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_offsetY_raw
+Raw offset to be applied to out_voltageY_raw in order to obtain the measured voltage in millivolts.
 The offset is applied before scale is applied.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage2\_offset**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage2_offset**
 -TBD
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_current0\_offset**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_current0_offset**
 16384
 ```
 :::
 
 
-##### Set channel Y output voltage
+###### Set channel Y output voltage
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_raw\
-/sys/bus/iio/devices/iio:deviceX/out\_currentY\_raw\
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw
+/sys/bus/iio/devices/iio:deviceX/out_currentY_raw
 Raw (unscaled, no bias etc.) output voltage/current for
 channel Y.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 10000 \> out\_voltage2\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 10000 > out_voltage2_raw**
 ```
 :::
 
 
-**U** = *(out\_voltage2\_raw + out\_voltage2\_offset) \* out\_voltage2\_scale* = (10000 - TBD) \* 0,038140 *mV* = **TBD *mV***\
-**I** = *(out\_current0\_raw + out\_current0\_offset) \* out\_current0\_scale* = (10000 + 16384) \* 0,000244100 *mV* = **6.4403344 *mA***
+**U** = *(out_voltage2_raw + out_voltage2_offset) * out_voltage2_scale* = (10000 - TBD) * 0,038140 *mV* = **TBD *mV***
+**I** = *(out_current0_raw + out_current0_offset) * out_current0_scale* = (10000 + 16384) * 0,000244100 *mV* = **6.4403344 *mA***
 
-##### Calibrate channel Y gain
+###### Calibrate channel Y gain
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_calibscale\
-/sys/bus/iio/devices/iio:deviceX/out\_currentY\_calibscale\
-Each channel has an adjustable gain which can be used to calibrate the channel\'s scale and compensate for full-scale errors.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_calibscale
+/sys/bus/iio/devices/iio:deviceX/out_currentY_calibscale
+Each channel has an adjustable gain which can be used to calibrate the channel's scale and compensate for full-scale errors.
 The default value is 65535, minium value is 0, maximum value is 65535.
 
 If scale calibration is used the following formula can be used calculate the output voltage:
-**U** = *( ( ( out\_voltageY\_raw + out\_voltageY\_offset ) \* ( out\_voltageY\_calibscale + 1 ) ) / 2\^16 + out\_voltageY\_calibbias ) \* out\_voltageY\_scale*
+**U** = *( ( ( out_voltageY_raw + out_voltageY_offset ) * ( out_voltageY_calibscale + 1 ) ) / 2^16 + out_voltageY_calibbias ) * out_voltageY_scale*
 
-##### Calibrate channel Y offset
+###### Calibrate channel Y offset
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_calibbias\
-/sys/bus/iio/devices/iio:deviceX/out\_currentY\_calibbias\
-Each channel has an adjustable offset which can be used to calibrate the channel\'s offset and compensate for zero-scale errors.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_calibbias
+/sys/bus/iio/devices/iio:deviceX/out_currentY_calibbias
+Each channel has an adjustable offset which can be used to calibrate the channel's offset and compensate for zero-scale errors.
 The default value is 0, minium value is -32768, maximum value is 32767.
 
 If offset calibration is used the following formula can be used calculate the output voltage:
-**U** = *( ( ( out\_voltageY\_raw + out\_voltageY\_offset ) \* ( out\_voltageY\_calibscale + 1 ) ) / 2\^16 + out\_voltageY\_calibbias ) \* out\_voltageY\_scale*
+**U** = *( ( ( out_voltageY_raw + out_voltageY_offset ) * ( out_voltageY_calibscale + 1 ) ) / 2^16 + out_voltageY_calibbias ) * out_voltageY_scale*
 
-##### Enable power down mode for the device
+###### Enable power down mode for the device
 
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_powerdown
-/sys/bus/iio/devices/iio:deviceX/out\_currentY\_powerdown
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_powerdown
+/sys/bus/iio/devices/iio:deviceX/out_currentY_powerdown
 
-**Description:**\
+**Description:**
 Writing 1 causes channel Y to enter power down mode. Clearing returns to
 normal operation.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 1 \> out\_voltage2\_powerdown**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage2\_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 1 > out_voltage2_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage2_powerdown**
 1
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 0 \> out\_voltage2\_powerdown**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage2\_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 0 > out_voltage2_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage2_powerdown**
 0
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

@@ -6,22 +6,19 @@ title: ADF4372: Wideband Synthesizer with Integrated VCO
 ADF4371 IIO Wideband Synthesizer Linux Driver
 =============================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADF4371](https://www.google.com/search?q=ADF4371&btnI=lucky)
 -   [ADF4372](https://www.google.com/search?q=ADF4372&btnI=lucky)
 
-Supported Boards
-----------------
+#### Supported Boards
 
-This driver supports the\
+This driver supports the
 
 -   [EVAL-ADF4371](https://www.google.com/search?q=EVAL-ADF4371&btnI=lucky)
 -   [EVAL-ADF4372](https://www.google.com/search?q=EVAL-ADF4372&btnI=lucky)
 
-Description
------------
+#### Description
 
 The ADF4371 allows implementation of fractional-N or Integer N phase-locked loop (PLL) frequency synthesizers when used with an external loop filter and an external reference frequency. The wideband microwave voltage controlled oscillator (VCO) design allows frequencies from 62.5 MHz to 32 GHz to be generated.
 
@@ -30,10 +27,9 @@ The ADF4371 has an integrated VCO with a fundamental output frequency ranging fr
 Control of all on-chip registers is through a 3-wire interface. The ADF4371 operates with analog and digital power supplies ranging from 3.15 V to 3.45 V, and 5 V for the VCO power supply. The ADF4371 also contains hardware and software power-down modes.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -50,8 +46,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -94,19 +89,19 @@ Example device tree
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 The ADF4371 driver is a SPI bus driver and can be instantiated via device tree.
 
 **Required properties:**
 
 -   **compatible**: Should always be one of these:
-    -   \"adi,adf4371\"
-    -   \"adi,adf4372\"
+    -   "adi,adf4371"
+    -   "adi,adf4372"
 -   **reg**: SPI chip select number.
 -   **spi-max-frequency**: Max SPI frequency to use.
 -   **clocks**: a list of phandle, one for each entry in clock-names.
--   **clock-names**: Must include the following entry: \"clkin\"
+-   **clock-names**: Must include the following entry: "clkin"
 
 **Optional properties:**
 
@@ -121,229 +116,218 @@ The ADF4371 driver is a SPI bus driver and can be instantiated via device tree.
 -   **adi,output-enable**: If this property is specified, the output channel will be enabled. If left empty, the driver will initialize the defaults (RF8x, channel 0 will be the only one enabled).
 -   **adi,power-up-frequency**: Set the frequency after power up for the channel. If this property is specified, it has to be in sync with the power up frequency set on the other channels. This limitation is due to the fact that all the channel frequencies are derived from the VCO fundamental frequency.
 
-```{=markdown}
+```{=html}
+<!-- -->
 ```
-Example:
+    Example:
 
-spi0 {
-        #address-cells = <1>;
-        #size-cells = <0>;
-        frequency@0 {
-                compatible = "adi,adf4371";
-                reg = <0>;
-                #address-cells = <1>;
-                #size-cells = <0>;
-                #clock-cells = <1>;
-                spi-max-frequency = <1000000>;
-                clocks = <&adf4371_clkin>;
-                clock-names = "clkin";
-                clock-scales = <1 10>;
-                channel@0 {
-                        reg = <0>;
-                        adi,output-enable;
-                        adi,power-up-frequency = /bits/ 64 <8000000000>;
-                };
-                channel@1 {
-                        reg = <1>;
-                        adi,output-enable;
-                };
-                channel@2 {
-                        reg = <2>;
-                        adi,output-enable;
-                        adi,power-up-frequency = /bits/ 64 <16000000000>;
-                };
-                channel@3 {
-                        reg = <3>;
-                        adi,output-enable;
-                        adi,power-up-frequency = /bits/ 64 <32000000000>;
-                };
+    spi0 {
+            #address-cells = <1>;
+            #size-cells = <0>;
+            frequency@0 {
+                    compatible = "adi,adf4371";
+                    reg = <0>;
+                    #address-cells = <1>;
+                    #size-cells = <0>;
+                    #clock-cells = <1>;
+                    spi-max-frequency = <1000000>;
+                    clocks = <&adf4371_clkin>;
+                    clock-names = "clkin";
+                    clock-scales = <1 10>;
+                    channel@0 {
+                            reg = <0>;
+                            adi,output-enable;
+                            adi,power-up-frequency = /bits/ 64 <8000000000>;
+                    };
+                    channel@1 {
+                            reg = <1>;
+                            adi,output-enable;
+                    };
+                    channel@2 {
+                            reg = <2>;
+                            adi,output-enable;
+                            adi,power-up-frequency = /bits/ 64 <16000000000>;
+                    };
+                    channel@3 {
+                            reg = <3>;
+                            adi,output-enable;
+                            adi,power-up-frequency = /bits/ 64 <32000000000>;
+                    };
+            };
         };
-    };
 
-```
-```
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADF4371 driver depends on **SPI** and selects **REGMAP\_SPI**
+The ADF4371 driver depends on **SPI** and selects **REGMAP_SPI**
 
 :::
 
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-                 Frequency Synthesizers DDS/PLL --->
-                             *** Phase-Locked Loop (PLL) frequency synthesizers ***
-                             <*> Analog Devices ADF4371/ADF4372 Wideband Synthesizers
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+                     Frequency Synthesizers DDS/PLL --->
+                                 *** Phase-Locked Loop (PLL) frequency synthesizers ***
+                                 <*> Analog Devices ADF4371/ADF4372 Wideband Synthesizers
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog:/sys/bus/iio/devices/iio:device0\# **cd /sys/bus/iio/devices/**
-root\@analog:/sys/bus/iio/devices\# **ls**
+analog:/sys/bus/iio/devices/iio:device0# **cd /sys/bus/iio/devices/**
+root@analog:/sys/bus/iio/devices# **ls**
 iio:device0 iio:device1 iio:device2 iio:device3
-root\@analog:/sys/bus/iio/devices\#
+root@analog:/sys/bus/iio/devices#
 
-root\@analog:/sys/bus/iio/devices\# **cd iio\\:device0**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **ls -l**
+root@analog:/sys/bus/iio/devices# **cd iio:device0**
+root@analog:/sys/bus/iio/devices/iio:device0# **ls -l**
 total 0
--r\--r\--r\-- 1 root root 4096 sep 4 14:05 dev
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 muxout\_enable
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 muxout\_mode
--r\--r\--r\-- 1 root root 4096 sep 4 14:05 name
-lrwxrwxrwx 1 root root 0 sep 4 14:05 of\_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/adf4371\@0
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage0\_frequency
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage0\_name
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage0\_powerdown
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage1\_frequency
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage1\_name
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage1\_powerdown
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage2\_frequency
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage2\_name
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage2\_powerdown
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage3\_frequency
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage3\_name
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage3\_powerdown
--r\--r\--r\-- 1 root root 4096 sep 4 14:05 out\_altvoltage\_muxout\_mode\_available
+-r--r--r-- 1 root root 4096 sep 4 14:05 dev
+-rw-r--r-- 1 root root 4096 sep 4 14:05 muxout_enable
+-rw-r--r-- 1 root root 4096 sep 4 14:05 muxout_mode
+-r--r--r-- 1 root root 4096 sep 4 14:05 name
+lrwxrwxrwx 1 root root 0 sep 4 14:05 of_node -> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/adf4371@0
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage0_frequency
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage0_name
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage0_powerdown
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage1_frequency
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage1_name
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage1_powerdown
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage2_frequency
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage2_name
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage2_powerdown
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage3_frequency
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage3_name
+-rw-r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage3_powerdown
+-r--r--r-- 1 root root 4096 sep 4 14:05 out_altvoltage_muxout_mode_available
 drwxr-xr-x 2 root root 0 sep 4 14:05 power
-lrwxrwxrwx 1 root root 0 sep 2 17:46 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 sep 2 17:46 uevent
+lrwxrwxrwx 1 root root 0 sep 2 17:46 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 sep 2 17:46 uevent
 
-root\@analog:/sys/bus/iio/devices/iio:device0\#
+root@analog:/sys/bus/iio/devices/iio:device0#
 ```
 :::
 
 
-Show device name
-----------------
+#### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat name**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat name**
 **adf4371**
 ```
 :::
 
 
-Read channel frequency
-----------------------
+#### Read channel frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_frequency**
 **8000000000**
 ```
 :::
 
 
-Read channel name
------------------
+#### Read channel name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_name**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_name**
 **RF8x**
 ```
 :::
 
 
-Set channel frequency
----------------------
+#### Set channel frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 1000000000 \> out\_altvoltage0\_frequency**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo 1000000000 > out_altvoltage0_frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_frequency**
 **1000000000**
 ```
 :::
 
 
-Channel power down
-------------------
+#### Channel power down
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_powerdown**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_powerdown**
 0
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 1 \> out\_altvoltage0\_powerdown**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage0\_powerdown**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo 1 > out_altvoltage0_powerdown**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage0_powerdown**
 1
 ```
 :::
 
 
-Muxout mode
------------
+#### Muxout mode
 
 The mux output allows the user to access various internal points on the chip. Valid values that can be written:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat out\_altvoltage\_muxout\_mode\_available**
-tristate digital\_lock charge\_pump\_up charge\_pump\_down RDIV2 N\_div\_out VCO\_test high VCO\_calib\_R\_band VCO\_calib\_N\_band
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat muxout\_mode**
-digital\_lock
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo charge\_pump\_up \> muxout\_mode**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat muxout\_mode**
-charge\_pump\_up
+root@analog:/sys/bus/iio/devices/iio:device0# **cat out_altvoltage_muxout_mode_available**
+tristate digital_lock charge_pump_up charge_pump_down RDIV2 N_div_out VCO_test high VCO_calib_R_band VCO_calib_N_band
+root@analog:/sys/bus/iio/devices/iio:device0# **cat muxout_mode**
+digital_lock
+root@analog:/sys/bus/iio/devices/iio:device0# **echo charge_pump_up > muxout_mode**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat muxout_mode**
+charge_pump_up
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

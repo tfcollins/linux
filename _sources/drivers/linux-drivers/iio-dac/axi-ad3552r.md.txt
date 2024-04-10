@@ -17,19 +17,16 @@ to 5 V, 0 V to 10 V, −5 V to +5 V, and −10 V to +10 V, and custom intermedia
 16-bit resolution. The DAC can operate in fast mode for maximum speed or precision mode for maximum
 accuracy.
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD3552R](https://www.google.com/search?q=AD3552R&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD3552RFMC1Z](https://www.google.com/search?q=EVAL-AD3552R&btnI=lucky)
 -   [EVAL-AD3552RFMC2Z](https://www.google.com/search?q=EVAL-AD3552R&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting RF Transceivers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of
@@ -37,10 +34,9 @@ converters and sensors using a number of different physical interfaces (i2c, spi
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -57,8 +53,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -76,11 +71,11 @@ Files
 </table>
 
 Example Linux Device-Tree Initialization
-========================================
+----------------------------------------
 
 Required devicetree properties:
 
--   compatible: Should always be \"adi,axi-ad3552r\"
+-   compatible: Should always be "adi,axi-ad3552r"
 -   clocks: define reference clock See Documentation/devicetree/bindings/clock/clock-bindings.txt
 
 Optional properties:
@@ -89,23 +84,19 @@ Optional properties:
 
 Example:
 
-```{=markdown}
-```
-&fpga_axi {
-    axi_ad3552r: axi-ad3552r@44a74000 {
-        compatible = "adi,axi-ad3552r";
-        reg = <0x44a74000 0x1000>;
+    &fpga_axi {
+        axi_ad3552r: axi-ad3552r@44a74000 {
+            compatible = "adi,axi-ad3552r";
+            reg = <0x44a74000 0x1000>;
 
-        reset-gpios = <&gpio0 92 GPIO_ACTIVE_LOW>;      
-        clocks = <&ref_clk>;
+            reset-gpios = <&gpio0 92 GPIO_ACTIVE_LOW>;      
+            clocks = <&ref_clk>;
 
-        dmas = <&dac_tx_dma 0>;
-        dma-names = "tx";
+            dmas = <&dac_tx_dma 0>;
+            dma-names = "tx";
+        };
     };
-};
 
-```
-```
 <table>
 <thead>
 <tr class="header">
@@ -122,119 +113,113 @@ Example:
 </table>
 
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-        -*-   Enable ring buffer support within IIO
-        -*-     Industrial I/O lock free software ring
-        -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            -*-   Enable ring buffer support within IIO
+            -*-     Industrial I/O lock free software ring
+            -*-   Enable triggered sampling support
 
-              *** Digital to analog converters ***
-        [--snip--]
+                  *** Digital to analog converters ***
+            [--snip--]
 
-        <*>   Analog Devices AXI_AD3552R DAC driver 
+            <*>   Analog Devices AXI_AD3552R DAC driver 
 
-        [--snip--]
+            [--snip--]
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing / API
-====================
+--------------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/\> **cd /sys/bus/iio/devices/**
-root\@analog:/sys/bus/iio/device\> ls -l
+root@analog:/> **cd /sys/bus/iio/devices/**
+root@analog:/sys/bus/iio/device> ls -l
 
-iio:device0 -\> ../../../devices/soc0/axi/f8007100.adc/iio:device0
-iio:device1 -\> ../../../devices/soc0/fpga-axi\@0/44a74000.axi-ad3552r/iio:device1
-iio\_sysfs\_trigger -\> ../../../devices/iio\_sysfs\_trigger
+iio:device0 -> ../../../devices/soc0/axi/f8007100.adc/iio:device0
+iio:device1 -> ../../../devices/soc0/fpga-axi@0/44a74000.axi-ad3552r/iio:device1
+iio_sysfs_trigger -> ../../../devices/iio_sysfs_trigger
 
-root:/sys/bus/iio/devices\> **cd iio:device1**
+root:/sys/bus/iio/devices> **cd iio:device1**
 
-root\@analog:/sys/bus/iio/devices/iio:device1\# ls -l
+root@analog:/sys/bus/iio/devices/iio:device1# ls -l
 drwxr-xr-x 2 root root 0 May 16 07:42 buffer
 drwxr-xr-x 2 root root 0 May 15 15:04 buffer0
--r\--r\--r\-- 1 root root 4096 May 16 07:42 dev
--rw-r\--r\-- 1 root root 4096 May 16 07:42 input\_source
--r\--r\--r\-- 1 root root 4096 May 16 07:42 input\_source\_available
--r\--r\--r\-- 1 root root 4096 May 15 15:04 name
-lrwxrwxrwx 1 root root 0 May 16 07:42 of\_node -\> ../../../../../firmware/devicetree/base/fpga-axi\@0/axi-ad3552r\@44a74000
--rw-r\--r\-- 1 root root 4096 May 16 07:42 output\_range
--r\--r\--r\-- 1 root root 4096 May 16 07:42 output\_range\_available
--rw-r\--r\-- 1 root root 4096 May 16 07:42 out\_voltage0\_raw
--rw-r\--r\-- 1 root root 4096 May 16 07:42 out\_voltage1\_raw
+-r--r--r-- 1 root root 4096 May 16 07:42 dev
+-rw-r--r-- 1 root root 4096 May 16 07:42 input_source
+-r--r--r-- 1 root root 4096 May 16 07:42 input_source_available
+-r--r--r-- 1 root root 4096 May 15 15:04 name
+lrwxrwxrwx 1 root root 0 May 16 07:42 of_node -> ../../../../../firmware/devicetree/base/fpga-axi@0/axi-ad3552r@44a74000
+-rw-r--r-- 1 root root 4096 May 16 07:42 output_range
+-r--r--r-- 1 root root 4096 May 16 07:42 output_range_available
+-rw-r--r-- 1 root root 4096 May 16 07:42 out_voltage0_raw
+-rw-r--r-- 1 root root 4096 May 16 07:42 out_voltage1_raw
 drwxr-xr-x 2 root root 0 May 15 15:04 power
--rw-r\--r\-- 1 root root 4096 May 16 07:42 sampling\_frequency
-drwxr-xr-x 2 root root 0 May 15 15:04 scan\_elements
--rw-r\--r\-- 1 root root 4096 May 16 07:42 stream\_status
--r\--r\--r\-- 1 root root 4096 May 16 07:42 stream\_status\_available
-lrwxrwxrwx 1 root root 0 May 16 07:42 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 May 16 07:42 uevent
-root:/sys/bus/iio/devices/iio:device1\#
+-rw-r--r-- 1 root root 4096 May 16 07:42 sampling_frequency
+drwxr-xr-x 2 root root 0 May 15 15:04 scan_elements
+-rw-r--r-- 1 root root 4096 May 16 07:42 stream_status
+-r--r--r-- 1 root root 4096 May 16 07:42 stream_status_available
+lrwxrwxrwx 1 root root 0 May 16 07:42 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 May 16 07:42 uevent
+root:/sys/bus/iio/devices/iio:device1#
 ```
 :::
 
 
-Show device name
-----------------
+#### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat name**
+root:/sys/bus/iio/devices/iio:device1> **cat name**
 **axi-ad3552r**
 ```
 :::
 
 
-DAC sampling rate (sampling\_frequency)
----------------------------------------
+#### DAC sampling rate (sampling_frequency)
 
 Read only attribute which returns the DAC sampling rate in Hz.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat sampling\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat sampling_frequency**
 **16666667**
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 15000000 \> sampling\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# echo 15000000 > sampling_frequency
 -bash: echo: write error: Invalid argument
-root\@analog:/sys/bus/iio/devices/iio:device1\#
+root@analog:/sys/bus/iio/devices/iio:device1#
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

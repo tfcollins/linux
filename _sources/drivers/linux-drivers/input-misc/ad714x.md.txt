@@ -6,8 +6,7 @@ title: AD7148: CapTouch® Programmable Controller for Single-Electrode Capacitan
 AD714X Input CapTouch® Programmable Controller Linux Driver
 ===========================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD7142](https://www.google.com/search?q=AD7142&btnI=lucky)
 -   [AD7143](https://www.google.com/search?q=AD7143&btnI=lucky)
@@ -15,22 +14,20 @@ Supported Devices
 -   [AD7147A](https://www.google.com/search?q=AD7147A&btnI=lucky)
 -   [AD7148](https://www.google.com/search?q=AD7148&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD7147EBZ](https://www.google.com/search?q=EVAL-AD7147EBZ&btnI=lucky)
 -   [EVAL-AD7147-1EBZ](https://www.google.com/search?q=EVAL-AD7147-1EBZ&btnI=lucky)
 
-Description
------------
+#### Description
 
-# Capacitance Touch Sensors
+##### Capacitance Touch Sensors
 
 Capacitance sensors detect a change in capacitance when something or someone approaches or touches the sensor. The technique has been used in industrial applications for many years to measure liquid levels, humidity, and material composition. A newer application, coming into widespread use, is in human-to-machine interfaces. Mechanical buttons, switches, and jog wheels have long been used as the interface between the user and the machine. Because of their many drawbacks, however, interface designers have been increasingly looking for more reliable solutions. Capacitive sensors can be used in the same manner as buttons, but they also can function with greater versatility, for example, when implementing a 128-position scroll bar.
 
 For more info on how these types of sensors work, take a peek at the [ADI web site](https://www.google.com/search?q=library/analogDialogue/archives/40-10/cap_sensors.html&btnI=lucky).
 
-#### Overview
+##### Overview
 
 Implementing a capacitive touch sensor solution using the AD714x requires three components:
 
@@ -53,17 +50,14 @@ Many options for implementing the user interface are available to the designer, 
 
 The number of sensors that can be implemented using a single device depends on the type of sensors required. The AD7142 has 14 capacitance input pins and 12 conversion channels, the AD7143 and AD7148 have 8 capacitance input pins and 8 conversion channels, and the AD7147 and AD7147A have 13 capacitance input pins and 12 conversion channels.
 
-Configuration
--------------
+#### Configuration
 
-Software configurable features
-------------------------------
+#### Software configurable features
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -80,8 +74,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -116,10 +109,10 @@ linux-2.6.x/drivers/input/misc/ad714x-spi.c
 linux-2.6.x/drivers/input/misc/ad714x-i2c.c.
 
 ad714x.c fulfills the common arithmetic and state machines for sliders, keypads, touchpads and so on. ad714x-spi.c and ad714x-i2c.c, which call common probe/remove entries in ad714x.c, merge the bottom ad714x driver into Linux SPI/I2C device driver framework. The code included works with the AD7142 and AD7147 demo board.
-Note that this code is covered under the GPL - if you want non-GPL source, have a look at ADI\'s Web site.
+Note that this code is covered under the GPL - if you want non-GPL source, have a look at ADI's Web site.
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -128,34 +121,30 @@ platform data, defines how the PCB info is implemented.
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
 For AD7142 demo board, the platform information is:
-\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7142\_i2c\_button\_plat{} c linux-kernel\>
-\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7142\_i2c\_platform\_data{} c linux-kernel\>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7142_i2c_button_plat{} c linux-kernel>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7142_i2c_platform_data{} c linux-kernel>
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly)
 
 For AD7147 demo board, the platform information is:
-\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7147\_spi\_slider\_plat{} c linux-kernel\>
-\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7147\_spi\_button\_plat{} c linux-kernel\>
-\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7147\_spi\_platform\_data{} c linux-kernel\>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7147_spi_slider_plat{} c linux-kernel>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7147_spi_button_plat{} c linux-kernel>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:ad7147_spi_platform_data{} c linux-kernel>
 
 Adding Linux driver support
-===========================
+---------------------------
 
 To select it from menuconfig:
 
-```{=markdown}
-```
-Device Drivers  --->
-  Input device support  --->
-   [*]   Miscellaneous devices  --->
-    <*>   Analog Devices AD714x Capacitance Touch Sensor
-       <*>     support I2C bus connection
-       <*>     support SPI bus connection
+    Device Drivers  --->
+      Input device support  --->
+       [*]   Miscellaneous devices  --->
+        <*>   Analog Devices AD714x Capacitance Touch Sensor
+           <*>     support I2C bus connection
+           <*>     support SPI bus connection
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 ![](/software/driver/linux/ad7142_schematic.jpg){width="800"}
 
@@ -168,52 +157,48 @@ For BF537 STAMP board, please set SW5-3 off as the interrupt input.
 And For AD7147 eval-board, please set S4-2 on and other positions off.
 
 Driver testing
-==============
+--------------
 
-Some testing output from the event\_test application:
+Some testing output from the event_test application:
 
-```{=markdown}
-```
-root:~> modprobe ad7142.ko 
-input: ad7142 joystick as /class/input/input0
-ad7142_js_attach: at 0x58
-root:~> event_test /dev/input/event0 
-Input driver version is 1.0.0
-Input device ID: bus 0x18 vendor 0x1 product 0x1 version 0x100
-Input device name: "ad7142 joystick"
-Supported events:
-  Event type 0 (Reset)
-    Event code 0 (Reset)
-    Event code 1 (Key)
-  Event type 1 (Key)
-    Event code 103 (Up)
-    Event code 105 (Left)
-    Event code 106 (Right)
-    Event code 108 (Down)
-    Event code 294 (BaseBtn)
-    Event code 295 (BaseBtn2)
-    Event code 296 (BaseBtn3)
-    Event code 297 (BaseBtn4)
-Testing ... (interrupt to exit)
-Event: time 398.520833, type 0 (Reset), code 0 (Reset), value 0
-Event: time 400.734865, type 1 (Key), code 108 (Down), value 1
-Event: time 400.734874, type 0 (Reset), code 0 (Reset), value 0
-Event: time 400.853353, type 1 (Key), code 108 (Down), value 0
-Event: time 400.853360, type 0 (Reset), code 0 (Reset), value 0
-Event: time 400.930182, type 1 (Key), code 103 (Up), value 1
-Event: time 400.931390, type 0 (Reset), code 0 (Reset), value 0
-Event: time 401.046258, type 1 (Key), code 103 (Up), value 0
-Event: time 401.047461, type 0 (Reset), code 0 (Reset), value 0
-Event: time 402.361193, type 1 (Key), code 294 (BaseBtn), value 1
-Event: time 402.362403, type 0 (Reset), code 0 (Reset), value 0
-Event: time 402.555558, type 1 (Key), code 294 (BaseBtn), value 0
-Event: time 402.556760, type 0 (Reset), code 0 (Reset), value 0
-Event: time 402.942508, type 1 (Key), code 295 (BaseBtn2), value 1
-Event: time 402.942516, type 0 (Reset), code 0 (Reset), value 0
+    root:~> modprobe ad7142.ko 
+    input: ad7142 joystick as /class/input/input0
+    ad7142_js_attach: at 0x58
+    root:~> event_test /dev/input/event0 
+    Input driver version is 1.0.0
+    Input device ID: bus 0x18 vendor 0x1 product 0x1 version 0x100
+    Input device name: "ad7142 joystick"
+    Supported events:
+      Event type 0 (Reset)
+        Event code 0 (Reset)
+        Event code 1 (Key)
+      Event type 1 (Key)
+        Event code 103 (Up)
+        Event code 105 (Left)
+        Event code 106 (Right)
+        Event code 108 (Down)
+        Event code 294 (BaseBtn)
+        Event code 295 (BaseBtn2)
+        Event code 296 (BaseBtn3)
+        Event code 297 (BaseBtn4)
+    Testing ... (interrupt to exit)
+    Event: time 398.520833, type 0 (Reset), code 0 (Reset), value 0
+    Event: time 400.734865, type 1 (Key), code 108 (Down), value 1
+    Event: time 400.734874, type 0 (Reset), code 0 (Reset), value 0
+    Event: time 400.853353, type 1 (Key), code 108 (Down), value 0
+    Event: time 400.853360, type 0 (Reset), code 0 (Reset), value 0
+    Event: time 400.930182, type 1 (Key), code 103 (Up), value 1
+    Event: time 400.931390, type 0 (Reset), code 0 (Reset), value 0
+    Event: time 401.046258, type 1 (Key), code 103 (Up), value 0
+    Event: time 401.047461, type 0 (Reset), code 0 (Reset), value 0
+    Event: time 402.361193, type 1 (Key), code 294 (BaseBtn), value 1
+    Event: time 402.362403, type 0 (Reset), code 0 (Reset), value 0
+    Event: time 402.555558, type 1 (Key), code 294 (BaseBtn), value 0
+    Event: time 402.556760, type 0 (Reset), code 0 (Reset), value 0
+    Event: time 402.942508, type 1 (Key), code 295 (BaseBtn2), value 1
+    Event: time 402.942516, type 0 (Reset), code 0 (Reset), value 0
 
-```
-```
 More Information
-================
+----------------
 
 ![](page>resources/tools-software/linux-drivers/snippets#input_pointers&noheader&firstseconly&noeditbtn)

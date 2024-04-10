@@ -6,31 +6,27 @@ title: ADIS16137: ±1000°/Sec Precision Angular Rate Sensor
 ADIS16136 IIO Inertial Measurement Unit Linux Driver
 ====================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADIS16133](https://www.google.com/search?q=ADIS16133&btnI=lucky)
 -   [ADIS16135](https://www.google.com/search?q=ADIS16135&btnI=lucky)
 -   [ADIS16136](https://www.google.com/search?q=ADIS16136&btnI=lucky)
 -   [ADIS16137](https://www.google.com/search?q=ADIS16137&btnI=lucky) (Linux v4.3+)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [ADIS16IMU1/PCBZ](https://www.google.com/search?q=EVAL-ADIS16IMU1&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Inertial Measurement Units (IMU).
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -47,8 +43,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -68,7 +63,7 @@ Files
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
@@ -98,78 +93,73 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADIS16136 driver depends on **CONFIG\_SPI\_MASTER**
+The ADIS16136 driver depends on **CONFIG_SPI_MASTER**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        ...
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
+    Linux Kernel Configuration
+        Device Drivers  --->
             ...
-            Digital gyroscope sensors  ---> 
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
                 ...
-                <*>  Analog devices ADIS16136 and similar gyroscopes driver
+                Digital gyroscope sensors  ---> 
+                    ...
+                    <*>  Analog devices ADIS16136 and similar gyroscopes driver
+                    ...
                 ...
             ...
-        ...
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> **ls**
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> **ls**
 iio:device0 trigger0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **ls -l**
+root:/sys/bus/iio/devices> **cd iio:device0**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **ls -l**
 drwxr-xr-x 2 root root 0 Jan 1 01:03 buffer
--r\--r\--r\-- 1 root root 4096 Jan 1 01:03 dev
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 in\_anglvel\_scale
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 in\_anglvel\_x\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 in\_anglvel\_x\_filter\_low\_pass\_3db\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 in\_anglvel\_x\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 in\_temp0\_offset
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 in\_temp0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 in\_temp0\_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 01:03 name
+-r--r--r-- 1 root root 4096 Jan 1 01:03 dev
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 in_anglvel_scale
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 in_anglvel_x_calibbias
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 in_anglvel_x_filter_low_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 in_anglvel_x_raw
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 in_temp0_offset
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 in_temp0_raw
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 in_temp0_scale
+-r--r--r-- 1 root root 4096 Jan 1 01:03 name
 drwxr-xr-x 2 root root 0 Jan 1 01:03 power
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 sampling\_frequency
-drwxr-xr-x 2 root root 0 Jan 1 01:03 scan\_elements
-lrwxrwxrwx 1 root root 0 Jan 1 01:03 subsystem -\> ../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 sampling_frequency
+drwxr-xr-x 2 root root 0 Jan 1 01:03 scan_elements
+lrwxrwxrwx 1 root root 0 Jan 1 01:03 subsystem -> ../../../../../../../bus/iio
 drwxr-xr-x 2 root root 0 Jan 1 01:03 trigger
--rw-r\--r\-- 1 root root 4096 Jan 1 01:03 uevent
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\>
+-rw-r--r-- 1 root root 4096 Jan 1 01:03 uevent
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0>
 ```
 :::
 
 
-ADIS16136 device attributes
----------------------------
+#### ADIS16136 device attributes
 
 For a detailed description please see:
 [Documentation/ABI/testing/sysfs-bus-iio](https://www.google.com/search?q=Documentation/ABI/testing/sysfs-bus-iio&btnI=lucky)
@@ -229,43 +219,43 @@ For a detailed description please see:
 </tbody>
 </table>
 
-# Show device name
+##### Show device name
 
 The `name` file contains the name of the device. This will match the product id. E.g. `adis16136` for the adis16136.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat name**
 adis16136
 ```
 :::
 
 
-#### Set sampling frequency
+##### Set sampling frequency
 
 The sampling frequency of the device can be set by writing the desired value to the `sampling_frequency` file. The driver will automatically round up to the nearest supported sampling frequency.
 
 **Example:**
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat sampling\_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat sampling_frequency**
 1024
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **echo 500 \> sampling\_frequency**
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat sampling\_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **echo 500 > sampling_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat sampling_frequency**
 504
 ```
 :::
 
 
-#### Show channel value
+##### Show channel value
 
 A channel value can be read from its `_raw` attribute. The value returned by the `_raw` attribute is the raw value as reported by the device. To get the processed value of the channel in a standardized unit add the channels `_offset` attribute to the `_raw` value and multiply the result by `_scale` attribute. If no `_offset` attribute is present assume 0 for the offset.
 
@@ -277,15 +267,15 @@ The units by the IIO framework are:
 -   Temperature: milli-degree Celsius
 
 **Example:**
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat in\_anglvel\_x\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat in_anglvel_x_raw**
 898102272
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat in\_anglvel\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat in_anglvel_scale**
 0.000000278
 ```
 :::
@@ -293,95 +283,92 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat in\_anglvel\_sc
 
 `Z-axis acceleration = in_anglvel_x_raw * in_anglvel_scale = TBD = TBD rad per second`
 
-#### Set channel bandwidth
+##### Set channel bandwidth
 
 The channel bandwidth can be set by writing the desired value to the channels `in_anglvel_filter_low_pass_3db_frequency` attribute. The driver will automatically round up to the nearest supported bandwidth.
 
 Note that the low pass filter frequency depends on the sampling frequency, so changing the sampling frequency will scale the low pass filter frequency accordingly. E.g. reducing the sampling frequency by a factor of two will also reduce the bandwidth by a factor of two.
 
 **Example:**
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat in\_anglvel\_filter\_low\_pass\_3db\_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat in_anglvel_filter_low_pass_3db_frequency**
 512
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **echo 10 \> in\_anglvel\_filter\_low\_pass\_3db\_frequency**
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat in\_anglvel\_filter\_low\_pass\_3db\_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **echo 10 > in_anglvel_filter_low_pass_3db_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat in_anglvel_filter_low_pass_3db_frequency**
 10
 ```
 :::
 
 
-Trigger management
-------------------
+#### Trigger management
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-This driver only supports it\'s own default trigger source **adis16136-dev0**
+This driver only supports it's own default trigger source **adis16136-dev0**
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0\> **cat trigger/current\_trigger**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0> **cat trigger/current_trigger**
 adis16136-dev0
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 For the adis16133 and adis16135 the trigger will be called adis16133-dev0 and adis16135-dev0 respectively.
 :::
 
 
-Buffer management
------------------
+#### Buffer management
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/buffer\> **ls**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/buffer> **ls**
 **enable** **length**
 ```
 :::
 
 
-![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan\_elements\> **ls**
-in\_anglvel\_x\_en in\_temp0\_en in\_timestamp\_en
-in\_anglvel\_x\_index in\_temp0\_index in\_timestamp\_index
-in\_anglvel\_x\_type in\_temp0\_type in\_timestamp\_type
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan\_elements\>
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan_elements> **ls**
+in_anglvel_x_en in_temp0_en in_timestamp_en
+in_anglvel_x_index in_temp0_index in_timestamp_index
+in_anglvel_x_type in_temp0_type in_timestamp_type
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan_elements>
 ```
 :::
 
 
-![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
 
-IMU Evaluation Board User Guides
---------------------------------
+#### IMU Evaluation Board User Guides
 
 -   [ADIS1613x Evaluation on the EVAL-ADIS](/resources/eval/user-guides/inertial-mems/gyroscopes/adis1613x)

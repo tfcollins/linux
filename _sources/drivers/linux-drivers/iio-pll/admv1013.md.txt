@@ -6,28 +6,24 @@ title: ADMV1013: 24 GHz to 44 GHz, Wideband, Microwave Upconverter
 ADMV1013 24 GHz to 44 GHz, Wideband, Microwave Upconverter
 ==========================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADMV1013](https://www.google.com/search?q=ADMV1013&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-ADMV1013](https://www.google.com/search?q=EVAL-ADMV1013&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Microwave converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -44,8 +40,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -68,7 +63,7 @@ Files
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-# properties
+##### properties
 
 **compatible:**
 
@@ -90,7 +85,7 @@ Files
 
 **clock-names:**
 
--   description: Must be \"lo\_in\"
+-   description: Must be "lo_in"
 -   maxItems: 1
 
 **clock-output-names:**
@@ -100,7 +95,7 @@ Files
 **clock-scales:**
 
 -   description: The Common Clock Framework max rate is limited by MAX of unsigned long. For ADMV1013 device this is a deficiency. If specified, this property allows arbitrary scales. The first element in the array should be the multiplier and the second element should be the divider.
--   \$ref: /schemas/types.yaml\#/definitions/uint32-array
+-   $ref: /schemas/types.yaml#/definitions/uint32-array
 -   minimum: 1
 
 **vcm-supply:**
@@ -145,18 +140,18 @@ Files
 **adi,quad-se-mode:**
 
 -   description: Switch Differential/SE Modes.
--   \$ref: /schemas/types.yaml\#/definitions/uint32
--   enum: \[6, 9, 12\]
+-   $ref: /schemas/types.yaml#/definitions/uint32
+-   enum: [6, 9, 12]
 
-**\'\#address-cells\':**
+**'#address-cells':**
 
 -   const: 1
 
-**\'\#size-cells\':**
+**'#size-cells':**
 
 -   const: 0
 
-**\'\#clock-cells\':**
+**'#clock-cells':**
 
 -   const: 0
 
@@ -168,7 +163,7 @@ Files
 -   clock-names
 -   vcm-supply
 
-#### Example
+##### Example
 
 ``` {.c}
 spi {
@@ -191,118 +186,114 @@ spi {
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADMV1013 Driver depends on **CONFIG\_SPI**
+The ADMV1013 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
-                Frequency  --->
-                    <*> Analog Devices ADMV1013 Microwave Upconverter
+    Linux Kernel Configuration
+        Device Drivers  --->
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
+                    Frequency  --->
+                        <*> Analog Devices ADMV1013 Microwave Upconverter
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> **iio:device0**
+root:/sys/bus/iio/devices> **iio:device0**
 
-root:/\> **ls -l**
--r\--r\--r\-- 1 root root 4096 May 6 12:20 dev
--r\--r\--r\-- 1 root root 4096 May 6 12:20 name
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_altvoltage0\_i\_offset
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_altvoltage0\_q\_offset
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_altvoltage0\_i\_phase
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out\_altvoltage0\_q\_phase
-lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 May 6 12:20 uevent
+root:/> **ls -l**
+-r--r--r-- 1 root root 4096 May 6 12:20 dev
+-r--r--r-- 1 root root 4096 May 6 12:20 name
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_i_offset
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_q_offset
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_i_phase
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_q_phase
+lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 May 6 12:20 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/iio\\:device0/**
-root:/\> **cat name**
+root:/> **cd /sys/bus/iio/devices/iio:device0/**
+root:/> **cat name**
 admv1013
 ```
 :::
 
 
-##### Set ChannelY Offset value
+###### Set ChannelY Offset value
 
-/sys/bus/iio/devices/iio:deviceX/out\_altvoltageY\_Z\_offset\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_offset
 Offset value. If shared across all channels,
-\<type\>\_offset is used.
+<type>_offset is used.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cat out\_altvoltage0\_i\_offset**
+root:/> **cat out_altvoltage0_i_offset**
 0 0
 
-root:/\> **echo 1.1 \> out\_altvoltage0\_i\_offset**
-root:/\> **cat out\_altvoltage0\_offset**
+root:/> **echo 1.1 > out_altvoltage0_i_offset**
+root:/> **cat out_altvoltage0_offset**
 1 1
 ```
 :::
 
 
-##### Set ChannelY Phase value
+###### Set ChannelY Phase value
 
-/sys/bus/iio/devices/iio:deviceX/out\_altvoltageY\_Z\_phase\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_phase
 Phase value. If shared across all channels,
-\<type\>\_phase is used.
+<type>_phase is used.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cat out\_altvoltage0\_i\_phase**
+root:/> **cat out_altvoltage0_i_phase**
 0
 
-root:/\> **echo 1 \> out\_altvoltage0\_i\_phase**
-root:/\> **cat out\_altvoltage0\_phase**
+root:/> **echo 1 > out_altvoltage0_i_phase**
+root:/> **cat out_altvoltage0_phase**
 1
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

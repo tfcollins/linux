@@ -6,24 +6,21 @@ title: ADF4377: Wideband Synthesizer with Integrated VCO
 ADF4377 IIO Wideband Synthesizer with Integrated VCO Linux Driver
 =================================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADF4377](https://www.google.com/search?q=ADF4377&btnI=lucky)
 -   [ADF4378](https://www.google.com/search?q=ADF4378&btnI=lucky)
 
-Supported Boards
-----------------
+#### Supported Boards
 
-This driver supports the\
+This driver supports the
 
 -   [EVAL-ADF4377](https://www.google.com/search?q=EVAL-ADF4377&btnI=lucky)
 -   [EVAL-ADF4378](https://www.google.com/search?q=EVAL-ADF4378&btnI=lucky)
 
-Description
------------
+#### Description
 
-The ADF4377 is a high performance, utlralow jitter, dual output integer-N phased locked loop (PLL) with integrated voltage controlled oscillator (VCO) ideally suited for data converter and mixed signal front end (MxFE) clock applications. The high performance PLL has a figure of merit of -239 dBc/Hz, ultralow 1/f Noise and a high phase frequency detector (PFD) frequency that can achieve ultra-low in-band noise and integrated jitter. The ADF4377\'s fundamental VCO and output divider generate frequencies from 800 MHz to 12.8 GHz. The ADF4377 integrates all necessary power supply bypass capacitors, saving board space on compact boards.
+The ADF4377 is a high performance, utlralow jitter, dual output integer-N phased locked loop (PLL) with integrated voltage controlled oscillator (VCO) ideally suited for data converter and mixed signal front end (MxFE) clock applications. The high performance PLL has a figure of merit of -239 dBc/Hz, ultralow 1/f Noise and a high phase frequency detector (PFD) frequency that can achieve ultra-low in-band noise and integrated jitter. The ADF4377's fundamental VCO and output divider generate frequencies from 800 MHz to 12.8 GHz. The ADF4377 integrates all necessary power supply bypass capacitors, saving board space on compact boards.
 
 For multiple data converter and MXFE clock applications, the ADF4377 simplifies clock alignment and calibration routines required with other clock solutions, by implementing:
 
@@ -34,10 +31,9 @@ For multiple data converter and MXFE clock applications, the ADF4377 simplifies 
 These features allow for predictable and precise multi-chip clock and SYSREF alignment. JESD204B and JESD204C subclass 1 solutions are supported by pairing the ADF4377 with an integrated circuit (IC) that distributes pairs of reference and SYSREF signals.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -54,8 +50,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -81,18 +76,18 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 The ADF4377 driver is a SPI bus driver and can be instantiated via device tree.
 
 **Required properties:**
 
 -   **compatible**: Should always be one of these:
-    -   \"adi,adf4377\"
-    -   \"adi,adf4372\"
+    -   "adi,adf4377"
+    -   "adi,adf4372"
 -   **reg**: SPI chip select number.
 -   **clocks**: a list of phandle, one for each entry in clock-names.
--   **clock-names**: Must include the following entry: \"ref\_in\"
+-   **clock-names**: Must include the following entry: "ref_in"
 
 **Optional properties:**
 
@@ -100,161 +95,152 @@ The ADF4377 driver is a SPI bus driver and can be instantiated via device tree.
 -   **enclk1-gpios**: Gpio that controls the Enable Clock 1 Output Buffer Pin.
 -   **enclk2-gpios**: Gpio that controls the Enable Clock 2 Output Buffer Pin.
 
-```{=markdown}
+```{=html}
+<!-- -->
 ```
-Example:
+    Example:
 
-spi {
-        #address-cells = <1>;
-        #size-cells = <0>;
-        frequency@0 {
-            compatible = "adi,adf4377";
-            reg = <0>;
-            spi-max-frequency = <10000000>;
-            clocks = <&adf4377_ref_in>;
-            clock-names = "ref_in";
+    spi {
+            #address-cells = <1>;
+            #size-cells = <0>;
+            frequency@0 {
+                compatible = "adi,adf4377";
+                reg = <0>;
+                spi-max-frequency = <10000000>;
+                clocks = <&adf4377_ref_in>;
+                clock-names = "ref_in";
+            };
         };
-    };
 
-```
-```
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADF4377 driver depends on **SPI** and selects **REGMAP\_SPI**
+The ADF4377 driver depends on **SPI** and selects **REGMAP_SPI**
 
 :::
 
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-                 Frequency Synthesizers DDS/PLL --->
-                             *** Phase-Locked Loop (PLL) frequency synthesizers ***
-                             <*> Analog Devices ADF4377 Microwave Wideband Synthesizer
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+                     Frequency Synthesizers DDS/PLL --->
+                                 *** Phase-Locked Loop (PLL) frequency synthesizers ***
+                                 <*> Analog Devices ADF4377 Microwave Wideband Synthesizer
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog:/sys/bus/iio/devices/iio:device0\# **cd /sys/bus/iio/devices/**
-root\@analog:/sys/bus/iio/devices\# **ls**
+analog:/sys/bus/iio/devices/iio:device0# **cd /sys/bus/iio/devices/**
+root@analog:/sys/bus/iio/devices# **ls**
 iio:device0
-root\@analog:/sys/bus/iio/devices\#
+root@analog:/sys/bus/iio/devices#
 
-root\@analog:/sys/bus/iio/devices\# **cd iio\\:device0**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **ls -l**
+root@analog:/sys/bus/iio/devices# **cd iio:device0**
+root@analog:/sys/bus/iio/devices/iio:device0# **ls -l**
 total 0
--r\--r\--r\-- 1 root root 4096 sep 4 14:05 dev
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 frequency
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 muxout\_select
--rw-r\--r\-- 1 root root 4096 sep 4 14:05 muxout\_select\_available
--r\--r\--r\-- 1 root root 4096 sep 4 14:05 name
-lrwxrwxrwx 1 root root 0 sep 4 14:05 of\_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/adf4377\@0
+-r--r--r-- 1 root root 4096 sep 4 14:05 dev
+-rw-r--r-- 1 root root 4096 sep 4 14:05 frequency
+-rw-r--r-- 1 root root 4096 sep 4 14:05 muxout_select
+-rw-r--r-- 1 root root 4096 sep 4 14:05 muxout_select_available
+-r--r--r-- 1 root root 4096 sep 4 14:05 name
+lrwxrwxrwx 1 root root 0 sep 4 14:05 of_node -> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/adf4377@0
 drwxr-xr-x 2 root root 0 sep 4 14:05 power
-lrwxrwxrwx 1 root root 0 sep 2 17:46 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 sep 2 17:46 uevent
+lrwxrwxrwx 1 root root 0 sep 2 17:46 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 sep 2 17:46 uevent
 
-root\@analog:/sys/bus/iio/devices/iio:device0\#
+root@analog:/sys/bus/iio/devices/iio:device0#
 ```
 :::
 
 
-Show device name
-----------------
+#### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat name**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat name**
 **adf4377**
 ```
 :::
 
 
-Read frequency
---------------
+#### Read frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat frequency**
 **1000000000**
 ```
 :::
 
 
-Set frequency
--------------
+#### Set frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo 1000000000 \> frequency**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **echo 1000000000 > frequency**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat frequency**
 **1000000000**
 ```
 :::
 
 
-Muxout Select
--------------
+#### Muxout Select
 
 The mux output allows the user to access various internal points on the chip. Valid values that can be written:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat muxout\_select\_available**
-high\_z lock\_detect muxout\_low f\_div\_rclk\_2 f\_div\_nclk\_2 muxout\_high
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat muxout\_select**
-digital\_lock
-root\@analog:/sys/bus/iio/devices/iio:device0\# **echo lock\_detect \> muxout\_select**
-root\@analog:/sys/bus/iio/devices/iio:device0\# **cat muxout\_select**
-lock\_detect
+root@analog:/sys/bus/iio/devices/iio:device0# **cat muxout_select_available**
+high_z lock_detect muxout_low f_div_rclk_2 f_div_nclk_2 muxout_high
+root@analog:/sys/bus/iio/devices/iio:device0# **cat muxout_select**
+digital_lock
+root@analog:/sys/bus/iio/devices/iio:device0# **echo lock_detect > muxout_select**
+root@analog:/sys/bus/iio/devices/iio:device0# **cat muxout_select**
+lock_detect
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

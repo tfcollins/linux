@@ -6,29 +6,26 @@ title: ADAV803: Audio Codec for Recordable DVD
 ADAV80X Sound CODEC Linux Driver
 ================================
 
-Supported devices
------------------
+# Supported devices
 
 -   [ADAV801](https://www.google.com/search?q=ADAV801&btnI=lucky)
 -   [ADAV803](https://www.google.com/search?q=ADAV803&btnI=lucky)
 
 ADAV801 and ADAV803 differs in serial interface. ADAV801 uses SPI, while ADAV803 uses I2C.
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [CN0219](https://www.google.com/search?q=CN0219&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-ADAV801EBZ](https://www.google.com/search?q=EVAL-ADAV801EBZ&btnI=lucky)
 -   [EVAL-ADAV803EBZ](https://www.google.com/search?q=EVAL-ADAV803EBZ&btnI=lucky)
 
 Source Code
-===========
+-----------
 
-# Status
+###### Status
 
 <table>
 <thead>
@@ -45,7 +42,7 @@ Source Code
 </tbody>
 </table>
 
-##### Files
+###### Files
 
 <table>
 <thead>
@@ -67,10 +64,9 @@ Source Code
 </table>
 
 Supported Features
-==================
+------------------
 
-ASoC DAPM widgets
------------------
+#### ASoC DAPM widgets
 
 <table>
 <thead>
@@ -99,8 +95,7 @@ ASoC DAPM widgets
 </tbody>
 </table>
 
-ALSA controls
--------------
+#### ALSA controls
 
 <table>
 <thead>
@@ -153,8 +148,7 @@ ALSA controls
 </tbody>
 </table>
 
-Supported DAI formats
----------------------
+#### Supported DAI formats
 
 <table>
 <thead>
@@ -253,24 +247,22 @@ Supported DAI formats
 </tbody>
 </table>
 
-Currently unsupported features
-------------------------------
+#### Currently unsupported features
 
 -   Automatic level control
 -   on-chip sample rate converter (Both serial ports have to use the same sample rate)
 -   S/PDIF input and output
 
 ADAV80X evaluation board driver
-===============================
+-------------------------------
 
 There is no dedicated Blackfin STAMP evaluation board for the ADAV80X. During test and driver development we used the EVAL-ADAV801/ADAV803 board.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
-Source Code
------------
+#### Source Code
 
-# Status
+###### Status
 
 <table>
 <thead>
@@ -287,7 +279,7 @@ Source Code
 </tbody>
 </table>
 
-##### Files
+###### Files
 
 <table>
 <thead>
@@ -304,47 +296,33 @@ Source Code
 </tbody>
 </table>
 
-Kernel configuration
---------------------
+#### Kernel configuration
 
 For ADAV801, enable SPI:
 
-```{=markdown}
-```
-Device Drivers  --->
-[*] SPI support  --->
-***   SPI Master Controller Drivers ***
-<*>   SPI controller driver for ADI Blackfin5xx
+    Device Drivers  --->
+    [*] SPI support  --->
+    ***   SPI Master Controller Drivers ***
+    <*>   SPI controller driver for ADI Blackfin5xx
 
-```
-```
 For ADAV803, enable I2C:
 
-```{=markdown}
-```
-Device Drivers  --->
-[*] I2C support  --->
-[*]   I2C Hardware Bus support  --->
-***     I2C system bus drivers (mostly embedded / system-on-chip) ***
-<*>       Blackfin TWI I2C support
-(100)     Blackfin TWI I2C clock (kHz)
+    Device Drivers  --->
+    [*] I2C support  --->
+    [*]   I2C Hardware Bus support  --->
+    ***     I2C system bus drivers (mostly embedded / system-on-chip) ***
+    <*>       Blackfin TWI I2C support
+    (100)     Blackfin TWI I2C clock (kHz)
 
-```
-```
 Enable ALSA SoC evaluation board driver:
 
-```{=markdown}
-```
-Device Drivers  --->
-<M> Sound card support  --->
-<M>   Advanced Linux Sound Architecture  --->
-<M>     ALSA for SoC audio support  --->
-<M>       Support for the EVAL-ADAV80X boards on Blackfin eval boards
+    Device Drivers  --->
+    <M> Sound card support  --->
+    <M>   Advanced Linux Sound Architecture  --->
+    <M>     ALSA for SoC audio support  --->
+    <M>       Support for the EVAL-ADAV80X boards on Blackfin eval boards
 
-```
-```
-Hardware configuration
-----------------------
+#### Hardware configuration
 
 Default setting for the 12-way DIP switch: from SW11 to SW0 - 110001110001.
 Keep all switch and jumpers as default value defined in the manual, except:
@@ -355,41 +333,40 @@ Keep all switch and jumpers as default value defined in the manual, except:
 To test using BF537-STAMP board, connect **play** and **rec** port on the ADAV80X evaluation board with SPORT0 on STAMP.
 Connect **CPORT** pins also to corresponding pins STAMP. Also, please make sure to connect the **GND** of the two boards together to get better signal.
 
-Driver testing
---------------
+#### Driver testing
 
 Load the driver and make sure the sound card is properly instantiated.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> modprobe snd-bf5xx-i2s
-root:/\> modprobe snd-soc-bf5xx-i2s
-root:/\> modprobe snd-soc-adav80x
-root:/\> modprobe snd-soc-bfin-eval-adav80x
+root:/> modprobe snd-bf5xx-i2s
+root:/> modprobe snd-soc-bf5xx-i2s
+root:/> modprobe snd-soc-adav80x
+root:/> modprobe snd-soc-bfin-eval-adav80x
 dma rx:3 tx:4, err irq:45, regs:ffc00800
-asoc: ADAV80X \<-\> bf5xx-i2s mapping ok
+asoc: ADAV80X <-> bf5xx-i2s mapping ok
 ```
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> modprobe snd-pcm-oss
-root:/\> tone
-TONE: generating sine wave at 1000 Hz\...
+root:/> modprobe snd-pcm-oss
+root:/> tone
+TONE: generating sine wave at 1000 Hz...
 
-root:/\> arecord -f cd | aplay
-Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+root:/> arecord -f cd | aplay
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
 ```
 
 :::

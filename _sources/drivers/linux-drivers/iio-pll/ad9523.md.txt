@@ -6,29 +6,25 @@ title: AD9523-1: Low Jitter Clock Generator with 14 LVPECL/LVDS/HSTL/29 LVCMOS O
 AD9523 Low Jitter Clock Generator Linux Driver
 ==============================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD9523-1](https://www.google.com/search?q=AD9523-1&btnI=lucky)
 -   [AD9523](https://www.google.com/search?q=AD9523&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [AD9523-1/PCBZ](https://www.google.com/search?q=EVAL-AD9523-1&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface PLL Synthesizers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -45,8 +41,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -72,11 +67,11 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-The reference frequency and GPIO numbers may vary between boards. The platform\_data for the device\'s \"struct device\" holds this information.
+The reference frequency and GPIO numbers may vary between boards. The platform_data for the device's "struct device" holds this information.
 
 ``` {.c}
 /**
@@ -331,11 +326,11 @@ struct ad9523_platform_data ad9523_pdata_lpc = {
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-#if defined(CONFIG_AD9523) || defined(CONFIG_AD9523_MODULE)
+## if defined(CONFIG_AD9523) || defined(CONFIG_AD9523_MODULE)
     {
         .modalias = "ad9523-1",
         .max_speed_hz = 1000000,     /* max spi clock (SCK) speed in HZ */
@@ -362,255 +357,251 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD9523 Driver depends on **CONFIG\_SPI**
+The AD9523 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
-                Frequency Synthesizers DDS/PLL  --->
-                    Clock Generator/Distribution  ---> 
-            [--snip--]
-                <*> Analog Devices AD9523 Low Jitter Clock Generator 
-            [--snip--]
+    Linux Kernel Configuration
+        Device Drivers  --->
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
+                    Frequency Synthesizers DDS/PLL  --->
+                        Clock Generator/Distribution  ---> 
+                [--snip--]
+                    <*> Analog Devices AD9523 Low Jitter Clock Generator 
+                [--snip--]
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> **iio:device0**
+root:/sys/bus/iio/devices> **iio:device0**
 
-root:/\> **ls -l**
+root:/> **ls -l**
 total 0
 drwxr-xr-x 2 root root 0 Jan 1 00:00 .
 drwxr-xr-x 3 root root 0 Jan 1 00:00 ..
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 dev
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 name
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_ZD\_OUTPUT\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_ZD\_OUTPUT\_phase
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_ZD\_OUTPUT\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage1\_DAC\_CLK\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage1\_DAC\_CLK\_phase
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage1\_DAC\_CLK\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage2\_ADC\_CLK\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage2\_ADC\_CLK\_phase
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage2\_ADC\_CLK\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage4\_DAC\_REF\_CLK\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage4\_DAC\_REF\_CLK\_phase
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage4\_DAC\_REF\_CLK\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage5\_TX\_LO\_REF\_CLK\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage5\_TX\_LO\_REF\_CLK\_phase
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage5\_TX\_LO\_REF\_CLK\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage6\_DAC\_DCO\_CLK\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage6\_DAC\_DCO\_CLK\_phase
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage6\_DAC\_DCO\_CLK\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage8\_ADC\_SYNC\_CLK\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage8\_ADC\_SYNC\_CLK\_phase
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage8\_ADC\_SYNC\_CLK\_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage9\_RX\_LO\_REF\_CLK\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage9\_RX\_LO\_REF\_CLK\_phase
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 out\_altvoltage9\_RX\_LO\_REF\_CLK\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 pll1\_locked
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 pll1\_reference\_clk\_a\_present
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 pll1\_reference\_clk\_b\_present
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 pll1\_reference\_clk\_test\_present
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 pll2\_feedback\_clk\_present
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 pll2\_locked
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 pll2\_reference\_clk\_present
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 1 00:00 store\_eeprom
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../../../../../../bus/iio
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 1 00:00 sync\_dividers
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 uevent
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 vcxo\_clk\_present
+-r--r--r-- 1 root root 4096 Jan 1 00:00 dev
+-r--r--r-- 1 root root 4096 Jan 1 00:00 name
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage0_ZD_OUTPUT_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage0_ZD_OUTPUT_phase
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage0_ZD_OUTPUT_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage1_DAC_CLK_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage1_DAC_CLK_phase
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage1_DAC_CLK_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage2_ADC_CLK_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage2_ADC_CLK_phase
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage2_ADC_CLK_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage4_DAC_REF_CLK_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage4_DAC_REF_CLK_phase
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage4_DAC_REF_CLK_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX_LO_REF_CLK_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX_LO_REF_CLK_phase
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX_LO_REF_CLK_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage6_DAC_DCO_CLK_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage6_DAC_DCO_CLK_phase
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage6_DAC_DCO_CLK_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage8_ADC_SYNC_CLK_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage8_ADC_SYNC_CLK_phase
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage8_ADC_SYNC_CLK_raw
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage9_RX_LO_REF_CLK_frequency
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage9_RX_LO_REF_CLK_phase
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 out_altvoltage9_RX_LO_REF_CLK_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 pll1_locked
+-r--r--r-- 1 root root 4096 Jan 1 00:00 pll1_reference_clk_a_present
+-r--r--r-- 1 root root 4096 Jan 1 00:00 pll1_reference_clk_b_present
+-r--r--r-- 1 root root 4096 Jan 1 00:00 pll1_reference_clk_test_present
+-r--r--r-- 1 root root 4096 Jan 1 00:00 pll2_feedback_clk_present
+-r--r--r-- 1 root root 4096 Jan 1 00:00 pll2_locked
+-r--r--r-- 1 root root 4096 Jan 1 00:00 pll2_reference_clk_present
+--w------- 1 root root 4096 Jan 1 00:00 store_eeprom
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -> ../../../../../../../../../bus/iio
+--w------- 1 root root 4096 Jan 1 00:00 sync_dividers
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 uevent
+-r--r--r-- 1 root root 4096 Jan 1 00:00 vcxo_clk_present
 ```
 :::
 
 
-#### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/iio\\:device0/**
-root:/\> **cat name**
+root:/> **cd /sys/bus/iio/devices/iio:device0/**
+root:/> **cat name**
 ad9523-lpc
 ```
 :::
 
 
-#### Set ChannelY Output Frequency
+###### Set ChannelY Output Frequency
 
-/sys/bus/iio/devices/iio:deviceX/out\_altvoltageY\_frequency\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency
 Output frequency for channel Y in Hz. The number must always be
 specified and unique if the output corresponds to a single
 channel.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cat out\_altvoltage1\_DAC\_CLK\_frequency**
+root:/> **cat out_altvoltage1_DAC_CLK_frequency**
 491520000
-root:/\> **echo 245760000 \> out\_altvoltage1\_DAC\_CLK\_frequency**
-root:/\> **cat out\_altvoltage1\_DAC\_CLK\_frequency**
+root:/> **echo 245760000 > out_altvoltage1_DAC_CLK_frequency**
+root:/> **cat out_altvoltage1_DAC_CLK_frequency**
 245760000
 ```
 :::
 
 
-#### Set ChannelY Output Divider Phase
+###### Set ChannelY Output Divider Phase
 
-/sys/bus/iio/devices/iio:deviceX/out\_altvoltageY\_phase\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_phase
 Phase in radians of one frequency/clock output Y
-(out\_altvoltageY) relative to another frequency/clock output
-(out\_altvoltageZ) of the device X. The number must always be
+(out_altvoltageY) relative to another frequency/clock output
+(out_altvoltageZ) of the device X. The number must always be
 specified and unique if the output corresponds to a single
 channel.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cat out\_altvoltage1\_DAC\_CLK\_phase**
+root:/> **cat out_altvoltage1_DAC_CLK_phase**
 0.000000
-root:/\> **echo 3.142 \> out\_altvoltage1\_DAC\_CLK\_phase**
-root:/\> **cat out\_altvoltage1\_DAC\_CLK\_phase**
+root:/> **echo 3.142 > out_altvoltage1_DAC_CLK_phase**
+root:/> **cat out_altvoltage1_DAC_CLK_phase**
 3.1415920
 ```
 :::
 
 
-#### Disable / Power Down ChannelY
+###### Disable / Power Down ChannelY
 
-/sys/bus/iio/devices/iio:deviceX/out\_altvoltageY\_phase\
-Writing \'0\' powers down channelY, while writing any
-any value \> 0 enables the channel.
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_phase
+Writing '0' powers down channelY, while writing any
+any value > 0 enables the channel.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cat out\_altvoltage1\_DAC\_CLK\_raw**
+root:/> **cat out_altvoltage1_DAC_CLK_raw**
 1
-root:/\> **echo 0 \> out\_altvoltage1\_DAC\_CLK\_raw**
-root:/\> **cat out\_altvoltage1\_DAC\_CLK\_raw**
+root:/> **echo 0 > out_altvoltage1_DAC_CLK_raw**
+root:/> **cat out_altvoltage1_DAC_CLK_raw**
 0
 ```
 :::
 
 
-#### Query Device Status
+###### Query Device Status
 
-/sys/bus/iio/devices/iio:deviceX/pll1\_locked\
-/sys/bus/iio/devices/iio:deviceX/pll1\_reference\_clk\_a\_present\
-/sys/bus/iio/devices/iio:deviceX/pll1\_reference\_clk\_b\_present\
-/sys/bus/iio/devices/iio:deviceX/pll1\_reference\_clk\_test\_present\
-/sys/bus/iio/devices/iio:deviceX/pll2\_feedback\_clk\_present\
-/sys/bus/iio/devices/iio:deviceX/pll2\_locked\
-/sys/bus/iio/devices/iio:deviceX/pll2\_reference\_clk\_present\
-/sys/bus/iio/devices/iio:deviceX/vcxo\_clk\_present\
-Reading returns either \'1\' or \'0\'. \'1\' means that the
-clock in question is present or the pllY is locked. \'0\'
+/sys/bus/iio/devices/iio:deviceX/pll1_locked
+/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_a_present
+/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_b_present
+/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_test_present
+/sys/bus/iio/devices/iio:deviceX/pll2_feedback_clk_present
+/sys/bus/iio/devices/iio:deviceX/pll2_locked
+/sys/bus/iio/devices/iio:deviceX/pll2_reference_clk_present
+/sys/bus/iio/devices/iio:deviceX/vcxo_clk_present
+Reading returns either '1' or '0'. '1' means that the
+clock in question is present or the pllY is locked. '0'
 means that the clock is missing or the pllY is unlocked.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cat pll1\_locked**
+root:/> **cat pll1_locked**
 1
 
-root:/\> **grep \"\" pll\* vcxo**\*
-pll1\_locked:1
-pll1\_reference\_clk\_a\_present:1
-pll1\_reference\_clk\_b\_present:0
-pll1\_reference\_clk\_test\_present:0
-pll2\_feedback\_clk\_present:1
-pll2\_locked:1
-pll2\_reference\_clk\_present:1
-vcxo\_clk\_present:1
+root:/> **grep "" pll* vcxo***
+pll1_locked:1
+pll1_reference_clk_a_present:1
+pll1_reference_clk_b_present:0
+pll1_reference_clk_test_present:0
+pll2_feedback_clk_present:1
+pll2_locked:1
+pll2_reference_clk_present:1
+vcxo_clk_present:1
 
 ```
 :::
 
 
-#### Save Current Device Config to EEPROM
+###### Save Current Device Config to EEPROM
 
-/sys/bus/iio/devices/iio:deviceX/store\_eeprom\
-Writing \'1\' stores the current device configuration into
+/sys/bus/iio/devices/iio:deviceX/store_eeprom
+Writing '1' stores the current device configuration into
 on-chip EEPROM. After power-up or chip reset the device will
 automatically load the saved configuration.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **echo 1 \> store\_eeprom**
+root:/> **echo 1 > store_eeprom**
 ```
 :::
 
 
-#### SYNC Device
+###### SYNC Device
 
-/sys/bus/iio/devices/iio:deviceX/sync\_dividers\
-Writing \'1\' triggers the clock distribution synchronization
+/sys/bus/iio/devices/iio:deviceX/sync_dividers
+Writing '1' triggers the clock distribution synchronization
 functionality. All dividers are reset and the channels start
-with their predefined phase offsets (out\_altvoltageY\_phase).
+with their predefined phase offsets (out_altvoltageY_phase).
 Writing this file has the effect as driving the external
 /SYNC pin low.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **echo 1 \> sync\_dividers**
+root:/> **echo 1 > sync_dividers**
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

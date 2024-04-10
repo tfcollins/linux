@@ -6,8 +6,7 @@ title: AD7616: 16-Channel DAS with 16-Bit, Bipolar Input, Dual Simultaneous Samp
 AD7606 IIO Multi-Channel Simultaneous Sampling ADC Linux Driver
 ===============================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD7605-4](https://www.google.com/search?q=AD7605-4&btnI=lucky)
 -   [AD7606](https://www.google.com/search?q=AD7606&btnI=lucky)
@@ -16,13 +15,11 @@ Supported Devices
 -   [AD7606B](https://www.google.com/search?q=AD7606B&btnI=lucky)
 -   [AD7616](https://www.google.com/search?q=AD7616&btnI=lucky)
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [CN0148](https://www.google.com/search?q=CN0148&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD7605-4](https://www.google.com/search?q=EVAL-AD7605-4&btnI=lucky)
 -   [EVAL-AD7606EDZ](https://www.google.com/search?q=EVAL-AD7606EDZ&btnI=lucky)
@@ -31,18 +28,16 @@ Evaluation Boards
 -   [EVAL-AD7606BFMCZ](https://www.google.com/search?q=EVAL-AD7606BFMCZ&btnI=lucky)
 -   [EVAL-AD7616](https://www.google.com/search?q=EVAL-AD7616&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel, dual interface serial/parallel interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -59,8 +54,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -94,12 +88,12 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-Example platform\_device initialization / parallel interface
-============================================================
+Example platform_device initialization / parallel interface
+------------------------------------------------------------
 
 For the memory mapped parallel interface option, the user must specify the physical base address where the AD7606 is mapped into. A system IRQ number for the AD7606 BUSY indicator signal must be specified.
 
@@ -139,7 +133,7 @@ For the memory mapped parallel interface option, the user must specify the physi
 </table>
 
 ``` {.c}
-# if defined(CONFIG_AD7606) || defined(CONFIG_AD7606_MODULE)
+## if defined(CONFIG_AD7606) || defined(CONFIG_AD7606_MODULE)
 static struct resource ad7606_resources[] = {
     [0] = {
         .start  = 0x20100000,           /* SDP: AMS1 / CS_B */
@@ -166,7 +160,7 @@ static struct platform_device ad7606_device = {
 
 ``` {.c}
 static struct platform_device *board_devices[] __initdata = {
-## if defined(CONFIG_AD7606) || \
+## if defined(CONFIG_AD7606) || 
     defined(CONFIG_AD7606_MODULE)
     &ad7606_device,
 ## endif
@@ -187,14 +181,14 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-Example spi\_board\_info initialization / serial interface
-==========================================================
+Example spi_board_info initialization / serial interface
+----------------------------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordin
 gly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 <table>
 <thead>
@@ -225,7 +219,7 @@ It may also required to adjust max\_speed\_hz. Please consult the datasheet, for
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-## if defined(CONFIG_AD7606) || \
+## if defined(CONFIG_AD7606) || 
     defined(CONFIG_AD7606_MODULE)
     {
         /* the modalias must be the same as spi device driver name */
@@ -256,294 +250,270 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
-                      *** Analog to digital converters ***
-                [--snip--]
+    Linux Kernel Configuration
+        Device Drivers  --->
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
+                          *** Analog to digital converters ***
+                    [--snip--]
 
-                <*>     Analog Devices AD7606 ADC driver with parallel interface support
-                <*>     Analog Devices AD7606 ADC driver with spi interface support
+                    <*>     Analog Devices AD7606 ADC driver with parallel interface support
+                    <*>     Analog Devices AD7606 ADC driver with spi interface support
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
-Devicetree
-----------
+#### Devicetree
 
 Analog Devices AD7606 Simultaneous Sampling ADC
 
 Required properties for the AD7606:
 
-\- compatible: Must be one of
+- compatible: Must be one of
 
-```{=markdown}
-```
-  * "adi,ad7605-4"
-  * "adi,ad7606-8"
-  * "adi,ad7606-6"
-  * "adi,ad7606-4"
-  * "adi,ad7606b"
-  * "adi,ad7616"
+      * "adi,ad7605-4"
+      * "adi,ad7606-8"
+      * "adi,ad7606-6"
+      * "adi,ad7606-4"
+      * "adi,ad7606b"
+      * "adi,ad7616"
 
-```
-```
-\- reg: SPI chip select number for the device
+- reg: SPI chip select number for the device
 - spi-max-frequency: Max SPI frequency to use.
 
-```{=markdown}
-```
-      see: Documentation/devicetree/bindings/spi/spi-bus.txt
+          see: Documentation/devicetree/bindings/spi/spi-bus.txt
 
-```
-```
-\- spi-cpha: See Documentation/devicetree/bindings/spi/spi-bus.txt
+- spi-cpha: See Documentation/devicetree/bindings/spi/spi-bus.txt
 - avcc-supply: phandle to the Avcc power supply
 - interrupts: IRQ line for the ADC
 
-```{=markdown}
-```
-      see: Documentation/devicetree/bindings/interrupt-controller/interrupts.txt
+          see: Documentation/devicetree/bindings/interrupt-controller/interrupts.txt
 
-```
-```
-\- adi,conversion-start-gpios: must be the device tree identifier of the CONVST pin. This logic input is used to initiate conversions on the analog input channels. As the line is active high, it should be marked GPIO\_ACTIVE\_HIGH.
+- adi,conversion-start-gpios: must be the device tree identifier of the CONVST pin. This logic input is used to initiate conversions on the analog input channels. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.
 
 Optional properties:
 
-\- reset-gpios: must be the device tree identifier of the RESET pin. If specified, it will be asserted during driver probe. As the line is active high, it should be marked GPIO\_ACTIVE\_HIGH.
+- reset-gpios: must be the device tree identifier of the RESET pin. If specified, it will be asserted during driver probe. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.
 
-\- standby-gpios: must be the device tree identifier of the STBY pin. This pin is used to place the AD7606 into one of two power-down modes, Standby mode or Shutdown mode. As the line is active low, it should be marked GPIO\_ACTIVE\_LOW.
+- standby-gpios: must be the device tree identifier of the STBY pin. This pin is used to place the AD7606 into one of two power-down modes, Standby mode or Shutdown mode. As the line is active low, it should be marked GPIO_ACTIVE_LOW.
 
-\- adi,first-data-gpios: must be the device tree identifier of the FRSTDATA pin. The FRSTDATA output indicates when the first channel, V1, is being read back on either the parallel, byte or serial interface. As the line is active high, it should be marked GPIO\_ACTIVE\_HIGH.
+- adi,first-data-gpios: must be the device tree identifier of the FRSTDATA pin. The FRSTDATA output indicates when the first channel, V1, is being read back on either the parallel, byte or serial interface. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.
 
-\- adi,range-gpios: must be the device tree identifier of the RANGE pin. The polarity on this pin determines the input range of the analog input channels. If this pin is tied to a logic high, the analog input range is ±10V for all channels. If this pin is tied to a logic low, the analog input range is ±5V for all channels. As the line is active high, it should be marked GPIO\_ACTIVE\_HIGH.
+- adi,range-gpios: must be the device tree identifier of the RANGE pin. The polarity on this pin determines the input range of the analog input channels. If this pin is tied to a logic high, the analog input range is ±10V for all channels. If this pin is tied to a logic low, the analog input range is ±5V for all channels. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.
 
-\- adi,oversampling-ratio-gpios: must be the device tree identifier of the over-sampling mode pins. As the line is active high, it should be marked GPIO\_ACTIVE\_HIGH.
+- adi,oversampling-ratio-gpios: must be the device tree identifier of the over-sampling mode pins. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.
 
-\- adi,sw-mode: Boolean, software mode of operation, so far available only for ad7606b. Software mode is enabled when all three oversampling mode pins are connected to high level. The AD7606B is configured by the corresponding registers. If the adi,oversampling-ratio-gpios property is defined, then the driver will set the oversampling gpios to high. Otherwise, it is assumed that the pins are hardwired to VDD.
+- adi,sw-mode: Boolean, software mode of operation, so far available only for ad7606b. Software mode is enabled when all three oversampling mode pins are connected to high level. The AD7606B is configured by the corresponding registers. If the adi,oversampling-ratio-gpios property is defined, then the driver will set the oversampling gpios to high. Otherwise, it is assumed that the pins are hardwired to VDD.
 
 Example:
 
-```{=markdown}
-```
-  adc@0 {
-      compatible = "adi,ad7606-8";
-      reg = <0>;
-      spi-max-frequency = <1000000>;
-      spi-cpol;
-      avcc-supply = <&adc_vref>;
-      interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
-      interrupt-parent = <&gpio>;
-      adi,conversion-start-gpios = <&gpio 17 GPIO_ACTIVE_HIGH>;
-      reset-gpios = <&gpio 27 GPIO_ACTIVE_HIGH>;
-      adi,first-data-gpios = <&gpio 22 GPIO_ACTIVE_HIGH>;
-      adi,oversampling-ratio-gpios = <&gpio 18 GPIO_ACTIVE_HIGH
-                      &gpio 23 GPIO_ACTIVE_HIGH
-                      &gpio 26 GPIO_ACTIVE_HIGH>;
-      standby-gpios = <&gpio 24 GPIO_ACTIVE_LOW>;
-      adi,sw-mode;
-  };
+      adc@0 {
+          compatible = "adi,ad7606-8";
+          reg = <0>;
+          spi-max-frequency = <1000000>;
+          spi-cpol;
+          avcc-supply = <&adc_vref>;
+          interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
+          interrupt-parent = <&gpio>;
+          adi,conversion-start-gpios = <&gpio 17 GPIO_ACTIVE_HIGH>;
+          reset-gpios = <&gpio 27 GPIO_ACTIVE_HIGH>;
+          adi,first-data-gpios = <&gpio 22 GPIO_ACTIVE_HIGH>;
+          adi,oversampling-ratio-gpios = <&gpio 18 GPIO_ACTIVE_HIGH
+                          &gpio 23 GPIO_ACTIVE_HIGH
+                          &gpio 26 GPIO_ACTIVE_HIGH>;
+          standby-gpios = <&gpio 24 GPIO_ACTIVE_LOW>;
+          adi,sw-mode;
+      };
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0 iio:trigger0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/bus/iio/devices/iio:device0\> **ls -l**
+root:/sys/bus/iio/devices/iio:device0> **ls -l**
 drwxr-xr-x 5 root root 0 Jan 1 00:00 buffer
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage0\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage1\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage2\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage3\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage4\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage5\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage6\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage7\_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in\_voltage\_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 name
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 oversampling\_ratio
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 oversampling\_ratio\_available
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 range
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 range\_available
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../bus/iio
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage0_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage1_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage2_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage3_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage4_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage5_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage6_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage7_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage_scale
+-r--r--r-- 1 root root 4096 Jan 1 00:00 name
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 oversampling_ratio
+-r--r--r-- 1 root root 4096 Jan 1 00:00 oversampling_ratio_available
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 range
+-r--r--r-- 1 root root 4096 Jan 1 00:00 range_available
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -> ../../../../bus/iio
 drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 uevent
-root:/sys/bus/iio/devices/iio:device0\>
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 uevent
+root:/sys/bus/iio/devices/iio:device0>
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat name**
+root:/sys/bus/iio/devices/iio:device0> **cat name**
 ad7606
 
 ```
 :::
 
 
-##### Show available oversampling ratios
+###### Show available oversampling ratios
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat oversampling\_ratio\_available**
+root:/sys/bus/iio/devices/iio:device0> **cat oversampling_ratio_available**
 0 2 4 8 16 32 64
 ```
 :::
 
 
-##### Show available input ranges
+###### Show available input ranges
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat range\_available**
+root:/sys/bus/iio/devices/iio:device0> **cat range_available**
 5000 10000
 ```
 :::
 
 
-##### Set input range to 10Volt
+###### Set input range to 10Volt
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **echo 10000 \> range**
-root:/sys/bus/iio/devices/iio:device0\> **cat range**
+root:/sys/bus/iio/devices/iio:device0> **echo 10000 > range**
+root:/sys/bus/iio/devices/iio:device0> **cat range**
 10000
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
-scale to be applied to in0\_raw in order to obtain the measured voltage in millivolts.
+**Description:**
+scale to be applied to in0_raw in order to obtain the measured voltage in millivolts.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat in\_voltage\_scale**
+root:/sys/bus/iio/devices/iio:device0> **cat in_voltage_scale**
 0.152
 
 ```
 :::
 
 
-##### Show channel 2 measurement
+###### Show channel 2 measurement
 
-**Description:**\
+**Description:**
 Raw unscaled voltage measurement on channel 2
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0\> **cat in\_voltage2\_raw**
+root:/sys/bus/iio/devices/iio:device0> **cat in_voltage2_raw**
 5789
 ```
 :::
 
 
-**U** = *in2\_raw \* in\_scale* = 5789 \* 0.152 = **879,928 *mV***
+**U** = *in2_raw * in_scale* = 5789 * 0.152 = **879,928 *mV***
 
-Trigger management
-------------------
+#### Trigger management
 
-![iio\_snippets\#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn)
 
-#### Available standalone trigger drivers
+##### Available standalone trigger drivers
 
-![iio\_snippets\#Standalone trigger drivers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn)
+![iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn)
 
-Buffer management
------------------
+#### Buffer management
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0/buffer\> **ls**
+root:/sys/bus/iio/devices/iio:device0/buffer> **ls**
 **enable** subsystem
 **length** uevent
-root:/sys/bus/iio/devices/iio:device0/buffer\>
+root:/sys/bus/iio/devices/iio:device0/buffer>
 ```
 :::
 
 
-![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device0/scan\_elements\> **ls**
-in\_voltage0\_en in\_voltage2\_index in\_voltage5\_en in\_voltage7\_index
-in\_voltage0\_index in\_voltage3\_en in\_voltage5\_index in\_voltage\_type
-in\_voltage1\_en in\_voltage3\_index in\_voltage6\_en timestamp\_en
-in\_voltage1\_index in\_voltage4\_en in\_voltage6\_index timestamp\_index
-in\_voltage2\_en in\_voltage4\_index in\_voltage7\_en timestamp\_type
-root:/sys/bus/iio/devices/iio:device0/scan\_elements\>
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **ls**
+in_voltage0_en in_voltage2_index in_voltage5_en in_voltage7_index
+in_voltage0_index in_voltage3_en in_voltage5_index in_voltage_type
+in_voltage1_en in_voltage3_index in_voltage6_en timestamp_en
+in_voltage1_index in_voltage4_en in_voltage6_index timestamp_index
+in_voltage2_en in_voltage4_index in_voltage7_en timestamp_type
+root:/sys/bus/iio/devices/iio:device0/scan_elements>
 ```
 :::
 
 
-![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

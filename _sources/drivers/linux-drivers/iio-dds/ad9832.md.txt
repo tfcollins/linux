@@ -6,29 +6,25 @@ title: AD9835: Complete DDS With 10-Bit On-Chip DAC
 AD9832 IIO Direct Digital Synthesis Linux Driver
 ================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD9832](https://www.google.com/search?q=AD9832&btnI=lucky)
 -   [AD9835](https://www.google.com/search?q=AD9835&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD9832SDZ](https://www.google.com/search?q=EVAL-AD9832SDZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface DDS controllers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -45,8 +41,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -68,13 +63,13 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-The reference voltage may vary between boards and models. The platform\_data for the device\'s \"struct device\" holds this information.
+The reference voltage may vary between boards and models. The platform_data for the device's "struct device" holds this information.
 
-\<source trunk/drivers/staging/iio/dds/ad9832.h:ad9832\_platform\_data{} c linux-kernel\>
+<source trunk/drivers/staging/iio/dds/ad9832.h:ad9832_platform_data{} c linux-kernel>
 
 ``` {.c}
 /**
@@ -103,11 +98,11 @@ struct ad9832_platform_data ad9832_pdata = {
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the DDS IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-# if defined(CONFIG_AD9832) \
+## if defined(CONFIG_AD9832) 
     || defined(CONFIG_AD9832_MODULE)
     {
         .modalias = "ad9832",
@@ -136,266 +131,261 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD9832 Driver depends on **CONFIG\_SPI**
+The AD9832 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                      *** Direct Digital Synthesis ***
-                [--snip--]
+                          *** Direct Digital Synthesis ***
+                    [--snip--]
 
-                <*>   Analog Devices ad9832/5 driver
+                    <*>   Analog Devices ad9832/5 driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 device0
-root:/sys/bus/iio/devices\> **cd device0**
+root:/sys/bus/iio/devices> **cd device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **ls -l**
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_freq0
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_freq1
--r\--r\--r\-- 1 root root 4096 Jan 3 15:11 dds0\_freq\_scale
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_freqsymbol
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_out\_enable
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_phase0
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_phase1
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_phase2
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_phase3
--r\--r\--r\-- 1 root root 4096 Jan 3 15:11 dds0\_phase\_scale
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_phasesymbol
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 3 15:11 dds0\_pincontrol\_en
--r\--r\--r\-- 1 root root 4096 Jan 3 15:11 name
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **ls -l**
+--w------- 1 root root 4096 Jan 3 15:11 dds0_freq0
+--w------- 1 root root 4096 Jan 3 15:11 dds0_freq1
+-r--r--r-- 1 root root 4096 Jan 3 15:11 dds0_freq_scale
+--w------- 1 root root 4096 Jan 3 15:11 dds0_freqsymbol
+--w------- 1 root root 4096 Jan 3 15:11 dds0_out_enable
+--w------- 1 root root 4096 Jan 3 15:11 dds0_phase0
+--w------- 1 root root 4096 Jan 3 15:11 dds0_phase1
+--w------- 1 root root 4096 Jan 3 15:11 dds0_phase2
+--w------- 1 root root 4096 Jan 3 15:11 dds0_phase3
+-r--r--r-- 1 root root 4096 Jan 3 15:11 dds0_phase_scale
+--w------- 1 root root 4096 Jan 3 15:11 dds0_phasesymbol
+--w------- 1 root root 4096 Jan 3 15:11 dds0_pincontrol_en
+-r--r--r-- 1 root root 4096 Jan 3 15:11 name
 drwxr-xr-x 2 root root 0 Jan 3 15:11 power
-lrwxrwxrwx 1 root root 0 Jan 3 15:11 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 3 15:11 uevent
+lrwxrwxrwx 1 root root 0 Jan 3 15:11 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 3 15:11 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat name**
 ad9832
 ```
 :::
 
 
-##### Show frequency scale
+###### Show frequency scale
 
-/sys/bus/iio/devices/\.../ddsX\_freqY\_scale\
-Scale to be applied to ddsX\_freqY in order to obtain the
+/sys/bus/iio/devices/.../ddsX_freqY_scale
+Scale to be applied to ddsX_freqY in order to obtain the
 desired value in Hz. If shared across all frequency registers
 Y is not present. It is also possible X is not present if
 shared across all channels.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat dds0\_freq\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat dds0_freq_scale**
 1
 ```
 :::
 
 
-##### Set frequency symbol 0/1
+###### Set frequency symbol 0/1
 
-/sys/bus/iio/devices/\.../ddsX\_freqY\
+/sys/bus/iio/devices/.../ddsX_freqY
 Stores frequency into tuning word Y.
-There will be more than one ddsX\_freqY file, which allows for
+There will be more than one ddsX_freqY file, which allows for
 pin controlled FSK Frequency Shift Keying
-(ddsX\_pincontrol\_freq\_en is active) or the user can control
+(ddsX_pincontrol_freq_en is active) or the user can control
 the desired active tuning word by writing Y to the
-ddsX\_freqsymbol file.
+ddsX_freqsymbol file.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 1000000 \> dds0\_freq0**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 500000 \> dds0\_freq1**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 1000000 > dds0_freq0**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 500000 > dds0_freq1**
 ```
 :::
 
 
-**freq0** = *ddsX\_freq0 \* dds0\_freq\_scale* = 1000000 \* 1 = **1 MHz**\
-**freq1** = *ddsX\_freq1 \* dds0\_freq\_scale* = 500000 \* 1 = **500 kHz**
+**freq0** = *ddsX_freq0 * dds0_freq_scale* = 1000000 * 1 = **1 MHz**
+**freq1** = *ddsX_freq1 * dds0_freq_scale* = 500000 * 1 = **500 kHz**
 
-##### Show phase scale
+###### Show phase scale
 
-/sys/bus/iio/devices/\.../ddsX\_phaseY\_scale\
-Scale to be applied to ddsX\_phaseY in order to obtain the
+/sys/bus/iio/devices/.../ddsX_phaseY_scale
+Scale to be applied to ddsX_phaseY in order to obtain the
 desired value in rad. If shared across all phase registers
 Y is not present. It is also possible X is not present if
 shared across all channels.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat dds0\_phase\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat dds0_phase_scale**
 0.0015339808
 ```
 :::
 
 
-##### Set phase symbol 0..3
+###### Set phase symbol 0..3
 
-/sys/bus/iio/devices/\.../ddsX\_phaseY\
+/sys/bus/iio/devices/.../ddsX_phaseY
 Stores phase into Y.
-There will be more than one ddsX\_phaseY file, which allows for
+There will be more than one ddsX_phaseY file, which allows for
 pin controlled PSK Phase Shift Keying
-(ddsX\_pincontrol\_phase\_en is active) or the user can
+(ddsX_pincontrol_phase_en is active) or the user can
 control the desired phase Y which is added to the phase
-accumulator output by writing Y to the en\_phase file.
+accumulator output by writing Y to the en_phase file.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 0 \> dds0\_phase0**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 512 \> dds0\_phase1**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 1024 \> dds0\_phase2**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 2048 \> dds0\_phase3**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 0 > dds0_phase0**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 512 > dds0_phase1**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 1024 > dds0_phase2**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 2048 > dds0_phase3**
 ```
 :::
 
 
-**phase0** = *dds0\_phase0 \* ddsX\_phaseY\_scale* = 0 \* 0.0015339808 = **0 rad**\
-**phase1** = *dds0\_phase1 \* ddsX\_phaseY\_scale* = 512 \* 0.0015339808 = PI/4 = **0.7853981696 rad**\
-**phase0** = *dds0\_phase2 \* ddsX\_phaseY\_scale* = 1024 \* 0.0015339808 = PI/2 = **1.5707963 rad**\
-**phase1** = *dds0\_phase3 \* ddsX\_phaseY\_scale* = 2048 \* 0.0015339808 = PI = **3.1415926 rad**
+**phase0** = *dds0_phase0 * ddsX_phaseY_scale* = 0 * 0.0015339808 = **0 rad**
+**phase1** = *dds0_phase1 * ddsX_phaseY_scale* = 512 * 0.0015339808 = PI/4 = **0.7853981696 rad**
+**phase0** = *dds0_phase2 * ddsX_phaseY_scale* = 1024 * 0.0015339808 = PI/2 = **1.5707963 rad**
+**phase1** = *dds0_phase3 * ddsX_phaseY_scale* = 2048 * 0.0015339808 = PI = **3.1415926 rad**
 
-##### Disable FSK/PSK pincontrol
+###### Disable FSK/PSK pincontrol
 
-/sys/bus/iio/devices/\.../ddsX\_pincontrol\_en\
-ddsX\_pincontrol\_en: Both, the active frequency and phase is
+/sys/bus/iio/devices/.../ddsX_pincontrol_en
+ddsX_pincontrol_en: Both, the active frequency and phase is
 controlled by the respective phase and frequency control inputs.
 In case the device in question allows to independent controls,
-then there are dedicated files (ddsX\_pincontrol\_freq\_en,
-ddsX\_pincontrol\_phase\_en).
+then there are dedicated files (ddsX_pincontrol_freq_en,
+ddsX_pincontrol_phase_en).
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 0 \> dds0\_pincontrol\_en**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 0 > dds0_pincontrol_en**
 ```
 :::
 
 
-##### Enable output 0
+###### Enable output 0
 
-/sys/bus/iio/devices/\.../ddsX\_out\_enable\
-/sys/bus/iio/devices/\.../ddsX\_outY\_enable\
-ddsX\_outY\_enable controls signal generation on output Y of
+/sys/bus/iio/devices/.../ddsX_out_enable
+/sys/bus/iio/devices/.../ddsX_outY_enable
+ddsX_outY_enable controls signal generation on output Y of
 channel X. Y may be suppressed if all channels are
 controlled together.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 1 \> dds0\_out\_enable**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 1 > dds0_out_enable**
 ```
 :::
 
 
-##### Switch between frequency symbol 0/1
+###### Switch between frequency symbol 0/1
 
-/sys/bus/iio/devices/\.../ddsX\_freqsymbol\
+/sys/bus/iio/devices/.../ddsX_freqsymbol
 Specifies the active output frequency tuning word. The value
-corresponds to the Y in ddsX\_freqY. To exit this mode the user
-can write ddsX\_pincontrol\_freq\_en or ddsX\_out\_enable file.
+corresponds to the Y in ddsX_freqY. To exit this mode the user
+can write ddsX_pincontrol_freq_en or ddsX_out_enable file.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 1 \> dds0\_freqsymbol**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 0 \> dds0\_freqsymbol**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 1 > dds0_freqsymbol**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 0 > dds0_freqsymbol**
 ```
 :::
 
 
-##### Switch between phase symbol 0..3
+###### Switch between phase symbol 0..3
 
-/sys/bus/iio/devices/\.../ddsX\_phasesymbol\
+/sys/bus/iio/devices/.../ddsX_phasesymbol
 Specifies the active phase Y which is added to the phase
 accumulator output. The value corresponds to the Y in
-ddsX\_phaseY. To exit this mode the user can write
-ddsX\_pincontrol\_phase\_en or disable file.
+ddsX_phaseY. To exit this mode the user can write
+ddsX_pincontrol_phase_en or disable file.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 0 \> dds0\_phasesymbol**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **echo 1 \> dds0\_phasesymbol**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 0 > dds0_phasesymbol**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **echo 1 > dds0_phasesymbol**
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

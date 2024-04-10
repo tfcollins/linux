@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
     <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -82,20 +83,21 @@
         </div>
         <nav>
           <ul>
-<li><a class="reference internal" href="#">ADXL362 Input 3-Axis Digital Accelerometer Linux Driver</a><ul>
-<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#">ADXL362 Input 3-Axis Digital Accelerometer Linux Driver</a></li>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a><ul>
 <li><a class="reference internal" href="#reference-circuits">Reference Circuits</a></li>
 <li><a class="reference internal" href="#evaluation-boards">Evaluation Boards</a></li>
 <li><a class="reference internal" href="#adxl362-micropower-3-axis-mems-accelerometer-digital-output-2-4-8-g-range">ADXL362: Micropower 3-Axis MEMS Accelerometer: Digital Output, ±2/±4/±8 g Range</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#source-code">Source Code</a><ul>
 <li><a class="reference internal" href="#status">Status</a></li>
 <li><a class="reference internal" href="#files">Files</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#example-platform-device-initialization">Example platform device initialization</a></li>
-<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a><ul>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
+<li><a class="reference internal" href="#driver-compiled-as-a-module">Driver compiled as a module</a></li>
 <li><a class="reference internal" href="#driver-compiled-into-the-kernel">Driver compiled into the kernel</a></li>
 <li><a class="reference internal" href="#common-problems">Common Problems</a></li>
 <li><a class="reference internal" href="#checking-for-proper-installation">Checking for proper installation</a></li>
@@ -109,6 +111,8 @@
 </li>
 <li><a class="reference internal" href="#more-information">More Information</a><ul>
 <li><a class="reference internal" href="#adxl362-6-android-acceleration-sensor">ADXL362/6 Android Acceleration Sensor</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -146,840 +150,290 @@ Content on this topic
 <li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
 <li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5520/01 MFD Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html#backlight">Backlight</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860 Back-light LED Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#instructions-theory-of-operation">Instructions / Theory of operation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#adp8860-specific-backlight-controls">ADP8860 Specific Backlight controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#id1">ADP8860 Specific Backlight controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#id3">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#id4">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#supported-devices">Supported Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html#id2">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870 Back-light LED Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html#instructions-theory-of-operation">Instructions / Theory of operation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html#adp8870-specific-backlight-controls">ADP8870 Specific Backlight controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html#example-i2c-spi-device-initialization">Example I2C &amp; SPI device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html#more-information">More Information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html#clock-pointers">CLOCK pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5588 Input Keyboard and GPIO Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5589 Input Keyboard and GPIO Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html#adp5589">ADP5589</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html#pmod-ioxp">PMOD-IOXP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control HDL CORE driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html#supported-boards">Supported boards</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947 High Precision Power and Energy Monitor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html#example-i2c-spi-device-initialization">Example I2C &amp; SPI device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100 10BASE-T1L PHY Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html#example-seeing-mac-phy-info">Example: Seeing MAC &amp; PHY info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html#ethernet-pointers">Ethernet pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1300/ADIN1200 PHY Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html#example-seeing-mac-phy-info">Example: Seeing MAC &amp; PHY info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html#ethernet-pointers">Ethernet pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110 10BASE-T1L MAC-PHY Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html#example-seeing-mac-phy-info">Example: Seeing MAC &amp; PHY info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html#ethernet-pointers">Ethernet pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111 10BASE-T1L 2-Port Ethernet Switch Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html#printing-the-forwarding-database">Printing the forwarding database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html#ethernet-pointers">Ethernet pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance TC6-10BASE-T1x MAC-PHY Serial Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html#example-seeing-mac-phy-info">Example: Seeing MAC &amp; PHY info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312, ADXL313, ADXL314 Low Noise, Low Drift, Low Power, 3-Axis MEMS Accelerometers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="adxl345.html">ADXL345 Input 3-Axis Digital Accelerometer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adxl345.html#adxl34x-hardware-features">ADXL34x Hardware Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adxl345.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adxl345.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adxl345.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adxl345.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adxl345.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adxl345.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355 Low Noise, Low Drift, Low Power, 3-Axis MEMS Accelerometers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ADXL362 Input 3-Axis Digital Accelerometer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367 Input 3-Axis Digital Accelerometer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372 Input 3-Axis Digital Accelerometer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201 IIO Dual-Axis Digital Inclinometer and Accelerometer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203 IIO Programmable 360 Degrees Inclinometer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209 IIO Accelerometer and Inclinometer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240 IIO Programmable Impact Sensor and Recorder Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366 Dual-Digital Variable Gain Amplifier Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html#example-spi-device-devicetree-initialization">Example SPI device devicetree initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250 Programmable Gain Instrumentation Amplifier Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html#properties">properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html#hardware-configuration">Hardware configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425A Digital Step Attenuator Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html#properties">properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html">AD4003/AD4007/AD4011/AD4020/ADAQ4001/ADAQ4003 Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html#driver-setup">Driver setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html">AD4630 ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html#required-properties">Required properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html">AD9208 ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html#example-devicetree-spi-device-initialization">Example devicetree SPI device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html">AD7476A IIO Single Channel Serial ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html">AD7091R5 ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html#required-properties">Required properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html">AD7091R-2/-4/-8 ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html#required-properties">Required properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html">AD7124 IIO Sigma-Delta ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html">AD7780 IIO Low Power Sigma-Delta ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html">AD7192 IIO High Precision ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html#device-tree-support">Device tree support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html">AD7266 Differential/Single-Ended Input, Dual, Simultaneous Sampling, 2 MSPS, 12-Bit, 3-Channel SAR A/D Converter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A IIO Lithium Ion Battery Monitoring System Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291 IIO ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298 IIO Multi-Channel ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7606 IIO Multi-Channel Simultaneous Sampling ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html#example-platform-device-initialization-parallel-interface">Example platform_device initialization / parallel interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html#example-spi-board-info-initialization-serial-interface">Example spi_board_info initialization / serial interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766 24-Bit, 8.5 mW, 109 dB, 128 kSPS/64 kSPS/32 kSPS ADCs IIO Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1 IIO Low Power Sigma-Delta ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html">AD7768 IIO Precision ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html">AD7793 IIO Low Power Sigma-Delta ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html">AD7791 IIO Low Power Sigma-Delta ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html">AD7887 IIO ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html">AD7998 IIO ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html">AD9083 Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html#example-device-trees">Example device trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html">AD9081 MxFE Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html#user-guides">User Guides</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html#device-tree-customization">Device tree customization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html#general-iio-and-driver-conventions">General IIO and driver conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208 ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html#example-devicetree-spi-device-initialization">Example devicetree SPI device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html">AXI ADC HDL Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html">ADAQ8092 14-Bit, 105 MSPS, μModule Linux device driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html#related-device-drivers">Related Device Drivers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html#driver-testing-api">Driver testing / API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html">ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html">ADAR1000 8 GHz to 16 GHz, 4-Channel, X Band and KuBand Beamformer Linux device driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html#driver-testing-api">Driver testing / API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152 IIO Capacitance to Digital Converter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html#ad7152">AD7152</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150 IIO Capacitance to Digital Converter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7746 IIO Capacitance to Digital Converter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74413R/AD74412R Quad-Channel, Software Configurable, Input and Output Circuit Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R Dual Channel, 16-Bit, 33 MUPS, Multispan, Multi-IO SPI DAC Linux device driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html#driver-testing-api">Driver testing / API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5064 IIO Quad-Channel DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5446 IIO DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">nanoDAC+ IIO DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html#reference-circuits">Reference Circuits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360 IIO Multi-Channel DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html#example-device-tree">Example device tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380 IIO Multi-Channel DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5449 IIO DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421 IIO DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html#reference-circuits">Reference Circuits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5504 IIO High Voltage ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R IIO DAC/ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html#required-properties">Required properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html#iio-sysfs-interface">IIO sysfs interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R IIO DAC/ADC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html#required-properties">Required properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html#iio-sysfs-interface">IIO sysfs interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624 IIO Quad-Channel DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5755 IIO Multi-Channel DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5764 IIO Quad-Channel DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758 IIO DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5791 IIO DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R IIO DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html">AXI DAC HDL Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664 IIO DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html">AD9832 IIO Direct Digital Synthesis Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html">AD9834 IIO Direct Digital Synthesis Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html#example-device-tree">Example device-tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818 2GHz to 18GHz, Digitally Tunable High-Pass and Low-PASS Filter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9162 DAC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html#show-device-name">Show device name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508 1.65 GHz Clock Fanout Buffer with Output Dividers and Delay Adjust Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html#enabling-the-driver">Enabling the driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html#device-tree-example">Device tree example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9517 12-Output Clock Generator with Integrated VCO Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html#note">Note</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html#enabling-the-driver">Enabling the driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523 Low Jitter Clock Generator Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528 Low Jitter Clock Generator Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html#enabling-the-driver">Enabling the driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html#available-properties">Available properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159 IIO Direct Modulation/Fast Waveform Generating Synthesizer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350 IIO Wideband Synthesizer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html#devicetree-bindings">Devicetree bindings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360 Integrated Integer-N Synthesizer/VCO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html#enabling-the-driver">Enabling the driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html#device-tree-example">Device tree example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371 IIO Wideband Synthesizer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377 IIO Wideband Synthesizer with Integrated VCO Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF5355 IIO Wideband Synthesizer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html#devicetree-bindings">Devicetree bindings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013 24 GHz to 44 GHz, Wideband, Microwave Upconverter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html#properties">properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html#hardware-configuration">Hardware configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014 24 GHz to 44 GHz, Wideband, Microwave Downconverter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html#properties">properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html#hardware-configuration">Hardware configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780 5.9 GHz to 23.6 GHz, Wideband, Microwave Upconverter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html#properties">properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html#hardware-configuration">Hardware configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044 Clock Jitter Attenuator with JESD204B Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html#enabling-the-driver">Enabling the driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html#available-properties">Available properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952 Ultralow Jitter, 4.5GHz PLL, JESD204B/JESD204C Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html#enabling-the-driver">Enabling the driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html#available-properties">Available properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060 IIO Yaw Rate Gyroscope Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080 IIO Yaw Rate Gyroscope Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130 IIO High Precision Angular Rate Gyroscope Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16136 IIO Inertial Measurement Unit Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16260 IIO Programmable Low Power Gyroscope Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450 IIO Gyroscope Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html#adxrs450-300-sec-high-vibration-immunity-digital-gyro">ADXRS450: ±300°/sec High Vibration Immunity Digital Gyro</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html#adding-adxrs450-to-the-kernel">Adding ADXRS450 to the Kernel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933 IIO Impedance Converter and Network Analyzer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html#supported-devices">Supported Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16400 IIO Inertial Measurement Unit Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16480 IIO Inertial Measurement Unit Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#required-properties-for-the-adis16475">Required properties for the ADIS16475:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#hardware-configuration">Hardware configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90 IIO Resolver-to-Digital Converter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html#driver-usage">Driver Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200 IIO Resolver-to-Digital Converter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html#driver-usage">Driver Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210 IIO Resolver-to-Digital Converter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html#driver-usage">Driver Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html">AD6676 Wideband IF Receiver Subsystem Linux device driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#related-device-drivers">Related Device Drivers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#device-driver-customization">Device Driver Customization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#driver-testing-api">Driver testing / API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html">AD9361 high performance, highly integrated RF Agile Transceiver™ Linux device driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#related-device-drivers">Related Device Drivers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#device-driver-customization">Device Driver Customization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#driver-testing-api">Driver testing / API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html">AD9371, AD9375 highly integrated, wideband RF transceiver Linux device driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#interrelated-device-drivers">Interrelated Device Drivers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#device-driver-customization">Device Driver Customization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#driver-testing-api">Driver testing / API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9002.html">ADRV9002 Integrated Dual RF Transceiver Linux device driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9002.html#interrelated-device-drivers">Interrelated Device Drivers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html">ADRV9009, ADRV9008 highly integrated, wideband RF transceiver Linux device driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#interrelated-device-drivers">Interrelated Device Drivers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#device-driver-customization">Device Driver Customization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#stream-processor-configuration">Stream Processor Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#driver-testing-api">Driver testing / API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983/LTC2984/LTC2986/LTM2985 Multi-Sensor Digital Temperature Measurement System Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html#example-spi-device-initialization">Example SPI device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960 10 MHz to 20 GHz, Integrated Vector Network Analyzer Front-End Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html#devicetree-properties">Devicetree properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html#hardware-configuration">Hardware configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad714x.html">AD714X Input CapTouch® Programmable Controller Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad714x.html#capacitance-touch-sensors">Capacitance Touch Sensors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad714x.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad714x.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad714x.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad714x.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad714x.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad714x.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad714x.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873 Input Touch Screen Digitizer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877 Input Touch Screen Controller Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879 Input Touch Screen Digitizer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html#more-information">More Information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html#id1"/></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html">ADP1650 LED Flash Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">Digital Potentiometer Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#files">Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#ls-sys-bus-i2c-devices">ls /sys/bus/i2c/devices/</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#ls-sys-bus-i2c-devices-0-002f">ls /sys/bus/i2c/devices/0-002f/</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#cd-sys-bus-i2c-devices-0-002f">cd /sys/bus/i2c/devices/0-002f/</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#cat-eeprom0">cat eeprom0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#echo-10-eeprom0">echo 10 &gt; eeprom0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#id2">cat eeprom0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#cat-rdac0">cat rdac0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#echo-3-rdac0">echo 3 &gt; rdac0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#id3">cat rdac0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408/ADGS1409 8:1/Dual 4:1 Muxes Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html#supported-devices">Supported Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7242 Network MAC802154 Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP150 Regulator Fixed Voltage Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html#reference-circuits">Reference Circuits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html#hardware-configuration">Hardware configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html#driver-testing">Driver testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html#more-information">More Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398 Regulator Current Sink DAC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html#supported-devices">Supported Devices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html#evaluation-boards">Evaluation Boards</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html#customize-device-parameters">Customize Device Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX310x Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html#driver-testing">Driver testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html#supported-devices">Supported devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1836 Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html#example-device-initialization">Example device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html#ad1836-evaluation-board-driver">AD1836 evaluation board driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html#supported-devices">Supported devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1936 Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html#example-device-initialization">Example device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html#ad193x-evaluation-board-driver">AD193X evaluation board driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html#supported-devices">Supported devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73322</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html#testing-the-built-in-kernel-driver">Testing the built in kernel driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361 Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html#example-device-initialization">Example device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html#sigmadsp-firmware">SigmaDSP Firmware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html#adau1x61-evaluation-board-driver">ADAU1X61 evaluation board driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html#id1">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372 Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html#example-device-initialization">Example device initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373 Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html#adau1373-evaluation-board-driver">ADAU1373 evaluation board driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html#id1">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1781 Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html#example-device-initialization">Example device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html#adau1x81-evaluation-board-driver">ADAU1X81 evaluation board driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html#id1">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1701 Sound Audio System Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html#adau1701-evaluation-board-driver">ADAU1701 evaluation board driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html#id2">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977 Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html#example-device-initialization">Example device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html#asoc-dapm-widgets">ASoC DAPM Widgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html#alsa-controls">ALSA Controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html#dai-configuration">DAI configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002 Stereo PDM to I2S or TDM Conversion IC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#devicetree-bindings">Devicetree bindings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#example-device-initialization">Example device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#kernel-configuration">Kernel configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#asoc-dapm-widgets">ASoC DAPM widgets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#alsa-controls">ALSA controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#dai-configuration">DAI Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#more-information">More information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118 8 Channel, PDM to I2S or TDM Conversion IC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#devicetree-bindings">Devicetree bindings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#example-device-initialization">Example device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#i2c-mode">I2C mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#kernel-configuration">Kernel configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#asoc-dapm-widgets-hw-mode">ASoC DAPM widgets (HW Mode)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#asoc-dapm-widgets-i2c">ASoC DAPM widgets (I2C)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#alsa-controls">ALSA controls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#dai-configuration">DAI Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#more-information">More information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV80X Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html#supported-features">Supported Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html#adav80x-evaluation-board-driver">ADAV80X evaluation board driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html#id2">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html#supported-devices">Supported devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602 Sound CODEC Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html#example-device-initialization">Example device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html#ssm2604-evaluation-board-driver">SSM2604 evaluation board driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html#id1">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567 Audio Amplifier Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html#example-device-initialization">Example device initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html#supported-devices">Supported Devices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511 HDMI transmitter Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html#source-code">Source Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html#example-platform-device-initialization">Example platform device initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html#example-configuration">Example Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html#enabling-linux-driver-support">Enabling Linux driver support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html#more-information">More information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html#supported-devices">Supported Devices</a></li>
 </ul>
 </li>
 </ul>
@@ -997,12 +451,12 @@ Content on this topic
             
   <section class="tex2jax_ignore mathjax_ignore" id="adxl362-input-3-axis-digital-accelerometer-linux-driver">
 <h1>ADXL362 Input 3-Axis Digital Accelerometer Linux Driver<a class="headerlink" href="#adxl362-input-3-axis-digital-accelerometer-linux-driver" title="Link to this heading">#</a></h1>
-<section id="supported-devices">
-<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">#</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="supported-devices">
+<h1>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">#</a></h1>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.google.com/search?q=ADXL362&amp;amp;btnI=lucky">ADXL362</a></p></li>
 </ul>
-</section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -1025,11 +479,10 @@ Content on this topic
 <li><p><img alt="" src="drivers/linux-drivers/input-misc/scrape%3Eadi%3EADXL362#datasheet-details" /></p></li>
 </ul>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="source-code">
-<h1>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">#</a></h1>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">#</a></h2>
 <section id="status">
-<h2>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h2>
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -1046,7 +499,7 @@ Content on this topic
 </table>
 </section>
 <section id="files">
-<h2>Files<a class="headerlink" href="#files" title="Link to this heading">#</a></h2>
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">#</a></h3>
 <table>
 <thead>
 <tr class="header">
@@ -1067,8 +520,8 @@ Content on this topic
 </table>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="example-platform-device-initialization">
-<h1>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">#</a></h1>
+<section id="example-platform-device-initialization">
+<h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">#</a></h2>
 <p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
 <p>Digital Accelerometer characteristics are application specific and may vary between boards and models.
 The platform_data for the device’s “struct device” holds this information.</p>
@@ -1076,169 +529,159 @@ The platform_data for the device’s “struct device” holds this information.
 <p>Depending on the DDS IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="adding-linux-driver-support">
-<h1>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">#</a></h1>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">#</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<!-- ATTRS: round="" help\="" -->
+<!-- ATTRS: round="" help="" -->
 <p>The ADXL34x Driver depends on <strong>CONFIG_SPI</strong></p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Input<span class="w"> </span>device<span class="w"> </span>support
 
-<span class="sb">```</span><span class="o">{=</span>markdown<span class="o">}</span>
+<span class="w">    </span>-*-<span class="w"> </span>Generic<span class="w"> </span>input<span class="w"> </span>layer<span class="w"> </span><span class="o">(</span>needed<span class="w"> </span><span class="k">for</span><span class="w"> </span>keyboard,<span class="w"> </span>mouse,<span class="w"> </span>...<span class="o">)</span>
+<span class="w">    </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Support<span class="w"> </span><span class="k">for</span><span class="w"> </span>memoryless<span class="w"> </span>force-feedback<span class="w"> </span>devices
+<span class="w">    </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Polled<span class="w"> </span>input<span class="w"> </span>device<span class="w"> </span>skeleton
+<span class="w">    </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Sparse<span class="w"> </span>keymap<span class="w"> </span>support<span class="w"> </span>library
+<span class="w">          </span>*<span class="w"> </span>Userland<span class="w"> </span>interfaces<span class="w"> </span>*
+<span class="w">    </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Mouse<span class="w"> </span>interface
+<span class="w">    </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Joystick<span class="w"> </span>interface
+<span class="w">    </span>&lt;*&gt;<span class="w">   </span>Event<span class="w"> </span>interface
+<span class="w">    </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Event<span class="w"> </span>debugging
+<span class="w">          </span>*<span class="w"> </span>Input<span class="w"> </span>Device<span class="w"> </span>Drivers<span class="w"> </span>*
+<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w">   </span>Keyboards<span class="w">  </span>---&gt;
+<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w">   </span>Mice<span class="w">  </span>---&gt;
+<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w">   </span>Joysticks/Gamepads<span class="w">  </span>---&gt;
+<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w">   </span>Tablets<span class="w">  </span>---&gt;
+<span class="w">    </span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w">   </span>Touchscreens<span class="w">  </span>---&gt;
+<span class="w">    </span><span class="o">[</span>*<span class="o">]</span><span class="w">   </span>Miscellaneous<span class="w"> </span>devices<span class="w">  </span>---&gt;
+<span class="w">          </span>---<span class="w"> </span>Miscellaneous<span class="w"> </span>devices
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Analog<span class="w"> </span>Devices<span class="w"> </span>AD714x<span class="w"> </span>Capacitance<span class="w"> </span>Touch<span class="w"> </span>Sensor
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>BMA150/SMB380<span class="w"> </span>acceleration<span class="w"> </span>sensor<span class="w"> </span>support
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>MMA8450<span class="w"> </span>-<span class="w"> </span>Freescale<span class="err">&#39;</span>s<span class="w"> </span><span class="m">3</span>-Axis,<span class="w"> </span><span class="m">8</span>/12-bit<span class="w"> </span>Digital<span class="w"> </span>Accelerometer
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>MPU3050<span class="w"> </span>Triaxial<span class="w"> </span>gyroscope<span class="w"> </span>sensor
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Sharp<span class="w"> </span>GP2AP002A00F<span class="w"> </span>I2C<span class="w"> </span>Proximity/Opto<span class="w"> </span>sensor<span class="w"> </span>driver
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Polled<span class="w"> </span>GPIO<span class="w"> </span>tilt<span class="w"> </span>switch
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Kionix<span class="w"> </span>KXTJ9<span class="w"> </span>tri-axis<span class="w"> </span>digital<span class="w"> </span>accelerometer
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>User<span class="w"> </span>level<span class="w"> </span>driver<span class="w"> </span>support
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>PCF8574<span class="w"> </span>Keypad<span class="w"> </span>input<span class="w"> </span>device
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Rotary<span class="w"> </span>encoders<span class="w"> </span>connected<span class="w"> </span>to<span class="w"> </span>GPIO<span class="w"> </span>pins
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>Analog<span class="w"> </span>Devices<span class="w"> </span>ADXL34x<span class="w"> </span>Three-Axis<span class="w"> </span>Digital<span class="w"> </span>Accelerometer
+<span class="w">          </span>**&lt;*&gt;<span class="w">   </span>Analog<span class="w"> </span>Devices<span class="w"> </span>ADXL362<span class="w"> </span>Three-Axis<span class="w"> </span>Digital<span class="w"> </span>Accelerometer**
+<span class="w">          </span>&lt;<span class="w"> </span>&gt;<span class="w">   </span>VTI<span class="w"> </span>CMA3000<span class="w"> </span>Tri-axis<span class="w"> </span>accelerometer
+<span class="w">          </span>Hardware<span class="w"> </span>I/O<span class="w"> </span>ports<span class="w">  </span>---&gt;
 </pre></div>
 </div>
-<p>-<em>- Generic input layer (needed for keyboard, mouse, …)
-&lt; &gt;   Support for memoryless force-feedback devices
-&lt; &gt;   Polled input device skeleton
-&lt; &gt;   Sparse keymap support library
-* Userland interfaces *
-&lt; &gt;   Mouse interface
-&lt; &gt;   Joystick interface
-&lt;</em>&gt;   Event interface
-&lt; &gt;   Event debugging
-* Input Device Drivers *
-[ ]   Keyboards  —&gt;
-[ ]   Mice  —&gt;
-[ ]   Joysticks/Gamepads  —&gt;
-[ ]   Tablets  —&gt;
-[ ]   Touchscreens  —&gt;
-[<em>]   Miscellaneous devices  —&gt;
-— Miscellaneous devices
-&lt; &gt;   Analog Devices AD714x Capacitance Touch Sensor
-&lt; &gt;   BMA150/SMB380 acceleration sensor support
-&lt; &gt;   MMA8450 - Freescale’s 3-Axis, 8/12-bit Digital Accelerometer
-&lt; &gt;   MPU3050 Triaxial gyroscope sensor
-&lt; &gt;   Sharp GP2AP002A00F I2C Proximity/Opto sensor driver
-&lt; &gt;   Polled GPIO tilt switch
-&lt; &gt;   Kionix KXTJ9 tri-axis digital accelerometer
-&lt; &gt;   User level driver support
-&lt; &gt;   PCF8574 Keypad input device
-&lt; &gt;   Rotary encoders connected to GPIO pins
-&lt; &gt;   Analog Devices ADXL34x Three-Axis Digital Accelerometer
-**&lt;</em>&gt;   Analog Devices ADXL362 Three-Axis Digital Accelerometer**
-&lt; &gt;   VTI CMA3000 Tri-axis accelerometer
-Hardware I/O ports  —&gt;</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</section>
+<section id="hardware-configuration">
+<h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">#</a></h2>
+<p><img alt="eval-adxl362z" src="resources/tools-software/linux-drivers/input-misc/eval-adxl362z.jpg" />{width=“300”}</p>
+</section>
+<section id="driver-testing">
+<h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">#</a></h2>
+<section id="driver-compiled-as-a-module">
+<h3>Driver compiled as a module<a class="headerlink" href="#driver-compiled-as-a-module" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:~&gt;<span class="w"> </span>**modprobe<span class="w"> </span>evdev**
+root:~&gt;<span class="w"> </span>**modprobe<span class="w"> </span>adxl362**
+input:<span class="w"> </span>ADXL362<span class="w"> </span>accelerometer<span class="w"> </span>as<span class="w"> </span>/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1/input/input0
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-Hardware configuration
-======================
-
-![eval-adxl362z](/resources/tools-software/linux-drivers/input-misc/eval-adxl362z.jpg){width=&quot;300&quot;}
-
-Driver testing
-==============
-
-Driver compiled as a module
----------------------------
-
-```bash
-root:\~\&gt; **modprobe evdev**
-root:\~\&gt; **modprobe adxl362**
-input: ADXL362 accelerometer as /devices/platform/bfin-spi.0/spi\_master/spi0/spi0.1/input/input0
-</pre></div>
-</div>
+</section>
 <section id="driver-compiled-into-the-kernel">
-<h2>Driver compiled into the kernel<a class="headerlink" href="#driver-compiled-into-the-kernel" title="Link to this heading">#</a></h2>
+<h3>Driver compiled into the kernel<a class="headerlink" href="#driver-compiled-into-the-kernel" title="Link to this heading">#</a></h3>
 <p>Your kernel startup messages should include something like this</p>
-<p>input: ADXL362 accelerometer as /devices/platform/bfin-spi.0/spi_master/spi0/spi0.1/input/input0</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>input: ADXL362 accelerometer as /devices/platform/bfin-spi.0/spi_master/spi0/spi0.1/input/input0
 </pre></div>
 </div>
 </section>
 <section id="common-problems">
-<h2>Common Problems<a class="headerlink" href="#common-problems" title="Link to this heading">#</a></h2>
+<h3>Common Problems<a class="headerlink" href="#common-problems" title="Link to this heading">#</a></h3>
 <p>In case you see a message like this</p>
-<p>adxl362 spi0.1: Failed to probe (0x00:0x00)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>adxl362 spi0.1: Failed to probe (0x00:0x00)
 </pre></div>
 </div>
 <p>This means that the SPI communication and initilaization with the ADXL362 failed. <strong>check bus_num and chip_select in your platform device file</strong></p>
 </section>
 <section id="checking-for-proper-installation">
-<h2>Checking for proper installation<a class="headerlink" href="#checking-for-proper-installation" title="Link to this heading">#</a></h2>
+<h3>Checking for proper installation<a class="headerlink" href="#checking-for-proper-installation" title="Link to this heading">#</a></h3>
 <p>After the kernel boot your device folder should include at least one device node for the accelerometer</p>
-<div class="highlight-bashroot:/\&gt; notranslate"><div class="highlight"><pre><span></span>drw-r\--r\-- 2 root root 0 Jan 1 00:03 .
+<div class="highlight-bashroot:/&gt; notranslate"><div class="highlight"><pre><span></span>drw-r--r-- 2 root root 0 Jan 1 00:03 .
 drwxr-xr-x 5 root root 0 Jan 1 00:03 ..
-crw-rw-r\-- 1 root root 13, 64 Jan 1 00:03 event0
-root:/\&gt;
+crw-rw-r-- 1 root root 13, 64 Jan 1 00:03 event0
+root:/&gt;
 </pre></div>
 </div>
-<div class="highlight-bashroot:\~\&gt; notranslate"><div class="highlight"><pre><span></span>ADXL362 accelerometer
+<div class="highlight-bashroot:~&gt; notranslate"><div class="highlight"><pre><span></span>ADXL362 accelerometer
 </pre></div>
 </div>
 </section>
 <section id="use-the-event-test-utility-to-test-proper-function">
-<h2>Use the event_test utility to test proper function<a class="headerlink" href="#use-the-event-test-utility-to-test-proper-function" title="Link to this heading">#</a></h2>
-<p>root:/&gt; event_test /dev/input/event0
+<h3>Use the event_test utility to test proper function<a class="headerlink" href="#use-the-event-test-utility-to-test-proper-function" title="Link to this heading">#</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root:/&gt; event_test /dev/input/event0
 Input driver version is 1.0.1
 Input device ID: bus 0x1c vendor 0xad product 0xf2 version 0x1
-Input device name: “ADXL362 accelerometer”
+Input device name: &quot;ADXL362 accelerometer&quot;
 Supported events:
-Event type 0 (Sync)
-Event type 3 (Absolute)
-Event code 0 (X)
-Value   -144
-Min    -2000
-Max     2000
-Event code 1 (Y)
-Value   -256
-Min    -2000
-Max     2000
-Event code 2 (Z)
-Value    398
-Min    -2000
-Max     2000
-Testing … (interrupt to exit)
-Event: time 43.641571, ————– Report Sync ————
+  Event type 0 (Sync)
+  Event type 3 (Absolute)
+    Event code 0 (X)
+      Value   -144
+      Min    -2000
+      Max     2000
+    Event code 1 (Y)
+      Value   -256
+      Min    -2000
+      Max     2000
+    Event code 2 (Z)
+      Value    398
+      Min    -2000
+      Max     2000
+Testing ... (interrupt to exit)
+Event: time 43.641571, -------------- Report Sync ------------
 Event: time 43.641582, type 3 (Absolute), code 0 (X), value 192
 Event: time 43.641588, type 3 (Absolute), code 1 (Y), value 7
 Event: time 43.641593, type 3 (Absolute), code 2 (Z), value 291
-Event: time 43.641597, ————– Report Sync ————
+Event: time 43.641597, -------------- Report Sync ------------
 Event: time 43.656442, type 3 (Absolute), code 0 (X), value 211
 Event: time 43.656451, type 3 (Absolute), code 1 (Y), value 12
 Event: time 43.656456, type 3 (Absolute), code 2 (Z), value 295
-Event: time 43.656461, ————– Report Sync ————
+Event: time 43.656461, -------------- Report Sync ------------
 Event: time 43.656476, type 3 (Absolute), code 1 (Y), value 15
 Event: time 43.656481, type 3 (Absolute), code 2 (Z), value 280
-Event: time 43.656486, ————– Report Sync ————</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+Event: time 43.656486, -------------- Report Sync ------------
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<!-- ATTRS: tip\="" -->
-<p>In case you move the accelerometer and don’t receive events, it’s likely that something with your Interrupt is wrong.<br />
+<!-- ATTRS: tip="" -->
+<p>In case you move the accelerometer and don’t receive events, it’s likely that something with your Interrupt is wrong.
 <strong>check irq number in your platform device file</strong></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<!-- ATTRS: tip\="" -->
+<!-- ATTRS: tip="" -->
 <p>In case you get a message like: <code class="docutils literal notranslate"><span class="pre">evtest:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">device</span></code>, it’s likely that you have not install the necessary modules</p>
 </div>
 </section>
 <section id="adxl34x-sysfs-runtime-controls">
-<h2>ADXL34x Sysfs runtime controls<a class="headerlink" href="#adxl34x-sysfs-runtime-controls" title="Link to this heading">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/<span class="se">\&gt;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sys/class/input/input0/device/
-root:/sys/devices/platform/bfin-spi.0/spi<span class="se">\_</span>master/spi0/spi0.1<span class="se">\&gt;</span><span class="w"> </span>**ls<span class="w"> </span>-al**
+<h3>ADXL34x Sysfs runtime controls<a class="headerlink" href="#adxl34x-sysfs-runtime-controls" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sys/class/input/input0/device/
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1&gt;<span class="w"> </span>**ls<span class="w"> </span>-al**
 drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:40<span class="w"> </span>.
 drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:40<span class="w"> </span>..
--rw-rw-r<span class="se">\-</span>-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>autosleep
-lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>driver<span class="w"> </span>-<span class="se">\&gt;</span><span class="w"> </span>../../../../../../bus/spi/drivers/adxl362
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>autosleep
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>driver<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../bus/spi/drivers/adxl362
 drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:40<span class="w"> </span>input
--r<span class="se">\-</span>-r<span class="se">\-</span>-r<span class="se">\-</span>-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>modalias
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>modalias
 drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>power
--rw-rw-r<span class="se">\-</span>-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>rate
-lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>subsystem<span class="w"> </span>-<span class="se">\&gt;</span><span class="w"> </span>../../../../../../bus/spi
--rw-r<span class="se">\-</span>-r<span class="se">\-</span>-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>uevent
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>rate
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../bus/spi
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">01</span>:50<span class="w"> </span>uevent
 </pre></div>
 </div>
 <section id="controlling-the-output-data-rate">
-<h3>Controlling the Output Data Rate<a class="headerlink" href="#controlling-the-output-data-rate" title="Link to this heading">#</a></h3>
+<h4>Controlling the Output Data Rate<a class="headerlink" href="#controlling-the-output-data-rate" title="Link to this heading">#</a></h4>
 <table>
 <thead>
 <tr class="header">
@@ -1273,32 +716,33 @@ lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </spa
 </tr>
 </tbody>
 </table>
-<p>Writing ‘<strong>Output Data Rate</strong>’ into <strong>rate</strong> sets the desired sample rate<br />
-Reading <strong>rate</strong> returns the current Output Data Rate<br />
+<p>Writing ‘<strong>Output Data Rate</strong>’ into <strong>rate</strong> sets the desired sample rate
+Reading <strong>rate</strong> returns the current Output Data Rate
 See table above for supported sample rates</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi<span class="se">\_</span>master/spi0/spi0.1<span class="se">\&gt;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">400</span><span class="w"> </span><span class="se">\&gt;</span><span class="w"> </span>rate
-root:/sys/devices/platform/bfin-spi.0/spi<span class="se">\_</span>master/spi0/spi0.1<span class="se">\&gt;</span><span class="w"> </span>cat<span class="w"> </span>rate
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">400</span><span class="w"> </span>&gt;<span class="w"> </span>rate
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1&gt;<span class="w"> </span>cat<span class="w"> </span>rate
 <span class="m">400</span>
 </pre></div>
 </div>
 </section>
 <section id="enabling-disabling-autosleep-upon-inactivity">
-<h3>Enabling / Disabling Autosleep Upon Inactivity<a class="headerlink" href="#enabling-disabling-autosleep-upon-inactivity" title="Link to this heading">#</a></h3>
-<p>Writing ‘<strong>1</strong>’ into autosleep - enables Autosleep Upon Inactivity<br />
-Writing ‘<strong>0</strong>’ into autosleep - disables Autosleep Upon Inactivity\</p>
-<div class="highlight-bashroot:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.1\&gt; notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi\_master/spi0/spi0.1\&gt; echo 0 \&gt; autosleep
+<h4>Enabling / Disabling Autosleep Upon Inactivity<a class="headerlink" href="#enabling-disabling-autosleep-upon-inactivity" title="Link to this heading">#</a></h4>
+<p>Writing ‘<strong>1</strong>’ into autosleep - enables Autosleep Upon Inactivity
+Writing ‘<strong>0</strong>’ into autosleep - disables Autosleep Upon Inactivity</p>
+<div class="highlight-bashroot:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1&gt; notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1&gt; echo 0 &gt; autosleep
 </pre></div>
 </div>
 </section>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="more-information">
-<h1>More Information<a class="headerlink" href="#more-information" title="Link to this heading">#</a></h1>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">#</a></h2>
 <p><img alt="" src="drivers/linux-drivers/input-misc/page%3Eresources/tools-software/linux-drivers/snippets#input_pointers&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
 <section id="adxl362-6-android-acceleration-sensor">
-<h2>ADXL362/6 Android Acceleration Sensor<a class="headerlink" href="#adxl362-6-android-acceleration-sensor" title="Link to this heading">#</a></h2>
+<h3>ADXL362/6 Android Acceleration Sensor<a class="headerlink" href="#adxl362-6-android-acceleration-sensor" title="Link to this heading">#</a></h3>
 <p>Using this driver under Android as Acceleration Sensor
 Follow the link here <a class="reference internal" href="#/resources/tools-software/android-drivers/sensor-acceleration/adxl345"><span class="xref myst">ADXL362 Android Sensor</span></a></p>
+</section>
 </section>
 </section>
 

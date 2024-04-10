@@ -1,35 +1,30 @@
 AD5933 IIO Impedance Converter and Network Analyzer Linux Driver
 ================================================================
 
-Supported Devices
------------------
+### Supported Devices
 
 -   [AD5933](https://www.google.com/search?q=AD5933&btnI=lucky)
 -   [AD5934](https://www.google.com/search?q=AD5934&btnI=lucky)
 
-Evaluation Boards
------------------
+### Evaluation Boards
 
 -   [EVAL-AD5933EBZ](https://www.google.com/search?q=EVAL-AD5933EBZ&btnI=lucky)
 
-Reference Circuits
-------------------
+### Reference Circuits
 
 -   [CN0217](https://www.google.com/search?q=CN0217&btnI=lucky)
 -   [CN0349](https://www.google.com/search?q=CN0349&btnI=lucky)
 
-Description
------------
+### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting Impedance Converters and Network Analyzers.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+### Status
 
 <table>
 <thead>
@@ -46,8 +41,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+### Files
 
 <table>
 <thead>
@@ -65,7 +59,7 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
@@ -147,7 +141,7 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
 Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
 \"make qconfig\")
@@ -156,34 +150,29 @@ Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
 The driver depends on **CONFIG\_I2C**
 \</WRAP\>
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        [*] Staging drivers  --->
-            <*>     Industrial I/O support --->
-                --- Industrial I/O support
-                -*-   Enable ring buffer support within IIO
-                -*-     Industrial I/O lock free software ring
-                -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
 
-                [--snip--]
+                    [--snip--]
 
-                *** Network Analyzer, Impedance Converters ***
-                <*>   Analog Devices AD5933, AD5934 driver
+                    *** Network Analyzer, Impedance Converters ***
+                    <*>   Analog Devices AD5933, AD5934 driver
 
-                [--snip--]
+                    [--snip--]
 
-
-```
-```
 Hardware configuration
-======================
+----------------------
 
 ![](/resources/tools-software/linux-drivers/iio-impedance-analyzer/ad5933_eval_lr.jpg){width="600"}
 
 Driver testing
-==============
+--------------
 
 ![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
@@ -210,7 +199,7 @@ lrwxrwxrwx 1 root root 0 Jan 1 21:48 subsystem -\> ../../../o
 -rw-r\--r\-- 1 root root 4096 Jan 1 21:48 uevent
 \</xterm\>\</WRAP\>
 
-#### Show device name
+##### Show device name
 
 \<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
 \<xterm\>
@@ -218,7 +207,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> **cat name**
 ad5933
 \</xterm\>\</WRAP\>
 
-#### Set sweep start frequency
+##### Set sweep start frequency
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltageY\_freq\_start\
 Frequency sweep start frequency in Hz.
@@ -230,7 +219,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> cat out\_voltage0\_freq\_start
 14999
 \</xterm\>\</WRAP\>
 
-#### Set frequency increment
+##### Set frequency increment
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltageY\_freq\_increment\
 Frequency increment in Hz (step size) between consecutive frequency points along the sweep.
@@ -240,7 +229,7 @@ Frequency increment in Hz (step size) between consecutive frequency points along
 root:/sys/bus/iio/devices/iio:deviceX\> **echo 200 \> out\_voltageY\_freq\_increment**
 \</xterm\>\</WRAP\>
 
-#### Set number of frequency points
+##### Set number of frequency points
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltage0\_freq\_points\
 Number of frequency points (steps) in the frequency sweep.
@@ -255,7 +244,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> cat out\_voltage0\_freq\_points
 100
 \</xterm\>\</WRAP\>
 
-#### Set number of settling time cycles
+##### Set number of settling time cycles
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltage0\_settling\_cycles\
 Number of output excitation cycles (settling time cycles)
@@ -270,7 +259,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> cat out\_voltage0\_settling\_cycles
 15
 \</xterm\>\</WRAP\>
 
-#### Show available output ranges
+##### Show available output ranges
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltage0\_scale\_available\
 List available output scales/ranges in millivolt.
@@ -281,7 +270,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> **cat out\_voltage0\_scale\_available**
 1980 970 383 198
 \</xterm\>\</WRAP\>
 
-#### Set output range
+##### Set output range
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/out\_voltage0\_scale\
 Sets output scale/range in millivolt.
@@ -293,7 +282,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> **cat out\_voltage0\_scale**
 1980
 \</xterm\>\</WRAP\>
 
-#### Show available input scales
+##### Show available input scales
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/in\_voltage0\_scale\_available\
 List available input scales. Programmable gain amplifier (PGA) options.
@@ -304,7 +293,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> **cat in\_voltage0\_scale\_available**
 1 0.2
 \</xterm\>\</WRAP\>
 
-#### Set input scale
+##### Set input scale
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/in\_voltage0\_scale\
 Sets input scale. Controls programmable gain amplifier (PGA).
@@ -316,7 +305,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> **cat in\_voltage0\_scale**
 0.2
 \</xterm\>\</WRAP
 
-#### Show internal temperature
+##### Show internal temperature
 
 **[Description:]{.underline}** /sys/bus/iio/devices/iio:deviceX/in\_temp0\_input\
 Shows temperature in milli degrees Celsius.
@@ -330,8 +319,7 @@ root:/sys/bus/iio/devices/iio:deviceX\> **cat in\_temp0\_input**
 27987
 \</xterm\>\</WRAP\>
 
-Buffer management
------------------
+### Buffer management
 
 \<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
 \<xterm\>
@@ -362,8 +350,7 @@ in\_voltage0\_real\_index: 0
 in\_voltage0\_real\_type: s16/16\>\>0
 \</xterm\>\</WRAP\>
 
-Buffer Example
---------------
+### Buffer Example
 
 \<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target - Example command sequence\</wrap\>
 \<xterm\>
@@ -382,7 +369,7 @@ Buffer Example
 
 \</xterm\>\</WRAP\>
 
-### Data interpretation
+#### Data interpretation
 
 <table>
 <thead>
@@ -451,6 +438,6 @@ root:\> \*\*hexdump -d /dev/iio:device0\*
 \</xterm\>\</WRAP\>
 
 More Information
-================
+----------------
 
 ![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

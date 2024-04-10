@@ -6,22 +6,19 @@ title: ADF4169: Direct Modulation/Fast Waveform Generating, 13.5 GHz, Fractional
 ADF4159 IIO Direct Modulation/Fast Waveform Generating Synthesizer Linux Driver
 ===============================================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADF4159](https://www.google.com/search?q=ADF4159&btnI=lucky)
 -   [ADF4169](https://www.google.com/search?q=ADF4169&btnI=lucky)
 
-Supported Boards
-----------------
+#### Supported Boards
 
-This driver supports the\
+This driver supports the
 
 -   [EV-ADF4159EB1Z](https://www.google.com/search?q=EV-ADF4159EB1Z&btnI=lucky)
 -   [EV-ADF4159EB3Z](https://www.google.com/search?q=EV-ADF4159EB3Z&btnI=lucky)
 
-Description
------------
+#### Description
 
 The ADF4159 is a 13 GHz, fractional-N frequency synthesizer with modulation and both fast and slow waveform generation capability. The part uses a 25-bit fixed modulus, allowing subhertz frequency resolution.
 
@@ -39,10 +36,9 @@ Applications
 -   FMCW radars
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -59,8 +55,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -103,226 +98,216 @@ Example device tree
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 The adf4159 driver is a SPI bus driver and can be instantiated via device tree.
 
 **Required properties:**
 
 -   **compatible**: Should always be one of these:
-    -   \"adi,adf4159\"
-    -   \"adi,adf4169\"
+    -   "adi,adf4159"
+    -   "adi,adf4169"
 -   **reg**: SPI chip select number.
 -   **spi-max-frequency**: Max SPI frequency to use.
 -   **clocks**: a list of phandle, one for each entry in clock-names.
--   **clock-names**: Must include the following entry: \"clkin\"
+-   **clock-names**: Must include the following entry: "clkin"
 
-```{=markdown}
+```{=html}
+<!-- -->
 ```
-Example:
+    Example:
 
-spi0 {
-        #address-cells = <1>;
-        #size-cells = <0>;
-        adf4159@0 {
-            compatible = "adi,adf4159";
-            reg = <0x0>;
-            spi-max-frequency = <12500000>;
+    spi0 {
+            #address-cells = <1>;
+            #size-cells = <0>;
+            adf4159@0 {
+                compatible = "adi,adf4159";
+                reg = <0x0>;
+                spi-max-frequency = <12500000>;
 
-            /* Clocks */
-            clocks = <&clkin>;
-            clock-names = "clkin";
-            clock-output-names = "rf_out";
-            #clock-cells = <0>;
+                /* Clocks */
+                clocks = <&clkin>;
+                clock-names = "clkin";
+                clock-output-names = "rf_out";
+                #clock-cells = <0>;
 
-            adi,power-up-frequency-hz = /bits/ 64 <6000000000>;
-            adi,charge-pump-current-microamp = <900>;
-            //adi,charge-pump-negative-bleed-enable;
-            adi,clk1-div = <100>;
-            adi,clk2-timer-div = <0>;
-            adi,clk2-timer-div-2 = <0>;
-            adi,clk-div-mode = <0>;
-            //adi,cycle-slip-reduction-enable;
-            //adi,delay-clk-sel-pfd-x-clk1-enable;
-            //adi,delay-start-enable;
-            adi,delay-start-word = <0>;
-            adi,deviation = <1000>;
-            adi,deviation-2 = <0>;
-            adi,deviation-offset = <1>;
-            //adi,dual-ramp-enable;
-            //adi,fast-ramp-enable;
-            //adi,fsk-modulation-enable;
-            //adi,fsk-ramp-enable;
-            adi,interrupt-mode-select = <0>;
-            //adi,le-sync-refin-enable;
-            //adi,lock-detect-precision-6ns-enable;
-            adi,muxout-select = <MUXOUT_READBACK_TO_MUXOUT>;
-            adi,negative-bleed-current-microamp = <0>;
-            //adi,parabolic-ramp-enable;
-            adi,phase = <0>;
-            //adi,phase-detector-polarity-positive-enable;
-            //adi,powerdown-enable;
-            //adi,psk-modulation-enable;
-            //adi,ramp-dealy-fl-enable;
-            //adi,ramp-delay-enable;
-            //adi,ramp-enable;
-            adi,ramp-mode-select = <0>;
-            adi,ramp-status-mode = <RAMP_STATUS_RAMP_COMPLETE_TO_MUXOUT>;
-            //adi,reference-div2-enable;
-            adi,reference-div-factor = <1>;
-            //adi,reference-doubler-enable;
-            //adi,single-full-triangle-enable;
-            adi,step-word = <0>;
-            adi,step-word-2 = <0>;
-            //adi,txdata-invert-enable;
-            //adi,txdata-ramp-clk-txdata-enable;
-            //adi,txdata-trigger-delay-enable;
-            //adi,txdata-trigger-enable;
-        };
+                adi,power-up-frequency-hz = /bits/ 64 <6000000000>;
+                adi,charge-pump-current-microamp = <900>;
+                //adi,charge-pump-negative-bleed-enable;
+                adi,clk1-div = <100>;
+                adi,clk2-timer-div = <0>;
+                adi,clk2-timer-div-2 = <0>;
+                adi,clk-div-mode = <0>;
+                //adi,cycle-slip-reduction-enable;
+                //adi,delay-clk-sel-pfd-x-clk1-enable;
+                //adi,delay-start-enable;
+                adi,delay-start-word = <0>;
+                adi,deviation = <1000>;
+                adi,deviation-2 = <0>;
+                adi,deviation-offset = <1>;
+                //adi,dual-ramp-enable;
+                //adi,fast-ramp-enable;
+                //adi,fsk-modulation-enable;
+                //adi,fsk-ramp-enable;
+                adi,interrupt-mode-select = <0>;
+                //adi,le-sync-refin-enable;
+                //adi,lock-detect-precision-6ns-enable;
+                adi,muxout-select = <MUXOUT_READBACK_TO_MUXOUT>;
+                adi,negative-bleed-current-microamp = <0>;
+                //adi,parabolic-ramp-enable;
+                adi,phase = <0>;
+                //adi,phase-detector-polarity-positive-enable;
+                //adi,powerdown-enable;
+                //adi,psk-modulation-enable;
+                //adi,ramp-dealy-fl-enable;
+                //adi,ramp-delay-enable;
+                //adi,ramp-enable;
+                adi,ramp-mode-select = <0>;
+                adi,ramp-status-mode = <RAMP_STATUS_RAMP_COMPLETE_TO_MUXOUT>;
+                //adi,reference-div2-enable;
+                adi,reference-div-factor = <1>;
+                //adi,reference-doubler-enable;
+                //adi,single-full-triangle-enable;
+                adi,step-word = <0>;
+                adi,step-word-2 = <0>;
+                //adi,txdata-invert-enable;
+                //adi,txdata-ramp-clk-txdata-enable;
+                //adi,txdata-trigger-delay-enable;
+                //adi,txdata-trigger-enable;
+            };
 
-```
-```
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The adf4159 driver depends on **SPI** and selects **REGMAP\_SPI**
+The adf4159 driver depends on **SPI** and selects **REGMAP_SPI**
 
 :::
 
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-                 Frequency Synthesizers DDS/PLL --->
-                             *** Phase-Locked Loop (PLL) frequency synthesizers ***
-                             <*> Analog Devices ADF4159/ADF4169 Waveform Generating Synthesizers
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+                     Frequency Synthesizers DDS/PLL --->
+                                 *** Phase-Locked Loop (PLL) frequency synthesizers ***
+                                 <*> Analog Devices ADF4159/ADF4169 Waveform Generating Synthesizers
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog:/sys/bus/iio/devices/iio:device0\# **cd /sys/bus/iio/devices/**
-root\@analog:/sys/bus/iio/devices\# **ls**
+analog:/sys/bus/iio/devices/iio:device0# **cd /sys/bus/iio/devices/**
+root@analog:/sys/bus/iio/devices# **ls**
 iio:device0 iio:device1 iio:device2 iio:device3
-root\@analog:/sys/bus/iio/devices\#
+root@analog:/sys/bus/iio/devices#
 
-root\@analog:/sys/bus/iio/devices\# **cd iio\\:device0**
-root\@analog:/sys/bus/iio/devices/iio:device1\# **ls -l**
+root@analog:/sys/bus/iio/devices# **cd iio:device0**
+root@analog:/sys/bus/iio/devices/iio:device1# **ls -l**
 total 0
 drwxr-xr-x 3 root root 0 Jan 1 00:00 .
 drwxr-xr-x 5 root root 0 Jan 1 00:00 ..
 -rw-rw-rw- 1 root root 4096 Jan 1 00:00 dev
 -rw-rw-rw- 1 root root 4096 Jan 1 00:00 name
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 of\_node -\> ../../../../../../../../firmware/devicetree/base/amba/spi\@e0007000/ad0
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_frequency
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_frequency\_deviation\_range
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_frequency\_deviation\_step
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_frequency\_deviation\_time
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_powerdown
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out\_altvoltage0\_ramp\_mode
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out\_altvoltage\_ramp\_mode\_available
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 of_node -> ../../../../../../../../firmware/devicetree/base/amba/spi@e0007000/ad0
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_frequency_deviation_range
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_frequency_deviation_step
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_frequency_deviation_time
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_powerdown
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_ramp_mode
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage_ramp_mode_available
 drwxrwxrwx 2 root root 0 Jan 1 00:00 power
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../../../../../bus/iio
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -> ../../../../../../../../bus/iio
 -rw-rw-rw- 1 root root 4096 Jan 1 00:00 uevent
-root\@analog:/sys/bus/iio/devices/iio:device1\#
+root@analog:/sys/bus/iio/devices/iio:device1#
 ```
 :::
 
 
-Show device name
-----------------
+#### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat name**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat name**
 **adf4159**
 ```
 :::
 
 
-Read output frequency
----------------------
+#### Read output frequency
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_frequency**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency**
 **6000000000**
 ```
 :::
 
 
-Set output frequency
---------------------
+#### Set output frequency
 
 Frequencies are in Hz
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **echo 6001000000 \> out\_altvoltage0\_frequency**
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_frequency**
-\*\*6001000000 \*\*
+root@analog:/sys/bus/iio/devices/iio:device1# **echo 6001000000 > out_altvoltage0_frequency**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency**
+**6001000000 **
 ```
 :::
 
 
-Output power down
------------------
+#### Output power down
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_powerdown**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_powerdown**
 0
-root\@analog:/sys/bus/iio/devices/iio:device1\# **echo 1 \> out\_altvoltage0\_powerdown**
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_powerdown**
+root@analog:/sys/bus/iio/devices/iio:device1# **echo 1 > out_altvoltage0_powerdown**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_powerdown**
 1
 ```
 :::
 
 
-Ramp modes
-----------
+#### Ramp modes
 
 ![](/resources/tools-software/linux-drivers/iio-pll/adf4159_ramp.png){.align-center width="600"}
 
@@ -330,91 +315,87 @@ The `ramp_mode` attribute allows the user to control the output ramp mode of the
 Valid values that can be written:
 
 -   disabled
--   continuous\_sawtooth
--   continuous\_triangular
--   single\_sawtooth\_burst
--   single\_ramp\_burst
+-   continuous_sawtooth
+-   continuous_triangular
+-   single_sawtooth_burst
+-   single_ramp_burst
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage\_ramp\_mode\_available**
-disabled continuous\_sawtooth continuous\_triangular single\_sawtooth\_burst single\_ramp\_burst
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_ramp\_mode**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage_ramp_mode_available**
+disabled continuous_sawtooth continuous_triangular single_sawtooth_burst single_ramp_burst
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_ramp_mode**
 disabled
-root\@analog:/sys/bus/iio/devices/iio:device1\# **echo continuous\_sawtooth \> out\_altvoltage0\_ramp\_mode**
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_ramp\_mode**
-continuous\_sawtooth
+root@analog:/sys/bus/iio/devices/iio:device1# **echo continuous_sawtooth > out_altvoltage0_ramp_mode**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_ramp_mode**
+continuous_sawtooth
 ```
 :::
 
 
-Ramp mode deviation step
-------------------------
+#### Ramp mode deviation step
 
 This attribute sets the `deviation_step` in Hz. Values can be positive or negative.
 Negative values result in a ramp down.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_frequency\_deviation\_step**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_deviation_step**
 0
-root\@analog:/sys/bus/iio/devices/iio:device1\# **echo 1000 \> out\_altvoltage0\_frequency\_deviation\_step**
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_frequency\_deviation\_step**
+root@analog:/sys/bus/iio/devices/iio:device1# **echo 1000 > out_altvoltage0_frequency_deviation_step**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_deviation_step**
 998
 ```
 :::
 
 
-Ramp mode deviation range
--------------------------
+#### Ramp mode deviation range
 
 This attribute sets the `deviation_range` in Hz.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# \*\*cat out\_altvoltage0\_frequency\_deviation\_range \*\*
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_deviation_range **
 0
-root\@analog:/sys/bus/iio/devices/iio:device1\# \*\*echo 10000000 \> out\_altvoltage0\_frequency\_deviation\_range \*\*
-root\@analog:/sys/bus/iio/devices/iio:device1\# \*\*cat out\_altvoltage0\_frequency\_deviation\_range \*\*
+root@analog:/sys/bus/iio/devices/iio:device1# **echo 10000000 > out_altvoltage0_frequency_deviation_range **
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_deviation_range **
 9999960
 ```
 :::
 
 
-Ramp mode deviation time
-------------------------
+#### Ramp mode deviation time
 
 This attribute sets the `deviation_time` in us.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_frequency\_deviation\_time**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_deviation_time**
 0
-root\@analog:/sys/bus/iio/devices/iio:device1\# **echo 10000 \> out\_altvoltage0\_frequency\_deviation\_time**
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat out\_altvoltage0\_frequency\_deviation\_time**
+root@analog:/sys/bus/iio/devices/iio:device1# **echo 10000 > out_altvoltage0_frequency_deviation_time**
+root@analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_deviation_time**
 10020
 ```
 :::
 
 
-Full device control via IIO debugfs
------------------------------------
+#### Full device control via IIO debugfs
 
 This device features an additional debugfs ABI, allowing the user to control additional features of the chip.
 Such as dual-ramp modes, muxout mappings, modulation features etc.
@@ -423,83 +404,83 @@ In most cases these attributes correspond directly to bits and bitfields in the 
 Manipulating these debugfs attributes will not take effect unless at least one of the IIO device sysfs attributes is written/updated.
 For example, after setting `adi,ramp-delay-enable` write `out_altvoltage0_powerdown` afterwards, this flush all debugfs updates to the device.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~\# **iio\_attr -D adf4159**
-dev \'adf4159\', debug attr \'adi,txdata-trigger-delay-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,single-full-triangle-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,txdata-trigger-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,fast-ramp-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,ramp-dealy-fl-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,ramp-delay-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,delay-clk-sel-pfd-x-clk1-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,delay-start-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,delay-start-word\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,step-word-2\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,step-word\', value :\'10020\'
-dev \'adf4159\', debug attr \'adi,txdata-invert-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,txdata-ramp-clk-txdata-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,parabolic-ramp-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,fsk-ramp-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,dual-ramp-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,interrupt-mode-select\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,deviation-offset\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,deviation-2\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,deviation\', value :\'335\'
-dev \'adf4159\', debug attr \'adi,le-sync-refin-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,ramp-status-mode\', value :\'3\'
-dev \'adf4159\', debug attr \'adi,clk-div-mode\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,clk2-timer-div-2\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,clk2-timer-div\', value :\'100\'
-dev \'adf4159\', debug attr \'adi,negative-bleed-current-microamp\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,ramp-mode-select\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,charge-pump-negative-bleed-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,psk-modulation-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,fsk-modulation-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,lock-detect-precision-6ns-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,phase-detector-polarity-positive-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,powerdown-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,cycle-slip-reduction-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,reference-div2-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,reference-doubler-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,charge-pump-current-microamp\', value :\'900\'
-dev \'adf4159\', debug attr \'adi,phase\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,ramp-enable\', value :\'N\'
-dev \'adf4159\', debug attr \'adi,muxout-select\', value :\'15\'
-dev \'adf4159\', debug attr \'adi,clkin-hz\', value :\'0\'
-dev \'adf4159\', debug attr \'adi,clk1-div\', value :\'1\'
-dev \'adf4159\', debug attr \'adi,reference-div-factor\', value :\'1\'
-dev \'adf4159\', debug attr \'adi,frequency-deviation-time-us\', value :\'10000\'
-dev \'adf4159\', debug attr \'adi,frequency-deviation-range-hz\', value :\'10000000\'
-dev \'adf4159\', debug attr \'adi,frequency-deviation-step-hz\', value :\'1000\'
-dev \'adf4159\', debug attr \'adi,power-up-frequency-hz\', value :\'6000000000\'
-dev \'adf4159\', debug attr \'direct\_reg\_access\', value :\'0x781E0000\'
-root\@analog:\~\#
+root@analog:~# **iio_attr -D adf4159**
+dev 'adf4159', debug attr 'adi,txdata-trigger-delay-enable', value :'N'
+dev 'adf4159', debug attr 'adi,single-full-triangle-enable', value :'N'
+dev 'adf4159', debug attr 'adi,txdata-trigger-enable', value :'N'
+dev 'adf4159', debug attr 'adi,fast-ramp-enable', value :'N'
+dev 'adf4159', debug attr 'adi,ramp-dealy-fl-enable', value :'N'
+dev 'adf4159', debug attr 'adi,ramp-delay-enable', value :'N'
+dev 'adf4159', debug attr 'adi,delay-clk-sel-pfd-x-clk1-enable', value :'N'
+dev 'adf4159', debug attr 'adi,delay-start-enable', value :'N'
+dev 'adf4159', debug attr 'adi,delay-start-word', value :'0'
+dev 'adf4159', debug attr 'adi,step-word-2', value :'0'
+dev 'adf4159', debug attr 'adi,step-word', value :'10020'
+dev 'adf4159', debug attr 'adi,txdata-invert-enable', value :'N'
+dev 'adf4159', debug attr 'adi,txdata-ramp-clk-txdata-enable', value :'N'
+dev 'adf4159', debug attr 'adi,parabolic-ramp-enable', value :'N'
+dev 'adf4159', debug attr 'adi,fsk-ramp-enable', value :'N'
+dev 'adf4159', debug attr 'adi,dual-ramp-enable', value :'N'
+dev 'adf4159', debug attr 'adi,interrupt-mode-select', value :'0'
+dev 'adf4159', debug attr 'adi,deviation-offset', value :'0'
+dev 'adf4159', debug attr 'adi,deviation-2', value :'0'
+dev 'adf4159', debug attr 'adi,deviation', value :'335'
+dev 'adf4159', debug attr 'adi,le-sync-refin-enable', value :'N'
+dev 'adf4159', debug attr 'adi,ramp-status-mode', value :'3'
+dev 'adf4159', debug attr 'adi,clk-div-mode', value :'0'
+dev 'adf4159', debug attr 'adi,clk2-timer-div-2', value :'0'
+dev 'adf4159', debug attr 'adi,clk2-timer-div', value :'100'
+dev 'adf4159', debug attr 'adi,negative-bleed-current-microamp', value :'0'
+dev 'adf4159', debug attr 'adi,ramp-mode-select', value :'0'
+dev 'adf4159', debug attr 'adi,charge-pump-negative-bleed-enable', value :'N'
+dev 'adf4159', debug attr 'adi,psk-modulation-enable', value :'N'
+dev 'adf4159', debug attr 'adi,fsk-modulation-enable', value :'N'
+dev 'adf4159', debug attr 'adi,lock-detect-precision-6ns-enable', value :'N'
+dev 'adf4159', debug attr 'adi,phase-detector-polarity-positive-enable', value :'N'
+dev 'adf4159', debug attr 'adi,powerdown-enable', value :'N'
+dev 'adf4159', debug attr 'adi,cycle-slip-reduction-enable', value :'N'
+dev 'adf4159', debug attr 'adi,reference-div2-enable', value :'N'
+dev 'adf4159', debug attr 'adi,reference-doubler-enable', value :'N'
+dev 'adf4159', debug attr 'adi,charge-pump-current-microamp', value :'900'
+dev 'adf4159', debug attr 'adi,phase', value :'0'
+dev 'adf4159', debug attr 'adi,ramp-enable', value :'N'
+dev 'adf4159', debug attr 'adi,muxout-select', value :'15'
+dev 'adf4159', debug attr 'adi,clkin-hz', value :'0'
+dev 'adf4159', debug attr 'adi,clk1-div', value :'1'
+dev 'adf4159', debug attr 'adi,reference-div-factor', value :'1'
+dev 'adf4159', debug attr 'adi,frequency-deviation-time-us', value :'10000'
+dev 'adf4159', debug attr 'adi,frequency-deviation-range-hz', value :'10000000'
+dev 'adf4159', debug attr 'adi,frequency-deviation-step-hz', value :'1000'
+dev 'adf4159', debug attr 'adi,power-up-frequency-hz', value :'6000000000'
+dev 'adf4159', debug attr 'direct_reg_access', value :'0x781E0000'
+root@analog:~#
 ```
 :::
 
 
 **Example:**
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~\# **iio\_attr -D adf4159 adi,ramp-delay-enable 1**
+root@analog:~# **iio_attr -D adf4159 adi,ramp-delay-enable 1**
 Y
-root\@analog:\~\# **iio\_attr -c adf4159 altvoltage0 powerdown 0**
+root@analog:~# **iio_attr -c adf4159 altvoltage0 powerdown 0**
 0
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

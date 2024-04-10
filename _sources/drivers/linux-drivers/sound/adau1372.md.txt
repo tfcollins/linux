@@ -6,20 +6,18 @@ title: ADAU1372: Quad ADC, Dual DAC, Low Latency, Low Power Codec
 ADAU1372 Sound CODEC Linux Driver
 =================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADAU1372](https://www.google.com/search?q=ADAU1372&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-ADAU1372](https://www.google.com/search?q=EVAL-ADAU1372&btnI=lucky)
 
 Source Code
-===========
+-----------
 
-# Status
+##### Status
 
 <table>
 <thead>
@@ -36,7 +34,7 @@ Source Code
 </tbody>
 </table>
 
-#### Files
+##### Files
 
 <table>
 <thead>
@@ -66,11 +64,11 @@ Source Code
 </table>
 
 Example device initialization
-=============================
+-----------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-#### I2C
+##### I2C
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
@@ -135,12 +133,11 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-#### SPI
+##### SPI
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
-ASoC DAPM Widgets
------------------
+#### ASoC DAPM Widgets
 
 The driver registers a set of input, output and supply DAPM widgets which represent the physical input and output signals of the device. For maximum power-saving these are widgets should be used in the machine driver DAPM routing to accurately model the external connections of the device.
 
@@ -195,8 +192,7 @@ The driver registers a set of input, output and supply DAPM widgets which repres
 </tbody>
 </table>
 
-ALSA Controls
--------------
+#### ALSA Controls
 
 <table>
 <tbody>
@@ -525,14 +521,13 @@ ALSA Controls
 </tbody>
 </table>
 
-DAI configuration
------------------
+#### DAI configuration
 
 The codec driver registers one DAI: **adau1372**
 
 This DAI has a capture and a playback interface which share the clocking and are synchronous to each other. Which means they have to run in the same configuration.
 
-#### Supported DAI formats
+##### Supported DAI formats
 
 <table>
 <thead>
@@ -631,12 +626,11 @@ This DAI has a capture and a playback interface which share the clocking and are
 </tbody>
 </table>
 
-#### DAI sysclk
+##### DAI sysclk
 
-#### Example DAI configuration
+##### Example DAI configuration
 
-TDM configuration
------------------
+#### TDM configuration
 
 The ADAU1372 has TDM support.
 
@@ -650,7 +644,6 @@ Example TDM configuration:
     ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x3, 0x3, 8, 24);
 ```
 
-More information
-----------------
+#### More information
 
 ![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)

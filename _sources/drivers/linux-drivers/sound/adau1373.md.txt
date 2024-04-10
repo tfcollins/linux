@@ -6,20 +6,17 @@ title: ADAU1373: Low Power Codec with Speaker and Headphone Amplifier
 ADAU1373 Sound CODEC Linux Driver
 =================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADAU1373](https://www.google.com/search?q=ADAU1373&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-ADAU1373Z](https://www.google.com/search?q=EVAL-ADAU1373Z&btnI=lucky)
 
-Source Code
------------
+##### Source Code
 
-# Status
+###### Status
 
 <table>
 <thead>
@@ -36,7 +33,7 @@ Source Code
 </tbody>
 </table>
 
-##### Files
+###### Files
 
 <table>
 <thead>
@@ -61,12 +58,11 @@ Source Code
 </tbody>
 </table>
 
-Example device initialization
------------------------------
+#### Example device initialization
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-#### I2C
+##### I2C
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
@@ -95,8 +91,7 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-ASoC DAPM Widgets
------------------
+#### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -193,8 +188,7 @@ ASoC DAPM Widgets
 </tbody>
 </table>
 
-ALSA Controls
--------------
+#### ALSA Controls
 
 <table>
 <thead>
@@ -499,8 +493,7 @@ Valid values: "Channel1", "Channel2", "Channel3", "Channel4", "Channel5"</td>
 </tbody>
 </table>
 
-PLL Configuration
------------------
+#### PLL Configuration
 
 The ADAU1373 features two PLLs:
 
@@ -532,18 +525,17 @@ enum adau1373_pll_src {
 
 The input frequency must configured to be between 7813 and 27000000 Hz. The output frequency must be configured to be between 45158000 and 49152000. Configuring the PLL with other input or output frequency will fail.
 
-The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you\'d normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
+The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you'd normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
 
-DAI configuration
------------------
+#### DAI configuration
 
 The codec driver registers three DAIs:
 
--   \"adau1373-aif1\" (Digital Audio Interface A)
--   \"adau1373-aif2\" (Digital Audio Interface B)
--   \"adau1373-aif3\" (Digital Audio Interface C)
+-   "adau1373-aif1" (Digital Audio Interface A)
+-   "adau1373-aif2" (Digital Audio Interface B)
+-   "adau1373-aif3" (Digital Audio Interface C)
 
-#### Supported DAI formats
+##### Supported DAI formats
 
 <table>
 <thead>
@@ -642,7 +634,7 @@ The codec driver registers three DAIs:
 </tbody>
 </table>
 
-#### DAI sysclk
+##### DAI sysclk
 
 The DAIs can either use PLL1 or PLL2 as source. When configuring a DAI its rate should be set to the rate of the source PLL.
 
@@ -653,7 +645,7 @@ enum adau1373_clk_src {
 };
 ```
 
-#### Example DAI configuration
+##### Example DAI configuration
 
 ``` {.c}
 static int bfin_eval_adau1373_hw_params(struct snd_pcm_substream *substream,
@@ -740,16 +732,15 @@ static struct snd_soc_dai_link bfin_eval_adau1373_dai = {
 ```
 
 ADAU1373 evaluation board driver
-================================
+--------------------------------
 
 There is no dedicated Blackfin STAMP evaluation board for the ADAU1373. During test and driver development we used the [EVAL-ADAU1373](https://www.google.com/search?q=EVAL-ADAU1373&btnI=lucky) board.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
-Source
-------
+#### Source
 
-# Status
+###### Status
 
 <table>
 <thead>
@@ -766,7 +757,7 @@ Source
 </tbody>
 </table>
 
-##### Files
+###### Files
 
 <table>
 <thead>
@@ -783,34 +774,24 @@ Source
 </tbody>
 </table>
 
-Kernel configuration
---------------------
+#### Kernel configuration
 
-```{=markdown}
-```
-Device Drivers  --->
-[*] I2C support  --->
-[*]   I2C Hardware Bus support  --->
-***     I2C system bus drivers (mostly embedded / system-on-chip) ***
-<*>       Blackfin TWI I2C support
-(100)     Blackfin TWI I2C clock (kHz)
+    Device Drivers  --->
+    [*] I2C support  --->
+    [*]   I2C Hardware Bus support  --->
+    ***     I2C system bus drivers (mostly embedded / system-on-chip) ***
+    <*>       Blackfin TWI I2C support
+    (100)     Blackfin TWI I2C clock (kHz)
 
-```
-```
 Enable ALSA SoC evaluation board driver:
 
-```{=markdown}
-```
-Device Drivers  --->
-<M> Sound card support  --->
-<M>   Advanced Linux Sound Architecture  --->
-<M>     ALSA for SoC audio support  --->
-<M>       Support for the EVAL-ADAU1373 boards on Blackfin eval boards
+    Device Drivers  --->
+    <M> Sound card support  --->
+    <M>   Advanced Linux Sound Architecture  --->
+    <M>     ALSA for SoC audio support  --->
+    <M>       Support for the EVAL-ADAU1373 boards on Blackfin eval boards
 
-```
-```
-Hardware configuration
-----------------------
+#### Hardware configuration
 
 Connect the STAMP SPORT 0 port (P6) to the EVAL-ADAU1373 J23 and J28 headers.
 
@@ -863,41 +844,40 @@ Note that the SPORT has separate signals for the capture and playback clocks, wh
 </tbody>
 </table>
 
-Driver testing
---------------
+#### Driver testing
 
 Load the driver and make sure the sound card is properly instantiated.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> modprobe snd-bf5xx-i2s
-root:/\> modprobe snd-soc-bf5xx-i2s
-root:/\> modprobe snd-soc-adau1373
-root:/\> modprobe snd-soc-bfin-eval-adau1373
+root:/> modprobe snd-bf5xx-i2s
+root:/> modprobe snd-soc-bf5xx-i2s
+root:/> modprobe snd-soc-adau1373
+root:/> modprobe snd-soc-bfin-eval-adau1373
 dma rx:3 tx:4, err irq:45, regs:ffc00800
-asoc: ADAU1373 \<-\> bf5xx-i2s mapping ok
+asoc: ADAU1373 <-> bf5xx-i2s mapping ok
 ```
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> modprobe snd-pcm-oss
-root:/\> tone
-TONE: generating sine wave at 1000 Hz\...
+root:/> modprobe snd-pcm-oss
+root:/> tone
+TONE: generating sine wave at 1000 Hz...
 
-root:/\> arecord -f cd | aplay
-Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+root:/> arecord -f cd | aplay
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
 ```
 
 :::

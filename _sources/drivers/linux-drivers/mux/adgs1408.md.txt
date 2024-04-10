@@ -1,28 +1,24 @@
 ADGS1408/ADGS1409 8:1/Dual 4:1 Muxes Linux Driver
 =================================================
 
-Supported Devices
------------------
+### Supported Devices
 
 -   [ADGS1408](https://www.google.com/search?q=ADGS1408&btnI=lucky)
 -   [ADGS1409](https://www.google.com/search?q=ADGS1409&btnI=lucky)
 
-Evaluation Boards
------------------
+### Evaluation Boards
 
 -   [EVAL-ADGS1408SDZ](https://www.google.com/search?q=EVAL-ADGS1408SDZ&btnI=lucky)
 
-Description
------------
+### Description
 
 This is a mux controller subsystem driver, with an interface for accessing mux controllers. This is done in such a way
 that several consumers can independently access the same mux controller if one controller controls several multiplexers, thus allowing sharing.
 
 Source Code
-===========
+-----------
 
-Status
-------
+### Status
 
 <table>
 <thead>
@@ -39,8 +35,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+### Files
 
 <table>
 <thead>
@@ -57,8 +52,7 @@ Files
 </tbody>
 </table>
 
-Devicetree
-----------
+### Devicetree
 
 Required devicetree properties:
 
@@ -67,63 +61,54 @@ Required devicetree properties:
 -   spi-max-frequency: Maximum SPI clock frequency.
 -   \#mux-control-cells:is required to be \<0\>
 
-```{=markdown}
+```{=html}
+<!-- -->
 ```
-&spi0 {
-    pinctrl-names = "default";
-    pinctrl-0 = <&spi0_pins &spi0_cs_pins>;
-    cs-gpios = <&gpio 8 1>, <&gpio 7 1>;
-    status = "okay";
+    &spi0 {
+        pinctrl-names = "default";
+        pinctrl-0 = <&spi0_pins &spi0_cs_pins>;
+        cs-gpios = <&gpio 8 1>, <&gpio 7 1>;
+        status = "okay";
 
-        mux: mux-controller@2 {
-        compatible = "adi,adgs1408";
-        reg = <0>;
-        spi-max-frequency = <1000000>;
-        #mux-control-cells = <0>;
-    };
-}
+            mux: mux-controller@2 {
+            compatible = "adi,adgs1408";
+            reg = <0>;
+            spi-max-frequency = <1000000>;
+            #mux-control-cells = <0>;
+        };
+    }
 
-/ {
-    adc-mux@3 {
-        compatible = "io-channel-mux";
-        io-channels = <&adc 1>;
-        io-channel-names = "parent";
-        mux-controls = <&mux>;
+    / {
+        adc-mux@3 {
+            compatible = "io-channel-mux";
+            io-channels = <&adc 1>;
+            io-channel-names = "parent";
+            mux-controls = <&mux>;
 
-        channels = "out_a0", "out_a1", "test0", "test1",
-            "out_b0", "out_b1", "testb0", "testb1";
+            channels = "out_a0", "out_a1", "test0", "test1",
+                "out_b0", "out_b1", "testb0", "testb1";
 
-    };
-}
+        };
+    }
 
-```
-```
 A consumer must also be provided to be able to control the mux. In this example we used a regular IIO ADC driver.
 Which is interfaced with the IIO mux controller consumer.
 
-```{=markdown}
-```
-    adc: ad7298@3 {
-        compatible = "ad7298";
-        #io-channel-cells = <1>;
-        spi-max-frequency = <1000000>;
-        reg = <1>;
-    };
+        adc: ad7298@3 {
+            compatible = "ad7298";
+            #io-channel-cells = <1>;
+            spi-max-frequency = <1000000>;
+            reg = <1>;
+        };
 
-```
-```
 The mux controller extends the ADC\'s IO channel that is selected. In this case the selected channels is represented by :
 
-```{=markdown}
-```
-io-channels = <&adc 1>;
+    io-channels = <&adc 1>;
 
-```
-```
 in this case voltage0 from ad7298 is the channels multiplexed in IIO.
 
 Adding Linux driver support
-===========================
+---------------------------
 
 Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
 \"make qconfig\")
@@ -132,30 +117,26 @@ Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
 If the multiplexer is used to select a signal that is fed to an IIO device, then you must enable IIO multiplexer driver
 \</WRAP\>
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        ...
-        <*>     Industrial I/O support --->
+    Linux Kernel Configuration
+        Device Drivers  --->
             ...
-            Multiplexers --->
-                <*> IIO multiplexer driver
+            <*>     Industrial I/O support --->
+                ...
+                Multiplexers --->
+                    <*> IIO multiplexer driver
+                ...
+            --- Industrial I/O support
+            Multiplexer drivers --->
+                ...
+                <*> Analog Devices ADGS1408/ADGS1409 Multiplexers
+                ...
             ...
-        --- Industrial I/O support
-        Multiplexer drivers --->
-            ...
-            <*> Analog Devices ADGS1408/ADGS1409 Multiplexers
-            ...
-        ...
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
 Since we are using an IIO ADC (AD7298) then our mux will have an IIO device folder in /sys/bus/iio/devices/iio:deviceX with the name adc-mux\@3.
 
@@ -189,7 +170,7 @@ lrwxrwxrwx 1 root root 0 Jul 17 13:21 subsystem -\> ../../../../bus/iio
 -rw-r\--r\-- 1 root root 4096 Jul 17 13:21 uevent
 \</xterm\>
 
-#### Show device name
+##### Show device name
 
 \<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
 \<xterm\>
@@ -197,7 +178,7 @@ root\@raspberrypi:/sys/bus/iio/devices/iio:device1\# cat name
 adc-mux\@3
 \</xterm\>\</WRAP\>
 
-#### Get Voltage on channel Y
+##### Get Voltage on channel Y
 
 **Description:**\
 /sys/bus/iio/devices/iio:deviceX/in\_voltageY\_raw\
@@ -212,6 +193,6 @@ root\@raspberrypi:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_raw
 \<wrap info\>The other attributes correspond to the ADC and can be viewed from here.\</wrap\>
 
 More Information
-================
+----------------
 
 ![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

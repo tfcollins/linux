@@ -6,8 +6,7 @@ title: AD9166: DC to 9 GHz Vector Signal Generator
 AD9162 DAC Linux Driver
 =======================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD9161](https://www.google.com/search?q=AD9161&btnI=lucky)
 -   [AD9162](https://www.google.com/search?q=AD9162&btnI=lucky)
@@ -15,30 +14,26 @@ Supported Devices
 -   [AD9164](https://www.google.com/search?q=AD9164&btnI=lucky)
 -   [AD9166](https://www.google.com/search?q=AD9166&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [AD-FMCOMMS11-EBZ](https://www.google.com/search?q=AD-FMCOMMS11-EBZ&btnI=lucky)
 -   [EVAL-AD916x](https://www.google.com/search?q=EVAL-AD916x&btnI=lucky)
 -   [EVAL-AD9166](https://www.google.com/search?q=EVAL-AD9166&btnI=lucky)
 
-HDL Support
------------
+#### HDL Support
 
 -   [AD-DAC-FMC-EBZ reference HDL design](/resources/eval/user-guides/ad-dac-fmc-ebz)
 -   [DAC JESD204B Transport Peripheral](/resources/fpga/peripherals/jesd204/jesd204_tpl_dac)
 
-Description
------------
+#### Description
 
 The AD9161/AD91621 are high performance, 11-bit/16-bit digital-to-analog converters (DACs) that supports data rates to 6 GSPS. The DAC core is based on a quad-switch architecture coupled with a 2x interpolator filter that enables an effective DAC update rate of up to 12 GSPS in some modes. The high dynamic range and bandwidth makes these DACs ideally suited for the most demanding high speed radio frequency (RF) DAC
 applications.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -55,8 +50,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -135,272 +129,266 @@ Example device trees
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 The AD9162 driver is a SPI bus driver and can be instantiated via device tree.
 
 For detailed information about the required/optional devicetree properties look at [ad916x.yaml](https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/frequency/ad916x.yaml&btnI=lucky) and [ad916x-amp.yaml](https://www.google.com/search?q=master?Documentation/devicetree/bindings/iio/amplifiers/ad916x-amp.yaml&btnI=lucky).
 
 Enabling Linux driver support
-=============================
+-----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD9162 driver depends on **CONFIG\_SPI** and **CONFIG\_CF\_AXI\_DDS**
+The AD9162 driver depends on **CONFIG_SPI** and **CONFIG_CF_AXI_DDS**
 
 :::
 
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-        -*-   Enable ring buffer support within IIO
-        -*-     Industrial I/O lock free software ring
-        -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            -*-   Enable ring buffer support within IIO
+            -*-     Industrial I/O lock free software ring
+            -*-   Enable triggered sampling support
 
-              *** Direct Digital Synthesis ***
-        [--snip--]
+                  *** Direct Digital Synthesis ***
+            [--snip--]
 
-        <*>   Analog Devices CoreFPGA AXI DDS driver
-        <*>   Analog Devices AD9162 DAC 
+            <*>   Analog Devices CoreFPGA AXI DDS driver
+            <*>   Analog Devices AD9162 DAC 
 
-        [--snip--]
+            [--snip--]
 
-```
-```
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-The driver has two main ways of functioning depending on the [adi,standalone-probe](https://www.google.com/search?q=master/Documentation/devicetree/bindings/iio/frequency/ad916x.yaml#L49&btnI=lucky) devicetree property. If set, the driver will probe in standalone mode which means that it won\'t link with the [AXI DAC HDL Linux Driver](/resources/tools-software/linux-drivers/iio-dds/axi-dac-dds-hdl). This means that different attributes will be seen depending on the working mode. The next ABI is the same independent of the working mode.
+The driver has two main ways of functioning depending on the [adi,standalone-probe](https://www.google.com/search?q=master/Documentation/devicetree/bindings/iio/frequency/ad916x.yaml#L49&btnI=lucky) devicetree property. If set, the driver will probe in standalone mode which means that it won't link with the [AXI DAC HDL Linux Driver](/resources/tools-software/linux-drivers/iio-dds/axi-dac-dds-hdl). This means that different attributes will be seen depending on the working mode. The next ABI is the same independent of the working mode.
 
-# Show device name
+##### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ cat name
+analog@analog:/sys/bus/iio/devices/iio:device2 $ cat name
 ad9166
 ```
 :::
 
 
-#### Change NCO Frequency
+##### Change NCO Frequency
 
-What: **out\_voltageX\_nco\_frequency**
+What: **out_voltageX_nco_frequency**
 
 Set channel NCO frequency (fCARRIER) in Hz
 
-Range is: −fclk/2 ≤ fCARRIER \< +fclk/2 or 0 ≤ fCARRIER \< fclk if FIR85 is enabled
+Range is: −fclk/2 ≤ fCARRIER < +fclk/2 or 0 ≤ fCARRIER < fclk if FIR85 is enabled
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ echo 1000000000 \> out\_altvoltage0\_nco\_frequency
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ cat out\_altvoltage0\_nco\_frequency
+analog@analog:/sys/bus/iio/devices/iio:device2 $ echo 1000000000 > out_altvoltage0_nco_frequency
+analog@analog:/sys/bus/iio/devices/iio:device2 $ cat out_altvoltage0_nco_frequency
 1000000000
 ```
 :::
 
 
-Standalone Mode
----------------
+#### Standalone Mode
 
 This mode can be used together with [adi,dc-test-en](https://www.google.com/search?q=master/Documentation/devicetree/bindings/iio/frequency/ad916x.yaml#L42&btnI=lucky) for running the device as a signal generator. The present attributes are:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:\~ \$ cd /sys/bus/iio/devices/iio\\:device2
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ ls -l
+analog@analog:~ $ cd /sys/bus/iio/devices/iio:device2
+analog@analog:/sys/bus/iio/devices/iio:device2 $
+analog@analog:/sys/bus/iio/devices/iio:device2 $ ls -l
 total 0
--r\--r\--r\-- 1 root root 4096 Jan 18 22:03 dev
--rw-r\--r\-- 1 root root 4096 Jan 18 22:03 fir85\_enable
--rw-r\--r\-- 1 root root 4096 Jan 18 22:03 in\_temp0\_input
--rw-r\--r\-- 1 root root 4096 Jan 18 22:03 in\_temp0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 18 22:03 in\_temp0\_single\_point\_calib
--r\--r\--r\-- 1 root root 4096 Jan 18 22:03 name
-lrwxrwxrwx 1 root root 0 Jan 18 22:03 of\_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi\@7e204000/ad9166\@0
--rw-r\--r\-- 1 root root 4096 Jan 18 22:03 out\_altvoltage0\_nco\_frequency
--rw-r\--r\-- 1 root root 4096 Jan 18 22:03 out\_altvoltage0\_raw
+-r--r--r-- 1 root root 4096 Jan 18 22:03 dev
+-rw-r--r-- 1 root root 4096 Jan 18 22:03 fir85_enable
+-rw-r--r-- 1 root root 4096 Jan 18 22:03 in_temp0_input
+-rw-r--r-- 1 root root 4096 Jan 18 22:03 in_temp0_raw
+-rw-r--r-- 1 root root 4096 Jan 18 22:03 in_temp0_single_point_calib
+-r--r--r-- 1 root root 4096 Jan 18 22:03 name
+lrwxrwxrwx 1 root root 0 Jan 18 22:03 of_node -> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ad9166@0
+-rw-r--r-- 1 root root 4096 Jan 18 22:03 out_altvoltage0_nco_frequency
+-rw-r--r-- 1 root root 4096 Jan 18 22:03 out_altvoltage0_raw
 drwxr-xr-x 2 root root 0 Jan 18 22:03 power
--rw-r\--r\-- 1 root root 4096 Jan 18 22:03 sampling\_frequency
-lrwxrwxrwx 1 root root 0 Jan 18 22:03 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 18 22:03 uevent
+-rw-r--r-- 1 root root 4096 Jan 18 22:03 sampling_frequency
+lrwxrwxrwx 1 root root 0 Jan 18 22:03 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 18 22:03 uevent
 ```
 :::
 
 
-#### Change DC Test Word
+##### Change DC Test Word
 
-What: **out\_altvoltageX\_raw**
+What: **out_altvoltageX_raw**
 
 Set the DC test word data. This will be the data source of the digital path when [adi,dc-test-en](https://www.google.com/search?q=master/Documentation/devicetree/bindings/iio/frequency/ad916x.yaml#L42&btnI=lucky) is enabled. We can control the signal amplitude with this attribute.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ echo 100 \> out\_altvoltage0\_raw
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ cat out\_altvoltage0\_raw
+analog@analog:/sys/bus/iio/devices/iio:device2 $ echo 100 > out_altvoltage0_raw
+analog@analog:/sys/bus/iio/devices/iio:device2 $ cat out_altvoltage0_raw
 100
 ```
 :::
 
 
-#### Change Temperature Sensor Single point calibration
+##### Change Temperature Sensor Single point calibration
 
-What: **in\_tempX\_single\_point\_calib**
+What: **in_tempX_single_point_calib**
 
-This setting allows for runtime calibration of the device internal temperature sensor (mostly useful for evaluation and testing). For that, a valid temperature in milli degrees °C should be written to this attribute. Internally, the driver will get the raw temperature value. With this pair of values, the driver can then calculate the parameters needed to get the processed temperature from the sensor\...
+This setting allows for runtime calibration of the device internal temperature sensor (mostly useful for evaluation and testing). For that, a valid temperature in milli degrees °C should be written to this attribute. Internally, the driver will get the raw temperature value. With this pair of values, the driver can then calculate the parameters needed to get the processed temperature from the sensor...
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ echo 45000 \> in\_temp0\_single\_point\_calib
+analog@analog:/sys/bus/iio/devices/iio:device2 $ echo 45000 > in_temp0_single_point_calib
 ```
 :::
 
 
-#### Read Temperature
+##### Read Temperature
 
-What: **in\_tempX\_input**
+What: **in_tempX_input**
 
 To get the temperature already processed in milli degrees °C:
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ cat in\_temp0\_input
+analog@analog:/sys/bus/iio/devices/iio:device2 $ cat in_temp0_input
 75000
 ```
 :::
 
 
-What: **in\_tempX\_raw**
+What: **in_tempX_raw**
 
 To get the raw value:
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ cat in\_temp0\_raw
+analog@analog:/sys/bus/iio/devices/iio:device2 $ cat in_temp0_raw
 25010
 ```
 :::
 
 
-##### Enable FIR85 filter
+###### Enable FIR85 filter
 
-What: **fir85\_enable**
+What: **fir85_enable**
 
-With fir85 enabled, 0 ≤ fCARRIER \< fclk.
+With fir85 enabled, 0 ≤ fCARRIER < fclk.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ echo 1 \> fir85\_enable
-analog\@analog:/sys/bus/iio/devices/iio:device2 \$ cat fir85\_enable
+analog@analog:/sys/bus/iio/devices/iio:device2 $ echo 1 > fir85_enable
+analog@analog:/sys/bus/iio/devices/iio:device2 $ cat fir85_enable
 1
 ```
 :::
 
 
-Attached Mode
--------------
+#### Attached Mode
 
 As said, in this mode the driver is used in conjunction with the [AXI DAC HDL Linux Driver](/resources/tools-software/linux-drivers/iio-dds/axi-dac-dds-hdl).
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:\~\$ cd /sys/bus/iio/devices/iio\\:device6
-analog\@analog:/sys/bus/iio/devices/iio:device6\$
-analog\@analog:/sys/bus/iio/devices/iio:device6\$
-analog\@analog:/sys/bus/iio/devices/iio:device6\$ ls -la
+analog@analog:~$ cd /sys/bus/iio/devices/iio:device6
+analog@analog:/sys/bus/iio/devices/iio:device6$
+analog@analog:/sys/bus/iio/devices/iio:device6$
+analog@analog:/sys/bus/iio/devices/iio:device6$ ls -la
 total 0
 drwxr-xr-x 5 root root 0 Apr 27 16:20 .
 drwxr-xr-x 4 root root 0 Apr 27 16:20 ..
 drwxr-xr-x 2 root root 0 Apr 27 16:20 buffer
--r\--r\--r\-- 1 root root 4096 Apr 27 16:20 dev
--r\--r\--r\-- 1 root root 4096 Apr 27 16:20 name
-lrwxrwxrwx 1 root root 0 Apr 27 16:20 of\_node -\> ../../../../../firmware/devicetree/base/fpga-axi\@0/axi-ad9162-hpc\@44a04000
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage0\_1A\_frequency
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage0\_1A\_phase
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage0\_1A\_raw
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage0\_1A\_scale
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage1\_1B\_frequency
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage1\_1B\_phase
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage1\_1B\_raw
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage1\_1B\_scale
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage2\_frequency\_nco
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_altvoltage\_sampling\_frequency
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_voltage0\_calibphase
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_voltage0\_calibscale
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_voltage1\_calibphase
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_voltage1\_calibscale
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_voltage\_fir85\_enable
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 out\_voltage\_sampling\_frequency
+-r--r--r-- 1 root root 4096 Apr 27 16:20 dev
+-r--r--r-- 1 root root 4096 Apr 27 16:20 name
+lrwxrwxrwx 1 root root 0 Apr 27 16:20 of_node -> ../../../../../firmware/devicetree/base/fpga-axi@0/axi-ad9162-hpc@44a04000
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage0_1A_frequency
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage0_1A_phase
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage0_1A_raw
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage0_1A_scale
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage1_1B_frequency
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage1_1B_phase
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage1_1B_raw
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage1_1B_scale
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage2_frequency_nco
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_altvoltage_sampling_frequency
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_voltage0_calibphase
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_voltage0_calibscale
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_voltage1_calibphase
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_voltage1_calibscale
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_voltage_fir85_enable
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 out_voltage_sampling_frequency
 drwxr-xr-x 2 root root 0 Apr 27 16:20 power
-drwxr-xr-x 2 root root 0 Apr 27 16:20 scan\_elements
-lrwxrwxrwx 1 root root 0 Apr 27 16:20 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Apr 27 16:20 uevent
+drwxr-xr-x 2 root root 0 Apr 27 16:20 scan_elements
+lrwxrwxrwx 1 root root 0 Apr 27 16:20 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Apr 27 16:20 uevent
 ```
 :::
 
 
-##### Enable FIR85 filter
+###### Enable FIR85 filter
 
-What: **out\_voltage\_fir85\_enable**
+What: **out_voltage_fir85_enable**
 
-With fir85 enabled, 0 ≤ fCARRIER \< fclk.
+With fir85 enabled, 0 ≤ fCARRIER < fclk.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-analog\@analog:/sys/bus/iio/devices/iio:device6 \$ echo 1 \> out\_voltage\_fir85\_enable
-analog\@analog:/sys/bus/iio/devices/iio:device6 \$ cat out\_voltage\_fir85\_enable
+analog@analog:/sys/bus/iio/devices/iio:device6 $ echo 1 > out_voltage_fir85_enable
+analog@analog:/sys/bus/iio/devices/iio:device6 $ cat out_voltage_fir85_enable
 1
 ```
 :::
@@ -410,28 +398,28 @@ Documentation for following subfolders and channel attributes can be found here:
 
 -   buffer
 -   name
--   out\_altvoltage0\_1A\_frequency
--   out\_altvoltage0\_1A\_phase
--   out\_altvoltage0\_1A\_raw
--   out\_altvoltage0\_1A\_scale
--   out\_altvoltage1\_1B\_frequency
--   out\_altvoltage1\_1B\_phase
--   out\_altvoltage1\_1B\_raw
--   out\_altvoltage1\_1B\_scale
--   out\_altvoltage\_sampling\_frequency
--   out\_voltage0\_calibphase
--   out\_voltage0\_calibscale
--   out\_voltage1\_calibphase
--   out\_voltage1\_calibscale
--   out\_voltage\_sampling\_frequency
--   scan\_elements
+-   out_altvoltage0_1A_frequency
+-   out_altvoltage0_1A_phase
+-   out_altvoltage0_1A_raw
+-   out_altvoltage0_1A_scale
+-   out_altvoltage1_1B_frequency
+-   out_altvoltage1_1B_phase
+-   out_altvoltage1_1B_raw
+-   out_altvoltage1_1B_scale
+-   out_altvoltage_sampling_frequency
+-   out_voltage0_calibphase
+-   out_voltage0_calibscale
+-   out_voltage1_calibphase
+-   out_voltage1_calibscale
+-   out_voltage_sampling_frequency
+-   scan_elements
 
 AD9166 Amplifier
-================
+----------------
 
-The AD9166 comes with an integrated differential to single-ended output buffer amplifier, matched to a 50Ω load up to 10 GHz. This amplifier has it\'s own SPI interface and thus, it has it\'s own device driver. For more info go to [AD9166-AMP](/resources/tools-software/linux-drivers/iio-amplifiers/ad9166_amp).
+The AD9166 comes with an integrated differential to single-ended output buffer amplifier, matched to a 50Ω load up to 10 GHz. This amplifier has it's own SPI interface and thus, it has it's own device driver. For more info go to [AD9166-AMP](/resources/tools-software/linux-drivers/iio-amplifiers/ad9166_amp).
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

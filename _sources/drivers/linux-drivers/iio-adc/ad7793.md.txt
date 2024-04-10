@@ -6,8 +6,7 @@ title: AD7799: 3-Channel, Low Noise, Low Power, 24-Bit, Sigma Delta ADC with On-
 AD7793 IIO Low Power Sigma-Delta ADC Linux Driver
 =================================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD7785](https://www.google.com/search?q=AD7785&btnI=lucky)
 -   [AD7792](https://www.google.com/search?q=AD7792&btnI=lucky)
@@ -19,8 +18,7 @@ Supported Devices
 -   [AD7798](https://www.google.com/search?q=AD7798&btnI=lucky)
 -   [AD7799](https://www.google.com/search?q=AD7799&btnI=lucky)
 
-Reference Circuits
-------------------
+#### Reference Circuits
 
 -   [CN0172](https://www.google.com/search?q=CN0172&btnI=lucky)
 -   [CN0206](https://www.google.com/search?q=CN0206&btnI=lucky)
@@ -29,8 +27,7 @@ Reference Circuits
 -   [CN0325](https://www.google.com/search?q=CN0325&btnI=lucky)
 -   [CN0326](https://www.google.com/search?q=CN0326&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD7785EBZ](https://www.google.com/search?q=EVAL-AD7785EBZ&btnI=lucky)
 -   [EVAL-AD7792EBZ](https://www.google.com/search?q=EVAL-AD7792EBZ&btnI=lucky)
@@ -42,18 +39,16 @@ Evaluation Boards
 -   [EVAL-AD7798EBZ](https://www.google.com/search?q=EVAL-AD7798EBZ&btnI=lucky)
 -   [EVAL-AD7799EBZ](https://www.google.com/search?q=EVAL-AD7799EBZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -70,8 +65,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -93,11 +87,11 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-The reference voltage may vary between boards and models. The platform\_data for the device\'s \"struct device\" holds this information.
+The reference voltage may vary between boards and models. The platform_data for the device's "struct device" holds this information.
 
 ``` {.c}
 /**
@@ -214,11 +208,11 @@ static struct ad7793_platform_data ad7793_pdata =  {
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-# if defined(CONFIG_AD7793) \
+## if defined(CONFIG_AD7793) 
     || defined(CONFIG_AD7793_MODULE)
     {
         .modalias = "ad7793",
@@ -248,150 +242,146 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD7793 Driver depends on **CONFIG\_SPI**
+The AD7793 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        ...
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
+    Linux Kernel Configuration
+        Device Drivers  --->
             ...
-            Analog to digital converters  ---> 
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
                 ...
-                <*>  Analog Devices AD7793 and similar ADCs driver
+                Analog to digital converters  ---> 
+                    ...
+                    <*>  Analog Devices AD7793 and similar ADCs driver
+                    ...
                 ...
             ...
-        ...
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 ![](/resources/tools-software/linux-drivers/iio-adc/ad7793_eval_lr.jpg){width="600"}
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 device0 trigger0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **ls -l**
 drwxr-xr-x 4 root root 0 Jan 4 09:29 device0:buffer0
--rw-r\--r\-- 1 root root 4096 Jan 4 09:30 in\_voltage-in\_voltage\_scale
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 in\_voltage-in\_voltage\_scale\_available
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 in\_voltage0-in\_voltage0\_raw
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 in\_voltage0-in\_voltage0\_shorted\_raw
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 in\_voltage1-in\_voltage1\_raw
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 in\_voltage2-in\_voltage2\_raw
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 in\_voltage4\_supply\_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 09:30 in\_voltage4\_supply\_scale
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 name
+-rw-r--r-- 1 root root 4096 Jan 4 09:30 in_voltage-in_voltage_scale
+-r--r--r-- 1 root root 4096 Jan 4 09:30 in_voltage-in_voltage_scale_available
+-r--r--r-- 1 root root 4096 Jan 4 09:30 in_voltage0-in_voltage0_raw
+-r--r--r-- 1 root root 4096 Jan 4 09:30 in_voltage0-in_voltage0_shorted_raw
+-r--r--r-- 1 root root 4096 Jan 4 09:30 in_voltage1-in_voltage1_raw
+-r--r--r-- 1 root root 4096 Jan 4 09:30 in_voltage2-in_voltage2_raw
+-r--r--r-- 1 root root 4096 Jan 4 09:30 in_voltage4_supply_raw
+-rw-r--r-- 1 root root 4096 Jan 4 09:30 in_voltage4_supply_scale
+-r--r--r-- 1 root root 4096 Jan 4 09:30 name
 drwxr-xr-x 2 root root 0 Jan 4 09:30 power
--rw-r\--r\-- 1 root root 4096 Jan 4 09:30 sampling\_frequency
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 sampling\_frequency\_available
-lrwxrwxrwx 1 root root 0 Jan 4 09:30 subsystem -\> ../../../../../bus/iio
--r\--r\--r\-- 1 root root 4096 Jan 4 09:30 in\_temp0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 09:30 in\_temp0\_scale
+-rw-r--r-- 1 root root 4096 Jan 4 09:30 sampling_frequency
+-r--r--r-- 1 root root 4096 Jan 4 09:30 sampling_frequency_available
+lrwxrwxrwx 1 root root 0 Jan 4 09:30 subsystem -> ../../../../../bus/iio
+-r--r--r-- 1 root root 4096 Jan 4 09:30 in_temp0_raw
+-rw-r--r-- 1 root root 4096 Jan 4 09:30 in_temp0_scale
 drwxr-xr-x 2 root root 0 Jan 4 09:30 trigger
--rw-r\--r\-- 1 root root 4096 Jan 4 09:30 uevent
+-rw-r--r-- 1 root root 4096 Jan 4 09:30 uevent
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0>
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat name**
 ad7793
 ```
 :::
 
 
-##### Show available sampling frequencies / update rates
+###### Show available sampling frequencies / update rates
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat sampling\_frequency\_available**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat sampling_frequency_available**
 470 242 123 62 50 39 33 19 17 16 12 10 8 6 4
 ```
 :::
 
 
-##### Set sampling frequency / update rate
+###### Set sampling frequency / update rate
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat sampling\_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat sampling_frequency**
 10
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 50 \> sampling\_frequency**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat sampling\_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 50 > sampling_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat sampling_frequency**
 50
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0>
 ```
 :::
 
 
-##### Show supply voltage
+###### Show supply voltage
 
-**Description:**\
+**Description:**
 Shows the AVDD supply voltage
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat in\_voltage4\_supply\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage4_supply_raw**
 7817399
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat in\_voltage4\_supply\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage4_supply_scale**
 0.000418420
 ```
 :::
 
 
-**U** = *in\_voltage4\_supply\_raw \* in\_voltage4\_supply\_scale* = 7817399 \* 0.000418420 = **3270.95608958 *mV***
+**U** = *in_voltage4_supply_raw * in_voltage4_supply_scale* = 7817399 * 0.000418420 = **3270.95608958 *mV***
 
-##### Show available scales for differential input channels
+###### Show available scales for differential input channels
 
 Lists all available scales for the differential input pairs:
 
@@ -424,42 +414,42 @@ Lists all available scales for the differential input pairs:
 
 Setting these directly influences the ADC input range, by altering the GAIN amplifier.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat in\_voltage-in\_voltage\_scale\_available**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage-in_voltage_scale_available**
 0.000149010 0.000074500 0.000037250 0.000018620 0.000009310 0.000004650 0.000002320 0.000001160
 ```
 :::
 
 
-##### Set scale for differential input channels
+###### Set scale for differential input channels
 
-Scale to be applied to in\_voltage0-in\_voltage0\_raw, in\_voltage1-in\_voltage1\_raw, in\_voltage2-in\_voltage2\_raw in order to obtain the measured voltage in millivolts.
+Scale to be applied to in_voltage0-in_voltage0_raw, in_voltage1-in_voltage1_raw, in_voltage2-in_voltage2_raw in order to obtain the measured voltage in millivolts.
 Allows the user to select one scale out of the available scales.
 If the written scale differs from the current scale. The driver performs full and zero offset calibration on all differential input channels.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat in\_voltage-in\_voltage\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage-in_voltage_scale**
 0.000149010
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 0.000074500 \> in\_voltage-in\_voltage\_scale**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat in\_voltage-in\_voltage\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 0.000074500 > in_voltage-in_voltage_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage-in_voltage_scale**
 0.000074500
 ```
 :::
 
 
-##### Show channel in\_voltage0-in\_voltage0 measurement
+###### Show channel in_voltage0-in_voltage0 measurement
 
-**Description:**\
+**Description:**
 Raw unscaled voltage measurement
 
 <table>
@@ -501,82 +491,80 @@ Raw unscaled voltage measurement
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat in\_voltage0-in\_voltage0\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage0-in_voltage0_raw**
 6710665
 ```
 :::
 
 
-**U** = *in\_voltage0-in\_voltage0\_raw \* in\_voltage-in\_voltage\_scale* = 6710665 \* 0.000149010 = **999.95619165 *mV***
+**U** = *in_voltage0-in_voltage0_raw * in_voltage-in_voltage_scale* = 6710665 * 0.000149010 = **999.95619165 *mV***
 
-Trigger management
-------------------
+#### Trigger management
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-This driver only supports it\'s own default trigger source **ad7793-dev0**
+This driver only supports it's own default trigger source **ad7793-dev0**
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat trigger/current\_trigger**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat trigger/current_trigger**
 ad7793-dev0
 ```
 :::
 
 
-Buffer management
------------------
+#### Buffer management
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/buffer\> ls
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/buffer> ls
 **enable** **length**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/buffer\>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/buffer>
 ```
 :::
 
 
-![iio\_snippets\#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
+![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/scan\_elements\> **ls**
-in\_voltage0-in\_voltage0\_en in\_voltage1-in\_voltage1\_index in\_voltage4\_supply\_type
-in\_voltage0-in\_voltage0\_index in\_voltage1-in\_voltage1\_type temp0\_en
-in\_voltage0-in\_voltage0\_shorted\_en in\_voltage2-in\_voltage2\_en temp0\_index
-in\_voltage0-in\_voltage0\_shorted\_index in\_voltage2-in\_voltage2\_index temp0\_type
-in\_voltage0-in\_voltage0\_shorted\_type in\_voltage2-in\_voltage2\_type timestamp\_en
-in\_voltage0-in\_voltage0\_type in\_voltage4\_supply\_en timestamp\_index
-in\_voltage1-in\_voltage1\_en in\_voltage4\_supply\_index timestamp\_type
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/scan\_elements\>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/scan_elements> **ls**
+in_voltage0-in_voltage0_en in_voltage1-in_voltage1_index in_voltage4_supply_type
+in_voltage0-in_voltage0_index in_voltage1-in_voltage1_type temp0_en
+in_voltage0-in_voltage0_shorted_en in_voltage2-in_voltage2_en temp0_index
+in_voltage0-in_voltage0_shorted_index in_voltage2-in_voltage2_index temp0_type
+in_voltage0-in_voltage0_shorted_type in_voltage2-in_voltage2_type timestamp_en
+in_voltage0-in_voltage0_type in_voltage4_supply_en timestamp_index
+in_voltage1-in_voltage1_en in_voltage4_supply_index timestamp_type
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/scan_elements>
 ```
 :::
 
 
-![iio\_snippets\#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
+![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

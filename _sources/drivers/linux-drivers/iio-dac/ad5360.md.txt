@@ -6,8 +6,7 @@ title: AD5373: 40-Channel, 14-Bit, Serial Input, Voltage-Output DAC
 AD5360 IIO Multi-Channel DAC Linux Driver
 =========================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD5360](https://www.google.com/search?q=AD5360&btnI=lucky)
 -   [AD5361](https://www.google.com/search?q=AD5361&btnI=lucky)
@@ -18,8 +17,7 @@ Supported Devices
 -   [AD5372](https://www.google.com/search?q=AD5372&btnI=lucky)
 -   [AD5373](https://www.google.com/search?q=AD5373&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD5360EBZ](https://www.google.com/search?q=EVAL-AD5360EBZ&btnI=lucky)
 -   [EVAL-AD5361EBZ](https://www.google.com/search?q=EVAL-AD5361EBZ&btnI=lucky)
@@ -30,18 +28,16 @@ Evaluation Boards
 -   [EVAL-AD5372EBZ](https://www.google.com/search?q=EVAL-AD5372EBZ&btnI=lucky)
 -   [EVAL-AD5373EBZ](https://www.google.com/search?q=EVAL-AD5373EBZ&btnI=lucky)
 
-Description
------------
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi-channel serial interface DACs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -58,8 +54,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -77,7 +72,7 @@ Files
 </table>
 
 Example device tree
-===================
+-------------------
 
 ``` {.c}
     fragment@0 {
@@ -121,18 +116,17 @@ Example device tree
 ```
 
 Example platform device initialization
-======================================
+--------------------------------------
 
-Specifying reference voltage via the regulator framework
---------------------------------------------------------
+#### Specifying reference voltage via the regulator framework
 
 Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 In this example all 4 reference voltage are supplied by the same regulator.
 
-Except for the AD5371 devices expect two supplies named \"vref0\" and \"vref1\". The AD5371 expects a third supply named \"vref2\".
+Except for the AD5371 devices expect two supplies named "vref0" and "vref1". The AD5371 expects a third supply named "vref2".
 
 ``` {.c}
-# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad5360_consumer_supplies[] = {
     REGULATOR_SUPPLY("vref0", "spi0.3"),
     REGULATOR_SUPPLY("vref1", "spi0.3"),
@@ -168,7 +162,7 @@ static struct platform_device brd_voltage_regulator = {
 
 ``` {.c}
 static struct platform_device *board_devices[] __initdata = {
-# if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
 ## endif
 };
@@ -191,11 +185,11 @@ arch_initcall(board_init);
 ![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
-It may also required to adjust max\_speed\_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` {.c}
 static struct spi_board_info board_spi_board_info[] __initdata = {
-## if defined(CONFIG_AD5360_SPI) || \
+## if defined(CONFIG_AD5360_SPI) || 
     defined(CONFIG_AD5360_SPI_MODULE)
     {
         /* the modalias must be the same as spi device driver name */
@@ -224,172 +218,168 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD5360 Driver depends on **CONFIG\_SPI**
+The AD5360 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        ...
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
+    Linux Kernel Configuration
+        Device Drivers  --->
             ...
-            Digital to analog converters  ---> 
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
                 ...
-                <*>  Analog Devices Analog Devices AD5360/61/62/63/70/71/73 DAC driver
+                Digital to analog converters  ---> 
+                    ...
+                    <*>  Analog Devices Analog Devices AD5360/61/62/63/70/71/73 DAC driver
+                    ...
                 ...
             ...
-        ...
 
-```
-```
 Hardware configuration
-======================
+----------------------
 
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 2 21:54 dev
--r\--r\--r\-- 1 root root 4096 Jan 2 21:54 name
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage0\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage0\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage0\_offset
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage0\_raw
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage0\_scale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage10\_calibbias
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage10\_calibscale
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage10\_offset
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage10\_raw
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage10\_scale
-\...
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 out\_voltage\_powerdown
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 2 21:54 dev
+-r--r--r-- 1 root root 4096 Jan 2 21:54 name
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage0_calibbias
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage0_calibscale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage0_offset
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage0_raw
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage0_scale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage10_calibbias
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage10_calibscale
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage10_offset
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage10_raw
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage10_scale
+...
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 out_voltage_powerdown
 drwxr-xr-x 2 root root 0 Jan 2 21:54 power
-lrwxrwxrwx 1 root root 0 Jan 2 21:54 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 2 21:54 uevent
+lrwxrwxrwx 1 root root 0 Jan 2 21:54 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 2 21:54 uevent
 ```
 :::
 
 
-##### Show device name
+###### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat name**
 ad5360
 ```
 :::
 
 
-##### Show scale
+###### Show scale
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_scale\
-scale to be applied to out\_voltage0\_raw in order to obtain the measured voltage in millivolts.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_scale
+scale to be applied to out_voltage0_raw in order to obtain the measured voltage in millivolts.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage0\_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage0_scale**
 0.038140
 ```
 :::
 
 
-##### Set channel Y output voltage
+###### Set channel Y output voltage
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_raw\
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw
 Raw (unscaled, no bias etc.) output voltage for
 channel Y.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 10000 \> out\_voltage0\_raw**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 10000 > out_voltage0_raw**
 ```
 :::
 
 
-**U** = *out\_voltage0\_raw \* out\_voltage0\_scale* = 10000 \* 0,038140 *mV* = **381,14 *mV***
+**U** = *out_voltage0_raw * out_voltage0_scale* = 10000 * 0,038140 *mV* = **381,14 *mV***
 
-##### Calibrate channel Y gain
+###### Calibrate channel Y gain
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_calibscale\
-Each channel has an adjustable gain which can be used to calibrate the channel\'s scale and compensate for full-scale errors. The default value is 65535.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_calibscale
+Each channel has an adjustable gain which can be used to calibrate the channel's scale and compensate for full-scale errors. The default value is 65535.
 
 If scale calibration is used the following formula can be used calculate the output voltage:
-**U** = *( ( out\_voltageY\_raw \* ( out\_voltageY\_calibscale + 1 ) ) / 2\^16 - out\_voltageY\_calibbias ) \* out\_voltageY\_scale*
+**U** = *( ( out_voltageY_raw * ( out_voltageY_calibscale + 1 ) ) / 2^16 - out_voltageY_calibbias ) * out_voltageY_scale*
 
-##### Calibrate channel Y offset
+###### Calibrate channel Y offset
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out\_voltageY\_calibbias\
-Each channel has an adjustable offset which can be used to calibrate the channel\'s offset and compensate for zero-scale errors. The default value is 0.
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_calibbias
+Each channel has an adjustable offset which can be used to calibrate the channel's offset and compensate for zero-scale errors. The default value is 0.
 
 If offset calibration is used the following formula can be used calculate the output voltage:
-**U** = *( ( out\_voltageY\_raw \* ( out\_voltageY\_calibscale + 1 ) ) / 2\^16 - out\_voltageY\_calibbias ) \* out\_voltageY\_scale*
+**U** = *( ( out_voltageY_raw * ( out_voltageY_calibscale + 1 ) ) / 2^16 - out_voltageY_calibbias ) * out_voltageY_scale*
 
-##### Enable power down mode for the device
+###### Enable power down mode for the device
 
-/sys/bus/iio/devices/iio:deviceX/out\_voltage\_powerdown
+/sys/bus/iio/devices/iio:deviceX/out_voltage_powerdown
 
-**Description:**\
+**Description:**
 Writing 1 causes the device to enter power down mode. Clearing returns to
 normal operation.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 1 \> out\_voltage\_powerdown**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage\_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 1 > out_voltage_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage_powerdown**
 1
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **echo 0 \> out\_voltage\_powerdown**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out\_voltage\_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 0 > out_voltage_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage_powerdown**
 0
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

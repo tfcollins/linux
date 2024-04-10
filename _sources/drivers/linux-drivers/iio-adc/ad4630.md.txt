@@ -6,8 +6,7 @@ title: ADAQ4224: 24-Bit, 2 MSPS μModule Data Acquisition Solution
 AD4630 ADC Linux Driver
 =======================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [AD4030-24](https://www.google.com/search?q=AD4030-24&btnI=lucky)
 -   [AD4630-16](https://www.google.com/search?q=AD4630-16&btnI=lucky)
@@ -16,13 +15,11 @@ Supported Devices
 -   [ADAQ4220](https://www.google.com/search?q=ADAQ4220&btnI=lucky)
 -   [ADAQ4224](https://www.google.com/search?q=ADAQ4224&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-AD4630-24](https://www.google.com/search?q=en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/EVAL-AD4630-24.html&btnI=lucky)
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -39,8 +36,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -69,48 +65,40 @@ Files
 </tbody>
 </table>
 
-Overview
---------
+#### Overview
 
 The [ad4030-24](https://www.google.com/search?q=ad4030-24&btnI=lucky), [ad4630-16](https://www.google.com/search?q=ad4630-16&btnI=lucky), and [ad4630-24](https://www.google.com/search?q=ad4630-24&btnI=lucky) are 24-bit, 2 MSPS SAR ADCs highly configurable through an extensive configuration register list.
 
-Enabling the driver
--------------------
+#### Enabling the driver
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The AD4630 Driver depends on **CONFIG\_SPI**
+The AD4630 Driver depends on **CONFIG_SPI**
 
 :::
 
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-        ...
-        <*>     Industrial I/O support --->
-            --- Industrial I/O support
+    Linux Kernel Configuration
+        Device Drivers  --->
             ...
-            Analog to digital converters  ---> 
+            <*>     Industrial I/O support --->
+                --- Industrial I/O support
                 ...
-                <*>   Analog Devices AD4630 ADC driver
+                Analog to digital converters  ---> 
+                    ...
+                    <*>   Analog Devices AD4630 ADC driver
+                    ...
                 ...
             ...
-        ...
 
+#### Adding a device tree entry
 
-```
-```
-Adding a device tree entry
---------------------------
+##### Required properties
 
-# Required properties
-
--   **compatible**: Must be one of \"adi,ad7091r2\", \"adi,ad7091r4\", \"adi,ad7091r8\".
+-   **compatible**: Must be one of "adi,ad7091r2", "adi,ad7091r4", "adi,ad7091r8".
 -   **reg**: number of SPI chip select id for the device.
 -   **clocks**: reference clock phandle
 -   **clock-names**: name for the reference clock
@@ -119,242 +107,237 @@ Adding a device tree entry
 -   **pwms**: phandles for the PWM device used as conversion start trigger.
 -   **pwm-names**: name for PWM devices
 
-#### Optional properties
+##### Optional properties
 
--   **vref-supply**: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.\
+-   **vref-supply**: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.
     see: Documentation/devicetree/bindings/regulator/regulator.txt
 
-#### Device tree example
+##### Device tree example
 
-```{=markdown}
-```
-// SPDX-License-Identifier: GPL-2.0
-/*
- * Analog Devices AD4630-24
- *
- * hdl_project: <ad4630_fmc/zed>
- * board_revision: <B>
- *
- * Copyright (C) 2022 Analog Devices Inc.
- */
-/dts-v1/;
+    // SPDX-License-Identifier: GPL-2.0
+    /*
+     * Analog Devices AD4630-24
+     *
+     * hdl_project: <ad4630_fmc/zed>
+     * board_revision: <B>
+     *
+     * Copyright (C) 2022 Analog Devices Inc.
+     */
+    /dts-v1/;
 
-## include "zynq-zed.dtsi"
-## include "zynq-zed-adv7511.dtsi"
-## include <dt-bindings/gpio/gpio.h>
-## include <dt-bindings/pwm/pwm.h>
+    #include "zynq-zed.dtsi"
+    #include "zynq-zed-adv7511.dtsi"
+    #include <dt-bindings/gpio/gpio.h>
+    #include <dt-bindings/pwm/pwm.h>
 
-/ {
-    vref: regulator-vref {
-        compatible = "regulator-fixed";
-        regulator-name = "fixed-supply";
-        regulator-min-microvolt = <5000000>;
-        regulator-max-microvolt = <5000000>;
-        regulator-always-on;
-    };
-
-    vdd_1_8: regulator-vdd-1-8 {
-        compatible = "regulator-fixed";
-        regulator-name = "fixed-supply";
-        regulator-min-microvolt = <1800000>;
-        regulator-max-microvolt = <1800000>;
-        regulator-always-on;
-    };
-
-    vio: regulator-vio {
-        compatible = "regulator-fixed";
-        regulator-name = "fixed-supply";
-        regulator-min-microvolt = <1800000>;
-        regulator-max-microvolt = <1800000>;
-        regulator-always-on;
-    };
-
-    clocks {
-        cnv_ext_clk: ext-clk {
-            #clock-cells = <0x0>;
-            compatible = "fixed-clock";
-            clock-frequency = <100000000>;
-            clock-output-names = "cnv_ext_clk";
+    / {
+        vref: regulator-vref {
+            compatible = "regulator-fixed";
+            regulator-name = "fixed-supply";
+            regulator-min-microvolt = <5000000>;
+            regulator-max-microvolt = <5000000>;
+            regulator-always-on;
         };
-    };
-};
 
-&fpga_axi {
-    rx_dma: rx-dmac@44a30000 {
-        compatible = "adi,axi-dmac-1.00.a";
-        reg = <0x44a30000 0x1000>;
-        #dma-cells = <1>;
-        interrupts = <0 57 IRQ_TYPE_LEVEL_HIGH>;
-        clocks = <&clkc 15>;
+        vdd_1_8: regulator-vdd-1-8 {
+            compatible = "regulator-fixed";
+            regulator-name = "fixed-supply";
+            regulator-min-microvolt = <1800000>;
+            regulator-max-microvolt = <1800000>;
+            regulator-always-on;
+        };
 
-        adi,channels {
-            #size-cells = <0>;
-            #address-cells = <1>;
+        vio: regulator-vio {
+            compatible = "regulator-fixed";
+            regulator-name = "fixed-supply";
+            regulator-min-microvolt = <1800000>;
+            regulator-max-microvolt = <1800000>;
+            regulator-always-on;
+        };
 
-            dma-channel@0 {
-                reg = <0>;
-                adi,source-bus-width = <64>;
-                adi,source-bus-type = <1>;
-                adi,destination-bus-width = <64>;
-                adi,destination-bus-type = <0>;
+        clocks {
+            cnv_ext_clk: ext-clk {
+                #clock-cells = <0x0>;
+                compatible = "fixed-clock";
+                clock-frequency = <100000000>;
+                clock-output-names = "cnv_ext_clk";
             };
         };
     };
 
-    spi_clk: axi-clkgen@0x44a70000 {
-        compatible = "adi,axi-clkgen-2.00.a";
-        reg = <0x44a70000 0x10000>;
-        #clock-cells = <0>;
-        clocks = <&clkc 15>, <&clkc 15>;
-        clock-names = "s_axi_aclk", "clkin1";
-        clock-output-names = "spi_clk";
-    };
+    &fpga_axi {
+        rx_dma: rx-dmac@44a30000 {
+            compatible = "adi,axi-dmac-1.00.a";
+            reg = <0x44a30000 0x1000>;
+            #dma-cells = <1>;
+            interrupts = <0 57 IRQ_TYPE_LEVEL_HIGH>;
+            clocks = <&clkc 15>;
 
-    axi_pwm_gen: axi-pwm-gen@ {
-        compatible = "adi,axi-pwmgen";
-        reg = <0x44b00000 0x1000>;
-        label = "ad463x_cnv";
-        #pwm-cells = <2>;
-        clocks = <&cnv_ext_clk>;
+            adi,channels {
+                #size-cells = <0>;
+                #address-cells = <1>;
 
-    };
+                dma-channel@0 {
+                    reg = <0>;
+                    adi,source-bus-width = <64>;
+                    adi,source-bus-type = <1>;
+                    adi,destination-bus-width = <64>;
+                    adi,destination-bus-type = <0>;
+                };
+            };
+        };
 
-    axi_spi_engine: spi@44a00000 {
-        compatible = "adi,axi-spi-engine-1.00.a";
-        reg = <0x44a00000 0x1FF>;
-        interrupt-parent = <&intc>;
-        interrupts = <0 56 IRQ_TYPE_LEVEL_HIGH>;
-        clocks = <&clkc 15>, <&spi_clk>;
-        clock-names = "s_axi_aclk", "spi_clk";
-        num-cs = <1>;
+        spi_clk: axi-clkgen@0x44a70000 {
+            compatible = "adi,axi-clkgen-2.00.a";
+            reg = <0x44a70000 0x10000>;
+            #clock-cells = <0>;
+            clocks = <&clkc 15>, <&clkc 15>;
+            clock-names = "s_axi_aclk", "clkin1";
+            clock-output-names = "spi_clk";
+        };
 
-        #address-cells = <0x1>;
-        #size-cells = <0x0>;
-
-        ad463x: ad463x@0 {
-            compatible = "adi,ad463x";
-            reg = <0>;
-            vdd-supply = <&vref>;
-            vdd_1_8-supply = <&vdd_1_8>;
-            vio-supply = <&vio>;
-            vref-supply = <&vref>;
-            spi-max-frequency = <80000000>;
-            reset-gpios = <&gpio0 86 GPIO_ACTIVE_LOW>;
-            adi,lane-mode = <0>;
-            adi,clock-mode = <0>;
-            adi,out-data-mode = <0>;
-            adi,spi-trigger;
+        axi_pwm_gen: axi-pwm-gen@ {
+            compatible = "adi,axi-pwmgen";
+            reg = <0x44b00000 0x1000>;
+            label = "ad463x_cnv";
+            #pwm-cells = <2>;
             clocks = <&cnv_ext_clk>;
-            clock-names = "trigger_clock";
-            dmas = <&rx_dma 0>;
-            dma-names = "rx";
-            pwm-names = "spi_trigger", "cnv";
-            pwms = <&axi_pwm_gen 0 0>, <&axi_pwm_gen 1 0>;
+
+        };
+
+        axi_spi_engine: spi@44a00000 {
+            compatible = "adi,axi-spi-engine-1.00.a";
+            reg = <0x44a00000 0x1FF>;
+            interrupt-parent = <&intc>;
+            interrupts = <0 56 IRQ_TYPE_LEVEL_HIGH>;
+            clocks = <&clkc 15>, <&spi_clk>;
+            clock-names = "s_axi_aclk", "spi_clk";
+            num-cs = <1>;
+
+            #address-cells = <0x1>;
+            #size-cells = <0x0>;
+
+            ad463x: ad463x@0 {
+                compatible = "adi,ad463x";
+                reg = <0>;
+                vdd-supply = <&vref>;
+                vdd_1_8-supply = <&vdd_1_8>;
+                vio-supply = <&vio>;
+                vref-supply = <&vref>;
+                spi-max-frequency = <80000000>;
+                reset-gpios = <&gpio0 86 GPIO_ACTIVE_LOW>;
+                adi,lane-mode = <0>;
+                adi,clock-mode = <0>;
+                adi,out-data-mode = <0>;
+                adi,spi-trigger;
+                clocks = <&cnv_ext_clk>;
+                clock-names = "trigger_clock";
+                dmas = <&rx_dma 0>;
+                dma-names = "rx";
+                pwm-names = "spi_trigger", "cnv";
+                pwms = <&axi_pwm_gen 0 0>, <&axi_pwm_gen 1 0>;
+            };
         };
     };
-};
 
-
-```
-```
 Driver testing
-==============
+--------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%\="" -->
+:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%="" -->
 **TIP:**
-An example program whiroot\@analog:/sys/bus/iio/devices\# ls -lch uses the interface can be found here:
+An example program whiroot@analog:/sys/bus/iio/devices# ls -lch uses the interface can be found here:
 
 -   [IIO Oscilloscope](/resources/tools-software/linux-software/iio_oscilloscope)
 
 
 :::
-\
 
-##### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+###### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/name
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/name
 adaq4224
 ```
 :::
 
 
-##### Show channel scale
+###### Show channel scale
 
-**Description:**\
-Scale to be applied to in\_voltageX\_raw in order to obtain the measured voltage in millivolts
+**Description:**
+Scale to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/in\_voltage0\_scale
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_scale
 0.000196695
 ```
 :::
 
 
-##### Show channel list of available scales
+###### Show channel list of available scales
 
-**Description:**\
-List of available scales to be applied to in\_voltageX\_raw in order to obtain the measured voltage in millivolts. This affects the gain applied to the input signal before ADC sampling. This attribute is available for ADAQ devices only.
+**Description:**
+List of available scales to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts. This affects the gain applied to the input signal before ADC sampling. This attribute is available for ADAQ devices only.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/in\_voltage0\_scale\_available
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_scale_available
 0.000196695 0.000333786 0.001323223 0.003975629
 ```
 :::
 
 
-##### Show channel calibration offset
+###### Show channel calibration offset
 
-**Description:**\
+**Description:**
 Hardware applied calibration offset (calibbias). This is a hardware supported offset that can be applied to compensate for variation between different instances of the part.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/in\_voltage0\_calibbias
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_calibbias
 0
 ```
 :::
 
 
-##### Show channel calibration scale
+###### Show channel calibration scale
 
-**Description:**\
+**Description:**
 Hardware applied calibration scale factor.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/in\_voltage0\_calibscale
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_calibscale
 1.000000
 ```
 :::
 
 
 More Information
-================
+----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

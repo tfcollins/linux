@@ -6,45 +6,40 @@ title: ADP5589: Keypad Decoder and I/O Expansion
 ADP5589 Input Keyboard and GPIO Linux Driver
 ============================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADP5589](https://www.google.com/search?q=ADP5589&btnI=lucky)
 -   [ADP5585](https://www.google.com/search?q=ADP5585&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [ADP5589CP-EVALZ](https://www.google.com/search?q=ADP5589CP-EVALZ&btnI=lucky)
 -   [ADP5585CP-EVALZ](https://www.google.com/search?q=ADP5585CP-EVALZ&btnI=lucky)
 -   [PMOD-IOXP](http://digilentinc.com/Products/Detail.cfm?NavPath=2,401,960&Prod=PMOD-IOXP)
 
-Description
------------
+##### Description
 
-# ADP5589
+##### ADP5589
 
 ![](scrape>adi>adp5589#description)
 
-#### ADP5585
+##### ADP5585
 
 ![](scrape>adi>adp5585#description)
 
-#### Description
+###### Description
 
-The driver supports multiple key press detection and resolution.\
-It independently delivers key press and key release events in\
-chronological order to the Linux input device system.\
-This allows **SHIFT + ANYKEY**, **ALT + F1** or **CTRL + ALT + DEL** sequences.\
-Since the ADP5589 buffers events in its internal FIFO,\
-it's unlikely that events are lost due to heavy system\
-load and interrupt latencies.\
+The driver supports multiple key press detection and resolution.
+It independently delivers key press and key release events in
+chronological order to the Linux input device system.
+This allows **SHIFT + ANYKEY**, **ALT + F1** or **CTRL + ALT + DEL** sequences.
+Since the ADP5589 buffers events in its internal FIFO,
+it's unlikely that events are lost due to heavy system
+load and interrupt latencies.
 
-Configuration
--------------
+#### Configuration
 
-Software configurable features
-------------------------------
+#### Software configurable features
 
 -   Configurable keypad size matrix up to 11 × 8 (columns, rows).
 -   Support for switch events.
@@ -56,10 +51,9 @@ Software configurable features
 -   Unused row and column pins are exported as general-purpose inputs/outputs to GPIOLIB
 
 Source Code
-===========
+-----------
 
-Status
-------
+#### Status
 
 <table>
 <thead>
@@ -76,8 +70,7 @@ Status
 </tbody>
 </table>
 
-Files
------
+#### Files
 
 <table>
 <thead>
@@ -99,11 +92,11 @@ Files
 </table>
 
 Example platform device initialization
-======================================
+--------------------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-\<source trunk/include/linux/input/adp5589.h:/i2c\_board\_info/-EOF c linux-kernel\>
+<source trunk/include/linux/input/adp5589.h:/i2c_board_info/-EOF c linux-kernel>
 
 **Example key-map for an 4x4 matrix as found on the ADP5589 evaluation board.**
 
@@ -131,9 +124,9 @@ static const unsigned short adp5589_keymap[ADP5589_KEYMAPSIZE] = {
 
 **Unused row and column pins are exported as general-purpose inputs/outputs to GPIOLIB starting at gpio number 50.**
 
-:::{NOTE} <!-- ATTRS: tip\="" -->
+:::{NOTE} <!-- ATTRS: tip="" -->
 
-use gpio\_start = **-1** for **dynamic allocation**
+use gpio_start = **-1** for **dynamic allocation**
 
 :::
 
@@ -144,7 +137,7 @@ static const struct adp5589_gpio_platform_data adp5589_gpio_data = {
 };
 ```
 
-**Declare two Input Switch Events (EV\_SW), mapped to ROW6 and ROW7.**
+**Declare two Input Switch Events (EV_SW), mapped to ROW6 and ROW7.**
 
 ``` {.c}
 static const struct adp5589_gpi_map adp5589_gpimap[] = {
@@ -236,75 +229,63 @@ arch_initcall(board_init);
 ```
 
 Adding Linux driver support
-===========================
+---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADP5589 Driver depends on **CONFIG\_I2C**
+The ADP5589 Driver depends on **CONFIG_I2C**
 
 :::
 
 
 ```bash
 
-```{=markdown}
-```
---- Input Device Support
-<*> Generic input layer (needed for keyboard, mouse, ...)
-< >   Support for memoryless force-feedback devices
----   Userland interfaces
-< >   Mouse interface
-< >   Joystick interface
-< >   Touchscreen interface
-<M>   Event interface
-< >   Event debugging
----   Input Device Drivers
+    --- Input Device Support
+    <*> Generic input layer (needed for keyboard, mouse, ...)
+    < >   Support for memoryless force-feedback devices
+    ---   Userland interfaces
+    < >   Mouse interface
+    < >   Joystick interface
+    < >   Touchscreen interface
+    <M>   Event interface
+    < >   Event debugging
+    ---   Input Device Drivers
 
-```
-```
-\*\* \[\*\] Keyboards \-\--\>\*\*
+** [*] Keyboards --->**
 
-```{=markdown}
-```
-    --- Keyboards
-      < >   ADP5588/87 I2C QWERTY Keypad and IO Expander
-      **<M>   ADP5589 ADP5585 I2C QWERTY Keypad and IO Expander**
-      < >   AT keyboard
-      < >   Atmel AT42QT1070 Touch Sensor Chip
-      < >   Atmel AT42QT2160 Touch Sensor Chip
-      < >   DECstation/VAXstation LK201/LK401 keyboard
-      < >   GPIO Buttons
-      < >   Polled GPIO buttons
-      < >   TCA6416/TCA6408A Keypad Support
-      < >   GPIO driven matrix keypad support
-      < >   Maxim MAX7359 Key Switch Controller
-      < >   MELFAS MCS Touchkey
-      < >   Freescale MPR121 Touchkey
-      < >   Newton keyboard
-      < >   OpenCores Keyboard Controller
-      < >   Stowaway keyboard
-      < >   Sun Type 4 and Type 5 keyboard
-      < >   XT keyboard
+        --- Keyboards
+          < >   ADP5588/87 I2C QWERTY Keypad and IO Expander
+          **<M>   ADP5589 ADP5585 I2C QWERTY Keypad and IO Expander**
+          < >   AT keyboard
+          < >   Atmel AT42QT1070 Touch Sensor Chip
+          < >   Atmel AT42QT2160 Touch Sensor Chip
+          < >   DECstation/VAXstation LK201/LK401 keyboard
+          < >   GPIO Buttons
+          < >   Polled GPIO buttons
+          < >   TCA6416/TCA6408A Keypad Support
+          < >   GPIO driven matrix keypad support
+          < >   Maxim MAX7359 Key Switch Controller
+          < >   MELFAS MCS Touchkey
+          < >   Freescale MPR121 Touchkey
+          < >   Newton keyboard
+          < >   OpenCores Keyboard Controller
+          < >   Stowaway keyboard
+          < >   Sun Type 4 and Type 5 keyboard
+          < >   XT keyboard
 
-```
-```
-```{=markdown}
-```
-[ ]   Mouse  --->
-[ ]   Joysticks  --->
-[ ]   Touchscreens  --->
-[ ]   Miscellaneous devices  --->
-    Hardware I/O ports  --->
+    [ ]   Mouse  --->
+    [ ]   Joysticks  --->
+    [ ]   Touchscreens  --->
+    [ ]   Miscellaneous devices  --->
+        Hardware I/O ports  --->
 
-```
-```
 ```
 
 Hardware configuration
-======================
+----------------------
 
 ![](/software/driver/linux/adp5589_demo_brd_and_stamp.jpg){width="600"}
 
@@ -356,131 +337,124 @@ It can be easily wired to the Blackfin STAMP TWI/I2C header.
 </table>
 
 Driver testing
-==============
-
-Driver loading
 --------------
 
+#### Driver loading
+
 ```bash
-root:/\> **modprobe adp5589\_keys**
+root:/> **modprobe adp5589_keys**
 **input: adp5589-keys as /devices/platform/i2c-bfin-twi.0/i2c-0/0-0034/input/input0**
-**adp5589\_keys 0-0034: Rev.0 keypad, irq 66**
+**adp5589_keys 0-0034: Rev.0 keypad, irq 66**
 ```
 
-Keypad test
------------
+#### Keypad test
 
 ```bash
-root:/\> **modprobe evdev**
+root:/> **modprobe evdev**
 ```
 
-#### Simple event test utility
+##### Simple event test utility
 
 [evtest.c](http://cgit.freedesktop.org/~whot/evtest/tree/evtest.c)
 
 ```bash
-root:/\> **event\_test /dev/input/event0**
+root:/> **event_test /dev/input/event0**
 Input driver version is 1.0.1
 Input device ID: bus 0x18 vendor 0x1 product 0x1 version 0x0
-Input device name: \"adp5589-keys\"
+Input device name: "adp5589-keys"
 Supported events:
 
-```{=markdown}
-```
-Event type 0 (Sync)
-Event type 1 (Key)
-  Event code 1 (Esc)
-  Event code 2 (1)
-  Event code 3 (2)
-  Event code 4 (3)
-  Event code 5 (4)
-  Event code 6 (5)
-  Event code 7 (6)
-  Event code 8 (7)
-  Event code 9 (8)
-  Event code 10 (9)
-  Event code 11 (0)
-  Event code 14 (Backspace)
-  Event code 28 (Enter)
-  Event code 52 (Dot)
-  Event code 103 (Up)
-  Event code 108 (Down)
-Event type 5 (Switch)
-  Event code 9 (?)
-  Event code 10 (?)
+    Event type 0 (Sync)
+    Event type 1 (Key)
+      Event code 1 (Esc)
+      Event code 2 (1)
+      Event code 3 (2)
+      Event code 4 (3)
+      Event code 5 (4)
+      Event code 6 (5)
+      Event code 7 (6)
+      Event code 8 (7)
+      Event code 9 (8)
+      Event code 10 (9)
+      Event code 11 (0)
+      Event code 14 (Backspace)
+      Event code 28 (Enter)
+      Event code 52 (Dot)
+      Event code 103 (Up)
+      Event code 108 (Down)
+    Event type 5 (Switch)
+      Event code 9 (?)
+      Event code 10 (?)
 
-```
-```
-Testing \... (interrupt to exit)
+Testing ... (interrupt to exit)
 Event: time 212452.773693, type 1 (Key), code 2 (1), value 1
-Event: time 212452.773708, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212452.773708, -------------- Report Sync ------------
 Event: time 212452.967254, type 1 (Key), code 2 (1), value 0
-Event: time 212452.967264, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212452.967264, -------------- Report Sync ------------
 Event: time 212453.173026, type 1 (Key), code 3 (2), value 1
-Event: time 212453.173040, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212453.173040, -------------- Report Sync ------------
 Event: time 212453.347251, type 1 (Key), code 3 (2), value 0
-Event: time 212453.347261, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212453.347261, -------------- Report Sync ------------
 Event: time 212453.885500, type 1 (Key), code 14 (Backspace), value 1
-Event: time 212453.885515, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212453.885515, -------------- Report Sync ------------
 Event: time 212454.030671, type 1 (Key), code 14 (Backspace), value 0
-Event: time 212454.030680, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212454.030680, -------------- Report Sync ------------
 Event: time 212454.702005, type 1 (Key), code 1 (Esc), value 1
-Event: time 212454.702019, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212454.702019, -------------- Report Sync ------------
 Event: time 212454.876222, type 1 (Key), code 1 (Esc), value 0
-Event: time 212454.876232, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212454.876232, -------------- Report Sync ------------
 Event: time 212455.182126, type 1 (Key), code 28 (Enter), value 1
-Event: time 212455.182139, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212455.182139, -------------- Report Sync ------------
 Event: time 212455.395101, type 1 (Key), code 28 (Enter), value 0
-Event: time 212455.395111, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212455.395111, -------------- Report Sync ------------
 Event: time 212456.614392, type 1 (Key), code 103 (Up), value 1
-Event: time 212456.614407, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212456.614407, -------------- Report Sync ------------
 Event: time 212456.846672, type 1 (Key), code 103 (Up), value 0
-Event: time 212456.846683, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212456.846683, -------------- Report Sync ------------
 Event: time 212459.236095, type 1 (Key), code 28 (Enter), value 1
-Event: time 212459.236110, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212459.236110, -------------- Report Sync ------------
 Event: time 212459.458719, type 1 (Key), code 28 (Enter), value 0
-Event: time 212459.458728, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212459.458728, -------------- Report Sync ------------
 Event: time 212463.264521, type 5 (Switch), code 10 (?), value 1
-Event: time 212463.264536, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212463.264536, -------------- Report Sync ------------
 Event: time 212464.528812, type 5 (Switch), code 10 (?), value 0
-Event: time 212464.528823, \-\-\-\-\-\-\-\-\-\-\-\-\-- Report Sync \-\-\-\-\-\-\-\-\-\-\--
+Event: time 212464.528823, -------------- Report Sync ------------
 ```
 
-GPIO test
----------
+#### GPIO test
 
 In this particular configuration example, GPIO50 will map to ROW3.
 For more information read [GPIO Kernel Documentation](https://www.google.com/search?q=Documentation/gpio.txt&btnI=lucky)
 
-#### Access using the sysfs interface for userspace
+##### Access using the sysfs interface for userspace
 
 ```bash
-root:/\> **cd sys/class/gpio/**
+root:/> **cd sys/class/gpio/**
 
-root:/sys/class/gpio\> **ls**
+root:/sys/class/gpio> **ls**
 export gpiochip0 gpiochip50 unexport
 
-root:/sys/class/gpio\> **echo 50 \> export**
+root:/sys/class/gpio> **echo 50 > export**
 
-root:/sys/class/gpio\> **ls**
+root:/sys/class/gpio> **ls**
 export gpio50 gpiochip0 gpiochip50 unexport
 
-root:/sys/class/gpio\> **cd gpio50**
+root:/sys/class/gpio> **cd gpio50**
 
-root:/sys/devices/virtual/gpio/gpio50\> **ls**
-active\_low direction subsystem uevent value
-root:/sys/devices/virtual/gpio/gpio50\> **echo low \> direction**
-root:/sys/devices/virtual/gpio/gpio50\> **echo high \> direction**
+root:/sys/devices/virtual/gpio/gpio50> **ls**
+active_low direction subsystem uevent value
+root:/sys/devices/virtual/gpio/gpio50> **echo low > direction**
+root:/sys/devices/virtual/gpio/gpio50> **echo high > direction**
 ```
 
 PMOD-IOXP
-=========
+---------
 
 The PMOD-IOXP is an PMOD board made by Digilent Inc. which features the ADP5589.
 
 The following example shows how to connect the PMOD-IOXP to a Blackfin BF537-STAMP board and a PMOD-KYPD. Also
 
-#### Hardware configuration
+##### Hardware configuration
 
 ![](/resources/tools-software/linux-drivers/input-keyboard/pmodioxp.jpg){width="300"}
 
@@ -526,7 +500,7 @@ The following example shows how to connect the PMOD-IOXP to a Blackfin BF537-STA
 </tbody>
 </table>
 
-#### Software configuration
+##### Software configuration
 
 ``` {.c}
 ## include <linux/input/adp5589.h>
@@ -581,7 +555,7 @@ static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 ```
 
 More Information
-================
+----------------
 
 -   [Linux Input drivers kernel documentation](https://www.google.com/search?q=Documentation/input/input.txt&btnI=lucky)
 -   [GPIO kernel documentation](https://www.google.com/search?q=Documentation/gpio.txt&btnI=lucky)

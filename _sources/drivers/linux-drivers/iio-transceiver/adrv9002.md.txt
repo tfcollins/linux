@@ -164,7 +164,7 @@ The stream is not limited to path enabling events and can also react to other ev
 
 This was added to make sure the signal path is not disrupted when ARM crashes and still the link is available with reduced performance as tracking calibrations are not running.
 
-The stream binary `NavassaStream.bin` must be stored in the /lib/firmware folder, or compiled into the kernel using the CONFIG\_FIRMWARE\_IN\_KERNEL, CONFIG\_EXTRA\_FIRMWARE config options. Multiple stream binaries can be added. However a unique name must be given.
+The stream binary `NavassaStream.bin` must be stored in the /lib/firmware folder, or compiled into the kernel using the CONFIG_FIRMWARE_IN_KERNEL, CONFIG_EXTRA_FIRMWARE config options. Multiple stream binaries can be added. However a unique name must be given.
 
 <table>
 <thead>
@@ -186,7 +186,7 @@ For early versions of TES (before v0.14) streams were only made available in tex
 Arm Binary Configuration
 ------------------------
 
-The device incorporates an ARM processor that needs to be loaded with firmware during boot/setup phase. The processor is responsible, for example, to run the initial and the on the fly calibrations. The ARM binary is also loaded using the kernel firmware framework. Hence, the firmware image needs to be placed in the /lib/firmware folder or compiled into the kernel using the CONFIG\_FIRMWARE\_IN\_KERNEL, CONFIG\_EXTRA\_FIRMWARE config options. The driver expects the file to have the following name:
+The device incorporates an ARM processor that needs to be loaded with firmware during boot/setup phase. The processor is responsible, for example, to run the initial and the on the fly calibrations. The ARM binary is also loaded using the kernel firmware framework. Hence, the firmware image needs to be placed in the /lib/firmware folder or compiled into the kernel using the CONFIG_FIRMWARE_IN_KERNEL, CONFIG_EXTRA_FIRMWARE config options. The driver expects the file to have the following name:
 
 <table>
 <thead>
@@ -242,7 +242,7 @@ The ADRV9002 driver is a spi-bus driver and can currently only be instantiated v
 
 Required devicetree properties:
 
--   compatible: Should always be \"adi,adrv9002\" or \"adi,adrv9002-rx2tx2\"
+-   compatible: Should always be "adi,adrv9002" or "adi,adrv9002-rx2tx2"
 -   reg: SPI slave select number
 -   clocks: Device reference clock
 
@@ -288,11 +288,11 @@ Required devicetree properties:
 Enabling Linux driver support
 -----------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or \"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig")
 
-:::{NOTE} <!-- ATTRS: round="" help\="" -->
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-The ADRV9002 driver depends on **CONFIG\_SPI**
+The ADRV9002 driver depends on **CONFIG_SPI**
 
 :::
 
@@ -300,39 +300,36 @@ The ADRV9002 driver depends on **CONFIG\_SPI**
 Adding Linux driver support
 ---------------------------
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-```{=markdown}
-```
-Linux Kernel Configuration
-    Device Drivers  --->
-    <*>     Industrial I/O support --->
-        --- Industrial I/O support
-        -*-   Enable ring buffer support within IIO
-        -*-     Industrial I/O lock free software ring
-        -*-   Enable triggered sampling support
+    Linux Kernel Configuration
+        Device Drivers  --->
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            -*-   Enable ring buffer support within IIO
+            -*-     Industrial I/O lock free software ring
+            -*-   Enable triggered sampling support
 
-              *** Analog to digital converters ***
-        [--snip--]
+                  *** Analog to digital converters ***
+            [--snip--]
 
-        -*- Analog Devices High-Speed AXI ADC driver core
-        < > Analog Devices AD9361, AD9364 RF Agile Transceiver driver
-        < > Analog Devices AD9371 RF Transceiver driver
-        <*> Analog Devices ADRV9001/ADRV9002 RF Transceiver driver
-        < > Analog Devices AD6676 Wideband IF Receiver driver
-        < > Analog Devices AD9467, AD9680, etc. high speed ADCs
-        < > Analog Devices Motor Control (AD-FMCMOTCON) drivers
+            -*- Analog Devices High-Speed AXI ADC driver core
+            < > Analog Devices AD9361, AD9364 RF Agile Transceiver driver
+            < > Analog Devices AD9371 RF Transceiver driver
+            <*> Analog Devices ADRV9001/ADRV9002 RF Transceiver driver
+            < > Analog Devices AD6676 Wideband IF Receiver driver
+            < > Analog Devices AD9467, AD9680, etc. high speed ADCs
+            < > Analog Devices Motor Control (AD-FMCMOTCON) drivers
 
-        [--snip--]
+            [--snip--]
+            
+
+        Frequency Synthesizers DDS/PLL  --->
+                Direct Digital Synthesis  --->
+                <*> Analog Devices CoreFPGA AXI DDS driver          
         
 
-    Frequency Synthesizers DDS/PLL  --->
-            Direct Digital Synthesis  --->
-            <*> Analog Devices CoreFPGA AXI DDS driver          
-    
-```
-```
 Hardware configuration
 ----------------------
 
@@ -360,16 +357,16 @@ Depending on the devicetree compatible string used, the driver will behave diffe
 </tbody>
 </table>
 
-In \"MIMO\" mode, only one DMA buffer is used and both RX1/RX2 physical ports are mapped into the RX1 channel in the hdl axi core. The same happens for TX. For the hdl core is as TX2/RX2 don\'t exist. As the name implies, this is useful for use cases as MIMO/Diversity. Naturally, in this case, both RX1/RX2 must have the same baseband sample rate.
+In "MIMO" mode, only one DMA buffer is used and both RX1/RX2 physical ports are mapped into the RX1 channel in the hdl axi core. The same happens for TX. For the hdl core is as TX2/RX2 don't exist. As the name implies, this is useful for use cases as MIMO/Diversity. Naturally, in this case, both RX1/RX2 must have the same baseband sample rate.
 
-In the Independent mode both channels are treated separately by the hdl core, each one with it\'s own DMA buffer. Useful for TDD applications for example.
+In the Independent mode both channels are treated separately by the hdl core, each one with it's own DMA buffer. Useful for TDD applications for example.
 
 Driver testing / API
 --------------------
 
-![iio\_snippets\#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%\="" -->
+:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%="" -->
 **TIP:**
 An example program which uses the interface can be found here:
 
@@ -378,8 +375,8 @@ An example program which uses the interface can be found here:
 
 
 :::
-\
-[**General attribute naming convention:**]{.underline}\
+
+[**General attribute naming convention:**]{.underline}
 
 <table>
 <thead>
@@ -432,111 +429,111 @@ An example program which uses the interface can be found here:
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
 cd /sys/bus/iio/devices/
-root\@analog:/sys/bus/iio/devices\# ls
-iio:device0 iio:device1 iio:device2 iio:device3 iio\_sysfs\_trigger
-root\@analog:/sys/bus/iio/devices\# cd iio:device1
-root\@analog:/sys/bus/iio/devices/iio:device1\# ls -la
+root@analog:/sys/bus/iio/devices# ls
+iio:device0 iio:device1 iio:device2 iio:device3 iio_sysfs_trigger
+root@analog:/sys/bus/iio/devices# cd iio:device1
+root@analog:/sys/bus/iio/devices/iio:device1# ls -la
 total 0
 drwxr-xr-x 3 root root 0 Jun 9 09:06 .
 drwxr-xr-x 5 root root 0 Jun 9 09:06 ..
 -rw-rw-rw- 1 root root 4096 Jun 9 09:04 dev
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_temp0\_input
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_agc\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_bbdc\_rejection\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_decimated\_power
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_digital\_gain\_control\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_digital\_gain\_control\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_dynamic\_adc\_switch\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_ensm\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_ensm\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_gain\_control\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_gain\_control\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_hardwaregain
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_hd\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_interface\_gain
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_interface\_gain\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_nco\_frequency
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_port\_en\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_port\_en\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_quadrature\_fic\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_quadrature\_w\_poly\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_rf\_bandwidth
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_rfdc\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_rssi
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_rssi\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage0\_sampling\_frequency
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_agc\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_bbdc\_rejection\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_decimated\_power
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_digital\_gain\_control\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_digital\_gain\_control\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_dynamic\_adc\_switch\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_ensm\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_ensm\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_gain\_control\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_gain\_control\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_hardwaregain
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_hd\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_interface\_gain
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_interface\_gain\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_nco\_frequency
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_port\_en\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_port\_en\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_quadrature\_fic\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_quadrature\_w\_poly\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_rf\_bandwidth
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_rfdc\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_rssi
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_rssi\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 in\_voltage1\_sampling\_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_temp0_input
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_agc_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_bbdc_rejection_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_decimated_power
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_digital_gain_control_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_digital_gain_control_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_dynamic_adc_switch_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_ensm_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_ensm_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_gain_control_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_gain_control_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_hardwaregain
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_hd_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_interface_gain
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_interface_gain_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_nco_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_port_en_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_port_en_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_quadrature_fic_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_quadrature_w_poly_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_rf_bandwidth
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_rfdc_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_rssi
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_rssi_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage0_sampling_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_agc_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_bbdc_rejection_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_decimated_power
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_digital_gain_control_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_digital_gain_control_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_dynamic_adc_switch_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_ensm_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_ensm_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_gain_control_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_gain_control_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_hardwaregain
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_hd_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_interface_gain
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_interface_gain_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_nco_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_port_en_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_port_en_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_quadrature_fic_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_quadrature_w_poly_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_rf_bandwidth
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_rfdc_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_rssi
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_rssi_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 in_voltage1_sampling_frequency
 -rw-rw-rw- 1 root root 4096 Jun 9 09:04 name
-lrwxrwxrwx 1 root root 0 Jun 9 09:06 of\_node -\> ../../../../../../../../firmware/devicetree/base/amba/spi\@ff040000/adrv9002-phy\@0
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_altvoltage0\_RX1\_LO\_frequency
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_altvoltage1\_RX2\_LO\_frequency
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_altvoltage2\_TX1\_LO\_frequency
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_altvoltage3\_TX2\_LO\_frequency
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_atten\_control\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_atten\_control\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_close\_loop\_gain\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_ensm\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_ensm\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_hardwaregain
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_lo\_leakage\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_loopback\_delay\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_pa\_correction\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_port\_en\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_port\_en\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_quadrature\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_rf\_bandwidth
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage0\_sampling\_frequency
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_atten\_control\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_atten\_control\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_close\_loop\_gain\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_ensm\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_ensm\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_hardwaregain
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_lo\_leakage\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_loopback\_delay\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_pa\_correction\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_port\_en\_mode
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_port\_en\_mode\_available
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_quadrature\_tracking\_en
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_rf\_bandwidth
--rw-rw-rw- 1 root root 4096 Jun 9 09:04 out\_voltage1\_sampling\_frequency
+lrwxrwxrwx 1 root root 0 Jun 9 09:06 of_node -> ../../../../../../../../firmware/devicetree/base/amba/spi@ff040000/adrv9002-phy@0
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_altvoltage0_RX1_LO_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_altvoltage1_RX2_LO_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_altvoltage2_TX1_LO_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_altvoltage3_TX2_LO_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_atten_control_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_atten_control_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_close_loop_gain_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_ensm_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_ensm_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_hardwaregain
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_lo_leakage_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_loopback_delay_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_pa_correction_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_port_en_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_port_en_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_quadrature_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_rf_bandwidth
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage0_sampling_frequency
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_atten_control_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_atten_control_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_close_loop_gain_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_ensm_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_ensm_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_hardwaregain
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_lo_leakage_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_loopback_delay_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_pa_correction_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_port_en_mode
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_port_en_mode_available
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_quadrature_tracking_en
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_rf_bandwidth
+-rw-rw-rw- 1 root root 4096 Jun 9 09:04 out_voltage1_sampling_frequency
 drwxrwxrwx 2 root root 0 Jun 9 09:04 power
--rw-rw-rw- 1 root root 73728 Jun 9 09:04 profile\_config
-lrwxrwxrwx 1 root root 0 Jun 9 09:06 subsystem -\> ../../../../../../../../bus/iio
+-rw-rw-rw- 1 root root 73728 Jun 9 09:04 profile_config
+lrwxrwxrwx 1 root root 0 Jun 9 09:06 subsystem -> ../../../../../../../../bus/iio
 -rw-rw-rw- 1 root root 4096 Jun 9 09:04 uevent
 ```
 :::
@@ -545,13 +542,13 @@ lrwxrwxrwx 1 root root 0 Jun 9 09:06 subsystem -\> ../../../../../../../../bus/i
 Show device name
 ----------------
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/sys/bus/iio/devices/iio:device1\> **cat name**
+root:/sys/bus/iio/devices/iio:device1> **cat name**
 adrv9002-phy
 ```
 :::
@@ -560,13 +557,13 @@ adrv9002-phy
 Show device temperature
 -----------------------
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_temp0\_input
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_temp0_input
 58000
 ```
 :::
@@ -575,23 +572,23 @@ root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_temp0\_input
 Channel Enable/Powerdown Controls
 ---------------------------------
 
-For use cases where pin control mode is not used or required, these attributes can be used to enable/disable the Rx/Tx signal paths while in the ENSM radio\_on state.
+For use cases where pin control mode is not used or required, these attributes can be used to enable/disable the Rx/Tx signal paths while in the ENSM radio_on state.
 
--   in\_voltage0\_en
--   in\_voltage1\_en
--   out\_voltage0\_en
--   out\_voltage1\_en
+-   in_voltage0_en
+-   in_voltage1_en
+-   out_voltage0_en
+-   out_voltage1_en
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_en
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_en
 1
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 0 \> in\_voltage0\_en
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_en
+root@analog:/sys/bus/iio/devices/iio:device1# echo 0 > in_voltage0_en
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_en
 0
 ```
 :::
@@ -599,25 +596,25 @@ root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_en
 
 #### Enable State Machine Controls
 
-The ADRV9002 transceiver includes an Enable State Machine (ENSM), allowing real time control over the current state of the device. The ENSM has two possible control methods -- SPI control (writing ensm\_mode), and pin control. For pin control the below attributes can be inspected:
+The ADRV9002 transceiver includes an Enable State Machine (ENSM), allowing real time control over the current state of the device. The ENSM has two possible control methods -- SPI control (writing ensm_mode), and pin control. For pin control the below attributes can be inspected:
 
--   \[in|out\]\_voltage\[0|1\]\_port\_en\_mode\_available
--   \[in|out\]\_voltage\[0|1\]\_port\_en\_mode
+-   [in|out]_voltage[0|1]_port_en_mode_available
+-   [in|out]_voltage[0|1]_port_en_mode
 
 There are a pair of these attributes for all RX/TX channels.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_port\_en\_mode\_available
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_port_en_mode_available
 spi pin
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_port\_en\_mode
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_port_en_mode
 spi
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo pin \> in\_voltage0\_port\_en\_mode
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_port\_en\_mode
+root@analog:/sys/bus/iio/devices/iio:device1# echo pin > in_voltage0_port_en_mode
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_port_en_mode
 pin
 ```
 :::
@@ -625,27 +622,27 @@ pin
 
 For controlling the ENSM attribute there are also a pair of attributes for all the RX/TX channels:
 
--   \[in|out\]\_voltage\[0|1\]\_ensm\_mode\_available
--   \[in|out\]\_voltage\[0|1\]\_ensm\_mode
+-   [in|out]_voltage[0|1]_ensm_mode_available
+-   [in|out]_voltage[0|1]_ensm_mode
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_ensm\_mode\_available
-calibrated primed rf\_enabled
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_ensm\_mode
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_ensm_mode_available
+calibrated primed rf_enabled
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_ensm_mode
 calibrated
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo rf\_enabled \> in\_voltage0\_ensm\_mod
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_ensm\_mode
-rf\_enabled
+root@analog:/sys/bus/iio/devices/iio:device1# echo rf_enabled > in_voltage0_ensm_mod
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_ensm_mode
+rf_enabled
 ```
 :::
 
 
-\<note important\>The above commands will only have any effect if the `port_en_mode` is set to spi\</note\>
+<note important>The above commands will only have any effect if the `port_en_mode` is set to spi</note>
 
 Local Oscillator Control (LO)
 -----------------------------
@@ -679,90 +676,90 @@ The device contains two RF PLLs. Each RF PLL uses the PLL block common to all sy
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_altvoltage2\_TX1\_LO\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_altvoltage2_TX1_LO_frequency
 2700000000
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 2400000000 \> out\_altvoltage2\_TX1\_LO\_frequency
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_altvoltage2\_TX1\_LO\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# echo 2400000000 > out_altvoltage2_TX1_LO_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_altvoltage2_TX1_LO_frequency
 2400000000
 ```
 :::
 
 
-\<note important\>Some care is needed for correctly handle carrier configuration. Note that the driver exposes 4 controls giving the idea that we can, independently, control all 4 ports. That is not true because, as stated above, the device only has 2 PLLs. Hence, applications have to be careful. For an example on how this can be handled and for more details, look at this [commit](https://www.google.com/search?q=iio-oscilloscope/commit/6f77f19f055543c780598529ecdf5f3ed078cbfc&btnI=lucky) on the IIO Oscilloscope plugin.\</note\>
+<note important>Some care is needed for correctly handle carrier configuration. Note that the driver exposes 4 controls giving the idea that we can, independently, control all 4 ports. That is not true because, as stated above, the device only has 2 PLLs. Hence, applications have to be careful. For an example on how this can be handled and for more details, look at this [commit](https://www.google.com/search?q=iio-oscilloscope/commit/6f77f19f055543c780598529ecdf5f3ed078cbfc&btnI=lucky) on the IIO Oscilloscope plugin.</note>
 
 Filter and Signal Path Configuration
 ------------------------------------
 
 #### Profiles
 
-\<note warning\>Profiles are specific to the versions of ADRV9001/2 API that the driver uses. Therefore, they must be generated from the [TES software](https://www.google.com/search?q=en/design-center/landing-pages/001/transceiver-evaluation-software.html&btnI=lucky) that coincides with that API version. Unfortunately, profiles themselves are not versioned so it is recommended to note the API version in the generated profile filenames when created. The driver will print the API version during boot for reference.
-\</note\>
+<note warning>Profiles are specific to the versions of ADRV9001/2 API that the driver uses. Therefore, they must be generated from the [TES software](https://www.google.com/search?q=en/design-center/landing-pages/001/transceiver-evaluation-software.html&btnI=lucky) that coincides with that API version. Unfortunately, profiles themselves are not versioned so it is recommended to note the API version in the generated profile filenames when created. The driver will print the API version during boot for reference.
+</note>
 
 ADRV9002 uses profiles to designate different device configuration settings for the Tx/Rx channels. The profile dictates how the digital filters, analog filters, clock rates, and clock dividers are configured in the device. Some specific parameters set by profiles include the IQ data rate, ADC clock rate, analog filter corners, FIR filter coefficients, and interpolation/decimation factors in the half-band filters.
 Several profiles can be examined in the ADRV9002 Transceiver Evaluation Software for given device clock frequencies. If the desired profile exists in the software, it is recommended to set up the desired profile in and use the generated JSON file by pressing the `Generate Profile File` button. Custom profiles can be generated using other ADI software tools not described here [ADRV9002 transceiver evaluation software (TES)](https://www.google.com/search?q=en/design-center/landing-pages/001/transceiver-evaluation-software.html&btnI=lucky).
 
 There are some constraints with the loaded profiles due to the architecture of the [reference design](https://www.google.com/search?q=hdl/tree/master/projects/adrv9001&btnI=lucky):
 
-\<note warning\>TX cannot be enabled if the corresponding RX is also not enabled (eg: TX2 enabled and RX2 disabled). The driver will reject such a profile. The reason is that the TX SSI clock is derived from RX. This applies for all [device modes!](/resources/tools-software/linux-drivers/iio-transceiver/adrv9002#device_modes)\</note\>
+<note warning>TX cannot be enabled if the corresponding RX is also not enabled (eg: TX2 enabled and RX2 disabled). The driver will reject such a profile. The reason is that the TX SSI clock is derived from RX. This applies for all [device modes!](/resources/tools-software/linux-drivers/iio-transceiver/adrv9002#device_modes)</note>
 
-\<note warning\>In MIMO mode, RX1 cannot be disabled. In this mode, RX2 cannot be enabled without RX1!\</note\>
+<note warning>In MIMO mode, RX1 cannot be disabled. In this mode, RX2 cannot be enabled without RX1!</note>
 
 ##### Loading a Stream Binary
 
 For each profile generated, there must be a correspondent stream binary that also must be loaded. To load a stream:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat stream.bin \> stream\_config**
-root\@analog:/sys/bus/iio/devices/iio:device1\#
+root@analog:/sys/bus/iio/devices/iio:device1# **cat stream.bin > stream_config**
+root@analog:/sys/bus/iio/devices/iio:device1#
 ```
 :::
 
 
-\<note warning\>The stream must be loaded **before** loading a new profile! The new stream is only configured in the device after loading the correspondent profile\...\</note\>
+<note warning>The stream must be loaded **before** loading a new profile! The new stream is only configured in the device after loading the correspondent profile...</note>
 
 ##### Loading a Profile
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# **cat LTE\_2\_4G\_40BW\_61MSPS.json \> profile\_config**
-root\@analog:/sys/bus/iio/devices/iio:device1\#
+root@analog:/sys/bus/iio/devices/iio:device1# **cat LTE_2_4G_40BW_61MSPS.json > profile_config**
+root@analog:/sys/bus/iio/devices/iio:device1#
 ```
 :::
 
 
-\<note important\>The user can completely disable some channels with the profile. For example, the generated profile might just want to use RX1/TX1. In that case, all attributes related with RX2/TX2 will return error (No such device) if someone tries to access them\</note\>
+<note important>The user can completely disable some channels with the profile. For example, the generated profile might just want to use RX1/TX1. In that case, all attributes related with RX2/TX2 will return error (No such device) if someone tries to access them</note>
 
 #### RX Signal Path
 
-The ADRV9002 offers dual receive channels. With a minimum number of external components, each receive channel could build a complete RF-to-bits signal chain which serves as RF front end for a wide range of applications. It supports both time division duplexing (TDD) and frequency division duplexing (FDD) modes and reception of both narrowband (NB) and wideband (WB) signals up to 40MHz. Each receive path RX1 or RX2 contains 2 major subsystems, the Analog Front End (AFE) and a Digital Front End (DFE). The AFE contains the programmable attenuator, matched I and Q mixer, Low pass filter and ADC. The device provides 2 pairs of ADCs, a pair of high performance ADC\'s for high dynamic range and a pair of low performance ADC\'s for lower power consumption. The DFE subsystem contains a series of digital signal processing components such as sample rate decimation (DEC), dc offset correction (DC), quadrature error correction (QEC), digital down conversion (DDC) with numerically controlled oscillator (NCO), a programmable 128-tap FIR filter (PFIR), receiver signal strength indicator (RSSI), frequency offset correction, phase offset correction and overload detectors.
+The ADRV9002 offers dual receive channels. With a minimum number of external components, each receive channel could build a complete RF-to-bits signal chain which serves as RF front end for a wide range of applications. It supports both time division duplexing (TDD) and frequency division duplexing (FDD) modes and reception of both narrowband (NB) and wideband (WB) signals up to 40MHz. Each receive path RX1 or RX2 contains 2 major subsystems, the Analog Front End (AFE) and a Digital Front End (DFE). The AFE contains the programmable attenuator, matched I and Q mixer, Low pass filter and ADC. The device provides 2 pairs of ADCs, a pair of high performance ADC's for high dynamic range and a pair of low performance ADC's for lower power consumption. The DFE subsystem contains a series of digital signal processing components such as sample rate decimation (DEC), dc offset correction (DC), quadrature error correction (QEC), digital down conversion (DDC) with numerically controlled oscillator (NCO), a programmable 128-tap FIR filter (PFIR), receiver signal strength indicator (RSSI), frequency offset correction, phase offset correction and overload detectors.
 
 ###### Sample Rate and Primary Signal Bandwidth
 
 To query the RX Sample Rate and Primary Signal Bandwidth:
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_sampling\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_sampling_frequency
 15360000
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_rf\_bandwidth
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_rf_bandwidth
 10000000
 ```
 :::
@@ -798,37 +795,37 @@ the information from a number of signal detectors named peak detector and power 
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_gain\_control\_mode\_available
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_gain_control_mode_available
 spi pin automatic
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo pin \> in\_voltage0\_gain\_control\_mode
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_gain\_control\_mode
+root@analog:/sys/bus/iio/devices/iio:device1# echo pin > in_voltage0_gain_control_mode
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_gain_control_mode
 pin
 ```
 :::
 
 **Manually control the Gain**
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_hardwaregain
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_hardwaregain
 36.000000 dB
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 25 \> in\_voltage0\_hardwaregain
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_hardwaregain
+root@analog:/sys/bus/iio/devices/iio:device1# echo 25 > in_voltage0_hardwaregain
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_hardwaregain
 25.000000 dB
 ```
 :::
 
 
-\<note warning\>This will only work if **gain\_control\_mode** is set to spi\</note\>
+<note warning>This will only work if **gain_control_mode** is set to spi</note>
 
 ##### Digital Gain Control
 
@@ -862,17 +859,17 @@ of digital gain, programmed at each index of the table. In the end of the Rx dat
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_digital\_gain\_control\_mode
-Gain\_Correction\_manual\_control
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo Gain\_Compensation\_manual\_control \> in\_voltage0\_digital\_gain\_control\_mode
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_digital\_gain\_control\_mode
-Gain\_Compensation\_manual\_control
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_digital_gain_control_mode
+Gain_Correction_manual_control
+root@analog:/sys/bus/iio/devices/iio:device1# echo Gain_Compensation_manual_control > in_voltage0_digital_gain_control_mode
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_digital_gain_control_mode
+Gain_Compensation_manual_control
 ```
 :::
 
@@ -880,13 +877,13 @@ Gain\_Compensation\_manual\_control
 **Manually change the Interface Gain**
 
 The available values can be seen with:
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_interface\_gain\_available
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_interface_gain_available
 18dB 12dB 6dB 0dB -6dB -12dB -18dB -24dB -30dB -36dB
 ```
 :::
@@ -916,44 +913,44 @@ Ranges for setting the Slicer gain are:
 </table>
 
 Setting the value:
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_interface\_gain
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_interface_gain
 0dB
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo -6dB \> in\_voltage0\_interface\_gain
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_interface\_gain
+root@analog:/sys/bus/iio/devices/iio:device1# echo -6dB > in_voltage0_interface_gain
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_interface_gain
 -6dB
 ```
 :::
 
 
-\<note warning\>This will only work if **digital\_gain\_control\_mode** is set to one of the manual options. Furthermore, the port Enable State must be rf\_enabled for this to take effect\</note\>
+<note warning>This will only work if **digital_gain_control_mode** is set to one of the manual options. Furthermore, the port Enable State must be rf_enabled for this to take effect</note>
 
 ##### RSSI and Decimated power
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_decimated\_power
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_decimated_power
 60.750 dB
 ```
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_rssi
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_rssi
 65.535 dB
 ```
 :::
@@ -963,16 +960,16 @@ root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_rssi
 
 In the Rx data chain, a frequency offset correction block is provided as an option to further correct small carrier frequency offset in both NB and WB modes.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_nco\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_nco_frequency
 0
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 1200 \> in\_voltage0\_nco\_frequency
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_nco\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# echo 1200 > in_voltage0_nco_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_nco_frequency
 1200
 ```
 :::
@@ -982,16 +979,16 @@ root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_nco\_frequency
 
 The main difference between this setting and the bbdc tracking calibration is that disabling this setting will completely disable the bbdc algorithm and set the correction value to 0. Disabling the tracking calibration, just disables the algorithm but the last used correction value is still applied.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_bbdc\_rejection\_en
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_bbdc_rejection_en
 1
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 0 \> in\_voltage0\_bbdc\_rejection\_en
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_bbdc\_rejection\_en
+root@analog:/sys/bus/iio/devices/iio:device1# echo 0 > in_voltage0_bbdc_rejection_en
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_bbdc_rejection_en
 0
 ```
 :::
@@ -999,17 +996,17 @@ root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_bbdc\_rejectio
 
 ##### Dynamic ADC switch
 
-The device provides 2 pairs of ADCs, a pair of high performance ADC\'s for high dynamic range and a pair of low performance ADC\'s for lower power consumption. This setting enables the dynamic switch between this ADC\'s.
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+The device provides 2 pairs of ADCs, a pair of high performance ADC's for high dynamic range and a pair of low performance ADC's for lower power consumption. This setting enables the dynamic switch between this ADC's.
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_dynamic\_adc\_switch\_en
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_dynamic_adc_switch_en
 0
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 1 \> in\_voltage0\_dynamic\_adc\_switch\_en
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_dynamic\_adc\_switch\_en
+root@analog:/sys/bus/iio/devices/iio:device1# echo 1 > in_voltage0_dynamic_adc_switch_en
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_dynamic_adc_switch_en
 1
 ```
 :::
@@ -1022,15 +1019,15 @@ The ADRV9001 device integrates dual direct-conversion (Zero-IF) transmitters. It
 ###### Sample Rate and Primary Signal Bandwidth
 
 To query the RX Sample Rate and Primary Signal Bandwidth:
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_voltage0\_sampling\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_voltage0_sampling_frequency
 15360000
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_voltage0\_rf\_bandwidth
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_voltage0_rf_bandwidth
 10000000
 ```
 :::
@@ -1065,53 +1062,53 @@ The Tx attenuation block controls the Tx output power. A Tx gain table with 840 
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_voltage0\_atten\_control\_mode\_available
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_voltage0_atten_control_mode_available
 bypass spi pin
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo bypass \> out\_voltage0\_atten\_control\_mode
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_voltage0\_atten\_control\_mode
+root@analog:/sys/bus/iio/devices/iio:device1# echo bypass > out_voltage0_atten_control_mode
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_voltage0_atten_control_mode
 bypass
 ```
 :::
 
 
 **Manually control the Gain**
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_voltage0\_hardwaregain
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_voltage0_hardwaregain
 0.000000 dB
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo -10 \> out\_voltage0\_hardwaregain
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_voltage0\_hardwaregain
+root@analog:/sys/bus/iio/devices/iio:device1# echo -10 > out_voltage0_hardwaregain
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_voltage0_hardwaregain
 -10.000000 dB
 ```
 :::
 
 
-\<note warning\>This will only work if **gain\_control\_mode** is set to spi\</note\>
+<note warning>This will only work if **gain_control_mode** is set to spi</note>
 
 ###### NCO frequency
 
 As for the RX signal chain, it is also possible to apply a nco correction frequency on TX.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_voltage0\_nco\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_voltage0_nco_frequency
 0
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 1200 \> out\_voltage0\_nco\_frequency
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat out\_voltage0\_nco\_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# echo 1200 > out_voltage0_nco_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# cat out_voltage0_nco_frequency
 1200
 ```
 :::
@@ -1178,16 +1175,16 @@ In ADRV9002, to achieve optimal performance, an internal microcontroller perform
 </tbody>
 </table>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_agc\_tracking\_en
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_agc_tracking_en
 1
-root\@analog:/sys/bus/iio/devices/iio:device1\# echo 0 \> in\_voltage0\_agc\_tracking\_en
-root\@analog:/sys/bus/iio/devices/iio:device1\# cat in\_voltage0\_agc\_tracking\_en
+root@analog:/sys/bus/iio/devices/iio:device1# echo 0 > in_voltage0_agc_tracking_en
+root@analog:/sys/bus/iio/devices/iio:device1# cat in_voltage0_agc_tracking_en
 0
 ```
 :::
@@ -1200,50 +1197,50 @@ The ADRV9002 driver supports advanced debug controls via the kernel [debugfs](ht
 
 #### Runtime Device Driver Customization
 
-There\'s a large number of options available. Through these controls, the user can debug if the device is properly configured with the wanted options or to test/tweak some features at runtime and then add them to the devicetree (if applicable). In order to identify if the IIO device in question (adrv9002-phy) you first need to identify the IIO device number. Therefore read the name attribute of each IIO device
+There's a large number of options available. Through these controls, the user can debug if the device is properly configured with the wanted options or to test/tweak some features at runtime and then add them to the devicetree (if applicable). In order to identify if the IIO device in question (adrv9002-phy) you first need to identify the IIO device number. Therefore read the name attribute of each IIO device
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:\~\# grep \"\" /sys/bus/iio/devices/iio\\:device\*/name
+root@analog:~# grep "" /sys/bus/iio/devices/iio:device*/name
 /sys/bus/iio/devices/iio:device0/name:ams
 /sys/bus/iio/devices/iio:device1/name:adrv9002-phy
 /sys/bus/iio/devices/iio:device2/name:axi-adrv9002-rx-lpc
 /sys/bus/iio/devices/iio:device3/name:axi-adrv9002-tx-lpc
-root\@analog:\~\#
+root@analog:~#
 ```
 :::
 
 
 Change directory to **/sys/kernel/debug**/iio/ iio:deviceX.
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# ls -la
+root@analog:/sys/kernel/debug/iio/iio:device1# ls -la
 total 0
 drwxr-xr-x 2 root root 0 Jan 1 1970 .
 drwxr-xr-x 5 root root 0 Jan 1 1970 ..
--rw-r\--r\-- 1 root root 0 Jan 1 1970 direct\_reg\_access
--rw\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 initialize
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 pll\_status
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 rx0\_adc\_type
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 rx0\_agc\_config
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 rx0\_gain\_control\_pin\_mode
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 rx1\_adc\_type
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 rx1\_agc\_config
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 rx1\_gain\_control\_pin\_mode
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 tx0\_attenuation\_pin\_control
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 tx0\_dac\_boost\_en
--rw\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 tx0\_nco\_frequency\_hz
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 tx1\_attenuation\_pin\_control
--r\-\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 tx1\_dac\_boost\_en
--rw\-\-\-\-\-\-- 1 root root 0 Jan 1 1970 tx1\_nco\_frequency\_hz
+-rw-r--r-- 1 root root 0 Jan 1 1970 direct_reg_access
+-rw------- 1 root root 0 Jan 1 1970 initialize
+-r-------- 1 root root 0 Jan 1 1970 pll_status
+-r-------- 1 root root 0 Jan 1 1970 rx0_adc_type
+-r-------- 1 root root 0 Jan 1 1970 rx0_agc_config
+-r-------- 1 root root 0 Jan 1 1970 rx0_gain_control_pin_mode
+-r-------- 1 root root 0 Jan 1 1970 rx1_adc_type
+-r-------- 1 root root 0 Jan 1 1970 rx1_agc_config
+-r-------- 1 root root 0 Jan 1 1970 rx1_gain_control_pin_mode
+-r-------- 1 root root 0 Jan 1 1970 tx0_attenuation_pin_control
+-r-------- 1 root root 0 Jan 1 1970 tx0_dac_boost_en
+-rw------- 1 root root 0 Jan 1 1970 tx0_nco_frequency_hz
+-r-------- 1 root root 0 Jan 1 1970 tx1_attenuation_pin_control
+-r-------- 1 root root 0 Jan 1 1970 tx1_dac_boost_en
+-rw------- 1 root root 0 Jan 1 1970 tx1_nco_frequency_hz
 ```
 :::
 
@@ -1252,99 +1249,99 @@ drwxr-xr-x 5 root root 0 Jan 1 1970 ..
 
 All the options available to tweak the automatic gain control are exposed through debugfs files for each RX.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# ls | grep rx0\_agc
-rx0\_agc\_agcMode
-rx0\_agc\_attackDelay\_us
-rx0\_agc\_changeGainIfThreshHigh
-rx0\_agc\_config
-rx0\_agc\_enableFastRecoveryLoop
-rx0\_agc\_enableSyncPulseForGainCounter
-rx0\_agc\_gainUpdateCounter
-rx0\_agc\_lowThreshPreventGainInc
-rx0\_agc\_maxGainIndex
-rx0\_agc\_minGainIndex
-rx0\_agc\_peak.agcUnderRangeHighInterval
-rx0\_agc\_peak.agcUnderRangeLowInterval
-rx0\_agc\_peak.agcUnderRangeMidInterval
-rx0\_agc\_peak.apdGainStepAttack
-rx0\_agc\_peak.apdGainStepRecovery
-rx0\_agc\_peak.apdHighThresh
-rx0\_agc\_peak.apdLowThresh
-rx0\_agc\_peak.apdLowerThreshPeakExceededCount
-rx0\_agc\_peak.apdUpperThreshPeakExceededCount
-rx0\_agc\_peak.enableHbOverload
-rx0\_agc\_peak.feedback\_high\_threshold\_counter\_exceeded
-rx0\_agc\_peak.feedback\_low\_threshold\_counter\_exceeded
-rx0\_agc\_peak.hbGainStepHighRecovery
-rx0\_agc\_peak.hbGainStepLowRecovery
-rx0\_agc\_peak.hbGainStepMidRecovery
-rx0\_agc\_peak.hbHighThresh
-rx0\_agc\_peak.hbOverloadDurationCount
-rx0\_agc\_peak.hbOverloadPowerMode
-rx0\_agc\_peak.hbOverloadThreshCount
-rx0\_agc\_peak.hbUnderRangeHighThresh
-rx0\_agc\_peak.hbUnderRangeHighThreshExceededCount
-rx0\_agc\_peak.hbUnderRangeLowThresh
-rx0\_agc\_peak.hbUnderRangeLowThreshExceededCount
-rx0\_agc\_peak.hbUnderRangeMidThresh
-rx0\_agc\_peak.hbUnderRangeMidThreshExceededCount
-rx0\_agc\_peak.hbUpperThreshPeakExceededCount
-rx0\_agc\_peakWaitTime
-rx0\_agc\_power.feedback\_high\_threshold\_exceeded
-rx0\_agc\_power.feedback\_lowThreshold\_gainChange
-rx0\_agc\_power.overRangeHighPowerGainStepAttack
-rx0\_agc\_power.overRangeHighPowerThresh
-rx0\_agc\_power.overRangeLowPowerGainStepAttack
-rx0\_agc\_power.overRangeLowPowerThresh
-rx0\_agc\_power.powerEnableMeasurement
-rx0\_agc\_power.powerMeasurementDelay
-rx0\_agc\_power.powerMeasurementDuration
-rx0\_agc\_power.rxTddPowerMeasDelay
-rx0\_agc\_power.rxTddPowerMeasDuration
-rx0\_agc\_power.underRangeHighPowerGainStepRecovery
-rx0\_agc\_power.underRangeHighPowerThresh
-rx0\_agc\_power.underRangeLowPowerGainStepRecovery
-rx0\_agc\_power.underRangeLowPowerThresh
-rx0\_agc\_resetOnRxon
-rx0\_agc\_resetOnRxonGainIndex
-rx0\_agc\_slowLoopSettlingDelay
+root@analog:/sys/kernel/debug/iio/iio:device1# ls | grep rx0_agc
+rx0_agc_agcMode
+rx0_agc_attackDelay_us
+rx0_agc_changeGainIfThreshHigh
+rx0_agc_config
+rx0_agc_enableFastRecoveryLoop
+rx0_agc_enableSyncPulseForGainCounter
+rx0_agc_gainUpdateCounter
+rx0_agc_lowThreshPreventGainInc
+rx0_agc_maxGainIndex
+rx0_agc_minGainIndex
+rx0_agc_peak.agcUnderRangeHighInterval
+rx0_agc_peak.agcUnderRangeLowInterval
+rx0_agc_peak.agcUnderRangeMidInterval
+rx0_agc_peak.apdGainStepAttack
+rx0_agc_peak.apdGainStepRecovery
+rx0_agc_peak.apdHighThresh
+rx0_agc_peak.apdLowThresh
+rx0_agc_peak.apdLowerThreshPeakExceededCount
+rx0_agc_peak.apdUpperThreshPeakExceededCount
+rx0_agc_peak.enableHbOverload
+rx0_agc_peak.feedback_high_threshold_counter_exceeded
+rx0_agc_peak.feedback_low_threshold_counter_exceeded
+rx0_agc_peak.hbGainStepHighRecovery
+rx0_agc_peak.hbGainStepLowRecovery
+rx0_agc_peak.hbGainStepMidRecovery
+rx0_agc_peak.hbHighThresh
+rx0_agc_peak.hbOverloadDurationCount
+rx0_agc_peak.hbOverloadPowerMode
+rx0_agc_peak.hbOverloadThreshCount
+rx0_agc_peak.hbUnderRangeHighThresh
+rx0_agc_peak.hbUnderRangeHighThreshExceededCount
+rx0_agc_peak.hbUnderRangeLowThresh
+rx0_agc_peak.hbUnderRangeLowThreshExceededCount
+rx0_agc_peak.hbUnderRangeMidThresh
+rx0_agc_peak.hbUnderRangeMidThreshExceededCount
+rx0_agc_peak.hbUpperThreshPeakExceededCount
+rx0_agc_peakWaitTime
+rx0_agc_power.feedback_high_threshold_exceeded
+rx0_agc_power.feedback_lowThreshold_gainChange
+rx0_agc_power.overRangeHighPowerGainStepAttack
+rx0_agc_power.overRangeHighPowerThresh
+rx0_agc_power.overRangeLowPowerGainStepAttack
+rx0_agc_power.overRangeLowPowerThresh
+rx0_agc_power.powerEnableMeasurement
+rx0_agc_power.powerMeasurementDelay
+rx0_agc_power.powerMeasurementDuration
+rx0_agc_power.rxTddPowerMeasDelay
+rx0_agc_power.rxTddPowerMeasDuration
+rx0_agc_power.underRangeHighPowerGainStepRecovery
+rx0_agc_power.underRangeHighPowerThresh
+rx0_agc_power.underRangeLowPowerGainStepRecovery
+rx0_agc_power.underRangeLowPowerThresh
+rx0_agc_resetOnRxon
+rx0_agc_resetOnRxonGainIndex
+rx0_agc_slowLoopSettlingDelay
 ```
 :::
 
 
 The user can read/write on these files before committing the changes. For the changes to be applied, the user must do:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# echo 1 \> rx0\_agc\_config
+root@analog:/sys/kernel/debug/iio/iio:device1# echo 1 > rx0_agc_config
 ```
 :::
 
 
 The configurations can be read afterwards by reading the file:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# cat rx0\_agc\_config
+root@analog:/sys/kernel/debug/iio/iio:device1# cat rx0_agc_config
 peakWaitTime: 4
 maxGainIndex: 255
 minGainIndex: 183
 gainUpdateCounter: 11520
-attackDelay\_us: 10
+attackDelay_us: 10
 slowLoopSettlingDelay: 16
 lowThreshPreventGainInc: 0
 changeGainIfThreshHigh: 3
@@ -1366,8 +1363,8 @@ power.overRangeHighPowerThresh: 0
 power.overRangeLowPowerThresh: 7
 power.overRangeHighPowerGainStepAttack: 4
 power.overRangeLowPowerGainStepAttack: 4
-power.feedback\_lowThreshold\_gainChange: 0
-power.feedback\_high\_threshold\_exceeded: 0
+power.feedback_lowThreshold_gainChange: 0
+power.feedback_high_threshold_exceeded: 0
 peak.agcUnderRangeLowInterval: 50
 peak.agcUnderRangeMidInterval: 2
 peak.agcUnderRangeHighInterval: 4
@@ -1393,8 +1390,8 @@ peak.hbGainStepMidRecovery: 4
 peak.hbOverloadPowerMode: 0
 peak.hbUnderRangeMidThreshExceededCount: 3
 peak.hbUnderRangeLowThreshExceededCount: 3
-peak.feedback\_low\_threshold\_counter\_exceeded: 0
-peak.feedback\_high\_threshold\_counter\_exceeded: 0
+peak.feedback_low_threshold_counter_exceeded: 0
+peak.feedback_high_threshold_counter_exceeded: 0
 ```
 :::
 
@@ -1403,141 +1400,141 @@ peak.feedback\_high\_threshold\_counter\_exceeded: 0
 
 The data mode available can be different depending on whether CMOS or LVDS is being used. To check the available modes:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# cat rx\_ssi\_test\_mode\_data\_available
-TESTMODE\_DATA\_NORMAL
-TESTMODE\_DATA\_FIXED\_PATTERN
-TESTMODE\_DATA\_RAMP\_16\_BIT
-TESTMODE\_DATA\_PRBS15
-TESTMODE\_DATA\_PRBS7
+root@analog:/sys/kernel/debug/iio/iio:device1# cat rx_ssi_test_mode_data_available
+TESTMODE_DATA_NORMAL
+TESTMODE_DATA_FIXED_PATTERN
+TESTMODE_DATA_RAMP_16_BIT
+TESTMODE_DATA_PRBS15
+TESTMODE_DATA_PRBS7
 ```
 :::
 
 
 We then, set the desired mode:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# echo TESTMODE\_DATA\_PRBS15 \> rx0\_ssi\_test\_mode\_data
-root\@analog:/sys/kernel/debug/iio/iio:device1\#
+root@analog:/sys/kernel/debug/iio/iio:device1# echo TESTMODE_DATA_PRBS15 > rx0_ssi_test_mode_data
+root@analog:/sys/kernel/debug/iio/iio:device1#
 ```
 :::
 
 
 To start the test:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# echo 1 \> rx0\_ssi\_test\_mode\_configure
-root\@analog:/sys/kernel/debug/iio/iio:device1\#
+root@analog:/sys/kernel/debug/iio/iio:device1# echo 1 > rx0_ssi_test_mode_configure
+root@analog:/sys/kernel/debug/iio/iio:device1#
 ```
 :::
 
 
-\<note\>For TESTMODE\_DATA\_FIXED\_PATTERN, there is an additional file (rx\[0/1\]\_ssi\_test\_mode\_fixed\_pattern) that can be written to set the pattern \</note\>
+<note>For TESTMODE_DATA_FIXED_PATTERN, there is an additional file (rx[0/1]_ssi_test_mode_fixed_pattern) that can be written to set the pattern </note>
 
-\<note\> For TX, the process is identical. \</note\>
+<note> For TX, the process is identical. </note>
 
 ##### Example of configuring SSI delays
 
 The available configurations for the SSI delays are:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# ls | egrep \[rt\]x\*.\*\_delay
-rx0\_ssi\_clk\_delay
-rx0\_ssi\_i\_data\_delay
-rx0\_ssi\_q\_data\_delay
-rx0\_ssi\_strobe\_delay
-rx1\_ssi\_clk\_delay
-rx1\_ssi\_i\_data\_delay
-rx1\_ssi\_q\_data\_delay
-rx1\_ssi\_strobe\_delay
-tx0\_ssi\_clk\_delay
-tx0\_ssi\_i\_data\_delay
-tx0\_ssi\_q\_data\_delay
-tx0\_ssi\_refclk\_delay
-tx0\_ssi\_strobe\_delay\_delay
-tx1\_ssi\_clk\_delay
-tx1\_ssi\_i\_data\_delay
-tx1\_ssi\_q\_data\_delay
-tx1\_ssi\_refclk\_delay
-tx1\_ssi\_strobe\_delay\_dela
+root@analog:/sys/kernel/debug/iio/iio:device1# ls | egrep [rt]x*.*_delay
+rx0_ssi_clk_delay
+rx0_ssi_i_data_delay
+rx0_ssi_q_data_delay
+rx0_ssi_strobe_delay
+rx1_ssi_clk_delay
+rx1_ssi_i_data_delay
+rx1_ssi_q_data_delay
+rx1_ssi_strobe_delay
+tx0_ssi_clk_delay
+tx0_ssi_i_data_delay
+tx0_ssi_q_data_delay
+tx0_ssi_refclk_delay
+tx0_ssi_strobe_delay_delay
+tx1_ssi_clk_delay
+tx1_ssi_i_data_delay
+tx1_ssi_q_data_delay
+tx1_ssi_refclk_delay
+tx1_ssi_strobe_delay_dela
 ```
 :::
 
 
 After doing the wanted changes to the previous files, we apply them by:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# echo 1 \> ssi\_delays
-root\@analog:/sys/kernel/debug/iio/iio:device1\#
+root@analog:/sys/kernel/debug/iio/iio:device1# echo 1 > ssi_delays
+root@analog:/sys/kernel/debug/iio/iio:device1#
 ```
 :::
 
 
-\<note warning\>Writing on ssi\_delays will have effect on all ports\</note\>
+<note warning>Writing on ssi_delays will have effect on all ports</note>
 
 ##### Example of reinitialize the device
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-echo 1 \> initialize
+echo 1 > initialize
 ```
 :::
 
 
 ##### Example of reading RX Gain Pin Control settings
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root\@analog:/sys/kernel/debug/iio/iio:device1\# cat rx0\_gain\_control\_pin\_mode
-min\_gain\_index: 183
-max\_gain\_index: 255
-increment\_step\_size: 1
-decrement\_step\_size: 1
-increment\_pin: dgpio2
-decrement\_pin: dgpio1
+root@analog:/sys/kernel/debug/iio/iio:device1# cat rx0_gain_control_pin_mode
+min_gain_index: 183
+max_gain_index: 255
+increment_step_size: 1
+decrement_step_size: 1
+increment_pin: dgpio2
+decrement_pin: dgpio1
 ```
 :::
 
 
-Low level register access via debugfs (direct\_reg\_access)
+Low level register access via debugfs (direct_reg_access)
 -----------------------------------------------------------
 
-![iio\_snippets\#low\_level\_register\_access\_via\_debugfs\_direct\_reg\_access&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn)
+![iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&noheader&firstseconly&noeditbtn)
 
 More Information
 ----------------
 
-![iio\_snippets\#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

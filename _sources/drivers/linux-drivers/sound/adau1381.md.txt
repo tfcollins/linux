@@ -6,22 +6,20 @@ title: ADAU1781: SigmaDSP Low-noise Stereo Audio Codec for Portable Applications
 ADAU1781 Sound CODEC Linux Driver
 =================================
 
-Supported Devices
------------------
+# Supported Devices
 
 -   [ADAU1381](https://www.google.com/search?q=ADAU1381&btnI=lucky)
 -   [ADAU1781](https://www.google.com/search?q=ADAU1781&btnI=lucky)
 
-Evaluation Boards
------------------
+#### Evaluation Boards
 
 -   [EVAL-ADAU1381Z](https://www.google.com/search?q=EVAL-ADAU1381Z&btnI=lucky)
 -   [EVAL-ADAU1781Z](https://www.google.com/search?q=EVAL-ADAU1781Z&btnI=lucky)
 
 Source Code
-===========
+-----------
 
-# Status
+###### Status
 
 <table>
 <thead>
@@ -38,7 +36,7 @@ Source Code
 </tbody>
 </table>
 
-##### Files
+###### Files
 
 <table>
 <thead>
@@ -68,11 +66,11 @@ Source Code
 </table>
 
 Example device initialization
-=============================
+-----------------------------
 
 ![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-#### I2C
+##### I2C
 
 ![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
@@ -137,8 +135,7 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-ASoC DAPM Widgets
------------------
+#### ASoC DAPM Widgets
 
 <table>
 <thead>
@@ -179,8 +176,7 @@ ASoC DAPM Widgets
 </tbody>
 </table>
 
-ALSA Controls
--------------
+#### ALSA Controls
 
 <table>
 <thead>
@@ -317,8 +313,7 @@ Valid values: "Normal operation", "Enhanced performance", "Power saving"</td>
 </tbody>
 </table>
 
-PLL configuration
------------------
+#### PLL configuration
 
 The ADAU1781 features one PLL:
 
@@ -338,14 +333,13 @@ enum adau1xx1_pll_src {
 
 (The input frequency must configured to be between 8000000 and 27000000 Hz (8MHz - 27MHz). The output frequency must be configured to be between 45158000 and 49152000. Configuring the PLL with other input or output frequency will fail.)
 
-The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you\'d normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
+The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you'd normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
 
-DAI configuration
------------------
+#### DAI configuration
 
 The codec driver registers one DAI: **adau-hifi**
 
-#### Supported DAI formats
+##### Supported DAI formats
 
 <table>
 <thead>
@@ -444,7 +438,7 @@ The codec driver registers one DAI: **adau-hifi**
 </tbody>
 </table>
 
-#### DAI sysclk
+##### DAI sysclk
 
 The DAIs can either use the PLL or the MCLK signal as source.
 
@@ -465,7 +459,7 @@ Example clock divider configuration:
     ret = snd_soc_dai_set_clkdiv(codec_dai, 0, 4);
 ```
 
-#### Example DAI configuration
+##### Example DAI configuration
 
 ``` {.c}
 static int bfin_eval_adau1x81_hw_params(struct snd_pcm_substream *substream,
@@ -535,8 +529,7 @@ static struct snd_soc_dai_link bfin_eval_adau1x81_dai = {
 };
 ```
 
-TDM configuration
------------------
+#### TDM configuration
 
 The ADAU1381 and ADAU1781 chips have basic TDM support.
 
@@ -551,16 +544,15 @@ Example TDM configuration:
 ```
 
 ADAU1X81 evaluation board driver
-================================
+--------------------------------
 
 There is no dedicated Blackfin STAMP evaluation board for the ADAU1381/ADAU1781. During test and driver development we used the [EVAL-ADAU1381Z](https://www.google.com/search?q=EVAL-ADAU1381Z&btnI=lucky)/[EVAL-ADAU1781Z](https://www.google.com/search?q=EVAL-ADAU1781Z&btnI=lucky) board.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
-Source
-------
+#### Source
 
-# Status
+###### Status
 
 <table>
 <thead>
@@ -577,7 +569,7 @@ Source
 </tbody>
 </table>
 
-##### Files
+###### Files
 
 <table>
 <thead>
@@ -594,34 +586,24 @@ Source
 </tbody>
 </table>
 
-Kernel configuration
---------------------
+#### Kernel configuration
 
-```{=markdown}
-```
-Device Drivers  --->
-[*] I2C support  --->
-[*]   I2C Hardware Bus support  --->
-***     I2C system bus drivers (mostly embedded / system-on-chip) ***
-<*>       Blackfin TWI I2C support
-(100)     Blackfin TWI I2C clock (kHz)
+    Device Drivers  --->
+    [*] I2C support  --->
+    [*]   I2C Hardware Bus support  --->
+    ***     I2C system bus drivers (mostly embedded / system-on-chip) ***
+    <*>       Blackfin TWI I2C support
+    (100)     Blackfin TWI I2C clock (kHz)
 
-```
-```
 Enable ALSA SoC evaluation board driver:
 
-```{=markdown}
-```
-Device Drivers  --->
-<M> Sound card support  --->
-<M>   Advanced Linux Sound Architecture  --->
-<M>     ALSA for SoC audio support  --->
-<M>       Support for the EVAL-ADAU1X81 boards on Blackfin eval boards
+    Device Drivers  --->
+    <M> Sound card support  --->
+    <M>   Advanced Linux Sound Architecture  --->
+    <M>     ALSA for SoC audio support  --->
+    <M>       Support for the EVAL-ADAU1X81 boards on Blackfin eval boards
 
-```
-```
-Hardware configuration
-----------------------
+#### Hardware configuration
 
 Connect the STAMP SPORT 0 port (P6) to the EVAL-ADAU1X81 Control port(J1) and Serial Data Interface(J4) headers.
 
@@ -674,57 +656,51 @@ Note that the SPORT has separate signals for the capture and playback clocks, wh
 </tbody>
 </table>
 
-Driver testing
---------------
+#### Driver testing
 
 Load the driver and make sure the sound card is properly instantiated.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> modprobe snd-bf5xx-i2s
-root:/\> modprobe snd-soc-bf5xx-i2s
-root:/\> modprobe snd-soc-adau1781
-root:/\> modprobe snd-soc-bfin-eval-adau1x81
+root:/> modprobe snd-bf5xx-i2s
+root:/> modprobe snd-soc-bf5xx-i2s
+root:/> modprobe snd-soc-adau1781
+root:/> modprobe snd-soc-bfin-eval-adau1x81
 bfin-i2s bfin-i2s.0: dma rx:3 tx:4, err irq:45, regs:ffc00800
-dma\_alloc\_init: dma\_page @ 0x02791000 - 256 pages at 0x03f00000
-asoc: adau-hifi \<-\> bfin-i2s.0 mapping ok
+dma_alloc_init: dma_page @ 0x02791000 - 256 pages at 0x03f00000
+asoc: adau-hifi <-> bfin-i2s.0 mapping ok
 ALSA device list:
 
-```{=markdown}
-```
-## 0: bfin-eval-adau1x81
+    #0: bfin-eval-adau1x81
 
-```
-```
 ```
 
 :::
 
 
-:::{NOTE} <!-- ATTRS: box="" bggreen\="" -->
-:::{HINT} <!-- ATTRS: info\="" -->
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
 This specifies any shell prompt running on the target
 :::
 
 ```bash
-root:/\> modprobe snd-pcm-oss
-root:/\> tone
-TONE: generating sine wave at 1000 Hz\...
+root:/> modprobe snd-pcm-oss
+root:/> tone
+TONE: generating sine wave at 1000 Hz...
 
-root:/\> arecord -f cd | aplay
-Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+root:/> arecord -f cd | aplay
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
 ```
 
 :::
 
 
-More information
-----------------
+#### More information
 
 -   [SigmaStudio](resources/tools-software/sigmastudio)
 -   [SigmaDSP Firmware Utility for Linux](resources/tools-software/linux-software/sigmadsp_genfirmware)
