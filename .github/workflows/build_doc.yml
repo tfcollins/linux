@@ -32,6 +32,18 @@ jobs:
             python generate_driver_list.py
             cd ../../..
     
+        - name: Save generated doc to zip
+          run: |
+            cd adi_doc
+            zip -r adi_doc.zip adi_doc
+            cd ..
+        
+        - name: Save generated doc to artifacts
+          uses: actions/upload-artifact@v2
+          with:
+            name: adi_doc
+            path: adi_doc/adi_doc.zip
+
         - name: Build documentation
           run: |
             cd adi_doc
