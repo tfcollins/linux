@@ -6,6 +6,7 @@ import urllib.request
 from fixers.fixup_wrap_tags import preprocess, process
 from fixers.heading_fixup import adjust_heading
 from fixers.fixup_term_tags import update_xterm_blocks
+from fixers.fixup_graphviz_tags import update_graphviz_blocks
 
 # Check if running on linux
 if os.name != "posix":
@@ -69,25 +70,29 @@ with open("generated/drivers.md", "w") as f:
 with open("generated/drivers_index.md", "w") as f:
     f.write("# Linux Drivers\n\n")
     f.write("::: {toctree}\n")
+    f.write(":maxdepth: 1\n\n")
     written = []
     for driver, link in drivers.items():
         if link[0] == "/":
             link = link[1:]
         if link in written:
             continue
-        parts = ["AD", "LTC", "HMC"]
-        found = False
-        part = None
-        for p in parts:
-            if p in driver:
-                found = True
-                for sec in driver.split(' '):
-                    if p in sec:
-                        part = sec
-                        part = part.replace(':','')
-                        break
-        if part:
-            driver = part
+        if "Fan Control IP core" in driver:
+            driver = "Fan Control IP"
+        else:
+            parts = ["AD", "LTC", "HMC", "SSM", "MAX"]
+            found = False
+            part = None
+            for p in parts:
+                if p in driver:
+                    found = True
+                    for sec in driver.split(' '):
+                        if p in sec:
+                            part = sec
+                            part = part.replace(':','')
+                            break
+            if part:
+                driver = part
         f.write(f"{driver} <drivers/{link}>\n")
         written.append(link)
     f.write(":::\n")
@@ -100,6 +105,9 @@ if not os.path.exists(FOLDER):
     os.makedirs(FOLDER)
 
 for driver, link in drivers.items():
+
+    # if "ADP5501" not in driver:
+    #     continue
 
     print('---------------------------------------')
     print(f"Downloading {driver} from {ROOT}{link}")
@@ -137,8 +145,10 @@ for driver, link in drivers.items():
             "pandoc",
             "-L",
             "adi_wiki.lua",
+            "-L",
+            "adi_wiki_drivers.lua",
             "--wrap=preserve",
-            # "--verbose",
+            "--verbose",
             "-f",
             "dokuwiki",
             "-t",
@@ -174,6 +184,8 @@ for driver, link in drivers.items():
     text = adjust_heading(text)
 
     text = update_xterm_blocks(text)
+
+    text = update_graphviz_blocks(text)
 
     # Add metadata
     text = f"""---

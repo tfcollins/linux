@@ -146,14 +146,19 @@ function parse_code_blocks(whole_doc)
   return pandoc.Pandoc(whole_doc_new)
 end
 
-function Pandoc(el)
-  logging.info('Updating block')
-  -- logging.info(el)
-  -- el = remove_attr(el)
-  -- el = parse_code_blocks(el)
-  return el
-end
 
+  
+
+-- function Header(el)
+--   logging.info('Updating header')
+--   -- Count number of header levels at each level
+
+
+
+
+
+--   return el
+-- end
 
 -- #############################################################################
 -- Add code fencing for Markdown since pandoc does not insert it?
@@ -174,6 +179,7 @@ function CodeBlock(cb)
     if string.sub(cb.text, 1, 1) == '\n' then
         cb.text = string.sub(cb.text, 2)
     end
+    logging.info('Code block: ' .. cb.text)
   return pandoc.RawBlock('markdown', fenced:format(cb.text))
 end
 
@@ -182,5 +188,6 @@ end
 
 return {
   {Pandoc = Pandoc},
-  {CodeBlock = CodeBlock}
+--   {CodeBlock = CodeBlock},
+  {Header = Header}
 }
