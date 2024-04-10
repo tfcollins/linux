@@ -75,7 +75,20 @@ with open("generated/drivers_index.md", "w") as f:
             link = link[1:]
         if link in written:
             continue
-        f.write(f"drivers/{link}\n")
+        parts = ["AD", "LTC", "HMC"]
+        found = False
+        part = None
+        for p in parts:
+            if p in driver:
+                found = True
+                for sec in driver.split(' '):
+                    if p in sec:
+                        part = sec
+                        part = part.replace(':','')
+                        break
+        if part:
+            driver = part
+        f.write(f"{driver} <drivers/{link}>\n")
         written.append(link)
     f.write(":::\n")
 
