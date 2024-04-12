@@ -1,6 +1,6 @@
 ---
 wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers//multifunction-device/adp5520
-title: ADP5520: Backlight Driver with I/O Expander
+title: ADP5501: Programmable Current Backlight Driver with Ambient Light Sensor Input
 ---
 
 # ADP5520/01 MFD Linux Driver
@@ -157,7 +157,9 @@ GPIO:
 
 ## Example platform device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
 :::{NOTE} <!-- ATTRS: important="" -->
 
@@ -245,7 +247,9 @@ Please refer to [include/linux/mfd/adp5520.h](git.linux.org>include/linux/mfd/ad
 
 #### ADP5520/ADP5501 MFD Core Support
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_pdev_data{} c linux-kernel>
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:/CONFIG_PMIC_ADP5520/2-/#if/ c linux-kernel>
@@ -329,7 +333,11 @@ Device Drivers --->
 
 ## Hardware configuration
 
-![ADP5520 Demo Mother/Daughter Board](/software/driver/linux/adp5520_brd.jpg){width="800" query="?800"}
+```{image} images/adp5520_brd.jpg
+:alt: ADP5520 Demo Mother/Daughter Board
+:width: "800"
+:query: "?800"
+```
 
 There is no dedicated Blackfin STAMP evaluation board for the ADP5520.
 During test and driver development we used the ADP5520 Demo Mother/Daughter Board.
@@ -403,7 +411,7 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight> **echo 0 > brightness**
 ```
 
-[**For more information on Backlight handling in Linux read:**]{.underline} [Documentation/ABI/stable/sysfs-class-backlight](git.linux.org>Documentation/ABI/stable/sysfs-class-backlight)
+_**For more information on Backlight handling in Linux read:**_ [Documentation/ABI/stable/sysfs-class-backlight](git.linux.org>Documentation/ABI/stable/sysfs-class-backlight)
 
 #### LED
 
@@ -432,7 +440,7 @@ root:/> **modprobe -r leds-adp5520**
 root:/>
 ```
 
-[**For more information on LEDs handling in Linux read:**]{.underline} [Documentation/leds-class.txt](git.linux.org>Documentation/leds-class.txt)
+_**For more information on LEDs handling in Linux read:**_ [Documentation/leds-class.txt](git.linux.org>Documentation/leds-class.txt)
 
 #### GPIO
 
@@ -457,7 +465,7 @@ Note that you will have to enable the event_test utility under "Blackfin test pr
 
 ```
 
-[**For more information on GPIO handling in Linux read:**]{.underline} [Documentation/gpio.txt](git.linux.org>Documentation/gpio.txt)
+_**For more information on GPIO handling in Linux read:**_ [Documentation/gpio.txt](git.linux.org>Documentation/gpio.txt)
 
 #### Keypad
 
@@ -509,8 +517,10 @@ root:/> **modprobe -r adp5520-keys**
 root:/>
 ```
 
-[**For more information on Input handling in Linux read:**]{.underline} [Documentation/input/input.txt](git.linux.org>Documentation/input/input.txt)
+_**For more information on Input handling in Linux read:**_ [Documentation/input/input.txt](git.linux.org>Documentation/input/input.txt)
 
 ## More Information
 
-![](page>resources/tools-software/linux-drivers/snippets#input_pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_snippets_SUB_input_pointers.md
+```

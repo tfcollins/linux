@@ -18,7 +18,6 @@
     <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="ADP8860 Back-light LED Linux Driver" href="../backlight/adp8860.html" />
     <link rel="prev" title="Linux Drivers" href="../../../drivers_index.html" />
    
   
@@ -70,6 +69,7 @@
   <a href="../../../../no-OS/index.html">no-OS</a>
   <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
   <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
 </root>
 
     </div>
@@ -104,6 +104,9 @@
 <li><a class="reference internal" href="#adp5520-adp5501-mfd-core-support">ADP5520/ADP5501 MFD Core Support</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a class="reference internal" href="#declaring-i2c-devices">Declaring I2C devices</a><ul>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a><ul>
 <li><a class="reference internal" href="#adp5520-mfd-core-support">ADP5520 MFD Core Support</a></li>
 <li><a class="reference internal" href="#id1">Backlight</a></li>
@@ -149,6 +152,7 @@ Content on this topic
   <a href="../../../../no-OS/index.html">no-OS</a>
   <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
   <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
 </root>
 
 </div>
@@ -157,149 +161,8 @@ Content on this topic
   <body><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
 <li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ADP5501</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html">AD4003</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html">AD4030-24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html">AD6684</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html">AD7091</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html">AD7091R-5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html">AD7091R-8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html">AD7124</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html">AD7170</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html">AD7190</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html">AD7265</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html">AD7768</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html">AD7785</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html">AD7787</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html">AD7887</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html">AD7991</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html">AD9083</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html">AD9207</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html">AD9234</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html">ADAQ8092</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html">ADAS1000</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html">ADAR1000</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7745</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74412R</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5024</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5300</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">AD5310R</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5415</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5501</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5735</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5744</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5760</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html">AD9122</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html">AD9832</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html">AD9833</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9161</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9516-0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523-1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360-0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF4355</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16133</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16251</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html">AD6676</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html">AD9361</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html">AD9371</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9002.html">ADRV9002</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html">ADRV9008-1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-misc/ad714x.html">AD7142</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html">ADP1650</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">AD5160</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7241</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP122</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX3107</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1835A</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1933</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73311</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1381</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1401A</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV801</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ADP5520/01 MFD Linux Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declaring-i2c-devices">Declaring I2C devices</a></li>
 </ul>
 </li>
 </ul>
@@ -467,7 +330,8 @@ built into a single kernel image.</p>
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">#</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<p>For compile time configuration, it’s common Linux practice to keep board- and application-specific configuration out of the main driver file, instead putting it into the board support file.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <!-- ATTRS: important="" -->
@@ -548,7 +412,16 @@ built into a single kernel image.</p>
 </section>
 <section id="adp5520-adp5501-mfd-core-support">
 <h3>ADP5520/ADP5501 MFD Core Support<a class="headerlink" href="#adp5520-adp5501-mfd-core-support" title="Link to this heading">#</a></h3>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="declaring-i2c-devices">
+<h1>Declaring I2C devices<a class="headerlink" href="#declaring-i2c-devices" title="Link to this heading">#</a></h1>
+<p>Unlike PCI or USB devices, I2C devices are not enumerated at the hardware level. Instead, the software must know which devices are connected on each I2C bus segment, and what address these devices are using. For this reason, the kernel code must instantiate I2C devices explicitly. There are different ways to achieve this, depending on the context and requirements. However the most common method is to declare the I2C devices by bus number.</p>
+<p>This method is appropriate when the I2C bus is a system bus, as in many embedded systems, wherein each I2C bus has a number which is known in advance. It is thus possible to pre-declare the I2C devices that inhabit this bus. This is done with an array of struct i2c_board_info, which is registered by calling i2c_register_board_info().</p>
+<p>So, to enable such a driver one need only edit the board support file by adding an appropriate entry to i2c_board_info.</p>
+<p>For more information see: <a class="reference internal" href="#git.linux.org%3EDocumentation/i2c/instantiating-devices.rst"><span class="xref myst">Documentation/i2c/instantiating-devices.rst</span></a></p>
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_pdev_data{} c linux-kernel>
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:/CONFIG_PMIC_ADP5520/2-/#if/ c linux-kernel>
 <div class="admonition note">
@@ -557,8 +430,6 @@ built into a single kernel image.</p>
 <p><strong>ADP5520 IRQ Usage:</strong>
 If you aren’t planning to utilize the Keypad interface, you don’t need to specify an IRQ in bfin_i2c_board_info.</p>
 </div>
-</section>
-</section>
 <section id="adding-linux-driver-support">
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">#</a></h2>
 <p>Fist of all you need to enable i2c support followed by the ADP5520 MFD Core Driver.
@@ -625,7 +496,7 @@ Device<span class="w"> </span>Drivers<span class="w"> </span>---&gt;
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">#</a></h2>
-<p><img alt="ADP5520 Demo Mother/Daughter Board" src="software/driver/linux/adp5520_brd.jpg" />{width=“800” query=“?800”}</p>
+<a class="reference internal image-reference" href="../../../_images/adp5520_brd.jpg"><img alt="ADP5520 Demo Mother/Daughter Board" src="../../../_images/adp5520_brd.jpg" style="width: 800px;" /></a>
 <p>There is no dedicated Blackfin STAMP evaluation board for the ADP5520.
 During test and driver development we used the ADP5520 Demo Mother/Daughter Board.
 Connect the ADP5520 Demo Mother to an USB port.</p>
@@ -695,7 +566,7 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
 </pre></div>
 </div>
-<p>[<strong>For more information on Backlight handling in Linux read:</strong>]{.underline} <a class="reference internal" href="#git.linux.org%3EDocumentation/ABI/stable/sysfs-class-backlight"><span class="xref myst">Documentation/ABI/stable/sysfs-class-backlight</span></a></p>
+<p><em><strong>For more information on Backlight handling in Linux read:</strong></em> <a class="reference internal" href="#git.linux.org%3EDocumentation/ABI/stable/sysfs-class-backlight"><span class="xref myst">Documentation/ABI/stable/sysfs-class-backlight</span></a></p>
 </section>
 <section id="id6">
 <h3>LED<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
@@ -723,7 +594,7 @@ root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>-r<span clas
 root:/&gt;
 </pre></div>
 </div>
-<p>[<strong>For more information on LEDs handling in Linux read:</strong>]{.underline} <a class="reference internal" href="#git.linux.org%3EDocumentation/leds-class.txt"><span class="xref myst">Documentation/leds-class.txt</span></a></p>
+<p><em><strong>For more information on LEDs handling in Linux read:</strong></em> <a class="reference internal" href="#git.linux.org%3EDocumentation/leds-class.txt"><span class="xref myst">Documentation/leds-class.txt</span></a></p>
 </section>
 <section id="id7">
 <h3>GPIO<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
@@ -746,7 +617,7 @@ root:/&gt;
 <span class="w">                     </span><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Input<span class="w"> </span>event<span class="w"> </span>device<span class="w"> </span><span class="nb">test</span>
 </pre></div>
 </div>
-<p>[<strong>For more information on GPIO handling in Linux read:</strong>]{.underline} <a class="reference internal" href="#git.linux.org%3EDocumentation/gpio.txt"><span class="xref myst">Documentation/gpio.txt</span></a></p>
+<p><em><strong>For more information on GPIO handling in Linux read:</strong></em> <a class="reference internal" href="#git.linux.org%3EDocumentation/gpio.txt"><span class="xref myst">Documentation/gpio.txt</span></a></p>
 </section>
 <section id="id8">
 <h3>Keypad<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
@@ -797,12 +668,22 @@ root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>-r<span clas
 root:/&gt;
 </pre></div>
 </div>
-<p>[<strong>For more information on Input handling in Linux read:</strong>]{.underline} <a class="reference internal" href="#git.linux.org%3EDocumentation/input/input.txt"><span class="xref myst">Documentation/input/input.txt</span></a></p>
+<p><em><strong>For more information on Input handling in Linux read:</strong></em> <a class="reference internal" href="#git.linux.org%3EDocumentation/input/input.txt"><span class="xref myst">Documentation/input/input.txt</span></a></p>
 </section>
 </section>
 <section id="more-information">
 <h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">#</a></h2>
-<p><img alt="" src="drivers/linux-drivers/multifunction-device/page%3Eresources/tools-software/linux-drivers/snippets#input_pointers&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<ul class="simple">
+<li><p>Linux-Input mailing list: <a class="reference external" href="mailto:linux-input&#37;&#52;&#48;vger&#46;kernel&#46;org">linux-input<span>&#64;</span>vger<span>&#46;</span>kernel<span>&#46;</span>org</a></p></li>
+<li><p><a class="reference external" href="http://patchwork.kernel.org/project/linux-input/list">Linux-Input Patchwork Server</a></p></li>
+<li><p><a class="reference external" href="http://git.kernel.org/?p=linux/kernel/git/dtor/input.git;a=summary">Linux-Input Git Repository</a></p></li>
+</ul>
+<p><em><strong>Need Help?</strong></em></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ez%3Ecommunity/linux-device-drivers"><span class="xref myst">Analog Devices Linux Device Drivers Help Forum</span></a></p></li>
+<li><p><a class="reference internal" href="#ez%3E"><span class="xref myst">Ask a Question</span></a></p></li>
+</ul>
 </section>
 </section>
 
@@ -811,7 +692,7 @@ root:/&gt;
               <div class="related">
                 &nbsp;
     <a href="../../../drivers_index.html" title="Previous document" class="prev">Linux Drivers</a>
-    <a href="../backlight/adp8860.html" title="Next document" class="next">ADP8860 Back-light LED Linux Driver</a>
+    <div></div>
               </div>
           
         </div>
