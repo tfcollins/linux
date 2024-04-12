@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LTC2947 High Precision Power and Energy Monitor &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ADIN1100 10BASE-T1L PHY Linux Driver" href="../net-phy/adin1100.html" />
+    <link rel="prev" title="Fan Control HDL CORE driver" href="axi_fan_control.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">LTC2947 High Precision Power and Energy Monitor</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#evaluation-boards">Evaluation Boards</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-i2c-spi-device-initialization">Example I2C &amp; SPI device initialization</a></li>
+<li><a class="reference internal" href="#enabling-linux-driver-support">Enabling Linux driver support</a></li>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
+<li><a class="reference internal" href="#hwmon-device-files">HWMON device files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+</ul>
+</li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="ltc2947-high-precision-power-and-energy-monitor">
+<h1>LTC2947 High Precision Power and Energy Monitor<a class="headerlink" href="#ltc2947-high-precision-power-and-energy-monitor" title="Link to this heading">#</a></h1>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://analog.com/LTC2947">LTC2947</a></p></li>
+</ul>
+</section>
+<section id="evaluation-boards">
+<h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://analog.com/DC2334A">DC2334A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/DC2574A-KIT">DC2574A-KIT</a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h2>
+<p>This is a Hardware Monitor subsystem driver. There are two driver’s (sharing the same core implementation) for the LTC2947 since the device supports both SPI and I2C interfaces. The underlying bus is abstracted in the core implementation by using regmap. The Hwmon subsystem provides a unified framework for drivers doing hardware monitoring. It exposes a set of sysfs file that should follow the <a class="reference external" href="https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface">sysfs-interface</a>.</p>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">#</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-core.c">drivers/hwmon/ltc2947-core.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-core.c">yes</a></td>
+</tr>
+<tr class="even">
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-i2c.c">drivers/hwmon/ltc2947-i2c.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-i2c.c">yes</a></td>
+</tr>
+<tr class="odd">
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-spi.c">drivers/hwmon/ltc2947-spi.c</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-spi.c">yes</a></td>
+</tr>
+<tr class="even">
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947.h">drivers/hwmon/ltc2947.h</a></td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947.h">yes</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">#</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>core driver</td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-core.c">drivers/hwmon/ltc2947-core.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-i2c.c">drivers/hwmon/ltc2947-i2c.c</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="git.linux.org&gt;drivers/hwmon/ltc2947-spi.c">drivers/hwmon/ltc2947-spi.c</a></td>
+</tr>
+<tr class="even">
+<td>core include</td>
+<td><a href="git.linux.org&gt;drivers/hwmon//ltc2947.h">drivers/hwmon/ltc2947.h</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example-i2c-spi-device-initialization">
+<h2>Example I2C &amp; SPI device initialization<a class="headerlink" href="#example-i2c-spi-device-initialization" title="Link to this heading">#</a></h2>
+<p>The LTC2947 supports both I2C and SPI interfaces, so one of the drivers can be used depending on which kind of device is instantiated. Currently, the devices can only be instantiated via device tree.</p>
+<p>Required devicetree properties:</p>
+<ul class="simple">
+<li><p><strong>compatible</strong>: Must be always one of these:</p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>   * adi,ltc2947
+* **reg**: Must be either the I2C device address or the SPI device chip select number.
+</pre></div>
+</div>
+<p>Example SPI:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&amp;spi0 {
+        #address-cells = &lt;1&gt;;
+        #size-cells = &lt;0&gt;;
+        status = &quot;okay&quot;;
+        ltc2947_spi: ltc2947@0 {
+                compatible = &quot;adi,ltc2947&quot;;
+                reg = &lt;0&gt;;
+                spi-max-frequency = &lt;1000000&gt;;
+        };
+};
+</pre></div>
+</div>
+<p>Example I2C:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&amp;i2c0 {
+        #address-cells = &lt;1&gt;;
+        #size-cells = &lt;0&gt;;
+        status = &quot;okay&quot;;
+        ltc2947_i2c: ltc2947@5c {
+                compatible = &quot;adi,ltc2947&quot;;
+                reg = &lt;0x5c&gt;;
+        };
+};
+</pre></div>
+</div>
+<p>For more supported devicetree properties take a look to <a class="reference external" href="https://github.com/analogdevicesinc/linux/master?Documentation/devicetree/bindings/hwmon/adi,ltc2947.yaml">dt-bindings</a>.</p>
+</section>
+<section id="enabling-linux-driver-support">
+<h2>Enabling Linux driver support<a class="headerlink" href="#enabling-linux-driver-support" title="Link to this heading">#</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or “make qconfig”).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The LTC2947 SPI driver depends <strong>CONFIG_SPI</strong> and the LTC2947 I2C driver depends on <strong>CONFIG_I2C</strong>.</p>
+</div>
+</section>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">#</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
+    Device Drivers  ---&gt;
+        &lt;*&gt;     Hardware Monitoring support ---&gt;
+            --- Hardware Monitoring support
+        [--snip--]
+            &lt;*&gt; Analog Devices LTC2947 High Precision Power and Energy Monitor over I2C
+            &lt;*&gt; Analog Devices LTC2947 High Precision Power and Energy Monitor over SPI
+        [--snip--]
+</pre></div>
+</div>
+</section>
+<section id="hardware-configuration">
+<h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">#</a></h2>
+</section>
+<section id="driver-testing">
+<h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">#</a></h2>
+<section id="hwmon-device-files">
+<h3>HWMON device files<a class="headerlink" href="#hwmon-device-files" title="Link to this heading">#</a></h3>
+<p>Each and every HWMON device has a device folder under /sys/class/hwmon/hwmonX, where X is the hwmon device index. Under every of these directory folders there are a set of files, depending on what kind of hardware monitoring is supported (temperature, voltage). In order to determine which hwmon device corresponds to which hardware chip, the user can read the name file under /sys/class/hwmon/hwmonX/name.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/class/hwmon/**
+root:/sys/class/hwmon&gt;<span class="w"> </span>ls
+hwmon0<span class="w"> </span>hwmon1
+
+root:/sys/class/hwmon&gt;<span class="w"> </span>**cd<span class="w"> </span>hwmon1**
+
+root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+total<span class="w"> </span><span class="m">0</span>
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_fault
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_highest
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_input
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_label
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_lowest
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_max_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_min
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_min_alarm
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>curr1_reset_history
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>device<span class="w"> </span>-&gt;<span class="w"> </span>../../../spi0.0
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy1_fault
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy1_input
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy1_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy1_max_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy1_min
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy1_min_alarm
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy1_overflow_alarm
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy2_fault
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy2_input
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy2_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy2_max_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy2_min
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy2_min_alarm
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>energy2_overflow_alarm
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_fault
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_highest
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_input
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_label
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_lowest
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_max_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_min
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_min_alarm
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in0_reset_history
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_fault
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_highest
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_input
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_label
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_lowest
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_max_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_min
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_min_alarm
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>in1_reset_history
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:21<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>of_node<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ltc2947@0
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_fault
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_input
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_input_highest
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_input_lowest
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_label
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_max_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_min
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_min_alarm
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>power1_reset_history
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../../class/hwmon
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_fault
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_highest
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_input
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_label
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_lowest
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_max_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_min
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_min_alarm
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp1_reset_history
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp2_label
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp2_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp2_max_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp2_min
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:25<span class="w"> </span>temp2_min_alarm
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">09</span>:17<span class="w"> </span>uevent
+root:/sys/class/hwmon/hwmon1&gt;
+</pre></div>
+</div>
+<div class="docutils">
+<p>For each type of monitored value (current, power), the file will look like <strong><span class="math notranslate nohighlight">\({type}_\)</span>{monitored_value}_<span class="math notranslate nohighlight">\({channel}**, where **\)</span>{monitored_value}</strong> can be the current value, the high threshold, etc… The channel is the index when, for example, a device can monitor more than one voltage. For more information on the files format, take a look to <a class="reference external" href="https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface">sysfs-interface</a>.</p>
+<h4 class="rubric" id="show-device-name">Show device name</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
+ltc2947
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-current-values">Show current values</h4>
+<p>The device supports readings of current, voltage, power, temperature and energy. To get, for example, the value of the monitored voltage:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_input**
+<span class="m">4910</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-highest-read-value">Show highest read value</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_highest**
+<span class="m">5026</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-lowest-read-value">Show lowest read value</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_lowest**
+<span class="m">4754</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-high-threshold">Show high threshold</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_max**
+<span class="m">5500</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-low-threshold">Show low threshold</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_min**
+<span class="m">4500</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-high-threshold-alarm">Show high threshold alarm</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_max_alarm**
+<span class="m">0</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-low-threshold-alarm">Show low threshold alarm</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_min_alarm**
+<span class="m">0</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-fault">Show fault</h4>
+<p>When the <strong><span class="math notranslate nohighlight">\({type}_\)</span>{channel}_fault</strong> files are present, the user can read these files to look for faulty cases. If reading this file returns 1, then the readings for that channel are invalid and should be discarded…</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_fault**
+<span class="m">0</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-label">Show label</h4>
+<p>Some channels, support a label attribute which specifies the name of the channel being monitored.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>in1_label**
+DVCC
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-overflow-alarm">Show Overflow alarm</h4>
+<p>These properties are custom and not part of the sysfs-hwmon interface. However, the device set’s an alarm when register overflow is near for accumulated values (in this case, energy).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**cat<span class="w"> </span>energy1_overflow_alarm**
+<span class="m">0</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="set-high-threshold">Set High threshold</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">5500</span><span class="w"> </span>&gt;<span class="w"> </span>in0_max**
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="set-low-threshold">Set Low threshold</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">4500</span><span class="w"> </span>&gt;<span class="w"> </span>in0_min**
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="reset-history">Reset History</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon1&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>in0_reset_history**
+</pre></div>
+</div>
+<div class="docutils">
+<h2 class="rubric" id="more-information">More Information</h2>
+<h2 class="rubric" id="hwmon-pointers">HWMON pointers</h2>
+<ul class="simple">
+<li><p>HWMON mailing list: <a class="reference external" href="mailto:linux-hwmon&#37;&#52;&#48;vger&#46;kernel&#46;org">linux-hwmon<span>&#64;</span>vger<span>&#46;</span>kernel<span>&#46;</span>org</a></p></li>
+<li><p><a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/hwmon">HWMON Linux Kernel Documentation</a></p></li>
+<li><p><a class="reference external" href="https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface">HWMON sysfs-interface</a></p></li>
+</ul>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<p><em><strong>Need Help?</strong></em></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ez.analog.com/community/linux-device-drivers/linux-software-drivers">Analog Devices Linux Device Drivers Help Forum</a></p></li>
+<li><p><a class="reference external" href="https://ez.analog.com/">Ask a Question</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="axi_fan_control.html" title="Previous document" class="prev">Fan Control HDL CORE driver</a>
+    <a href="../net-phy/adin1100.html" title="Next document" class="next">ADIN1100 10BASE-T1L PHY Linux Driver</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

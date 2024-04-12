@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+    <script src="../../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="ADP5588 Input Keyboard and GPIO Linux Driver" href="../../input-keyboard/adp5588.html" />
+    <link rel="prev" title="ADP8870 Back-light LED Linux Driver" href="../../backlight/adp8870.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../../hdl/index.html">HDL</a>
+  <a href="../../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#evaluation-boards">Evaluation Boards</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-i2c-spi-device-initialization">Example I2C &amp; SPI device initialization</a></li>
+<li><a class="reference internal" href="#enabling-linux-driver-support">Enabling Linux driver support</a></li>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
+<li><a class="reference internal" href="#clock-device-files">CLOCK device files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#clock-pointers">CLOCK pointers</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../../hdl/index.html">HDL</a>
+  <a href="../../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../guides/build.html">Building Kernels</a></li>
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+</ul>
+</li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="ad9545-quad-input-10-output-dual-dpll-ieee-1588-1-pps-synchronizer-and-jitter-cleaner">
+<h1>AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner<a class="headerlink" href="#ad9545-quad-input-10-output-dual-dpll-ieee-1588-1-pps-synchronizer-and-jitter-cleaner" title="Link to this heading">#</a></h1>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://analog.com/AD9545">AD9545</a></p></li>
+</ul>
+</section>
+<section id="evaluation-boards">
+<h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD9545">EVAL-AD9545</a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h2>
+<p>This is a Common Clock Framework subsystem driver. There are two drivers (sharing the same core implementation) for the AD9545 since the device supports both SPI and I2C interfaces. The underlying bus is abstracted in the core implementation by using regmap.</p>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">#</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.c">drivers/clk/adi/clk-ad9545.c</a></td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-i2c.c">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-spi.c">drivers/clk/adi/clk-ad9545-spi.c</a></td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.h">drivers/clk/adi/clk-ad9545.h</a></td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">#</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>core driver</td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.c">drivers/clk/adi/clk-ad9545.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-i2c.c">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-spi.c">drivers/clk/adi/clk-ad9545-spi.c</a></td>
+</tr>
+<tr class="even">
+<td>core include</td>
+<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.h">drivers/clk/adi/clk-ad9545.h</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example-i2c-spi-device-initialization">
+<h2>Example I2C &amp; SPI device initialization<a class="headerlink" href="#example-i2c-spi-device-initialization" title="Link to this heading">#</a></h2>
+<p>The AD9545 supports both I2C and SPI interfaces, so one of the drivers can be used depending on which kind of device is instantiated. Currently, the devices can only be instantiated via device tree.</p>
+<p>Required devicetree properties:</p>
+<ul class="simple">
+<li><p><strong>compatible</strong>: Must be always one of these:</p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>   * adi,ad9545
+* **reg**: Must be either the I2C device address or the SPI device chip select number.
+</pre></div>
+</div>
+<p>Example SPI:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&amp;spi0 {
+        #address-cells = &lt;1&gt;;
+        #size-cells = &lt;0&gt;;
+        status = &quot;okay&quot;;
+        ad9545_spi: ad9545@0 {
+                compatible = &quot;adi,ad9545&quot;;
+                reg = &lt;0&gt;;
+                spi-max-frequency = &lt;100000&gt;;
+        };
+};
+</pre></div>
+</div>
+<p>Example I2C:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&amp;i2c0 {
+        #address-cells = &lt;1&gt;;
+        #size-cells = &lt;0&gt;;
+        status = &quot;okay&quot;;
+        ad9545_i2c: ad9545@4a {
+                compatible = &quot;adi,ad9545&quot;;
+                reg = &lt;0x4a&gt;;
+        };
+};
+</pre></div>
+</div>
+<p>For more supported devicetree properties take a look to <a class="reference external" href="https://github.com/analogdevicesinc/linux/master/Documentation/devicetree/bindings/clock/clk-ad9545.yaml">dt-bindings</a>.</p>
+</section>
+<section id="enabling-linux-driver-support">
+<h2>Enabling Linux driver support<a class="headerlink" href="#enabling-linux-driver-support" title="Link to this heading">#</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or “make qconfig”).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD9545 SPI driver depends <strong>CONFIG_SPI</strong> and the AD9545 I2C driver depends on <strong>CONFIG_I2C</strong>.</p>
+</div>
+</section>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">#</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    Device Drivers &gt; Search (COMMON_CLK) &gt; Analog Devices Clock Drivers
+
+        -*- Analog Devices AD9545 via I2C
+        -*- Analog Devices AD9545 via SPI
+</pre></div>
+</div>
+</section>
+<section id="driver-testing">
+<h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">#</a></h2>
+<section id="clock-device-files">
+<h3>CLOCK device files<a class="headerlink" href="#clock-device-files" title="Link to this heading">#</a></h3>
+<p>Common Clock Framework provides debugfs files for each clock registered:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/kernel/debug/clk# ls
+108MHz-clock    HMC-REF_CLKIN2  HMC7044_OUT12  HMC7044_OUT6  Ref-A  aux_spi2  clk_orphan_dump     dsi0p   fw-clk-core  h264  pcm     pllc        plld_core  slim   vec
+AUX_DPLL    HMC-REF_CLKIN3  HMC7044_OUT13  HMC7044_OUT7  Ref-A-Div  aux_uart  clk_orphan_summary  dsi1e   fw-clk-m2mc  hsm   peri_image  pllc_core0  plld_dsi0  smi    vpu
+AUX_NCO0    HMC7044_OUT0    HMC7044_OUT2   HMC7044_OUT8  Ref-B  aveo      clk_summary         dsi1p   fw-clk-v3d   isp   plla    pllc_core1  plld_dsi1  tec
+AUX_TDC0    HMC7044_OUT1    HMC7044_OUT3   HMC7044_OUT9  Ref-B-Div  cam0      dft             emmc    gp0          osc   plla_ccp2   pllc_core2  plld_per   timer
+HMC-REF_CLKIN0  HMC7044_OUT10   HMC7044_OUT4   PLL0      Ref-M1 cam1      dpi             emmc2   gp1          otg   plla_core   pllc_per    pwm    tsens
+HMC-REF_CLKIN1  HMC7044_OUT11   HMC7044_OUT5   Q0A-div       aux_spi1   clk_dump  dsi0e           fw-clk-arm  gp2          otp   plla_dsi0   plld        sdram  uart
+</pre></div>
+</div>
+<p>For each clock multiple debugfs files are generated that read the clk parameters such as rate, phase, parent etc. :</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/kernel/debug/clk/PLL0# ls
+PLL0          clk_duty_cycle    clk_flags     clk_min_rate    clk_parent  clk_possible_parents  clk_protect_count
+clk_accuracy  clk_enable_count  clk_max_rate  clk_notifier_count  clk_phase   clk_prepare_count     clk_rate
+</pre></div>
+</div>
+<p>The active clock tree can be viewed with:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/kernel/debug/clk# cat /sys/kernel/debug/clk/clk_summary 
+                                 enable  prepare  protect                                duty
+   clock                          count    count    count        rate   accuracy phase  cycle  nshot
+----------------------------------------------------------------------------------------------------
+ AUX_NCO0                             1        1        0       10000          0     0  50000        0
+    PLL0                              1        1        0  1344000000          0     0  50000        0
+       Q0A-div                        1        1        0    38400000          0     0  50000        0
+          HMC7044_OUT0                0        0        0  1277952000          0     0  50000        0
+          HMC7044_OUT1                0        0        0     4992000          0     0  50000        0
+          HMC7044_OUT2                0        0        0    26624000          0     0  50000        0
+          HMC7044_OUT3                0        0        0    26624000          0     0  50000        0
+          HMC7044_OUT4                0        0        0   319488000          0     0  50000        0
+          HMC7044_OUT5                0        0        0     4992000          0     0  50000        0
+          HMC7044_OUT6                0        0        0     3549866          0     0  50000        0
+          HMC7044_OUT7                0        0        0     4992000          0     0  50000        0
+          HMC7044_OUT8                0        0        0    26624000          0     0  50000        0
+          HMC7044_OUT9                0        0        0    26624000          0     0  50000        0
+          HMC7044_OUT10               0        0        0    26624000          0     0  50000        0
+          HMC7044_OUT11               0        0        0    26624000          0     0  50000        0
+          HMC7044_OUT12               0        0        0  1277952000          0     0  50000        0
+          HMC7044_OUT13               0        0        0      665600          0     0  50000        0
+ fw-clk-m2mc                          0        0        0   120000000          0     0  50000        0
+ fw-clk-v3d                           0        0        0   250000000          0     0  50000        0
+ fw-clk-core                          0        0        0   200000000          0     0  50000        0
+ fw-clk-arm                           0        0        0   600000000          0     0  50000        0
+ 108MHz-clock                         0        0        0   108000000          0     0  50000        0
+ otg                                  0        0        0   480000000          0     0  50000        0
+ osc                                  3        3        0    54000000          0     0  50000        0
+    tsens                             0        0        0     3375000          0     0  50000        0
+    otp                               0        0        0    13500000          0     0  50000        0
+    timer                             0        0        0     1000000          0     0  50000        0
+    plld                              5        5        0  3000000091          0     0  50000        0
+       plld_dsi1                      1        1        0    11718751          0     0  50000        0
+       plld_dsi0                      1        1        0    11718751          0     0  50000        0
+       plld_per                       3        3        0   750000023          0     0  50000        0
+          emmc2                       1        1        0   100000003          0     0  50000        0
+          emmc                        0        0        0   250000007          0     0  50000        0
+          uart                        1        1        0    48000001          0     0  50000        0
+       plld_core                      1        1        0   600000019          0     0  50000        0
+    pllc                              3        3        0  2999999988          0     0  50000        0
+       pllc_per                       1        1        0   599999998          0     0  50000        0
+       pllc_core2                     0        0        0    11718750          0     0  50000        0
+       pllc_core1                     0        0        0    11718750          0     0  50000        0
+       pllc_core0                     2        2        0   999999996          0     0  50000        0
+          vpu                         3        3        0   500000000          0     0  50000        0
+             aux_spi2                 0        0        0   500000000          0     0  50000        0
+             aux_spi1                 0        0        0   500000000          0     0  50000        0
+             aux_uart                 0        0        0   500000000          0     0  50000        0
+             peri_image               0        0        0   500000000          0     0  50000        0
+    plla                              2        2        0  2999999988          0     0  50000        0
+       plla_ccp2                      0        0        0    11718750          0     0  50000        0
+       plla_dsi0                      0        0        0    11718750          0     0  50000        0
+       plla_core                      1        1        0   499999998          0     0  50000        0
+          h264                        0        0        0   499999998          0     0  50000        0
+          isp                         0        0        0   499999998          0     0  50000        0
+ Ref-A                                0        0        0           1          0     0  50000        0
+    Ref-A-Div                         0        0        0           1          0     0  50000        0
+ Ref-B                                0        0        0    10000000          0     0  50000        0
+    Ref-B-Div                         0        0        0       50000          0     0  50000        0
+ Ref-M1                               0        0        0    50000000          0     0  50000        0
+    AUX_TDC0                          0        0        0      200000          0     0  50000        0
+       AUX_DPLL                       0        0        0      200000          0     0  50000        0
+ HMC-REF_CLKIN0                       1        1        0    38400000          0     0  50000        0
+ HMC-REF_CLKIN1                       1        1        0    38400000          0     0  50000        0
+ HMC-REF_CLKIN2                       1        1        0    38400000          0     0  50000        0
+ HMC-REF_CLKIN3                       0        0        0    38400000          0     0  50000        0
+ dsi1p                                0        0        0           0          0     0  50000        0
+ dsi0p                                0        0        0           0          0     0  50000        0
+ dsi1e                                0        0        0           0          0     0  50000        0
+ dsi0e                                0        0        0           0          0     0  50000        0
+ cam1                                 0        0        0           0          0     0  50000        0
+ cam0                                 0        0        0           0          0     0  50000        0
+ dpi                                  0        0        0           0          0     0  50000        0
+ tec                                  0        0        0           0          0     0  50000        0
+ smi                                  0        0        0           0          0     0  50000        0
+ slim                                 0        0        0           0          0     0  50000        0
+ gp2                                  0        0        0           0          0     0  50000        0
+ gp1                                  0        0        0           0          0     0  50000        0
+ gp0                                  0        0        0           0          0     0  50000        0
+ dft                                  0        0        0           0          0     0  50000        0
+ aveo                                 0        0        0           0          0     0  50000        0
+ pcm                                  0        0        0           0          0     0  50000        0
+ pwm                                  0        0        0           0          0     0  50000        0
+ sdram                                0        0        0           0          0     0  50000        0
+ hsm                                  0        0        0           0          0     0  50000        0
+ vec                                  0        0        0           0          0     0  50000        0
+</pre></div>
+</div>
+</section>
+</section>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">#</a></h2>
+</section>
+<section id="clock-pointers">
+<h2>CLOCK pointers<a class="headerlink" href="#clock-pointers" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>CLOCK mailing list: <a class="reference external" href="mailto:linux-clk&#37;&#52;&#48;vger&#46;kernel&#46;org">linux-clk<span>&#64;</span>vger<span>&#46;</span>kernel<span>&#46;</span>org</a></p></li>
+<li><p><a class="reference external" href="https://www.kernel.org/doc/Documentation/clk.txt">CLOCK Linux Kernel Documentation</a></p></li>
+</ul>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<p><em><strong>Need Help?</strong></em></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ez.analog.com/community/linux-device-drivers/linux-software-drivers">Analog Devices Linux Device Drivers Help Forum</a></p></li>
+<li><p><a class="reference external" href="https://ez.analog.com/">Ask a Question</a></p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../../backlight/adp8870.html" title="Previous document" class="prev">ADP8870 Back-light LED Linux Driver</a>
+    <a href="../../input-keyboard/adp5588.html" title="Next document" class="next">ADP5588 Input Keyboard and GPIO Linux Driver</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

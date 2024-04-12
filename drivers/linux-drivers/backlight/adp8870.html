@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ADP8870 Back-light LED Linux Driver &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner" href="../clk/adi/clk-ad9545.c.html" />
+    <link rel="prev" title="ADP8860 Back-light LED Linux Driver" href="adp8860.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">ADP8870 Back-light LED Linux Driver</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#evaluation-boards">Evaluation Boards</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#software-configurable-features">Software configurable features</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#instructions-theory-of-operation">Instructions / Theory of operation</a><ul>
+<li><a class="reference internal" href="#backlight-control">Backlight control</a><ul>
+<li><a class="reference internal" href="#adp8870-specific-backlight-controls">ADP8870 Specific Backlight controls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#led-handling-under-linux">LED handling under Linux</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-platform-device-initialization">Example platform device initialization</a></li>
+<li><a class="reference internal" href="#declaring-i2c-devices">Declaring I2C devices</a><ul>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
+<li><a class="reference internal" href="#driver-compiled-as-a-module">Driver compiled as a module</a><ul>
+<li><a class="reference internal" href="#example-backlight-usage">Example Backlight usage</a><ul>
+<li><a class="reference internal" href="#set-backlight-intensity">Set Backlight Intensity</a></li>
+<li><a class="reference internal" href="#query-backlight-intensity">Query Backlight Intensity</a></li>
+<li><a class="reference internal" href="#enable-ambient-light-sensing-feature">Enable Ambient Light Sensing Feature</a></li>
+<li><a class="reference internal" href="#query-ambient-light-level">Query Ambient Light Level</a></li>
+<li><a class="reference internal" href="#query-ambient-light-zone">Query Ambient Light Zone</a></li>
+<li><a class="reference internal" href="#adjust-intensity-for-ambient-light-zone-4-indoor">Adjust Intensity for Ambient Light Zone 4 (indoor)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-led-usage">Example LED usage</a><ul>
+<li><a class="reference internal" href="#set-intensity">Set Intensity</a></li>
+<li><a class="reference internal" href="#turn-led-off">Turn LED OFF</a></li>
+<li><a class="reference internal" href="#query-max-brightness">Query Max Brightness</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adp8860.html">ADP8860</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+</ul>
+</li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="adp8870-back-light-led-linux-driver">
+<h1>ADP8870 Back-light LED Linux Driver<a class="headerlink" href="#adp8870-back-light-led-linux-driver" title="Link to this heading">#</a></h1>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://analog.com/ADP8870">ADP8870</a></p></li>
+</ul>
+</section>
+<section id="evaluation-boards">
+<h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://analog.com/ADP8870DBCB-EVALZ">ADP8870DBCB-EVALZ</a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h2>
+<p><img alt="adp8870_typical_operating_circuit.jpg" src="../../../_images/adp8870_typical_operating_circuit.jpg" /></p>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
+</section>
+<section id="software-configurable-features">
+<h2>Software configurable features<a class="headerlink" href="#software-configurable-features" title="Link to this heading">#</a></h2>
+<p>Backlight:</p>
+<ul class="simple">
+<li><p>Ambient Light Sensor Support (ALS)</p></li>
+<li><p>Five programmable ambient light sensing zones for optimal backlight power savings</p></li>
+<li><p>PWM input can be used for Content Adaptive Brightness Control (CABC) of any, or all, of the LEDs (PWM input scales the LED output current)</p></li>
+<li><p>Configurable Fade On/Off times</p></li>
+<li><p>Configurable Fade Law functions</p></li>
+<li><p>Configurable ALS filter settings</p></li>
+<li><p>Configurable Brightness/Intensity in 128 steps</p></li>
+</ul>
+<p>LED:</p>
+<ul class="simple">
+<li><p>Up to 7 LEDs configurable</p></li>
+<li><p>Configurable Fade On/Off times</p></li>
+<li><p>LED Blink On/Off times</p></li>
+<li><p>Configurable Fade Law functions</p></li>
+<li><p>Configurable Brightness/Intensity in 128 steps from [0…255]</p></li>
+</ul>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">#</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">#</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="git.linux.org&gt;drivers/video/backlight/adp8870_bl.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/video/backlight/adp8870_bl.c">Yes</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">#</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="git.linux.org&gt;drivers/video/backlight/adp8870_bl.c">drivers/video/backlight/adp8870_bl.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="git.linux.org&gt;include/linux/i2c/adp8870.h">include/linux/i2c/adp8870.h</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="instructions-theory-of-operation">
+<h2>Instructions / Theory of operation<a class="headerlink" href="#instructions-theory-of-operation" title="Link to this heading">#</a></h2>
+<section id="backlight-control">
+<h3>Backlight control<a class="headerlink" href="#backlight-control" title="Link to this heading">#</a></h3>
+<p>With the ADP8870 driver installed, you will find sysfs files in the
+/sys/class/backlight/adp8870_bl/
+directory. You will be able to query and set the current screen
+brightness:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>; **brightness** : get/set screen brightness (an integer between 0 and 126) writing 127 will enable the Ambient Light Sensor.
+; **actual_brightness** : reading from this file will query the HW to get real brightness value.
+; **max_brightness** : the maximum brightness value.
+; **bl_power** : Current FB Power mode (0: full on, 1..3: power saving modes; 4: full off).
+</pre></div>
+</div>
+<section id="adp8870-specific-backlight-controls">
+<h4>ADP8870 Specific Backlight controls<a class="headerlink" href="#adp8870-specific-backlight-controls" title="Link to this heading">#</a></h4>
+<p>The ADP8870 features 5 individually programmable Ambient Light Sensing Zones:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>; **l1_daylight_dim** : Ambient Light Zone Daylight: Backlight DIM Intensity (an integer between 0 and 127, typically set to 0).
+; **l1_daylight_max** : Ambient Light Zone Daylight: Backlight Intensity (an integer between 0 and 127).
+; **l2_bright_dim** : Ambient Light Zone Bright: Backlight DIM Intensity (an integer between 0 and 127, typically set to 0)
+; **l2_bright_max** : Ambient Light Zone Bright: Backlight Intensity (an integer between 0 and 127)
+; **l3_office_dim** : Ambient Light Zone Office: Backlight DIM Intensity (an integer between 0 and 127, typically set to 0)
+; **l3_office_max** : Ambient Light Zone Office: Backlight Intensity (an integer between 0 and 127)
+; **l4_indoor_dim** : Ambient Light Zone Indoor: Backlight DIM Intensity (an integer between 0 and 127, typically set to 0)
+; **l4_indoor_max** : Ambient Light Zone Indoor: Backlight Intensity (an integer between 0 and 127)
+; **l5_dark_dim**  : Ambient Light Zone Dark: Backlight DIM Intensity (an integer between 0 and 127, typically set to 0)
+; **l5_dark_max**  : Ambient Light Zone Dark: Backlight Intensity (an integer between 0 and 127)
+
+; **ambient_light_level** : Get conversion value of the first light sensor. This value is updated every 80 ms  (when the light sensor is enabled). Returns integer between 0 (dark) and 8000 (max ambient brightness)
+; **ambient_light_zone** : Get/Set current Ambient Light Zone. Reading returns integer between 1..5  (1 = Daylight, 2 = bright, ..., 5 = dark). Writing a value between 1..5 forces the Backlight controller  to enter the corresponding Ambient Light Zone. Writing 0 returns to normal operation.
+</pre></div>
+</div>
+</section>
+</section>
+<section id="led-handling-under-linux">
+<h3>LED handling under Linux<a class="headerlink" href="#led-handling-under-linux" title="Link to this heading">#</a></h3>
+<p>LEDs not assigned to the Backlight are optionally exposed to the Linux LEDs Class.
+The LED class allows control of LEDs from userspace.
+LEDs appear in /sys/class/leds/. The brightness file will
+set the brightness of the LED (taking a value 0-255).
+The LEDS class also introduces the optional concept of an LED trigger. A trigger
+is a kernel based source of led events, such as ide-disk or backlight control.
+For more information read linux/Documentaion/leds-class.txt</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>; **brightness** : get/set LED brightness (an integer between 0 and 255)
+; **max_brightness** : the maximum brightness value.
+</pre></div>
+</div>
+</section>
+</section>
+<section id="example-platform-device-initialization">
+<h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">#</a></h2>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<p>For compile time configuration, it’s common Linux practice to keep board- and application-specific configuration out of the main driver file, instead putting it into the board support file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: info="" -->
+<p><strong>platform_data: Platform data specific to the ADP8870 device.</strong>
+Includes what LEDs are available, feature selections and default initialization.</p>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">## include &lt;linux/i2c/adp8870.h&gt;</span>
+</pre></div>
+</div>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8870_leds{} c linux-kernel>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8870_pdata{} c linux-kernel>
+<!-- CMDS: firstseconly noeditbtn -->
+</section>
+<section id="declaring-i2c-devices">
+<h2>Declaring I2C devices<a class="headerlink" href="#declaring-i2c-devices" title="Link to this heading">#</a></h2>
+<p>Unlike PCI or USB devices, I2C devices are not enumerated at the hardware level. Instead, the software must know which devices are connected on each I2C bus segment, and what address these devices are using. For this reason, the kernel code must instantiate I2C devices explicitly. There are different ways to achieve this, depending on the context and requirements. However the most common method is to declare the I2C devices by bus number.</p>
+<p>This method is appropriate when the I2C bus is a system bus, as in many embedded systems, wherein each I2C bus has a number which is known in advance. It is thus possible to pre-declare the I2C devices that inhabit this bus. This is done with an array of struct i2c_board_info, which is registered by calling i2c_register_board_info().</p>
+<p>So, to enable such a driver one need only edit the board support file by adding an appropriate entry to i2c_board_info.</p>
+<p>For more information see: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/i2c/instantiating-devices.rst">Documentation/i2c/instantiating-devices.rst</a></p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_board_info</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="n">bfin_i2c_board_info</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">## if defined(CONFIG_BACKLIGHT_ADP8870) || defined(CONFIG_BACKLIGHT_ADP8870_MODULE)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">I2C_BOARD_INFO</span><span class="p">(</span><span class="s">&quot;adp8870&quot;</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2B</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">adp8870_pdata</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="cp">## endif</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="adding-linux-driver-support">
+<h3>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">#</a></h3>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>The ADP8870 Backlight driver depends on I2C.
+It therefore requires selected I2C support to show up during kernel configuration.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Device<span class="w"> </span>Drivers<span class="w"> </span>---&gt;
+
+<span class="w">      </span>Graphics<span class="w"> </span>support<span class="w">  </span>---&gt;
+<span class="w">          </span><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Backlight<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>LCD<span class="w"> </span>device<span class="w"> </span>support<span class="w">  </span>---&gt;
+<span class="w">              </span>&lt;*&gt;<span class="w">   </span>Lowlevel<span class="w"> </span>Backlight<span class="w"> </span>controls
+<span class="w">              </span>&lt;M&gt;<span class="w">   </span>Backlight<span class="w"> </span>Driver<span class="w"> </span><span class="k">for</span><span class="w"> </span>ADP8870<span class="w"> </span>using<span class="w"> </span>WLED
+</pre></div>
+</div>
+</section>
+<section id="hardware-configuration">
+<h3>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">#</a></h3>
+<p>There is no dedicated Blackfin STAMP evaluation board for the ADP8870.
+During test and driver development we used the ADP8870 Evaluation Mother/Daughter Board.</p>
+<a class="reference internal image-reference" href="../../../_images/adp8870_adaptor_board_lr.jpg"><img alt="adp8870_adaptor_board_lr.jpg" src="../../../_images/adp8870_adaptor_board_lr.jpg" style="width: 512px;" /></a>
+<p>It can be easily wired to the Blackfin STAMP TWI/I2C header.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">BF537-STAMP (P10) TWI/I2C header</th>
+<th></th>
+<th>ADP886x Adaptor Board (J30)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PIN</td>
+<td>Function</td>
+<td>PIN/Function</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td>SCL</td>
+<td>SCL</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td>SDA</td>
+<td>SDA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20</td>
+<td>GND</td>
+<td>GND</td>
+</tr>
+</tbody>
+</table>
+<p>Leave J31 and J32 open (these jumpers connect the SCL and SDA to the cypress chip used as USB bridge). Then apply your own SCL, SDA, and GND to the big J30 connector on the left edge of the board.</p>
+<p>The ADP8870 chip still needs Vin (to power the chip), Vddio (to pull nRST and nINT high), and Vboard (to power the ALS sensor on the daughter card). These are provided through the USB port and then get regulated down (Vin becomes 3.6V, Vddio is 2.7V, and Vboard is around 4 V). So even though you won’t be using the USB to program the part, it would still be easiest to plug the board into a USB port just to power Vin, Vddio, and Vboard. Of course, if you want, you can power these supplies from a lab bench power supply. In that case, move LK1, 2, and 3 to the “EXT” position and apply the signals to J29.</p>
+</section>
+<section id="driver-testing">
+<h3>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">#</a></h3>
+<section id="driver-compiled-as-a-module">
+<h4>Driver compiled as a module<a class="headerlink" href="#driver-compiled-as-a-module" title="Link to this heading">#</a></h4>
+<p><strong>ADP8870 driver is build as a module</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>adp8870_bl**
+adp8870_bl<span class="w"> </span><span class="m">0</span>-002b:<span class="w"> </span>Rev.0<span class="w"> </span>Backlight
+Registered<span class="w"> </span>led<span class="w"> </span>device:<span class="w"> </span>adp8870-led7
+root:/&gt;
+</pre></div>
+</div>
+<section id="example-backlight-usage">
+<h5>Example Backlight usage<a class="headerlink" href="#example-backlight-usage" title="Link to this heading">#</a></h5>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sys/class/backlight/adp8870_bl/
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;<span class="w"> </span>ls<span class="w"> </span>-l
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>actual_brightness
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>ambient_light_level
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>ambient_light_zone
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:31<span class="w"> </span>bl_power
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">04</span>:55<span class="w"> </span>brightness
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>device<span class="w"> </span>-&gt;<span class="w"> </span>../../../0-002b
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>l1_daylight_dim
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>l1_daylight_max
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:30<span class="w"> </span>l2_bright_dim
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>l2_bright_max
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:30<span class="w"> </span>l3_office_dim
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>l3_office_max
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:31<span class="w"> </span>l4_indoor_dim
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>l4_indoor_max
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:31<span class="w"> </span>l5_dark_dim
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>l5_dark_max
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>max_brightness
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../class/backlight
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>uevent
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;
+</pre></div>
+</div>
+<section id="set-backlight-intensity">
+<h6>Set Backlight Intensity<a class="headerlink" href="#set-backlight-intensity" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">42</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+</pre></div>
+</div>
+</section>
+<section id="query-backlight-intensity">
+<h6>Query Backlight Intensity<a class="headerlink" href="#query-backlight-intensity" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;<span class="w"> </span>**cat<span class="w"> </span>brightness**
+<span class="m">42</span>
+</pre></div>
+</div>
+</section>
+<section id="enable-ambient-light-sensing-feature">
+<h6>Enable Ambient Light Sensing Feature<a class="headerlink" href="#enable-ambient-light-sensing-feature" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">127</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+</pre></div>
+</div>
+</section>
+<section id="query-ambient-light-level">
+<h6>Query Ambient Light Level<a class="headerlink" href="#query-ambient-light-level" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;<span class="w"> </span>**cat<span class="w"> </span>ambient_light_level**
+<span class="m">1276</span>
+</pre></div>
+</div>
+</section>
+<section id="query-ambient-light-zone">
+<h6>Query Ambient Light Zone<a class="headerlink" href="#query-ambient-light-zone" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;<span class="w"> </span>**cat<span class="w"> </span>ambient_light_zone**
+<span class="m">4</span>
+</pre></div>
+</div>
+</section>
+<section id="adjust-intensity-for-ambient-light-zone-4-indoor">
+<h6>Adjust Intensity for Ambient Light Zone 4 (indoor)<a class="headerlink" href="#adjust-intensity-for-ambient-light-zone-4-indoor" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">22</span><span class="w"> </span>&gt;<span class="w"> </span>l4_indoor_max**
+<span class="m">22</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/backlight/adp8870_bl&gt;<span class="w"> </span>**cat<span class="w"> </span>l4_indoor_max**
+<span class="m">22</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="example-led-usage">
+<h5>Example LED usage<a class="headerlink" href="#example-led-usage" title="Link to this heading">#</a></h5>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/sys/class/leds/adp8870-led7/
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/leds/adp8870-led7&gt;<span class="w"> </span>ls<span class="w"> </span>-l
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>brightness
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>device<span class="w"> </span>-&gt;<span class="w"> </span>../../../0-002b
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>max_brightness
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">03</span>:29<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../class/leds
+</pre></div>
+</div>
+<section id="set-intensity">
+<h6>Set Intensity<a class="headerlink" href="#set-intensity" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/leds/adp8870-led7&gt;**echo<span class="w"> </span><span class="m">99</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+</pre></div>
+</div>
+</section>
+<section id="turn-led-off">
+<h6>Turn LED OFF<a class="headerlink" href="#turn-led-off" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/leds/adp8870-led7&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+</pre></div>
+</div>
+</section>
+<section id="query-max-brightness">
+<h6>Query Max Brightness<a class="headerlink" href="#query-max-brightness" title="Link to this heading">#</a></h6>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/leds/adp8870-led7&gt;<span class="w"> </span>**cat<span class="w"> </span>max_brightness**
+<span class="m">255</span>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002b/leds/adp8870-led7&gt;
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="more-information">
+<h3>More Information<a class="headerlink" href="#more-information" title="Link to this heading">#</a></h3>
+</section>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="adp8860.html" title="Previous document" class="prev">ADP8860 Back-light LED Linux Driver</a>
+    <a href="../clk/adi/clk-ad9545.c.html" title="Next document" class="next">AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

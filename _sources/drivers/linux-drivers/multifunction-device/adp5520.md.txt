@@ -1,18 +1,18 @@
 ---
 wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers//multifunction-device/adp5520
-title: ADP5501: Programmable Current Backlight Driver with Ambient Light Sensor Input
+title: ADP5520: Backlight Driver with I/O Expander
 ---
 
 # ADP5520/01 MFD Linux Driver
 
 ### Supported Devices
 
--   [ADP5520](adi>ADP5520)
--   [ADP5501](adi>ADP5501)
+-   [ADP5520](https://analog.com/ADP5520)
+-   [ADP5501](https://analog.com/ADP5501)
 
 ### Evaluation Boards
 
--   [ADP5520-EVALZ](adi>ADP5520-EVALZ)
+-   [ADP5520-EVALZ](https://analog.com/ADP5520-EVALZ)
 
 ### Description
 
@@ -221,7 +221,7 @@ Since Keypad, GPIO and optional LEDs (2, 3) are multiplexed, you need to avoid d
 
 :::{NOTE} <!-- ATTRS: tip="" -->
 
-Please refer to [include/linux/mfd/adp5520.h](git.linux.org>include/linux/mfd/adp5520.h) for detailed configuration defines.
+Please refer to [include/linux/mfd/adp5520.h](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/mfd/adp5520.h) for detailed configuration defines.
 
 :::
 
@@ -269,7 +269,7 @@ Then you may select individual components like LCD backlight, LEDs, GPIOs and Ke
 
 #### ADP5520 MFD Core Support
 
-```bash
+```{code-block} bash
 Device Drivers --->
 
       <*> I2C support  --->
@@ -286,7 +286,7 @@ Device Drivers --->
 
 #### Backlight
 
-```bash
+```{code-block} bash
 Device Drivers --->
 
       Graphics support  --->
@@ -298,7 +298,7 @@ Device Drivers --->
 
 #### LED
 
-```bash
+```{code-block} bash
 Device Drivers --->
 
       [*] LED Support  --->
@@ -309,7 +309,7 @@ Device Drivers --->
 
 #### GPIO
 
-```bash
+```{code-block} bash
 Device Drivers --->
 
       [*] GPIO Support  --->
@@ -320,7 +320,7 @@ Device Drivers --->
 
 #### Keypad
 
-```bash
+```{code-block} bash
 Device Drivers --->
 
       Input device support  --->
@@ -386,7 +386,7 @@ It can be easily wired to the Blackfin STAMP TWI/I2C header.
 
 #### Backlight
 
-```bash
+```{code-block} bash
 root:/> **modprobe adp5520_bl**
 root:/>
 
@@ -411,11 +411,11 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight> **echo 0 > brightness**
 ```
 
-_**For more information on Backlight handling in Linux read:**_ [Documentation/ABI/stable/sysfs-class-backlight](git.linux.org>Documentation/ABI/stable/sysfs-class-backlight)
+_**For more information on Backlight handling in Linux read:**_ [Documentation/ABI/stable/sysfs-class-backlight](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/ABI/stable/sysfs-class-backlight)
 
 #### LED
 
-```bash
+```{code-block} bash
 root:/> **modprobe leds-adp5520**
 Registered led device: adp5520-led1
 Registered led device: adp5520-led2
@@ -440,11 +440,11 @@ root:/> **modprobe -r leds-adp5520**
 root:/>
 ```
 
-_**For more information on LEDs handling in Linux read:**_ [Documentation/leds-class.txt](git.linux.org>Documentation/leds-class.txt)
+_**For more information on LEDs handling in Linux read:**_ [Documentation/leds-class.txt](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/leds-class.txt)
 
 #### GPIO
 
-```bash
+```{code-block} bash
 root:/> **modprobe adp5520-gpio**
 root:/> cd sys/class/gpio/gpiochip50/
 root:/sys/devices/virtual/gpio/gpiochip50> ls -l
@@ -458,18 +458,18 @@ root:/sys/devices/virtual/gpio/gpiochip50> cd
 root:/>
 ```
 Note that you will have to enable the event_test utility under "Blackfin test programs" in your user space configuration.
-```bash
+```{code-block} bash
 --- Blackfin test programs
 
                      [*] Input event device test
 
 ```
 
-_**For more information on GPIO handling in Linux read:**_ [Documentation/gpio.txt](git.linux.org>Documentation/gpio.txt)
+_**For more information on GPIO handling in Linux read:**_ [Documentation/gpio.txt](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/gpio.txt)
 
 #### Keypad
 
-```bash
+```{code-block} bash
 root:/> **modprobe adp5520-keys**
 input: adp5520-keys as /devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/adp5520-keys.5520/input/input0
 
@@ -517,7 +517,7 @@ root:/> **modprobe -r adp5520-keys**
 root:/>
 ```
 
-_**For more information on Input handling in Linux read:**_ [Documentation/input/input.txt](git.linux.org>Documentation/input/input.txt)
+_**For more information on Input handling in Linux read:**_ [Documentation/input/input.txt](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/input/input.txt)
 
 ## More Information
 

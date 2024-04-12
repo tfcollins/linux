@@ -18,6 +18,7 @@
     <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ADP8860 Back-light LED Linux Driver" href="../backlight/adp8860.html" />
     <link rel="prev" title="Linux Drivers" href="../../../drivers_index.html" />
    
   
@@ -104,9 +105,7 @@
 <li><a class="reference internal" href="#adp5520-adp5501-mfd-core-support">ADP5520/ADP5501 MFD Core Support</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a class="reference internal" href="#declaring-i2c-devices">Declaring I2C devices</a><ul>
+<li><a class="reference internal" href="#declaring-i2c-devices">Declaring I2C devices</a></li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a><ul>
 <li><a class="reference internal" href="#adp5520-mfd-core-support">ADP5520 MFD Core Support</a></li>
 <li><a class="reference internal" href="#id1">Backlight</a></li>
@@ -161,8 +160,26 @@ Content on this topic
   <body><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
 <li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ADP5520/01 MFD Linux Driver</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#declaring-i2c-devices">Declaring I2C devices</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
 </ul>
 </li>
 </ul>
@@ -183,14 +200,14 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADP5520"><span class="xref myst">ADP5520</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADP5501"><span class="xref myst">ADP5501</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADP5520">ADP5520</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADP5501">ADP5501</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADP5520-EVALZ"><span class="xref myst">ADP5520-EVALZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADP5520-EVALZ">ADP5520-EVALZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -200,7 +217,7 @@ various software interfaces. It is therefore implemented as a multifunction devi
 In this particular case the ADP5520 backlight driver and I/O expander, concurrently
 leverages the Linux backlight, LED, GPIO, and input subsystems for its keypad functionality.</p>
 <!-- ATTRS: dot="" 650x200="" -->
-digraph {
+<div class="graphviz"><img src="../../../_images/graphviz-256ed97fcafe45fc3e49cfb4d60494fddc584ef4.png" alt="digraph {
 size=&quot;8,5&quot;
 ADP5520_MFD_CORE [shape=box]
 ADP5520_BACKLIGHT [shape=box]
@@ -211,7 +228,7 @@ ADP5520_MFD_CORE -&gt; ADP5520_BACKLIGHT [dir=none];
 ADP5520_MFD_CORE -&gt; ADP5520_LED [dir=none];
 ADP5520_MFD_CORE -&gt; ADP5520_GPIO [dir=none];
 ADP5520_MFD_CORE -&gt; ADP5520_KEYPAD [dir=none];
-}
+}" class="graphviz" /></div>
 </section>
 <section id="core">
 <h2>Core<a class="headerlink" href="#core" title="Link to this heading">#</a></h2>
@@ -390,7 +407,7 @@ built into a single kernel image.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <!-- ATTRS: tip="" -->
-<p>Please refer to <a class="reference internal" href="#git.linux.org%3Einclude/linux/mfd/adp5520.h"><span class="xref myst">include/linux/mfd/adp5520.h</span></a> for detailed configuration defines.</p>
+<p>Please refer to <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/mfd/adp5520.h">include/linux/mfd/adp5520.h</a> for detailed configuration defines.</p>
 </div>
 <section id="backlight">
 <h3>Backlight<a class="headerlink" href="#backlight" title="Link to this heading">#</a></h3>
@@ -415,13 +432,12 @@ built into a single kernel image.</p>
 <!-- CMDS: firstseconly noeditbtn -->
 </section>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="declaring-i2c-devices">
-<h1>Declaring I2C devices<a class="headerlink" href="#declaring-i2c-devices" title="Link to this heading">#</a></h1>
+<section id="declaring-i2c-devices">
+<h2>Declaring I2C devices<a class="headerlink" href="#declaring-i2c-devices" title="Link to this heading">#</a></h2>
 <p>Unlike PCI or USB devices, I2C devices are not enumerated at the hardware level. Instead, the software must know which devices are connected on each I2C bus segment, and what address these devices are using. For this reason, the kernel code must instantiate I2C devices explicitly. There are different ways to achieve this, depending on the context and requirements. However the most common method is to declare the I2C devices by bus number.</p>
 <p>This method is appropriate when the I2C bus is a system bus, as in many embedded systems, wherein each I2C bus has a number which is known in advance. It is thus possible to pre-declare the I2C devices that inhabit this bus. This is done with an array of struct i2c_board_info, which is registered by calling i2c_register_board_info().</p>
 <p>So, to enable such a driver one need only edit the board support file by adding an appropriate entry to i2c_board_info.</p>
-<p>For more information see: <a class="reference internal" href="#git.linux.org%3EDocumentation/i2c/instantiating-devices.rst"><span class="xref myst">Documentation/i2c/instantiating-devices.rst</span></a></p>
+<p>For more information see: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/i2c/instantiating-devices.rst">Documentation/i2c/instantiating-devices.rst</a></p>
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_pdev_data{} c linux-kernel>
 <source trunk/arch/blackfin/mach-bf537/boards/stamp.c:/CONFIG_PMIC_ADP5520/2-/#if/ c linux-kernel>
 <div class="admonition note">
@@ -430,6 +446,7 @@ built into a single kernel image.</p>
 <p><strong>ADP5520 IRQ Usage:</strong>
 If you aren’t planning to utilize the Keypad interface, you don’t need to specify an IRQ in bfin_i2c_board_info.</p>
 </div>
+</section>
 <section id="adding-linux-driver-support">
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">#</a></h2>
 <p>Fist of all you need to enable i2c support followed by the ADP5520 MFD Core Driver.
@@ -566,7 +583,7 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
 </pre></div>
 </div>
-<p><em><strong>For more information on Backlight handling in Linux read:</strong></em> <a class="reference internal" href="#git.linux.org%3EDocumentation/ABI/stable/sysfs-class-backlight"><span class="xref myst">Documentation/ABI/stable/sysfs-class-backlight</span></a></p>
+<p><em><strong>For more information on Backlight handling in Linux read:</strong></em> <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/ABI/stable/sysfs-class-backlight">Documentation/ABI/stable/sysfs-class-backlight</a></p>
 </section>
 <section id="id6">
 <h3>LED<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
@@ -594,7 +611,7 @@ root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>-r<span clas
 root:/&gt;
 </pre></div>
 </div>
-<p><em><strong>For more information on LEDs handling in Linux read:</strong></em> <a class="reference internal" href="#git.linux.org%3EDocumentation/leds-class.txt"><span class="xref myst">Documentation/leds-class.txt</span></a></p>
+<p><em><strong>For more information on LEDs handling in Linux read:</strong></em> <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/leds-class.txt">Documentation/leds-class.txt</a></p>
 </section>
 <section id="id7">
 <h3>GPIO<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
@@ -612,12 +629,10 @@ root:/&gt;
 </pre></div>
 </div>
 <p>Note that you will have to enable the event_test utility under “Blackfin test programs” in your user space configuration.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>---<span class="w"> </span>Blackfin<span class="w"> </span><span class="nb">test</span><span class="w"> </span>programs
-
-<span class="w">                     </span><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Input<span class="w"> </span>event<span class="w"> </span>device<span class="w"> </span><span class="nb">test</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<p><em><strong>For more information on GPIO handling in Linux read:</strong></em> <a class="reference internal" href="#git.linux.org%3EDocumentation/gpio.txt"><span class="xref myst">Documentation/gpio.txt</span></a></p>
+<p><em><strong>For more information on GPIO handling in Linux read:</strong></em> <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/gpio.txt">Documentation/gpio.txt</a></p>
 </section>
 <section id="id8">
 <h3>Keypad<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
@@ -668,7 +683,7 @@ root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>-r<span clas
 root:/&gt;
 </pre></div>
 </div>
-<p><em><strong>For more information on Input handling in Linux read:</strong></em> <a class="reference internal" href="#git.linux.org%3EDocumentation/input/input.txt"><span class="xref myst">Documentation/input/input.txt</span></a></p>
+<p><em><strong>For more information on Input handling in Linux read:</strong></em> <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/input/input.txt">Documentation/input/input.txt</a></p>
 </section>
 </section>
 <section id="more-information">
@@ -681,8 +696,8 @@ root:/&gt;
 </ul>
 <p><em><strong>Need Help?</strong></em></p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#ez%3Ecommunity/linux-device-drivers"><span class="xref myst">Analog Devices Linux Device Drivers Help Forum</span></a></p></li>
-<li><p><a class="reference internal" href="#ez%3E"><span class="xref myst">Ask a Question</span></a></p></li>
+<li><p><a class="reference external" href="https://ez.analog.com/community/linux-device-drivers">Analog Devices Linux Device Drivers Help Forum</a></p></li>
+<li><p><a class="reference external" href="https://ez.analog.com/">Ask a Question</a></p></li>
 </ul>
 </section>
 </section>
@@ -692,7 +707,7 @@ root:/&gt;
               <div class="related">
                 &nbsp;
     <a href="../../../drivers_index.html" title="Previous document" class="prev">Linux Drivers</a>
-    <div></div>
+    <a href="../backlight/adp8860.html" title="Next document" class="next">ADP8860 Back-light LED Linux Driver</a>
               </div>
           
         </div>
