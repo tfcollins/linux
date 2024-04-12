@@ -116,8 +116,13 @@ def fixup_images(text, target_dir):
 
         new_format = f"```{{image}} {image}\n"
         new_format += f":alt: {alt}\n"
+        print(f"Attributes: {attributes}")
+        print(f"Attributes Split: {attributes.split()}")
         for attribute in attributes.split():
-            new_format += f":{attribute.split('=')[0]}: {attribute.split('=')[1]}\n"
+            if "=" not in attribute:
+                new_format += f":{attribute}\n"
+            else:
+                new_format += f":{attribute.split('=')[0]}: {attribute.split('=')[1]}\n"
         new_format += "```"
 
         print("Old format:")
