@@ -3,10 +3,11 @@ import os
 import subprocess
 import urllib.request
 
-from fixers.fixup_wrap_tags import preprocess, process
-from fixers.heading_fixup import adjust_heading
-from fixers.fixup_term_tags import update_xterm_blocks
-from fixers.fixup_graphviz_tags import update_graphviz_blocks
+import logging
+logging.basicConfig(level=logging.INFO)
+
+from fixers.fixup_wrap_tags import preprocess
+from fixers.fix_all import run_all_fixers
 
 # Check if running on linux
 if os.name != "posix":
@@ -31,7 +32,7 @@ subprocess.run(
         "-L",
         "adi_wiki.lua",
         "--wrap=preserve",
-        "--verbose",
+        # "--verbose",
         "-f",
         "dokuwiki",
         "-t",
@@ -106,8 +107,8 @@ if not os.path.exists(FOLDER):
 
 for driver, link in drivers.items():
 
-    # if "ADP5501" not in driver:
-    #     continue
+    if "ADP5501" not in driver:
+        continue
 
     print('---------------------------------------')
     print(f"Downloading {driver} from {ROOT}{link}")
@@ -148,7 +149,7 @@ for driver, link in drivers.items():
             "-L",
             "adi_wiki_drivers.lua",
             "--wrap=preserve",
-            "--verbose",
+            # "--verbose",
             "-f",
             "dokuwiki",
             "-t",
@@ -179,13 +180,11 @@ for driver, link in drivers.items():
             f.write(f"PP: {driver}: {ROOT}{link}\n")
         os.remove(input)
         continue
-    text = process(text)
 
-    text = adjust_heading(text)
+    text = run_all_fixers(text, f"{FOLDER}/{subfolder}")
 
-    text = update_xterm_blocks(text)
-
-    text = update_graphviz_blocks(text)
+    # import sys
+    # sys.exit(1)
 
     # Add metadata
     text = f"""---
@@ -231,3 +230,11 @@ target_file = os.path.abspath(os.path.join("..", "..", "source", "drivers_index.
 if os.path.exists(target_file):
     os.remove(target_file)
 shutil.move(drivers_index, target_file)
+
+# # Move images folder
+# print("\nMoving images folder")
+# source_folder = os.path.abspath(os.path.join("generated", "images"))
+# target_folder = os.path.abspath(os.path.join("..", "..", "source", "_static", "images"))
+# if os.path.exists(target_folder):
+#     shutil.rmtree(target_folder)
+# shutil.move(source_folder, target_folder)
