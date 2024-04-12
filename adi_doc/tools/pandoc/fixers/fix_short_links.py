@@ -13,6 +13,7 @@ def fix_short_links(text):
         "adi": "analog.com",
         "linux.github": "github.com/analogdevicesinc/linux",
         "git.linux.org": "git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree",
+        "youtube": "youtube.com",
     }
 
     # Parse the link text, ref, and short_link
@@ -36,7 +37,7 @@ def fix_short_links(text):
             else:
                 ref, short_link = pieces
             if ref not in mapping:
-                raise ValueError(f"Unknown reference: {ref}")
+                # raise ValueError(f"Unknown reference: {ref}")
                 with open("failed_unknown_refs.txt", "a") as f:
                     f.write(f"UNKOWN REF KEY: {ref} | {full}\n")
                 continue
