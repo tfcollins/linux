@@ -9,6 +9,13 @@ logging.basicConfig(level=logging.INFO)
 from fixers.fixup_wrap_tags import preprocess
 from fixers.fix_all import run_all_fixers
 
+# Clear failed files
+files_in_dir = os.listdir()
+for item in files_in_dir:
+    if "failed" in item and ".txt" in item:
+        logging.info(f"Removing {item}")
+        os.remove(item)
+
 # Check if running on linux
 if os.name != "posix":
     print("This script is only supported on Linux")
@@ -50,10 +57,17 @@ with open(output, "r") as f:
 lines = text.split("\n")
 drivers = {}
 drivers_paths = {}
-for line in lines:
+count = 0
+count_max = 30
+target = "ADP55"
+for i, line in enumerate(lines):
     if "linux-drivers/" in line:
+        if count > count_max:
+            break
+        count += 1
         driver = line.split("](")[0].split("[")[1].strip()
         link = line.split("](")[1].split(")")[0].strip()
+        # if target in driver:
         drivers[driver] = link
         drivers_paths[driver] = link
 
@@ -107,8 +121,8 @@ if not os.path.exists(FOLDER):
 
 for driver, link in drivers.items():
 
-    if "ADP5501" not in driver:
-        continue
+    # if "AD9545" not in driver:
+    #     continue
 
     print('---------------------------------------')
     print(f"Downloading {driver} from {ROOT}{link}")

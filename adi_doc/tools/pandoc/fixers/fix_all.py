@@ -40,4 +40,8 @@ def run_all_fixers(text, target_dir, to_skip=None):
         from .fix_includes import fix_includes
         text = fix_includes(text, target_dir)
 
+    if "fix_short_links" not in to_skip:
+        from .fix_short_links import fix_short_links
+        text = fix_short_links(text)
+
     return text

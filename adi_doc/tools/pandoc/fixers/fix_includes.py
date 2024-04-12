@@ -13,7 +13,10 @@ from .fix_all import run_all_fixers
 
 fi_logger = logging.getLogger("fix_includes")
 
+
 def fix_includes(text, target_dir=None):
+
+    fi_logger.info("\n\nRunning fix_includes\n\n")
 
     # Page includes are of the form:
     # ![attr](page>page_path#name&of&section)
@@ -35,14 +38,18 @@ def fix_includes(text, target_dir=None):
             else:
                 section = None
                 cmds = []
-            includes[include] = {"path": path, "section": section, "cmds": cmds, "full": full}
+            includes[include] = {
+                "path": path,
+                "section": section,
+                "cmds": cmds,
+                "full": full,
+            }
 
             fi_logger.info(f"Found include: {include}")
 
     if not includes:
         fi_logger.info("No includes found")
         return text
-
 
     # Download the pages
     for include in includes:
@@ -107,30 +114,45 @@ def fix_includes(text, target_dir=None):
                 found = False
                 level = 0
                 noheader = "noheader" in includes[include]["cmds"]
-                    
+
                 for line in include_text.splitlines():
                     if not found:
                         section_with_spaces = section.replace("_", " ")
-                        if line.startswith(f"# {section}") or line.startswith(f"# {section_with_spaces}"):
+                        line_lower = line.lower()
+                        section_lower = section.lower()
+                        section_with_spaces_lower = section_with_spaces.lower()
+                        if (
+                            f"# {section}" in line
+                            or f"# {section_with_spaces}" in line
+                            or f"# {section_lower}" in line_lower
+                            or f"# {section_with_spaces_lower}" in line_lower
+                        ):
                             found = True
-                            if not noheader:
-                                section_text.append(line)
                             level = line.count("#")
+                            if not noheader:
+                                if level == 1:
+                                    line = line.replace("#", "##")
+                                    fi_logger.warning(f"FIXME: Adjusted header level for {section}")
+                                section_text.append(line)
                     else:
                         if "#" in line and line.count("#") <= level:
                             break
                         section_text.append(line)
-                    
+
                 include_text = "\n".join(section_text)
 
                 fi_logger.info(f"Extracted section |{section}| from {full_path}")
-                fi_logger.info("\nTEXT:\n"+include_text+"\n--------\n")
+                fi_logger.info("\nTEXT:\n" + include_text + "\n--------\n")
 
                 if include_text:
                     with open(full_path.replace(".dokuwiki", ".md"), "w") as f:
                         f.write(include_text)
                 else:
-                    fi_logger.error(f"Failed to extract section |{section}| from {full_path}")
+                    fi_logger.error(
+                        f"Failed to extract section |{section}| from {full_path}"
+                    )
+                    with open("failed_includes.txt", "a") as f:
+                        f.write(f"SECTION {path}#{section}: {url}\n")
                     continue
 
             # Post process new file
@@ -139,7 +161,9 @@ def fix_includes(text, target_dir=None):
 
             # Check for nested includes
             if "page>" in include_text:
-                raise Exception(f"Nested includes found in {full_path.replace('.dokuwiki', '.md')}")
+                raise Exception(
+                    f"Nested includes found in {full_path.replace('.dokuwiki', '.md')}"
+                )
 
             # Fixup the include text
             to_skip = ["fix_includes", "adjust_heading"]
@@ -149,11 +173,10 @@ def fix_includes(text, target_dir=None):
                 f.write(include_text)
 
         # Replace the include in the text
-        replacement = "```{include} "+filename.replace(".dokuwiki", ".md")+"\n```"
+        replacement = "```{include} " + filename.replace(".dokuwiki", ".md") + "\n```"
         cmds = includes[include]["cmds"]
         if cmds:
             replacement = f"<!-- CMDS: {' '.join(cmds)} -->\n{replacement}"
         text = text.replace(includes[include]["full"], replacement)
 
     return text
-
