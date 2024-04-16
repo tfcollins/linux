@@ -8,6 +8,7 @@ logging.basicConfig(level=logging.INFO)
 
 from fixers.fixup_wrap_tags import preprocess
 from fixers.fix_all import run_all_fixers
+from fixers.fix_index import fix_driver_index
 
 # Clear failed files
 files_in_dir = os.listdir()
@@ -54,6 +55,8 @@ subprocess.run(
 with open(output, "r") as f:
     text = f.read()
 
+index_page_ref = text
+
 lines = text.split("\n")
 drivers = {}
 drivers_paths = {}
@@ -76,14 +79,14 @@ if not os.path.exists("generated"):
 
 # Create index markdown file with links to each driver
 with open("generated/drivers.md", "w") as f:
-    f.write("# Linux Drivers\n\n")
+    f.write("## Linux Drivers\n\n")
     for driver, link in drivers.items():
         if link[0] == "/":
             link = link[1:]
         f.write(f"- [{driver}]({link})\n")
 
 with open("generated/drivers_index.md", "w") as f:
-    f.write("# Linux Drivers\n\n")
+    f.write("## Linux Drivers Index\n\n")
     f.write("::: {toctree}\n")
     f.write(":maxdepth: 1\n\n")
     written = []
@@ -217,6 +220,19 @@ title: {driver}
     # time.sleep(0.1)
 
 print("Done, check failed.txt for any failed downloads or processing")
+
+# Make fancy index
+index_page_ref = run_all_fixers(index_page_ref , f"{FOLDER}/{subfolder}")
+index_page_ref = fix_driver_index(index_page_ref)
+
+with open("generated/drivers_index.md", "r") as f:
+    ref = f.read()
+
+index_page_ref = index_page_ref + ref
+with open("generated/drivers_index.md", "w") as f:
+    f.write(index_page_ref)
+
+
 
 # Move to sphinx source directory
 print("\nMoving files to sphinx source directory")
