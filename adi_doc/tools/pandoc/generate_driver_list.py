@@ -65,8 +65,8 @@ count_max = 30
 target = "ADP55"
 for i, line in enumerate(lines):
     if "linux-drivers/" in line:
-        if count > count_max:
-            break
+        # if count > count_max:
+        #     break
         count += 1
         driver = line.split("](")[0].split("[")[1].strip()
         link = line.split("](")[1].split(")")[0].strip()
@@ -124,7 +124,7 @@ if not os.path.exists(FOLDER):
 
 for driver, link in drivers.items():
 
-    # if "AD9545" not in driver:
+    # if "ADXL" not in driver:
     #     continue
 
     print('---------------------------------------')
@@ -198,6 +198,8 @@ for driver, link in drivers.items():
         os.remove(input)
         continue
 
+    # skips = ["fixup_images"]
+    # text = run_all_fixers(text, f"{FOLDER}/{subfolder}", skips)
     text = run_all_fixers(text, f"{FOLDER}/{subfolder}")
 
     # import sys
@@ -222,6 +224,7 @@ title: {driver}
 print("Done, check failed.txt for any failed downloads or processing")
 
 # Make fancy index
+print("\nCreating fancy index")
 index_page_ref = run_all_fixers(index_page_ref , f"{FOLDER}/{subfolder}")
 index_page_ref = fix_driver_index(index_page_ref)
 
@@ -253,13 +256,13 @@ for folder in os.listdir(source_folder):
     shutil.move(source, target)
 
 # Move index files
-print("\nMoving index files")
-source_folder = os.path.abspath("generated")
-drivers_index = os.path.join(source_folder, "drivers_index.md")
-target_file = os.path.abspath(os.path.join("..", "..", "source", "drivers_index.md"))
-if os.path.exists(target_file):
-    os.remove(target_file)
-shutil.move(drivers_index, target_file)
+# print("\nMoving index files")
+# source_folder = os.path.abspath("generated")
+# drivers_index = os.path.join(source_folder, "drivers_index.md")
+# target_file = os.path.abspath(os.path.join("..", "..", "source", "drivers_index.md"))
+# if os.path.exists(target_file):
+#     os.remove(target_file)
+# shutil.move(drivers_index, target_file)
 
 # # Move images folder
 # print("\nMoving images folder")
