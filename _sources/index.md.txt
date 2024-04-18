@@ -21,8 +21,8 @@ graph TB
 
 
 ::: {toctree}
-guides/build
 drivers_index
+guides/build
 :::
 
 # Indices and tables
