@@ -6,6 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import multiprocessing
+
 project = 'Linux Kernel: Variant from Analog Devices, Inc.'
 copyright = '2024, Analog Devices, Inc.'
 author = 'Analog Devices, Inc.'
@@ -48,6 +50,21 @@ myst_enable_extensions = [
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 source_suffix = '.rst'
+
+# -- Checks configuration -----------------------------------------------------
+
+linkcheck_allowed_redirects = {
+    r"https://ez.analog.com/.*": r"https://ez.analog.com/.*",
+    r"https://wiki.analog.com/.*": r"https://wiki.analog.com/.*",
+    r"https://analog.com/.*": r"https://analog.com/.*",
+    r".*maximintegrated.com/.*": r".*analog.com/.*",
+    r"http://.*": r"https://.*",
+}
+
+linkcheck_retries = 4
+
+linkcheck_workers = multiprocessing.cpu_count()
+
 
 # -- External docs configuration ----------------------------------------------
 
