@@ -218,36 +218,38 @@ title: {driver}
     from custom_pages.tree import generate_dt_graph_for_all_dts_files
     kernel_root = os.path.abspath(os.path.join("..", "..", ".."))
     dt_graphs_folder = generate_dt_graph_for_all_dts_files(text, kernel_root)
-    dt_files = os.listdir(dt_graphs_folder)
-    # Move to folder with driver
-    if os.path.exists(os.path.join(FOLDER, subfolder, dt_graphs_folder)):
-        shutil.rmtree(os.path.join(FOLDER, subfolder, dt_graphs_folder))
+
+    if dt_graphs_folder:
+        dt_files = os.listdir(dt_graphs_folder)
+        # Move to folder with driver
+        if os.path.exists(os.path.join(FOLDER, subfolder, dt_graphs_folder)):
+            shutil.rmtree(os.path.join(FOLDER, subfolder, dt_graphs_folder))
+            
+        shutil.move(dt_graphs_folder, os.path.join(FOLDER, subfolder))
+
+        # Add links to devicetree map pages
+        dt_toc = "\n\n## Devicetree Maps\n\n"
+
+        for dt_file in dt_files:
+            if not dt_file.endswith(".md"):
+                continue
+            dt_file_full = os.path.join(dt_graphs_folder, dt_file)
+            # [reference1](#heading-target)
+            dt_toc += f"- [{dt_file}](#{dt_file})\n"
         
-    shutil.move(dt_graphs_folder, os.path.join(FOLDER, subfolder))
+        dt_toc += "\n\n"
 
-    # Add links to devicetree map pages
-    dt_toc = "\n\n## Devicetree Maps\n\n"
+        # dt_toc += "\n\n```{toctree}\n"
+        # dt_toc += ":maxdepth: 1\n\n"
+        # dt_toc += ":caption: Example Devicetrees\n\n"
+        # for dt_file in dt_files:
+        #     if not dt_file.endswith(".md"):
+        #         continue
+        #     dt_file_full = os.path.join(dt_graphs_folder, dt_file)
+        #     dt_toc += f"dt_file <{dt_file_full}>\n"
+        # dt_toc += "```\n\n"
 
-    for dt_file in dt_files:
-        if not dt_file.endswith(".md"):
-            continue
-        dt_file_full = os.path.join(dt_graphs_folder, dt_file)
-        # [reference1](#heading-target)
-        dt_toc += f"- [{dt_file}](#{dt_file})\n"
-    
-    dt_toc += "\n\n"
-
-    # dt_toc += "\n\n```{toctree}\n"
-    # dt_toc += ":maxdepth: 1\n\n"
-    # dt_toc += ":caption: Example Devicetrees\n\n"
-    # for dt_file in dt_files:
-    #     if not dt_file.endswith(".md"):
-    #         continue
-    #     dt_file_full = os.path.join(dt_graphs_folder, dt_file)
-    #     dt_toc += f"dt_file <{dt_file_full}>\n"
-    # dt_toc += "```\n\n"
-
-    text = text + dt_toc
+        text = text + dt_toc
 
     with open(output, "w") as f:
         f.write(text)
