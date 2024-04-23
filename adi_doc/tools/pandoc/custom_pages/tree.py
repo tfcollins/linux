@@ -315,6 +315,8 @@ def generate_dt_graph_for_all_dts_files(text, kernel_root, output_folder="dts_gr
     dts_files = parse_page_for_dt_references(text)
     for dts_file in dts_files:
         # url to filename
+        if "?" not in dts_file:
+            continue
         dts_file_path = dts_file.split("?")[1]
         assert dts_file_path, "Failed to extract dts file path: {dts_file}"
         dts_file_path = os.path.join(kernel_root, dts_file_path)
