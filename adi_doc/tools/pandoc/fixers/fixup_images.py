@@ -9,21 +9,27 @@ import time
 import requests
 from urllib.parse import urlparse
 
+
 def download_image(url, output):
     """Download an image from a URL to a file."""
     import requests
 
     # Download the image
-    response = requests.get(url)
-    if response.status_code != 200:
-        print(f"Failed to download {url}: {response.status_code}")
+    try:
+        response = requests.get(url)
+        if response.status_code != 200:
+            print(f"Failed to download {url}: {response.status_code}")
+            return False
+
+        # Save the image
+        with open(output, "wb") as f:
+            f.write(response.content)
+    except Exception as e:
+        print(f"Failed to download {url}: {e}")
         return False
 
-    # Save the image
-    with open(output, "wb") as f:
-        f.write(response.content)
-
     return True
+
 
 def get_link(url, image, target_dir, text, ref_image):
     filename = os.path.basename(urlparse(url).path)
@@ -46,7 +52,7 @@ def get_link(url, image, target_dir, text, ref_image):
 
 def fixup_images(text, target_dir):
 
-    print('---------------------------------------')
+    print("---------------------------------------")
 
     # Parse the text for image links
     images = []
@@ -84,11 +90,17 @@ def fixup_images(text, target_dir):
             # https://wiki.analog.com/_media/software/driver/linux/adp5520_brd.jpg?cache=&w=900&h=683&tok=3ae9ee
             guess = f"https://wiki.analog.com/{image}"
             # See if link is valid
-            response = requests.options(guess)
-            if response.ok:
-                url = guess
-            else:
-                print(f"Failed to find image {guess}")
+            try:
+                response = requests.options(guess)
+                if response.ok:
+                    url = guess
+                else:
+                    print(f"Failed to find image {guess}")
+                    with open("failed_images.txt", "a") as f:
+                        f.write(f"{image}: {guess}\n")
+                    continue
+            except Exception as e:
+                print(f"Failed to find image {guess}: {e}")
                 with open("failed_images.txt", "a") as f:
                     f.write(f"{image}: {guess}\n")
                 continue
@@ -97,15 +109,14 @@ def fixup_images(text, target_dir):
         if nt:
             text = nt
 
-
     # Convert image links of form:
-            # ![ADP5520 Demo Mother/Daughter Board](images/adp5520_brd.jpg){width="800" query="?800"}
+    # ![ADP5520 Demo Mother/Daughter Board](images/adp5520_brd.jpg){width="800" query="?800"}
     # to:
-            # ```{image} images/adp5520_brd.jpg
-            # :alt: ADP5520 Demo Mother/Daughter Board
-            # :width: 800
-            # :query: ?800
-            # ```
+    # ```{image} images/adp5520_brd.jpg
+    # :alt: ADP5520 Demo Mother/Daughter Board
+    # :width: 800
+    # :query: ?800
+    # ```
 
     for match in re.finditer(r"!\[.*\]\((.*)\)\{(.*)\}", text):
         alt = match.group(0).split("](")[0].split("[")[1]
@@ -131,7 +142,5 @@ def fixup_images(text, target_dir):
         print(new_format)
 
         text = text.replace(match.group(0), new_format)
-
-
 
     return text
