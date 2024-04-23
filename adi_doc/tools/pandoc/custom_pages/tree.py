@@ -1,5 +1,5 @@
 import os
-import networkx as nx
+# import networkx as nx
 import shutil
 
 nodes = []
