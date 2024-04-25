@@ -240,6 +240,7 @@ def process_driver(driver, link):
     # skips = ["fixup_images"]
     # text = run_all_fixers(text, f"{FOLDER}/{subfolder}", skips)
     text = run_all_fixers(text, f"{FOLDER}/{subfolder}")
+    
     print("Done fixup")
 
     # Add metadata to page
@@ -274,9 +275,9 @@ title: {driver}
         # print(f"No dts files found for {driver} on page")
         pass
 
-    if os.path.exists(input):
-        print(f"File already exists: {input}")
-        return
+    # if os.path.exists(input):
+    #     print(f"File already exists: {input}")
+    #     return
 
     with open(output, "w") as f:
         f.write(text)
