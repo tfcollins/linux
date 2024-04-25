@@ -1,14 +1,19 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adau1977
+title: ADAU1979: Quad ADC (4.5V Input)
+---
+
 # ADAU1977 Sound CODEC Linux Driver
 
 ### Supported Devices
 
--   [ADAU1977](adi>ADAU1977)
--   [ADAU1978](adi>ADAU1978)
--   [ADAU1979](adi>ADAU1979)
+-   [ADAU1977](https://analog.com/ADAU1977)
+-   [ADAU1978](https://analog.com/ADAU1978)
+-   [ADAU1979](https://analog.com/ADAU1979)
 
 ### Evaluation Boards
 
--   [EVAL-ADAU1977Z](adi>EVAL-ADAU1977Z)
+-   [EVAL-ADAU1977Z](https://analog.com/EVAL-ADAU1977Z)
 
 ## Source Code
 
@@ -64,7 +69,9 @@
 
 ## Example device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
 The platform data for the ADAU1977 allow to specify the MICBIAS pin voltage. If no platform data is specified (i.e. set to NULL) the default voltage of 8.5 V will be used.
 
@@ -177,7 +184,7 @@ The ADAU1977 driver is fully devicetree compatible. Depending on the bus type th
 
 **Shared required properties:**
 
--   **compatible**: Must be \"adi,adau1977\", \"adi,adau1978\" or adi,adau1979\"
+-   **compatible**: Must be "adi,adau1977", "adi,adau1978" or adi,adau1979"
 -   **AVDD-supply**: A handle to the power supply connected to the AVDD pin
 
 **Shared optional properties:**
@@ -206,7 +213,9 @@ The ADAU1977 driver is fully devicetree compatible. Depending on the bus type th
 
 ### I2C
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 The I2C device id depends on the ADDR0 and ADDR1 pin settings and needs to be set according to your board setup.
 
@@ -300,7 +309,9 @@ arch_initcall(board_init);
 
 ### SPI
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 ``` c
 static struct adau1977_platform_data adau1977_pdata = {
@@ -602,9 +613,9 @@ enum adau1977_sysclk_src {
 };
 ```
 
-If the MCLK is used the supported sampling rates of the device is constraint to those sample rates that can be derived from the the MCLK. The constraints are setup in the CODEC driver\'s startup routine. This means that the sysclk needs to be configured before the CODEC\'s startup callback is called. This can either be done from the machine driver\'s startup or init callback.
+If the MCLK is used the supported sampling rates of the device is constraint to those sample rates that can be derived from the the MCLK. The constraints are setup in the CODEC driver's startup routine. This means that the sysclk needs to be configured before the CODEC's startup callback is called. This can either be done from the machine driver's startup or init callback.
 
-For some hardware configurations it might be possible to change the MCLK frequency at runtime (e.g. to support both 44.1kHz and 48kHz based sample rates). In this case in order for the CODEC driver to not set any sample rate constraints the sysclk frequency should be set to 0 until it has been decided which MCLK frequency is used. This can for example be implemented by setting the sysclk to 0 in the machine driver\'s startup callback and setting it to the actual frequency in the hw_params callback.
+For some hardware configurations it might be possible to change the MCLK frequency at runtime (e.g. to support both 44.1kHz and 48kHz based sample rates). In this case in order for the CODEC driver to not set any sample rate constraints the sysclk frequency should be set to 0 until it has been decided which MCLK frequency is used. This can for example be implemented by setting the sysclk to 0 in the machine driver's startup callback and setting it to the actual frequency in the hw_params callback.
 
 ### TDM configuration
 
@@ -699,4 +710,6 @@ static struct snd_soc_dai_link eval_adau1977_dai = {
 };
 ```
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

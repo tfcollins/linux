@@ -193,7 +193,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -260,7 +262,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -318,15 +322,15 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADAU1977"><span class="xref myst">ADAU1977</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADAU1978"><span class="xref myst">ADAU1978</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADAU1979"><span class="xref myst">ADAU1979</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADAU1977">ADAU1977</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADAU1978">ADAU1978</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADAU1979">ADAU1979</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADAU1977Z"><span class="xref myst">EVAL-ADAU1977Z</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADAU1977Z">EVAL-ADAU1977Z</a></p></li>
 </ul>
 </section>
 <section id="source-code">
@@ -384,7 +388,7 @@ Content on this topic
 </section>
 <section id="example-device-initialization">
 <h2>Example device initialization<a class="headerlink" href="#example-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 <p>The platform data for the ADAU1977 allow to specify the MICBIAS pin voltage. If no platform data is specified (i.e. set to NULL) the default voltage of 8.5 V will be used.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * enum adau1977_micbias - ADAU1977 MICBIAS pin voltage setting</span>
@@ -523,7 +527,7 @@ Content on this topic
 </section>
 <section id="i2c">
 <h3>I2C<a class="headerlink" href="#i2c" title="Link to this heading">¶</a></h3>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>The I2C device id depends on the ADDR0 and ADDR1 pin settings and needs to be set according to your board setup.</p>
 <table>
 <thead>
@@ -614,7 +618,7 @@ i2c@41600000 {
 </section>
 <section id="spi">
 <h3>SPI<a class="headerlink" href="#spi" title="Link to this heading">¶</a></h3>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">adau1977_platform_data</span><span class="w"> </span><span class="n">adau1977_pdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">.</span><span class="n">micbias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ADAU1977_MICBIAS_7V5</span><span class="p">,</span>
 <span class="p">};</span>
@@ -1005,7 +1009,7 @@ spi@41600000 {
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>![](page&gt;resources/tools-software/linux-drivers/need_help#need help&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 </section>
 </section>
 </section>

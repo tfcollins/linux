@@ -184,7 +184,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -251,7 +253,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -309,7 +313,7 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7877"><span class="xref myst">AD7877</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7877">AD7877</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -320,9 +324,9 @@ User-programmable conversion controls include <strong>variable acquisition time<
 <p>The AD7877 operates from a single 2.7 V to 5.25 V power supply, and features throughput rates of 125 kSPS.
 The AD7877 features direct battery measurement on two inputs, temperature and touch-pressure measurement.</p>
 <p>The AD7877 also has an on-board reference of 2.5 V. When not in use, it can be shut down to conserve power. An external reference can also be applied and varied from 1 V to +VCC, with an analog input range of 0 V to VREF. The device includes a shutdown mode that reduces its current consumption to less than 1 μA.</p>
-<p><img alt="ad7877_block_dia.png" src="software/driver/linux/ad7877_block_dia.png" /> <img alt="ad7877_input_structure.png" src="software/driver/linux/ad7877_input_structure.png" /></p>
-<p>[<strong>See also:</strong>]{.underline} <a class="reference internal" href="#docs%3Euclinux-dist:tslib"><span class="xref myst">uclinux-dist:tslib</span></a></p>
-<p>[<strong>See also:</strong>]{.underline} <a class="reference internal" href="#AD7879"><span class="xref myst">AD7879 Touchscreen Device Driver</span></a></p>
+<p><img alt="ad7877_block_dia.png" src="software/driver/linux/ad7877_block_dia.png" /> <img alt="ad7877_input_structure.png" src="../../../_images/ad7877_input_structure.png" /></p>
+<p><em><strong>See also:</strong></em> <a class="reference internal" href="#docs%3Euclinux-dist:tslib"><span class="xref myst">uclinux-dist:tslib</span></a></p>
+<p><em><strong>See also:</strong></em> <a class="reference internal" href="#AD7879"><span class="xref myst">AD7879 Touchscreen Device Driver</span></a></p>
 </section>
 <section id="software-configurable-features">
 <h2>Software configurable features<a class="headerlink" href="#software-configurable-features" title="Link to this heading">¶</a></h2>
@@ -378,25 +382,27 @@ The AD7877 features direct battery measurement on two inputs, temperature and to
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 <p>Touchscreen characteristics vary between boards and models. The platform_data for the device’s “struct device” holds this information.</p>
-<p>&lt;source trunk/include/linux/spi/ad7877.h c linux-kernel&gt;</p>
+<source trunk/include/linux/spi/ad7877.h c linux-kernel>
 <p>These snippets are all from the same file. <code class="docutils literal notranslate"><span class="pre">arch/blackfin/mach-bf537/boards/pnav10.c</span></code>:</p>
-<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/spi/ad7877.h&gt;</span>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">## include &lt;linux/spi/ad7877.h&gt;</span>
 </pre></div>
 </div>
-<p>&lt;source trunk/arch/blackfin/mach-bf537/boards/pnav10.c:spi_ad7877_chip_info{} c linux-kernel&gt;
-&lt;source trunk/arch/blackfin/mach-bf537/boards/pnav10.c:bfin_ad7877_ts_info{} c linux-kernel&gt;</p>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;source trunk/arch/blackfin/mach-bf537/boards/pnav10.c:bfin_spi_board_info[] c linux-kernel&gt;</p>
+<source trunk/arch/blackfin/mach-bf537/boards/pnav10.c:spi_ad7877_chip_info{} c linux-kernel>
+<source trunk/arch/blackfin/mach-bf537/boards/pnav10.c:bfin_ad7877_ts_info{} c linux-kernel>
+<!-- CMDS: firstseconly noeditbtn -->
+<source trunk/arch/blackfin/mach-bf537/boards/pnav10.c:bfin_spi_board_info[] c linux-kernel>
 </section>
 <section id="adding-linux-driver-support">
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD7877 Driver depends on <strong>CONFIG_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD7877 Driver depends on <strong>CONFIG_SPI</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Input device support
   -*- Generic input layer (needed for keyboard, mouse, ...)
   &lt; &gt;   Support for memoryless force-feedback devices
@@ -426,22 +432,20 @@ The AD7877 Driver depends on <strong>CONFIG_SPI</strong>
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
-<p>&lt;WRAP tip&gt;
-The AD7877 Linux Driver only uses the /DAV Data Available Interrupt.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>The AD7877 Linux Driver only uses the /DAV Data Available Interrupt.
 /PENIRQ is not used. STOPACQ can be used to reduce the effect of noise from an LCD screen on
-the touch screen measurements.
-&lt;/WRAP&gt;</p>
-<p><img alt="ad7877_example_schematic.png" src="software/driver/linux/ad7877_example_schematic.png" />{width=“800” query=“?800”}</p>
+the touch screen measurements.</p>
+</div>
+<a class="reference internal image-reference" href="../../../_images/ad7877_example_schematic.png"><img alt="ad7877_example_schematic.png" src="../../../_images/ad7877_example_schematic.png" style="width: 800px;" />
+</a>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
 <section id="driver-compiled-as-a-module">
 <h3>Driver compiled as a module<a class="headerlink" href="#driver-compiled-as-a-module" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;root:~&gt; <strong>modprobe evdev</strong>
-root:~&gt; <strong>modprobe ad7877</strong>
-input: AD7877 Touchscreen as /class/input/input2
-root:~&gt;
-&lt;/xterm&gt;</p>
 </section>
 <section id="driver-compiled-into-the-kernel">
 <h3>Driver compiled into the kernel<a class="headerlink" href="#driver-compiled-into-the-kernel" title="Link to this heading">¶</a></h3>
@@ -452,50 +456,50 @@ root:~&gt;
 </section>
 <section id="use-the-evtest-event-test-utility-to-test-proper-function">
 <h3>Use the evtest/event_test utility to test proper function<a class="headerlink" href="#use-the-evtest-event-test-utility-to-test-proper-function" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-root:/&gt; event_test /dev/input/event2
-Input driver version is 1.0.0
-Input device ID: bus 0x0 vendor 0x0 product 0x0 version 0x0
-Input device name: “AD7877 Touchscreen”
-Supported events:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Event type 0 (Sync)
-Event type 1 (Key)
-  Event code 330 (Touch)
-Event type 3 (Absolute)
-  Event code 0 (X)
-    Value   1268
-    Min        0
-    Max     4095
-  Event code 1 (Y)
-    Value   1250
-    Min        0
-    Max     4095
-  Event code 24 (Pressure)
-    Value      0
-    Min        0
-    Max     1000
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>event_test<span class="w"> </span>/dev/input/event2
+Input<span class="w"> </span>driver<span class="w"> </span>version<span class="w"> </span>is<span class="w"> </span><span class="m">1</span>.0.0
+Input<span class="w"> </span>device<span class="w"> </span>ID:<span class="w"> </span>bus<span class="w"> </span>0x0<span class="w"> </span>vendor<span class="w"> </span>0x0<span class="w"> </span>product<span class="w"> </span>0x0<span class="w"> </span>version<span class="w"> </span>0x0
+Input<span class="w"> </span>device<span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;AD7877 Touchscreen&quot;</span>
+Supported<span class="w"> </span>events:
+
+<span class="w">    </span>Event<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Sync<span class="o">)</span>
+<span class="w">    </span>Event<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">330</span><span class="w"> </span><span class="o">(</span>Touch<span class="o">)</span>
+<span class="w">    </span>Event<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>X<span class="o">)</span>
+<span class="w">        </span>Value<span class="w">   </span><span class="m">1268</span>
+<span class="w">        </span>Min<span class="w">        </span><span class="m">0</span>
+<span class="w">        </span>Max<span class="w">     </span><span class="m">4095</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Y<span class="o">)</span>
+<span class="w">        </span>Value<span class="w">   </span><span class="m">1250</span>
+<span class="w">        </span>Min<span class="w">        </span><span class="m">0</span>
+<span class="w">        </span>Max<span class="w">     </span><span class="m">4095</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="o">(</span>Pressure<span class="o">)</span>
+<span class="w">        </span>Value<span class="w">      </span><span class="m">0</span>
+<span class="w">        </span>Min<span class="w">        </span><span class="m">0</span>
+<span class="w">        </span>Max<span class="w">     </span><span class="m">1000</span>
+
+Testing<span class="w"> </span>...<span class="w"> </span><span class="o">(</span>interrupt<span class="w"> </span>to<span class="w"> </span><span class="nb">exit</span><span class="o">)</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.364000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">330</span><span class="w"> </span><span class="o">(</span>Touch<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.364000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>X<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1624</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.364000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Y<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1514</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.364000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="o">(</span>Pressure<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">349</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.364000,<span class="w"> </span>--------------<span class="w"> </span>Report<span class="w"> </span>Sync<span class="w"> </span>------------
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.408000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>X<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1626</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.408000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Y<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1516</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.408000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="o">(</span>Pressure<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">342</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.408000,<span class="w"> </span>--------------<span class="w"> </span>Report<span class="w"> </span>Sync<span class="w"> </span>------------
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.452000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Y<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1514</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.452000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="o">(</span>Pressure<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">339</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.452000,<span class="w"> </span>--------------<span class="w"> </span>Report<span class="w"> </span>Sync<span class="w"> </span>------------
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.496000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>X<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1625</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.496000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="o">(</span>Pressure<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">343</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.496000,<span class="w"> </span>--------------<span class="w"> </span>Report<span class="w"> </span>Sync<span class="w"> </span>------------
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.596000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Absolute<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="o">(</span>Pressure<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.596000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">330</span><span class="w"> </span><span class="o">(</span>Touch<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">67435</span>.596000,<span class="w"> </span>--------------<span class="w"> </span>Report<span class="w"> </span>Sync<span class="w"> </span>------------
 </pre></div>
 </div>
-<p>Testing .… (interrupt to exit)
-Event: time 67435.364000, type 1 (Key), code 330 (Touch), value 1
-Event: time 67435.364000, type 3 (Absolute), code 0 (X), value 1624
-Event: time 67435.364000, type 3 (Absolute), code 1 (Y), value 1514
-Event: time 67435.364000, type 3 (Absolute), code 24 (Pressure), value 349
-Event: time 67435.364000, ————– Report Sync ————
-Event: time 67435.408000, type 3 (Absolute), code 0 (X), value 1626
-Event: time 67435.408000, type 3 (Absolute), code 1 (Y), value 1516
-Event: time 67435.408000, type 3 (Absolute), code 24 (Pressure), value 342
-Event: time 67435.408000, ————– Report Sync ————
-Event: time 67435.452000, type 3 (Absolute), code 1 (Y), value 1514
-Event: time 67435.452000, type 3 (Absolute), code 24 (Pressure), value 339
-Event: time 67435.452000, ————– Report Sync ————
-Event: time 67435.496000, type 3 (Absolute), code 0 (X), value 1625
-Event: time 67435.496000, type 3 (Absolute), code 24 (Pressure), value 343
-Event: time 67435.496000, ————– Report Sync ————
-Event: time 67435.596000, type 3 (Absolute), code 24 (Pressure), value 0
-Event: time 67435.596000, type 1 (Key), code 330 (Touch), value 0
-Event: time 67435.596000, ————– Report Sync ————
-&lt;/xterm&gt;</p>
 </section>
 <section id="common-problems">
 <h3>Common Problems<a class="headerlink" href="#common-problems" title="Link to this heading">¶</a></h3>
@@ -524,62 +528,63 @@ Event: time 67435.596000, ————– Report Sync ————
 <section id="interrupt">
 <h4>Interrupt<a class="headerlink" href="#interrupt" title="Link to this heading">¶</a></h4>
 <p>Check that the interrupt is registered.</p>
-<p>&lt;xterm&gt;root:~&gt; <strong>grep ad7877 /proc/interrupts</strong>
-258: 0 ad7877
-&lt;/xterm&gt;</p>
-<p>&lt;WRAP tip&gt;
-In case you touch the surface and don’t receive events, it’s likely that something with your /DAV Interrupt is wrong.<br />
-<strong>check irq number in your platform device file</strong>
-&lt;/WRAP&gt;</p>
-<p>&lt;WRAP tip&gt;
-In case you get a message like: <code class="docutils literal notranslate"><span class="pre">evtest:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">device</span></code>, it’s likely that you have not install the necessary modules
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>In case you touch the surface and don’t receive events, it’s likely that something with your /DAV Interrupt is wrong.
+<strong>check irq number in your platform device file</strong></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>In case you get a message like: <code class="docutils literal notranslate"><span class="pre">evtest:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">device</span></code>, it’s likely that you have not install the necessary modules</p>
+</div>
 </section>
 </section>
 <section id="aux-functions">
 <h3>Aux functions<a class="headerlink" href="#aux-functions" title="Link to this heading">¶</a></h3>
 <p>Under the device folder there are auxiliary functions such as temperature, GPIO, DAC and ADC read backs and controls.</p>
-<p>&lt;xterm&gt;
-root:/sys/class/input/input2&gt; <strong>cd device/</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.2&gt; <strong>ls -al</strong>
-drwxr-xr-x 3 root root 0 Jan 1 00:15 .
-drwxr-xr-x 4 root root 0 Jan 1 2007 …
--r–r–r– 1 root root 4096 Jan 1 00:15 aux1
--r–r–r– 1 root root 4096 Jan 1 00:15 aux2
--r–r–r– 1 root root 4096 Jan 1 00:15 aux3
--r–r–r– 1 root root 4096 Jan 1 00:15 bat1
--r–r–r– 1 root root 4096 Jan 1 00:15 bat2
-lrwxrwxrwx 1 root root 0 Jan 1 00:15 bus -&gt; …/…/…/…/bus/spi
--rw-rw-r– 1 root root 4096 Jan 1 00:15 dac
--rw-rw-r– 1 root root 4096 Jan 1 00:15 disable
-lrwxrwxrwx 1 root root 0 Jan 1 00:15 driver -&gt; …/…/…/…/bus/spi/drivers/ad7877
--rw-rw-r– 1 root root 4096 Jan 1 00:15 gpio4
-lrwxrwxrwx 1 root root 0 Jan 1 00:15 input:event2 -&gt; …/…/…/…/class/input/input2/event2
-lrwxrwxrwx 1 root root 0 Jan 1 00:15 input:input2 -&gt; …/…/…/…/class/input/input2
--r–r–r– 1 root root 4096 Jan 1 00:15 modalias
-drwxr-xr-x 2 root root 0 Jan 1 2007 power
-lrwxrwxrwx 1 root root 0 Jan 1 00:15 subsystem -&gt; …/…/…/…/bus/spi
--r–r–r– 1 root root 4096 Jan 1 00:15 temp1
--r–r–r– 1 root root 4096 Jan 1 00:15 temp2
--rw-r–r– 1 root root 4096 Jan 1 00:15 uevent
-root:/sys/devices/platform/bfin-spi.0/spi0.2&gt; <strong>cat temp1</strong>
-963
-root:/sys/devices/platform/bfin-spi.0/spi0.2&gt; <strong>cat temp1</strong>
-960
-root:/sys/devices/platform/bfin-spi.0/spi0.2&gt; <strong>cat temp2</strong>
-1167
-root:/sys/devices/platform/bfin-spi.0/spi0.2&gt; <strong>cat temp2</strong>
-1167
-root:/sys/devices/platform/bfin-spi.0/spi0.2&gt; <strong>cat aux1</strong>
-1929
-root:/sys/devices/platform/bfin-spi.0/spi0.2&gt; <strong>cat aux1</strong>
-1929
-&lt;/xterm&gt;</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/input/input2&gt;<span class="w"> </span>**cd<span class="w"> </span>device/**
+root:/sys/devices/platform/bfin-spi.0/spi0.2&gt;<span class="w"> </span>**ls<span class="w"> </span>-al**
+drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>.
+drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2007</span><span class="w"> </span>..
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>aux1
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>aux2
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>aux3
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>bat1
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>bat2
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>bus<span class="w"> </span>-&gt;<span class="w"> </span>../../../../bus/spi
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>dac
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>disable
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>driver<span class="w"> </span>-&gt;<span class="w"> </span>../../../../bus/spi/drivers/ad7877
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>gpio4
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>input:event2<span class="w"> </span>-&gt;<span class="w"> </span>../../../../class/input/input2/event2
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>input:input2<span class="w"> </span>-&gt;<span class="w"> </span>../../../../class/input/input2
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>modalias
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2007</span><span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../bus/spi
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>temp1
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>temp2
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:15<span class="w"> </span>uevent
+root:/sys/devices/platform/bfin-spi.0/spi0.2&gt;<span class="w"> </span>**cat<span class="w"> </span>temp1**
+<span class="m">963</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.2&gt;<span class="w"> </span>**cat<span class="w"> </span>temp1**
+<span class="m">960</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.2&gt;<span class="w"> </span>**cat<span class="w"> </span>temp2**
+<span class="m">1167</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.2&gt;<span class="w"> </span>**cat<span class="w"> </span>temp2**
+<span class="m">1167</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.2&gt;<span class="w"> </span>**cat<span class="w"> </span>aux1**
+<span class="m">1929</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.2&gt;<span class="w"> </span>**cat<span class="w"> </span>aux1**
+<span class="m">1929</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="more-information">
 <h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p><img alt="" src="drivers/linux-drivers/input-touchscreen/page%3Eresources/tools-software/linux-drivers/snippets#input_pointers&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 </section>
 </section>
 

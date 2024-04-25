@@ -94,19 +94,7 @@
 <li><a class="reference internal" href="#devicetree">Devicetree</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-scale">Show scale</a></li>
-<li><a class="reference internal" href="#show-channel-0-measurement">Show channel 0 measurement</a></li>
-<li><a class="reference internal" href="#set-sampling-frequency-update-rate">Set sampling frequency / update rate</a></li>
-<li><a class="reference internal" href="#show-available-bandwidths-for-the-current-set-frequency">Show available bandwidths for the current set frequency</a></li>
-<li><a class="reference internal" href="#change-the-bandwidth">Change the bandwidth</a></li>
-<li><a class="reference internal" href="#trigger-management">Trigger management</a></li>
-<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#low-level-register-access-via-debugfs-direct-reg-access">Low level register access via debugfs (direct_reg_access)</a></li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -182,7 +170,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">AD7768-1</a></li>
@@ -249,7 +239,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -307,13 +299,13 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7768-1"><span class="xref myst">AD7768-1</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7768-1">AD7768-1</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7768-1"><span class="xref myst">EVAL-AD7768-1</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7768-1">EVAL-AD7768-1</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -409,174 +401,299 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
-iio:device0</p>
-<p>root:/sys/bus/iio/devices&gt; <strong>cd iio\:device0</strong></p>
-<p>root:/sys/bus/iio/devices/iio:device0&gt; <strong>ls -l</strong>
-drwxr-xr-x 2 root root 0 Oct 12 22:15 buffer
--r–r–r– 1 root root 4096 Oct 12 22:15 dev
--rw-r–r– 1 root root 4096 Oct 12 22:15 in_voltage0_raw
--rw-r–r– 1 root root 4096 Oct 12 22:15 in_voltage_filter_low_pass_3db_frequency
--r–r–r– 1 root root 4096 Oct 12 22:15 in_voltage_filter_low_pass_3db_frequency_available
--rw-r–r– 1 root root 4096 Oct 12 22:15 in_voltage_scale
--r–r–r– 1 root root 4096 Oct 12 22:15 name
-lrwxrwxrwx 1 root root 0 Oct 12 22:15 of_node -&gt; …/…/…/…/…/…/…/…/firmware/devicetree/base/soc/spi&#64;7e204000/ad7768&#64;0
-drwxr-xr-x 2 root root 0 Oct 12 22:15 power
--rw-r–r– 1 root root 4096 Oct 12 22:27 sampling_frequency
-drwxr-xr-x 2 root root 0 Oct 12 22:15 scan_elements
-lrwxrwxrwx 1 root root 0 Oct 12 22:15 subsystem -&gt; …/…/…/…/…/…/…/…/bus/iio
-drwxr-xr-x 2 root root 0 Oct 12 22:15 trigger
--rw-r–r– 1 root root 4096 Oct 12 22:15 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat name</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
+iio:device0
+
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>buffer
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>dev
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>in_voltage0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>in_voltage_filter_low_pass_3db_frequency
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>in_voltage_filter_low_pass_3db_frequency_available
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>in_voltage_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>of_node<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ad7768@0
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>power
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:27<span class="w"> </span>sampling_frequency
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>scan_elements
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../bus/iio
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>trigger
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">22</span>:15<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-device-name">Show device name</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad7768-1
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-scale">
-<h3>Show scale<a class="headerlink" href="#show-scale" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-scale">Show scale</h5>
+<p><strong>Description:</strong>
 scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_voltage_scale</strong>
-0.000488281
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-0-measurement">
-<h3>Show channel 0 measurement<a class="headerlink" href="#show-channel-0-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage_scale**
+<span class="m">0</span>.000488281
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-channel-0-measurement">Show channel 0 measurement</h5>
+<p><strong>Description:</strong>
 Raw unscaled voltage measurement on channel 0</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_voltage0_raw</strong>
-2040915
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage0_raw**
+<span class="m">2040915</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in_voltage0_raw * in_voltage_scale</em> = 2040915 * 0.000488281= <strong>996.54 <em>mV</em></strong></p>
-</section>
-<section id="set-sampling-frequency-update-rate">
-<h3>Set sampling frequency / update rate<a class="headerlink" href="#set-sampling-frequency-update-rate" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat sampling_frequency</strong>
-32000
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>echo 256000 &gt; sampling_frequency</strong>
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat sampling_frequency</strong>
-256000
+<h5 class="rubric" id="set-sampling-frequency-update-rate">Set sampling frequency / update rate</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">32000</span>
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">256000</span><span class="w"> </span>&gt;<span class="w"> </span>sampling_frequency**
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">256000</span>
 root:/sys/bus/iio/devices/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-available-bandwidths-for-the-current-set-frequency">
-<h3>Show available bandwidths for the current set frequency<a class="headerlink" href="#show-available-bandwidths-for-the-current-set-frequency" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat sampling_frequency</strong>
-256000
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_voltage_filter_low_pass_3db_frequency_available</strong>
-6528.000000, 8320.000000, 13760.000000
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-available-bandwidths-for-the-current-set-frequency">Show available bandwidths for the current set frequency</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">256000</span>
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage_filter_low_pass_3db_frequency_available**
+<span class="m">6528</span>.000000,<span class="w"> </span><span class="m">8320</span>.000000,<span class="w"> </span><span class="m">13760</span>.000000
 root:/sys/bus/iio/devices/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="change-the-bandwidth">
-<h3>Change the bandwidth<a class="headerlink" href="#change-the-bandwidth" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_voltage_filter_low_pass_3db_frequency_available</strong>
-6528.000000, 8320.000000, 13760.000000
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_voltage_filter_low_pass_3db_frequency</strong>
-6528.000000
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>echo 13760 &gt; in_voltage_filter_low_pass_3db_frequency</strong>
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_voltage_filter_low_pass_3db_frequency</strong>
-13760.000000
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="change-the-bandwidth">Change the bandwidth</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage_filter_low_pass_3db_frequency_available**
+<span class="m">6528</span>.000000,<span class="w"> </span><span class="m">8320</span>.000000,<span class="w"> </span><span class="m">13760</span>.000000
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage_filter_low_pass_3db_frequency**
+<span class="m">6528</span>.000000
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">13760</span><span class="w"> </span>&gt;<span class="w"> </span>in_voltage_filter_low_pass_3db_frequency**
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage_filter_low_pass_3db_frequency**
+<span class="m">13760</span>.000000
 root:/sys/bus/iio/devices/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="trigger-management">
-<h3>Trigger management<a class="headerlink" href="#trigger-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP round help&gt;
-This driver only supports it’s own default trigger source <strong>ad7768-1-dev0</strong>
-&lt;/WRAP&gt;</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat trigger/current_trigger</strong>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="trigger-management">Trigger management</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>This driver only supports it’s own default trigger source <strong>ad7768-1-dev0</strong></p>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>trigger/current_trigger**
 ad7768-1-dev0
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="buffer-management">
-<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/buffer&gt; ls
-<strong>enable</strong> <strong>length</strong> <strong>watermark</strong>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="buffer-management">Buffer management</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/buffer&gt;<span class="w"> </span>ls
+**enable**<span class="w"> </span>**length**<span class="w"> </span>**watermark**
 root:/sys/bus/iio/devices/iio:device0/buffer&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</pre></div>
+</div>
+<div class="docutils">
 <p>Every buffer implementation features a set of files:</p>
-<p><strong>length</strong><br />
+<p><strong>length</strong>
 Get/set the number of sample sets that may be held by the buffer.</p>
-<p><strong>enable</strong><br />
+<p><strong>enable</strong>
 Enables/disables the buffer. This file should be written last, after length and selection of scan elements</p>
-<p><strong>scan_elements</strong><br />
+<p><strong>scan_elements</strong>
 The scan_elements directory contains interfaces for elements that will be captured for a single triggered sample set in the buffer.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/scan_elements&gt; ls
-in_voltage0_en in_voltage0_index in_voltage0_type
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;<span class="w"> </span>ls
+in_voltage0_en<span class="w"> </span>in_voltage0_index<span class="w"> </span>in_voltage0_type
 root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p><strong>in_voltageX_en / in_voltageX-voltageY_en / timestamp_en:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<p><strong>in_voltageX_en / in_voltageX-voltageY_en / timestamp_en:</strong>
 Scan element control for triggered data capture. Writing 1 will enable the scan element, writing 0 will disable it</p>
-<p><strong>in_voltageX_type / in_voltageX-voltageY_type / timestamp_type:</strong><br />
+<p><strong>in_voltageX_type / in_voltageX-voltageY_type / timestamp_type:</strong>
 Description of the scan element data storage within the buffer and therefore in the form in which it is read from user-space. Form is [s|u]bits/storage-bits. s or u specifies if signed (2’s complement) or unsigned. bits is the number of bits of data and storage-bits is the space (after padding) that it occupies in the buffer. Note that some devices will have additional information in the unused bits so to get a clean value, the bits value must be used to mask the buffer output value appropriately. The storage-bits value also specifies the data alignment. So u12/16 will be a unsigned 12 bit integer stored in a 16 bit location aligned to a 16 bit boundary. For other storage combinations this attribute will be extended appropriately.</p>
-<p><strong>in_voltageX_index / in_voltageX-voltageY_index / timestamp_index:</strong><br />
+<p><strong>in_voltageX_index / in_voltageX-voltageY_index / timestamp_index:</strong>
 A single positive integer specifying the position of this scan element in the buffer. Note these are not dependent on what is enabled and may not be contiguous. Thus for user-space to establish the full layout these must be used in conjunction with all _en attributes to establish which channels are present, and the relevant _type attributes to establish the data storage format.</p>
-</section>
-</section>
-<section id="low-level-register-access-via-debugfs-direct-reg-access">
-<h2>Low level register access via debugfs (direct_reg_access)<a class="headerlink" href="#low-level-register-access-via-debugfs-direct-reg-access" title="Link to this heading">¶</a></h2>
+<h2 class="rubric" id="low-level-register-access-via-debugfs-direct-reg-access">Low level register access via debugfs (direct_reg_access)</h2>
 <p>Some IIO drivers feature an optional debug facility, allowing users to read or write registers directly. Special care needs to be taken when using this feature, since you can modify registers on the back of the driver. Accessing debugfs requires root privileges.</p>
 <p>In order to identify if the IIO device in question feature this option you first need to identify the IIO device number.</p>
 <p>Therefore read the name attribute of each IIO device</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:~# grep “” /sys/bus/iio/devices/iio\:device*/name
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:~#<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>/sys/bus/iio/devices/iio:device*/name
 ad7768-1
-root&#64;analog:~#
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+root@analog:~#
+</pre></div>
+</div>
+<div class="docutils">
 <p>Change directory to /sys/kernel/debug/iio/iio:deviceX and check if the direct_reg_access file exists.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:~# cd /sys/kernel/debug/iio/iio\:device0/
-root&#64;analog:/sys/kernel/debug/iio/iio:device0# ls direct_reg_access
-ls direct_reg_access
-root&#64;analog:/sys/kernel/debug/iio/iio:device0#
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:~#<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/sys/kernel/debug/iio/iio:device0/
+root@analog:/sys/kernel/debug/iio/iio:device0#<span class="w"> </span>ls<span class="w"> </span>direct_reg_access
+ls<span class="w"> </span>direct_reg_access
+root@analog:/sys/kernel/debug/iio/iio:device0#
+</pre></div>
+</div>
+<div class="docutils">
 <p>Reading</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/kernel/debug/iio/iio:device0# echo 0x3 &gt; direct_reg_access</p>
-<p>root&#64;analog:/sys/kernel/debug/iio/iio:device0# cat direct_reg_access
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/kernel/debug/iio/iio:device0#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>0x3<span class="w"> </span>&gt;<span class="w"> </span>direct_reg_access
+
+root@analog:/sys/kernel/debug/iio/iio:device0#<span class="w"> </span>cat<span class="w"> </span>direct_reg_access
 0x7
-root&#64;analog:/sys/kernel/debug/iio/iio:device0#
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+root@analog:/sys/kernel/debug/iio/iio:device0#
+</pre></div>
+</div>
+<div class="docutils">
 <p>Writing</p>
 <p>Write ADDRESS VALUE</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/kernel/debug/iio/iio:device0# echo 0x15 0x2 &gt; direct_reg_access
-root&#64;analog:/sys/kernel/debug/iio/iio:device0# cat direct_reg_access
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/kernel/debug/iio/iio:device0#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>0x15<span class="w"> </span>0x2<span class="w"> </span>&gt;<span class="w"> </span>direct_reg_access
+root@analog:/sys/kernel/debug/iio/iio:device0#<span class="w"> </span>cat<span class="w"> </span>direct_reg_access
 0x2
-root&#64;analog:/sys/kernel/debug/iio/iio:device0#
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+root@analog:/sys/kernel/debug/iio/iio:device0#
+</pre></div>
+</div>
+<div class="docutils">
+<h2 class="rubric" id="more-information">More Information</h2>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

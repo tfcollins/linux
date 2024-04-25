@@ -101,18 +101,7 @@
 </li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-scale">Show scale</a></li>
-<li><a class="reference internal" href="#show-channel-0-measurement">Show channel 0 measurement</a></li>
-<li><a class="reference internal" href="#trigger-management">Trigger management</a><ul>
-<li><a class="reference internal" href="#available-standalone-trigger-drivers">Available standalone trigger drivers</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -188,7 +177,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7768-1.html">AD7768-1</a></li>
@@ -255,7 +246,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -313,33 +306,33 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7991"><span class="xref myst">AD7991</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7992"><span class="xref myst">AD7992</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7993"><span class="xref myst">AD7993</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7994"><span class="xref myst">AD7994</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7995"><span class="xref myst">AD7995</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7997"><span class="xref myst">AD7997</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7998"><span class="xref myst">AD7998</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7999"><span class="xref myst">AD7999</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7991">AD7991</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7992">AD7992</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7993">AD7993</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7994">AD7994</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7995">AD7995</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7997">AD7997</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7998">AD7998</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7999">AD7999</a></p></li>
 </ul>
 </section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3ECN0288"><span class="xref myst">CN0288</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0301"><span class="xref myst">CN0301</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0288">CN0288</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0301">CN0301</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7991EBZ"><span class="xref myst">EVAL-AD7991EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7992EBZ"><span class="xref myst">EVAL-AD7992EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7993EBZ"><span class="xref myst">EVAL-AD7993EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7994EBZ"><span class="xref myst">EVAL-AD7994EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7995EBZ"><span class="xref myst">EVAL-AD7995EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7997EBZ"><span class="xref myst">EVAL-AD7997EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7998EBZ"><span class="xref myst">EVAL-AD7998EBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7991EBZ">EVAL-AD7991EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7992EBZ">EVAL-AD7992EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7993EBZ">EVAL-AD7993EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7994EBZ">EVAL-AD7994EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7995EBZ">EVAL-AD7995EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7997EBZ">EVAL-AD7997EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7998EBZ">EVAL-AD7998EBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -387,15 +380,17 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 <section id="specifying-reference-voltage-via-the-regulator-framework">
 <h3>Specifying reference voltage via the regulator framework<a class="headerlink" href="#specifying-reference-voltage-via-the-regulator-framework" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP tip&gt;
-In case the AD799x on-chip reference is not used,
-this driver requires specifying the reference voltage, by using the Linux regulator framework.
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>In case the AD799x on-chip reference is not used,
+this driver requires specifying the reference voltage, by using the Linux regulator framework.</p>
+</div>
 <p>Below example specifies a 2.5 Volt reference for the I2C device 0-0024 on I2C-Bus 0. (<strong>0-0024</strong>)</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
 <span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">regulator_consumer_supply</span><span class="w"> </span><span class="n">ad7998_consumer_supplies</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">REGULATOR_SUPPLY</span><span class="p">(</span><span class="s">&quot;vref&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;0-0024&quot;</span><span class="p">),</span>
 <span class="p">};</span>
@@ -424,13 +419,13 @@ this driver requires specifying the reference voltage, by using the Linux regula
 <span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">board_vref_pdata</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="p">};</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 </pre></div>
 </div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">platform_device</span><span class="w"> </span><span class="o">*</span><span class="n">board_devices</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
+<span class="cp">## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
 <span class="w">    </span><span class="o">&amp;</span><span class="n">brd_voltage_regulator</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -447,16 +442,16 @@ this driver requires specifying the reference voltage, by using the Linux regula
 <span class="n">arch_initcall</span><span class="p">(</span><span class="n">board_init</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name accordingly, matching your part name.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_board_info</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="n">board_i2c_board_info</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD799X) || defined(CONFIG_AD799X_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD799X) || defined(CONFIG_AD799X_MODULE)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">I2C_BOARD_INFO</span><span class="p">(</span><span class="s">&quot;ad7998&quot;</span><span class="p">,</span><span class="w"> </span><span class="mh">0x24</span><span class="p">),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ad799x_pdata</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">irq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IRQ_PG0</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -517,9 +512,11 @@ this driver requires specifying the reference voltage, by using the Linux regula
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD7998 Driver depends on <strong>CONFIG_I2C</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD7998 Driver depends on <strong>CONFIG_I2C</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         [*] Staging drivers  ---&gt;
@@ -544,92 +541,140 @@ The AD7998 Driver depends on <strong>CONFIG_I2C</strong>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
-iio:device0 trigger0</p>
-<p>root:/sys/bus/iio/devices&gt; <strong>cd device0</strong></p>
-<p>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0&gt; <strong>ls -l</strong>
-drwxr-xr-x 5 root root 0 Jan 1 00:00 buffer
-drwxr-xr-x 2 root root 0 Jan 1 00:00 events
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage0_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage1_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage2_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage3_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage4_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage5_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage6_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage7_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage_scale
--r–r–r– 1 root root 4096 Jan 1 00:00 name
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -&gt; …/…/…/…/…/…/bus/iio
-drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
--rw-r–r– 1 root root 4096 Jan 1 00:00 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0&gt; <strong>cat name</strong>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
+iio:device0<span class="w"> </span>trigger0
+
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>device0**
+
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+drwxr-xr-x<span class="w"> </span><span class="m">5</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>buffer
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>events
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage0_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage1_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage2_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage3_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage4_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage5_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage6_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage7_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../bus/iio
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>trigger
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad7998
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-scale">
-<h3>Show scale<a class="headerlink" href="#show-scale" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-scale">Show scale</h6>
+<p><strong>Description:</strong>
 scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0&gt; <strong>cat in_voltage_scale</strong>
-1.000
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-0-measurement">
-<h3>Show channel 0 measurement<a class="headerlink" href="#show-channel-0-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage_scale**
+<span class="m">1</span>.000
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-channel-0-measurement">Show channel 0 measurement</h6>
+<p><strong>Description:</strong>
 Raw unscaled voltage measurement on channel 0</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0&gt; <strong>cat in_voltage0_raw</strong>
-1491
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage0_raw**
+<span class="m">1491</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in_voltage0_raw * in_voltage_scale</em> = 1491 * 1.000 = <strong>1491,00 <em>mV</em></strong></p>
-</section>
-<section id="trigger-management">
-<h3>Trigger management<a class="headerlink" href="#trigger-management" title="Link to this heading">¶</a></h3>
-<p>![iio_snippets#iio devices with trigger consumer interface&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<section id="available-standalone-trigger-drivers">
-<h4>Available standalone trigger drivers<a class="headerlink" href="#available-standalone-trigger-drivers" title="Link to this heading">¶</a></h4>
-<p>![iio_snippets#Standalone trigger drivers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Standalone trigger drivers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-</section>
-</section>
-<section id="buffer-management">
-<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/buffer&gt; <strong>ls</strong>
-<strong>enable</strong> <strong>length</strong>
+<h4 class="rubric" id="trigger-management">Trigger management</h4>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h5 class="rubric" id="available-standalone-trigger-drivers">Available standalone trigger drivers</h5>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h4 class="rubric" id="buffer-management">Buffer management</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/buffer&gt;<span class="w"> </span>**ls**
+**enable**<span class="w"> </span>**length**
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/buffer&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/scan_elements&gt; <strong>ls</strong>
-in_voltage0_en in_voltage2_index in_voltage5_en in_voltage7_index
-in_voltage0_index in_voltage3_en in_voltage5_index in_voltage_type
-in_voltage1_en in_voltage3_index in_voltage6_en timestamp_en
-in_voltage1_index in_voltage4_en in_voltage6_index timestamp_index
-in_voltage2_en in_voltage4_index in_voltage7_en timestamp_type
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/scan_elements&gt;<span class="w"> </span>**ls**
+in_voltage0_en<span class="w"> </span>in_voltage2_index<span class="w"> </span>in_voltage5_en<span class="w"> </span>in_voltage7_index
+in_voltage0_index<span class="w"> </span>in_voltage3_en<span class="w"> </span>in_voltage5_index<span class="w"> </span>in_voltage_type
+in_voltage1_en<span class="w"> </span>in_voltage3_index<span class="w"> </span>in_voltage6_en<span class="w"> </span>timestamp_en
+in_voltage1_index<span class="w"> </span>in_voltage4_en<span class="w"> </span>in_voltage6_index<span class="w"> </span>timestamp_index
+in_voltage2_en<span class="w"> </span>in_voltage4_index<span class="w"> </span>in_voltage7_en<span class="w"> </span>timestamp_type
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0024/iio:device0/scan_elements&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

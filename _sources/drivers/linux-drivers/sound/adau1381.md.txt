@@ -1,14 +1,19 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adau1381
+title: ADAU1781: SigmaDSP Low-noise Stereo Audio Codec for Portable Applications
+---
+
 # ADAU1781 Sound CODEC Linux Driver
 
 ### Supported Devices
 
--   [ADAU1381](adi>ADAU1381)
--   [ADAU1781](adi>ADAU1781)
+-   [ADAU1381](https://analog.com/ADAU1381)
+-   [ADAU1781](https://analog.com/ADAU1781)
 
 ### Evaluation Boards
 
--   [EVAL-ADAU1381Z](adi>EVAL-ADAU1381Z)
--   [EVAL-ADAU1781Z](adi>EVAL-ADAU1781Z)
+-   [EVAL-ADAU1381Z](https://analog.com/EVAL-ADAU1381Z)
+-   [EVAL-ADAU1781Z](https://analog.com/EVAL-ADAU1781Z)
 
 ## Source Code
 
@@ -60,11 +65,15 @@
 
 ## Example device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
 #### I2C
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 The I2C device id depends on the ADDR0 and ADDR1 pin settings and needs to be set according to your board setup.
 
@@ -325,7 +334,7 @@ enum adau1xx1_pll_src {
 
 (The input frequency must configured to be between 8000000 and 27000000 Hz (8MHz - 27MHz). The output frequency must be configured to be between 45158000 and 49152000. Configuring the PLL with other input or output frequency will fail.)
 
-The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you\'d normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
+The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you'd normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
 
 ### DAI configuration
 
@@ -537,7 +546,7 @@ Example TDM configuration:
 
 ## ADAU1X81 evaluation board driver
 
-There is no dedicated Blackfin STAMP evaluation board for the ADAU1381/ADAU1781. During test and driver development we used the [EVAL-ADAU1381Z](adi>EVAL-ADAU1381Z)/[EVAL-ADAU1781Z](adi>EVAL-ADAU1781Z) board.
+There is no dedicated Blackfin STAMP evaluation board for the ADAU1381/ADAU1781. During test and driver development we used the [EVAL-ADAU1381Z](https://analog.com/EVAL-ADAU1381Z)/[EVAL-ADAU1781Z](https://analog.com/EVAL-ADAU1781Z) board.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
@@ -651,33 +660,45 @@ Note that the SPORT has separate signals for the capture and playback clocks, wh
 
 Load the driver and make sure the sound card is properly instantiated.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-bf5xx-i2s
-root:/\> modprobe snd-soc-bf5xx-i2s
-root:/\> modprobe snd-soc-adau1781
-root:/\> modprobe snd-soc-bfin-eval-adau1x81
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-bf5xx-i2s
+root:/> modprobe snd-soc-bf5xx-i2s
+root:/> modprobe snd-soc-adau1781
+root:/> modprobe snd-soc-bfin-eval-adau1x81
 bfin-i2s bfin-i2s.0: dma rx:3 tx:4, err irq:45, regs:ffc00800
 dma_alloc_init: dma_page @ 0x02791000 - 256 pages at 0x03f00000
-asoc: adau-hifi \<-\> bfin-i2s.0 mapping ok
+asoc: adau-hifi <-> bfin-i2s.0 mapping ok
 ALSA device list:
 
     #0: bfin-eval-adau1x81
 
-\</xterm\>
-\</WRAP\>
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-pcm-oss
-root:/\> tone
-TONE: generating sine wave at 1000 Hz\...
+:::
 
-root:/\> arecord -f cd | aplay
-Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-\</xterm\>
-\</WRAP\>
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-pcm-oss
+root:/> tone
+TONE: generating sine wave at 1000 Hz...
+
+root:/> arecord -f cd | aplay
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+```
+
+:::
+
 
 ### More information
 
@@ -685,4 +706,6 @@ Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
 -   [SigmaDSP Firmware Utility for Linux](resources/tools-software/linux-software/sigmadsp_genfirmware)
 -   [SigmaStudio Network Utility for Linux](resources/tools-software/linux-software/sigmatcp)
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

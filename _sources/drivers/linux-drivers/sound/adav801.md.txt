@@ -1,20 +1,25 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adav801
+title: ADAV803: Audio Codec for Recordable DVD
+---
+
 # ADAV80X Sound CODEC Linux Driver
 
 ### Supported devices
 
--   [ADAV801](adi>ADAV801)
--   [ADAV803](adi>ADAV803)
+-   [ADAV801](https://analog.com/ADAV801)
+-   [ADAV803](https://analog.com/ADAV803)
 
 ADAV801 and ADAV803 differs in serial interface. ADAV801 uses SPI, while ADAV803 uses I2C.
 
 ### Reference Circuits
 
--   [CN0219](adi>CN0219)
+-   [CN0219](https://analog.com/CN0219)
 
 ### Evaluation Boards
 
--   [EVAL-ADAV801EBZ](adi>EVAL-ADAV801EBZ)
--   [EVAL-ADAV803EBZ](adi>EVAL-ADAV803EBZ)
+-   [EVAL-ADAV801EBZ](https://analog.com/EVAL-ADAV801EBZ)
+-   [EVAL-ADAV803EBZ](https://analog.com/EVAL-ADAV803EBZ)
 
 ## Source Code
 
@@ -328,25 +333,37 @@ Connect **CPORT** pins also to corresponding pins STAMP. Also, please make sure 
 
 Load the driver and make sure the sound card is properly instantiated.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-bf5xx-i2s
-root:/\> modprobe snd-soc-bf5xx-i2s
-root:/\> modprobe snd-soc-adav80x
-root:/\> modprobe snd-soc-bfin-eval-adav80x
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-bf5xx-i2s
+root:/> modprobe snd-soc-bf5xx-i2s
+root:/> modprobe snd-soc-adav80x
+root:/> modprobe snd-soc-bfin-eval-adav80x
 dma rx:3 tx:4, err irq:45, regs:ffc00800
-asoc: ADAV80X \<-\> bf5xx-i2s mapping ok
-\</xterm\>
-\</WRAP\>
+asoc: ADAV80X <-> bf5xx-i2s mapping ok
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-pcm-oss
-root:/\> tone
-TONE: generating sine wave at 1000 Hz\...
+:::
 
-root:/\> arecord -f cd | aplay
-Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-\</xterm\>
-\</WRAP\>
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-pcm-oss
+root:/> tone
+TONE: generating sine wave at 1000 Hz...
+
+root:/> arecord -f cd | aplay
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+```
+
+:::
+

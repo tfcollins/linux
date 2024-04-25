@@ -1,20 +1,25 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/ad1936
+title: ADAU1328: 2 ADC/8 DAC with PLL, 192 kHz, 24-Bit Codec
+---
+
 # AD1936 Sound CODEC Linux Driver
 
 ### Supported devices
 
--   [AD1933](adi>AD1933)
--   [AD1934](adi>AD1934)
--   [AD1936](adi>AD1936)
--   [AD1937](adi>AD1937)
--   [AD1938](adi>AD1938)
--   [AD1939](adi>AD1939)
--   [ADAU1328](adi>ADAU1328)
+-   [AD1933](https://analog.com/AD1933)
+-   [AD1934](https://analog.com/AD1934)
+-   [AD1936](https://analog.com/AD1936)
+-   [AD1937](https://analog.com/AD1937)
+-   [AD1938](https://analog.com/AD1938)
+-   [AD1939](https://analog.com/AD1939)
+-   [ADAU1328](https://analog.com/ADAU1328)
 
 ### Evaluation Boards
 
--   [EVAL-AD1937AZ](adi>EVAL-AD1937AZ)
--   [EVAL-AD1938AZ](adi>EVAL-AD1938AZ)
--   [EVAL-AD1939AZ](adi>EVAL-AD1939AZ)
+-   [EVAL-AD1937AZ](https://analog.com/EVAL-AD1937AZ)
+-   [EVAL-AD1938AZ](https://analog.com/EVAL-AD1938AZ)
+-   [EVAL-AD1939AZ](https://analog.com/EVAL-AD1939AZ)
 
 ## Source Code
 
@@ -58,9 +63,11 @@
 
 ## Example device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
-You need to set the modalias of your SPI info according to your codec. Valid values are \"ad1935\" and \"ad1937\", You\'ll also have to adjust bus_num and chip_select according to your board setup.
+You need to set the modalias of your SPI info according to your codec. Valid values are "ad1935" and "ad1937", You'll also have to adjust bus_num and chip_select according to your board setup.
 
 ``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {

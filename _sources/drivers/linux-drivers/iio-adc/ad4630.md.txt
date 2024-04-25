@@ -1,17 +1,22 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad4630
+title: ADAQ4224: 24-Bit, 2 MSPS μModule Data Acquisition Solution
+---
+
 # AD4630 ADC Linux Driver
 
 ### Supported Devices
 
--   [AD4030-24](adi>AD4030-24)
--   [AD4630-16](adi>AD4630-16)
--   [AD4630-24](adi>AD4630-24)
--   [ADAQ4216](adi>ADAQ4216)
--   [ADAQ4220](adi>ADAQ4220)
--   [ADAQ4224](adi>ADAQ4224)
+-   [AD4030-24](https://analog.com/AD4030-24)
+-   [AD4630-16](https://analog.com/AD4630-16)
+-   [AD4630-24](https://analog.com/AD4630-24)
+-   [ADAQ4216](https://analog.com/ADAQ4216)
+-   [ADAQ4220](https://analog.com/ADAQ4220)
+-   [ADAQ4224](https://analog.com/ADAQ4224)
 
 ### Evaluation Boards
 
--   [EVAL-AD4630-24](adi>en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/EVAL-AD4630-24.html)
+-   [EVAL-AD4630-24](https://analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/EVAL-AD4630-24.html)
 
 ### Status
 
@@ -24,7 +29,7 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master/drivers/iio/adc/ad4630.c">git</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/iio/adc/ad4630.c">git</a></td>
 <td>[No]</td>
 </tr>
 </tbody>
@@ -42,35 +47,38 @@
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master/drivers/iio/adc/ad4630.c">master/drivers/iio/adc/ad4630.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/iio/adc/ad4630.c">master/drivers/iio/adc/ad4630.c</a></td>
 </tr>
 <tr class="even">
 <td>devicetree bindings</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/adc/adi,ad4630.yaml">Documentation/devicetree/bindings/iio/adc/adi,ad4630.yaml</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/adc/adi,ad4630.yaml">Documentation/devicetree/bindings/iio/adc/adi,ad4630.yaml</a></td>
 </tr>
 <tr class="odd">
 <td>devicetree for ad4630</td>
-<td><a href="linux.github&gt;master?arch/arm/boot/dts/zynq-zed-adv7511-ad4630-24.dts">arch/arm/boot/dts/zynq-zed-adv7511-ad4630-24.dts</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?arch/arm/boot/dts/zynq-zed-adv7511-ad4630-24.dts">arch/arm/boot/dts/zynq-zed-adv7511-ad4630-24.dts</a></td>
 </tr>
 <tr class="even">
 <td>devicetree for adaq4224</td>
-<td><a href="linux.github&gt;master?arch/arm/boot/dts/zynq-zed-adv7511-adaq4224-24.dts">arch/arm/boot/dts/zynq-zed-adv7511-adaq4224-24.dts</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?arch/arm/boot/dts/zynq-zed-adv7511-adaq4224-24.dts">arch/arm/boot/dts/zynq-zed-adv7511-adaq4224-24.dts</a></td>
 </tr>
 </tbody>
 </table>
 
 ### Overview
 
-The [ad4030-24](adi>ad4030-24), [ad4630-16](adi>ad4630-16), and [ad4630-24](adi>ad4630-24) are 24-bit, 2 MSPS SAR ADCs highly configurable through an extensive configuration register list.
+The [ad4030-24](https://analog.com/ad4030-24), [ad4630-16](https://analog.com/ad4630-16), and [ad4630-24](adi>ad4630-24) are 24-bit, 2 MSPS SAR ADCs highly configurable through an extensive configuration register list.
 
 ### Enabling the driver
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The AD4630 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -89,7 +97,7 @@ The AD4630 Driver depends on **CONFIG_SPI**
 
 #### Required properties
 
--   **compatible**: Must be one of \"adi,ad7091r2\", \"adi,ad7091r4\", \"adi,ad7091r8\".
+-   **compatible**: Must be one of "adi,ad7091r2", "adi,ad7091r4", "adi,ad7091r8".
 -   **reg**: number of SPI chip select id for the device.
 -   **clocks**: reference clock phandle
 -   **clock-names**: name for the reference clock
@@ -100,7 +108,7 @@ The AD4630 Driver depends on **CONFIG_SPI**
 
 #### Optional properties
 
--   **vref-supply**: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.\
+-   **vref-supply**: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.
     see: Documentation/devicetree/bindings/regulator/regulator.txt
 
 #### Device tree example
@@ -233,67 +241,111 @@ The AD4630 Driver depends on **CONFIG_SPI**
 
 ## Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP top tip round box 60%\>**TIP:**
+:::{NOTE} <!-- ATTRS: top="" tip="" round="" box="" 60%="" -->
+**TIP:**
 An example program whiroot@analog:/sys/bus/iio/devices# ls -lch uses the interface can be found here:
 
 -   [IIO Oscilloscope](/resources/tools-software/linux-software/iio_oscilloscope)
 
-\</WRAP\>\
+
+:::
+
 
 ##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/name
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/name
 adaq4224
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show channel scale
 
-**Description:**\
+**Description:**
 Scale to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/in_voltage0_scale
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_scale
 0.000196695
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show channel list of available scales
 
-**Description:**\
+**Description:**
 List of available scales to be applied to in_voltageX_raw in order to obtain the measured voltage in millivolts. This affects the gain applied to the input signal before ADC sampling. This attribute is available for ADAQ devices only.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/in_voltage0_scale_available
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_scale_available
 0.000196695 0.000333786 0.001323223 0.003975629
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show channel calibration offset
 
-**Description:**\
+**Description:**
 Hardware applied calibration offset (calibbias). This is a hardware supported offset that can be applied to compensate for variation between different instances of the part.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/in_voltage0_calibbias
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_calibbias
 0
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show channel calibration scale
 
-**Description:**\
+**Description:**
 Hardware applied calibration scale factor.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:\~ \$ cat /sys/bus/iio/devices/iio\\:device0/in_voltage0_calibscale
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:~ $ cat /sys/bus/iio/devices/iio:device0/in_voltage0_calibscale
 1.000000
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```
+
+
+## Devicetree Maps
+
+- [zynq-zed-adv7511-adaq4224-24.dts.md](#zynq-zed-adv7511-adaq4224-24.dts)
+
+

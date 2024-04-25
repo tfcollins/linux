@@ -1,12 +1,17 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/ssm4567
+title: SSM4567: Digital 2.5 W, 5.1 V, Boost Class-D Audio Amplifier with Output Sensing
+---
+
 # SSM4567 Audio Amplifier Linux Driver
 
 ### Supported Devices
 
--   [SSM4567](adi>SSM4567)
+-   [SSM4567](https://analog.com/SSM4567)
 
 ### Evaluation Boards
 
--   [EVAL-SSM4567Z](adi>EVAL-SSM4567Z)
+-   [EVAL-SSM4567Z](https://analog.com/EVAL-SSM4567Z)
 
 ## Source Code
 
@@ -21,7 +26,7 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;ssm4329?sound/soc/codecs/ssm4567.c">git</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/ssm4329?sound/soc/codecs/ssm4567.c">git</a></td>
 <td><a href="git.linux.org&gt;sound/soc/codecs/ssm4567.c">yes</a></td>
 </tr>
 </tbody>
@@ -39,20 +44,24 @@
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;asoc-ssm4329?sound/soc/codecs/ssm4567.c">sound/soc/codecs/ssm4567.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/asoc-ssm4329?sound/soc/codecs/ssm4567.c">sound/soc/codecs/ssm4567.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="linux.github&gt;asoc-ssm4329?sound/soc/codecs/ssm4567.h">sound/soc/codecs/ssm4567.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/asoc-ssm4329?sound/soc/codecs/ssm4567.h">sound/soc/codecs/ssm4567.h</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Example device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 The I2C address of the SSM4567 depends on the setting of the ADDR pin.
 
@@ -183,7 +192,7 @@ arch_initcall(board_init);
 
 ### DAI configuration
 
-The amplifier driver registers one DAIs, one for each serial port. The DAI is named **\"ssm4567-hifi\"**
+The amplifier driver registers one DAIs, one for each serial port. The DAI is named **"ssm4567-hifi"**
 
 #### Supported DAI formats
 
@@ -439,4 +448,6 @@ static struct snd_soc_card ssm4567_zed_card = {
 
 -    [SSM4329 Linux Driver](SSM4329)
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

@@ -94,16 +94,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-scale">Show scale</a></li>
-<li><a class="reference internal" href="#set-channel-y-output-current">Set channel Y output current</a></li>
-<li><a class="reference internal" href="#enable-power-down-mode-for-the-device">Enable power down mode for the device</a></li>
-<li><a class="reference internal" href="#show-available-filter-frequencies">Show available filter frequencies</a></li>
-<li><a class="reference internal" href="#set-channel-y-filter-frequency">Set channel Y filter frequency</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -179,7 +170,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -246,7 +239,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -305,13 +300,13 @@ Content on this topic
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <p>This driver supports the</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD5770R"><span class="xref myst">AD5770R</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5770R">AD5770R</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5770R"><span class="xref myst">EVAL-AD5770R</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5770R">EVAL-AD5770R</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -422,123 +417,179 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-pi&#64;raspberrypi:/sys/bus/iio/devices/iio:device0 $ cd /sys/bus/iio/devices/
-pi&#64;raspberrypi:/sys/bus/iio/devices $ ls
-iio:device0 iio:device1
-pi&#64;raspberrypi:/sys/bus/iio/devices $ cd iio\:device0
-pi&#64;raspberrypi:/sys/bus/iio/devices/iio:device0 $ ls -l
-total 0
--r–r–r– 1 root root 4096 Jul 18 12:12 dev
--r–r–r– 1 root root 4096 Jul 18 12:12 name
-lrwxrwxrwx 1 root root 0 Jul 18 12:12 of_node -&gt; …/…/…/…/…/…/…/…/firmware/devicetree/base/soc/spi&#64;7e204000/ad5770r&#64;0
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current0_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current0_powerdown
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current0_raw
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current0_scale
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current1_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current1_powerdown
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current1_raw
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current1_scale
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current2_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current2_powerdown
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current2_raw
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current2_scale
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current3_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current3_powerdown
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current3_raw
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current3_scale
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current4_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current4_powerdown
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current4_raw
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current4_scale
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current5_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current5_powerdown
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current5_raw
--rw-r–r– 1 root root 4096 Jul 18 12:12 out_current5_scale
--r–r–r– 1 root root 4096 Jul 18 12:12 out_current_filter_low_pass_3db_frequency_available
-drwxr-xr-x 2 root root 0 Jul 18 12:12 power
-lrwxrwxrwx 1 root root 0 Jul 18 12:12 subsystem -&gt; …/…/…/…/…/…/…/…/bus/iio
--rw-r–r– 1 root root 4096 Jul 18 12:12 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-pi&#64;raspberrypi:/sys/bus/iio/devices/iio:device0 $ cat name
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@raspberrypi:/sys/bus/iio/devices/iio:device0<span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/sys/bus/iio/devices/
+pi@raspberrypi:/sys/bus/iio/devices<span class="w"> </span>$<span class="w"> </span>ls
+iio:device0<span class="w"> </span>iio:device1
+pi@raspberrypi:/sys/bus/iio/devices<span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>iio:device0
+pi@raspberrypi:/sys/bus/iio/devices/iio:device0<span class="w"> </span>$<span class="w"> </span>ls<span class="w"> </span>-l
+total<span class="w"> </span><span class="m">0</span>
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>dev
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>of_node<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ad5770r@0
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current0_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current0_powerdown
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current0_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current1_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current1_powerdown
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current1_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current1_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current2_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current2_powerdown
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current2_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current2_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current3_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current3_powerdown
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current3_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current3_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current4_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current4_powerdown
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current4_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current4_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current5_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current5_powerdown
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current5_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current5_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>out_current_filter_low_pass_3db_frequency_available
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../bus/iio
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jul<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">12</span>:12<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-device-name">Show device name</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pi@raspberrypi:/sys/bus/iio/devices/iio:device0<span class="w"> </span>$<span class="w"> </span>cat<span class="w"> </span>name
 ad5770r
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-scale">
-<h3>Show scale<a class="headerlink" href="#show-scale" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
-/sys/bus/iio/devices/iio:deviceX/out_currentY_scale<br />
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-scale">Show scale</h5>
+<p><strong>Description:</strong>
+/sys/bus/iio/devices/iio:deviceX/out_currentY_scale
 scale to be applied to out_currentY_raw in order to obtain the measured current in milliamps.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_scale
-0.018310546
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-channel-y-output-current">
-<h3>Set channel Y output current<a class="headerlink" href="#set-channel-y-output-current" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
-/sys/bus/iio/devices/iio:deviceX/out_currentY_raw<br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>cat<span class="w"> </span>out_current0_scale
+<span class="m">0</span>.018310546
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="set-channel-y-output-current">Set channel Y output current</h5>
+<p><strong>Description:</strong>
+/sys/bus/iio/devices/iio:deviceX/out_currentY_raw
 Raw (unscaled, no bias etc.) output current for
 channel Y.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# echo 5000 &gt; out_current0_raw
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span>&gt;<span class="w"> </span>out_current0_raw
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>I</strong> = <em>out_current0_raw * out_current0_scale</em> = 5000 * 0,018310546 = <strong>91,55273 <em>mA</em></strong></p>
-</section>
-<section id="enable-power-down-mode-for-the-device">
-<h3>Enable power down mode for the device<a class="headerlink" href="#enable-power-down-mode-for-the-device" title="Link to this heading">¶</a></h3>
+<h5 class="rubric" id="enable-power-down-mode-for-the-device">Enable power down mode for the device</h5>
 <p>/sys/bus/iio/devices/iio:deviceX/out_currentY_powerdown</p>
-<p><strong>Description:</strong><br />
+<p><strong>Description:</strong>
 Writing 1 causes channel Y to enter power down mode. Clearing returns to
 normal operation.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# echo 1 &gt; out_current0_powerdown
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_powerdown
-1
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# echo 0 &gt; out_current0_powerdown
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_powerdown
-0
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-available-filter-frequencies">
-<h3>Show available filter frequencies<a class="headerlink" href="#show-available-filter-frequencies" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>out_current0_powerdown
+root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>cat<span class="w"> </span>out_current0_powerdown
+<span class="m">1</span>
+root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>out_current0_powerdown
+root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>cat<span class="w"> </span>out_current0_powerdown
+<span class="m">0</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-available-filter-frequencies">Show available filter frequencies</h5>
 <p>/sys/bus/iio/devices/iio:deviceX/out_current_filter_low_pass_3db_frequency_available</p>
-<p><strong>Description:</strong><br />
+<p><strong>Description:</strong>
 Contains available filter frequencies.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current_filter_low_pass_3db_frequency_available
-153 357 715 1400 2800 262000
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-channel-y-filter-frequency">
-<h3>Set channel Y filter frequency<a class="headerlink" href="#set-channel-y-filter-frequency" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>cat<span class="w"> </span>out_current_filter_low_pass_3db_frequency_available
+<span class="m">153</span><span class="w"> </span><span class="m">357</span><span class="w"> </span><span class="m">715</span><span class="w"> </span><span class="m">1400</span><span class="w"> </span><span class="m">2800</span><span class="w"> </span><span class="m">262000</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="set-channel-y-filter-frequency">Set channel Y filter frequency</h5>
 <p>/sys/bus/iio/devices/iio:deviceX/out_current0_filter_low_pass_3db_frequency</p>
-<p><strong>Description:</strong><br />
+<p><strong>Description:</strong>
 Write filter value to channel Y.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_filter_low_pass_3db_frequency
-262000
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# echo 1000 &gt; out_current0_filter_low_pass_3db_frequency
-root&#64;raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_filter_low_pass_3db_frequency
-1400
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>cat<span class="w"> </span>out_current0_filter_low_pass_3db_frequency
+<span class="m">262000</span>
+root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1000</span><span class="w"> </span>&gt;<span class="w"> </span>out_current0_filter_low_pass_3db_frequency
+root@raspberrypi:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>cat<span class="w"> </span>out_current0_filter_low_pass_3db_frequency
+<span class="m">1400</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h2 class="rubric" id="more-information">More Information</h2>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

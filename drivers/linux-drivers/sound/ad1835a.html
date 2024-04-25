@@ -186,7 +186,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -253,7 +255,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -311,17 +315,17 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD1835A"><span class="xref myst">AD1835A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD1836A"><span class="xref myst">AD1836A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD1838A"><span class="xref myst">AD1838A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD1837A"><span class="xref myst">AD1837A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD1839A"><span class="xref myst">AD1839A</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD1835A">AD1835A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD1836A">AD1836A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD1838A">AD1838A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD1837A">AD1837A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD1839A">AD1839A</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD1836AZ-DBRD"><span class="xref myst">AD1836AZ-DBRD</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD1836AZ-DBRD">AD1836AZ-DBRD</a></p></li>
 </ul>
 </section>
 <section id="source-code">
@@ -367,7 +371,7 @@ Content on this topic
 </section>
 <section id="example-device-initialization">
 <h2>Example device initialization<a class="headerlink" href="#example-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>You need to set the modalias of your SPI info according to your codec. Valid values are “ad1835”, “ad1836”, “ad1837”, “ad1838” and “ad1839”. You’ll also have to adjust bus_num and chip_select according to your board setup.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">[</span><span class="o">--</span><span class="n">snip</span><span class="o">--</span><span class="p">]</span>
@@ -754,105 +758,104 @@ TONE: generating sine wave at 1000 Hz...
 <ol class="arabic simple">
 <li><p>Check the output</p></li>
 </ol>
-<p>&lt;xterm&gt;
-root:~&gt; <strong>tone</strong>
-TONE: generating sine wave at 1000 Hz.…
-&lt;/xterm&gt;
-You should hear something out of the headphone Jack.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:~&gt;<span class="w"> </span>**tone**
+TONE:<span class="w"> </span>generating<span class="w"> </span>sine<span class="w"> </span>wave<span class="w"> </span>at<span class="w"> </span><span class="m">1000</span><span class="w"> </span>Hz...
+</pre></div>
+</div>
+<p>You should hear something out of the headphone Jack.</p>
 <ol class="arabic simple">
 <li><p>Check and set the audio mixer:</p></li>
 </ol>
-<p>&lt;xterm&gt;
-root:/&gt; amixer
-Simple mixer control ‘Playback Deemphasis’,0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Capabilities: enum
-Items: &#39;None&#39; &#39;44.1kHz&#39; &#39;32kHz&#39; &#39;48kHz&#39;
-Item0: &#39;48kHz&#39;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>amixer
+Simple<span class="w"> </span>mixer<span class="w"> </span>control<span class="w"> </span><span class="s1">&#39;Playback Deemphasis&#39;</span>,0
+
+<span class="w">    </span>Capabilities:<span class="w"> </span>enum
+<span class="w">    </span>Items:<span class="w"> </span><span class="s1">&#39;None&#39;</span><span class="w"> </span><span class="s1">&#39;44.1kHz&#39;</span><span class="w"> </span><span class="s1">&#39;32kHz&#39;</span><span class="w"> </span><span class="s1">&#39;48kHz&#39;</span>
+<span class="w">    </span>Item0:<span class="w"> </span><span class="s1">&#39;48kHz&#39;</span>
+
+Simple<span class="w"> </span>mixer<span class="w"> </span>control<span class="w"> </span><span class="s1">&#39;ADC High Pass Filter&#39;</span>,0
+
+<span class="w">    </span>Capabilities:<span class="w"> </span>pswitch<span class="w"> </span>pswitch-joined
+<span class="w">    </span>Playback<span class="w"> </span>channels:<span class="w"> </span>Mono
+<span class="w">    </span>Mono:<span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+
+Simple<span class="w"> </span>mixer<span class="w"> </span>control<span class="w"> </span><span class="s1">&#39;ADC1&#39;</span>,0
+
+<span class="w">    </span>Capabilities:<span class="w"> </span>pswitch
+<span class="w">    </span>Playback<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Mono:
+<span class="w">    </span>Front<span class="w"> </span>Left:<span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+<span class="w">    </span>Front<span class="w"> </span>Right:<span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+
+Simple<span class="w"> </span>mixer<span class="w"> </span>control<span class="w"> </span><span class="s1">&#39;ADC2&#39;</span>,0
+
+<span class="w">    </span>Capabilities:<span class="w"> </span>pswitch
+<span class="w">    </span>Playback<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Mono:
+<span class="w">    </span>Front<span class="w"> </span>Left:<span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+<span class="w">    </span>Front<span class="w"> </span>Right:<span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+
+Simple<span class="w"> </span>mixer<span class="w"> </span>control<span class="w"> </span><span class="s1">&#39;DAC1&#39;</span>,0
+
+<span class="w">    </span>Capabilities:<span class="w"> </span>volume<span class="w"> </span>pswitch
+<span class="w">    </span>Playback<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Capture<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Limits:<span class="w"> </span><span class="m">0</span><span class="w"> </span>-<span class="w"> </span><span class="m">1023</span>
+<span class="w">    </span>Front<span class="w"> </span>Left:<span class="w"> </span><span class="m">1023</span><span class="w"> </span><span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+<span class="w">    </span>Front<span class="w"> </span>Right:<span class="w"> </span><span class="m">1023</span><span class="w"> </span><span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+
+Simple<span class="w"> </span>mixer<span class="w"> </span>control<span class="w"> </span><span class="s1">&#39;DAC2&#39;</span>,0
+
+<span class="w">    </span>Capabilities:<span class="w"> </span>volume<span class="w"> </span>pswitch
+<span class="w">    </span>Playback<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Capture<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Limits:<span class="w"> </span><span class="m">0</span><span class="w"> </span>-<span class="w"> </span><span class="m">1023</span>
+<span class="w">    </span>Front<span class="w"> </span>Left:<span class="w"> </span><span class="m">1023</span><span class="w"> </span><span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+<span class="w">    </span>Front<span class="w"> </span>Right:<span class="w"> </span><span class="m">1023</span><span class="w"> </span><span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+
+Simple<span class="w"> </span>mixer<span class="w"> </span>control<span class="w"> </span><span class="s1">&#39;DAC3&#39;</span>,0
+
+<span class="w">    </span>Capabilities:<span class="w"> </span>volume<span class="w"> </span>pswitch
+<span class="w">    </span>Playback<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Capture<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Limits:<span class="w"> </span><span class="m">0</span><span class="w"> </span>-<span class="w"> </span><span class="m">1023</span>
+<span class="w">    </span>Front<span class="w"> </span>Left:<span class="w"> </span><span class="m">1023</span><span class="w"> </span><span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+<span class="w">    </span>Front<span class="w"> </span>Right:<span class="w"> </span><span class="m">1023</span><span class="w"> </span><span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+
+root:/&gt;<span class="w"> </span>amixer<span class="w"> </span>sset<span class="w"> </span><span class="s1">&#39;DAC3&#39;</span><span class="w"> </span><span class="m">200</span>
+Simple<span class="w"> </span>mixer<span class="w"> </span>control<span class="w"> </span><span class="s1">&#39;DAC3&#39;</span>,0
+
+<span class="w">    </span>Capabilities:<span class="w"> </span>volume<span class="w"> </span>pswitch
+<span class="w">    </span>Playback<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Capture<span class="w"> </span>channels:<span class="w"> </span>Front<span class="w"> </span>Left<span class="w"> </span>-<span class="w"> </span>Front<span class="w"> </span>Right
+<span class="w">    </span>Limits:<span class="w"> </span><span class="m">0</span><span class="w"> </span>-<span class="w"> </span><span class="m">1023</span>
+<span class="w">    </span>Front<span class="w"> </span>Left:<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="o">[</span><span class="m">20</span>%<span class="o">]</span><span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
+<span class="w">    </span>Front<span class="w"> </span>Right:<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="o">[</span><span class="m">20</span>%<span class="o">]</span><span class="w"> </span>Playback<span class="w"> </span><span class="o">[</span>on<span class="o">]</span>
 </pre></div>
 </div>
-<p>Simple mixer control ‘ADC High Pass Filter’,0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Capabilities: pswitch pswitch-joined
-Playback channels: Mono
-Mono: Playback [on]
-</pre></div>
-</div>
-<p>Simple mixer control ‘ADC1’,0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Capabilities: pswitch
-Playback channels: Front Left - Front Right
-Mono:
-Front Left: Playback [on]
-Front Right: Playback [on]
-</pre></div>
-</div>
-<p>Simple mixer control ‘ADC2’,0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Capabilities: pswitch
-Playback channels: Front Left - Front Right
-Mono:
-Front Left: Playback [on]
-Front Right: Playback [on]
-</pre></div>
-</div>
-<p>Simple mixer control ‘DAC1’,0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Capabilities: volume pswitch
-Playback channels: Front Left - Front Right
-Capture channels: Front Left - Front Right
-Limits: 0 - 1023
-Front Left: 1023 [100%] Playback [on]
-Front Right: 1023 [100%] Playback [on]
-</pre></div>
-</div>
-<p>Simple mixer control ‘DAC2’,0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Capabilities: volume pswitch
-Playback channels: Front Left - Front Right
-Capture channels: Front Left - Front Right
-Limits: 0 - 1023
-Front Left: 1023 [100%] Playback [on]
-Front Right: 1023 [100%] Playback [on]
-</pre></div>
-</div>
-<p>Simple mixer control ‘DAC3’,0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Capabilities: volume pswitch
-Playback channels: Front Left - Front Right
-Capture channels: Front Left - Front Right
-Limits: 0 - 1023
-Front Left: 1023 [100%] Playback [on]
-Front Right: 1023 [100%] Playback [on]
-</pre></div>
-</div>
-<p>root:/&gt; amixer sset ‘DAC3’ 200
-Simple mixer control ‘DAC3’,0</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Capabilities: volume pswitch
-Playback channels: Front Left - Front Right
-Capture channels: Front Left - Front Right
-Limits: 0 - 1023
-Front Left: 200 [20%] Playback [on]
-Front Right: 200 [20%] Playback [on]
-</pre></div>
-</div>
-<p>&lt;/xterm&gt;</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Also you can run &quot;alsamixer&quot; to get graphic configuration interface, OSS-based &quot;mixer&quot; can work too.
 - Check to make sure mp3s work (assuming you have built mp3play),
-  - The first step is to download a mp3 file onto the platform. The &#39;&#39;wget&#39;&#39; command assumes that networking is properly configured (you have an IP number, the default gateway is set, and DNS servers can be accessed), and working. &lt;xterm&gt;root:/&gt; **cd /var**
+  - The first step is to download a mp3 file onto the platform. The &#39;&#39;wget&#39;&#39; command assumes that networking is properly configured (you have an IP number, the default gateway is set, and DNS servers can be accessed), and working. ```{code-block} bashroot:/&gt; **cd /var**
 </pre></div>
 </div>
-<p>root:/var&gt; <strong>wget <a class="reference external" href="http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3">http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3</a></strong>
-&lt;/xterm&gt;</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  - Next, play it with mp3play: &lt;xterm&gt;root:/var&gt; **mp3play ABCOWhosOnFirstclip.mp3**&lt;/xterm&gt;
-- You can play it in one step with: &lt;xterm&gt;root:~&gt; **mp3play http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3**
+<p>root:/var&gt; <strong>wget <a class="reference external" href="http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3">http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3</a></strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+      - Next, play it with mp3play: ```{code-block} bashroot:/var&gt; **mp3play ABCOWhosOnFirstclip.mp3**```
+    - You can play it in one step with: ```{code-block} bashroot:~&gt; **mp3play http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3**
+
+http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3: MPEG2-III (0 ms)
 </pre></div>
 </div>
-<p><a class="reference external" href="http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3:">http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3:</a> MPEG2-III (0 ms)
-&lt;/xterm&gt;</p>
 <ol class="arabic simple">
-<li><p>Optionally check to make sure the mic and headphone are working properly: &lt;xterm&gt;</p></li>
+<li><p>Optionally check to make sure the mic and headphone are working properly: ```{code-block} bash</p></li>
 </ol>
 <p>root:~&gt; <strong>arecord -d 10 test.wav</strong>
 Recording WAVE “test.wav” : Unsigned 8 bit, Rate 8000 Hz, Mono
-root:~&gt; <strong>aplay test.wav</strong>
-&lt;/xterm&gt; This should record 10 seconds of whatever is on the Line, and then play it back over the output.</p>
-<ol class="arabic simple">
-<li><p>You should also be able to do a “talkthrough”, and hear on the speakers anything you put on the line. &lt;xterm&gt;root:~&gt; <strong>arecord | aplay</strong>&lt;/xterm&gt;</p></li>
-</ol>
+root:~&gt; <strong>aplay test.wav</strong></p>
+<div class="highlight-This notranslate"><div class="highlight"><pre><span></span>
+1.  You should also be able to do a &quot;talkthrough&quot;, and hear on the speakers anything you put on the line. ```{code-block} bashroot:~&gt; **arecord | aplay**```
+</pre></div>
+</div>
 </section>
 </section>
 </section>

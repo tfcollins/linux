@@ -1,12 +1,17 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/clk/adi/clk-ad9545.c
+title: AD9545: Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner
+---
+
 # AD9545 Quad Input, 10-Output, Dual DPLL/IEEE 1588, 1 pps Synchronizer and Jitter Cleaner
 
 ### Supported Devices
 
--   [AD9545](adi>AD9545)
+-   [AD9545](https://analog.com/AD9545)
 
 ### Evaluation Boards
 
--   [EVAL-AD9545](adi>EVAL-AD9545)
+-   [EVAL-AD9545](https://analog.com/EVAL-AD9545)
 
 ### Description
 
@@ -25,19 +30,19 @@ This is a Common Clock Framework subsystem driver. There are two drivers (sharin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.c">drivers/clk/adi/clk-ad9545.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/clk/adi/clk-ad9545.c">drivers/clk/adi/clk-ad9545.c</a></td>
 <td>No</td>
 </tr>
 <tr class="even">
-<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-i2c.c">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/clk/adi/clk-ad9545-i2c.c">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
 <td>No</td>
 </tr>
 <tr class="odd">
-<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-spi.c">drivers/clk/adi/clk-ad9545-spi.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/clk/adi/clk-ad9545-spi.c">drivers/clk/adi/clk-ad9545-spi.c</a></td>
 <td>No</td>
 </tr>
 <tr class="even">
-<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.h">drivers/clk/adi/clk-ad9545.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/clk/adi/clk-ad9545.h">drivers/clk/adi/clk-ad9545.h</a></td>
 <td>No</td>
 </tr>
 </tbody>
@@ -55,19 +60,19 @@ This is a Common Clock Framework subsystem driver. There are two drivers (sharin
 <tbody>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.c">drivers/clk/adi/clk-ad9545.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/clk/adi/clk-ad9545.c">drivers/clk/adi/clk-ad9545.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-i2c.c">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/clk/adi/clk-ad9545-i2c.c">drivers/clk/adi/clk-ad9545-i2c.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545-spi.c">drivers/clk/adi/clk-ad9545-spi.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/clk/adi/clk-ad9545-spi.c">drivers/clk/adi/clk-ad9545-spi.c</a></td>
 </tr>
 <tr class="even">
 <td>core include</td>
-<td><a href="linux.github&gt;master/drivers/clk/adi/clk-ad9545.h">drivers/clk/adi/clk-ad9545.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/clk/adi/clk-ad9545.h">drivers/clk/adi/clk-ad9545.h</a></td>
 </tr>
 </tbody>
 </table>
@@ -111,19 +116,22 @@ Example I2C:
             };
     };
 
-For more supported devicetree properties take a look to [dt-bindings](linux.github>master/Documentation/devicetree/bindings/clock/clk-ad9545.yaml).
+For more supported devicetree properties take a look to [dt-bindings](https://github.com/analogdevicesinc/linux/main/Documentation/devicetree/bindings/clock/clk-ad9545.yaml).
 
 ## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig").
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The AD9545 SPI driver depends **CONFIG_SPI** and the AD9545 I2C driver depends on **CONFIG_I2C**.
-\</WRAP\>
+
+:::
+
 
 ## Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
         Device Drivers > Search (COMMON_CLK) > Analog Devices Clock Drivers
 
@@ -243,7 +251,9 @@ The active clock tree can be viewed with:
 
 ## CLOCK pointers
 
--   CLOCK mailing list: \<linux-clk@vger.kernel.org\>
+-   CLOCK mailing list: <linux-clk@vger.kernel.org>
 -   [CLOCK Linux Kernel Documentation](https://www.kernel.org/doc/Documentation/clk.txt)
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

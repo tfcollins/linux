@@ -1,6 +1,11 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/ad73322
+title: AD73322L: Dual-Channel, 3 V Front-End Processor for General Purpose Applications Including Speech and Telephony
+---
+
 # AD73322
 
-This driver is written for a custome board which has 4 cascaded AD73322s,but since there is a macro(NUM_DEVICES_CHAIN)to decide how many DAC/ADC pairs are connected,so it should be a generic driver for [AD73322](adi>AD73322).
+This driver is written for a custome board which has 4 cascaded AD73322s,but since there is a macro(NUM_DEVICES_CHAIN)to decide how many DAC/ADC pairs are connected,so it should be a generic driver for [AD73322](https://analog.com/AD73322).
 
 ## Adding Kernel Support
 
@@ -21,7 +26,7 @@ The configuration is as following:
                (14)  PF pin for AD73322 Chip Select on SPORT1
                (12)  PF pin for AD73322 Chip Reset
 
-1.  \"Blackfin Audio SPORT port\" has 3 options:0,1 or 2,if you only have one card on SPORT0 or SPORT1,then input 0 or 1.if you have 2 cards on both SPORT0 and SPORT1 then input 2.
+1.  "Blackfin Audio SPORT port" has 3 options:0,1 or 2,if you only have one card on SPORT0 or SPORT1,then input 0 or 1.if you have 2 cards on both SPORT0 and SPORT1 then input 2.
 2.  Default PF pins used above may have been requested by other devices,if so, you need either disable that device or select another one.
 
 ### Testing the built in kernel driver

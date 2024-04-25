@@ -197,7 +197,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -264,7 +266,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -322,14 +326,14 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADP5520"><span class="xref myst">ADP5520</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADP5501"><span class="xref myst">ADP5501</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADP5520">ADP5520</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADP5501">ADP5501</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADP5520-EVALZ"><span class="xref myst">ADP5520-EVALZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADP5520-EVALZ">ADP5520-EVALZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -338,9 +342,9 @@ Content on this topic
 various software interfaces. It is therefore implemented as a multifunction device (MFD).
 In this particular case the ADP5520 backlight driver and I/O expander, concurrently
 leverages the Linux backlight, LED, GPIO, and input subsystems for its keypad functionality.</p>
-<p>&lt;graphviz dot 650x200&gt;
-digraph {
-size=”8,5”
+<!-- ATTRS: dot="" 650x200="" -->
+<div class="graphviz"><img src="../../../_images/graphviz-256ed97fcafe45fc3e49cfb4d60494fddc584ef4.png" alt="digraph {
+size=&quot;8,5&quot;
 ADP5520_MFD_CORE [shape=box]
 ADP5520_BACKLIGHT [shape=box]
 ADP5520_GPIO[shape=box]
@@ -350,8 +354,7 @@ ADP5520_MFD_CORE -&gt; ADP5520_BACKLIGHT [dir=none];
 ADP5520_MFD_CORE -&gt; ADP5520_LED [dir=none];
 ADP5520_MFD_CORE -&gt; ADP5520_GPIO [dir=none];
 ADP5520_MFD_CORE -&gt; ADP5520_KEYPAD [dir=none];
-}
-&lt;/graphviz&gt;</p>
+}" class="graphviz" /></div>
 </section>
 <section id="core">
 <h2>Core<a class="headerlink" href="#core" title="Link to this heading">¶</a></h2>
@@ -470,10 +473,12 @@ built into a single kernel image.</p>
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP important&gt;
-Since Keypad, GPIO and optional LEDs (2, 3) are multiplexed, you need to avoid double configurations. Please refer to the table below.
-&lt;/WRAP&gt;</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: important="" -->
+<p>Since Keypad, GPIO and optional LEDs (2, 3) are multiplexed, you need to avoid double configurations. Please refer to the table below.</p>
+</div>
 <table>
 <thead>
 <tr class="header">
@@ -524,36 +529,40 @@ Since Keypad, GPIO and optional LEDs (2, 3) are multiplexed, you need to avoid d
 </tr>
 </tbody>
 </table>
-<p>&lt;WRAP tip&gt;
-Please refer to <a class="reference internal" href="#git.linux.org%3Einclude/linux/mfd/adp5520.h"><span class="xref myst">include/linux/mfd/adp5520.h</span></a> for detailed configuration defines.
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>Please refer to <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/mfd/adp5520.h">include/linux/mfd/adp5520.h</a> for detailed configuration defines.</p>
+</div>
 <section id="backlight">
 <h3>Backlight<a class="headerlink" href="#backlight" title="Link to this heading">¶</a></h3>
-<p>&lt;source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_backlight_data{} c linux-kernel&gt;</p>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_backlight_data{} c linux-kernel>
 </section>
 <section id="led">
 <h3>LED<a class="headerlink" href="#led" title="Link to this heading">¶</a></h3>
-<p>&lt;source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_leds[] c linux-kernel&gt;</p>
-<p>&lt;source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_leds_data{} c linux-kernel&gt;</p>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_leds[] c linux-kernel>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_leds_data{} c linux-kernel>
 </section>
 <section id="gpio">
 <h3>GPIO<a class="headerlink" href="#gpio" title="Link to this heading">¶</a></h3>
-<p>&lt;source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_gpio_data{} c linux-kernel&gt;</p>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_gpio_data{} c linux-kernel>
 </section>
 <section id="keypad">
 <h3>Keypad<a class="headerlink" href="#keypad" title="Link to this heading">¶</a></h3>
-<p>&lt;source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_keymap[] c linux-kernel&gt;
-&lt;source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_keys_data{} c linux-kernel&gt;</p>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_keymap[] c linux-kernel>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_keys_data{} c linux-kernel>
 </section>
 <section id="adp5520-adp5501-mfd-core-support">
 <h3>ADP5520/ADP5501 MFD Core Support<a class="headerlink" href="#adp5520-adp5501-mfd-core-support" title="Link to this heading">¶</a></h3>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_pdev_data{} c linux-kernel&gt;
-&lt;source trunk/arch/blackfin/mach-bf537/boards/stamp.c:/CONFIG_PMIC_ADP5520/2-/#if/ c linux-kernel&gt;</p>
-<p>&lt;WRAP tip&gt;
-<strong>ADP5520 IRQ Usage:</strong><br />
-If you aren’t planning to utilize the Keypad interface, you don’t need to specify an IRQ in bfin_i2c_board_info.
-&lt;/WRAP&gt;</p>
+<!-- CMDS: firstseconly noeditbtn -->
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp5520_pdev_data{} c linux-kernel>
+<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:/CONFIG_PMIC_ADP5520/2-/#if/ c linux-kernel>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p><strong>ADP5520 IRQ Usage:</strong>
+If you aren’t planning to utilize the Keypad interface, you don’t need to specify an IRQ in bfin_i2c_board_info.</p>
+</div>
 </section>
 </section>
 <section id="adding-linux-driver-support">
@@ -562,72 +571,68 @@ If you aren’t planning to utilize the Keypad interface, you don’t need to sp
 Then you may select individual components like LCD backlight, LEDs, GPIOs and Keypad under the corresponding menus.</p>
 <section id="adp5520-mfd-core-support">
 <h3>ADP5520 MFD Core Support<a class="headerlink" href="#adp5520-mfd-core-support" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-Device Drivers —&gt;</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  &lt;*&gt; I2C support  ---&gt;
-      &lt;*&gt; Blackfin TWI I2C support
-      Or:
-      &lt;*&gt; GPIO-based bitbanging I2C
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Device<span class="w"> </span>Drivers<span class="w"> </span>---&gt;
+
+<span class="w">      </span>&lt;*&gt;<span class="w"> </span>I2C<span class="w"> </span>support<span class="w">  </span>---&gt;
+<span class="w">          </span>&lt;*&gt;<span class="w"> </span>Blackfin<span class="w"> </span>TWI<span class="w"> </span>I2C<span class="w"> </span>support
+<span class="w">          </span>Or:
+<span class="w">          </span>&lt;*&gt;<span class="w"> </span>GPIO-based<span class="w"> </span>bitbanging<span class="w"> </span>I2C
+
+Device<span class="w"> </span>Drivers<span class="w"> </span>---&gt;
+
+<span class="w">      </span>Multifunction<span class="w"> </span>device<span class="w"> </span>drivers<span class="w">  </span>---&gt;
+<span class="w">          </span><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Analog<span class="w"> </span>Devices<span class="w"> </span>ADP5520/01<span class="w"> </span>MFD<span class="w"> </span>PMIC<span class="w"> </span>Core<span class="w"> </span>Support
 </pre></div>
 </div>
-<p>Device Drivers —&gt;</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Multifunction device drivers  ---&gt;
-      [*] Analog Devices ADP5520/01 MFD PMIC Core Support
-</pre></div>
-</div>
-<p>&lt;/xterm&gt;</p>
 </section>
 <section id="id1">
 <h3>Backlight<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-Device Drivers —&gt;</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Graphics support  ---&gt;
-      [*] Backlight &amp; LCD device support  ---&gt;
-          &lt;*&gt;   Lowlevel Backlight controls
-          &lt;M&gt;     Backlight Driver for ADP5520/ADP5501 using WLED
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Device<span class="w"> </span>Drivers<span class="w"> </span>---&gt;
+
+<span class="w">      </span>Graphics<span class="w"> </span>support<span class="w">  </span>---&gt;
+<span class="w">          </span><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Backlight<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>LCD<span class="w"> </span>device<span class="w"> </span>support<span class="w">  </span>---&gt;
+<span class="w">              </span>&lt;*&gt;<span class="w">   </span>Lowlevel<span class="w"> </span>Backlight<span class="w"> </span>controls
+<span class="w">              </span>&lt;M&gt;<span class="w">     </span>Backlight<span class="w"> </span>Driver<span class="w"> </span><span class="k">for</span><span class="w"> </span>ADP5520/ADP5501<span class="w"> </span>using<span class="w"> </span>WLED
 </pre></div>
 </div>
-<p>&lt;/xterm&gt;</p>
 </section>
 <section id="id2">
 <h3>LED<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-Device Drivers —&gt;</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  [*] LED Support  ---&gt;
-      &lt;*&gt;   LED Class Support
-      &lt;M&gt;   LED Support for ADP5520/ADP5501 PMIC
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Device<span class="w"> </span>Drivers<span class="w"> </span>---&gt;
+
+<span class="w">      </span><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>LED<span class="w"> </span>Support<span class="w">  </span>---&gt;
+<span class="w">          </span>&lt;*&gt;<span class="w">   </span>LED<span class="w"> </span>Class<span class="w"> </span>Support
+<span class="w">          </span>&lt;M&gt;<span class="w">   </span>LED<span class="w"> </span>Support<span class="w"> </span><span class="k">for</span><span class="w"> </span>ADP5520/ADP5501<span class="w"> </span>PMIC
 </pre></div>
 </div>
-<p>&lt;/xterm&gt;</p>
 </section>
 <section id="id3">
 <h3>GPIO<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-Device Drivers —&gt;</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  [*] GPIO Support  ---&gt;
-      [*]   /sys/class/gpio/... (sysfs interface)
-      &lt;M&gt;   GPIO Support for ADP5520 PMIC
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Device<span class="w"> </span>Drivers<span class="w"> </span>---&gt;
+
+<span class="w">      </span><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>GPIO<span class="w"> </span>Support<span class="w">  </span>---&gt;
+<span class="w">          </span><span class="o">[</span>*<span class="o">]</span><span class="w">   </span>/sys/class/gpio/...<span class="w"> </span><span class="o">(</span>sysfs<span class="w"> </span>interface<span class="o">)</span>
+<span class="w">          </span>&lt;M&gt;<span class="w">   </span>GPIO<span class="w"> </span>Support<span class="w"> </span><span class="k">for</span><span class="w"> </span>ADP5520<span class="w"> </span>PMIC
 </pre></div>
 </div>
-<p>&lt;/xterm&gt;</p>
 </section>
 <section id="id4">
 <h3>Keypad<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-Device Drivers —&gt;</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  Input device support  ---&gt;
-      &lt;*&gt; Generic input layer (needed for keyboard, mouse, ...)
-      &lt;*&gt;   Event interface
-      [*]   Keyboards  ---&gt;
-          &lt;M&gt;   Keypad Support for ADP5520 PMIC
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Device<span class="w"> </span>Drivers<span class="w"> </span>---&gt;
+
+<span class="w">      </span>Input<span class="w"> </span>device<span class="w"> </span>support<span class="w">  </span>---&gt;
+<span class="w">          </span>&lt;*&gt;<span class="w"> </span>Generic<span class="w"> </span>input<span class="w"> </span>layer<span class="w"> </span><span class="o">(</span>needed<span class="w"> </span><span class="k">for</span><span class="w"> </span>keyboard,<span class="w"> </span>mouse,<span class="w"> </span>...<span class="o">)</span>
+<span class="w">          </span>&lt;*&gt;<span class="w">   </span>Event<span class="w"> </span>interface
+<span class="w">          </span><span class="o">[</span>*<span class="o">]</span><span class="w">   </span>Keyboards<span class="w">  </span>---&gt;
+<span class="w">              </span>&lt;M&gt;<span class="w">   </span>Keypad<span class="w"> </span>Support<span class="w"> </span><span class="k">for</span><span class="w"> </span>ADP5520<span class="w"> </span>PMIC
 </pre></div>
 </div>
-<p>&lt;/xterm&gt;</p>
 </section>
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
-<p><img alt="ADP5520 Demo Mother/Daughter Board" src="software/driver/linux/adp5520_brd.jpg" />{width=“800” query=“?800”}</p>
+<a class="reference internal image-reference" href="../../../_images/adp5520_brd.jpg"><img alt="ADP5520 Demo Mother/Daughter Board" src="../../../_images/adp5520_brd.jpg" style="width: 800px;" />
+</a>
 <p>There is no dedicated Blackfin STAMP evaluation board for the ADP5520.
 During test and driver development we used the ADP5520 Demo Mother/Daughter Board.
 Connect the ADP5520 Demo Mother to an USB port.</p>
@@ -673,132 +678,136 @@ Connect the ADP5520 Demo Mother to an USB port.</p>
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
 <section id="id5">
 <h3>Backlight<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-root:/&gt; <strong>modprobe adp5520_bl</strong>
-root:/&gt;</p>
-<p>root:/&gt; cd sys/class/backlight/adp5520-backlight/
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt; ls -l
--r–r–r– 1 root root 4096 Nov 12 10:31 actual_brightness
--rw-r–r– 1 root root 4096 Nov 12 10:31 bl_power
--rw-r–r– 1 root root 4096 Nov 12 10:31 brightness
--rw-rw-r– 1 root root 4096 Nov 12 10:31 dark_dim
--rw-rw-r– 1 root root 4096 Nov 12 10:31 dark_max
--rw-rw-r– 1 root root 4096 Nov 12 10:31 daylight_dim
--rw-rw-r– 1 root root 4096 Nov 12 10:31 daylight_max
-lrwxrwxrwx 1 root root 0 Nov 12 10:31 device -&gt; …/…/…/0-0032
--r–r–r– 1 root root 4096 Nov 12 10:31 max_brightness
--rw-rw-r– 1 root root 4096 Nov 12 10:31 office_dim
--rw-rw-r– 1 root root 4096 Nov 12 10:31 office_max
-drwxr-xr-x 2 root root 0 Nov 12 10:31 power
-lrwxrwxrwx 1 root root 0 Nov 12 10:31 subsystem -&gt; …/…/…/…/…/…/…/…/class/backlight</p>
-<p>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt; <strong>echo 127 &gt; brightness</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt; <strong>echo 50 &gt; brightness</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt; <strong>echo 0 &gt; brightness</strong>
-&lt;/xterm&gt;</p>
-<p>[<strong>For more information on Backlight handling in Linux read:</strong>]{.underline} <a class="reference internal" href="#git.linux.org%3EDocumentation/ABI/stable/sysfs-class-backlight"><span class="xref myst">Documentation/ABI/stable/sysfs-class-backlight</span></a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>adp5520_bl**
+root:/&gt;
+
+root:/&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sys/class/backlight/adp5520-backlight/
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt;<span class="w"> </span>ls<span class="w"> </span>-l
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>actual_brightness
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>bl_power
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>brightness
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>dark_dim
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>dark_max
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>daylight_dim
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>daylight_max
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>device<span class="w"> </span>-&gt;<span class="w"> </span>../../../0-0032
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>max_brightness
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>office_dim
+-rw-rw-r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>office_max
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:31<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../class/backlight
+
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">127</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">50</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/backlight/adp5520-backlight&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+</pre></div>
+</div>
+<p><em><strong>For more information on Backlight handling in Linux read:</strong></em> <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/ABI/stable/sysfs-class-backlight">Documentation/ABI/stable/sysfs-class-backlight</a></p>
 </section>
 <section id="id6">
 <h3>LED<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-root:/&gt; <strong>modprobe leds-adp5520</strong>
-Registered led device: adp5520-led1
-Registered led device: adp5520-led2
-Registered led device: adp5520-led3</p>
-<p>root:/&gt; cd sys/class/leds/adp5520-led
-sys/class/leds/adp5520-led1/ sys/class/leds/adp5520-led3/
-sys/class/leds/adp5520-led2/</p>
-<p>root:/&gt; cd sys/class/leds/adp5520-led1
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/leds/adp5520-led1&gt; ls -l
--rw-r–r– 1 root root 4096 Nov 12 10:34 brightness
-lrwxrwxrwx 1 root root 0 Nov 12 10:34 device -&gt; …/…/…/0-0032
-drwxr-xr-x 2 root root 0 Nov 12 10:34 power
-lrwxrwxrwx 1 root root 0 Nov 12 10:34 subsystem -&gt; …/…/…/…/…/…/…/…/class/leds
--rw-r–r– 1 root root 4096 Nov 12 10:34 trigger
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/leds/adp5520-led1&gt; <strong>echo 10 &gt; brightness</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/leds/adp5520-led1&gt; <strong>echo 255 &gt; brightness</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/leds/adp5520-led1&gt; <strong>echo 0 &gt; brightness</strong></p>
-<p>root:/&gt; <strong>modprobe -r leds-adp5520</strong>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>leds-adp5520**
+Registered<span class="w"> </span>led<span class="w"> </span>device:<span class="w"> </span>adp5520-led1
+Registered<span class="w"> </span>led<span class="w"> </span>device:<span class="w"> </span>adp5520-led2
+Registered<span class="w"> </span>led<span class="w"> </span>device:<span class="w"> </span>adp5520-led3
+
+root:/&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sys/class/leds/adp5520-led
+sys/class/leds/adp5520-led1/<span class="w"> </span>sys/class/leds/adp5520-led3/
+sys/class/leds/adp5520-led2/
+
+root:/&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sys/class/leds/adp5520-led1
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/leds/adp5520-led1&gt;<span class="w"> </span>ls<span class="w"> </span>-l
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:34<span class="w"> </span>brightness
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:34<span class="w"> </span>device<span class="w"> </span>-&gt;<span class="w"> </span>../../../0-0032
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:34<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:34<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../class/leds
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:34<span class="w"> </span>trigger
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/leds/adp5520-led1&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">10</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/leds/adp5520-led1&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">255</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/leds/adp5520-led1&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>brightness**
+
+root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>-r<span class="w"> </span>leds-adp5520**
 root:/&gt;
-&lt;/xterm&gt;</p>
-<p>[<strong>For more information on LEDs handling in Linux read:</strong>]{.underline} <a class="reference internal" href="#git.linux.org%3EDocumentation/leds-class.txt"><span class="xref myst">Documentation/leds-class.txt</span></a></p>
+</pre></div>
+</div>
+<p><em><strong>For more information on LEDs handling in Linux read:</strong></em> <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/leds-class.txt">Documentation/leds-class.txt</a></p>
 </section>
 <section id="id7">
 <h3>GPIO<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-root:/&gt; <strong>modprobe adp5520-gpio</strong>
-root:/&gt; cd sys/class/gpio/gpiochip50/
-root:/sys/devices/virtual/gpio/gpiochip50&gt; ls -l
--r–r–r– 1 root root 4096 Nov 12 10:37 base
--r–r–r– 1 root root 4096 Nov 12 10:37 label
--r–r–r– 1 root root 4096 Nov 12 10:37 ngpio
-drwxr-xr-x 2 root root 0 Nov 12 10:37 power
-lrwxrwxrwx 1 root root 0 Nov 12 10:37 subsystem -&gt; …/…/…/…/class/gpio
--rw-r–r– 1 root root 4096 Nov 12 10:37 uevent
-root:/sys/devices/virtual/gpio/gpiochip50&gt; cd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>adp5520-gpio**
+root:/&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>sys/class/gpio/gpiochip50/
+root:/sys/devices/virtual/gpio/gpiochip50&gt;<span class="w"> </span>ls<span class="w"> </span>-l
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:37<span class="w"> </span>base
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:37<span class="w"> </span>label
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:37<span class="w"> </span>ngpio
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:37<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:37<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../class/gpio
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span>:37<span class="w"> </span>uevent
+root:/sys/devices/virtual/gpio/gpiochip50&gt;<span class="w"> </span><span class="nb">cd</span>
 root:/&gt;
-&lt;/xterm&gt;
-Note that you will have to enable the event_test utility under “Blackfin test programs” in your user space configuration.
-&lt;xterm&gt;
-— Blackfin test programs</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                 [*] Input event device test
 </pre></div>
 </div>
-<p>&lt;/xterm&gt;</p>
-<p>[<strong>For more information on GPIO handling in Linux read:</strong>]{.underline} <a class="reference internal" href="#git.linux.org%3EDocumentation/gpio.txt"><span class="xref myst">Documentation/gpio.txt</span></a></p>
+<p>Note that you will have to enable the event_test utility under “Blackfin test programs” in your user space configuration.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p><em><strong>For more information on GPIO handling in Linux read:</strong></em> <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/gpio.txt">Documentation/gpio.txt</a></p>
 </section>
 <section id="id8">
 <h3>Keypad<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;
-root:/&gt; <strong>modprobe adp5520-keys</strong>
-input: adp5520-keys as /devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/adp5520-keys.5520/input/input0</p>
-<p>root:/&gt; <strong>event_test /dev/input/event0</strong>
-Input driver version is 1.0.0
-Input device ID: bus 0x18 vendor 0x1 product 0x5520 version 0x1
-Input device name: “adp5520-keys”
-Supported events:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Event type 0 (Reset)
-  Event code 0 (Reset)
-  Event code 1 (Key)
-Event type 1 (Key)
-  Event code 2 (1)
-  Event code 3 (2)
-  Event code 4 (3)
-  Event code 5 (4)
-  Event code 6 (5)
-  Event code 7 (6)
-  Event code 8 (7)
-  Event code 9 (8)
-  Event code 10 (9)
-  Event code 11 (0)
-  Event code 12 (Minus)
-  Event code 13 (Equal)
-  Event code 28 (Enter)
-  Event code 41 (Grave)
-  Event code 43 (BackSlash)
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>adp5520-keys**
+input:<span class="w"> </span>adp5520-keys<span class="w"> </span>as<span class="w"> </span>/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-0032/adp5520-keys.5520/input/input0
+
+root:/&gt;<span class="w"> </span>**event_test<span class="w"> </span>/dev/input/event0**
+Input<span class="w"> </span>driver<span class="w"> </span>version<span class="w"> </span>is<span class="w"> </span><span class="m">1</span>.0.0
+Input<span class="w"> </span>device<span class="w"> </span>ID:<span class="w"> </span>bus<span class="w"> </span>0x18<span class="w"> </span>vendor<span class="w"> </span>0x1<span class="w"> </span>product<span class="w"> </span>0x5520<span class="w"> </span>version<span class="w"> </span>0x1
+Input<span class="w"> </span>device<span class="w"> </span>name:<span class="w"> </span><span class="s2">&quot;adp5520-keys&quot;</span>
+Supported<span class="w"> </span>events:
+
+<span class="w">    </span>Event<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>
+<span class="w">    </span>Event<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">(</span><span class="m">3</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">(</span><span class="m">4</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">(</span><span class="m">5</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">(</span><span class="m">6</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">(</span><span class="m">7</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">(</span><span class="m">8</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">(</span><span class="m">9</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="o">(</span><span class="m">0</span><span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="o">(</span>Minus<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="o">(</span>Equal<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="o">(</span>Enter<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="o">(</span>Grave<span class="o">)</span>
+<span class="w">      </span>Event<span class="w"> </span>code<span class="w"> </span><span class="m">43</span><span class="w"> </span><span class="o">(</span>BackSlash<span class="o">)</span>
+
+Testing<span class="w"> </span>...<span class="w"> </span><span class="o">(</span>interrupt<span class="w"> </span>to<span class="w"> </span><span class="nb">exit</span><span class="o">)</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788674</span>.340000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="o">(</span>Grave<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788674</span>.340000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788674</span>.516000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="o">(</span>Grave<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788674</span>.516000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788674</span>.912000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788674</span>.912000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788675</span>.140000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788675</span>.140000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788675</span>.892000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">(</span><span class="m">5</span><span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">1</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788675</span>.892000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788676</span>.092000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Key<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">(</span><span class="m">5</span><span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+Event:<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1415788676</span>.092000,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>code<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>Reset<span class="o">)</span>,<span class="w"> </span>value<span class="w"> </span><span class="m">0</span>
+
+root:/&gt;<span class="w"> </span>**modprobe<span class="w"> </span>-r<span class="w"> </span>adp5520-keys**
+root:/&gt;
 </pre></div>
 </div>
-<p>Testing .… (interrupt to exit)
-Event: time 1415788674.340000, type 1 (Key), code 41 (Grave), value 1
-Event: time 1415788674.340000, type 0 (Reset), code 0 (Reset), value 0
-Event: time 1415788674.516000, type 1 (Key), code 41 (Grave), value 0
-Event: time 1415788674.516000, type 0 (Reset), code 0 (Reset), value 0
-Event: time 1415788674.912000, type 1 (Key), code 2 (1), value 1
-Event: time 1415788674.912000, type 0 (Reset), code 0 (Reset), value 0
-Event: time 1415788675.140000, type 1 (Key), code 2 (1), value 0
-Event: time 1415788675.140000, type 0 (Reset), code 0 (Reset), value 0
-Event: time 1415788675.892000, type 1 (Key), code 6 (5), value 1
-Event: time 1415788675.892000, type 0 (Reset), code 0 (Reset), value 0
-Event: time 1415788676.092000, type 1 (Key), code 6 (5), value 0
-Event: time 1415788676.092000, type 0 (Reset), code 0 (Reset), value 0</p>
-<p>root:/&gt; <strong>modprobe -r adp5520-keys</strong>
-root:/&gt;
-&lt;/xterm&gt;</p>
-<p>[<strong>For more information on Input handling in Linux read:</strong>]{.underline} <a class="reference internal" href="#git.linux.org%3EDocumentation/input/input.txt"><span class="xref myst">Documentation/input/input.txt</span></a></p>
+<p><em><strong>For more information on Input handling in Linux read:</strong></em> <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/input/input.txt">Documentation/input/input.txt</a></p>
 </section>
 </section>
 <section id="more-information">
 <h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p><img alt="" src="drivers/linux-drivers/multifunction-device/page%3Eresources/tools-software/linux-drivers/snippets#input_pointers&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 </section>
 </section>
 

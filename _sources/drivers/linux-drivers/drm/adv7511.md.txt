@@ -1,24 +1,29 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/drm/adv7511
+title: ADV7535: MIPI/DSI Receiver with HDMI Transmitter
+---
+
 # ADV7511 HDMI transmitter Linux Driver
 
 ### Supported Devices
 
--   [ADV7511](adi>ADV7511)
--   [ADV7511W](adi>ADV7511W)
--   [ADV7513](adi>ADV7513)
--   [ADV7533](adi>ADV7533)
--   [ADV7535](adi>ADV7535)
+-   [ADV7511](https://analog.com/ADV7511)
+-   [ADV7511W](https://analog.com/ADV7511W)
+-   [ADV7513](https://analog.com/ADV7513)
+-   [ADV7533](https://analog.com/ADV7533)
+-   [ADV7535](https://analog.com/ADV7535)
 
 ### Reference Circuits
 
--   [CN0224](adi>CN0224)
+-   [CN0224](https://analog.com/CN0224)
 
 ### Evaluation Boards
 
--   [EVAL-ADV7511W](adi>EVAL-ADV7511W)
--   [EVAL-ADV7612](adi>EVAL-ADV7612)
--   [EVAL-ADV7612-7511](adi>EVAL-ADV7612-7511)
--   [EVAL-ADV7842](adi>EVAL-ADV7842)
--   [EVAL-ADV7842-7511](adi>EVAL-ADV7842-7511)
+-   [EVAL-ADV7511W](https://analog.com/EVAL-ADV7511W)
+-   [EVAL-ADV7612](https://analog.com/EVAL-ADV7612)
+-   [EVAL-ADV7612-7511](https://analog.com/EVAL-ADV7612-7511)
+-   [EVAL-ADV7842](https://analog.com/EVAL-ADV7842)
+-   [EVAL-ADV7842-7511](https://analog.com/EVAL-ADV7842-7511)
 
 ### Description
 
@@ -82,7 +87,7 @@ The driver supports audio via HDMI as well by implementing a ASoC codec driver. 
 
 Usually the DRM encoder slave will be instantiated by a DRM encoder driver. After the encoder slave has been instantiated it needs to be configured by the DRM encoder driver. The configuration includes settings like physical connection to the host graphics core as well as the output video format. If necessary the configuration can be changed at runtime, e.g. to change the output format if a HDMI sink with different capabilities is connected.
 
-Configuration for the ADV7511 is done through the adv7511_video_input_config which should be passed to the slave encoder\'s set_config callback function.
+Configuration for the ADV7511 is done through the adv7511_video_input_config which should be passed to the slave encoder's set_config callback function.
 
 ``` c
 /**
@@ -462,12 +467,15 @@ static struct snd_soc_card hdmi_card = {
 
 ## Enabling Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The ADV7511 Driver depends on **CONFIG_DRM** and **CONFIG_I2C**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -482,4 +490,6 @@ The ADV7511 Driver depends on **CONFIG_DRM** and **CONFIG_I2C**
 -   [HDL AXI SPIDF Linux Driver](..//sound/hdl-axi-spidf)
 -   [Linux with HDMI video output on the ZED and ZC702 boards](..//platforms/zynq)
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

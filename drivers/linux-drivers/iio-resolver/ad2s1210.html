@@ -97,22 +97,8 @@
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#driver-usage">Driver Usage</a><ul>
 <li><a class="reference internal" href="#interfacing-with-the-ad2s1210-via-iio-attr">Interfacing With the AD2S1210 via iio_attr</a></li>
-<li><a class="reference internal" href="#interfacing-with-the-ad2s1210-via-sys-bus">Interfacing With the AD2S1210 via /sys/bus</a></li>
-<li><a class="reference internal" href="#triggered-buffer">Triggered buffer</a></li>
-<li><a class="reference internal" href="#reading-iio-events">Reading IIO Events</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#usage-with-the-eval-ad2s1210sdz-evaluation-board">Usage With the EVAL-AD2S1210SDZ Evaluation Board</a><ul>
-<li><a class="reference internal" href="#interfacing-with-a-raspberry-pi">Interfacing With a Raspberry Pi</a><ul>
-<li><a class="reference internal" href="#wiring">Wiring</a></li>
-<li><a class="reference internal" href="#device-tree">Device Tree</a></li>
-<li><a class="reference internal" href="#sample-images">Sample Images</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#zedboard">Zedboard</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
 </ul>
 </li>
 </ul>
@@ -188,7 +174,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -255,7 +243,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">AD2S1210</a></li>
@@ -313,27 +303,27 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD2S1210"><span class="xref myst">AD2S1210</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD2S1210">AD2S1210</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD2S1210SDZ"><span class="xref myst">EVAL-AD2S1210SDZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD2S1210SDZ">EVAL-AD2S1210SDZ</a></p></li>
 </ul>
 </section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3ECN0192"><span class="xref myst">CN0192</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0276"><span class="xref myst">CN0276</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0317"><span class="xref myst">CN0317</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0192">CN0192</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0276">CN0276</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0317">CN0317</a></p></li>
 </ul>
 </section>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3Ead2s1200"><span class="xref myst">Product Page</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ad2s1200">Product Page</a></p></li>
 </ul>
 <p>This is a Linux industrial I/O (<a class="reference internal" href="#/software/linux/docs/iio/iio"><span class="xref myst">IIO</span></a>) subsystem driver, targeting Resolver-to-Digital Converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
@@ -385,9 +375,11 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The Driver depends on <strong>CONFIG_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The Driver depends on <strong>CONFIG_SPI</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         [*] Staging drivers  ---&gt;
@@ -523,191 +515,277 @@ The Driver depends on <strong>CONFIG_SPI</strong>
 <section id="interfacing-with-the-ad2s1210-via-iio-attr">
 <h3>Interfacing With the AD2S1210 via iio_attr<a class="headerlink" href="#interfacing-with-the-ad2s1210-via-iio-attr" title="Link to this heading">¶</a></h3>
 <p>Accessing a list of channels:</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-analog&#64;setup-2-zed:~ $ iio_attr ad2s1210 -c
-dev ‘ad2s1210’, channel ‘angl0’ (input, index: 0, format: be:U16/16&gt;&gt;0), found 5 channel-specific attributes
-dev ‘ad2s1210’, channel ‘anglvel0’ (input, index: 1, format: be:S16/16&gt;&gt;0), found 3 channel-specific attributes
-dev ‘ad2s1210’, channel ‘timestamp’ (input, index: 2, format: le:S64/64&gt;&gt;0), found 0 channel-specific attributes
-dev ‘ad2s1210’, channel ‘phase0’ (input), found 1 channel-specific attributes
-dev ‘ad2s1210’, channel ‘altvoltage0’ (output), found 3 channel-specific attributes
-dev ‘ad2s1210’, channel ‘altvoltage2’ (input), found 1 channel-specific attributes
-dev ‘ad2s1210’, channel ‘angl1’ (input), found 1 channel-specific attributes
-dev ‘ad2s1210’, channel ‘altvoltage0’ (input), found 1 channel-specific attributes
-dev ‘ad2s1210’, channel ‘altvoltage1’ (input), found 1 channel-specific attributes
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>For example, to get position channel <strong>angl0</strong>:
-&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-analog&#64;setup-2-zed:~ $ iio_attr ad2s1210 -ci angl0
-dev ‘ad2s1210’, channel ‘angl0’ (input), attr ‘hysteresis’, value ‘1’
-dev ‘ad2s1210’, channel ‘angl0’ (input), attr ‘hysteresis_available’, value ‘0 1’
-dev ‘ad2s1210’, channel ‘angl0’ (input), attr ‘label’, value ‘position’
-dev ‘ad2s1210’, channel ‘angl0’ (input), attr ‘raw’, value ‘34114’
-dev ‘ad2s1210’, channel ‘angl0’ (input), attr ‘scale’, value ‘0.000095874’
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog@setup-2-zed:~<span class="w"> </span>$<span class="w"> </span>iio_attr<span class="w"> </span>ad2s1210<span class="w"> </span>-c
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;angl0&#39;</span><span class="w"> </span><span class="o">(</span>input,<span class="w"> </span>index:<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>format:<span class="w"> </span>be:U16/16&gt;&gt;0<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">5</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;anglvel0&#39;</span><span class="w"> </span><span class="o">(</span>input,<span class="w"> </span>index:<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>format:<span class="w"> </span>be:S16/16&gt;&gt;0<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">3</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;timestamp&#39;</span><span class="w"> </span><span class="o">(</span>input,<span class="w"> </span>index:<span class="w"> </span><span class="m">2</span>,<span class="w"> </span>format:<span class="w"> </span>le:S64/64&gt;&gt;0<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">0</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;phase0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">1</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;altvoltage0&#39;</span><span class="w"> </span><span class="o">(</span>output<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">3</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;altvoltage2&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">1</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;angl1&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">1</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;altvoltage0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">1</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;altvoltage1&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>found<span class="w"> </span><span class="m">1</span><span class="w"> </span>channel-specific<span class="w"> </span>attributes
+</pre></div>
+</div>
+<div class="docutils">
+<p>For example, to get position channel <strong>angl0</strong>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog@setup-2-zed:~<span class="w"> </span>$<span class="w"> </span>iio_attr<span class="w"> </span>ad2s1210<span class="w"> </span>-ci<span class="w"> </span>angl0
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;angl0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;hysteresis&#39;</span>,<span class="w"> </span>value<span class="w"> </span><span class="s1">&#39;1&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;angl0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;hysteresis_available&#39;</span>,<span class="w"> </span>value<span class="w"> </span><span class="s1">&#39;0 1&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;angl0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;label&#39;</span>,<span class="w"> </span>value<span class="w"> </span><span class="s1">&#39;position&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;angl0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;raw&#39;</span>,<span class="w"> </span>value<span class="w"> </span><span class="s1">&#39;34114&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;angl0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;scale&#39;</span>,<span class="w"> </span>value<span class="w"> </span><span class="s1">&#39;0.000095874&#39;</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p>Or velocity channel <strong>anglvel0</strong>:</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-analog&#64;setup-2-zed:~ $ iio_attr ad2s1210 -ci anglvel0
-dev ‘ad2s1210’, channel ‘anglvel0’ (input), attr ‘label’, value ‘velocity’
-dev ‘ad2s1210’, channel ‘anglvel0’ (input), attr ‘raw’, value ‘0’
-dev ‘ad2s1210’, channel ‘anglvel0’ (input), attr ‘scale’, value ‘0.023968449’
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="interfacing-with-the-ad2s1210-via-sys-bus">
-<h3>Interfacing With the AD2S1210 via /sys/bus<a class="headerlink" href="#interfacing-with-the-ad2s1210-via-sys-bus" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog@setup-2-zed:~<span class="w"> </span>$<span class="w"> </span>iio_attr<span class="w"> </span>ad2s1210<span class="w"> </span>-ci<span class="w"> </span>anglvel0
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;anglvel0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;label&#39;</span>,<span class="w"> </span>value<span class="w"> </span><span class="s1">&#39;velocity&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;anglvel0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;raw&#39;</span>,<span class="w"> </span>value<span class="w"> </span><span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;ad2s1210&#39;</span>,<span class="w"> </span>channel<span class="w"> </span><span class="s1">&#39;anglvel0&#39;</span><span class="w"> </span><span class="o">(</span>input<span class="o">)</span>,<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;scale&#39;</span>,<span class="w"> </span>value<span class="w"> </span><span class="s1">&#39;0.023968449&#39;</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="interfacing-with-the-ad2s1210-via-sys-bus">Interfacing With the AD2S1210 via /sys/bus</h3>
 <p>Alternatively, you can read and write data directly from the device path in /sys/bus:</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-analog&#64;setup-2-zed:~ $ cd /sys/bus/iio/devices/iio\:device1/</p>
-<p>analog&#64;setup-2-zed:/sys/bus/iio/devices/iio:device1 $ tree
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog@setup-2-zed:~<span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/sys/bus/iio/devices/iio:device1/
+
+analog@setup-2-zed:/sys/bus/iio/devices/iio:device1<span class="w"> </span>$<span class="w"> </span>tree
 .
-├── buffer
-│   ├── data_available
-│   ├── direction
-│   ├── enable
-│   ├── length
-│   └── watermark
-├── buffer0
-│   ├── data_available
-│   ├── direction
-│   ├── enable
-│   ├── in_angl0_en
-│   ├── in_angl0_index
-│   ├── in_angl0_type
-│   ├── in_anglvel0_en
-│   ├── in_anglvel0_index
-│   ├── in_anglvel0_type
-│   ├── in_timestamp_en
-│   ├── in_timestamp_index
-│   ├── in_timestamp_type
-│   ├── length
-│   └── watermark
-├── current_timestamp_clock
-├── dev
-├── events
-│   ├── in_altvoltage0_mag_rising_label
-│   ├── in_altvoltage0_mag_rising_reset_max
-│   ├── in_altvoltage0_mag_rising_reset_max_available
-│   ├── in_altvoltage0_mag_rising_reset_min
-│   ├── in_altvoltage0_mag_rising_reset_min_available
-│   ├── in_altvoltage0_mag_rising_value
-│   ├── in_altvoltage0_mag_rising_value_available
-│   ├── in_altvoltage0_thresh_falling_label
-│   ├── in_altvoltage0_thresh_falling_value
-│   ├── in_altvoltage0_thresh_falling_value_available
-│   ├── in_altvoltage0_thresh_rising_label
-│   ├── in_altvoltage0_thresh_rising_value
-│   ├── in_altvoltage0_thresh_rising_value_available
-│   ├── in_altvoltage1_mag_either_label
-│   ├── in_altvoltage2_mag_either_label
-│   ├── in_angl1_thresh_rising_hysteresis
-│   ├── in_angl1_thresh_rising_hysteresis_available
-│   ├── in_angl1_thresh_rising_label
-│   ├── in_angl1_thresh_rising_value
-│   ├── in_angl1_thresh_rising_value_available
-│   ├── in_anglvel0_mag_rising_label
-│   ├── in_phase0_mag_rising_label
-│   ├── in_phase0_mag_rising_value
-│   └── in_phase0_mag_rising_value_available
-├── in_altvoltage0_label
-├── in_altvoltage1_label
-├── in_altvoltage2_label
-├── in_angl0_hysteresis
-├── in_angl0_hysteresis_available
-├── in_angl0_label
-├── in_angl0_raw
-├── in_angl0_scale
-├── in_angl1_label
-├── in_anglvel0_label
-├── in_anglvel0_raw
-├── in_anglvel0_scale
-├── in_phase0_label
-├── name
-├── of_node -&gt; …/…/…/…/…/…/…/…/firmware/devicetree/base/axi/spi&#64;e0006000/ad2s1210&#64;0
-├── out_altvoltage0_frequency
-├── out_altvoltage0_frequency_available
-├── out_altvoltage0_label
-├── power
-│   ├── autosuspend_delay_ms
-│   ├── control
-│   ├── runtime_active_time
-│   ├── runtime_status
-│   └── runtime_suspended_time
-├── scan_elements
-│   ├── in_angl0_en
-│   ├── in_angl0_index
-│   ├── in_angl0_type
-│   ├── in_anglvel0_en
-│   ├── in_anglvel0_index
-│   ├── in_anglvel0_type
-│   ├── in_timestamp_en
-│   ├── in_timestamp_index
-│   └── in_timestamp_type
-├── subsystem -&gt; …/…/…/…/…/…/…/…/bus/iio
-├── trigger
-│   └── current_trigger
-├── uevent
-└── waiting_for_supplier</p>
-<p>analog&#64;setup-2-zed:/sys/bus/iio/devices/iio:device1 $ cat name
-ad2s1210</p>
-<p>analog&#64;setup-2-zed:/sys/bus/iio/devices/iio:device1 $ cat in_angl0_raw
-34115
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+├──<span class="w"> </span>buffer
+│<span class="w">   </span>├──<span class="w"> </span>data_available
+│<span class="w">   </span>├──<span class="w"> </span>direction
+│<span class="w">   </span>├──<span class="w"> </span><span class="nb">enable</span>
+│<span class="w">   </span>├──<span class="w"> </span>length
+│<span class="w">   </span>└──<span class="w"> </span>watermark
+├──<span class="w"> </span>buffer0
+│<span class="w">   </span>├──<span class="w"> </span>data_available
+│<span class="w">   </span>├──<span class="w"> </span>direction
+│<span class="w">   </span>├──<span class="w"> </span><span class="nb">enable</span>
+│<span class="w">   </span>├──<span class="w"> </span>in_angl0_en
+│<span class="w">   </span>├──<span class="w"> </span>in_angl0_index
+│<span class="w">   </span>├──<span class="w"> </span>in_angl0_type
+│<span class="w">   </span>├──<span class="w"> </span>in_anglvel0_en
+│<span class="w">   </span>├──<span class="w"> </span>in_anglvel0_index
+│<span class="w">   </span>├──<span class="w"> </span>in_anglvel0_type
+│<span class="w">   </span>├──<span class="w"> </span>in_timestamp_en
+│<span class="w">   </span>├──<span class="w"> </span>in_timestamp_index
+│<span class="w">   </span>├──<span class="w"> </span>in_timestamp_type
+│<span class="w">   </span>├──<span class="w"> </span>length
+│<span class="w">   </span>└──<span class="w"> </span>watermark
+├──<span class="w"> </span>current_timestamp_clock
+├──<span class="w"> </span>dev
+├──<span class="w"> </span>events
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_mag_rising_label
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_mag_rising_reset_max
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_mag_rising_reset_max_available
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_mag_rising_reset_min
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_mag_rising_reset_min_available
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_mag_rising_value
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_mag_rising_value_available
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_thresh_falling_label
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_thresh_falling_value
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_thresh_falling_value_available
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_thresh_rising_label
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_thresh_rising_value
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage0_thresh_rising_value_available
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage1_mag_either_label
+│<span class="w">   </span>├──<span class="w"> </span>in_altvoltage2_mag_either_label
+│<span class="w">   </span>├──<span class="w"> </span>in_angl1_thresh_rising_hysteresis
+│<span class="w">   </span>├──<span class="w"> </span>in_angl1_thresh_rising_hysteresis_available
+│<span class="w">   </span>├──<span class="w"> </span>in_angl1_thresh_rising_label
+│<span class="w">   </span>├──<span class="w"> </span>in_angl1_thresh_rising_value
+│<span class="w">   </span>├──<span class="w"> </span>in_angl1_thresh_rising_value_available
+│<span class="w">   </span>├──<span class="w"> </span>in_anglvel0_mag_rising_label
+│<span class="w">   </span>├──<span class="w"> </span>in_phase0_mag_rising_label
+│<span class="w">   </span>├──<span class="w"> </span>in_phase0_mag_rising_value
+│<span class="w">   </span>└──<span class="w"> </span>in_phase0_mag_rising_value_available
+├──<span class="w"> </span>in_altvoltage0_label
+├──<span class="w"> </span>in_altvoltage1_label
+├──<span class="w"> </span>in_altvoltage2_label
+├──<span class="w"> </span>in_angl0_hysteresis
+├──<span class="w"> </span>in_angl0_hysteresis_available
+├──<span class="w"> </span>in_angl0_label
+├──<span class="w"> </span>in_angl0_raw
+├──<span class="w"> </span>in_angl0_scale
+├──<span class="w"> </span>in_angl1_label
+├──<span class="w"> </span>in_anglvel0_label
+├──<span class="w"> </span>in_anglvel0_raw
+├──<span class="w"> </span>in_anglvel0_scale
+├──<span class="w"> </span>in_phase0_label
+├──<span class="w"> </span>name
+├──<span class="w"> </span>of_node<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../firmware/devicetree/base/axi/spi@e0006000/ad2s1210@0
+├──<span class="w"> </span>out_altvoltage0_frequency
+├──<span class="w"> </span>out_altvoltage0_frequency_available
+├──<span class="w"> </span>out_altvoltage0_label
+├──<span class="w"> </span>power
+│<span class="w">   </span>├──<span class="w"> </span>autosuspend_delay_ms
+│<span class="w">   </span>├──<span class="w"> </span>control
+│<span class="w">   </span>├──<span class="w"> </span>runtime_active_time
+│<span class="w">   </span>├──<span class="w"> </span>runtime_status
+│<span class="w">   </span>└──<span class="w"> </span>runtime_suspended_time
+├──<span class="w"> </span>scan_elements
+│<span class="w">   </span>├──<span class="w"> </span>in_angl0_en
+│<span class="w">   </span>├──<span class="w"> </span>in_angl0_index
+│<span class="w">   </span>├──<span class="w"> </span>in_angl0_type
+│<span class="w">   </span>├──<span class="w"> </span>in_anglvel0_en
+│<span class="w">   </span>├──<span class="w"> </span>in_anglvel0_index
+│<span class="w">   </span>├──<span class="w"> </span>in_anglvel0_type
+│<span class="w">   </span>├──<span class="w"> </span>in_timestamp_en
+│<span class="w">   </span>├──<span class="w"> </span>in_timestamp_index
+│<span class="w">   </span>└──<span class="w"> </span>in_timestamp_type
+├──<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../bus/iio
+├──<span class="w"> </span>trigger
+│<span class="w">   </span>└──<span class="w"> </span>current_trigger
+├──<span class="w"> </span>uevent
+└──<span class="w"> </span>waiting_for_supplier
+
+analog@setup-2-zed:/sys/bus/iio/devices/iio:device1<span class="w"> </span>$<span class="w"> </span>cat<span class="w"> </span>name
+ad2s1210
+
+analog@setup-2-zed:/sys/bus/iio/devices/iio:device1<span class="w"> </span>$<span class="w"> </span>cat<span class="w"> </span>in_angl0_raw
+<span class="m">34115</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p>Hysteresis can be enabled or disabled this way. To do so, first check the output of in_angl0_hysteresis_available:</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;setup-2-zed:/sys/bus/iio/devices/iio:device1# cat in_angl0_hysteresis_available
-0 1
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@setup-2-zed:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>cat<span class="w"> </span>in_angl0_hysteresis_available
+<span class="m">0</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p>To turn hysteresis off, write the first value from the output to in_angl0_hysteresis:</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;setup-2-zed:/sys/bus/iio/devices/iio:device1# echo 0 &gt; in_angl0_hysteresis
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@setup-2-zed:/sys/bus/iio/devices/iio:device1#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>in_angl0_hysteresis
+</pre></div>
+</div>
+<div class="docutils">
 <p>To turn it on, write the second value (which is dependent on the assigned bits for resolution and may not always be 1):</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;setup-2-zed:/sys/bus/iio/devices/iio:device1# echo 1 &gt; in_angl0_hysteresis
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="triggered-buffer">
-<h3>Triggered buffer<a class="headerlink" href="#triggered-buffer" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@setup-2-zed:/sys/bus/iio/devices/iio:device1#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>in_angl0_hysteresis
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="triggered-buffer">Triggered buffer</h3>
 <p>To generate samples using the triggered buffer, you will need a trigger. You can create an hrtimer trigger and test it by retrieving samples like this:</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;setup-2-zed:~# mkdir /sys/kernel/config/iio/triggers/hrtimer/test
-root&#64;setup-2-zed:~# iio_readdev ad2s1210 -t test -s 1000 -T 10000 | hd
-WARNING: High-speed mode not enabled
-00000000 85 41 00 00 00 00 00 00 82 e1 7d ad 09 54 9e 17 |.A.….…}…T…|
-00000010 85 41 00 00 00 00 00 00 00 70 16 ae 09 54 9e 17 |.A.….…p.…T…|
-00000020 85 42 00 00 00 00 00 00 5f 06 af ae 09 54 9e 17 |.B.….…_.…T…|
-00000030 85 41 00 00 00 00 00 00 3f a2 47 af 09 54 9e 17 |.A.….…?.G…T…|
-00000040 85 42 00 00 00 00 00 00 7f 32 e0 af 09 54 9e 17 |.B.….…2.…T…|
-00000050 85 41 00 00 00 00 00 00 41 c8 78 b0 09 54 9e 17 |.A.….…A.x…T…|
-00000060 85 41 00 00 00 00 00 00 ab 64 11 b1 09 54 9e 17 |.A.….…d.…T…|
-00000070 85 41 00 00 00 00 00 00 fb f6 a9 b1 09 54 9e 17 |.A.….….…T…|
-00000080 85 41 00 00 00 00 00 00 85 8b 42 b2 09 54 9e 17 |.A.….…B…T…|
-00000090 85 41 ff ff 00 00 00 00 13 22 db b2 09 54 9e 17 |.A.….…”.…T…|
-000000a0 85 42 00 00 00 00 00 00 e3 b8 73 b3 09 54 9e 17 |.B.….…s…T…|
-000000b0 85 42 00 00 00 00 00 00 53 4f 0c b4 09 54 9e 17 |.B.….…SO.…T…|
-000000c0 85 41 00 00 00 00 00 00 6a e8 a4 b4 09 54 9e 17 |.A.….…j.…T…|
-000000d0 85 41 00 00 00 00 00 00 24 7d 3d b5 09 54 9e 17 |.A.….…$}=…T…|
-000000e0 85 41 ff ff 00 00 00 00 7c 13 d6 b5 09 54 9e 17 |.A.….…|.…T…|
-000000f0 85 41 00 00 00 00 00 00 2c a9 6e b6 09 54 9e 17 |.A.….…,.n…T…|
-.…
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>&lt;note important&gt; using the -t option to specify the trigger with iio_readdev resets the sampling rate of the hrtimer trigger back to 100Hz!&lt;/note&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@setup-2-zed:~#<span class="w"> </span>mkdir<span class="w"> </span>/sys/kernel/config/iio/triggers/hrtimer/test
+root@setup-2-zed:~#<span class="w"> </span>iio_readdev<span class="w"> </span>ad2s1210<span class="w"> </span>-t<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-s<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-T<span class="w"> </span><span class="m">10000</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>hd
+WARNING:<span class="w"> </span>High-speed<span class="w"> </span>mode<span class="w"> </span>not<span class="w"> </span>enabled
+<span class="m">00000000</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">82</span><span class="w"> </span>e1<span class="w"> </span>7d<span class="w"> </span>ad<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.A........<span class="o">}</span>..T..<span class="p">|</span>
+<span class="m">00000010</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">70</span><span class="w"> </span><span class="m">16</span><span class="w"> </span>ae<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.A.......p...T..<span class="p">|</span>
+<span class="m">00000020</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span>5f<span class="w"> </span><span class="m">06</span><span class="w"> </span>af<span class="w"> </span>ae<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.B......_....T..<span class="p">|</span>
+<span class="m">00000030</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span>3f<span class="w"> </span>a2<span class="w"> </span><span class="m">47</span><span class="w"> </span>af<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.A......?.G..T..<span class="p">|</span>
+<span class="m">00000040</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span>7f<span class="w"> </span><span class="m">32</span><span class="w"> </span>e0<span class="w"> </span>af<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.B.......2...T..<span class="p">|</span>
+<span class="m">00000050</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">41</span><span class="w"> </span>c8<span class="w"> </span><span class="m">78</span><span class="w"> </span>b0<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.A......A.x..T..<span class="p">|</span>
+<span class="m">00000060</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span>ab<span class="w"> </span><span class="m">64</span><span class="w"> </span><span class="m">11</span><span class="w"> </span>b1<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.A.......d...T..<span class="p">|</span>
+<span class="m">00000070</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span>fb<span class="w"> </span>f6<span class="w"> </span>a9<span class="w"> </span>b1<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.A...........T..<span class="p">|</span>
+<span class="m">00000080</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">41</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">85</span><span class="w"> </span>8b<span class="w"> </span><span class="m">42</span><span class="w"> </span>b2<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.A........B..T..<span class="p">|</span>
+<span class="m">00000090</span><span class="w"> </span><span class="m">85</span><span class="w"> </span><span class="m">41</span><span class="w"> </span>ff<span class="w"> </span>ff<span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">22</span><span class="w"> </span>db<span class="w"> </span>b2<span class="w"> </span><span class="m">09</span><span class="w"> </span><span class="m">54</span><span class="w"> </span>9e<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="p">|</span>.A.......<span class="s2">&quot;...T..|</span>
+<span class="s2">000000a0 85 42 00 00 00 00 00 00 e3 b8 73 b3 09 54 9e 17 |.B........s..T..|</span>
+<span class="s2">000000b0 85 42 00 00 00 00 00 00 53 4f 0c b4 09 54 9e 17 |.B......SO...T..|</span>
+<span class="s2">000000c0 85 41 00 00 00 00 00 00 6a e8 a4 b4 09 54 9e 17 |.A......j....T..|</span>
+<span class="s2">000000d0 85 41 00 00 00 00 00 00 24 7d 3d b5 09 54 9e 17 |.A......</span>$<span class="s2">}=..T..|</span>
+<span class="s2">000000e0 85 41 ff ff 00 00 00 00 7c 13 d6 b5 09 54 9e 17 |.A......|....T..|</span>
+<span class="s2">000000f0 85 41 00 00 00 00 00 00 2c a9 6e b6 09 54 9e 17 |.A......,.n..T..|</span>
+<span class="s2">...</span>
+</pre></div>
+</div>
+<div class="docutils">
+<p><note important> using the -t option to specify the trigger with iio_readdev resets the sampling rate of the hrtimer trigger back to 100Hz!</note></p>
 <p>For other apps, we probably want a high sample rate. You can change the rate like this:</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;setup-2-zed:~# iio_attr -d test sampling_frequency 10000
-10000.000000
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="reading-iio-events">
-<h3>Reading IIO Events<a class="headerlink" href="#reading-iio-events" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@setup-2-zed:~#<span class="w"> </span>iio_attr<span class="w"> </span>-d<span class="w"> </span><span class="nb">test</span><span class="w"> </span>sampling_frequency<span class="w"> </span><span class="m">10000</span>
+<span class="m">10000</span>.000000
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="reading-iio-events">Reading IIO Events</h3>
 <p>See <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/iio/iio_event_monitor.c">iio_event_monitor</a> for an example of a program designed to read IIO events.</p>
 <p>Fault to event mapping:</p>
 <table>
@@ -788,14 +866,9 @@ root&#64;setup-2-zed:~# iio_attr -d test sampling_frequency 10000
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="usage-with-the-eval-ad2s1210sdz-evaluation-board">
-<h2>Usage With the EVAL-AD2S1210SDZ Evaluation Board<a class="headerlink" href="#usage-with-the-eval-ad2s1210sdz-evaluation-board" title="Link to this heading">¶</a></h2>
-<section id="interfacing-with-a-raspberry-pi">
-<h3>Interfacing With a Raspberry Pi<a class="headerlink" href="#interfacing-with-a-raspberry-pi" title="Link to this heading">¶</a></h3>
-<section id="wiring">
-<h4>Wiring<a class="headerlink" href="#wiring" title="Link to this heading">¶</a></h4>
+<h2 class="rubric" id="usage-with-the-eval-ad2s1210sdz-evaluation-board">Usage With the EVAL-AD2S1210SDZ Evaluation Board</h2>
+<h3 class="rubric" id="interfacing-with-a-raspberry-pi">Interfacing With a Raspberry Pi</h3>
+<h4 class="rubric" id="wiring">Wiring</h4>
 <table>
 <thead>
 <tr class="header">
@@ -973,29 +1046,24 @@ root&#64;setup-2-zed:~# iio_attr -d test sampling_frequency 10000
 </tr>
 </tbody>
 </table>
-</section>
-<section id="device-tree">
-<h4>Device Tree<a class="headerlink" href="#device-tree" title="Link to this heading">¶</a></h4>
+<h4 class="rubric" id="device-tree">Device Tree</h4>
 <p>Add <code class="docutils literal notranslate"><span class="pre">dtoverlay=ad2s1210</span></code> to <code class="docutils literal notranslate"><span class="pre">/boot/config.txt</span></code>.</p>
 <p>Overlay: <a class="reference external" href="https://raw.githubusercontent.com/analogdevicesinc/linux/rpi-6.1.y/arch/arm/boot/dts/overlays/ad2s1210-overlay.dts">ad2s1210-overlay.dts</a></p>
-</section>
-<section id="sample-images">
-<h4>Sample Images<a class="headerlink" href="#sample-images" title="Link to this heading">¶</a></h4>
+<h4 class="rubric" id="sample-images">Sample Images</h4>
 <p>Eval board connections:</p>
-<p><img alt="img_20231206_135017785_hdr.jpg" src="resources/tools-software/linux-drivers/iio-resolver/img_20231206_135017785_hdr.jpg" />{width=“400” query=“?400”}</p>
+<a class="reference internal image-reference" href="../../../_images/img_20231206_135017785_hdr.jpg"><img alt="img_20231206_135017785_hdr.jpg" src="../../../_images/img_20231206_135017785_hdr.jpg" style="width: 400px;" />
+</a>
 <p>Raspberry Pi connections:</p>
-<p><img alt="img_20231206_135039086.jpg" src="resources/tools-software/linux-drivers/iio-resolver/img_20231206_135039086.jpg" />{width=“400” query=“?400”}</p>
-</section>
-</section>
-<section id="zedboard">
-<h3>Zedboard<a class="headerlink" href="#zedboard" title="Link to this heading">¶</a></h3>
-<p><img alt="img_20231207_080341.jpg" src="resources/tools-software/linux-drivers/iio-resolver/img_20231207_080341.jpg" />{width=“400” query=“?400”}</p>
+<a class="reference internal image-reference" href="../../../_images/img_20231206_135039086.jpg"><img alt="img_20231206_135039086.jpg" src="../../../_images/img_20231206_135039086.jpg" style="width: 400px;" />
+</a>
+<h3 class="rubric" id="zedboard">Zedboard</h3>
+<a class="reference internal image-reference" href="../../../_images/img_20231207_080341.jpg"><img alt="img_20231207_080341.jpg" src="../../../_images/img_20231207_080341.jpg" style="width: 400px;" />
+</a>
 <p>See <a class="reference internal" href="#/resources/eval/user-guides/ad2s1210_sdz"><span class="xref myst">ad2s1210_sdz</span></a> for a detailed setup guide</p>
+<h2 class="rubric" id="more-information">More Information</h2>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
 </section>
 </section>
 

@@ -1,20 +1,25 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/serial/max310x
+title: MAX14830: Quad Serial UART with 128-Word FIFOs
+---
+
 # MAX310x Driver
 
 ### Supported devices
 
-[MAX3107](maxim>en/products/interface/controllers-expanders/MAX3107.html)
+[MAX3107](https://maximintegrated.com/en/products/interface/controllers-expanders/MAX3107.html)
 
-[MAX3108](maxim>en/products/interface/controllers-expanders/MAX3108.html)
+[MAX3108](https://maximintegrated.com/en/products/interface/controllers-expanders/MAX3108.html)
 
-[MAX3109](maxim>en/products/interface/controllers-expanders/MAX3109.html)
+[MAX3109](https://maximintegrated.com/en/products/interface/controllers-expanders/MAX3109.html)
 
-[MAX14830](maxim>en/products/interface/controllers-expanders/MAX14830.html)
+[MAX14830](https://maximintegrated.com/en/products/interface/controllers-expanders/MAX14830.html)
 
 ### Evaluation boards
 
-[MAX3107EVKIT](maxim>en/products/interface/controllers-expanders/MAX3107EVKIT.html)
+[MAX3107EVKIT](https://maximintegrated.com/en/products/interface/controllers-expanders/MAX3107EVKIT.html)
 
-[MAX14830EVKIT](maxim>en/products/interface/controllers-expanders/MAX14830EVKIT.html)
+[MAX14830EVKIT](https://maximintegrated.com/en/products/interface/controllers-expanders/MAX14830EVKIT.html)
 
 ### Overview
 
@@ -23,9 +28,9 @@ The MAX310x devices are advanced UART with 128 words each of receive and transmi
 A PLL, predivider, and fractional baud-rate generator allow high-resolution baud-rate programming and minimize the dependency of baud rate on reference clock frequency.
 
 The
-[MAX3109](maxim>en/products/interface/controllers-expanders/MAX3109.html)
+[MAX3109](https://maximintegrated.com/en/products/interface/controllers-expanders/MAX3109.html)
 is a dual-channel device, while the
-[MAX14830](maxim>en/products/interface/controllers-expanders/MAX14830.html)
+[MAX14830](https://maximintegrated.com/en/products/interface/controllers-expanders/MAX14830.html)
 is quad-channel.
 
 ## Source Code
@@ -80,11 +85,11 @@ Example device tree
 <tbody>
 <tr class="odd">
 <td>i2c dts</td>
-<td><a href="linux.github&gt;rpi-5.10.y?arch/arm/boot/dts/overlays/rpi-max14830-i2c-overlay.dts">rpi-max14830-i2c-overlay.dts</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/rpi-5.10.y?arch/arm/boot/dts/overlays/rpi-max14830-i2c-overlay.dts">rpi-max14830-i2c-overlay.dts</a></td>
 </tr>
 <tr class="even">
 <td>spi dts</td>
-<td><a href="linux.github&gt;rpi-5.10.y?arch/arm/boot/dts/overlays/rpi-max14830-spi-overlay.dts">rpi-max14830-spi-overlay.dts</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/rpi-5.10.y?arch/arm/boot/dts/overlays/rpi-max14830-spi-overlay.dts">rpi-max14830-spi-overlay.dts</a></td>
 </tr>
 </tbody>
 </table>
@@ -97,7 +102,13 @@ To connect to these devices, use a Serial Terminal Emulaor (like GTKTerm, Picoco
 
 For example, to use Picocom to connect to UART port 0 of a MAX14830 device using a 9600 baud-rate, use the following command.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 picocom -b 9600 /dev/ttyMAX0
-\</xterm\>\</WRAP\>
+```
+:::
+

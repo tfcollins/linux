@@ -96,17 +96,7 @@
 <li><a class="reference internal" href="#example-platform-device-initialization">Example platform device initialization</a></li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#set-channely-output-frequency">Set ChannelY Output Frequency</a></li>
-<li><a class="reference internal" href="#set-channely-output-divider-phase">Set ChannelY Output Divider Phase</a></li>
-<li><a class="reference internal" href="#disable-power-down-channely">Disable / Power Down ChannelY</a></li>
-<li><a class="reference internal" href="#query-device-status">Query Device Status</a></li>
-<li><a class="reference internal" href="#save-current-device-config-to-eeprom">Save Current Device Config to EEPROM</a></li>
-<li><a class="reference internal" href="#sync-device">SYNC Device</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -182,7 +172,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -249,7 +241,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -307,14 +301,14 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD9523-1"><span class="xref myst">AD9523-1</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD9523"><span class="xref myst">AD9523</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD9523-1">AD9523-1</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD9523">AD9523</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD9523-1"><span class="xref myst">AD9523-1/PCBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD9523-1">AD9523-1/PCBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -370,7 +364,7 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 <p>The reference frequency and GPIO numbers may vary between boards. The platform_data for the device’s “struct device” holds this information.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * struct ad9523_channel_spec - Output channel configuration</span>
@@ -620,11 +614,11 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 
 </pre></div>
 </div>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD9523) || defined(CONFIG_AD9523_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD9523) || defined(CONFIG_AD9523_MODULE)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ad9523-1&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">max_speed_hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w">     </span><span class="cm">/* max spi clock (SCK) speed in HZ */</span>
@@ -654,9 +648,11 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD9523 Driver depends on <strong>CONFIG_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD9523 Driver depends on <strong>CONFIG_SPI</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         &lt;*&gt;     Industrial I/O support ---&gt;
@@ -674,129 +670,179 @@ The AD9523 Driver depends on <strong>CONFIG_SPI</strong>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
 iio:device0
-root:/sys/bus/iio/devices&gt; <strong>iio:device0</strong></p>
-<p>root:/&gt; <strong>ls -l</strong>
-total 0
-drwxr-xr-x 2 root root 0 Jan 1 00:00 .
-drwxr-xr-x 3 root root 0 Jan 1 00:00 …
--r–r–r– 1 root root 4096 Jan 1 00:00 dev
--r–r–r– 1 root root 4096 Jan 1 00:00 name
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage0_ZD_OUTPUT_frequency
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage0_ZD_OUTPUT_phase
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage0_ZD_OUTPUT_raw
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage1_DAC_CLK_frequency
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage1_DAC_CLK_phase
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage1_DAC_CLK_raw
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage2_ADC_CLK_frequency
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage2_ADC_CLK_phase
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage2_ADC_CLK_raw
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage4_DAC_REF_CLK_frequency
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage4_DAC_REF_CLK_phase
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage4_DAC_REF_CLK_raw
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX_LO_REF_CLK_frequency
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX_LO_REF_CLK_phase
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX_LO_REF_CLK_raw
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage6_DAC_DCO_CLK_frequency
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage6_DAC_DCO_CLK_phase
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage6_DAC_DCO_CLK_raw
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage8_ADC_SYNC_CLK_frequency
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage8_ADC_SYNC_CLK_phase
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage8_ADC_SYNC_CLK_raw
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage9_RX_LO_REF_CLK_frequency
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage9_RX_LO_REF_CLK_phase
--rw-r–r– 1 root root 4096 Jan 1 00:00 out_altvoltage9_RX_LO_REF_CLK_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 pll1_locked
--r–r–r– 1 root root 4096 Jan 1 00:00 pll1_reference_clk_a_present
--r–r–r– 1 root root 4096 Jan 1 00:00 pll1_reference_clk_b_present
--r–r–r– 1 root root 4096 Jan 1 00:00 pll1_reference_clk_test_present
--r–r–r– 1 root root 4096 Jan 1 00:00 pll2_feedback_clk_present
--r–r–r– 1 root root 4096 Jan 1 00:00 pll2_locked
--r–r–r– 1 root root 4096 Jan 1 00:00 pll2_reference_clk_present
-–w——- 1 root root 4096 Jan 1 00:00 store_eeprom
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -&gt; …/…/…/…/…/…/…/…/…/bus/iio
-–w——- 1 root root 4096 Jan 1 00:00 sync_dividers
--rw-r–r– 1 root root 4096 Jan 1 00:00 uevent
--r–r–r– 1 root root 4096 Jan 1 00:00 vcxo_clk_present
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/iio\:device0/</strong>
-root:/&gt; <strong>cat name</strong>
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**iio:device0**
+
+root:/&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+total<span class="w"> </span><span class="m">0</span>
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>.
+drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>..
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>dev
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>name
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_ZD_OUTPUT_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_ZD_OUTPUT_phase
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_ZD_OUTPUT_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage1_DAC_CLK_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage1_DAC_CLK_phase
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage1_DAC_CLK_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage2_ADC_CLK_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage2_ADC_CLK_phase
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage2_ADC_CLK_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage4_DAC_REF_CLK_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage4_DAC_REF_CLK_phase
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage4_DAC_REF_CLK_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage5_TX_LO_REF_CLK_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage5_TX_LO_REF_CLK_phase
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage5_TX_LO_REF_CLK_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage6_DAC_DCO_CLK_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage6_DAC_DCO_CLK_phase
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage6_DAC_DCO_CLK_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage8_ADC_SYNC_CLK_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage8_ADC_SYNC_CLK_phase
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage8_ADC_SYNC_CLK_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage9_RX_LO_REF_CLK_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage9_RX_LO_REF_CLK_phase
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage9_RX_LO_REF_CLK_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>pll1_locked
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>pll1_reference_clk_a_present
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>pll1_reference_clk_b_present
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>pll1_reference_clk_test_present
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>pll2_feedback_clk_present
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>pll2_locked
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>pll2_reference_clk_present
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>store_eeprom
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../../bus/iio
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>sync_dividers
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>uevent
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>vcxo_clk_present
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/iio:device0/**
+root:/&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad9523-lpc
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-channely-output-frequency">
-<h3>Set ChannelY Output Frequency<a class="headerlink" href="#set-channely-output-frequency" title="Link to this heading">¶</a></h3>
-<p>/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency<br />
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-channely-output-frequency">Set ChannelY Output Frequency</h6>
+<p>/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency
 Output frequency for channel Y in Hz. The number must always be
 specified and unique if the output corresponds to a single
 channel.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cat out_altvoltage1_DAC_CLK_frequency</strong>
-491520000
-root:/&gt; <strong>echo 245760000 &gt; out_altvoltage1_DAC_CLK_frequency</strong>
-root:/&gt; <strong>cat out_altvoltage1_DAC_CLK_frequency</strong>
-245760000
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-channely-output-divider-phase">
-<h3>Set ChannelY Output Divider Phase<a class="headerlink" href="#set-channely-output-divider-phase" title="Link to this heading">¶</a></h3>
-<p>/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_phase<br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage1_DAC_CLK_frequency**
+<span class="m">491520000</span>
+root:/&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">245760000</span><span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage1_DAC_CLK_frequency**
+root:/&gt;<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage1_DAC_CLK_frequency**
+<span class="m">245760000</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-channely-output-divider-phase">Set ChannelY Output Divider Phase</h6>
+<p>/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_phase
 Phase in radians of one frequency/clock output Y
 (out_altvoltageY) relative to another frequency/clock output
 (out_altvoltageZ) of the device X. The number must always be
 specified and unique if the output corresponds to a single
 channel.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cat out_altvoltage1_DAC_CLK_phase</strong>
-0.000000
-root:/&gt; <strong>echo 3.142 &gt; out_altvoltage1_DAC_CLK_phase</strong>
-root:/&gt; <strong>cat out_altvoltage1_DAC_CLK_phase</strong>
-3.1415920
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="disable-power-down-channely">
-<h3>Disable / Power Down ChannelY<a class="headerlink" href="#disable-power-down-channely" title="Link to this heading">¶</a></h3>
-<p>/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_phase<br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage1_DAC_CLK_phase**
+<span class="m">0</span>.000000
+root:/&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">3</span>.142<span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage1_DAC_CLK_phase**
+root:/&gt;<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage1_DAC_CLK_phase**
+<span class="m">3</span>.1415920
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="disable-power-down-channely">Disable / Power Down ChannelY</h6>
+<p>/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_phase
 Writing ‘0’ powers down channelY, while writing any
 any value &gt; 0 enables the channel.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cat out_altvoltage1_DAC_CLK_raw</strong>
-1
-root:/&gt; <strong>echo 0 &gt; out_altvoltage1_DAC_CLK_raw</strong>
-root:/&gt; <strong>cat out_altvoltage1_DAC_CLK_raw</strong>
-0
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="query-device-status">
-<h3>Query Device Status<a class="headerlink" href="#query-device-status" title="Link to this heading">¶</a></h3>
-<p>/sys/bus/iio/devices/iio:deviceX/pll1_locked<br />
-/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_a_present<br />
-/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_b_present<br />
-/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_test_present<br />
-/sys/bus/iio/devices/iio:deviceX/pll2_feedback_clk_present<br />
-/sys/bus/iio/devices/iio:deviceX/pll2_locked<br />
-/sys/bus/iio/devices/iio:deviceX/pll2_reference_clk_present<br />
-/sys/bus/iio/devices/iio:deviceX/vcxo_clk_present<br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage1_DAC_CLK_raw**
+<span class="m">1</span>
+root:/&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage1_DAC_CLK_raw**
+root:/&gt;<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage1_DAC_CLK_raw**
+<span class="m">0</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="query-device-status">Query Device Status</h6>
+<p>/sys/bus/iio/devices/iio:deviceX/pll1_locked
+/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_a_present
+/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_b_present
+/sys/bus/iio/devices/iio:deviceX/pll1_reference_clk_test_present
+/sys/bus/iio/devices/iio:deviceX/pll2_feedback_clk_present
+/sys/bus/iio/devices/iio:deviceX/pll2_locked
+/sys/bus/iio/devices/iio:deviceX/pll2_reference_clk_present
+/sys/bus/iio/devices/iio:deviceX/vcxo_clk_present
 Reading returns either ‘1’ or ‘0’. ‘1’ means that the
 clock in question is present or the pllY is locked. ‘0’
 means that the clock is missing or the pllY is unlocked.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cat pll1_locked</strong>
-1</p>
-<p>root:/&gt; <strong>grep “” pll* vcxo</strong>*
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cat<span class="w"> </span>pll1_locked**
+<span class="m">1</span>
+
+root:/&gt;<span class="w"> </span>**grep<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>pll*<span class="w"> </span>vcxo***
 pll1_locked:1
 pll1_reference_clk_a_present:1
 pll1_reference_clk_b_present:0
@@ -804,37 +850,53 @@ pll1_reference_clk_test_present:0
 pll2_feedback_clk_present:1
 pll2_locked:1
 pll2_reference_clk_present:1
-vcxo_clk_present:1</p>
-<p>&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="save-current-device-config-to-eeprom">
-<h3>Save Current Device Config to EEPROM<a class="headerlink" href="#save-current-device-config-to-eeprom" title="Link to this heading">¶</a></h3>
-<p>/sys/bus/iio/devices/iio:deviceX/store_eeprom<br />
+vcxo_clk_present:1
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="save-current-device-config-to-eeprom">Save Current Device Config to EEPROM</h6>
+<p>/sys/bus/iio/devices/iio:deviceX/store_eeprom
 Writing ‘1’ stores the current device configuration into
 on-chip EEPROM. After power-up or chip reset the device will
 automatically load the saved configuration.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>echo 1 &gt; store_eeprom</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="sync-device">
-<h3>SYNC Device<a class="headerlink" href="#sync-device" title="Link to this heading">¶</a></h3>
-<p>/sys/bus/iio/devices/iio:deviceX/sync_dividers<br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>store_eeprom**
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="sync-device">SYNC Device</h6>
+<p>/sys/bus/iio/devices/iio:deviceX/sync_dividers
 Writing ‘1’ triggers the clock distribution synchronization
 functionality. All dividers are reset and the channels start
 with their predefined phase offsets (out_altvoltageY_phase).
 Writing this file has the effect as driving the external
 /SYNC pin low.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>echo 1 &gt; sync_dividers</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>sync_dividers**
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

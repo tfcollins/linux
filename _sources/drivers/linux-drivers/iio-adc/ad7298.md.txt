@@ -1,22 +1,27 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad7298
+title: AD7298: 8-Channel, 1MSPS, 12-Bit SAR ADC with Temperature Sensor
+---
+
 # AD7298 IIO Multi-Channel ADC Linux Driver
 
-### Supported Devices
+#### Supported Devices
 
--   [AD7298](adi>AD7298)
+-   [AD7298](https://analog.com/AD7298)
 
-### Evaluation Boards
+#### Evaluation Boards
 
--   [EVAL-AD7298SDZ](adi>EVAL-AD7298SDZ)
+-   [EVAL-AD7298SDZ](https://analog.com/EVAL-AD7298SDZ)
 
-### Description
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting multi channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-## Source Code
+### Source Code
 
-### Status
+#### Status
 
 <table>
 <thead>
@@ -33,7 +38,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-### Files
+#### Files
 
 <table>
 <thead>
@@ -54,11 +59,13 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-## Example platform device initialization
+### Example platform device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
-The reference voltage may vary between boards and models. The platform_data for the device\'s \"struct device\" holds this information.
+The reference voltage may vary between boards and models. The platform_data for the device's "struct device" holds this information.
 
 ``` c
 /**
@@ -76,18 +83,23 @@ static struct ad7298_platform_data ad7298_pdata = {
 };
 ```
 
-\<WRAP tip\>
-In case platform_data is not present or set to NULL, the driver will use the AD7298 internal reference.
-\</WRAP\>
+:::{NOTE} <!-- ATTRS: tip="" -->
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+In case platform_data is not present or set to NULL, the driver will use the AD7298 internal reference.
+
+:::
+
+
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
-#if defined(CONFIG_AD7298) || \
+## if defined(CONFIG_AD7298) || 
     defined(CONFIG_AD7298_MODULE)
     {
         .modalias = "ad7298",
@@ -97,7 +109,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
         .controller_data = &spi_ad7298_chip_info,
         .mode = SPI_MODE_1,
     },
-#endif
+## endif
 };
 ```
 
@@ -115,14 +127,17 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-## Adding Linux driver support
+### Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The AD7298 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -133,119 +148,173 @@ The AD7298 Driver depends on **CONFIG_SPI**
                 <*>   Analog Devices AD7298 ADC driver
                 [--snip--]
 
-## Hardware configuration
+### Hardware configuration
 
-## Driver testing
+### Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 device0 device0:buffer0:access0 trigger0
 device0:buffer0 device0:buffer0:event0
 
-root:/sys/bus/iio/devices\> **cd device0**
+root:/sys/bus/iio/devices> **cd device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **ls -l**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **ls -l**
 drwxr-xr-x 5 root root 0 Jan 1 00:00 device0:buffer0
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in0_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in1_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in2_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in3_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in4_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in5_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in6_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in7_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 name
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../../bus/iio
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 temp0_input
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in0_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in1_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in2_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in3_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in4_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in5_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in6_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in7_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_scale
+-r--r--r-- 1 root root 4096 Jan 1 00:00 name
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -> ../../../../../bus/iio
+-r--r--r-- 1 root root 4096 Jan 1 00:00 temp0_input
 drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 uevent
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\>
-\</xterm\>\</WRAP\>
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 uevent
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0>
+```
+:::
 
-##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat name**
+###### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat name**
 ad7298
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### Show internal temperature
 
-**Description:**\
+###### Show internal temperature
+
+**Description:**
 Shows high accuracy band gap temperature sensor temperature in milli degrees Celsius.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat temp0_input**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat temp0_input**
 29750
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 **T** = **29.75 *°C***
 
-##### Show scale
+###### Show scale
 
-**Description:**\
+**Description:**
 scale to be applied to in0_raw in order to obtain the measured voltage in millivolts.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in_scale**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat in_scale**
 0.610
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### Show channel 0 measurement
 
-**Description:**\
+###### Show channel 0 measurement
+
+**Description:**
 Raw unscaled voltage measurement on channel 0
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0\> **cat in0_raw**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat in0_raw**
 2158
-\</xterm\>\</WRAP\>
+```
+:::
 
-**U** = *in0_raw \* in_scale* = 2158 \* 0.610 = **1316,38 *mV***
 
-### Trigger management
+**U** = *in0_raw * in_scale* = 2158 * 0.610 = **1316,38 *mV***
 
-![iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn)
+#### Trigger management
 
-#### Available standalone trigger drivers
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_devices_with_trigger_consumer_interface.md
+```
 
-![iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn)
+##### Available standalone trigger drivers
 
-### Buffer management
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Standalone_trigger_drivers.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0\> ls
+#### Buffer management
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0> ls
 **bytes_per_datum** **enable** subsystem
 device0:buffer0:access0 **length** uevent
 device0:buffer0:event0 **scan_elements**
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0\>
-\</xterm\>\</WRAP\>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0>
+```
+:::
 
-![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0/scan_elements\> **ls**
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Buffer_management.md
+```
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0/scan_elements> **ls**
 in0_en in2_index in5_en in7_index
 in0_index in3_en in5_index in_type
 in1_en in3_index in6_en timestamp_en
 in1_index in4_en in6_index timestamp_index
 in2_en in4_index in7_en timestamp_type
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0/scan_elements\>
-\</xterm\>\</WRAP\>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0/scan_elements>
+```
+:::
 
-![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-## More Information
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Typical_ADC_scan_elements.md
+```
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+### More Information
+
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

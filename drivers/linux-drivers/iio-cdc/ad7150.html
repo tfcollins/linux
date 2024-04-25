@@ -95,17 +95,7 @@
 </li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-channel-cin1-measurement">Show channel CIN1(+) measurement</a></li>
-<li><a class="reference internal" href="#show-channel-cin1-average-measurement">Show channel CIN1(+) average measurement</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#hardware-events">Hardware Events</a><ul>
-<li><a class="reference internal" href="#supported-events">Supported Events</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -181,7 +171,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -248,7 +240,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -306,16 +300,16 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7150"><span class="xref myst">AD7150</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7151"><span class="xref myst">AD7151</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7156"><span class="xref myst">AD7156</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7150">AD7150</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7151">AD7151</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7156">AD7156</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7150EBZ"><span class="xref myst">EVAL-AD7150EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7156EBZ"><span class="xref myst">EVAL-AD7156EBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7150EBZ">EVAL-AD7150EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7156EBZ">EVAL-AD7156EBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -359,7 +353,7 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </tr>
 </tbody>
 </table>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name accordingly, matching your part name.</p>
 <table>
 <thead>
@@ -384,11 +378,11 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </tbody>
 </table>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_board_info</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="n">board_i2c_board_info</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD7150) || defined(CONFIG_AD7150_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD7150) || defined(CONFIG_AD7150_MODULE)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">I2C_BOARD_INFO</span><span class="p">(</span><span class="s">&quot;ad7150&quot;</span><span class="p">,</span><span class="w"> </span><span class="mh">0x48</span><span class="p">),</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -411,9 +405,11 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The driver depends on <strong>CONFIG_I2C</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The driver depends on <strong>CONFIG_I2C</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         [*] Staging drivers  ---&gt;
@@ -435,39 +431,57 @@ The driver depends on <strong>CONFIG_I2C</strong>
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
-<p><img alt="ad7150_eval_lr.jpg" src="resources/tools-software/linux-drivers/iio-adc/ad7150_eval_lr.jpg" />{width=“600” query=“?600”}</p>
+<a class="reference internal image-reference" href="resources/tools-software/linux-drivers/iio-adc/ad7150_eval_lr.jpg"><img alt="ad7150_eval_lr.jpg" src="resources/tools-software/linux-drivers/iio-adc/ad7150_eval_lr.jpg" style="width: 600px;" />
+</a>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
 iio:device0
-root:/sys/bus/iio/devices&gt; <strong>cd iio:device0</strong></p>
-<p>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>ls -l</strong>
--r–r–r– 1 root root 4096 Jan 3 04:21 dev
-drwxr-xr-x 2 root root 0 Jan 3 04:21 events
--rw-r–r– 1 root root 4096 Jan 3 04:21 in_capacitance0_mean_raw
--r–r–r– 1 root root 4096 Jan 3 04:21 in_capacitance0_raw
--rw-r–r– 1 root root 4096 Jan 3 04:21 in_capacitance1_mean_raw
--r–r–r– 1 root root 4096 Jan 3 04:21 in_capacitance1_raw
--r–r–r– 1 root root 4096 Jan 3 04:21 name
-drwxr-xr-x 2 root root 0 Jan 3 04:21 power
-lrwxrwxrwx 1 root root 0 Jan 3 04:21 subsystem -&gt; …/…/…/…/…/…/bus/iio
--rw-r–r– 1 root root 4096 Jan 3 04:21 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat name</strong>
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>dev
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>events
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>in_capacitance0_mean_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>in_capacitance0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>in_capacitance1_mean_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>in_capacitance1_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>name
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../bus/iio
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">04</span>:21<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad7150
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-cin1-measurement">
-<h3>Show channel CIN1(+) measurement<a class="headerlink" href="#show-channel-cin1-measurement" title="Link to this heading">¶</a></h3>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-channel-cin1-measurement">Show channel CIN1(+) measurement</h6>
 <table>
 <thead>
 <tr class="header">
@@ -499,31 +513,45 @@ ad7150
 </tr>
 </tbody>
 </table>
-<p><strong>Description:</strong><br />
+<p><strong>Description:</strong>
 Raw unscaled capacitance measurement on channel in_capacitance0_raw</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance0_raw</strong>
-26640
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-cin1-average-measurement">
-<h3>Show channel CIN1(+) average measurement<a class="headerlink" href="#show-channel-cin1-average-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance0_raw**
+<span class="m">26640</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-channel-cin1-average-measurement">Show channel CIN1(+) average measurement</h6>
+<p><strong>Description:</strong>
 Raw unscaled capacitance measurement on channel in_capacitance0_mean_raw</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance0_mean_raw</strong>
-26273
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="hardware-events">
-<h2>Hardware Events<a class="headerlink" href="#hardware-events" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#Event Management&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Event Management&amp;firstseconly&amp;noeditbtn)</p>
-<p>![iio_snippets#Typical event attributes&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Typical event attributes&amp;firstseconly&amp;noeditbtn)</p>
-<section id="supported-events">
-<h3>Supported Events<a class="headerlink" href="#supported-events" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance0_mean_raw**
+<span class="m">26273</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="hardware-events">Hardware Events</h3>
+<!-- CMDS: firstseconly noeditbtn -->
+<!-- CMDS: firstseconly noeditbtn -->
+<h4 class="rubric" id="supported-events">Supported Events</h4>
 <table>
 <thead>
 <tr class="header">
@@ -635,11 +663,9 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>c
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

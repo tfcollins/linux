@@ -1,16 +1,21 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-temperature/ltc2983
+title: LTM2985: Multi-Sensor Digital Temperature Measurement System
+---
+
 # LTC2983/LTC2984/LTC2986/LTM2985 Multi-Sensor Digital Temperature Measurement System Driver
 
 ### Supported Devices
 
--   [LTC2983](adi>LTC2983)
--   [LTC2984](adi>LTC2984)
--   [LTC2986](adi>LTC2986)
--   [LTM2985](adi>LTM2985)
+-   [LTC2983](https://analog.com/LTC2983)
+-   [LTC2984](https://analog.com/LTC2984)
+-   [LTC2986](https://analog.com/LTC2986)
+-   [LTM2985](https://analog.com/LTM2985)
 
 ### Evaluation Boards
 
--   [DC2296A](adi>DC2296A)
--   [DC2296A-KIT](adi>DC2296A-KIT)
+-   [DC2296A](https://analog.com/DC2296A)
+-   [DC2296A-KIT](https://analog.com/DC2296A-KIT)
 
 ### Description
 
@@ -65,9 +70,12 @@ The devices can only be instantiated via device tree, along with all the sensors
 ## Adding Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig").
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The LTC2983 driver depends **CONFIG_SPI**.
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -83,77 +91,117 @@ The LTC2983 driver depends **CONFIG_SPI**.
 
 ## Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> **cd iio:device0**
-root:/sys/bus/iio/devices/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Nov 16 11:17 dev
--rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in_temp0_thermistor_raw
--rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in_temp1_rtd_raw
--rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in_temp2_diode_raw
--rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in_temp3_thermocouple_raw
--rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in_temp_scale
--rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in_voltage0_direct_adc_raw
--rw-r\--r\-- 1 root root 4096 Nov 16 11:17 in_voltage_scale
--r\--r\--r\-- 1 root root 4096 Nov 16 11:17 name
-lrwxrwxrwx 1 root root 0 Nov 16 11:17 of_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ltc2983@0
+root:/sys/bus/iio/devices> **cd iio:device0**
+root:/sys/bus/iio/devices/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Nov 16 11:17 dev
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 in_temp0_thermistor_raw
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 in_temp1_rtd_raw
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 in_temp2_diode_raw
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 in_temp3_thermocouple_raw
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 in_temp_scale
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 in_voltage0_direct_adc_raw
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 in_voltage_scale
+-r--r--r-- 1 root root 4096 Nov 16 11:17 name
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 of_node -> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ltc2983@0
 drwxr-xr-x 2 root root 0 Nov 16 11:17 power
-lrwxrwxrwx 1 root root 0 Nov 16 11:17 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Nov 16 11:17 uevent
-root:/sys/bus/iio/devices/iio:device0\>
-\</xterm\>\</WRAP\>
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 uevent
+root:/sys/bus/iio/devices/iio:device0>
+```
+:::
+
 
 ##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat name**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat name**
 ltc2983
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show temperature
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat in_temp0_thermistor_raw**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat in_temp0_thermistor_raw**
 1048576
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show temperature scale
 
-**Description:**\
-scale to be applied to in_tempX\_\${sensor_type}\_raw in order to obtain the measured temperature in °C or °F (depending on chip configuration).
+**Description:**
+scale to be applied to in_tempX_${sensor_type}_raw in order to obtain the measured temperature in °C or °F (depending on chip configuration).
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat in_temp_scale**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat in_temp_scale**
 0.000976562
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show voltage
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat in_voltage0_direct_adc_raw**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat in_voltage0_direct_adc_raw**
 2621440
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show Voltage scale
 
-**Description:**\
+**Description:**
 scale to be applied to in_voltageX_direct_adc_raw in order to obtain the measured voltage in Volts
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat in_voltage_scale**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat in_voltage_scale**
 0.000000476
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

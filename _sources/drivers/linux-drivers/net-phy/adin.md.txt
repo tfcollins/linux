@@ -1,9 +1,14 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/net-phy/adin
+title: ADIN1300 - Robust, Industrial, Low Latency 10/100/1000 Gigabit Ethernet PHY
+---
+
 # ADIN1300/ADIN1200 PHY Linux Driver
 
 ### Supported Devices
 
--   [ADIN1200](adi>ADIN1200)
--   [ADIN1300](adi>ADIN1300)
+-   [ADIN1200](https://analog.com/ADIN1200)
+-   [ADIN1300](https://analog.com/ADIN1300)
 
 ### Supported Boards
 
@@ -19,7 +24,7 @@ The 2 PHYs are similar from an interfacing perspective, meaning that the HW & SW
 
 The PHY can be interfaced with the following: MII, RGMII, RGMII with internal delays (on RX, TX or both), RMII.
 
-\<note important\>The RMII interface requires an external 50 MHz clock reference, and as such requires a bit more consideration when designing the layout. This makes it more difficult to configure it entirely from software\</note\>
+<note important>The RMII interface requires an external 50 MHz clock reference, and as such requires a bit more consideration when designing the layout. This makes it more difficult to configure it entirely from software</note>
 
 ## Source Code
 
@@ -34,7 +39,7 @@ The PHY can be interfaced with the following: MII, RGMII, RGMII with internal de
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><a href="linux.github&gt;master?drivers/net/phy/adin.c">drivers/net/phy/adin.c</a></td>
+<td style="text-align: center;"><a href="https://github.com/analogdevicesinc/linux/main?drivers/net/phy/adin.c">drivers/net/phy/adin.c</a></td>
 <td style="text-align: center;"><a href="git.linux.org&gt;drivers/net/phy/adin.c">Yes</a></td>
 </tr>
 </tbody>
@@ -52,16 +57,16 @@ The PHY can be interfaced with the following: MII, RGMII, RGMII with internal de
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/net/phy/adin.c">drivers/net/phy/adin.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/net/phy/adin.c">drivers/net/phy/adin.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/net/adi,adin.yaml">adi,adin.yaml</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/net/adi,adin.yaml">adi,adin.yaml</a></td>
 </tr>
 </tbody>
 </table>
 
-**Compatibility layer for Linux kernel version \< 5.4 (Not required otherwise)**
+**Compatibility layer for Linux kernel version < 5.4 (Not required otherwise)**
 
 <table>
 <thead>
@@ -73,17 +78,17 @@ The PHY can be interfaced with the following: MII, RGMII, RGMII with internal de
 <tbody>
 <tr class="odd">
 <td>compatibility layer 4.19</td>
-<td><a href="linux.github&gt;2019_R2?drivers/net/phy/adin-compat.h">drivers/net/phy/adin-compat.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/2019_R2?drivers/net/phy/adin-compat.h">drivers/net/phy/adin-compat.h</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Example platform device initialization
 
-The ADIN PHY driver instantiates via Linux\'s phylib framework, which is typically enabled on most systems.
+The ADIN PHY driver instantiates via Linux's phylib framework, which is typically enabled on most systems.
 
 Depending on the MAC driver that is used and the operating mode (MII, RGMII, RMII), a device-tree entry for the PHY may or may-not be needed.
-The PHY can be configured via HW pins ([see datasheet](adi>media/en/technical-documentation/data-sheets/ADIN1300.pdf)), or via SW.
+The PHY can be configured via HW pins ([see datasheet](https://analog.com/media/en/technical-documentation/data-sheets/ADIN1300.pdf)), or via SW.
 
 **Optional properties (for MAC):**
 
@@ -91,8 +96,8 @@ The PHY can be configured via HW pins ([see datasheet](adi>media/en/technical-do
 
 **Optional properties (for PHY):**
 
--   **adi,rx-internal-delay-ps**: RGMII RX Clock Delay used only when PHY operates in RGMII mode with internal delay (phy-mode is \'rgmii-id\' or \'rgmii-rxid\') in pico-seconds. **Accepted values:** 1600, 1800, 2000, 2200, 2400, **Default:** 2000.
--   **adi,tx-internal-delay-ps**: RGMII TX Clock Delay used only when PHY operates in RGMII mode with internal delay (phy-mode is \'rgmii-id\' or \'rgmii-txid\') in pico-seconds. **Accepted values:** 1600, 1800, 2000, 2200, 2400, **Default:** 2000.
+-   **adi,rx-internal-delay-ps**: RGMII RX Clock Delay used only when PHY operates in RGMII mode with internal delay (phy-mode is 'rgmii-id' or 'rgmii-rxid') in pico-seconds. **Accepted values:** 1600, 1800, 2000, 2200, 2400, **Default:** 2000.
+-   **adi,tx-internal-delay-ps**: RGMII TX Clock Delay used only when PHY operates in RGMII mode with internal delay (phy-mode is 'rgmii-id' or 'rgmii-txid') in pico-seconds. **Accepted values:** 1600, 1800, 2000, 2200, 2400, **Default:** 2000.
 -   **adi,fifo-depth-bits**: When operating in RMII mode, this option configures the FIFO depth. **Accepted values:** 4, 8, 12, 16, 20, 24, **Default:** 8
 
 ```{=html}
@@ -130,10 +135,10 @@ The PHY can be configured via HW pins ([see datasheet](adi>media/en/technical-do
 
 ## Enabling Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-1.  Hit the search button (typically the slash \"/\" key)
+1.  Hit the search button (typically the slash "/" key)
 2.  Type ADIN_PHY, then hit Enter; if nothing shows up, the driver is not available in your kernel tree, please use [the ADI linux tree](https://github.com/analogdevicesinc/linux/)
 3.  Press 1 (the key), then hit Enter
 4.  You should see the location + dependencies for enabling the driver
@@ -158,11 +163,11 @@ Short version is: a cable is plugged into the ethernet port (to which the PHY is
 
 But on the slightly more advanced side, see the sections below.
 
-\<note important\>Depending on the userspace image that is being used, the network cards may \[or may not get a DHCP address\]. This is because there is a NetworkManager instance that handles this automatically.
+<note important>Depending on the userspace image that is being used, the network cards may [or may not get a DHCP address]. This is because there is a NetworkManager instance that handles this automatically.
 
-If NetworkManager isn\'t running, it sometimes works to obtain a DHCP lease via **dhclient eth0** \[or **eth1** or **eth2**, depending which MAC is attached to the ADIN PHY\].
+If NetworkManager isn't running, it sometimes works to obtain a DHCP lease via **dhclient eth0** [or **eth1** or **eth2**, depending which MAC is attached to the ADIN PHY].
 
-\</note\>
+</note>
 
 ### ifconfig
 
@@ -200,7 +205,7 @@ Typically, if both TX & RX values are incremented, it means that it is working. 
 
 This tool queries the MAC & PHY via the MAC driver. The MAC driver should also allows access to the PHY registers.
 
-\<note important\>If ethtool does not work, it should be resolved in the MAC driver. The MAC driver is not in the direct scope of Analog Devices support, since MACs are typically manufactured & supported by other companies\</note\>
+<note important>If ethtool does not work, it should be resolved in the MAC driver. The MAC driver is not in the direct scope of Analog Devices support, since MACs are typically manufactured & supported by other companies</note>
 
 ethtool can be used to show & override link settings and other parameters for the MAC & PHY.
 
@@ -209,7 +214,7 @@ Links for the tool:
 -   Official page with source code: <https://mirrors.edge.kernel.org/pub/software/network/ethtool/>
 -   Manual page: <http://man7.org/linux/man-pages/man8/ethtool.8.html>
 
-\<note tip\>Some features of ethtool described here are available in newer versions of ethtool. If some of them don\'t work, consider upgrading or getting a newer version\</note\>
+<note tip>Some features of ethtool described here are available in newer versions of ethtool. If some of them don't work, consider upgrading or getting a newer version</note>
 
 #### Example: Seeing MAC & PHY info
 
@@ -258,7 +263,7 @@ The PHY supports configuration of the MDI/MDI-X auto-switch for twisted pairs. T
 
 #### Example: PHY statistics
 
-\<note important\>make sure to not confuse PHY stats with default stats. Ethtool provides stats from the MAC, via **ethtool \--statistics eth0** or **ethtool -S eth0**\</note\>
+<note important>make sure to not confuse PHY stats with default stats. Ethtool provides stats from the MAC, via **ethtool --statistics eth0** or **ethtool -S eth0**</note>
 
     root@analog:~# ethtool --phy-statistics eth0
     PHY statistics:
@@ -278,7 +283,7 @@ The PHY supports configuration of the MDI/MDI-X auto-switch for twisted pairs. T
 This tool is not very official, but it is very powerful for PHYs.
 It's currently hosted here: <https://github.com/wkz/phytool>
 
-\<note important\>Can only access registers via Clause 22. Clause 45 does not work with the PHY driver.\</note\>
+<note important>Can only access registers via Clause 22. Clause 45 does not work with the PHY driver.</note>
 
 Format of the command is:
 
@@ -320,8 +325,8 @@ Example resetting the PHY:
 
 ### adintool.sh - convenience phytool wrapper
 
-\<note warning\>This tool requires sudo/root access and will do changes to the system. Use it with caution on a development system. Also, this tool can leave the PHY into a undetermined state of functioning, which may require a reset of the chip, or a reboot of the system to put the PHY back into a working state together with the attached MAC.
-\</note\>
+<note warning>This tool requires sudo/root access and will do changes to the system. Use it with caution on a development system. Also, this tool can leave the PHY into a undetermined state of functioning, which may require a reset of the chip, or a reboot of the system to put the PHY back into a working state together with the attached MAC.
+</note>
 
 Link: <https://github.com/analogdevicesinc/wiki-scripts/blob/master/linux/adintool.sh>
 
@@ -369,8 +374,8 @@ Then a diagnostics will be run on the cable and the results of the registers wil
 
 This is a more system-general test but it also validates the PHY.
 
-\<note tip\>
-More tools are available for this sort of testing (iperf3, netperf, etc), but iperf is one of the more basic/simple ones to do this validation. If this one achieves expected results, others should too\</note\>
+<note tip>
+More tools are available for this sort of testing (iperf3, netperf, etc), but iperf is one of the more basic/simple ones to do this validation. If this one achieves expected results, others should too</note>
 
 On one of the endpoints with the ADIN1300, run:
 
@@ -406,4 +411,6 @@ On the other host check the hash
 -   [Ethernet Controller bindings doc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-controller.yaml)
 -   [Ethernet PHY bindings doc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-phy.yaml)
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

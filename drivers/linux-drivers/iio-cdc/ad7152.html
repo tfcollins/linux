@@ -99,20 +99,7 @@
 </li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-available-sampling-frequencies-update-rates">Show available sampling frequencies / update rates</a></li>
-<li><a class="reference internal" href="#set-sampling-frequency-update-rate">Set sampling frequency / update rate</a></li>
-<li><a class="reference internal" href="#show-available-scales-for-single-and-differential-input-channels">Show available scales for single and differential input channels</a></li>
-<li><a class="reference internal" href="#set-scale-for-input-channels">Set scale for input channels</a></li>
-<li><a class="reference internal" href="#show-channel-cin1-measurement">Show channel CIN1(+) measurement</a></li>
-<li><a class="reference internal" href="#show-channel-differential-cin2-cin2-measurement">Show channel differential CIN2(+) - CIN2(-) measurement</a></li>
-<li><a class="reference internal" href="#perform-channel-gain-calibration">Perform channel gain calibration</a></li>
-<li><a class="reference internal" href="#set-channel-gain-coefficient">Set channel gain coefficient</a></li>
-<li><a class="reference internal" href="#perform-channel-offset-calibration">Perform channel offset calibration</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -188,7 +175,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -255,7 +244,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -313,14 +304,14 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7152"><span class="xref myst">AD7152</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7153"><span class="xref myst">AD7153</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7152">AD7152</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7153">AD7153</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7152EBZ"><span class="xref myst">EVAL-AD7152EBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7152EBZ">EVAL-AD7152EBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -372,7 +363,7 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </tr>
 </tbody>
 </table>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name accordingly, matching your part name.</p>
 <table>
 <thead>
@@ -393,11 +384,11 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </tbody>
 </table>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_board_info</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="n">board_i2c_board_info</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD7152) || defined(CONFIG_AD7152_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD7152) || defined(CONFIG_AD7152_MODULE)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">I2C_BOARD_INFO</span><span class="p">(</span><span class="s">&quot;ad7152&quot;</span><span class="p">,</span><span class="w"> </span><span class="mh">0x48</span><span class="p">),</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -420,9 +411,11 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The driver depends on <strong>CONFIG_I2C</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The driver depends on <strong>CONFIG_I2C</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         [*] Staging drivers  ---&gt;
@@ -444,76 +437,110 @@ iver
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
-<p><img alt="ad7152_eval_lr.jpg" src="resources/tools-software/linux-drivers/iio-cdc/ad7152_eval_lr.jpg" />{width=“600” query=“?600”}</p>
+<a class="reference internal image-reference" href="../../../_images/ad7152_eval_lr.jpg"><img alt="ad7152_eval_lr.jpg" src="../../../_images/ad7152_eval_lr.jpg" style="width: 600px;" />
+</a>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
 iio:device0
-root:/sys/bus/iio/devices&gt; <strong>cd iio:device0</strong></p>
-<p>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>ls -l</strong>
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance0-capacitance2_calibbias
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance0-capacitance2_calibscale
--r–r–r– 1 root root 4096 Jan 2 22:46 in_capacitance0-capacitance2_raw
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance0-capacitance2_scale
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance0_calibbias
-–w——- 1 root root 4096 Jan 2 22:46 in_capacitance0_calibbias_calibration
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance0_calibscale
-–w——- 1 root root 4096 Jan 2 22:46 in_capacitance0_calibscale_calibration
--r–r–r– 1 root root 4096 Jan 2 22:46 in_capacitance0_raw
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance0_scale
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance1-capacitance3_calibbias
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance1-capacitance3_calibscale
--r–r–r– 1 root root 4096 Jan 2 22:46 in_capacitance1-capacitance3_raw
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance1-capacitance3_scale
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance1_calibbias
-–w——- 1 root root 4096 Jan 2 22:46 in_capacitance1_calibbias_calibration
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance1_calibscale
-–w——- 1 root root 4096 Jan 2 22:46 in_capacitance1_calibscale_calibration
--r–r–r– 1 root root 4096 Jan 2 22:46 in_capacitance1_raw
--rw-r–r– 1 root root 4096 Jan 2 22:46 in_capacitance1_scale
--r–r–r– 1 root root 4096 Jan 2 22:46 in_capacitance_scale_available
--r–r–r– 1 root root 4096 Jan 2 22:46 name
-drwxr-xr-x 2 root root 0 Jan 2 22:46 power
--rw-r–r– 1 root root 4096 Jan 2 22:46 sampling_frequency
--r–r–r– 1 root root 4096 Jan 2 22:46 sampling_frequency_available
-lrwxrwxrwx 1 root root 0 Jan 2 22:46 subsystem -&gt; …/…/…/…/…/…/bus/iio
--rw-r–r– 1 root root 4096 Jan 2 22:46 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat name</strong>
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0-capacitance2_calibbias
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0-capacitance2_calibscale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0-capacitance2_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0-capacitance2_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0_calibbias
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0_calibbias_calibration
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0_calibscale
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0_calibscale_calibration
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance0_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1-capacitance3_calibbias
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1-capacitance3_calibscale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1-capacitance3_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1-capacitance3_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1_calibbias
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1_calibbias_calibration
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1_calibscale
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1_calibscale_calibration
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance1_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>in_capacitance_scale_available
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>name
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>power
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>sampling_frequency
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>sampling_frequency_available
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../bus/iio
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">22</span>:46<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad7152
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-available-sampling-frequencies-update-rates">
-<h3>Show available sampling frequencies / update rates<a class="headerlink" href="#show-available-sampling-frequencies-update-rates" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat sampling_frequency_available</strong>
-200 50 20 17
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-sampling-frequency-update-rate">
-<h3>Set sampling frequency / update rate<a class="headerlink" href="#set-sampling-frequency-update-rate" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat sampling_frequency</strong>
-200
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>echo 50 &gt; sampling_frequency</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat sampling_frequency</strong>
-50
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-available-sampling-frequencies-update-rates">Show available sampling frequencies / update rates</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency_available**
+<span class="m">200</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">17</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-sampling-frequency-update-rate">Set sampling frequency / update rate</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">200</span>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">50</span><span class="w"> </span>&gt;<span class="w"> </span>sampling_frequency**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">50</span>
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-available-scales-for-single-and-differential-input-channels">
-<h3>Show available scales for single and differential input channels<a class="headerlink" href="#show-available-scales-for-single-and-differential-input-channels" title="Link to this heading">¶</a></h3>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-available-scales-for-single-and-differential-input-channels">Show available scales for single and differential input channels</h6>
 <p>Lists all available scales for the input and input pairs:</p>
 <table>
 <thead>
@@ -542,30 +569,46 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;
 </tbody>
 </table>
 <p>Setting these directly influences the CDC input range, by altering the Input Range settings.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance_scale_available</strong>
-0.000061050 0.000030525 0.000015263 0.000007631</p>
-<p>&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-scale-for-input-channels">
-<h3>Set scale for input channels<a class="headerlink" href="#set-scale-for-input-channels" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance_scale_available**
+<span class="m">0</span>.000061050<span class="w"> </span><span class="m">0</span>.000030525<span class="w"> </span><span class="m">0</span>.000015263<span class="w"> </span><span class="m">0</span>.000007631
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-scale-for-input-channels">Set scale for input channels</h6>
 <p>Scale to be applied to in_capacitance0_raw, in_capacitance1_raw, in_capacitance0-capacitance2_raw
 and in_capacitance1-capacitance3_raw in order to obtain the measured capacitance in picofarads (pF).
 Allows the user to select one scale out of the available scales.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance0_scale</strong>
-0.000061050
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>echo 0.000030525 &gt; in_capacitance0_scale</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance0_scale</strong>
-0.000030525
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance0_scale**
+<span class="m">0</span>.000061050
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span>.000030525<span class="w"> </span>&gt;<span class="w"> </span>in_capacitance0_scale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance0_scale**
+<span class="m">0</span>.000030525
 root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-cin1-measurement">
-<h3>Show channel CIN1(+) measurement<a class="headerlink" href="#show-channel-cin1-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-channel-cin1-measurement">Show channel CIN1(+) measurement</h6>
+<p><strong>Description:</strong>
 Raw unscaled capacitance measurement on channel in_capacitance0_raw</p>
 <table>
 <thead>
@@ -593,62 +636,102 @@ Raw unscaled capacitance measurement on channel in_capacitance0_raw</p>
 </tr>
 </tbody>
 </table>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance0_raw</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance0_raw**
 -1
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in_capacitance0_raw * in_capacitance0_scale</em> = 23344 * 0.000030525 = <strong>0.7126 <em>pF</em></strong></p>
-</section>
-<section id="show-channel-differential-cin2-cin2-measurement">
-<h3>Show channel differential CIN2(+) - CIN2(-) measurement<a class="headerlink" href="#show-channel-differential-cin2-cin2-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<h6 class="rubric" id="show-channel-differential-cin2-cin2-measurement">Show channel differential CIN2(+) - CIN2(-) measurement</h6>
+<p><strong>Description:</strong>
 Raw unscaled voltage measurement on channel in_capacitance1-capacitance3_raw</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance1-capacitance3_raw</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance1-capacitance3_raw**
 -16
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in_capacitance1-capacitance3_raw * in_capacitance1-capacitance3_scale</em> = -16 * 0.000030525 = <strong>-0.0004884 <em>pF</em></strong></p>
-</section>
-<section id="perform-channel-gain-calibration">
-<h3>Perform channel gain calibration<a class="headerlink" href="#perform-channel-gain-calibration" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<h6 class="rubric" id="perform-channel-gain-calibration">Perform channel gain calibration</h6>
+<p><strong>Description:</strong>
 Triggers gain calibration on channel in_capacitance0 or in_capacitance1</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>echo 1 &gt; in_capacitance1_calibscale_calibration</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance1_calibscale</strong>
-1.000000
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-channel-gain-coefficient">
-<h3>Set channel gain coefficient<a class="headerlink" href="#set-channel-gain-coefficient" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>in_capacitance1_calibscale_calibration**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance1_calibscale**
+<span class="m">1</span>.000000
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-channel-gain-coefficient">Set channel gain coefficient</h6>
+<p><strong>Description:</strong>
 Write gain coefficient for channel in_capacitance0 or in_capacitance1
 Valid range is between 1.0 and 1.99999999.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>echo 1.5 &gt; in_capacitance1_calibscale</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance1_calibscale</strong>
-1.500000
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="perform-channel-offset-calibration">
-<h3>Perform channel offset calibration<a class="headerlink" href="#perform-channel-offset-calibration" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span>.5<span class="w"> </span>&gt;<span class="w"> </span>in_capacitance1_calibscale**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance1_calibscale**
+<span class="m">1</span>.500000
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="perform-channel-offset-calibration">Perform channel offset calibration</h6>
+<p><strong>Description:</strong>
 Triggers offset calibration on channel in_capacitance0 or in_capacitance1</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>echo 1 &gt; in_capacitance1_calibbias_calibration</strong>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt; <strong>cat in_capacitance1_calibbias</strong>
-12101
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>in_capacitance1_calibbias_calibration**
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_capacitance1_calibbias**
+<span class="m">12101</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

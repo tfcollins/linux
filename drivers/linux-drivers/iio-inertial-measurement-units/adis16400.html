@@ -95,22 +95,7 @@
 </li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#adis16400-device-attributes">ADIS16400 device attributes</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#set-sampling-frequency">Set sampling frequency</a></li>
-<li><a class="reference internal" href="#show-channel-value">Show channel value</a></li>
-<li><a class="reference internal" href="#set-channel-bandwidth">Set channel bandwidth</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#trigger-management">Trigger management</a></li>
-<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a><ul>
-<li><a class="reference internal" href="#imu-evaluation-board-user-guides">IMU Evaluation Board User Guides</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -186,7 +171,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -253,7 +240,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -311,38 +300,38 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADIS16300"><span class="xref myst">ADIS16300</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16305"><span class="xref myst">ADIS16305</span></a> (Linux v4.3+)</p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16334"><span class="xref myst">ADIS16334</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16350"><span class="xref myst">ADIS16350</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16354"><span class="xref myst">ADIS16354</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16355"><span class="xref myst">ADIS16355</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16360"><span class="xref myst">ADIS16360</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16362"><span class="xref myst">ADIS16362</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16364"><span class="xref myst">ADIS16364</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16365"><span class="xref myst">ADIS16365</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16367"><span class="xref myst">ADIS16367</span></a> (Linux v4.3+)</p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16400"><span class="xref myst">ADIS16400</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16405"><span class="xref myst">ADIS16405</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16445"><span class="xref myst">ADIS16445</span></a> (Linux v4.3+)</p></li>
-<li><p><a class="reference internal" href="#adi%3EADIS16448"><span class="xref myst">ADIS16448</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16300">ADIS16300</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16305">ADIS16305</a> (Linux v4.3+)</p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16334">ADIS16334</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16350">ADIS16350</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16354">ADIS16354</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16355">ADIS16355</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16360">ADIS16360</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16362">ADIS16362</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16364">ADIS16364</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16365">ADIS16365</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16367">ADIS16367</a> (Linux v4.3+)</p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16400">ADIS16400</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16405">ADIS16405</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16445">ADIS16445</a> (Linux v4.3+)</p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIS16448">ADIS16448</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16300"><span class="xref myst">ADIS16300/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16300"><span class="xref myst">ADIS16305/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16334"><span class="xref myst">ADIS16334/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16360"><span class="xref myst">ADIS16360/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16362"><span class="xref myst">ADIS16362/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16364"><span class="xref myst">ADIS16364/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16365"><span class="xref myst">ADIS16365/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16367"><span class="xref myst">ADIS16367/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16400"><span class="xref myst">ADIS16400/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16405"><span class="xref myst">ADIS16405/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16445"><span class="xref myst">ADIS16445/PCBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADIS16448"><span class="xref myst">ADIS16448/PCBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16300">ADIS16300/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16300">ADIS16305/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16334">ADIS16334/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16360">ADIS16360/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16362">ADIS16362/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16364">ADIS16364/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16365">ADIS16365/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16367">ADIS16367/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16400">ADIS16400/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16405">ADIS16405/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16445">ADIS16445/PCBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADIS16448">ADIS16448/PCBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -398,12 +387,12 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </tr>
 </tbody>
 </table>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_ADIS16400) \</span>
-<span class="cp">    || defined(CONFIG_ADIS16400_MODULE)</span>
+<span class="cp">## if defined(CONFIG_ADIS16400) </span>
+<span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="n">defined</span><span class="p">(</span><span class="n">CONFIG_ADIS16400_MODULE</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;adis16400&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">max_speed_hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w">     </span><span class="cm">/* max spi clock (SCK) speed in HZ */</span>
@@ -413,7 +402,7 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <span class="w">        </span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_MODE_3</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">irq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IRQ_PF5</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 
 <span class="p">};</span>
 </pre></div>
@@ -437,9 +426,11 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The ADIS16400 Driver depends on <strong>CONFIG_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The ADIS16400 Driver depends on <strong>CONFIG_SPI</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         &lt;*&gt;     Industrial I/O support ---&gt;
@@ -456,55 +447,64 @@ The ADIS16400 Driver depends on <strong>CONFIG_SPI</strong>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; <strong>ls</strong>
-iio:device0 trigger0</p>
-<p>root:/sys/bus/iio/devices&gt; <strong>cd iio:device0</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>ls -l</strong>
-drwxr-xr-x 2 root root 0 Jan 4 00:03 buffer
--r–r–r– 1 root root 4096 Jan 4 00:03 dev
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_accel_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_accel_scale
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_accel_x_calibbias
--r–r–r– 1 root root 4096 Jan 4 00:03 in_accel_x_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_accel_y_calibbias
--r–r–r– 1 root root 4096 Jan 4 00:03 in_accel_y_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_accel_z_calibbias
--r–r–r– 1 root root 4096 Jan 4 00:03 in_accel_z_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_anglvel_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_anglvel_scale
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_anglvel_x_calibbias
--r–r–r– 1 root root 4096 Jan 4 00:03 in_anglvel_x_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_anglvel_y_calibbias
--r–r–r– 1 root root 4096 Jan 4 00:03 in_anglvel_y_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_anglvel_z_calibbias
--r–r–r– 1 root root 4096 Jan 4 00:03 in_anglvel_z_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_magn_filter_low_pass_3db_frequency
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_magn_scale
--r–r–r– 1 root root 4096 Jan 4 00:03 in_magn_x_raw
--r–r–r– 1 root root 4096 Jan 4 00:03 in_magn_y_raw
--r–r–r– 1 root root 4096 Jan 4 00:03 in_magn_z_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_temp0_offset
--r–r–r– 1 root root 4096 Jan 4 00:03 in_temp0_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_temp0_scale
--r–r–r– 1 root root 4096 Jan 4 00:03 in_voltage0_supply_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_voltage0_supply_scale
--r–r–r– 1 root root 4096 Jan 4 00:03 in_voltage1_raw
--rw-r–r– 1 root root 4096 Jan 4 00:03 in_voltage1_scale
--r–r–r– 1 root root 4096 Jan 4 00:03 name
-drwxr-xr-x 2 root root 0 Jan 4 00:03 power
--rw-r–r– 1 root root 4096 Jan 4 00:03 sampling_frequency
-drwxr-xr-x 2 root root 0 Jan 4 00:03 scan_elements
-lrwxrwxrwx 1 root root 0 Jan 4 00:03 subsystem -&gt; …/…/…/…/…/bus/iio
-drwxr-xr-x 2 root root 0 Jan 4 00:03 trigger
--rw-r–r– 1 root root 4096 Jan 4 00:03 uevent
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**ls**
+iio:device0<span class="w"> </span>trigger0
+
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>buffer
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>dev
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_accel_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_accel_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_accel_x_calibbias
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_accel_x_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_accel_y_calibbias
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_accel_y_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_accel_z_calibbias
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_accel_z_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_anglvel_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_anglvel_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_anglvel_x_calibbias
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_anglvel_x_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_anglvel_y_calibbias
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_anglvel_y_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_anglvel_z_calibbias
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_anglvel_z_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_magn_filter_low_pass_3db_frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_magn_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_magn_x_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_magn_y_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_magn_z_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_temp0_offset
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_temp0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_temp0_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_voltage0_supply_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_voltage0_supply_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_voltage1_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>in_voltage1_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>name
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>power
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>sampling_frequency
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>scan_elements
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../bus/iio
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>trigger
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">00</span>:03<span class="w"> </span>uevent
 root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="adis16400-device-attributes">
-<h3>ADIS16400 device attributes<a class="headerlink" href="#adis16400-device-attributes" title="Link to this heading">¶</a></h3>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="adis16400-device-attributes">ADIS16400 device attributes</h4>
 <p>For a detailed description please see:
 <a class="reference internal" href="#staging.kernel.org%3EDocumentation/ABI/testing/sysfs-bus-iio"><span class="xref myst">Documentation/ABI/testing/sysfs-bus-iio</span></a></p>
 <table>
@@ -673,29 +673,44 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;
 </tr>
 </tbody>
 </table>
-<section id="show-device-name">
-<h4>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h4>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat name</strong>
+<h5 class="rubric" id="show-device-name">Show device name</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 adis16400
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-sampling-frequency">
-<h4>Set sampling frequency<a class="headerlink" href="#set-sampling-frequency" title="Link to this heading">¶</a></h4>
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="set-sampling-frequency">Set sampling frequency</h5>
 <p>The sampling frequency of the device can be set by writing the desired value to the <code class="docutils literal notranslate"><span class="pre">sampling_frequency</span></code> file. The driver will automatically round up to the nearest supported sampling frequency.</p>
-<p><strong>Example:</strong>
-&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat sampling_frequency</strong>
-819.202
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>echo 546 &gt; sampling_frequency</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat sampling_frequency</strong>
-546.135
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-value">
-<h4>Show channel value<a class="headerlink" href="#show-channel-value" title="Link to this heading">¶</a></h4>
+<p><strong>Example:</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">819</span>.202
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">546</span><span class="w"> </span>&gt;<span class="w"> </span>sampling_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">546</span>.135
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-channel-value">Show channel value</h5>
 <p>A channel value can be read from its <code class="docutils literal notranslate"><span class="pre">_raw</span></code> attribute. The value returned by the <code class="docutils literal notranslate"><span class="pre">_raw</span></code> attribute is the raw value as reported by the device. To get the processed value of the channel in a standardized unit add the channels <code class="docutils literal notranslate"><span class="pre">_offset</span></code> attribute to the <code class="docutils literal notranslate"><span class="pre">_raw</span></code> value and multiply the result by <code class="docutils literal notranslate"><span class="pre">_scale</span></code> attribute. If no <code class="docutils literal notranslate"><span class="pre">_offset</span></code> attribute is present assume 0 for the offset.</p>
 <p><code class="docutils literal notranslate"><span class="pre">processed</span> <span class="pre">value</span> <span class="pre">=</span> <span class="pre">(raw</span> <span class="pre">+</span> <span class="pre">offset)</span> <span class="pre">*</span> <span class="pre">scale</span></code></p>
 <p>The units by the IIO framework are:</p>
@@ -706,83 +721,124 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat samplin
 <li><p>Voltage: milli Volts</p></li>
 <li><p>Temperature: milli-degree Celsius</p></li>
 </ul>
-<p><strong>Example:</strong>
-&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat in_accel_z_raw</strong>
-1202
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat in_accel_scale</strong>
-0.008168
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p><strong>Example:</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_accel_z_raw**
+<span class="m">1202</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_accel_scale**
+<span class="m">0</span>.008168
+</pre></div>
+</div>
+<div class="docutils">
 <p><code class="docutils literal notranslate"><span class="pre">Z-axis</span> <span class="pre">acceleration</span> <span class="pre">=</span> <span class="pre">in_accel_z_raw</span> <span class="pre">*</span> <span class="pre">in_accel_scale</span> <span class="pre">=</span> <span class="pre">1202</span> <span class="pre">*</span> <span class="pre">0.008168</span> <span class="pre">m/s^2</span> <span class="pre">=</span> <span class="pre">9.81</span> <span class="pre">m/s^2</span></code></p>
-</section>
-<section id="set-channel-bandwidth">
-<h4>Set channel bandwidth<a class="headerlink" href="#set-channel-bandwidth" title="Link to this heading">¶</a></h4>
+<h5 class="rubric" id="set-channel-bandwidth">Set channel bandwidth</h5>
 <p>The channels bandwidth can be set by writing the desired value to the channels <code class="docutils literal notranslate"><span class="pre">_filter_low_pass_3db_frequency</span></code> attribute. The driver will automatically round up to the nearest supported bandwidth.</p>
 <p>Note that all channels share the same low pass filter frequency so changing it for one channel will change it for all other channels as well. Also note that the low pass filter frequency depends on the sampling frequency, so changing the sampling frequency will scale the low pass filter frequency accordingly. E.g. reducing the sampling frequency by a factor of two will also reduce the bandwidth by a factor of two.</p>
-<p><strong>Example:</strong>
-&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat in_anglvel_filter_low_pass_3db_frequency</strong>
-409.600000
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>echo 150 &gt; in_anglvel_filter_low_pass_3db_frequency</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat in_anglvel_filter_low_pass_3db_frequency</strong>
-163.840400
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="trigger-management">
-<h3>Trigger management<a class="headerlink" href="#trigger-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP round help&gt;
-This driver only supports it’s own default trigger source <strong>adis16400-dev0</strong>
-&lt;/WRAP&gt;</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt; <strong>cat trigger/current_trigger</strong>
+<p><strong>Example:</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_anglvel_filter_low_pass_3db_frequency**
+<span class="m">409</span>.600000
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">150</span><span class="w"> </span>&gt;<span class="w"> </span>in_anglvel_filter_low_pass_3db_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_anglvel_filter_low_pass_3db_frequency**
+<span class="m">163</span>.840400
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="trigger-management">Trigger management</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>This driver only supports it’s own default trigger source <strong>adis16400-dev0</strong></p>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>trigger/current_trigger**
 adis16400-dev0
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="buffer-management">
-<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/buffer&gt; <strong>ls</strong>
-<strong>enable</strong> <strong>length</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan_elements&gt;<strong>ls</strong>
-in_accel_x_en in_gyro_y_index in_magn_z_type
-in_accel_x_index in_gyro_y_type in_temp0_en
-in_accel_x_type in_gyro_z_en in_temp0_index
-in_accel_y_en in_gyro_z_index in_temp0_type
-in_accel_y_index in_gyro_z_type in_timestamp_en
-in_accel_y_type in_magn_x_en in_timestamp_index
-in_accel_z_en in_magn_x_index in_timestamp_type
-in_accel_z_index in_magn_x_type in_voltage0_supply_en
-in_accel_z_type in_magn_y_en in_voltage0_supply_index
-in_gyro_x_en in_magn_y_index in_voltage0_supply_type
-in_gyro_x_index in_magn_y_type in_voltage1_en
-in_gyro_x_type in_magn_z_en in_voltage1_index
-in_gyro_y_en in_magn_z_index in_voltage1_type
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="buffer-management">Buffer management</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/buffer&gt;<span class="w"> </span>**ls**
+**enable**<span class="w"> </span>**length**
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan_elements&gt;**ls**
+in_accel_x_en<span class="w"> </span>in_gyro_y_index<span class="w"> </span>in_magn_z_type
+in_accel_x_index<span class="w"> </span>in_gyro_y_type<span class="w"> </span>in_temp0_en
+in_accel_x_type<span class="w"> </span>in_gyro_z_en<span class="w"> </span>in_temp0_index
+in_accel_y_en<span class="w"> </span>in_gyro_z_index<span class="w"> </span>in_temp0_type
+in_accel_y_index<span class="w"> </span>in_gyro_z_type<span class="w"> </span>in_timestamp_en
+in_accel_y_type<span class="w"> </span>in_magn_x_en<span class="w"> </span>in_timestamp_index
+in_accel_z_en<span class="w"> </span>in_magn_x_index<span class="w"> </span>in_timestamp_type
+in_accel_z_index<span class="w"> </span>in_magn_x_type<span class="w"> </span>in_voltage0_supply_en
+in_accel_z_type<span class="w"> </span>in_magn_y_en<span class="w"> </span>in_voltage0_supply_index
+in_gyro_x_en<span class="w"> </span>in_magn_y_index<span class="w"> </span>in_voltage0_supply_type
+in_gyro_x_index<span class="w"> </span>in_magn_y_type<span class="w"> </span>in_voltage1_en
+in_gyro_x_type<span class="w"> </span>in_magn_z_en<span class="w"> </span>in_voltage1_index
+in_gyro_y_en<span class="w"> </span>in_magn_z_index<span class="w"> </span>in_voltage1_type
 root:/sys/devices/platform/bfin-spi.0/spi0.1/iio:device0/scan_elements&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<section id="imu-evaluation-board-user-guides">
-<h3>IMU Evaluation Board User Guides<a class="headerlink" href="#imu-evaluation-board-user-guides" title="Link to this heading">¶</a></h3>
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h4 class="rubric" id="imu-evaluation-board-user-guides">IMU Evaluation Board User Guides</h4>
 <ul class="simple">
 <li><p><a class="reference internal" href="#/resources/eval/user-guides/inertial-mems/imu/adis1630x"><span class="xref myst">ADIS1630X Evaluation on the EVAL-ADIS</span></a></p></li>
 <li><p><a class="reference internal" href="#/resources/eval/user-guides/inertial-mems/imu/adis16334"><span class="xref myst">ADIS16334 Evaluation on the EVAL-ADIS</span></a></p></li>
 <li><p><a class="reference internal" href="#/resources/eval/user-guides/inertial-mems/imu/adis1636x"><span class="xref myst">ADIS1636X Evaluation on the EVAL-ADIS</span></a></p></li>
 <li><p><a class="reference internal" href="#/resources/eval/user-guides/inertial-mems/imu/adis16448"><span class="xref myst">ADIS1644X Evaluation on the EVAL-ADIS</span></a></p></li>
 </ul>
-</section>
+</div>
 </section>
 </section>
 

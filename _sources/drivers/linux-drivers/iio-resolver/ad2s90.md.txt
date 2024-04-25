@@ -1,14 +1,19 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-resolver/ad2s90
+title: AD2S90: Low Cost, Complete 12-Bit Resolver-to-Digital Converter
+---
+
 # AD2S90 IIO Resolver-to-Digital Converter Linux Driver
 
 ### Supported Devices
 
--   [AD2S90](adi>AD2S90)
+-   [AD2S90](https://analog.com/AD2S90)
 
 ### Description
 
 ![](scrape>adi>AD2S90#description)
 
--   [Product Page](adi>ad2s90)
+-   [Product Page](https://analog.com/ad2s90)
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting Resolver-to-Digital Converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
@@ -52,12 +57,15 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 
 ## Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -107,4 +115,6 @@ There are two files:
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

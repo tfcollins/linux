@@ -1,27 +1,32 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad7887
+title: AD7887: 2.7 V to 5.25 V, Micropower, 2-Channel, 125 kSPS, 12-Bit ADC in 8-Lead MSOP
+---
+
 # AD7887 IIO ADC Linux Driver
 
-### Supported Devices
+#### Supported Devices
 
--   [AD7887](adi>AD7887)
+-   [AD7887](https://analog.com/AD7887)
 
-### Reference Circuits
+#### Reference Circuits
 
--   [CN0150](adi>CN0150)
--   [CN0189](adi>CN0189)
+-   [CN0150](https://analog.com/CN0150)
+-   [CN0189](https://analog.com/CN0189)
 
-### Evaluation Boards
+#### Evaluation Boards
 
--   [EVAL-AD7887CBZ](adi>EVAL-AD7887CBZ)
+-   [EVAL-AD7887CBZ](https://analog.com/EVAL-AD7887CBZ)
 
-### Description
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single/multi channel serial interface ADCs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-## Source Code
+### Source Code
 
-### Status
+#### Status
 
 <table>
 <thead>
@@ -38,7 +43,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-### Files
+#### Files
 
 <table>
 <thead>
@@ -59,11 +64,13 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-## Example platform device initialization
+### Example platform device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
-The reference voltage may vary between boards and models. The platform_data for the device\'s \"struct device\" holds this information.
+The reference voltage may vary between boards and models. The platform_data for the device's "struct device" holds this information.
 
 ``` c
 /**
@@ -89,16 +96,19 @@ static struct ad7887_platform_data ad7887_pdata = {
 };
 ```
 
-### Specifying reference voltage via the regulator framework
+#### Specifying reference voltage via the regulator framework
 
-\<WRAP tip\>
+:::{NOTE} <!-- ATTRS: tip="" -->
+
 This driver supports also an alternative way of specifying the reference voltage, by using the Linux regulator framework.
-\</WRAP\>
+
+:::
+
 
 Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 
 ``` c
-#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad7887_consumer_supplies[] = {
     REGULATOR_SUPPLY("vcc", "spi0.3"),
 };
@@ -127,14 +137,14 @@ static struct platform_device brd_voltage_regulator = {
         .platform_data  = &stamp_vdd_pdata,
     },
 };
-#endif
+## endif
 ```
 
 ``` c
 static struct platform_device *board_devices[] __initdata = {
-#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
-#endif
+## endif
 };
 ```
 
@@ -152,14 +162,16 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
-#if defined(CONFIG_AD7887) || \
+## if defined(CONFIG_AD7887) || 
     defined(CONFIG_AD7887_MODULE)
     {
         /* the modalias must be the same as spi device driver name */
@@ -171,7 +183,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
         .controller_data = &ad7887_chip_info, /* Blackfin only */
         .mode = SPI_MODE_3,
     },
-#endif
+## endif
 };
 ```
 
@@ -189,14 +201,17 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-## Adding Linux driver support
+### Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The AD7887 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -211,90 +226,138 @@ The AD7887 Driver depends on **CONFIG_SPI**
                 ...
             ...
 
-## Hardware configuration
+### Hardware configuration
 
-## Driver testing
+### Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0 trigger0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **ls -l**
 drwxr-xr-x 5 root root 0 Jan 1 00:00 buffer
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in_voltage0_raw
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 in_voltage_scale
--r\--r\--r\-- 1 root root 4096 Jan 1 00:00 name
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../../bus/iio
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage0_raw
+-r--r--r-- 1 root root 4096 Jan 1 00:00 in_voltage_scale
+-r--r--r-- 1 root root 4096 Jan 1 00:00 name
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -> ../../../../../bus/iio
 drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
--rw-r\--r\-- 1 root root 4096 Jan 1 00:00 uevent
-\</xterm\>\</WRAP\>
+-rw-r--r-- 1 root root 4096 Jan 1 00:00 uevent
+```
+:::
 
-##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+###### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat name**
 ad7887
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### Show scale
 
-**Description:**\
+###### Show scale
+
+**Description:**
 scale to be applied to in0_raw in order to obtain the measured voltage in millivolts.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat in_voltage_scale**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage_scale**
 0.610
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### Show channel 0 measurement
 
-**Description:**\
+###### Show channel 0 measurement
+
+**Description:**
 Raw unscaled voltage measurement on channel 0
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat in_voltage0_raw**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage0_raw**
 1492
-\</xterm\>\</WRAP\>
+```
+:::
 
-**U** = *in0_raw \* in_scale* = 1492 \* 0.610 = **910.12 *mV***
 
-### Trigger management
+**U** = *in0_raw * in_scale* = 1492 * 0.610 = **910.12 *mV***
 
-![iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&noheader&firstseconly&noeditbtn)
+#### Trigger management
 
-#### Available standalone trigger drivers
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_devices_with_trigger_consumer_interface.md
+```
 
-![iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Standalone trigger drivers&noheader&firstseconly&noeditbtn)
+##### Available standalone trigger drivers
 
-### Buffer management
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Standalone_trigger_drivers.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0/buffer\> ls
+#### Buffer management
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0/buffer> ls
 **enable** **length**
 
-\</xterm\>\</WRAP\>
+```
+:::
 
-![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0/scan_elements\> ls
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Buffer_management.md
+```
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0/scan_elements> ls
 in_voltage0_en in_voltage0_type timestamp_index
 in_voltage0_index timestamp_en timestamp_type
-\</xterm\>\</WRAP\>
+```
+:::
 
-![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-## More Information
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Typical_ADC_scan_elements.md
+```
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+### More Information
+
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

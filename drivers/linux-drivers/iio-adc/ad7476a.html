@@ -101,18 +101,7 @@
 </li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-scale">Show scale</a></li>
-<li><a class="reference internal" href="#show-channel-0-measurement">Show channel 0 measurement</a></li>
-<li><a class="reference internal" href="#trigger-management">Trigger management</a><ul>
-<li><a class="reference internal" href="#available-standalone-trigger-drivers">Available standalone trigger drivers</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -188,7 +177,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7768-1.html">AD7768-1</a></li>
@@ -255,7 +246,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -313,102 +306,102 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7091R"><span class="xref myst">AD7091R</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7273"><span class="xref myst">AD7273</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7274"><span class="xref myst">AD7274</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7276"><span class="xref myst">AD7276</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7277"><span class="xref myst">AD7277</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7278"><span class="xref myst">AD7278</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7466"><span class="xref myst">AD7466</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7467"><span class="xref myst">AD7467</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7468"><span class="xref myst">AD7468</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7475"><span class="xref myst">AD7475</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7476"><span class="xref myst">AD7476</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7476A"><span class="xref myst">AD7476A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7477"><span class="xref myst">AD7477</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7477A"><span class="xref myst">AD7477A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7478"><span class="xref myst">AD7478</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7478A"><span class="xref myst">AD7478A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7495"><span class="xref myst">AD7495</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7680"><span class="xref myst">AD7680</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7683"><span class="xref myst">AD7683</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7684"><span class="xref myst">AD7684</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7685"><span class="xref myst">AD7685</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7686"><span class="xref myst">AD7686</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7687"><span class="xref myst">AD7687</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7688"><span class="xref myst">AD7688</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7690"><span class="xref myst">AD7690</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7691"><span class="xref myst">AD7691</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7693"><span class="xref myst">AD7693</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7694"><span class="xref myst">AD7694</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7910"><span class="xref myst">AD7910</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7920"><span class="xref myst">AD7920</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7940"><span class="xref myst">AD7940</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7942"><span class="xref myst">AD7942</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7946"><span class="xref myst">AD7946</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7980"><span class="xref myst">AD7980</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7982"><span class="xref myst">AD7982</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7984"><span class="xref myst">AD7984</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7985"><span class="xref myst">AD7985</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7988-1"><span class="xref myst">AD7988-1</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7988-5"><span class="xref myst">AD7988-5</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ELTC2314-14"><span class="xref myst">LTC2314-14</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7091R">AD7091R</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7273">AD7273</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7274">AD7274</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7276">AD7276</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7277">AD7277</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7278">AD7278</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7466">AD7466</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7467">AD7467</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7468">AD7468</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7475">AD7475</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7476">AD7476</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7476A">AD7476A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7477">AD7477</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7477A">AD7477A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7478">AD7478</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7478A">AD7478A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7495">AD7495</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7680">AD7680</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7683">AD7683</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7684">AD7684</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7685">AD7685</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7686">AD7686</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7687">AD7687</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7688">AD7688</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7690">AD7690</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7691">AD7691</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7693">AD7693</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7694">AD7694</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7910">AD7910</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7920">AD7920</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7940">AD7940</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7942">AD7942</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7946">AD7946</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7980">AD7980</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7982">AD7982</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7984">AD7984</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7985">AD7985</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7988-1">AD7988-1</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7988-5">AD7988-5</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/LTC2314-14">LTC2314-14</a></p></li>
 </ul>
 </section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3ECN0104"><span class="xref myst">CN0104</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0130"><span class="xref myst">CN0130</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0178"><span class="xref myst">CN0178</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0180"><span class="xref myst">CN0180</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0194"><span class="xref myst">CN0194</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0213"><span class="xref myst">CN0213</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0225"><span class="xref myst">CN0225</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0237"><span class="xref myst">CN0237</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0241"><span class="xref myst">CN0241</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0247"><span class="xref myst">CN0247</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0255"><span class="xref myst">CN0255</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0260"><span class="xref myst">CN0260</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0261"><span class="xref myst">CN0261</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0269"><span class="xref myst">CN0269</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0305"><span class="xref myst">CN0305</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0306"><span class="xref myst">CN0306</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0335"><span class="xref myst">CN0335</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0336"><span class="xref myst">CN0336</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0337"><span class="xref myst">CN0337</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0350"><span class="xref myst">CN0350</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0366"><span class="xref myst">CN0366</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0104">CN0104</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0130">CN0130</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0178">CN0178</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0180">CN0180</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0194">CN0194</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0213">CN0213</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0225">CN0225</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0237">CN0237</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0241">CN0241</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0247">CN0247</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0255">CN0255</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0260">CN0260</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0261">CN0261</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0269">CN0269</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0305">CN0305</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0306">CN0306</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0335">CN0335</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0336">CN0336</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0337">CN0337</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0350">CN0350</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0366">CN0366</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7091RSDZ"><span class="xref myst">EVAL-AD7091RSDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7276SDZ"><span class="xref myst">EVAL-AD7276SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7466"><span class="xref myst">EVAL-AD7466</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7476A"><span class="xref myst">EVAL-AD7476A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7477"><span class="xref myst">EVAL-AD7477</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7910"><span class="xref myst">EVAL-AD7910</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7920"><span class="xref myst">EVAL-AD7920</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7942"><span class="xref myst">EVAL-AD7942</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7683SDZ"><span class="xref myst">EVAL-AD7683SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7684SDZ"><span class="xref myst">EVAL-AD7684SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7685SDZ"><span class="xref myst">EVAL-AD7685SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7686SDZ"><span class="xref myst">EVAL-AD7686SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7687SDZ"><span class="xref myst">EVAL-AD7687SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7688SDZ"><span class="xref myst">EVAL-AD7688SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7690SDZ"><span class="xref myst">EVAL-AD7690SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7691SDZ"><span class="xref myst">EVAL-AD7691SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7693SDZ"><span class="xref myst">EVAL-AD7693SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7694SDZ"><span class="xref myst">EVAL-AD7694SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7942SDZ"><span class="xref myst">EVAL-AD7942SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7946SDZ"><span class="xref myst">EVAL-AD7946SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7980SDZ"><span class="xref myst">EVAL-AD7980SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7982SDZ"><span class="xref myst">EVAL-AD7982SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7984SDZ"><span class="xref myst">EVAL-AD7984SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7985EBZ"><span class="xref myst">EVAL-AD7985EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7988-5SDZ"><span class="xref myst">EVAL-AD7988-5SDZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7091RSDZ">EVAL-AD7091RSDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7276SDZ">EVAL-AD7276SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7466">EVAL-AD7466</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7476A">EVAL-AD7476A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7477">EVAL-AD7477</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7910">EVAL-AD7910</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7920">EVAL-AD7920</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7942">EVAL-AD7942</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7683SDZ">EVAL-AD7683SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7684SDZ">EVAL-AD7684SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7685SDZ">EVAL-AD7685SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7686SDZ">EVAL-AD7686SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7687SDZ">EVAL-AD7687SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7688SDZ">EVAL-AD7688SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7690SDZ">EVAL-AD7690SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7691SDZ">EVAL-AD7691SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7693SDZ">EVAL-AD7693SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7694SDZ">EVAL-AD7694SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7942SDZ">EVAL-AD7942SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7946SDZ">EVAL-AD7946SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7980SDZ">EVAL-AD7980SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7982SDZ">EVAL-AD7982SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7984SDZ">EVAL-AD7984SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7985EBZ">EVAL-AD7985EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7988-5SDZ">EVAL-AD7988-5SDZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -459,7 +452,7 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <section id="specifying-reference-voltage-via-the-regulator-framework">
 <h3>Specifying reference voltage via the regulator framework<a class="headerlink" href="#specifying-reference-voltage-via-the-regulator-framework" title="Link to this heading">¶</a></h3>
 <p>Below example specifies a 3.3 Volt reference for the SPI device 3 on SPI-Bus 0. (<strong>spi0.3</strong>)</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
 <span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">regulator_consumer_supply</span><span class="w"> </span><span class="n">ad7476_consumer_supplies</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">REGULATOR_SUPPLY</span><span class="p">(</span><span class="s">&quot;vcc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;spi0.3&quot;</span><span class="p">),</span>
 <span class="p">};</span>
@@ -488,13 +481,13 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stamp_vdd_pdata</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="p">};</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 </pre></div>
 </div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">platform_device</span><span class="w"> </span><span class="o">*</span><span class="n">board_devices</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
+<span class="cp">## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
 <span class="w">    </span><span class="o">&amp;</span><span class="n">brd_voltage_regulator</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -511,12 +504,12 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <span class="n">arch_initcall</span><span class="p">(</span><span class="n">board_init</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD7476) || \</span>
-<span class="cp">    defined(CONFIG_AD7476_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD7476) || </span>
+<span class="w">    </span><span class="n">defined</span><span class="p">(</span><span class="n">CONFIG_AD7476_MODULE</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="cm">/* the modalias must be the same as spi device driver name */</span>
 <span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ad7476&quot;</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Name of spi_driver for this device */</span>
@@ -525,7 +518,7 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <span class="w">        </span><span class="p">.</span><span class="n">chip_select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Framework chip select */</span>
 <span class="w">        </span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_MODE_3</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -584,9 +577,11 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD7476 Driver depends on <strong>CONFIG_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD7476 Driver depends on <strong>CONFIG_SPI</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         ...
@@ -607,84 +602,132 @@ The AD7476 Driver depends on <strong>CONFIG_SPI</strong>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
-device0 device0:buffer0:access0 trigger0
-device0:buffer0 device0:buffer0:event0</p>
-<p>root:/sys/bus/iio/devices&gt; <strong>cd device0</strong></p>
-<p>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>ls -l</strong>
-drwxr-xr-x 5 root root 0 Jan 1 00:00 buffer
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage0_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage_scale
--r–r–r– 1 root root 4096 Jan 1 00:00 name
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -&gt; …/…/…/…/…/bus/iio
-drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
--rw-r–r– 1 root root 4096 Jan 1 00:00 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat name</strong>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
+device0<span class="w"> </span>device0:buffer0:access0<span class="w"> </span>trigger0
+device0:buffer0<span class="w"> </span>device0:buffer0:event0
+
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>device0**
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+drwxr-xr-x<span class="w"> </span><span class="m">5</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>buffer
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage0_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../bus/iio
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>trigger
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad7476
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-scale">
-<h3>Show scale<a class="headerlink" href="#show-scale" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-scale">Show scale</h6>
+<p><strong>Description:</strong>
 scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage_scale</strong>
-0.805
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-0-measurement">
-<h3>Show channel 0 measurement<a class="headerlink" href="#show-channel-0-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage_scale**
+<span class="m">0</span>.805
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-channel-0-measurement">Show channel 0 measurement</h6>
+<p><strong>Description:</strong>
 Raw unscaled voltage measurement on channel 0</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage0_raw</strong>
-2001
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage0_raw**
+<span class="m">2001</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in_voltage0_raw * in_voltage_scale</em> = 2001 * 0.805 = <strong>1610,805 <em>mV</em></strong></p>
-</section>
-<section id="trigger-management">
-<h3>Trigger management<a class="headerlink" href="#trigger-management" title="Link to this heading">¶</a></h3>
-<p>![iio_snippets#iio devices with trigger consumer interface&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<section id="available-standalone-trigger-drivers">
-<h4>Available standalone trigger drivers<a class="headerlink" href="#available-standalone-trigger-drivers" title="Link to this heading">¶</a></h4>
-<p>![iio_snippets#Standalone trigger drivers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Standalone trigger drivers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-</section>
-</section>
-<section id="buffer-management">
-<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0&gt; ls
-<strong>bytes_per_datum</strong> <strong>enable</strong> subsystem
-device0:buffer0:access0 <strong>length</strong> uevent
-device0:buffer0:event0 <strong>scan_elements</strong>
+<h4 class="rubric" id="trigger-management">Trigger management</h4>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h5 class="rubric" id="available-standalone-trigger-drivers">Available standalone trigger drivers</h5>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h4 class="rubric" id="buffer-management">Buffer management</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0&gt;<span class="w"> </span>ls
+**bytes_per_datum**<span class="w"> </span>**enable**<span class="w"> </span>subsystem
+device0:buffer0:access0<span class="w"> </span>**length**<span class="w"> </span>uevent
+device0:buffer0:event0<span class="w"> </span>**scan_elements**
 root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0/scan_elements&gt; ls
-in0_en in_type timestamp_index
-in0_index timestamp_en timestamp_type
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0/scan_elements&gt;<span class="w"> </span>ls
+in0_en<span class="w"> </span>in_type<span class="w"> </span>timestamp_index
+in0_index<span class="w"> </span>timestamp_en<span class="w"> </span>timestamp_type
 root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/device0:buffer0/scan_elements&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

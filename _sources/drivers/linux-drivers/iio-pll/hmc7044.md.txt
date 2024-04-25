@@ -1,9 +1,14 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/hmc7044
+title: HMC7043: High Performance, 3.2 GHz, 14-Output Fanout Buffer
+---
+
 # HMC7044 Clock Jitter Attenuator with JESD204B Linux Driver
 
 ### Supported Devices
 
--   [HMC7044](adi>HMC7044)
--   [HMC7043](adi>HMC7043)
+-   [HMC7044](https://analog.com/HMC7044)
+-   [HMC7043](https://analog.com/HMC7043)
 
 ### Description
 
@@ -29,7 +34,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master?drivers/iio/frequency/hmc7044.c">drivers/iio/frequency/hmc7044.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/hmc7044.c">drivers/iio/frequency/hmc7044.c</a></td>
 <td>No</td>
 </tr>
 </tbody>
@@ -47,23 +52,26 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/hmc7044.c">drivers/iio/frequency/hmc7044.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/hmc7044.c">drivers/iio/frequency/hmc7044.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/hmc7044.txt">Documentation/devicetree/bindings/iio/frequency/hmc7044.txt</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/frequency/hmc7044.txt">Documentation/devicetree/bindings/iio/frequency/hmc7044.txt</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Enabling the driver
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The HMC7044 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -78,26 +86,26 @@ The HMC7044 Driver depends on **CONFIG_SPI**
 
 ###### Required properties:
 
--   **compatible**: Should be \"adi,hmc7044\".
+-   **compatible**: Should be "adi,hmc7044".
 -   **reg**: SPI chip select number.
--   **spi-max-frequency**: Max SPI frequency to use (\<= 10000000).
+-   **spi-max-frequency**: Max SPI frequency to use (<= 10000000).
 -   **adi,pll1-clkin-frequencies**: An array of 4 elements, each representing the frequency of CLKINx PLL1 reference input (CLKIN0, CLKIN1, CLKIN2, CLKIN3).
 -   **adi,vcxo-frequency**: The frequency of the VCXO.
 -   **adi,pll2-output-frequency**: The desired output frequency of the PLL2.
--   **adi,gpi-controls**: An array of 4 elements (each corresponding to GPI1, GPI2, GPI3 and GPI4, respectively), representing the GPI selection (Bits \[4:1\]) and the GPI enable bit (\[0\]) - see registers 0x0046, 0x0047, 0x0048, 0x0049.
--   **adi,gpo-controls**: An array of 4 elements (each corresponding to GPO1, GPO2, GPO3 and GPO4, respectively), representing the GPO selection (Bits \[7:2\]), the GPO mode (Bit \[1\]) and the GPO enable bit (\[0\]) - see registers 0x0050, 0x0051, 0x0052, 0x0053.
+-   **adi,gpi-controls**: An array of 4 elements (each corresponding to GPI1, GPI2, GPI3 and GPI4, respectively), representing the GPI selection (Bits [4:1]) and the GPI enable bit ([0]) - see registers 0x0046, 0x0047, 0x0048, 0x0049.
+-   **adi,gpo-controls**: An array of 4 elements (each corresponding to GPO1, GPO2, GPO3 and GPO4, respectively), representing the GPO selection (Bits [7:2]), the GPO mode (Bit [1]) and the GPO enable bit ([0]) - see registers 0x0050, 0x0051, 0x0052, 0x0053.
 -   **clock-output-names**: An array of 14 elements, representing the names of the output clocks.
 
 ###### Optional properties:
 
 -   **adi,pll1-loop-bandwidth-hz**: The PLL1 loop bandwidth. If this is not specified, 200 will be used by default.
 -   **adi,sysref-timer-divider**: This sets the internal beat frequency of the master timer, which controls synchronization and pulse generator events. It should be set to a submultiple of the lowest output SYSREF frequency, no faster than 4 MHz. If this is not specified, 1024 will be used by default.
--   **adi,pulse-generator-mode**: Pulse Generator Mode Selection \[Bits 2:0\] - see register 0x005A. If this is not specified, 0 will be used by default.
--   **adi,clkin0-buffer-mode**: CLKIN0 Input Buffer Control, for specifying the Input Buffer Mode (Bits \[4:1\]) and the Buffer enable bit (\[0\]) - see register 0x000A. If this is not specified, 0 will be used by default.
--   **adi,clkin1-buffer-mode**: CLKIN1 Input Buffer Control, for specifying the Input Buffer Mode (Bits \[4:1\]) and the Buffer enable bit (\[0\]) - see register 0x000B. If this is not specified, 0 will be used by default.
--   **adi,clkin2-buffer-mode**: CLKIN2 Input Buffer Control, for specifying the Input Buffer Mode (Bits \[4:1\]) and the Buffer enable bit (\[0\]) - see register 0x000C. If this is not specified, 0 will be used by default.
--   **adi,clkin3-buffer-mode**: CLKIN3 Input Buffer Control, for specifying the Input Buffer Mode (Bits \[4:1\]) and the Buffer enable bit (\[0\]) - see register 0x000D. If this is not specified, 0 will be used by default.
--   **adi,oscin-buffer-mode**: OSCIN Input Buffer Control, for specifying the Input Buffer Mode (Bits \[4:1\]) and the Buffer enable bit (\[0\]) - see register 0x000E. If this is not specified, 0 will be used by default.
+-   **adi,pulse-generator-mode**: Pulse Generator Mode Selection [Bits 2:0] - see register 0x005A. If this is not specified, 0 will be used by default.
+-   **adi,clkin0-buffer-mode**: CLKIN0 Input Buffer Control, for specifying the Input Buffer Mode (Bits [4:1]) and the Buffer enable bit ([0]) - see register 0x000A. If this is not specified, 0 will be used by default.
+-   **adi,clkin1-buffer-mode**: CLKIN1 Input Buffer Control, for specifying the Input Buffer Mode (Bits [4:1]) and the Buffer enable bit ([0]) - see register 0x000B. If this is not specified, 0 will be used by default.
+-   **adi,clkin2-buffer-mode**: CLKIN2 Input Buffer Control, for specifying the Input Buffer Mode (Bits [4:1]) and the Buffer enable bit ([0]) - see register 0x000C. If this is not specified, 0 will be used by default.
+-   **adi,clkin3-buffer-mode**: CLKIN3 Input Buffer Control, for specifying the Input Buffer Mode (Bits [4:1]) and the Buffer enable bit ([0]) - see register 0x000D. If this is not specified, 0 will be used by default.
+-   **adi,oscin-buffer-mode**: OSCIN Input Buffer Control, for specifying the Input Buffer Mode (Bits [4:1]) and the Buffer enable bit ([0]) - see register 0x000E. If this is not specified, 0 will be used by default.
 
 #### Adding channels
 

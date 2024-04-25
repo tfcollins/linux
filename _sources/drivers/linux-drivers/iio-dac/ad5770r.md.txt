@@ -1,14 +1,19 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-dac/ad5770r
+title: AD5770R: 6-Channel, 14-Bit, Current Output DAC with On-Chip Reference, SPI Interface
+---
+
 # AD5770R IIO DAC Linux Driver
 
 ### Supported Devices
 
 This driver supports the
 
--   [AD5770R](adi>AD5770R)
+-   [AD5770R](https://analog.com/AD5770R)
 
 ### Evaluation Boards
 
--   [EVAL-AD5770R](adi>EVAL-AD5770R)
+-   [EVAL-AD5770R](https://analog.com/EVAL-AD5770R)
 
 ### Description
 
@@ -39,9 +44,9 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Required devicetree properties for the AD5770R:
 
--   compatible: Must be \"adi,ad5770r\"
+-   compatible: Must be "adi,ad5770r"
 -   reg: SPI chip select number for the device
--   spi-max-frequency: Max SPI frequency to use (\< 10000000)
+-   spi-max-frequency: Max SPI frequency to use (< 10000000)
 -   child nodes: Each child node represents one channel.
 
 Optional properties:
@@ -97,8 +102,8 @@ Optional properties:
 
 ## Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -115,130 +120,176 @@ Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
 
 ## Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-pi@raspberrypi:/sys/bus/iio/devices/iio:device0 \$ cd /sys/bus/iio/devices/
-pi@raspberrypi:/sys/bus/iio/devices \$ ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+pi@raspberrypi:/sys/bus/iio/devices/iio:device0 $ cd /sys/bus/iio/devices/
+pi@raspberrypi:/sys/bus/iio/devices $ ls
 iio:device0 iio:device1
-pi@raspberrypi:/sys/bus/iio/devices \$ cd iio\\:device0
-pi@raspberrypi:/sys/bus/iio/devices/iio:device0 \$ ls -l
+pi@raspberrypi:/sys/bus/iio/devices $ cd iio:device0
+pi@raspberrypi:/sys/bus/iio/devices/iio:device0 $ ls -l
 total 0
--r\--r\--r\-- 1 root root 4096 Jul 18 12:12 dev
--r\--r\--r\-- 1 root root 4096 Jul 18 12:12 name
-lrwxrwxrwx 1 root root 0 Jul 18 12:12 of_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ad5770r@0
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current0_filter_low_pass_3db_frequency
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current0_powerdown
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current0_raw
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current0_scale
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current1_filter_low_pass_3db_frequency
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current1_powerdown
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current1_raw
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current1_scale
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current2_filter_low_pass_3db_frequency
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current2_powerdown
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current2_raw
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current2_scale
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current3_filter_low_pass_3db_frequency
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current3_powerdown
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current3_raw
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current3_scale
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current4_filter_low_pass_3db_frequency
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current4_powerdown
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current4_raw
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current4_scale
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current5_filter_low_pass_3db_frequency
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current5_powerdown
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current5_raw
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 out_current5_scale
--r\--r\--r\-- 1 root root 4096 Jul 18 12:12 out_current_filter_low_pass_3db_frequency_available
+-r--r--r-- 1 root root 4096 Jul 18 12:12 dev
+-r--r--r-- 1 root root 4096 Jul 18 12:12 name
+lrwxrwxrwx 1 root root 0 Jul 18 12:12 of_node -> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ad5770r@0
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current0_filter_low_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current0_powerdown
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current0_raw
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current0_scale
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current1_filter_low_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current1_powerdown
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current1_raw
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current1_scale
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current2_filter_low_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current2_powerdown
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current2_raw
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current2_scale
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current3_filter_low_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current3_powerdown
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current3_raw
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current3_scale
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current4_filter_low_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current4_powerdown
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current4_raw
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current4_scale
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current5_filter_low_pass_3db_frequency
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current5_powerdown
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current5_raw
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 out_current5_scale
+-r--r--r-- 1 root root 4096 Jul 18 12:12 out_current_filter_low_pass_3db_frequency_available
 drwxr-xr-x 2 root root 0 Jul 18 12:12 power
-lrwxrwxrwx 1 root root 0 Jul 18 12:12 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jul 18 12:12 uevent
-\</xterm\>\</WRAP\>
+lrwxrwxrwx 1 root root 0 Jul 18 12:12 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jul 18 12:12 uevent
+```
+:::
+
 
 ##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-pi@raspberrypi:/sys/bus/iio/devices/iio:device0 \$ cat name
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+pi@raspberrypi:/sys/bus/iio/devices/iio:device0 $ cat name
 ad5770r
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show scale
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out_currentY_scale\
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_currentY_scale
 scale to be applied to out_currentY_raw in order to obtain the measured current in milliamps.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_scale
 0.018310546
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set channel Y output current
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out_currentY_raw\
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_currentY_raw
 Raw (unscaled, no bias etc.) output current for
 channel Y.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@raspberrypi:/sys/bus/iio/devices/iio:device0# echo 5000 \> out_current0_raw
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
 
-**I** = *out_current0_raw \* out_current0_scale* = 5000 \* 0,018310546 = **91,55273 *mA***
+```{code-block} bash
+root@raspberrypi:/sys/bus/iio/devices/iio:device0# echo 5000 > out_current0_raw
+```
+:::
+
+
+**I** = *out_current0_raw * out_current0_scale* = 5000 * 0,018310546 = **91,55273 *mA***
 
 ##### Enable power down mode for the device
 
 /sys/bus/iio/devices/iio:deviceX/out_currentY_powerdown
 
-**Description:**\
+**Description:**
 Writing 1 causes channel Y to enter power down mode. Clearing returns to
 normal operation.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@raspberrypi:/sys/bus/iio/devices/iio:device0# echo 1 \> out_current0_powerdown
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@raspberrypi:/sys/bus/iio/devices/iio:device0# echo 1 > out_current0_powerdown
 root@raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_powerdown
 1
-root@raspberrypi:/sys/bus/iio/devices/iio:device0# echo 0 \> out_current0_powerdown
+root@raspberrypi:/sys/bus/iio/devices/iio:device0# echo 0 > out_current0_powerdown
 root@raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_powerdown
 0
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show available filter frequencies
 
 /sys/bus/iio/devices/iio:deviceX/out_current_filter_low_pass_3db_frequency_available
 
-**Description:**\
+**Description:**
 Contains available filter frequencies.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current_filter_low_pass_3db_frequency_available
 153 357 715 1400 2800 262000
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set channel Y filter frequency
 
 /sys/bus/iio/devices/iio:deviceX/out_current0_filter_low_pass_3db_frequency
 
-**Description:**\
+**Description:**
 Write filter value to channel Y.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_filter_low_pass_3db_frequency
 262000
-root@raspberrypi:/sys/bus/iio/devices/iio:device0# echo 1000 \> out_current0_filter_low_pass_3db_frequency
+root@raspberrypi:/sys/bus/iio/devices/iio:device0# echo 1000 > out_current0_filter_low_pass_3db_frequency
 root@raspberrypi:/sys/bus/iio/devices/iio:device0# cat out_current0_filter_low_pass_3db_frequency
 1400
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

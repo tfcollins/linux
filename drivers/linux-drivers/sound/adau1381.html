@@ -115,7 +115,6 @@
 <li><a class="reference internal" href="#kernel-configuration">Kernel configuration</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
 <li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
-<li><a class="reference internal" href="#more-information">More information</a></li>
 </ul>
 </li>
 </ul>
@@ -193,7 +192,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -260,7 +261,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -318,15 +321,15 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADAU1381"><span class="xref myst">ADAU1381</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADAU1781"><span class="xref myst">ADAU1781</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADAU1381">ADAU1381</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADAU1781">ADAU1781</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADAU1381Z"><span class="xref myst">EVAL-ADAU1381Z</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADAU1781Z"><span class="xref myst">EVAL-ADAU1781Z</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADAU1381Z">EVAL-ADAU1381Z</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADAU1781Z">EVAL-ADAU1781Z</a></p></li>
 </ul>
 </section>
 <section id="source-code">
@@ -380,10 +383,10 @@ Content on this topic
 </section>
 <section id="example-device-initialization">
 <h2>Example device initialization<a class="headerlink" href="#example-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 <section id="i2c">
 <h3>I2C<a class="headerlink" href="#i2c" title="Link to this heading">¶</a></h3>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>The I2C device id depends on the ADDR0 and ADDR1 pin settings and needs to be set according to your board setup.</p>
 <table>
 <thead>
@@ -841,7 +844,7 @@ Valid values: "Normal operation", "Enhanced performance", "Power saving"</td>
 </section>
 <section id="adau1x81-evaluation-board-driver">
 <h2>ADAU1X81 evaluation board driver<a class="headerlink" href="#adau1x81-evaluation-board-driver" title="Link to this heading">¶</a></h2>
-<p>There is no dedicated Blackfin STAMP evaluation board for the ADAU1381/ADAU1781. During test and driver development we used the <a class="reference internal" href="#adi%3EEVAL-ADAU1381Z"><span class="xref myst">EVAL-ADAU1381Z</span></a>/<a class="reference internal" href="#adi%3EEVAL-ADAU1781Z"><span class="xref myst">EVAL-ADAU1781Z</span></a> board.</p>
+<p>There is no dedicated Blackfin STAMP evaluation board for the ADAU1381/ADAU1781. During test and driver development we used the <a class="reference external" href="https://analog.com/EVAL-ADAU1381Z">EVAL-ADAU1381Z</a>/<a class="reference external" href="https://analog.com/EVAL-ADAU1781Z">EVAL-ADAU1781Z</a> board.</p>
 <p>It can be easily wired to the Blackfin STAMP SPORT header.</p>
 <section id="source">
 <h3>Source<a class="headerlink" href="#source" title="Link to this heading">¶</a></h3>
@@ -953,40 +956,56 @@ Valid values: "Normal operation", "Enhanced performance", "Power saving"</td>
 <section id="driver-testing">
 <h3>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h3>
 <p>Load the driver and make sure the sound card is properly instantiated.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; modprobe snd-bf5xx-i2s
-root:/&gt; modprobe snd-soc-bf5xx-i2s
-root:/&gt; modprobe snd-soc-adau1781
-root:/&gt; modprobe snd-soc-bfin-eval-adau1x81
-bfin-i2s bfin-i2s.0: dma rx:3 tx:4, err irq:45, regs:ffc00800
-dma_alloc_init: dma_page &#64; 0x02791000 - 256 pages at 0x03f00000
-asoc: adau-hifi &lt;-&gt; bfin-i2s.0 mapping ok
-ALSA device list:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#0: bfin-eval-adau1x81
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>modprobe<span class="w"> </span>snd-bf5xx-i2s
+root:/&gt;<span class="w"> </span>modprobe<span class="w"> </span>snd-soc-bf5xx-i2s
+root:/&gt;<span class="w"> </span>modprobe<span class="w"> </span>snd-soc-adau1781
+root:/&gt;<span class="w"> </span>modprobe<span class="w"> </span>snd-soc-bfin-eval-adau1x81
+bfin-i2s<span class="w"> </span>bfin-i2s.0:<span class="w"> </span>dma<span class="w"> </span>rx:3<span class="w"> </span>tx:4,<span class="w"> </span>err<span class="w"> </span>irq:45,<span class="w"> </span>regs:ffc00800
+dma_alloc_init:<span class="w"> </span>dma_page<span class="w"> </span>@<span class="w"> </span>0x02791000<span class="w"> </span>-<span class="w"> </span><span class="m">256</span><span class="w"> </span>pages<span class="w"> </span>at<span class="w"> </span>0x03f00000
+asoc:<span class="w"> </span>adau-hifi<span class="w"> </span>&lt;-&gt;<span class="w"> </span>bfin-i2s.0<span class="w"> </span>mapping<span class="w"> </span>ok
+ALSA<span class="w"> </span>device<span class="w"> </span>list:
+
+<span class="w">    </span><span class="c1">#0: bfin-eval-adau1x81</span>
 </pre></div>
 </div>
-<p>&lt;/xterm&gt;
-&lt;/WRAP&gt;</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; modprobe snd-pcm-oss
-root:/&gt; tone
-TONE: generating sine wave at 1000 Hz.…</p>
-<p>root:/&gt; arecord -f cd | aplay
-Recording WAVE ‘stdin’ : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE ‘stdin’ : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-&lt;/xterm&gt;
-&lt;/WRAP&gt;</p>
-</section>
-<section id="more-information">
-<h3>More information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h3>
+<div class="docutils">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>modprobe<span class="w"> </span>snd-pcm-oss
+root:/&gt;<span class="w"> </span>tone
+TONE:<span class="w"> </span>generating<span class="w"> </span>sine<span class="w"> </span>wave<span class="w"> </span>at<span class="w"> </span><span class="m">1000</span><span class="w"> </span>Hz...
+
+root:/&gt;<span class="w"> </span>arecord<span class="w"> </span>-f<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>aplay
+Recording<span class="w"> </span>WAVE<span class="w"> </span><span class="s1">&#39;stdin&#39;</span><span class="w"> </span>:<span class="w"> </span>Signed<span class="w"> </span><span class="m">16</span><span class="w"> </span>bit<span class="w"> </span>Little<span class="w"> </span>Endian,<span class="w"> </span>Rate<span class="w"> </span><span class="m">44100</span><span class="w"> </span>Hz,<span class="w"> </span>Stereo
+Playing<span class="w"> </span>WAVE<span class="w"> </span><span class="s1">&#39;stdin&#39;</span><span class="w"> </span>:<span class="w"> </span>Signed<span class="w"> </span><span class="m">16</span><span class="w"> </span>bit<span class="w"> </span>Little<span class="w"> </span>Endian,<span class="w"> </span>Rate<span class="w"> </span><span class="m">44100</span><span class="w"> </span>Hz,<span class="w"> </span>Stereo
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="more-information">More information</h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="#resources/tools-software/sigmastudio"><span class="xref myst">SigmaStudio</span></a></p></li>
 <li><p><a class="reference internal" href="#resources/tools-software/linux-software/sigmadsp_genfirmware"><span class="xref myst">SigmaDSP Firmware Utility for Linux</span></a></p></li>
 <li><p><a class="reference internal" href="#resources/tools-software/linux-software/sigmatcp"><span class="xref myst">SigmaStudio Network Utility for Linux</span></a></p></li>
 </ul>
-<p>![](page&gt;resources/tools-software/linux-drivers/need_help#need help&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 </section>

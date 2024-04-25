@@ -1,12 +1,17 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-accelerometer/adxl372
+title: ADXL372: Micropower 3-Axis MEMS Accelerometer, Programmable Digital Output, ±200 g Range
+---
+
 # ADXL372 Input 3-Axis Digital Accelerometer Linux Driver
 
 ### Supported Devices
 
--   [ADXL372](adi>ADXL372)
+-   [ADXL372](https://analog.com/ADXL372)
 
 ### Evaluation Boards
 
--   [EVAL-ADXL372Z](adi>EVAL-ADXL372Z)
+-   [EVAL-ADXL372Z](https://analog.com/EVAL-ADXL372Z)
 
 ### Description
 
@@ -45,27 +50,27 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 <tbody>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/accel/adxl372.c">drivers/iio/accel/adxl372.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/accel/adxl372.c">drivers/iio/accel/adxl372.c</a></td>
 </tr>
 <tr class="even">
 <td>spi driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/accel/adxl372_spi.c">drivers/iio/accel/adxl372_spi.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/accel/adxl372_spi.c">drivers/iio/accel/adxl372_spi.c</a></td>
 </tr>
 <tr class="odd">
 <td>i2c driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/accel/adxl372_i2c.c">drivers/iio/accel/adxl372_i2c.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/accel/adxl372_i2c.c">drivers/iio/accel/adxl372_i2c.c</a></td>
 </tr>
 <tr class="even">
 <td>header</td>
-<td><a href="linux.github&gt;master?drivers/iio/iio/accel/adxl372.h">drivers/iio/accel/adxl372.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/iio/accel/adxl372.h">drivers/iio/accel/adxl372.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/accel/adxl345.txt">adxl345.txt</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/accel/adxl345.txt">adxl345.txt</a></td>
 </tr>
 <tr class="even">
 <td>ABI documentation</td>
-<td><a href="linux.github&gt;master?Documentation/ABI/testing/sysfs-bus-iio-accel-adxl372">sysfs-bus-iio-accel-adxl372</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/ABI/testing/sysfs-bus-iio-accel-adxl372">sysfs-bus-iio-accel-adxl372</a></td>
 </tr>
 </tbody>
 </table>
@@ -82,7 +87,7 @@ Example device tree
 <tbody>
 <tr class="odd">
 <td>dts</td>
-<td><a href="linux.github&gt;rpi-4.19.y?arch/arm/boot/dts/overlays/rpi-adxl372-overlay.dts">rpi-adxl372-overlay.dts</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/rpi-4.19.y?arch/arm/boot/dts/overlays/rpi-adxl372-overlay.dts">rpi-adxl372-overlay.dts</a></td>
 </tr>
 </tbody>
 </table>
@@ -91,7 +96,7 @@ Example device tree
 
 Required devicetree properties:
 
--   compatible: Needs to be the name of the device. E.g. \"adi,adxl372\"
+-   compatible: Needs to be the name of the device. E.g. "adi,adxl372"
 -   reg: the I2C address or SPI chip select number for the device
 
 Required properties for SPI bus usage:
@@ -131,112 +136,154 @@ Example for a I2C device node:
 
 ## Driver testing
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio\\:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/bus/iio/devices/iio:device0\> **ls -l**
+root:/sys/bus/iio/devices/iio:device0> **ls -l**
 drwxr-xr-x 2 root root 0 Oct 25 04:25 buffer
--rw-r\--r\-- 1 root root 4096 Oct 25 04:25 current_timestamp_clock
--r\--r\--r\-- 1 root root 4096 Oct 25 04:25 dev
--rw-r\--r\-- 1 root root 4096 Oct 25 04:28 in_accel_filter_low_pass_3db_frequency
--r\--r\--r\-- 1 root root 4096 Oct 25 04:25 in_accel_filter_low_pass_3db_frequency_available
--rw-r\--r\-- 1 root root 4096 Oct 25 04:27 in_accel_sampling_frequency
--rw-r\--r\-- 1 root root 4096 Oct 25 04:25 in_accel_scale
--rw-r\--r\-- 1 root root 4096 Oct 25 04:25 in_accel_x_raw
--rw-r\--r\-- 1 root root 4096 Oct 25 04:25 in_accel_y_raw
--rw-r\--r\-- 1 root root 4096 Oct 25 04:25 in_accel_z_raw
--r\--r\--r\-- 1 root root 4096 Oct 25 04:25 name
-lrwxrwxrwx 1 root root 0 Oct 25 04:25 of_node -\> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/adxl372@0
--r\--r\--r\-- 1 root root 4096 Oct 25 04:25 peak_fifo_mode_enable
+-rw-r--r-- 1 root root 4096 Oct 25 04:25 current_timestamp_clock
+-r--r--r-- 1 root root 4096 Oct 25 04:25 dev
+-rw-r--r-- 1 root root 4096 Oct 25 04:28 in_accel_filter_low_pass_3db_frequency
+-r--r--r-- 1 root root 4096 Oct 25 04:25 in_accel_filter_low_pass_3db_frequency_available
+-rw-r--r-- 1 root root 4096 Oct 25 04:27 in_accel_sampling_frequency
+-rw-r--r-- 1 root root 4096 Oct 25 04:25 in_accel_scale
+-rw-r--r-- 1 root root 4096 Oct 25 04:25 in_accel_x_raw
+-rw-r--r-- 1 root root 4096 Oct 25 04:25 in_accel_y_raw
+-rw-r--r-- 1 root root 4096 Oct 25 04:25 in_accel_z_raw
+-r--r--r-- 1 root root 4096 Oct 25 04:25 name
+lrwxrwxrwx 1 root root 0 Oct 25 04:25 of_node -> ../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/adxl372@0
+-r--r--r-- 1 root root 4096 Oct 25 04:25 peak_fifo_mode_enable
 drwxr-xr-x 2 root root 0 Oct 25 04:25 power
--r\--r\--r\-- 1 root root 4096 Oct 25 04:25 sampling_frequency_available
+-r--r--r-- 1 root root 4096 Oct 25 04:25 sampling_frequency_available
 drwxr-xr-x 2 root root 0 Oct 25 04:25 scan_elements
-lrwxrwxrwx 1 root root 0 Oct 25 04:25 subsystem -\> ../../../../../../../../bus/iio
+lrwxrwxrwx 1 root root 0 Oct 25 04:25 subsystem -> ../../../../../../../../bus/iio
 drwxr-xr-x 2 root root 0 Oct 25 04:25 trigger
--rw-r\--r\-- 1 root root 4096 Oct 25 04:25 uevent
-\</xterm\>\</WRAP\>
+-rw-r--r-- 1 root root 4096 Oct 25 04:25 uevent
+```
+:::
+
 
 ##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat name**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat name**
 adxl372
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show scale
 
-**Description:**\
-scale to be applied to in_accel\_\*\_raw in order to obtain the acceleration.
+**Description:**
+scale to be applied to in_accel_*_raw in order to obtain the acceleration.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_scale**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_scale**
 0.958241
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show axis x measurement
 
-**Description:**\
+**Description:**
 Raw unscaled acceleration measurement on x axis
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_x_raw**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_x_raw**
 -5
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set sampling frequency
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat sampling_frequency_available**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat sampling_frequency_available**
 400 800 1600 3200 6400
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_sampling_frequency**
 6400
-root:/sys/bus/iio/devices/iio:device0\> **echo 3200 \> in_accel_sampling_frequency**
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device0> **echo 3200 > in_accel_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_sampling_frequency**
 3200
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show available bandwidths for the current set frequency
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_sampling_frequency**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_sampling_frequency**
 256000
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_filter_low_pass_3db_frequency_available**
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_filter_low_pass_3db_frequency_available**
 200 400 800 1600 3200
-root:/sys/bus/iio/devices/iio:device0\>
-\</xterm\>\</WRAP\>
+root:/sys/bus/iio/devices/iio:device0>
+```
+:::
+
 
 ##### Change the bandwidth
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_filter_low_pass_3db_frequency_available**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_filter_low_pass_3db_frequency_available**
 200 400 800 1600 3200
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_filter_low_pass_3db_frequency**
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_filter_low_pass_3db_frequency**
 3200
-root:/sys/bus/iio/devices/iio:device0\> **echo 1600 \> in_accel_filter_low_pass_3db_frequency**
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_filter_low_pass_3db_frequency**
+root:/sys/bus/iio/devices/iio:device0> **echo 1600 > in_accel_filter_low_pass_3db_frequency**
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_filter_low_pass_3db_frequency**
 1600
-root:/sys/bus/iio/devices/iio:device0\> **echo 3200 \> in_accel_sampling_frequency**
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_filter_low_pass_3db_frequency_available**
+root:/sys/bus/iio/devices/iio:device0> **echo 3200 > in_accel_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_filter_low_pass_3db_frequency_available**
 200 400 800 1600
-root:/sys/bus/iio/devices/iio:device0\> **echo 1600 \> in_accel_sampling_frequency**
-root:/sys/bus/iio/devices/iio:device0\> **cat in_accel_filter_low_pass_3db_frequency**
+root:/sys/bus/iio/devices/iio:device0> **echo 1600 > in_accel_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device0> **cat in_accel_filter_low_pass_3db_frequency**
 800
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ### Using the FIFO Buffer
 
-**Description:**\
+**Description:**
 The ADXL372 includes a deep, 512 sample FIFO buffer. The 512 FIFO samples can be allotted in several ways, such as the following:
 
 -   170 sample sets of concurrent 3-axis data
@@ -246,90 +293,144 @@ The ADXL372 includes a deep, 512 sample FIFO buffer. The 512 FIFO samples can be
 
 #### Trigger management
 
-**Description:**\
+**Description:**
 The FIFO is configured in **Stream Mode** and **FIFO_FULL** interrupt is enabled. The interrupt will be triggered when the FIFO watermark is reached.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **cat trigger/current_trigger**
-adxl372-dev-\*
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **cat trigger/current_trigger**
+adxl372-dev-*
+```
+:::
+
 
 #### Buffer management
 
-**Description:**\
+**Description:**
 The scan_elements directory contains interfaces for elements that will be captured for a single triggered sample set in the buffer
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0/scan_elements\> **ls -l**
--rw-r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_x_en
--r\--r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_x_index
--r\--r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_x_type
--rw-r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_y_en
--r\--r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_y_index
--r\--r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_y_type
--rw-r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_z_en
--r\--r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_z_index
--r\--r\--r\-- 1 root root 4096 Oct 25 08:08 in_accel_z_type
--rw-r\--r\-- 1 root root 4096 Oct 25 08:08 in_timestamp_en
--r\--r\--r\-- 1 root root 4096 Oct 25 08:08 in_timestamp_index
--r\--r\--r\-- 1 root root 4096 Oct 25 08:08 in_timestamp_type
-root:/sys/bus/iio/devices/iio:device0/scan_elements\>
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **ls -l**
+-rw-r--r-- 1 root root 4096 Oct 25 08:08 in_accel_x_en
+-r--r--r-- 1 root root 4096 Oct 25 08:08 in_accel_x_index
+-r--r--r-- 1 root root 4096 Oct 25 08:08 in_accel_x_type
+-rw-r--r-- 1 root root 4096 Oct 25 08:08 in_accel_y_en
+-r--r--r-- 1 root root 4096 Oct 25 08:08 in_accel_y_index
+-r--r--r-- 1 root root 4096 Oct 25 08:08 in_accel_y_type
+-rw-r--r-- 1 root root 4096 Oct 25 08:08 in_accel_z_en
+-r--r--r-- 1 root root 4096 Oct 25 08:08 in_accel_z_index
+-r--r--r-- 1 root root 4096 Oct 25 08:08 in_accel_z_type
+-rw-r--r-- 1 root root 4096 Oct 25 08:08 in_timestamp_en
+-r--r--r-- 1 root root 4096 Oct 25 08:08 in_timestamp_index
+-r--r--r-- 1 root root 4096 Oct 25 08:08 in_timestamp_type
+root:/sys/bus/iio/devices/iio:device0/scan_elements>
+```
+:::
+
 
 Before enabling the buffer, a few steps need to be completed.
 
 -   For example, if we want the FIFO to store sample sets of concurrent 3-axis data, we need to enable the scan elements:
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0/scan_elements\> **echo 1 \> in_accel_x_en**
-root:/sys/bus/iio/devices/iio:device0/scan_elements\> **echo 1 \> in_accel_y_en**
-root:/sys/bus/iio/devices/iio:device0/scan_elements\> **echo 1 \> in_accel_z_en**
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0/buffer\> ls
-**enable** **hwfifo_enabled** **hwfifo_watermark** **hwfifo_watermark_max** **hwfifo_watermark_min** \*\*length \*\* **watermark**
-root:/sys/bus/iio/devices/iio:device0/buffer\>
-\</xterm\>\</WRAP\>
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **echo 1 > in_accel_x_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **echo 1 > in_accel_y_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements> **echo 1 > in_accel_z_en**
+```
+:::
+
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0/buffer> ls
+**enable** **hwfifo_enabled** **hwfifo_watermark** **hwfifo_watermark_max** **hwfifo_watermark_min** **length ** **watermark**
+root:/sys/bus/iio/devices/iio:device0/buffer>
+```
+:::
+
 
 -   Set the buffer length:
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0/buffer\> **echo 1024 \> length**
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0/buffer> **echo 1024 > length**
+```
+:::
+
 
 -   Set the fifo watermak:
 
 Because we enabled all three channels, then the watermark can be set to a maximum of 170 sample sets.
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0/buffer\> **echo 170 \> watermark**
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0/buffer> **echo 170 > watermark**
+```
+:::
+
 
 The FIFO can also be configured to store peak acceleration (x, y, and z) for every over-threshold event. This can be done by writing 1 to the **peak_fifo_mode_enable** attribute:
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0\> **echo 1 \> peak_fifo_mode_enable**
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0> **echo 1 > peak_fifo_mode_enable**
+```
+:::
+
 Note that this mode can work only if all three axis are enabled.
 
 -   Enable the buffer:
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0/buffer\> **echo 1 \> enable**
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0/buffer> **echo 1 > enable**
+```
+:::
+
 
 To read samples:
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device0/buffer\> **cat /dev/iio:device0**
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device0/buffer> **cat /dev/iio:device0**
+```
+:::
+
 
 ## Low level register access via debugfs (direct_reg_access)
 
@@ -339,46 +440,72 @@ In order to identify if the IIO device in question feature this option you first
 
 Therefore read the name attribute of each IIO device
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:\~# grep \"\" /sys/bus/iio/devices/iio\\:device\*/name
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:~# grep "" /sys/bus/iio/devices/iio:device*/name
 adxl372
-root@analog:\~#
-\</xterm\>\</WRAP\>
+root@analog:~#
+```
+:::
+
 
 Change directory to /sys/kernel/debug/iio/iio:deviceX and check if the direct_reg_access file exists.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:\~# cd /sys/kernel/debug/iio/iio\\:device0/
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:~# cd /sys/kernel/debug/iio/iio:device0/
 root@analog:/sys/kernel/debug/iio/iio:device0# ls direct_reg_access
 ls direct_reg_access
 root@analog:/sys/kernel/debug/iio/iio:device0#
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 Reading
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:/sys/kernel/debug/iio/iio:device0# echo 0x0 \> direct_reg_access
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:/sys/kernel/debug/iio/iio:device0# echo 0x0 > direct_reg_access
 
 root@analog:/sys/kernel/debug/iio/iio:device0# cat direct_reg_access
 0xAD
 root@analog:/sys/kernel/debug/iio/iio:device0#
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 Writing
 
 Write ADDRESS VALUE
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:/sys/kernel/debug/iio/iio:device0# echo 0x3D 0x80 \> direct_reg_access
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@analog:/sys/kernel/debug/iio/iio:device0# echo 0x3D 0x80 > direct_reg_access
 root@analog:/sys/kernel/debug/iio/iio:device0# cat direct_reg_access
 0x80
 root@analog:/sys/kernel/debug/iio/iio:device0#
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

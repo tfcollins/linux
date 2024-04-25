@@ -97,19 +97,7 @@
 <li><a class="reference internal" href="#enabling-linux-driver-support">Enabling Linux driver support</a></li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#read-output-frequency">Read output frequency</a></li>
-<li><a class="reference internal" href="#set-output-frequency">Set output frequency</a></li>
-<li><a class="reference internal" href="#output-power-down">Output power down</a></li>
-<li><a class="reference internal" href="#ramp-modes">Ramp modes</a></li>
-<li><a class="reference internal" href="#ramp-mode-deviation-step">Ramp mode deviation step</a></li>
-<li><a class="reference internal" href="#ramp-mode-deviation-range">Ramp mode deviation range</a></li>
-<li><a class="reference internal" href="#ramp-mode-deviation-time">Ramp mode deviation time</a></li>
-<li><a class="reference internal" href="#full-device-control-via-iio-debugfs">Full device control via IIO debugfs</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -185,7 +173,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -252,7 +242,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -310,16 +302,16 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADF4159"><span class="xref myst">ADF4159</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADF4169"><span class="xref myst">ADF4169</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADF4159">ADF4159</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADF4169">ADF4169</a></p></li>
 </ul>
 </section>
 <section id="supported-boards">
 <h2>Supported Boards<a class="headerlink" href="#supported-boards" title="Link to this heading">¶</a></h2>
-<p>This driver supports the\</p>
+<p>This driver supports the</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEV-ADF4159EB1Z"><span class="xref myst">EV-ADF4159EB1Z</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEV-ADF4159EB3Z"><span class="xref myst">EV-ADF4159EB3Z</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EV-ADF4159EB1Z">EV-ADF4159EB1Z</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EV-ADF4159EB3Z">EV-ADF4159EB3Z</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -349,7 +341,7 @@ Content on this topic
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/frequency/adf4159.c">drivers/iio/frequency/adf4159.c</a></td>
+<td style="text-align: center;"><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adf4159.c">drivers/iio/frequency/adf4159.c</a></td>
 <td style="text-align: center;">WIP</td>
 </tr>
 </tbody>
@@ -367,15 +359,15 @@ Content on this topic
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/adf4159.c">drivers/iio/frequency/adf4159.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adf4159.c">drivers/iio/frequency/adf4159.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/adf4159.yaml">adf4159.yaml</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/frequency/adf4159.yaml">adf4159.yaml</a></td>
 </tr>
 <tr class="odd">
 <td>ABI documentation</td>
-<td><a href="linux.github&gt;master?Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4159">sysfs-bus-iio-frequency-adf4159</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4159">sysfs-bus-iio-frequency-adf4159</a></td>
 </tr>
 </tbody>
 </table>
@@ -390,7 +382,7 @@ Content on this topic
 <tbody>
 <tr class="odd">
 <td>dts</td>
-<td><a href="linux.github&gt;rpi-5.4.y?arch/arm/boot/dts/overlays/rpi-adf4159-overlay.dts">rpi-adf4159-overlay.dts</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/rpi-5.4.y?arch/arm/boot/dts/overlays/rpi-adf4159-overlay.dts">rpi-adf4159-overlay.dts</a></td>
 </tr>
 </tbody>
 </table>
@@ -479,9 +471,11 @@ spi0 {
 <h2>Enabling Linux driver support<a class="headerlink" href="#enabling-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The adf4159 driver depends on <strong>SPI</strong> and selects <strong>REGMAP_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The adf4159 driver depends on <strong>SPI</strong> and selects <strong>REGMAP_SPI</strong></p>
+</div>
 </section>
 <section id="adding-linux-driver-support">
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
@@ -502,73 +496,114 @@ The adf4159 driver depends on <strong>SPI</strong> and selects <strong>REGMAP_SP
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-analog:/sys/bus/iio/devices/iio:device0# <strong>cd /sys/bus/iio/devices/</strong>
-root&#64;analog:/sys/bus/iio/devices# <strong>ls</strong>
-iio:device0 iio:device1 iio:device2 iio:device3
-root&#64;analog:/sys/bus/iio/devices#</p>
-<p>root&#64;analog:/sys/bus/iio/devices# <strong>cd iio\:device0</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>ls -l</strong>
-total 0
-drwxr-xr-x 3 root root 0 Jan 1 00:00 .
-drwxr-xr-x 5 root root 0 Jan 1 00:00 …
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 dev
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 name
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 of_node -&gt; …/…/…/…/…/…/…/…/firmware/devicetree/base/amba/spi&#64;e0007000/ad0
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_frequency
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_frequency_deviation_range
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_frequency_deviation_step
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_frequency_deviation_time
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_powerdown
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_ramp_mode
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage_ramp_mode_available
-drwxrwxrwx 2 root root 0 Jan 1 00:00 power
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -&gt; …/…/…/…/…/…/…/…/bus/iio
--rw-rw-rw- 1 root root 4096 Jan 1 00:00 uevent
-root&#64;analog:/sys/bus/iio/devices/iio:device1#
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat name</strong>
-<strong>adf4159</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="read-output-frequency">
-<h3>Read output frequency<a class="headerlink" href="#read-output-frequency" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_frequency</strong>
-<strong>6000000000</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-output-frequency">
-<h3>Set output frequency<a class="headerlink" href="#set-output-frequency" title="Link to this heading">¶</a></h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root@analog:/sys/bus/iio/devices#<span class="w"> </span>**ls**
+iio:device0<span class="w"> </span>iio:device1<span class="w"> </span>iio:device2<span class="w"> </span>iio:device3
+root@analog:/sys/bus/iio/devices#
+
+root@analog:/sys/bus/iio/devices#<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**ls<span class="w"> </span>-l**
+total<span class="w"> </span><span class="m">0</span>
+drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>.
+drwxr-xr-x<span class="w"> </span><span class="m">5</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>..
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>dev
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>of_node<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../firmware/devicetree/base/amba/spi@e0007000/ad0
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_frequency
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_frequency_deviation_range
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_frequency_deviation_step
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_frequency_deviation_time
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_powerdown
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage0_ramp_mode
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>out_altvoltage_ramp_mode_available
+drwxrwxrwx<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../bus/iio
+-rw-rw-rw-<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>uevent
+root@analog:/sys/bus/iio/devices/iio:device1#
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="show-device-name">Show device name</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>name**
+**adf4159**
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="read-output-frequency">Read output frequency</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_frequency**
+**6000000000**
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="set-output-frequency">Set output frequency</h3>
 <p>Frequencies are in Hz</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>echo 6001000000 &gt; out_altvoltage0_frequency</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_frequency</strong>
-**6001000000 **
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="output-power-down">
-<h3>Output power down<a class="headerlink" href="#output-power-down" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_powerdown</strong>
-0
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>echo 1 &gt; out_altvoltage0_powerdown</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_powerdown</strong>
-1
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="ramp-modes">
-<h3>Ramp modes<a class="headerlink" href="#ramp-modes" title="Link to this heading">¶</a></h3>
-<p><img alt="adf4159_ramp.png" src="resources/tools-software/linux-drivers/iio-pll/adf4159_ramp.png" />{.align-center width=“600” query=“?600”}</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**echo<span class="w"> </span><span class="m">6001000000</span><span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage0_frequency**
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_frequency**
+**6001000000<span class="w"> </span>**
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="output-power-down">Output power down</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_powerdown**
+<span class="m">0</span>
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage0_powerdown**
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_powerdown**
+<span class="m">1</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="ramp-modes">Ramp modes</h3>
+<img alt="../../../_images/adf4159_ramp.png" src="../../../_images/adf4159_ramp.png" />
 <p>The <code class="docutils literal notranslate"><span class="pre">ramp_mode</span></code> attribute allows the user to control the output ramp mode of the chip.
 Valid values that can be written:</p>
 <ul class="simple">
@@ -578,128 +613,178 @@ Valid values that can be written:</p>
 <li><p>single_sawtooth_burst</p></li>
 <li><p>single_ramp_burst</p></li>
 </ul>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage_ramp_mode_available</strong>
-disabled continuous_sawtooth continuous_triangular single_sawtooth_burst single_ramp_burst
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_ramp_mode</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage_ramp_mode_available**
+disabled<span class="w"> </span>continuous_sawtooth<span class="w"> </span>continuous_triangular<span class="w"> </span>single_sawtooth_burst<span class="w"> </span>single_ramp_burst
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_ramp_mode**
 disabled
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>echo continuous_sawtooth &gt; out_altvoltage0_ramp_mode</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_ramp_mode</strong>
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**echo<span class="w"> </span>continuous_sawtooth<span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage0_ramp_mode**
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_ramp_mode**
 continuous_sawtooth
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="ramp-mode-deviation-step">
-<h3>Ramp mode deviation step<a class="headerlink" href="#ramp-mode-deviation-step" title="Link to this heading">¶</a></h3>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="ramp-mode-deviation-step">Ramp mode deviation step</h3>
 <p>This attribute sets the <code class="docutils literal notranslate"><span class="pre">deviation_step</span></code> in Hz. Values can be positive or negative.
 Negative values result in a ramp down.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_frequency_deviation_step</strong>
-0
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>echo 1000 &gt; out_altvoltage0_frequency_deviation_step</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_frequency_deviation_step</strong>
-998
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="ramp-mode-deviation-range">
-<h3>Ramp mode deviation range<a class="headerlink" href="#ramp-mode-deviation-range" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_frequency_deviation_step**
+<span class="m">0</span>
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**echo<span class="w"> </span><span class="m">1000</span><span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage0_frequency_deviation_step**
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_frequency_deviation_step**
+<span class="m">998</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="ramp-mode-deviation-range">Ramp mode deviation range</h3>
 <p>This attribute sets the <code class="docutils literal notranslate"><span class="pre">deviation_range</span></code> in Hz.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_deviation_range **
-0
-root&#64;analog:/sys/bus/iio/devices/iio:device1# **echo 10000000 &gt; out_altvoltage0_frequency_deviation_range **
-root&#64;analog:/sys/bus/iio/devices/iio:device1# **cat out_altvoltage0_frequency_deviation_range **
-9999960
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="ramp-mode-deviation-time">
-<h3>Ramp mode deviation time<a class="headerlink" href="#ramp-mode-deviation-time" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_frequency_deviation_range<span class="w"> </span>**
+<span class="m">0</span>
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**echo<span class="w"> </span><span class="m">10000000</span><span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage0_frequency_deviation_range<span class="w"> </span>**
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_frequency_deviation_range<span class="w"> </span>**
+<span class="m">9999960</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="ramp-mode-deviation-time">Ramp mode deviation time</h3>
 <p>This attribute sets the <code class="docutils literal notranslate"><span class="pre">deviation_time</span></code> in us.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_frequency_deviation_time</strong>
-0
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>echo 10000 &gt; out_altvoltage0_frequency_deviation_time</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device1# <strong>cat out_altvoltage0_frequency_deviation_time</strong>
-10020
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="full-device-control-via-iio-debugfs">
-<h3>Full device control via IIO debugfs<a class="headerlink" href="#full-device-control-via-iio-debugfs" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_frequency_deviation_time**
+<span class="m">0</span>
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**echo<span class="w"> </span><span class="m">10000</span><span class="w"> </span>&gt;<span class="w"> </span>out_altvoltage0_frequency_deviation_time**
+root@analog:/sys/bus/iio/devices/iio:device1#<span class="w"> </span>**cat<span class="w"> </span>out_altvoltage0_frequency_deviation_time**
+<span class="m">10020</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="full-device-control-via-iio-debugfs">Full device control via IIO debugfs</h3>
 <p>This device features an additional debugfs ABI, allowing the user to control additional features of the chip.
 Such as dual-ramp modes, muxout mappings, modulation features etc.
 All debugfs attributes have exactly the same naming as the devicetree attributes. So, for a complete description please see the devicetree property descriptions.
 In most cases these attributes correspond directly to bits and bitfields in the SPI register map. So, the ADF4159 datasheet should be consulted as well.
 Manipulating these debugfs attributes will not take effect unless at least one of the IIO device sysfs attributes is written/updated.
 For example, after setting <code class="docutils literal notranslate"><span class="pre">adi,ramp-delay-enable</span></code> write <code class="docutils literal notranslate"><span class="pre">out_altvoltage0_powerdown</span></code> afterwards, this flush all debugfs updates to the device.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:~# <strong>iio_attr -D adf4159</strong>
-dev ‘adf4159’, debug attr ‘adi,txdata-trigger-delay-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,single-full-triangle-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,txdata-trigger-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,fast-ramp-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,ramp-dealy-fl-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,ramp-delay-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,delay-clk-sel-pfd-x-clk1-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,delay-start-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,delay-start-word’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,step-word-2’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,step-word’, value :’10020’
-dev ‘adf4159’, debug attr ‘adi,txdata-invert-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,txdata-ramp-clk-txdata-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,parabolic-ramp-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,fsk-ramp-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,dual-ramp-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,interrupt-mode-select’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,deviation-offset’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,deviation-2’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,deviation’, value :’335’
-dev ‘adf4159’, debug attr ‘adi,le-sync-refin-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,ramp-status-mode’, value :’3’
-dev ‘adf4159’, debug attr ‘adi,clk-div-mode’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,clk2-timer-div-2’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,clk2-timer-div’, value :’100’
-dev ‘adf4159’, debug attr ‘adi,negative-bleed-current-microamp’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,ramp-mode-select’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,charge-pump-negative-bleed-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,psk-modulation-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,fsk-modulation-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,lock-detect-precision-6ns-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,phase-detector-polarity-positive-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,powerdown-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,cycle-slip-reduction-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,reference-div2-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,reference-doubler-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,charge-pump-current-microamp’, value :’900’
-dev ‘adf4159’, debug attr ‘adi,phase’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,ramp-enable’, value :’N’
-dev ‘adf4159’, debug attr ‘adi,muxout-select’, value :’15’
-dev ‘adf4159’, debug attr ‘adi,clkin-hz’, value :’0’
-dev ‘adf4159’, debug attr ‘adi,clk1-div’, value :’1’
-dev ‘adf4159’, debug attr ‘adi,reference-div-factor’, value :’1’
-dev ‘adf4159’, debug attr ‘adi,frequency-deviation-time-us’, value :’10000’
-dev ‘adf4159’, debug attr ‘adi,frequency-deviation-range-hz’, value :’10000000’
-dev ‘adf4159’, debug attr ‘adi,frequency-deviation-step-hz’, value :’1000’
-dev ‘adf4159’, debug attr ‘adi,power-up-frequency-hz’, value :’6000000000’
-dev ‘adf4159’, debug attr ‘direct_reg_access’, value :’0x781E0000’
-root&#64;analog:~#
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:~#<span class="w"> </span>**iio_attr<span class="w"> </span>-D<span class="w"> </span>adf4159**
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,txdata-trigger-delay-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,single-full-triangle-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,txdata-trigger-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,fast-ramp-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,ramp-dealy-fl-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,ramp-delay-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,delay-clk-sel-pfd-x-clk1-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,delay-start-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,delay-start-word&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,step-word-2&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,step-word&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;10020&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,txdata-invert-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,txdata-ramp-clk-txdata-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,parabolic-ramp-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,fsk-ramp-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,dual-ramp-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,interrupt-mode-select&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,deviation-offset&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,deviation-2&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,deviation&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;335&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,le-sync-refin-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,ramp-status-mode&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;3&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,clk-div-mode&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,clk2-timer-div-2&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,clk2-timer-div&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;100&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,negative-bleed-current-microamp&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,ramp-mode-select&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,charge-pump-negative-bleed-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,psk-modulation-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,fsk-modulation-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,lock-detect-precision-6ns-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,phase-detector-polarity-positive-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,powerdown-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,cycle-slip-reduction-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,reference-div2-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,reference-doubler-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,charge-pump-current-microamp&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;900&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,phase&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,ramp-enable&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;N&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,muxout-select&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;15&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,clkin-hz&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,clk1-div&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;1&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,reference-div-factor&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;1&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,frequency-deviation-time-us&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;10000&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,frequency-deviation-range-hz&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;10000000&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,frequency-deviation-step-hz&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;1000&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;adi,power-up-frequency-hz&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;6000000000&#39;</span>
+dev<span class="w"> </span><span class="s1">&#39;adf4159&#39;</span>,<span class="w"> </span>debug<span class="w"> </span>attr<span class="w"> </span><span class="s1">&#39;direct_reg_access&#39;</span>,<span class="w"> </span>value<span class="w"> </span>:<span class="s1">&#39;0x781E0000&#39;</span>
+root@analog:~#
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>Example:</strong></p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:~# <strong>iio_attr -D adf4159 adi,ramp-delay-enable 1</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:~#<span class="w"> </span>**iio_attr<span class="w"> </span>-D<span class="w"> </span>adf4159<span class="w"> </span>adi,ramp-delay-enable<span class="w"> </span><span class="m">1</span>**
 Y
-root&#64;analog:~# <strong>iio_attr -c adf4159 altvoltage0 powerdown 0</strong>
-0
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+root@analog:~#<span class="w"> </span>**iio_attr<span class="w"> </span>-c<span class="w"> </span>adf4159<span class="w"> </span>altvoltage0<span class="w"> </span>powerdown<span class="w"> </span><span class="m">0</span>**
+<span class="m">0</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h2 class="rubric" id="more-information">More Information</h2>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

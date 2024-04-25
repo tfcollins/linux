@@ -1,21 +1,26 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adau1361
+title: ADAU1961: Automotive Stereo, Low Power, 96 kHz, 24-Bit Audio Codec with Integrated PLL
+---
+
 # ADAU1361 Sound CODEC Linux Driver
 
 ### Supported Devices
 
--   [ADAU1361](adi>ADAU1361)
--   [ADAU1461](adi>ADAU1461)
--   [ADAU1761](adi>ADAU1761)
--   [ADAU1961](adi>ADAU1961)
+-   [ADAU1361](https://analog.com/ADAU1361)
+-   [ADAU1461](https://analog.com/ADAU1461)
+-   [ADAU1761](https://analog.com/ADAU1761)
+-   [ADAU1961](https://analog.com/ADAU1961)
 
 ### Reference Circuits
 
--   [CN0219](adi>CN0219)
--   [CN0296](adi>CN0296)
+-   [CN0219](https://analog.com/CN0219)
+-   [CN0296](https://analog.com/CN0296)
 
 ### Evaluation Boards
 
--   [EVAL-ADAU1361Z](adi>EVAL-ADAU1361Z)
--   [EVAL-ADAU1761Z](adi>EVAL-ADAU1761Z)
+-   [EVAL-ADAU1361Z](https://analog.com/EVAL-ADAU1361Z)
+-   [EVAL-ADAU1761Z](https://analog.com/EVAL-ADAU1761Z)
 
 ## Source Code
 
@@ -67,11 +72,15 @@
 
 ## Example device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
 #### I2C
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 The I2C device id depends on the ADDR0 and ADDR1 pin settings and needs to be set according to your board setup.
 
@@ -471,7 +480,7 @@ enum adau17x1_pll_src {
 
 (The input frequency must configured to be between 8000000 and 27000000 Hz (8MHz - 27MHz). The output frequency must be configured to be between 45158000 and 49152000. Configuring the PLL with other input or output frequency will fail.)
 
-The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you\'d normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
+The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you'd normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
 
 ### DAI configuration
 
@@ -681,7 +690,7 @@ In order to use the SigmaDSP core of the ADAU1761 you need to provide a firmware
 
 ## ADAU1X61 evaluation board driver
 
-There is no dedicated Blackfin STAMP evaluation board for the ADAU1361 or ADAU1761. During test and driver development we used the [EVAL-ADAU1361Z](adi>EVAL-ADAU1361Z) and [EVAL-ADAU1761Z](adi>EVAL-ADAU1761Z) boards.
+There is no dedicated Blackfin STAMP evaluation board for the ADAU1361 or ADAU1761. During test and driver development we used the [EVAL-ADAU1361Z](https://analog.com/EVAL-ADAU1361Z) and [EVAL-ADAU1761Z](https://analog.com/EVAL-ADAU1761Z) boards.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
@@ -795,37 +804,52 @@ Note that the SPORT has separate signals for the capture and playback clocks, wh
 
 Load the driver and make sure the sound card is properly instantiated.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-bf5xx-i2s
-root:/\> modprobe snd-soc-bf5xx-i2s
-root:/\> modprobe snd-soc-adau1761
-root:/\> modprobe snd-soc-bfin-eval-adau1x61
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-bf5xx-i2s
+root:/> modprobe snd-soc-bf5xx-i2s
+root:/> modprobe snd-soc-adau1761
+root:/> modprobe snd-soc-bfin-eval-adau1x61
 bfin-i2s bfin-i2s.0: dma rx:3 tx:4, err irq:45, regs:ffc00800
 dma_alloc_init: dma_page @ 0x02791000 - 256 pages at 0x03f00000
-asoc: adau-hifi \<-\> bfin-i2s.0 mapping ok
+asoc: adau-hifi <-> bfin-i2s.0 mapping ok
 ALSA device list:
 
     #0: bfin-eval-adau1x61
 
-\</xterm\>
-\</WRAP\>
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-pcm-oss
-root:/\> tone
-TONE: generating sine wave at 1000 Hz\...
+:::
 
-root:/\> arecord -f cd | aplay
-Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-\</xterm\>
-\</WRAP\>
 
-\<WRAP important\>
-If you do not hear any sound during testing make sure you have enabled the necessary Switches and Volumes. E.g. for playback on the Headphone output you need to enable the \"Left Playback Mixer Left DAC\", \"Right Playback Mixer Right DAC\" and the \"Headphone Playback\" switches and set the \"DAC Playback Mux\" to \"AIFIN\".
-\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-pcm-oss
+root:/> tone
+TONE: generating sine wave at 1000 Hz...
+
+root:/> arecord -f cd | aplay
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+```
+
+:::
+
+
+:::{NOTE} <!-- ATTRS: important="" -->
+
+If you do not hear any sound during testing make sure you have enabled the necessary Switches and Volumes. E.g. for playback on the Headphone output you need to enable the "Left Playback Mixer Left DAC", "Right Playback Mixer Right DAC" and the "Headphone Playback" switches and set the "DAC Playback Mux" to "AIFIN".
+
+:::
+
 
 ### More information
 
@@ -833,4 +857,6 @@ If you do not hear any sound during testing make sure you have enabled the neces
 -   [SigmaDSP Firmware Utility for Linux](resources/tools-software/linux-software/sigmadsp_genfirmware)
 -   [SigmaStudio Network Utility for Linux](resources/tools-software/linux-software/sigmatcp)
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

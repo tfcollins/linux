@@ -1,12 +1,17 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/adrf6780
+title: ADRF6780: 5.9 GHz to 23.6 GHz, Wideband, Microwave Upconverter
+---
+
 # ADRF6780 5.9 GHz to 23.6 GHz, Wideband, Microwave Upconverter
 
 ### Supported Devices
 
--   [ADRF6780](adi>ADRF6780)
+-   [ADRF6780](https://analog.com/ADRF6780)
 
 ### Evaluation Boards
 
--   [EVAL-ADRF6780](adi>EVAL-ADRF6780)
+-   [EVAL-ADRF6780](https://analog.com/EVAL-ADRF6780)
 
 ### Description
 
@@ -27,7 +32,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master?drivers/iio/frequency/adrf6780.c">git</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adrf6780.c">git</a></td>
 <td><a href="git.linux.org&gt;drivers/iio/frequency/adrf6780.c">WIP</a></td>
 </tr>
 </tbody>
@@ -45,7 +50,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/adrf6780.c">drivers/iio/frequency/adrf6780.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adrf6780.c">drivers/iio/frequency/adrf6780.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
@@ -54,7 +59,9 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 #### properties
 
@@ -78,7 +85,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 
 **clock-names:**
 
--   description: Must be \"lo_in\"
+-   description: Must be "lo_in"
 -   maxItems: 1
 
 **clock-output-names:**
@@ -145,15 +152,15 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 -   description: VDET Output Select Enable.
 -   type: boolean
 
-**\'#address-cells\':**
+**'#address-cells':**
 
 -   const: 1
 
-**\'#size-cells\':**
+**'#size-cells':**
 
 -   const: 0
 
-**\'#clock-cells\':**
+**'#clock-cells':**
 
 -   const: 0
 
@@ -184,12 +191,15 @@ spi {
 
 ## Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The ADRF6780 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -200,81 +210,115 @@ The ADRF6780 Driver depends on **CONFIG_SPI**
 
 ## Hardware configuration
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> **iio:device0**
+root:/sys/bus/iio/devices> **iio:device0**
 
-root:/\> **ls -l**
--r\--r\--r\-- 1 root root 4096 May 6 12:20 dev
--r\--r\--r\-- 1 root root 4096 May 6 12:20 name
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_voltage0_raw
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_voltage0_scale
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_altvoltage0_i_phase
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_altvoltage0_q_phase
-lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 May 6 12:20 uevent
-\</xterm\>\</WRAP\>
+root:/> **ls -l**
+-r--r--r-- 1 root root 4096 May 6 12:20 dev
+-r--r--r-- 1 root root 4096 May 6 12:20 name
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_voltage0_raw
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_voltage0_scale
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_i_phase
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_q_phase
+lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 May 6 12:20 uevent
+```
+:::
+
 
 ##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/iio\\:device0/**
-root:/\> **cat name**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/iio:device0/**
+root:/> **cat name**
 adrf6780
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Raw value
 
-/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw\
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw
 ADC raw value. If shared across all channels,
-\<type\>\_offset is used.
+<type>_offset is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cat out_voltage0_raw**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cat out_voltage0_raw**
 0
 
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Scale value
 
-/sys/bus/iio/devices/iio:deviceX/out_voltageY_scale\
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_scale
 RDAC Linearize. If shared across all channels,
-\<type\>\_offset is used.
+<type>_offset is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cat out_voltage0_scale**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cat out_voltage0_scale**
 0
 
-root:/\> **echo 1 \> out_voltage0_scale**
-root:/\> **cat out_voltage0_scale**
+root:/> **echo 1 > out_voltage0_scale**
+root:/> **cat out_voltage0_scale**
 1
 
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Phase value
 
-/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_phase\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_phase
 Phase value. If shared across all channels,
-\<type\>\_phase is used.
+<type>_phase is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cat out_altvoltage0_i_phase**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cat out_altvoltage0_i_phase**
 0
 
-root:/\> **echo 1 \> out_altvoltage0_i_phase**
-root:/\> **cat out_altvoltage0_phase**
+root:/> **echo 1 > out_altvoltage0_i_phase**
+root:/> **cat out_altvoltage0_phase**
 1
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

@@ -97,14 +97,7 @@
 <li><a class="reference internal" href="#enabling-linux-driver-support">Enabling Linux driver support</a></li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#read-frequency">Read frequency</a></li>
-<li><a class="reference internal" href="#set-frequency">Set frequency</a></li>
-<li><a class="reference internal" href="#muxout-select">Muxout Select</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -180,7 +173,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -247,7 +242,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -305,16 +302,16 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADF4377"><span class="xref myst">ADF4377</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EADF4378"><span class="xref myst">ADF4378</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADF4377">ADF4377</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADF4378">ADF4378</a></p></li>
 </ul>
 </section>
 <section id="supported-boards">
 <h2>Supported Boards<a class="headerlink" href="#supported-boards" title="Link to this heading">¶</a></h2>
-<p>This driver supports the\</p>
+<p>This driver supports the</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADF4377"><span class="xref myst">EVAL-ADF4377</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-ADF4378"><span class="xref myst">EVAL-ADF4378</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADF4377">EVAL-ADF4377</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-ADF4378">EVAL-ADF4378</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -341,7 +338,7 @@ Content on this topic
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/frequency/adf4377.c">drivers/iio/frequency/adf4377.c</a></td>
+<td style="text-align: center;"><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adf4377.c">drivers/iio/frequency/adf4377.c</a></td>
 <td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/frequency/adf4377.c">YES</a></td>
 </tr>
 </tbody>
@@ -359,15 +356,15 @@ Content on this topic
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/adf4377.c">drivers/iio/frequency/adf4377.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adf4377.c">drivers/iio/frequency/adf4377.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/adi,adf4377.yaml">adi,adf4377.yaml</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/frequency/adi,adf4377.yaml">adi,adf4377.yaml</a></td>
 </tr>
 <tr class="odd">
 <td>ABI documentation</td>
-<td><a href="linux.github&gt;master?Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4377">sysfs-bus-iio-frequency-adf4377</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4377">sysfs-bus-iio-frequency-adf4377</a></td>
 </tr>
 </tbody>
 </table>
@@ -414,9 +411,11 @@ spi {
 <h2>Enabling Linux driver support<a class="headerlink" href="#enabling-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The ADF4377 driver depends on <strong>SPI</strong> and selects <strong>REGMAP_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The ADF4377 driver depends on <strong>SPI</strong> and selects <strong>REGMAP_SPI</strong></p>
+</div>
 </section>
 <section id="adding-linux-driver-support">
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
@@ -437,70 +436,112 @@ The ADF4377 driver depends on <strong>SPI</strong> and selects <strong>REGMAP_SP
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-analog:/sys/bus/iio/devices/iio:device0# <strong>cd /sys/bus/iio/devices/</strong>
-root&#64;analog:/sys/bus/iio/devices# <strong>ls</strong>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root@analog:/sys/bus/iio/devices#<span class="w"> </span>**ls**
 iio:device0
-root&#64;analog:/sys/bus/iio/devices#</p>
-<p>root&#64;analog:/sys/bus/iio/devices# <strong>cd iio\:device0</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>ls -l</strong>
-total 0
--r–r–r– 1 root root 4096 sep 4 14:05 dev
--rw-r–r– 1 root root 4096 sep 4 14:05 frequency
--rw-r–r– 1 root root 4096 sep 4 14:05 muxout_select
--rw-r–r– 1 root root 4096 sep 4 14:05 muxout_select_available
--r–r–r– 1 root root 4096 sep 4 14:05 name
-lrwxrwxrwx 1 root root 0 sep 4 14:05 of_node -&gt; …/…/…/…/…/…/…/…/firmware/devicetree/base/soc/spi&#64;7e204000/adf4377&#64;0
-drwxr-xr-x 2 root root 0 sep 4 14:05 power
-lrwxrwxrwx 1 root root 0 sep 2 17:46 subsystem -&gt; …/…/…/…/…/…/…/…/bus/iio
--rw-r–r– 1 root root 4096 sep 2 17:46 uevent</p>
-<p>root&#64;analog:/sys/bus/iio/devices/iio:device0#
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>cat name</strong>
-<strong>adf4377</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="read-frequency">
-<h3>Read frequency<a class="headerlink" href="#read-frequency" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>cat frequency</strong>
-<strong>1000000000</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-frequency">
-<h3>Set frequency<a class="headerlink" href="#set-frequency" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>echo 1000000000 &gt; frequency</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>cat frequency</strong>
-<strong>1000000000</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="muxout-select">
-<h3>Muxout Select<a class="headerlink" href="#muxout-select" title="Link to this heading">¶</a></h3>
+root@analog:/sys/bus/iio/devices#
+
+root@analog:/sys/bus/iio/devices#<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**ls<span class="w"> </span>-l**
+total<span class="w"> </span><span class="m">0</span>
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">14</span>:05<span class="w"> </span>dev
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">14</span>:05<span class="w"> </span>frequency
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">14</span>:05<span class="w"> </span>muxout_select
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">14</span>:05<span class="w"> </span>muxout_select_available
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">14</span>:05<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>sep<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">14</span>:05<span class="w"> </span>of_node<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/adf4377@0
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>sep<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">14</span>:05<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>sep<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">17</span>:46<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../bus/iio
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">17</span>:46<span class="w"> </span>uevent
+
+root@analog:/sys/bus/iio/devices/iio:device0#
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="show-device-name">Show device name</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**cat<span class="w"> </span>name**
+**adf4377**
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="read-frequency">Read frequency</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**cat<span class="w"> </span>frequency**
+**1000000000**
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="set-frequency">Set frequency</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**echo<span class="w"> </span><span class="m">1000000000</span><span class="w"> </span>&gt;<span class="w"> </span>frequency**
+root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**cat<span class="w"> </span>frequency**
+**1000000000**
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="muxout-select">Muxout Select</h3>
 <p>The mux output allows the user to access various internal points on the chip. Valid values that can be written:</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>cat muxout_select_available</strong>
-high_z lock_detect muxout_low f_div_rclk_2 f_div_nclk_2 muxout_high
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>cat muxout_select</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**cat<span class="w"> </span>muxout_select_available**
+high_z<span class="w"> </span>lock_detect<span class="w"> </span>muxout_low<span class="w"> </span>f_div_rclk_2<span class="w"> </span>f_div_nclk_2<span class="w"> </span>muxout_high
+root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**cat<span class="w"> </span>muxout_select**
 digital_lock
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>echo lock_detect &gt; muxout_select</strong>
-root&#64;analog:/sys/bus/iio/devices/iio:device0# <strong>cat muxout_select</strong>
+root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**echo<span class="w"> </span>lock_detect<span class="w"> </span>&gt;<span class="w"> </span>muxout_select**
+root@analog:/sys/bus/iio/devices/iio:device0#<span class="w"> </span>**cat<span class="w"> </span>muxout_select**
 lock_detect
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</pre></div>
+</div>
+<div class="docutils">
+<h2 class="rubric" id="more-information">More Information</h2>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

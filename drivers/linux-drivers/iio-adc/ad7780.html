@@ -100,13 +100,7 @@
 </li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-scale">Show scale</a></li>
-<li><a class="reference internal" href="#show-channel-0-measurement">Show channel 0 measurement</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -182,7 +176,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7768-1.html">AD7768-1</a></li>
@@ -249,7 +245,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -307,29 +305,29 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7170"><span class="xref myst">AD7170</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7171"><span class="xref myst">AD7171</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7780"><span class="xref myst">AD7780</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7781"><span class="xref myst">AD7781</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7170">AD7170</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7171">AD7171</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7780">AD7780</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7781">AD7781</a></p></li>
 </ul>
 </section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3ECN0107"><span class="xref myst">CN0107</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0108"><span class="xref myst">CN0108</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0188"><span class="xref myst">CN0188</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0218"><span class="xref myst">CN0218</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0240"><span class="xref myst">CN0240</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0107">CN0107</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0108">CN0108</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0188">CN0188</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0218">CN0218</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0240">CN0240</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7170EBZ"><span class="xref myst">EVAL-AD7170EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7171EBZ"><span class="xref myst">EVAL-AD7171EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7780EBZ"><span class="xref myst">EVAL-AD7780EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7781EBZ"><span class="xref myst">EVAL-AD7781EBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7170EBZ">EVAL-AD7170EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7171EBZ">EVAL-AD7171EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7780EBZ">EVAL-AD7780EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7781EBZ">EVAL-AD7781EBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -381,32 +379,35 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 <p>The reference voltage may vary between boards and models. The platform_data for the device’s “struct device” holds this information.</p>
-<p>&lt;source trunk/drivers/staging/iio/adc/ad7780.h:ad7780_platform_data{} c linux-kernel&gt;</p>
+<source trunk/drivers/staging/iio/adc/ad7780.h:ad7780_platform_data{} c linux-kernel>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ad7780_platform_data</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="n">ad7780_pdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">.</span><span class="n">vref_mv</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2500</span><span class="p">,</span>
 <span class="w">    </span><span class="p">.</span><span class="n">gpio_pdrst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPIO_PF10</span><span class="p">,</span>
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>&lt;WRAP round help&gt;
-The AD7780 doesn’t feature a dedicated SPI chip select, in addition it
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD7780 doesn’t feature a dedicated SPI chip select, in addition it
 features a dual use data out ready <strong>DOUT/RDY</strong> output.
 In order to avoid contentions on the SPI bus, it’s therefore necessary
 to use spi bus locking combined with a dedicated GPIO to control the
-power down reset signal <strong>PDRST</strong> of the AD7780.<br />
-<br />
-The AD7780 DOUT/RDY output typically connected to SPI MISO must also
-be wired to an interrupt capable GPIO.
-&lt;/WRAP&gt;</p>
+power down reset signal <strong>PDRST</strong> of the AD7780.</p>
+<p>The AD7780 DOUT/RDY output typically connected to SPI MISO must also
+be wired to an interrupt capable GPIO.</p>
+</div>
 <section id="specifying-reference-voltage-via-the-regulator-framework">
 <h3>Specifying reference voltage via the regulator framework<a class="headerlink" href="#specifying-reference-voltage-via-the-regulator-framework" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP tip&gt;
-This driver supports also an alternative way of specifying the reference voltage, by using the Linux regulator framework.
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>This driver supports also an alternative way of specifying the reference voltage, by using the Linux regulator framework.</p>
+</div>
 <p>Below example specifies a 3.3 Volt reference for the SPI device 3 on SPI-Bus 0. (<strong>spi0.3</strong>)</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
 <span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">regulator_consumer_supply</span><span class="w"> </span><span class="n">ad7780_consumer_supplies</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">REGULATOR_SUPPLY</span><span class="p">(</span><span class="s">&quot;vcc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;spi0.3&quot;</span><span class="p">),</span>
 <span class="p">};</span>
@@ -435,13 +436,13 @@ This driver supports also an alternative way of specifying the reference voltage
 <span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stamp_vdd_pdata</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="p">};</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 </pre></div>
 </div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">platform_device</span><span class="w"> </span><span class="o">*</span><span class="n">board_devices</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
+<span class="cp">## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
 <span class="w">    </span><span class="o">&amp;</span><span class="n">brd_voltage_regulator</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -458,12 +459,12 @@ This driver supports also an alternative way of specifying the reference voltage
 <span class="n">arch_initcall</span><span class="p">(</span><span class="n">board_init</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD7780) || \</span>
-<span class="cp">    defined(CONFIG_AD7780_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD7780) || </span>
+<span class="w">    </span><span class="n">defined</span><span class="p">(</span><span class="n">CONFIG_AD7780_MODULE</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="cm">/* the modalias must be the same as spi device driver name */</span>
 <span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ad7780&quot;</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Name of spi_driver for this device */</span>
@@ -474,7 +475,7 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <span class="w">        </span><span class="p">.</span><span class="n">irq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IRQ_PF6</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_MODE_0</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -497,9 +498,11 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD7780 Driver depends on <strong>CONFIG_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD7780 Driver depends on <strong>CONFIG_SPI</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         [*] Staging drivers  ---&gt;
@@ -523,53 +526,86 @@ The AD7780 Driver depends on <strong>CONFIG_SPI</strong>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
 device0
-root:/sys/bus/iio/devices&gt; <strong>cd device0</strong></p>
-<p>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>ls -l</strong>
--r–r–r– 1 root root 4096 Jan 3 12:41 in_voltage0_raw
--r–r–r– 1 root root 4096 Jan 3 12:41 in_scale
--r–r–r– 1 root root 4096 Jan 3 12:41 name
-lrwxrwxrwx 1 root root 0 Jan 3 12:41 subsystem -&gt; …/…/…/…/…/bus/iio
--rw-r–r– 1 root root 4096 Jan 3 12:41 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat name</strong>
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>device0**
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">12</span>:41<span class="w"> </span>in_voltage0_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">12</span>:41<span class="w"> </span>in_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">12</span>:41<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">12</span>:41<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../bus/iio
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">12</span>:41<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad7780
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-scale">
-<h3>Show scale<a class="headerlink" href="#show-scale" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-scale">Show scale</h6>
+<p><strong>Description:</strong>
 scale to be applied to in_voltage0_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_scale</strong>
-0.00029
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-0-measurement">
-<h3>Show channel 0 measurement<a class="headerlink" href="#show-channel-0-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_scale**
+<span class="m">0</span>.00029
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-channel-0-measurement">Show channel 0 measurement</h6>
+<p><strong>Description:</strong>
 Raw unscaled voltage measurement on channel 0</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in0_raw</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in0_raw**
 -1
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in_voltage0_raw * in_scale</em> = -1 * 0.00029 = <strong>-0.00029 <em>mV</em></strong></p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

@@ -1,8 +1,13 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/ad9528
+title: AD9528: JESD204B Clock Generator with 14 LVDS/HSTL Outputs
+---
+
 # AD9528 Low Jitter Clock Generator Linux Driver
 
 ### Supported Devices
 
--   [AD9528](adi>AD9528)
+-   [AD9528](https://analog.com/AD9528)
 
 ### Description
 
@@ -25,7 +30,12 @@ The AD9528 generates two outputs (Output 1 and Output 2) with a maximum frequenc
 
 Please see also here: [Changing the VCXO frequency](/resources/eval/user-guides/rf-trx-vcxo-and-profiles)
 
-![ad9528.jpg](/resources/tools-software/linux-drivers/iio-pll/ad9528.jpg){.align-center width="900" query="?900"}
+```{image} images/ad9528.jpg
+:alt: ad9528.jpg
+:.align-center
+:width: "900"
+:query: "?900"
+```
 
 ## Source Code
 
@@ -40,7 +50,7 @@ Please see also here: [Changing the VCXO frequency](/resources/eval/user-guides/
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9528.c">drivers/iio/frequency/ad9528.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/ad9528.c">drivers/iio/frequency/ad9528.c</a></td>
 <td>No</td>
 </tr>
 </tbody>
@@ -58,27 +68,30 @@ Please see also here: [Changing the VCXO frequency](/resources/eval/user-guides/
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9528.c">drivers/iio/frequency/ad9528.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/ad9528.c">drivers/iio/frequency/ad9528.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="linux.github&gt;master?include/linux/iio/frequency/ad9528.h">include/linux/iio/frequency/ad9528.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?include/linux/iio/frequency/ad9528.h">include/linux/iio/frequency/ad9528.h</a></td>
 </tr>
 <tr class="odd">
 <td>include</td>
-<td><a href="linux.github&gt;master?include/dt-bindings/iio/frequency/ad9528.h">include/dt-bindings/iio/frequency/ad9528.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?include/dt-bindings/iio/frequency/ad9528.h">include/dt-bindings/iio/frequency/ad9528.h</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Enabling the driver
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The AD9528 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -92,19 +105,19 @@ The AD9528 Driver depends on **CONFIG_SPI**
 #### Available properties
 
 -   **compatible**: Must be one of:
-    -   \"adi,ad9528\"
+    -   "adi,ad9528"
 -   **reg**: SPI chip select number for the device
--   **spi-max-frequency**: Max SPI frequency to use (\< 30000000)
+-   **spi-max-frequency**: Max SPI frequency to use (< 30000000)
 -   **spi-cpol**: The AD9528 requires inverse clock polarity (CPOL) mode
 -   **spi-cpha**: The AD9528 requires inverse clock phase (CPHA) mode
 -   **adi,spi-3wire-enable**: Use 3-wire SPI
 -   **adi,vcxo-freq**: Set the frequency of the input VCXO clock
 -   **adi,ref-mode**: Must be one of:
-    -   \"REF_MODE_STAY_ON_REFB\": Non-revertive: stay on REFB
-    -   \"REF_MODE_REVERT_TO_REFA\": Revert to REFA
-    -   \"REF_MODE_SELECT_REFA\": Select REFA
-    -   \"REF_MODE_SELECT_REFB\": Select REFB
-    -   \"REF_MODE_EXT_REF\": Select REFB if the REF_SEL pin is low, select REFA if the REF_SEL pin is high.
+    -   "REF_MODE_STAY_ON_REFB": Non-revertive: stay on REFB
+    -   "REF_MODE_REVERT_TO_REFA": Revert to REFA
+    -   "REF_MODE_SELECT_REFA": Select REFA
+    -   "REF_MODE_SELECT_REFB": Select REFB
+    -   "REF_MODE_EXT_REF": Select REFB if the REF_SEL pin is low, select REFA if the REF_SEL pin is high.
 -   **adi,refa-enable**: Enable REFA input
 -   **adi,refb-enable**: Enable REFB input
 -   **adi,refa-diff-rcv-enable**: Enable differential receiver mode for REFA (default: single-ended receiver mode)
@@ -155,7 +168,7 @@ Channels can be specified using child nodes. The following properties are applic
 
 The following example instanciates the ad9528 driver for a AD9528 device connected on the SPI bus to the chip-select line 0.
 
-The various macros used are defined in the header file: \<dt-bindings/iio/frequency/ad9528.h\>
+The various macros used are defined in the header file: <dt-bindings/iio/frequency/ad9528.h>
 
     #include <dt-bindings/iio/frequency/ad9528.h>
 

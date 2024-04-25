@@ -1,12 +1,17 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adau1372
+title: ADAU1372: Quad ADC, Dual DAC, Low Latency, Low Power Codec
+---
+
 # ADAU1372 Sound CODEC Linux Driver
 
 ### Supported Devices
 
--   [ADAU1372](adi>ADAU1372)
+-   [ADAU1372](https://analog.com/ADAU1372)
 
 ### Evaluation Boards
 
--   [EVAL-ADAU1372](adi>EVAL-ADAU1372)
+-   [EVAL-ADAU1372](https://analog.com/EVAL-ADAU1372)
 
 ## Source Code
 
@@ -21,7 +26,7 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372.c">git</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/asoc-adau1372?sound/soc/codecs/adau1372.c">git</a></td>
 <td><a href="git.linux.org&gt;sound/soc/codecs/adau1372.c">WiP</a></td>
 </tr>
 </tbody>
@@ -39,30 +44,34 @@
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372.c">sound/soc/codecs/adau1372.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/asoc-adau1372?sound/soc/codecs/adau1372.c">sound/soc/codecs/adau1372.c</a></td>
 </tr>
 <tr class="even">
 <td>driver</td>
-<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372-i2c.c">sound/soc/codecs/adau1372-i2c.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/asoc-adau1372?sound/soc/codecs/adau1372-i2c.c">sound/soc/codecs/adau1372-i2c.c</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372-spi.c">sound/soc/codecs/adau1372-spi.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/asoc-adau1372?sound/soc/codecs/adau1372-spi.c">sound/soc/codecs/adau1372-spi.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="linux.github&gt;asoc-adau1372?sound/soc/codecs/adau1372.h">sound/soc/codecs/adau1372.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/asoc-adau1372?sound/soc/codecs/adau1372.h">sound/soc/codecs/adau1372.h</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Example device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
 #### I2C
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 The I2C device id depends on the ADDR0 and ADDR1 pin settings and needs to be set according to your board setup.
 
@@ -127,7 +136,9 @@ arch_initcall(board_init);
 
 #### SPI
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 ### ASoC DAPM Widgets
 
@@ -472,4 +483,6 @@ Example TDM configuration:
 
 ### More information
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

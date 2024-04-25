@@ -1,12 +1,17 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-amplifiers/ada4250
+title: ADA4250 Programmable Gain Instrumentation Amplifier Linux Driver
+---
+
 # ADA4250 Programmable Gain Instrumentation Amplifier Linux Driver
 
 ### Supported Devices
 
--   [ADA4250](adi>ADA4250)
+-   [ADA4250](https://analog.com/ADA4250)
 
 ### Evaluation Boards
 
--   [EVAL-ADA4250-ARDZ](adi>EVAL-ADA4250-ARDZ)
+-   [EVAL-ADA4250-ARDZ](https://analog.com/EVAL-ADA4250-ARDZ)
 
 ### Description
 
@@ -27,7 +32,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master?drivers/iio/amplifiers/ada4250.c">git</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/amplifiers/ada4250.c">git</a></td>
 <td><a href="git.linux.org&gt;drivers/iio/amplifiers/ada4250.c">WIP</a></td>
 </tr>
 </tbody>
@@ -45,7 +50,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/amplifiers/ada4250.c">drivers/iio/amplifiers/ada4250.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/amplifiers/ada4250.c">drivers/iio/amplifiers/ada4250.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
@@ -54,7 +59,9 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 #### properties
 
@@ -99,12 +106,15 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 
 ## Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The ADA4250 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -115,90 +125,124 @@ The ADA4250 Driver depends on **CONFIG_SPI**
 
 ## Hardware configuration
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> **iio:device0**
+root:/sys/bus/iio/devices> **iio:device0**
 
-root:/\> **ls -l**
--r\--r\--r\-- 1 root root 4096 May 6 12:20 dev
--r\--r\--r\-- 1 root root 4096 May 6 12:20 name
--rw-r\--r\-- 1 root root 4096 May 6 13:00 out_voltage0_calibbias
--r\--r\--r\-- 1 root root 4096 May 6 12:20 out_voltage0_calibbias_available
--rw-r\--r\-- 1 root root 4096 May 6 13:00 out_voltage0_hardwaregain
--r\--r\--r\-- 1 root root 4096 May 6 12:20 out_voltage0_hardwaregain_available
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_voltage0_offset
-lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 May 6 12:20 uevent
-\</xterm\>\</WRAP\>
+root:/> **ls -l**
+-r--r--r-- 1 root root 4096 May 6 12:20 dev
+-r--r--r-- 1 root root 4096 May 6 12:20 name
+-rw-r--r-- 1 root root 4096 May 6 13:00 out_voltage0_calibbias
+-r--r--r-- 1 root root 4096 May 6 12:20 out_voltage0_calibbias_available
+-rw-r--r-- 1 root root 4096 May 6 13:00 out_voltage0_hardwaregain
+-r--r--r-- 1 root root 4096 May 6 12:20 out_voltage0_hardwaregain_available
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_voltage0_offset
+lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 May 6 12:20 uevent
+```
+:::
+
 
 ##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/iio\\:device0/**
-root:/\> **cat name**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/iio:device0/**
+root:/> **cat name**
 ada4250
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Gain
 
-/sys/bus/iio/devices/iio:deviceX/out_voltageY_hardwaregain\
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_hardwaregain
 Hardware applied gain factor. If shared across all channels,
-\<type\>\_hardwaregain is used.
+<type>_hardwaregain is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cat out_voltage0_hardwaregain_available**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cat out_voltage0_hardwaregain_available**
 0 1 2 3 4 5 6 7
 
-root:/\> **cat out_voltage0_hardwaregain**
+root:/> **cat out_voltage0_hardwaregain**
 0
 
-root:/\> **echo 1 \> out_voltage0_hardwaregain**
-root:/\> **cat out_voltage0_hardwaregain**
+root:/> **echo 1 > out_voltage0_hardwaregain**
+root:/> **cat out_voltage0_hardwaregain**
 1
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Current Bias Set
 
-/sys/bus/iio/devices/iio:deviceX/out_voltageY_calibbias\
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_calibbias
 Current bias for different ranges of the sensor offset calibration. If shared across all channels,
-\<type\>\_calibbias is used.
+<type>_calibbias is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cat out_voltage0_calibbias_available**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cat out_voltage0_calibbias_available**
 0 1 2 3
 
-root:/\> **cat out_voltage0_calibbias**
+root:/> **cat out_voltage0_calibbias**
 0
 
-root:/\> **echo 2 \> out_voltage0_calibbias**
-root:/\> **cat out_voltage0_calibbias**
+root:/> **echo 2 > out_voltage0_calibbias**
+root:/> **cat out_voltage0_calibbias**
 2
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Offset value
 
-/sys/bus/iio/devices/iio:deviceX/out_voltageY_offset\
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_offset
 Sensor offset calibration value in uV. If shared across all channels,
-\<type\>\_offset is used.
+<type>_offset is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cat out_voltage0_offset**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cat out_voltage0_offset**
 0
 
-root:/\> **echo -32000 \> out_voltage0_offset**
-root:/\> **cat out_voltage0_offset**
+root:/> **echo -32000 > out_voltage0_offset**
+root:/> **cat out_voltage0_offset**
 -31752
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

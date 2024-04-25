@@ -1,25 +1,30 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-cdc/ad7150
+title: AD7156: Ultra-Low Power, 1.8 V, 3 mm × 3 mm, 2-Channel, Capacitance Converter
+---
+
 # AD7150 IIO Capacitance to Digital Converter Linux Driver
 
-### Supported Devices
+#### Supported Devices
 
--   [AD7150](adi>AD7150)
--   [AD7151](adi>AD7151)
--   [AD7156](adi>AD7156)
+-   [AD7150](https://analog.com/AD7150)
+-   [AD7151](https://analog.com/AD7151)
+-   [AD7156](https://analog.com/AD7156)
 
-### Evaluation Boards
+#### Evaluation Boards
 
--   [EVAL-AD7150EBZ](adi>EVAL-AD7150EBZ)
--   [EVAL-AD7156EBZ](adi>EVAL-AD7156EBZ)
+-   [EVAL-AD7150EBZ](https://analog.com/EVAL-AD7150EBZ)
+-   [EVAL-AD7156EBZ](https://analog.com/EVAL-AD7156EBZ)
 
-### Description
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single and multi channel serial interface Capacitance to Digital Converters.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-## Source Code
+### Source Code
 
-### Status
+#### Status
 
 <table>
 <thead>
@@ -36,7 +41,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-### Files
+#### Files
 
 <table>
 <thead>
@@ -53,7 +58,9 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name accordingly, matching your part name.
 
@@ -82,11 +89,11 @@ Depending on the converter IC used, you may need to set the I2C_BOARD_INFO name 
 
 ``` c
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
-#if defined(CONFIG_AD7150) || defined(CONFIG_AD7150_MODULE)
+## if defined(CONFIG_AD7150) || defined(CONFIG_AD7150_MODULE)
     {
         I2C_BOARD_INFO("ad7150", 0x48),
     },
-#endif
+## endif
 };
 ```
 
@@ -104,14 +111,17 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-## Adding Linux driver support
+### Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The driver depends on **CONFIG_I2C**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -130,43 +140,61 @@ The driver depends on **CONFIG_I2C**
 
                     [--snip--]
 
-## Hardware configuration
+### Hardware configuration
 
-![ad7150_eval_lr.jpg](/resources/tools-software/linux-drivers/iio-adc/ad7150_eval_lr.jpg){width="600" query="?600"}
+```{image} /resources/tools-software/linux-drivers/iio-adc/ad7150_eval_lr.jpg
+:alt: ad7150_eval_lr.jpg
+:width: "600"
+:query: "?600"
+```
 
-## Driver testing
+### Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 3 04:21 dev
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 3 04:21 dev
 drwxr-xr-x 2 root root 0 Jan 3 04:21 events
--rw-r\--r\-- 1 root root 4096 Jan 3 04:21 in_capacitance0_mean_raw
--r\--r\--r\-- 1 root root 4096 Jan 3 04:21 in_capacitance0_raw
--rw-r\--r\-- 1 root root 4096 Jan 3 04:21 in_capacitance1_mean_raw
--r\--r\--r\-- 1 root root 4096 Jan 3 04:21 in_capacitance1_raw
--r\--r\--r\-- 1 root root 4096 Jan 3 04:21 name
+-rw-r--r-- 1 root root 4096 Jan 3 04:21 in_capacitance0_mean_raw
+-r--r--r-- 1 root root 4096 Jan 3 04:21 in_capacitance0_raw
+-rw-r--r-- 1 root root 4096 Jan 3 04:21 in_capacitance1_mean_raw
+-r--r--r-- 1 root root 4096 Jan 3 04:21 in_capacitance1_raw
+-r--r--r-- 1 root root 4096 Jan 3 04:21 name
 drwxr-xr-x 2 root root 0 Jan 3 04:21 power
-lrwxrwxrwx 1 root root 0 Jan 3 04:21 subsystem -\> ../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 3 04:21 uevent
-\</xterm\>\</WRAP\>
+lrwxrwxrwx 1 root root 0 Jan 3 04:21 subsystem -> ../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 3 04:21 uevent
+```
+:::
 
-##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat name**
+###### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat name**
 ad7150
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### Show channel CIN1(+) measurement
+
+###### Show channel CIN1(+) measurement
 
 <table>
 <thead>
@@ -200,33 +228,49 @@ ad7150
 </tbody>
 </table>
 
-**Description:**\
+**Description:**
 Raw unscaled capacitance measurement on channel in_capacitance0_raw
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in_capacitance0_raw**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance0_raw**
 26640
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### Show channel CIN1(+) average measurement
 
-**Description:**\
+###### Show channel CIN1(+) average measurement
+
+**Description:**
 Raw unscaled capacitance measurement on channel in_capacitance0_mean_raw
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in_capacitance0_mean_raw**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0> **cat in_capacitance0_mean_raw**
 26273
-\</xterm\>\</WRAP\>
+```
+:::
 
-## Hardware Events
 
-![iio_snippets#Event Management&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Event Management&firstseconly&noeditbtn)
+### Hardware Events
 
-![iio_snippets#Typical event attributes&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical event attributes&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Event_Management.md
+```
 
-### Supported Events
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Typical_event_attributes.md
+```
+
+#### Supported Events
 
 <table>
 <thead>
@@ -340,6 +384,8 @@ root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0048/iio:device0\> **cat in_ca
 </tbody>
 </table>
 
-## More Information
+### More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

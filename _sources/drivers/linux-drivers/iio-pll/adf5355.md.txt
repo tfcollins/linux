@@ -1,20 +1,25 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/adf5355
+title: ADF5356: Microwave Wideband Synthesizer with Integrated VCO
+---
+
 # ADF5355 IIO Wideband Synthesizer Linux Driver
 
 ### Supported Devices
 
--   [ADF4355](adi>ADF4355)
--   [ADF4355-2](adi>ADF4355-2)
--   [ADF4355-3](adi>ADF4355-3)
--   [ADF5355](adi>ADF5355)
--   [ADF5356](adi>ADF5356)
+-   [ADF4355](https://analog.com/ADF4355)
+-   [ADF4355-2](https://analog.com/ADF4355-2)
+-   [ADF4355-3](https://analog.com/ADF4355-3)
+-   [ADF5355](https://analog.com/ADF5355)
+-   [ADF5356](https://analog.com/ADF5356)
 
 ### Reference Circuits
 
 ### Evaluation Boards
 
--   [ADF4355 Eval Board](adi>EVAL-ADF4355)
--   [ADF5355 Eval Board](adi>EVAL-ADF5355)
--   [ADF5356 Eval Board](adi>EVAL-ADF5356)
+-   [ADF4355 Eval Board](https://analog.com/EVAL-ADF4355)
+-   [ADF5355 Eval Board](https://analog.com/EVAL-ADF5355)
+-   [ADF5356 Eval Board](https://analog.com/EVAL-ADF5356)
 
 ### Description
 
@@ -35,8 +40,8 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master?drivers/iio/frequency/adf5355.c">git</a></td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/adf5355.c">WIP</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adf5355.c">git</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adf5355.c">WIP</a></td>
 </tr>
 </tbody>
 </table>
@@ -53,24 +58,26 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/adf5355.c">master?drivers/iio/frequency/adf5355.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/adf5355.c">master?drivers/iio/frequency/adf5355.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="linux.github&gt;master?include/linux/iio/frequency/adf5355.h">master?include/linux/iio/frequency/adf5355.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?include/linux/iio/frequency/adf5355.h">master?include/linux/iio/frequency/adf5355.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/adf5355.txt">master?Documentation/devicetree/bindings/iio/frequency/adf5355.txt</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/frequency/adf5355.txt">master?Documentation/devicetree/bindings/iio/frequency/adf5355.txt</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Example platform device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
-The reference frequency and GPIO numbers may vary between boards. The platform_data for the device\'s \"struct device\" holds this information.
+The reference frequency and GPIO numbers may vary between boards. The platform_data for the device's "struct device" holds this information.
 
 ``` c
 /**
@@ -139,7 +146,9 @@ The reference frequency and GPIO numbers may vary between boards. The platform_d
  };
 ```
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 ## Devicetree bindings
 
@@ -261,12 +270,15 @@ The reference frequency and GPIO numbers may vary between boards. The platform_d
 
 ## Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The ADF5355 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -286,15 +298,21 @@ The ADF5355 Driver depends on **CONFIG_SPI**
 
 ## Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@linaro-ubuntu-desktop:\~# cd /sys/bus/iio/devices
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@linaro-ubuntu-desktop:~# cd /sys/bus/iio/devices
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices#
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices# ls
 iio:device0 iio:device1
-root@linaro-ubuntu-desktop:/sys/bus/iio/devices# cd iio\\:device1
+root@linaro-ubuntu-desktop:/sys/bus/iio/devices# cd iio:device1
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# ls -al
 total 0
 drwxr-xr-x 3 root root 0 Jan 1 00:00 .
@@ -307,61 +325,89 @@ drwxr-xr-x 4 root root 0 Jan 1 00:00 ..
 -rw-rw-rw- 1 root root 4096 Jan 1 00:01 out_altvoltage1_powerdown
 -rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage_refin_frequency
 drwxrwxrwx 2 root root 0 Jan 1 00:00 power
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -\> ../../../../../../../../bus/iio
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -> ../../../../../../../../bus/iio
 -rw-rw-rw- 1 root root 4096 Jan 1 00:00 uevent
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1#
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# cat name
 adf5355
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set Output Frequency
 
-/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency
 Stores PLL Y frequency in Hz. Reading returns the
 actual frequency in Hz.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# echo 2512345678 \> out_altvoltage0_frequency
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# echo 2512345678 > out_altvoltage0_frequency
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# cat out_altvoltage0_frequency
 2512345678
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set reference frequency
 
-/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_refin_frequency\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_refin_frequency
 Sets PLL Y REFin frequency in Hz. In some clock chained
 applications, the reference frequency used by the PLL may
 change during runtime. This attribute allows the user to
 adjust the reference frequency accordingly.
 The value written has no effect until out_altvoltageY_freq is updated.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# cat out_altvoltage_refin_frequency
 122880000
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Enable Power-Down
 
-/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown
 If available, this attribute allows the user to power down
-the PLL and it\'s RFOut buffers. This is in particular useful
+the PLL and it's RFOut buffers. This is in particular useful
 during REFin changes.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# echo 1 \> out_altvoltage0_powerdown
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# echo 1 > out_altvoltage0_powerdown
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device1# cat out_altvoltage0_powerdown
 1
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

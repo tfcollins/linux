@@ -16,6 +16,8 @@
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/tabs.js?v=3ee01567"></script>
     <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="ADP1650 LED Flash Linux Driver" href="../leds/adp1650.html" />
@@ -109,10 +111,6 @@
 <li><a class="reference internal" href="#checking-for-proper-installation">Checking for proper installation</a></li>
 <li><a class="reference internal" href="#use-the-event-test-utility-to-test-proper-function">Use the event_test utility to test proper function</a></li>
 <li><a class="reference internal" href="#find-input-by-name">Find Input by name</a></li>
-<li><a class="reference internal" href="#under-the-device-folder-there-are-auxiliary-functions-such-as-gpio-and-disable-controls">Under the device folder there are auxiliary functions such as GPIO and disable controls</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a><ul>
 <li><a class="reference internal" href="#touchscreen-calibration">Touchscreen calibration</a></li>
 <li><a class="reference internal" href="#using-the-ad7879-in-microwin-nano-x">Using the AD7879 in Microwin / Nano-X</a><ul>
 <li><a class="reference internal" href="#user-configuration">User Configuration</a></li>
@@ -203,7 +201,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -270,7 +270,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -328,17 +330,17 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7879"><span class="xref myst">AD7879</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7879"><span class="xref myst">AD7879-1</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7889"><span class="xref myst">AD7889</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7889"><span class="xref myst">AD7889-1</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7879">AD7879</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7879">AD7879-1</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7889">AD7889</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7889">AD7889-1</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7879EBZ"><span class="xref myst">EVAL-AD7879EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7879-1EBZ"><span class="xref myst">EVAL-AD7879-1EBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7879EBZ">EVAL-AD7879EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7879-1EBZ">EVAL-AD7879-1EBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -346,12 +348,13 @@ Content on this topic
 <p>The AD7879/AD7889 is a 12-bit successive approximation ADC with a synchronous serial interface and low on-resistance switches for driving 4-wire resistive touch screens. The AD7879 works with a very low power supply, a single 1.6 V to 3.6V, and features throughput rates of 105 kSPS.</p>
 <p>The device includes a shutdown mode, which reduces its current consumption to less than 5 uA.</p>
 <p>To reduce the effects of noise from LCDs and other sources, the AD7879 contains a preprocessing block. The preprocessing function consists of a median and an averaging filter. The combination of these two techniques provides a more robust solution, discarding the spurious noise in the signal and keeping only the data of interest. The size of both filters is programmable. Other user-programmable conversion controls include variable acquisition time, and first conversion delay. Up to 16 averages can be taken per conversion. The AD7879 can run in either slave or stand-alone mode, using an automatic conversion sequencer and timer.</p>
-<p><img alt="ad7879_filter_example.png" src="software/driver/linux/ad7879_filter_example.png" />{width=“500” query=“?500”}</p>
+<a class="reference internal image-reference" href="../../../_images/ad7879_filter_example.png"><img alt="ad7879_filter_example.png" src="../../../_images/ad7879_filter_example.png" style="width: 500px;" />
+</a>
 <p>The AD7879 has a programmable pin that can operate as either an auxiliary input to the ADC, as a battery monitor, or as a GPIO. There is a programmable interrupt output which can operate in three modes, as a general purpose interrupt to signal when new data is available INT, as an interrupt to indicate when limits are exceeded, or as a pen down interrupt when the screen is touched, PENIRQ. The AD7879 offers temperature and touch-pressure measurement.</p>
 <p>It is available in various packages.
 It has either an** SPI (AD7879)(AD7889)** or <strong>I2C (AD7879-1)(AD7889-1)</strong> interface.</p>
-<p>[<strong>See also:</strong>]{.underline} <a class="reference internal" href="#docs%3Euclinux-dist:tslib"><span class="xref myst">uclinux-dist:tslib</span></a></p>
-<p>[<strong>See also:</strong>]{.underline} <a class="reference internal" href="ad7877.html"><span class="doc std std-doc">AD7877 Touchscreen Device Driver</span></a></p>
+<p><em><strong>See also:</strong></em> <a class="reference internal" href="#docs%3Euclinux-dist:tslib"><span class="xref myst">uclinux-dist:tslib</span></a></p>
+<p><em><strong>See also:</strong></em> <a class="reference internal" href="ad7877.html"><span class="doc std std-doc">AD7877 Touchscreen Device Driver</span></a></p>
 </section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
@@ -451,14 +454,14 @@ It has either an** SPI (AD7879)(AD7889)** or <strong>I2C (AD7879-1)(AD7889-1)</s
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 <p>Touchscreen characteristics vary between boards and models. The platform_data for the device’s “struct device” holds this information.</p>
-<p>&lt;source trunk/include/linux/spi/ad7879.h c linux-kernel&gt;</p>
+<source trunk/include/linux/spi/ad7879.h c linux-kernel>
 <section id="example-platform-board-file-spi-interface-version">
 <h3>Example Platform / Board file (SPI Interface Version)<a class="headerlink" href="#example-platform-board-file-spi-interface-version" title="Link to this heading">¶</a></h3>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly)</p>
+<!-- CMDS: firstseconly -->
 <p>These snippets are all from the same file. <code class="docutils literal notranslate"><span class="pre">arch/blackfin/mach-bf537/boards/stamp.c</span></code>:</p>
-<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/spi/ad7879.h&gt;</span>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">## include &lt;linux/spi/ad7879.h&gt;</span>
 
 <span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ad7879_platform_data</span><span class="w"> </span><span class="n">bfin_ad7879_ts_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">.</span><span class="n">model</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">7879</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Model = AD7879 */</span>
@@ -476,7 +479,7 @@ It has either an** SPI (AD7879)(AD7889)** or <strong>I2C (AD7879-1)(AD7889-1)</s
 </pre></div>
 </div>
 <div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">bfin_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_TOUCHSCREEN_AD7879_SPI) || defined(CONFIG_TOUCHSCREEN_AD7879_SPI_MODULE)</span>
+<span class="cp">## if defined(CONFIG_TOUCHSCREEN_AD7879_SPI) || defined(CONFIG_TOUCHSCREEN_AD7879_SPI_MODULE)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ad7879&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bfin_ad7879_ts_info</span><span class="p">,</span>
@@ -487,15 +490,15 @@ It has either an** SPI (AD7879)(AD7889)** or <strong>I2C (AD7879-1)(AD7889-1)</s
 <span class="w">        </span><span class="p">.</span><span class="n">controller_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">spi_ad7879_chip_info</span><span class="p">,</span><span class="w"> </span><span class="cm">/* only needed on Blackfin */</span>
 <span class="w">        </span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_CPHA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SPI_CPOL</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 </section>
 <section id="example-platform-board-file-i2c-interface-version">
 <h3>Example Platform / Board file (I2C Interface Version)<a class="headerlink" href="#example-platform-board-file-i2c-interface-version" title="Link to this heading">¶</a></h3>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
-<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/spi/ad7879.h&gt;</span>
+<!-- CMDS: firstseconly noeditbtn -->
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">## include &lt;linux/spi/ad7879.h&gt;</span>
 
 <span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ad7879_platform_data</span><span class="w"> </span><span class="n">bfin_ad7879_ts_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">.</span><span class="n">model</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">7879</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Model = AD7879 */</span>
@@ -513,13 +516,13 @@ It has either an** SPI (AD7879)(AD7889)** or <strong>I2C (AD7879-1)(AD7889-1)</s
 </pre></div>
 </div>
 <div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_board_info</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="n">bfin_i2c_board_info</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_TOUCHSCREEN_AD7879_I2C) || defined(CONFIG_TOUCHSCREEN_AD7879_I2C_MODULE)</span>
+<span class="cp">## if defined(CONFIG_TOUCHSCREEN_AD7879_I2C) || defined(CONFIG_TOUCHSCREEN_AD7879_I2C_MODULE)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="n">I2C_BOARD_INFO</span><span class="p">(</span><span class="s">&quot;ad7879&quot;</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2F</span><span class="p">),</span>
 <span class="w">        </span><span class="p">.</span><span class="n">irq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IRQ_PG5</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">bfin_ad7879_ts_info</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -529,9 +532,11 @@ It has either an** SPI (AD7879)(AD7889)** or <strong>I2C (AD7879-1)(AD7889-1)</s
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD7879 Driver depends on <strong>CONFIG_SPI</strong> or <strong>CONFIG_I2C</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD7879 Driver depends on <strong>CONFIG_SPI</strong> or <strong>CONFIG_I2C</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Input device support
   -*- Generic input layer (needed for keyboard, mouse, ...)
   &lt; &gt;   Support for memoryless force-feedback devices
@@ -563,17 +568,13 @@ The AD7879 Driver depends on <strong>CONFIG_SPI</strong> or <strong>CONFIG_I2C</
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
-<p><img alt="ad7879_example_schematic.png" src="software/driver/linux/ad7879_example_schematic.png" />{width=“800” query=“?800”}</p>
+<a class="reference internal image-reference" href="../../../_images/ad7879_example_schematic.png"><img alt="ad7879_example_schematic.png" src="../../../_images/ad7879_example_schematic.png" style="width: 800px;" />
+</a>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
 <section id="driver-compiled-as-a-module">
 <h3>Driver compiled as a module<a class="headerlink" href="#driver-compiled-as-a-module" title="Link to this heading">¶</a></h3>
-<p>&lt;xterm&gt;root:~&gt; <strong>modprobe evdev</strong>
-root:~&gt; <strong>modprobe ad7879</strong>
-input: AD7879 Touchscreen as /class/input/input0
-ad7879 spi0.1: touchscreen, irq 57
-&lt;/xterm&gt;</p>
 </section>
 <section id="driver-compiled-into-the-kernel">
 <h3>Driver compiled into the kernel<a class="headerlink" href="#driver-compiled-into-the-kernel" title="Link to this heading">¶</a></h3>
@@ -594,21 +595,7 @@ ad7879 spi0.1: touchscreen, irq 57
 <section id="checking-for-proper-installation">
 <h3>Checking for proper installation<a class="headerlink" href="#checking-for-proper-installation" title="Link to this heading">¶</a></h3>
 <p>After the kernel boot your device folder should include at least one device node for the touchscreen</p>
-<p>&lt;xterm&gt;root:/&gt; <strong>ls -al /dev/input/</strong>
-drw-r–r– 2 root root 0 Jan 1 00:03 .
-drwxr-xr-x 5 root root 0 Jan 1 00:03 …
-crw-rw-r– 1 root root 13, 64 Jan 1 00:03 event0
-crw-rw-r– 1 root root 13, 65 Jan 1 00:03 event1
-crw-rw-r– 1 root root 13, 66 Jan 1 00:03 event2
-root:/&gt;
-&lt;/xterm&gt;</p>
 <p>Check that the interrupt is registered.</p>
-<p>&lt;xterm&gt;root:~&gt; <strong>cat /proc/interrupts | grep ad7879</strong>
-57: 0 ad7879
-&lt;/xterm&gt;</p>
-<p>&lt;xterm&gt;root:~&gt; <strong>cat /sys/class/input/input0/name</strong>
-AD7879 Touchscreen
-&lt;/xterm&gt;</p>
 </section>
 <section id="use-the-event-test-utility-to-test-proper-function">
 <h3>Use the event_test utility to test proper function<a class="headerlink" href="#use-the-event-test-utility-to-test-proper-function" title="Link to this heading">¶</a></h3>
@@ -654,13 +641,17 @@ Event: time 67435.596000, type 1 (Key), code 330 (Touch), value 0
 Event: time 67435.596000, -------------- Report Sync ------------
 </pre></div>
 </div>
-<p>&lt;WRAP tip&gt;
-In case you touch the surface and don’t receive events, it’s likely that something with your /DAV Interrupt is wrong.<br />
-<strong>check irq number in your platform device file</strong>
-&lt;/WRAP&gt;</p>
-<p>&lt;WRAP tip&gt;
-In case you get a message like: <code class="docutils literal notranslate"><span class="pre">evtest:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">device</span></code>, it’s likely that you have not install the necessary modules
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>In case you touch the surface and don’t receive events, it’s likely that something with your /DAV Interrupt is wrong.
+<strong>check irq number in your platform device file</strong></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>In case you get a message like: <code class="docutils literal notranslate"><span class="pre">evtest:</span> <span class="pre">No</span> <span class="pre">such</span> <span class="pre">device</span></code>, it’s likely that you have not install the necessary modules</p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root:/&gt; cat /proc/interrupts
   6:       7898   Blackfin Core Timer
  10:          1   rtc-bfin
@@ -677,40 +668,40 @@ root:/&gt;
 <section id="find-input-by-name">
 <h3>Find Input by name<a class="headerlink" href="#find-input-by-name" title="Link to this heading">¶</a></h3>
 <p>In case you like to find out which input/event interface is connected to your touchscreen, use the sysfs entries</p>
-<p>&lt;xterm&gt;root:/sys/class/input&gt; <strong>for i in `find /sys/class/input/ -name name` ; do echo -n “$i : “; cat $i; done</strong>
+<p>```{code-block} bashroot:/sys/class/input&gt; <strong>for i in <code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">/sys/class/input/</span> <span class="pre">-name</span> <span class="pre">name</span></code> ; do echo -n “<span class="math notranslate nohighlight">\(i : &quot;; cat \)</span>i; done</strong>
 ./input2/name : Logitech USB Receive
 ./input1/name : Logitech USB Receiver
-./input0/name : AD7879 Touchscreen
-&lt;/xterm&gt;</p>
-</section>
-<section id="under-the-device-folder-there-are-auxiliary-functions-such-as-gpio-and-disable-controls">
-<h3>Under the device folder there are auxiliary functions such as GPIO and disable controls<a class="headerlink" href="#under-the-device-folder-there-are-auxiliary-functions-such-as-gpio-and-disable-controls" title="Link to this heading">¶</a></h3>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root:/&gt; cd sys/class/input/input0/device/
-root:/sys/devices/platform/bfin-spi.0/spi0.1&gt; ls -al
-drwxr-xr-x    3 root     root            0 Jan  3 13:02 .
-drwxr-xr-x    5 root     root            0 Jan  3 13:02 ..
-lrwxrwxrwx    1 root     root            0 Jan  3 13:04 bus -&gt; ../../../../bus/spi
--rw-rw-r--    1 root     root         4096 Jan  3 13:04 disable
-lrwxrwxrwx    1 root     root            0 Jan  3 13:04 driver -&gt; ../../../../bus/spi/drivers/ad7879
--rw-rw-r--    1 root     root         4096 Jan  3 13:04 gpio
-lrwxrwxrwx    1 root     root            0 Jan  3 13:04 input:input0 -&gt; ../../../../class/input/input0
--r--r--r--    1 root     root         4096 Jan  3 13:04 modalias
-drwxr-xr-x    2 root     root            0 Jan  3 13:04 power
-lrwxrwxrwx    1 root     root            0 Jan  3 13:04 subsystem -&gt; ../../../../bus/spi
--rw-r--r--    1 root     root         4096 Jan  3 13:04 uevent
-root:/sys/devices/platform/bfin-spi.0/spi0.1&gt; cat gpio
-0
-root:/sys/devices/platform/bfin-spi.0/spi0.1&gt; echo 1 &gt; gpio
-root:/sys/devices/platform/bfin-spi.0/spi0.1&gt; cat gpio
-1
-root:/sys/devices/platform/bfin-spi.0/spi0.1&gt;
+./input0/name : AD7879 Touchscreen</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+#### Under the device folder there are auxiliary functions such as GPIO and disable controls
+
+    root:/&gt; cd sys/class/input/input0/device/
+    root:/sys/devices/platform/bfin-spi.0/spi0.1&gt; ls -al
+    drwxr-xr-x    3 root     root            0 Jan  3 13:02 .
+    drwxr-xr-x    5 root     root            0 Jan  3 13:02 ..
+    lrwxrwxrwx    1 root     root            0 Jan  3 13:04 bus -&gt; ../../../../bus/spi
+    -rw-rw-r--    1 root     root         4096 Jan  3 13:04 disable
+    lrwxrwxrwx    1 root     root            0 Jan  3 13:04 driver -&gt; ../../../../bus/spi/drivers/ad7879
+    -rw-rw-r--    1 root     root         4096 Jan  3 13:04 gpio
+    lrwxrwxrwx    1 root     root            0 Jan  3 13:04 input:input0 -&gt; ../../../../class/input/input0
+    -r--r--r--    1 root     root         4096 Jan  3 13:04 modalias
+    drwxr-xr-x    2 root     root            0 Jan  3 13:04 power
+    lrwxrwxrwx    1 root     root            0 Jan  3 13:04 subsystem -&gt; ../../../../bus/spi
+    -rw-r--r--    1 root     root         4096 Jan  3 13:04 uevent
+    root:/sys/devices/platform/bfin-spi.0/spi0.1&gt; cat gpio
+    0
+    root:/sys/devices/platform/bfin-spi.0/spi0.1&gt; echo 1 &gt; gpio
+    root:/sys/devices/platform/bfin-spi.0/spi0.1&gt; cat gpio
+    1
+    root:/sys/devices/platform/bfin-spi.0/spi0.1&gt;
+
+### More Information
+
+&lt;!-- CMDS: noheader firstseconly noeditbtn --&gt;
+```{include} resources_tools-software_linux-drivers_snippets_SUB_input_pointers.md
 </pre></div>
 </div>
 </section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p><img alt="" src="drivers/linux-drivers/input-touchscreen/page%3Eresources/tools-software/linux-drivers/snippets#input_pointers&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
 <section id="touchscreen-calibration">
 <h3>Touchscreen calibration<a class="headerlink" href="#touchscreen-calibration" title="Link to this heading">¶</a></h3>
 <p>See the <a class="reference internal" href="#docs%3Euclinux-dist:tslib"><span class="xref myst">uclinux-dist:tslib</span></a> page for more information.</p>
@@ -723,9 +714,9 @@ root:/sys/devices/platform/bfin-spi.0/spi0.1&gt;
 <li><p>Enable Microwin during Customize Application/Library Settings</p></li>
 <li><p>Manually edit user/microwin/src/config</p></li>
 </ul>
-<p>[Enable:]{.underline}<br />
+<p><em>Enable:</em>
 <strong>AD7877MOUSE = Y</strong></p>
-<p>[Disable:]{.underline}<br />
+<p><em>Disable:</em>
 <strong>NOMOUSE = N</strong></p>
 </section>
 <section id="testing-and-calibration">
@@ -830,7 +821,7 @@ root:/&gt; nanowm &amp;
 <section id="driver-source">
 <h3>Driver Source<a class="headerlink" href="#driver-source" title="Link to this heading">¶</a></h3>
 <p>Most people should not care about the driver source - it just works as a normal Linux input device. If you are interested, you can look at the driver source at :</p>
-<p>&lt;source trunk/drivers/input/touchscreen/ad7879.c:ad7879_report() c linux-kernel&gt;</p>
+<source trunk/drivers/input/touchscreen/ad7879.c:ad7879_report() c linux-kernel>
 </section>
 </section>
 </section>

@@ -1,36 +1,41 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-dac/ad5449
+title: AD5449: Dual 12-Bit, High Bandwidth, Multiplying DACs with Serial Interface
+---
+
 # AD5449 IIO DAC Linux Driver
 
-### Supported Devices
+#### Supported Devices
 
--   [AD5415](adi>AD5415)
--   [AD5426](adi>AD5426)
--   [AD5429](adi>AD5429)
--   [AD5432](adi>AD5432)
--   [AD5439](adi>AD5439)
--   [AD5443](adi>AD5443)
--   [AD5449](adi>AD5449)
+-   [AD5415](https://analog.com/AD5415)
+-   [AD5426](https://analog.com/AD5426)
+-   [AD5429](https://analog.com/AD5429)
+-   [AD5432](https://analog.com/AD5432)
+-   [AD5439](https://analog.com/AD5439)
+-   [AD5443](https://analog.com/AD5443)
+-   [AD5449](https://analog.com/AD5449)
 
-### Reference Circuits
+#### Reference Circuits
 
--   [CN0143](adi>CN0143)
--   [CN0151](adi>CN0151)
+-   [CN0143](https://analog.com/CN0143)
+-   [CN0151](https://analog.com/CN0151)
 
-### Evaluation Boards
+#### Evaluation Boards
 
--   [EVAL-AD5415SDZ](adi>EVAL-AD5415)
--   [EVAL-AD5443-DBRDZ](adi>EVAL-AD5443-DBRDZ)
--   [EVAL-AD5443SDZ](adi>EVAL-AD5443)
--   [EVAL-AD5449SDZ](adi>EVAL-AD5449)
+-   [EVAL-AD5415SDZ](https://analog.com/EVAL-AD5415)
+-   [EVAL-AD5443-DBRDZ](https://analog.com/EVAL-AD5443-DBRDZ)
+-   [EVAL-AD5443SDZ](https://analog.com/EVAL-AD5443)
+-   [EVAL-AD5449SDZ](https://analog.com/EVAL-AD5449)
 
-### Description
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting single channel serial interface DACs.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-## Source Code
+### Source Code
 
-### Status
+#### Status
 
 <table>
 <thead>
@@ -47,7 +52,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-### Files
+#### Files
 
 <table>
 <thead>
@@ -68,14 +73,14 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-## Example platform device initialization
+### Example platform device initialization
 
-### Specifying reference voltage via the regulator framework
+#### Specifying reference voltage via the regulator framework
 
 Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (**spi0.3**)
 
 ``` c
-#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
 static struct regulator_consumer_supply ad5449_consumer_supplies[] = {
     REGULATOR_SUPPLY("vcc", "spi0.3"),
 };
@@ -106,14 +111,14 @@ static struct platform_device brd_voltage_regulator = {
     },
 };
 
-#endif
+## endif
 ```
 
 ``` c
 static struct platform_device *board_devices[] __initdata = {
-#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
+## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)
     &brd_voltage_regulator
-#endif
+## endif
 };
 ```
 
@@ -131,7 +136,9 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 
@@ -164,14 +171,17 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-## Adding Linux driver support
+### Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The AD5449 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -186,65 +196,96 @@ The AD5449 Driver depends on **CONFIG_SPI**
             ...
         ...
 
-## Driver testing
+### Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
+root:/sys/bus/iio/devices> **cd iio:device0**
 
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 1 02:20 dev
--r\--r\--r\-- 1 root root 4096 Jan 1 02:20 name
--rw-r\--r\-- 1 root root 4096 Jan 1 02:25 out_voltage0_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 02:20 out_voltage0_scale
--rw-r\--r\-- 1 root root 4096 Jan 1 02:25 out_voltage1_raw
--rw-r\--r\-- 1 root root 4096 Jan 1 02:20 out_voltage1_scale
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 1 02:20 dev
+-r--r--r-- 1 root root 4096 Jan 1 02:20 name
+-rw-r--r-- 1 root root 4096 Jan 1 02:25 out_voltage0_raw
+-rw-r--r-- 1 root root 4096 Jan 1 02:20 out_voltage0_scale
+-rw-r--r-- 1 root root 4096 Jan 1 02:25 out_voltage1_raw
+-rw-r--r-- 1 root root 4096 Jan 1 02:20 out_voltage1_scale
 drwxr-xr-x 2 root root 0 Jan 1 02:20 power
-lrwxrwxrwx 1 root root 0 Jan 1 02:20 subsystem -\> ../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 Jan 1 02:20 uevent
-\</xterm\>\</WRAP\>
+lrwxrwxrwx 1 root root 0 Jan 1 02:20 subsystem -> ../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 Jan 1 02:20 uevent
+```
+:::
 
-\<WRAP round help\>For DACs with only one output channel there will be no out_voltage1_raw and out_voltage1_scale files\</WRAP\>
 
-##### Show device name
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+For DACs with only one output channel there will be no out_voltage1_raw and out_voltage1_scale files
+:::
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat name**
+
+###### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat name**
 ad5449
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### Show scale
 
-**Description:**\
+###### Show scale
+
+**Description:**
 scale to be applied to out_voltage0_raw in order to obtain the measured voltage in millivolts.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> **cat out_voltage_scale**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat out_voltage_scale**
 0.152
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### Set channel 0
 
-**Description:**\
-/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw\
+###### Set channel 0
+
+**Description:**
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw
 Raw (unscaled, no bias etc.) output voltage for
 channel Y.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0\> echo 1234 \> out_voltage0_raw
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
 
-**U** = *out_voltage0_raw \* out_voltage_scale* = 1234 \* 0.152mV = **187.568 *mV***
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> echo 1234 > out_voltage0_raw
+```
+:::
 
-## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+**U** = *out_voltage0_raw * out_voltage_scale* = 1234 * 0.152mV = **187.568 *mV***
+
+### More Information
+
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

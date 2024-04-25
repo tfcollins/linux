@@ -1,12 +1,17 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/admv1014
+title: ADMV1014: 24 GHz to 44 GHz, Wideband, Microwave Downconverter
+---
+
 # ADMV1014 24 GHz to 44 GHz, Wideband, Microwave Downconverter
 
 ### Supported Devices
 
--   [ADMV1014](adi>ADMV1014)
+-   [ADMV1014](https://analog.com/ADMV1014)
 
 ### Evaluation Boards
 
--   [EVAL-ADMV1014](adi>EVAL-ADMV1014)
+-   [EVAL-ADMV1014](https://analog.com/EVAL-ADMV1014)
 
 ### Description
 
@@ -27,7 +32,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master?drivers/iio/frequency/admv1014.c">git</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/admv1014.c">git</a></td>
 <td><a href="git.linux.org&gt;drivers/iio/frequency/admv1014.c">WIP</a></td>
 </tr>
 </tbody>
@@ -45,7 +50,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/admv1014.c">drivers/iio/frequency/admv1014.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/admv1014.c">drivers/iio/frequency/admv1014.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
@@ -54,7 +59,9 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 #### properties
 
@@ -78,7 +85,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 
 **clock-names:**
 
--   description: Must be \"lo_in\"
+-   description: Must be "lo_in"
 -   maxItems: 1
 
 **clock-output-names:**
@@ -88,7 +95,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 **clock-scales:**
 
 -   description: The Common Clock Framework max rate is limited by MAX of unsigned long. For ADMV1014 device this is a deficiency. If specified, this property allows arbitrary scales. The first element in the array should be the multiplier and the second element should be the divider.
--   \$ref: /schemas/types.yaml#/definitions/uint32-array
+-   $ref: /schemas/types.yaml#/definitions/uint32-array
 -   minimum: 1
 
 **vcm-supply:**
@@ -138,36 +145,36 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 **adi,p1db-comp:**
 
 -   description: Turn on bits to optimize P1dB.
--   \$ref: /schemas/types.yaml#/definitions/uint32
--   enum: \[0, 3\]
+-   $ref: /schemas/types.yaml#/definitions/uint32
+-   enum: [0, 3]
 
 **adi,quad-se-mode:**
 
 -   description: Switch Differential/SE Modes.
--   \$ref: /schemas/types.yaml#/definitions/uint32
--   enum: \[6, 9, 12\]
+-   $ref: /schemas/types.yaml#/definitions/uint32
+-   enum: [6, 9, 12]
 
 **adi,det-prog:**
 
 -   description: Digital Rx Detector Program.
--   \$ref: /schemas/types.yaml#/definitions/uint32
--   enum: \[1, 2, 4, 8, 16, 32, 64\]
+-   $ref: /schemas/types.yaml#/definitions/uint32
+-   enum: [1, 2, 4, 8, 16, 32, 64]
 
 **adi,adi,bb-amp-gain-ctrl:**
 
 -   description: Baseband Amp Gain control.
--   \$ref: /schemas/types.yaml#/definitions/uint32
--   enum: \[0, 1, 2, 3\]
+-   $ref: /schemas/types.yaml#/definitions/uint32
+-   enum: [0, 1, 2, 3]
 
-**\'#address-cells\':**
+**'#address-cells':**
 
 -   const: 1
 
-**\'#size-cells\':**
+**'#size-cells':**
 
 -   const: 0
 
-**\'#clock-cells\':**
+**'#clock-cells':**
 
 -   const: 0
 
@@ -205,12 +212,15 @@ spi {
 
 ## Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The ADMV1014 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -221,86 +231,120 @@ The ADMV1014 Driver depends on **CONFIG_SPI**
 
 ## Hardware configuration
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> ls
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
 iio:device0
-root:/sys/bus/iio/devices\> **iio:device0**
+root:/sys/bus/iio/devices> **iio:device0**
 
-root:/\> **ls -l**
--r\--r\--r\-- 1 root root 4096 May 6 12:20 dev
--r\--r\--r\-- 1 root root 4096 May 6 12:20 name
--rw-r\--r\-- 1 root root 4096 May 6 13:00 out_altvoltage0_i_hardwaregain
--rw-r\--r\-- 1 root root 4096 May 6 13:00 out_altvoltage0_q_hardwaregain
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_altvoltage0_i_offset
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_altvoltage0_q_offset
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_altvoltage0_i_phase
--rw-r\--r\-- 1 root root 4096 May 6 13:01 out_altvoltage0_q_phase
-lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -\> ../../../../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 May 6 12:20 uevent
-\</xterm\>\</WRAP\>
+root:/> **ls -l**
+-r--r--r-- 1 root root 4096 May 6 12:20 dev
+-r--r--r-- 1 root root 4096 May 6 12:20 name
+-rw-r--r-- 1 root root 4096 May 6 13:00 out_altvoltage0_i_hardwaregain
+-rw-r--r-- 1 root root 4096 May 6 13:00 out_altvoltage0_q_hardwaregain
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_i_offset
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_q_offset
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_i_phase
+-rw-r--r-- 1 root root 4096 May 6 13:01 out_altvoltage0_q_phase
+lrwxrwxrwx 1 root root 0 May 6 12:20 subsystem -> ../../../../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 May 6 12:20 uevent
+```
+:::
+
 
 ##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/iio\\:device0/**
-root:/\> **cat name**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/iio:device0/**
+root:/> **cat name**
 admv1014
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Gain
 
-/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_hardwaregain\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_hardwaregain
 Gain factor. If shared across all channels,
-\<type\>\_hardwaregain is used.
+<type>_hardwaregain is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
 
-root:/\> **cat out_altvoltage0_i_hardwaregain**
+```{code-block} bash
+
+root:/> **cat out_altvoltage0_i_hardwaregain**
 0 0
 
-root:/\> **echo 1.1 \> out_altvoltage0_i_hardwaregain**
-root:/\> **cat out_altvoltage0_hardwaregain**
+root:/> **echo 1.1 > out_altvoltage0_i_hardwaregain**
+root:/> **cat out_altvoltage0_hardwaregain**
 1 1
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Offset value
 
-/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_offset\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_offset
 Offset value. If shared across all channels,
-\<type\>\_offset is used.
+<type>_offset is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cat out_altvoltage0_i_offset**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cat out_altvoltage0_i_offset**
 0
 
-root:/\> **echo 1 \> out_altvoltage0_i_offset**
-root:/\> **cat out_altvoltage0_offset**
+root:/> **echo 1 > out_altvoltage0_i_offset**
+root:/> **cat out_altvoltage0_offset**
 1
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ##### Set ChannelY Phase value
 
-/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_phase\
+/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_Z_phase
 Phase value. If shared across all channels,
-\<type\>\_phase is used.
+<type>_phase is used.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cat out_altvoltage0_i_phase**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cat out_altvoltage0_i_phase**
 0
 
-root:/\> **echo 1 \> out_altvoltage0_i_phase**
-root:/\> **cat out_altvoltage0_phase**
+root:/> **echo 1 > out_altvoltage0_i_phase**
+root:/> **cat out_altvoltage0_phase**
 1
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

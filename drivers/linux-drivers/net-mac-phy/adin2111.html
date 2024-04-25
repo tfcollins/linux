@@ -188,7 +188,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -255,7 +257,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -313,7 +317,7 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EADIN2111"><span class="xref myst">ADIN2111</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/ADIN2111">ADIN2111</a></p></li>
 </ul>
 </section>
 <section id="supported-boards">
@@ -337,7 +341,7 @@ intrinsic safety applications. The ADIN2111 has an integrated voltage supply mon
 <td>Mainlined?</td>
 </tr>
 <tr class="even">
-<td><a href="linux.github&gt;master/drivers/net/ethernet/adi/adin1110.c">adin1110.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/net/ethernet/adi/adin1110.c">adin1110.c</a></td>
 <td>Yes</td>
 </tr>
 </tbody>
@@ -355,7 +359,7 @@ intrinsic safety applications. The ADIN2111 has an integrated voltage supply mon
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master/drivers/net/ethernet/adi">drivers/net/ethernet/adi/adin1110.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main/drivers/net/ethernet/adi">drivers/net/ethernet/adi/adin1110.c</a></td>
 </tr>
 </tbody>
 </table>
@@ -437,14 +441,14 @@ To rename them you need to create a udev rule under:</p>
 SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{phys_switch_id}==&quot;6164696e323131312d31&quot;, ATTR{phys_port_name}!=&quot;&quot;, NAME=&quot;adin2111-0-$attr{phys_port_name}&quot;
 </pre></div>
 </div>
-<p>&lt;note important&gt;
+<note important>
 You need to change the phys_switch_id to match your own system.
-This can be found under:</p>
+This can be found under:
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@analog:~# cat /sys/class/net/eth1/phys_switch_id
 6164696e323131312d31
 </pre></div>
 </div>
-<p>&lt;/note&gt;</p>
+</note>
 </section>
 <section id="bridging-the-two-ports">
 <h3>Bridging the two ports<a class="headerlink" href="#bridging-the-two-ports" title="Link to this heading">¶</a></h3>
@@ -459,7 +463,7 @@ ip link set br0 up
 ip route add 192.168.160.0/24 dev br0
 </pre></div>
 </div>
-<p>&lt;note important&gt;Default behavior of ADIN2111 will be to forward to the host only frames with the destination MAC address of the interface and broadcast address (Multicast only if enabled). Other frames are not seen by the SPI host and will be forwarded to the other port.&lt;/note&gt;</p>
+<p><note important>Default behavior of ADIN2111 will be to forward to the host only frames with the destination MAC address of the interface and broadcast address (Multicast only if enabled). Other frames are not seen by the SPI host and will be forwarded to the other port.</note></p>
 <section id="printing-the-forwarding-database">
 <h4>Printing the forwarding database<a class="headerlink" href="#printing-the-forwarding-database" title="Link to this heading">¶</a></h4>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@analog:~# bridge fdb
@@ -511,7 +515,7 @@ ethtool can be used to show &amp; override link settings and other parameters fo
 <li><p>Official page with source code: <a class="reference external" href="https://mirrors.edge.kernel.org/pub/software/network/ethtool/">https://mirrors.edge.kernel.org/pub/software/network/ethtool/</a></p></li>
 <li><p>Manual page: <a class="reference external" href="http://man7.org/linux/man-pages/man8/ethtool.8.html">http://man7.org/linux/man-pages/man8/ethtool.8.html</a></p></li>
 </ul>
-<p>&lt;note tip&gt;Some features of ethtool described here are available in newer versions of ethtool. If some of them don’t work, consider upgrading or getting a newer version&lt;/note&gt;</p>
+<p><note tip>Some features of ethtool described here are available in newer versions of ethtool. If some of them don’t work, consider upgrading or getting a newer version</note></p>
 <section id="example-seeing-mac-phy-info">
 <h4>Example: Seeing MAC &amp; PHY info<a class="headerlink" href="#example-seeing-mac-phy-info" title="Link to this heading">¶</a></h4>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@analog:~# ethtool adin2111-0-p0
@@ -606,8 +610,8 @@ PHY statistics:
 <section id="throughput-testing-iperf">
 <h3>Throughput testing - iperf<a class="headerlink" href="#throughput-testing-iperf" title="Link to this heading">¶</a></h3>
 <p>This is a more system-general test but it also validates the PHY.</p>
-<p>&lt;note tip&gt;
-More tools are available for this sort of testing (iperf3, netperf, etc), but iperf is one of the more basic/simple ones to do this validation. If this one achieves expected results, others should too&lt;/note&gt;</p>
+<note tip>
+More tools are available for this sort of testing (iperf3, netperf, etc), but iperf is one of the more basic/simple ones to do this validation. If this one achieves expected results, others should too</note>
 <p>On one of the endpoints with the ADIN1100, run:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>iperf -s
 </pre></div>
@@ -645,7 +649,7 @@ sha256sum test.data
 <li><p><a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-controller.yaml">Ethernet Controller bindings doc</a></p></li>
 <li><p><a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-phy.yaml">Ethernet PHY bindings doc</a></p></li>
 </ul>
-<p>![](page&gt;resources/tools-software/linux-drivers/need_help#need help&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 </section>
 </section>
 

@@ -108,16 +108,6 @@
 <li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 <li><a class="reference internal" href="#iio-sysfs-interface">IIO sysfs interface</a><ul>
 <li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#scales">Scales</a><ul>
-<li><a class="reference internal" href="#show-current-scale">Show current scale</a></li>
-<li><a class="reference internal" href="#show-available-scales">Show available scales</a></li>
-<li><a class="reference internal" href="#change-scales">Change scales</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#get-channel-y-input-voltage">Get channel Y input voltage</a></li>
-<li><a class="reference internal" href="#set-channel-y-output-voltage">Set channel Y output voltage</a></li>
-<li><a class="reference internal" href="#example-obtaining-the-temperature-in-c">Example obtaining the temperature in °C</a></li>
-<li><a class="reference internal" href="#gpio-testing">GPIO Testing</a></li>
 </ul>
 </li>
 </ul>
@@ -195,7 +185,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -262,7 +254,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -320,24 +314,24 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD5593R"><span class="xref myst">AD5593R</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5593R">AD5593R</a></p></li>
 </ul>
 </section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3ECN0229"><span class="xref myst">CN0229</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0229">CN0229</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5593R"><span class="xref myst">EVAL-AD5593R</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5593R">EVAL-AD5593R</a></p></li>
 </ul>
 </section>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
-<p><img alt="ad5593r_bd.png" src="software/driver/linux/ad5593r_bd.png" />{.align-right}</p>
+<img alt="../../../_images/ad5593r_bd.png" src="../../../_images/ad5593r_bd.png" />
 <p>The AD5593R have eight I/Ox pins (I/O0 to I/O7) that can be independently configured as digital-to-analog converter (DAC) outputs, analog-to-digital converter (ADC) inputs, digital outputs, or digital inputs.
 When an I/Ox pin is configured as an analog output, it is driven by a 12-bit DAC. The output range of the DAC is 0 V to VREF or 0 V to 2 × VREF.
 When an I/Ox pin is configured as an analog input, it is connected to a 12-bit ADC via an analog multiplexer. The input range of the ADC is 0 V to VREF or 0 V to 2 × VREF. The ADC has a total throughput rate of 400 kSPS.
@@ -375,23 +369,23 @@ The AD5593R have an integrated 2.5 V, 25 ppm/°C reference, which is turned off 
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/dac/ad5592r-base.c">drivers/iio/dac/ad5592r-base.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/dac/ad5592r-base.c">drivers/iio/dac/ad5592r-base.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="linux.github&gt;master?drivers/iio/dac/ad5592r-base.h">drivers/iio/dac/ad5592r-base.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/dac/ad5592r-base.h">drivers/iio/dac/ad5592r-base.h</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/dac/ad5593r.c">drivers/iio/dac/ad5593r.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/dac/ad5593r.c">drivers/iio/dac/ad5593r.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="linux.github&gt;master?include/dt-bindings/iio/adi,ad5592r.h">include/dt-bindings/iio/adi,ad5592r.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?include/dt-bindings/iio/adi,ad5592r.h">include/dt-bindings/iio/adi,ad5592r.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/dac/ad5592r.txt">Documentation/devicetree/bindings/iio/dac/ad5592r.txt</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/dac/ad5592r.txt">Documentation/devicetree/bindings/iio/dac/ad5592r.txt</a></td>
 </tr>
 </tbody>
 </table>
@@ -399,7 +393,8 @@ The AD5593R have an integrated 2.5 V, 25 ppm/°C reference, which is turned off 
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
-<p><img alt="ad5592r_eval.jpg" src="software/driver/linux/ad5592r_eval.jpg" />{width=“600” query=“?600”}</p>
+<a class="reference internal image-reference" href="../../../_images/ad5592r_eval.jpg"><img alt="ad5592r_eval.jpg" src="../../../_images/ad5592r_eval.jpg" style="width: 600px;" />
+</a>
 </section>
 <section id="adding-linux-driver-support">
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
@@ -407,9 +402,11 @@ The AD5593R have an integrated 2.5 V, 25 ppm/°C reference, which is turned off 
 <h3>Enabling the driver<a class="headerlink" href="#enabling-the-driver" title="Link to this heading">¶</a></h3>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD5593R Driver depends on <strong>CONFIG_I2C</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD5593R Driver depends on <strong>CONFIG_I2C</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         ...
@@ -626,14 +623,21 @@ uevent:OF_COMPATIBLE_N=1
 </div>
 <section id="show-device-name">
 <h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# <strong>cat name</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2#<span class="w"> </span>**cat<span class="w"> </span>name**
 ad5593r
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="scales">
-<h3>Scales<a class="headerlink" href="#scales" title="Link to this heading">¶</a></h3>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="scales">Scales</h3>
 <p>The output range of the DAC is 0 V to VREF or 0 V to 2 × VREF.
 <strong>out_voltage_scale</strong> is used to select the high or low range.
 Without external reference the driver selects the internal 2500mV VREF reference.
@@ -642,70 +646,106 @@ So the scale computes as 2500mV/2^12 = 0.610351562 or 5000mV/2^12 = 1.220703124.
 <strong>in_voltage_scale</strong> is used to select the high or low range.
 Without external reference the driver selects the internal 2500mV VREF reference.
 So the scale computes as 2500mV/2^12 = 0.610351562 or 5000mV/2^12 = 1.220703124.</p>
-<section id="show-current-scale">
-<h4>Show current scale<a class="headerlink" href="#show-current-scale" title="Link to this heading">¶</a></h4>
-<p><strong>Description:</strong><br />
+<h4 class="rubric" id="show-current-scale">Show current scale</h4>
+<p><strong>Description:</strong>
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# <strong>cat out_voltage_scale</strong>
-0.610351562
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-available-scales">
-<h4>Show available scales<a class="headerlink" href="#show-available-scales" title="Link to this heading">¶</a></h4>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2#<span class="w"> </span>**cat<span class="w"> </span>out_voltage_scale**
+<span class="m">0</span>.610351562
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="show-available-scales">Show available scales</h4>
+<p><strong>Description:</strong>
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# <strong>cat in_voltage_scale_available</strong>
-0.610351562 1.220703124
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="change-scales">
-<h4>Change scales<a class="headerlink" href="#change-scales" title="Link to this heading">¶</a></h4>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2#<span class="w"> </span>**cat<span class="w"> </span>in_voltage_scale_available**
+<span class="m">0</span>.610351562<span class="w"> </span><span class="m">1</span>.220703124
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="change-scales">Change scales</h4>
+<p><strong>Description:</strong>
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# <strong>echo 1.220703124 &gt; in_voltage_scale</strong>
-root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# <strong>cat in_voltage_scale</strong>
-1.220703124
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="get-channel-y-input-voltage">
-<h3>Get channel Y input voltage<a class="headerlink" href="#get-channel-y-input-voltage" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2#<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span>.220703124<span class="w"> </span>&gt;<span class="w"> </span>in_voltage_scale**
+root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2#<span class="w"> </span>**cat<span class="w"> </span>in_voltage_scale**
+<span class="m">1</span>.220703124
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="get-channel-y-input-voltage">Get channel Y input voltage</h3>
 <p>Description:
 Raw unscaled voltage measurement on channel Y</p>
 <p>This specifies any shell prompt running on the target</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# cat in_voltage3_raw
-1491
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2#<span class="w"> </span>cat<span class="w"> </span>in_voltage3_raw
+<span class="m">1491</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p>U = in_voltage3_raw * in_voltage_scale = 1491 * 0.610351562 = 910 mV</p>
-</section>
-<section id="set-channel-y-output-voltage">
-<h3>Set channel Y output voltage<a class="headerlink" href="#set-channel-y-output-voltage" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<h3 class="rubric" id="set-channel-y-output-voltage">Set channel Y output voltage</h3>
+<p><strong>Description:</strong>
 Raw (unscaled, no bias etc.) output voltage for channel Y.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# echo 1638 &gt; out_voltage0_raw
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1638</span><span class="w"> </span>&gt;<span class="w"> </span>out_voltage0_raw
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>out_voltage0_raw * out_voltage_scale</em> = 1638 * 0.610351562 = <strong>999.76 <em>mV</em></strong></p>
-</section>
-<section id="example-obtaining-the-temperature-in-c">
-<h3>Example obtaining the temperature in °C<a class="headerlink" href="#example-obtaining-the-temperature-in-c" title="Link to this heading">¶</a></h3>
+<h3 class="rubric" id="example-obtaining-the-temperature-in-c">Example obtaining the temperature in °C</h3>
 <p>T = ( in_temp_raw + in_temp_offset ) * in_temp_scale</p>
 <p>T = ( 810 - 753 ) * 376.78975 = 21477 mdeg C = 21.5 °C</p>
-<p>For more information see also here: <a class="reference internal" href="#git.linux.org%3EDocumentation/ABI/testing/sysfs-bus-iio"><span class="xref myst">IIO Kernel Documentation</span></a></p>
-</section>
-<section id="gpio-testing">
-<h3>GPIO Testing<a class="headerlink" href="#gpio-testing" title="Link to this heading">¶</a></h3>
+<p>For more information see also here: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/ABI/testing/sysfs-bus-iio">IIO Kernel Documentation</a></p>
+<h3 class="rubric" id="gpio-testing">GPIO Testing</h3>
 <p>The GPIO sysfs interface allows users to manipulate any GPIO from userspace. Userspace utilizes a sysfs control interface to dynamically request and release individual GPIOs. Once a GPIO has been requested, writing to the newly created path allows you to control the direction and the data while reading from it returns the GPIO data (which usually corresponds to a 0 or 1 which represents the signal level).</p>
-<p>For more information see also here: <a class="reference internal" href="#git.linux.org%3EDocumentation/gpio/sysfs.txt"><span class="xref myst">GPIO Kernel Documentation</span></a></p>
+<p>For more information see also here: <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/gpio/sysfs.txt">GPIO Kernel Documentation</a></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@linaro-ubuntu-desktop:~# cd /sys/class/gpio/
 root@linaro-ubuntu-desktop:/sys/class/gpio# ls
 export  gpiochip890  gpiochip898  gpiochip906  unexport
@@ -764,6 +804,7 @@ root@linaro-ubuntu-desktop:/sys/class/gpio/gpio897# echo high &gt; direction
 root@linaro-ubuntu-desktop:/sys/class/gpio/gpio897# cat value 
 1
 </pre></div>
+</div>
 </div>
 </section>
 </section>

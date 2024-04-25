@@ -1,29 +1,38 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/input-touchscreen/ad7873
+title: AD7843: Touch Screen Digitizer
+---
+
 # AD7873 Input Touch Screen Digitizer Linux Driver
 
-### Supported Devices
+#### Supported Devices
 
--   [AD7873](adi>AD7873)
--   [AD7843](adi>AD7843)
+-   [AD7873](https://analog.com/AD7873)
+-   [AD7843](https://analog.com/AD7843)
 
-### Description
+#### Description
 
-![ad7873.png](/software/driver/linux/ad7873.png){width="300" query="?300"} ![ad7843.png](/software/driver/linux/ad7843.png){width="300" query="?300"}
+```{image} images/ad7843.png
+:alt: ad7873.png
+:width: "300"
+:query: "?300"
+```
 
 The **AD7843/AD7873** is a 12-bit successive-approximation ADC with a synchronous serial interface and low on resistance switches for driving touch screens. The parts operates from a single 2.2 V to 5.25 V power supply and features throughput rates greater than 125 kSPS.
 The external reference applied to the **AD7843** can be varied from 1 V to +VCC, while the analog input range is from 0 V to VREF. The device includes a shutdown mode that reduces the current consumption to less than 1 µA.
 
 The **AD7873** is similar to the **AD7843** but has added functionality such as an on-chip temperature sensor (-40°C to + 85°C), on-chip 2.5 V reference and direct battery and touch-pressure measurement.
 
-[**See also:**]{.underline} [AD7877 Touchscreen Device Driver](ad7877)
-[**See also:**]{.underline} [AD7879 Touchscreen Device Driver](ad7879)
+_**See also:**_ [AD7877 Touchscreen Device Driver](ad7877)
+_**See also:**_ [AD7879 Touchscreen Device Driver](ad7879)
 
-### Configuration
+#### Configuration
 
-### Software configurable features
+#### Software configurable features
 
-## Source Code
+### Source Code
 
-### Status
+#### Status
 
 <table>
 <thead>
@@ -40,7 +49,7 @@ The **AD7873** is similar to the **AD7843** but has added functionality such as 
 </tbody>
 </table>
 
-### Files
+#### Files
 
 <table>
 <thead>
@@ -61,19 +70,21 @@ The **AD7873** is similar to the **AD7843** but has added functionality such as 
 </tbody>
 </table>
 
-## Example platform device initialization
+### Example platform device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
-Touchscreen characteristics vary between boards and models. The platform_data for the device\'s \"struct device\" holds this information.
+Touchscreen characteristics vary between boards and models. The platform_data for the device's "struct device" holds this information.
 
-\<source trunk/include/linux/spi/ads7846.h c linux-kernel\>
+<source trunk/include/linux/spi/ads7846.h c linux-kernel>
 
 These snippets are all from the same file. `arch/blackfin/mach-bf537/boards/stamp.c`:
 
 ``` C
-#if defined(CONFIG_TOUCHSCREEN_ADS7846) || defined(CONFIG_TOUCHSCREEN_ADS7846_MODULE)
-#include <linux/spi/ads7846.h>
+## if defined(CONFIG_TOUCHSCREEN_ADS7846) || defined(CONFIG_TOUCHSCREEN_ADS7846_MODULE)
+## include <linux/spi/ads7846.h>
 static struct bfin5xx_spi_chip ad7873_spi_chip_info = {
     .bits_per_word  = 8,
 };
@@ -93,14 +104,16 @@ static struct ads7846_platform_data __initdata ad7873_pdata = {
     .debounce_tol   = (~0),
     .get_pendown_state = ads7873_get_pendown_state,
 };
-#endif
+## endif
 ```
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 ``` C
 static struct spi_board_info bfin_spi_board_info[] __initdata = {
-#if defined(CONFIG_TOUCHSCREEN_ADS7846) || defined(CONFIG_TOUCHSCREEN_ADS7846_MODULE)
+## if defined(CONFIG_TOUCHSCREEN_ADS7846) || defined(CONFIG_TOUCHSCREEN_ADS7846_MODULE)
     {
         .modalias = "ads7846",
         .max_speed_hz = 2000000,     /* max spi clock (SCK) speed in HZ */
@@ -111,18 +124,21 @@ static struct spi_board_info bfin_spi_board_info[] __initdata = {
         .platform_data = &ad7873_pdata,
         .mode = SPI_MODE_0,
     },
-#endif
+## endif
 };
 ```
 
-## Adding Linux driver support
+### Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The AD7873 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Input device support
       -*- Generic input layer (needed for keyboard, mouse, ...)
@@ -149,47 +165,47 @@ The AD7873 Driver depends on **CONFIG_SPI**
       [ ]   Miscellaneous devices  --->
           Hardware I/O ports  --->
 
-## Hardware configuration
+### Hardware configuration
 
-## Driver testing
+### Driver testing
 
-### Driver compiled as a module
+#### Driver compiled as a module
 
-\<xterm\>root:\~\> **modprobe evdev**
-root:\~\> **modprobe ads7846**
+```{code-block} bashroot:~> **modprobe evdev**
+root:~> **modprobe ads7846**
 ads7846 spi0.18: touchscreen, irq 56
 input: ADS7873 Touchscreen as /devices/platform/bfin-spi.0/spi0.18/input/input0
-\</xterm\>
+```
 
-### Driver compiled into the kernel
+#### Driver compiled into the kernel
 
 Your kernel startup messages should include something like this
 
     ads7846 spi0.18: touchscreen, irq 56
     input: ADS7873 Touchscreen as /devices/platform/bfin-spi.0/spi0.18/input/input0
 
-### Checking for proper installation
+#### Checking for proper installation
 
 After the kernel boot your device folder should include at least one device node for the touchscreen
 
-\<xterm\>root:/\> **ls -al /dev/input/**
-drw-r\--r\-- 2 root root 0 Jan 1 00:03 .
+```{code-block} bashroot:/> **ls -al /dev/input/**
+drw-r--r-- 2 root root 0 Jan 1 00:03 .
 drwxr-xr-x 5 root root 0 Jan 1 00:03 ..
-crw-rw-r\-- 1 root root 13, 64 Jan 1 00:03 event0
-root:/\>
-\</xterm\>
+crw-rw-r-- 1 root root 13, 64 Jan 1 00:03 event0
+root:/>
+```
 
 Check that the interrupt is registered.
 
-\<xterm\>root:\~\> **cat /proc/interrupts | grep ads7846**
+```{code-block} bashroot:~> **cat /proc/interrupts | grep ads7846**
 56: 16 GPIO ads7846
-\</xterm\>
+```
 
-\<xterm\>root:\~\> **cat /sys/class/input/input0/name**
+```{code-block} bashroot:~> **cat /sys/class/input/input0/name**
 ADS7873 Touchscreen
-\</xterm\>
+```
 
-### Use the event_test utility to test proper function
+#### Use the event_test utility to test proper function
 
     root:/> event_test /dev/input/event0                                                                           
     Input driver version is 1.0.0                                                                                  
@@ -233,11 +249,16 @@ ADS7873 Touchscreen
     Event: time 258292.839544, type 3 (Absolute), code 24 (Pressure), value 481
     Event: time 258292.839549, type 0 (Reset), code 0 (Reset), value 0
 
-\<WRAP tip\>
-In case you touch the surface and don\'t receive events, it\'s likely that something with your /PENIRQ Interrupt is wrong.\
+:::{NOTE} <!-- ATTRS: tip="" -->
+
+In case you touch the surface and don't receive events, it's likely that something with your /PENIRQ Interrupt is wrong.
 **check irq number in your platform device file**
-\</WRAP\>
 
-## More Information
+:::
 
-![](page>resources/tools-software/linux-drivers/snippets#input_pointers&noheader&firstseconly&noeditbtn)
+
+### More Information
+
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_snippets_SUB_input_pointers.md
+```

@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="AD7766 24-Bit, 8.5 mW, 109 dB, 128 kSPS/64 kSPS/32 kSPS ADCs IIO Linux Driver" href="ad7766.html" />
-    <link rel="prev" title="AD738x IIO Dual Channel Serial ADC Linux Driver" href="ad738x.html" />
+    <link rel="prev" title="wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC" href="ad738x.html" />
    
   
     <meta name="robots" content="noindex">
@@ -102,21 +102,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-available-oversampling-ratios">Show available oversampling ratios</a></li>
-<li><a class="reference internal" href="#show-available-input-ranges">Show available input ranges</a></li>
-<li><a class="reference internal" href="#set-input-range-to-10volt">Set input range to 10Volt</a></li>
-<li><a class="reference internal" href="#show-scale">Show scale</a></li>
-<li><a class="reference internal" href="#show-channel-2-measurement">Show channel 2 measurement</a></li>
-<li><a class="reference internal" href="#trigger-management">Trigger management</a><ul>
-<li><a class="reference internal" href="#available-standalone-trigger-drivers">Available standalone trigger drivers</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -192,7 +178,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7768-1.html">AD7768-1</a></li>
@@ -259,7 +247,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -317,29 +307,29 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7605-4"><span class="xref myst">AD7605-4</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7606"><span class="xref myst">AD7606</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7606-6"><span class="xref myst">AD7606-6</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7606-4"><span class="xref myst">AD7606-4</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7606B"><span class="xref myst">AD7606B</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7616"><span class="xref myst">AD7616</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7605-4">AD7605-4</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7606">AD7606</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7606-6">AD7606-6</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7606-4">AD7606-4</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7606B">AD7606B</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7616">AD7616</a></p></li>
 </ul>
 </section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3ECN0148"><span class="xref myst">CN0148</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0148">CN0148</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7605-4"><span class="xref myst">EVAL-AD7605-4</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7606EDZ"><span class="xref myst">EVAL-AD7606EDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7606-4EDZ"><span class="xref myst">EVAL-AD7606-4EDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7606-6EDZ"><span class="xref myst">EVAL-AD7606-6EDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7606BFMCZ"><span class="xref myst">EVAL-AD7606BFMCZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7616"><span class="xref myst">EVAL-AD7616</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7605-4">EVAL-AD7605-4</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7606EDZ">EVAL-AD7606EDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7606-4EDZ">EVAL-AD7606-4EDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7606-6EDZ">EVAL-AD7606-6EDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7606BFMCZ">EVAL-AD7606BFMCZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7616">EVAL-AD7616</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -403,7 +393,7 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 </section>
 <section id="example-platform-device-initialization-parallel-interface">
 <h2>Example platform_device initialization / parallel interface<a class="headerlink" href="#example-platform-device-initialization-parallel-interface" title="Link to this heading">¶</a></h2>
@@ -442,7 +432,7 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </tr>
 </tbody>
 </table>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if defined(CONFIG_AD7606) || defined(CONFIG_AD7606_MODULE)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">## if defined(CONFIG_AD7606) || defined(CONFIG_AD7606_MODULE)</span>
 <span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">resource</span><span class="w"> </span><span class="n">ad7606_resources</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="p">.</span><span class="n">start</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x20100000</span><span class="p">,</span><span class="w">           </span><span class="cm">/* SDP: AMS1 / CS_B */</span>
@@ -464,14 +454,14 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <span class="w">    </span><span class="p">.</span><span class="n">num_resources</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">ad7606_resources</span><span class="p">),</span>
 <span class="w">    </span><span class="p">.</span><span class="n">resource</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">ad7606_resources</span><span class="p">,</span>
 <span class="p">};</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 </pre></div>
 </div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">platform_device</span><span class="w"> </span><span class="o">*</span><span class="n">board_devices</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD7606) || \</span>
-<span class="cp">    defined(CONFIG_AD7606_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD7606) || </span>
+<span class="w">    </span><span class="n">defined</span><span class="p">(</span><span class="n">CONFIG_AD7606_MODULE</span><span class="p">)</span>
 <span class="w">    </span><span class="o">&amp;</span><span class="n">ad7606_device</span><span class="p">,</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -491,7 +481,7 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </section>
 <section id="example-spi-board-info-initialization-serial-interface">
 <h2>Example spi_board_info initialization / serial interface<a class="headerlink" href="#example-spi-board-info-initialization-serial-interface" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the modalias accordin
 gly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
@@ -522,8 +512,8 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 </tbody>
 </table>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD7606) || \</span>
-<span class="cp">    defined(CONFIG_AD7606_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD7606) || </span>
+<span class="w">    </span><span class="n">defined</span><span class="p">(</span><span class="n">CONFIG_AD7606_MODULE</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="cm">/* the modalias must be the same as spi device driver name */</span>
 <span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ad7606-8&quot;</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Name of spi_driver for this device */</span>
@@ -534,7 +524,7 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <span class="w">        </span><span class="p">.</span><span class="n">irq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IRQ_PH6</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_MODE_3</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -573,40 +563,41 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <h3>Devicetree<a class="headerlink" href="#devicetree" title="Link to this heading">¶</a></h3>
 <p>Analog Devices AD7606 Simultaneous Sampling ADC</p>
 <p>Required properties for the AD7606:</p>
-<p>- compatible: Must be one of</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  * &quot;adi,ad7605-4&quot;
-  * &quot;adi,ad7606-8&quot;
-  * &quot;adi,ad7606-6&quot;
-  * &quot;adi,ad7606-4&quot;
-  * &quot;adi,ad7606b&quot;
-  * &quot;adi,ad7616&quot;
+<ul>
+<li><p>compatible: Must be one of</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* &quot;adi,ad7605-4&quot;
+* &quot;adi,ad7606-8&quot;
+* &quot;adi,ad7606-6&quot;
+* &quot;adi,ad7606-4&quot;
+* &quot;adi,ad7606b&quot;
+* &quot;adi,ad7616&quot;
 </pre></div>
 </div>
-<p>- reg: SPI chip select number for the device</p>
-<ul>
+</li>
+<li><p>reg: SPI chip select number for the device</p></li>
 <li><p>spi-max-frequency: Max SPI frequency to use.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    see: Documentation/devicetree/bindings/spi/spi-bus.txt
 </pre></div>
 </div>
 </li>
-</ul>
-<p>- spi-cpha: See Documentation/devicetree/bindings/spi/spi-bus.txt</p>
-<ul>
+<li><p>spi-cpha: See Documentation/devicetree/bindings/spi/spi-bus.txt</p></li>
 <li><p>avcc-supply: phandle to the Avcc power supply</p></li>
 <li><p>interrupts: IRQ line for the ADC</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    see: Documentation/devicetree/bindings/interrupt-controller/interrupts.txt
 </pre></div>
 </div>
 </li>
+<li><p>adi,conversion-start-gpios: must be the device tree identifier of the CONVST pin. This logic input is used to initiate conversions on the analog input channels. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p></li>
 </ul>
-<p>- adi,conversion-start-gpios: must be the device tree identifier of the CONVST pin. This logic input is used to initiate conversions on the analog input channels. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p>
 <p>Optional properties:</p>
-<p>- reset-gpios: must be the device tree identifier of the RESET pin. If specified, it will be asserted during driver probe. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p>
-<p>- standby-gpios: must be the device tree identifier of the STBY pin. This pin is used to place the AD7606 into one of two power-down modes, Standby mode or Shutdown mode. As the line is active low, it should be marked GPIO_ACTIVE_LOW.</p>
-<p>- adi,first-data-gpios: must be the device tree identifier of the FRSTDATA pin. The FRSTDATA output indicates when the first channel, V1, is being read back on either the parallel, byte or serial interface. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p>
-<p>- adi,range-gpios: must be the device tree identifier of the RANGE pin. The polarity on this pin determines the input range of the analog input channels. If this pin is tied to a logic high, the analog input range is ±10V for all channels. If this pin is tied to a logic low, the analog input range is ±5V for all channels. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p>
-<p>- adi,oversampling-ratio-gpios: must be the device tree identifier of the over-sampling mode pins. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p>
-<p>- adi,sw-mode: Boolean, software mode of operation, so far available only for ad7606b. Software mode is enabled when all three oversampling mode pins are connected to high level. The AD7606B is configured by the corresponding registers. If the adi,oversampling-ratio-gpios property is defined, then the driver will set the oversampling gpios to high. Otherwise, it is assumed that the pins are hardwired to VDD.</p>
+<ul class="simple">
+<li><p>reset-gpios: must be the device tree identifier of the RESET pin. If specified, it will be asserted during driver probe. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p></li>
+<li><p>standby-gpios: must be the device tree identifier of the STBY pin. This pin is used to place the AD7606 into one of two power-down modes, Standby mode or Shutdown mode. As the line is active low, it should be marked GPIO_ACTIVE_LOW.</p></li>
+<li><p>adi,first-data-gpios: must be the device tree identifier of the FRSTDATA pin. The FRSTDATA output indicates when the first channel, V1, is being read back on either the parallel, byte or serial interface. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p></li>
+<li><p>adi,range-gpios: must be the device tree identifier of the RANGE pin. The polarity on this pin determines the input range of the analog input channels. If this pin is tied to a logic high, the analog input range is ±10V for all channels. If this pin is tied to a logic low, the analog input range is ±5V for all channels. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p></li>
+<li><p>adi,oversampling-ratio-gpios: must be the device tree identifier of the over-sampling mode pins. As the line is active high, it should be marked GPIO_ACTIVE_HIGH.</p></li>
+<li><p>adi,sw-mode: Boolean, software mode of operation, so far available only for ad7606b. Software mode is enabled when all three oversampling mode pins are connected to high level. The AD7606B is configured by the corresponding registers. If the adi,oversampling-ratio-gpios property is defined, then the driver will set the oversampling gpios to high. Otherwise, it is assumed that the pins are hardwired to VDD.</p></li>
+</ul>
 <p>Example:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  adc@0 {
       compatible = &quot;adi,ad7606-8&quot;;
@@ -634,122 +625,194 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
-iio:device0 iio:trigger0</p>
-<p>root:/sys/bus/iio/devices&gt; <strong>cd iio:device0</strong></p>
-<p>root:/sys/bus/iio/devices/iio:device0&gt; <strong>ls -l</strong>
-drwxr-xr-x 5 root root 0 Jan 1 00:00 buffer
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage0_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage1_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage2_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage3_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage4_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage5_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage6_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage7_raw
--r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage_scale
--r–r–r– 1 root root 4096 Jan 1 00:00 name
--rw-r–r– 1 root root 4096 Jan 1 00:00 oversampling_ratio
--r–r–r– 1 root root 4096 Jan 1 00:00 oversampling_ratio_available
--rw-r–r– 1 root root 4096 Jan 1 00:00 range
--r–r–r– 1 root root 4096 Jan 1 00:00 range_available
-lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -&gt; …/…/…/…/bus/iio
-drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
--rw-r–r– 1 root root 4096 Jan 1 00:00 uevent
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
+iio:device0<span class="w"> </span>iio:trigger0
+
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+drwxr-xr-x<span class="w"> </span><span class="m">5</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>buffer
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage0_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage1_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage2_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage3_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage4_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage5_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage6_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage7_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>in_voltage_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>name
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>oversampling_ratio
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>oversampling_ratio_available
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>range
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>range_available
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../bus/iio
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>trigger
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">00</span>:00<span class="w"> </span>uevent
 root:/sys/bus/iio/devices/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat name</strong>
-ad7606</p>
-<p>&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-available-oversampling-ratios">
-<h3>Show available oversampling ratios<a class="headerlink" href="#show-available-oversampling-ratios" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat oversampling_ratio_available</strong>
-0 2 4 8 16 32 64
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-available-input-ranges">
-<h3>Show available input ranges<a class="headerlink" href="#show-available-input-ranges" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat range_available</strong>
-5000 10000
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-input-range-to-10volt">
-<h3>Set input range to 10Volt<a class="headerlink" href="#set-input-range-to-10volt" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>echo 10000 &gt; range</strong>
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat range</strong>
-10000
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-scale">
-<h3>Show scale<a class="headerlink" href="#show-scale" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
+ad7606
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-available-oversampling-ratios">Show available oversampling ratios</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>oversampling_ratio_available**
+<span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="m">64</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-available-input-ranges">Show available input ranges</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>range_available**
+<span class="m">5000</span><span class="w"> </span><span class="m">10000</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-input-range-to-10volt">Set input range to 10Volt</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">10000</span><span class="w"> </span>&gt;<span class="w"> </span>range**
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>range**
+<span class="m">10000</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-scale">Show scale</h6>
+<p><strong>Description:</strong>
 scale to be applied to in0_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_voltage_scale</strong>
-0.152</p>
-<p>&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-2-measurement">
-<h3>Show channel 2 measurement<a class="headerlink" href="#show-channel-2-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage_scale**
+<span class="m">0</span>.152
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-channel-2-measurement">Show channel 2 measurement</h6>
+<p><strong>Description:</strong>
 Raw unscaled voltage measurement on channel 2</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_voltage2_raw</strong>
-5789
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage2_raw**
+<span class="m">5789</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in2_raw * in_scale</em> = 5789 * 0.152 = <strong>879,928 <em>mV</em></strong></p>
-</section>
-<section id="trigger-management">
-<h3>Trigger management<a class="headerlink" href="#trigger-management" title="Link to this heading">¶</a></h3>
-<p>![iio_snippets#iio devices with trigger consumer interface&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio devices with trigger consumer interface&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<section id="available-standalone-trigger-drivers">
-<h4>Available standalone trigger drivers<a class="headerlink" href="#available-standalone-trigger-drivers" title="Link to this heading">¶</a></h4>
-<p>![iio_snippets#Standalone trigger drivers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Standalone trigger drivers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-</section>
-</section>
-<section id="buffer-management">
-<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/buffer&gt; <strong>ls</strong>
-<strong>enable</strong> subsystem
-<strong>length</strong> uevent
+<h4 class="rubric" id="trigger-management">Trigger management</h4>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h5 class="rubric" id="available-standalone-trigger-drivers">Available standalone trigger drivers</h5>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h4 class="rubric" id="buffer-management">Buffer management</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/buffer&gt;<span class="w"> </span>**ls**
+**enable**<span class="w"> </span>subsystem
+**length**<span class="w"> </span>uevent
 root:/sys/bus/iio/devices/iio:device0/buffer&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/scan_elements&gt; <strong>ls</strong>
-in_voltage0_en in_voltage2_index in_voltage5_en in_voltage7_index
-in_voltage0_index in_voltage3_en in_voltage5_index in_voltage_type
-in_voltage1_en in_voltage3_index in_voltage6_en timestamp_en
-in_voltage1_index in_voltage4_en in_voltage6_index timestamp_index
-in_voltage2_en in_voltage4_index in_voltage7_en timestamp_type
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;<span class="w"> </span>**ls**
+in_voltage0_en<span class="w"> </span>in_voltage2_index<span class="w"> </span>in_voltage5_en<span class="w"> </span>in_voltage7_index
+in_voltage0_index<span class="w"> </span>in_voltage3_en<span class="w"> </span>in_voltage5_index<span class="w"> </span>in_voltage_type
+in_voltage1_en<span class="w"> </span>in_voltage3_index<span class="w"> </span>in_voltage6_en<span class="w"> </span>timestamp_en
+in_voltage1_index<span class="w"> </span>in_voltage4_en<span class="w"> </span>in_voltage6_index<span class="w"> </span>timestamp_index
+in_voltage2_en<span class="w"> </span>in_voltage4_index<span class="w"> </span>in_voltage7_en<span class="w"> </span>timestamp_type
 root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 
@@ -757,7 +820,8 @@ root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;
           </div>
               <div class="related">
                 &nbsp;
-    <a href="ad738x.html" title="Previous document" class="prev">AD738x IIO Dual Channel Serial ADC Linux Driver</a>
+    <a href="ad738x.html" title="Previous document" class="prev">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a>
     <a href="ad7766.html" title="Next document" class="next">AD7766 24-Bit, 8.5 mW, 109 dB, 128 kSPS/64 kSPS/32 kSPS ADCs IIO Linux Driver</a>
               </div>
           

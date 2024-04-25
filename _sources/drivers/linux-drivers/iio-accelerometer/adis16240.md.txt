@@ -1,22 +1,27 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-accelerometer/adis16240
+title: ADIS16240: Low Power Programmable Impact Sensor and Recorder
+---
+
 # ADIS16240 IIO Programmable Impact Sensor and Recorder Linux Driver
 
-### Supported Devices
+#### Supported Devices
 
--   [ADIS16240](adi>ADIS16240)
+-   [ADIS16240](https://analog.com/ADIS16240)
 
-### Evaluation Boards
+#### Evaluation Boards
 
--   [ADIS16240/PCBZ](adi>EVAL-ADIS16240)
+-   [ADIS16240/PCBZ](https://analog.com/EVAL-ADIS16240)
 
-### Description
+#### Description
 
 This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting serial interface Accelerometer.
 The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
 See [IIO](/software/linux/docs/iio/iio) for more information.
 
-## Source Code
+### Source Code
 
-### Status
+#### Status
 
 <table>
 <thead>
@@ -33,7 +38,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-### Files
+#### Files
 
 <table>
 <thead>
@@ -62,14 +67,16 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </tbody>
 </table>
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
-#if defined(CONFIG_ADIS16240) \
+## if defined(CONFIG_ADIS16240) 
     || defined(CONFIG_ADIS16240_MODULE)
     {
         .modalias = "adis16240",
@@ -80,7 +87,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
         .mode = SPI_MODE_3,
         .irq = IRQ_PF4,
     },
-#endif
+## endif
 };
 ```
 
@@ -98,14 +105,17 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-## Adding Linux driver support
+### Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The ADIS16240 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -123,56 +133,70 @@ The ADIS16240 Driver depends on **CONFIG_SPI**
 
                     [--snip--]
 
-## Hardware configuration
+### Hardware configuration
 
-## Driver testing
+### Driver testing
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> **cd /sys/bus/iio/devices/**
-root:/sys/bus/iio/devices\> **ls**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> **ls**
 iio:device0 trigger0
 
-root:/sys/bus/iio/devices\> **cd iio:device0**
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0\> **ls -l**
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 accel_xyz_squared_peak_raw
+root:/sys/bus/iio/devices> **cd iio:device0**
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0> **ls -l**
+-r--r--r-- 1 root root 4096 Jan 4 04:15 accel_xyz_squared_peak_raw
 drwxr-xr-x 2 root root 0 Jan 4 04:15 buffer
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 dev
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_x_calibbias
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_x_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_x_scale
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_y_calibbias
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_y_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_y_scale
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_z_calibbias
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_z_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 in_accel_z_scale
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 in_temp0_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 in_temp0_scale
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 in_voltage0_supply_raw
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 in_voltage0_supply_scale
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 in_voltage1_raw
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 name
+-r--r--r-- 1 root root 4096 Jan 4 04:15 dev
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 in_accel_x_calibbias
+-r--r--r-- 1 root root 4096 Jan 4 04:15 in_accel_x_raw
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 in_accel_x_scale
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 in_accel_y_calibbias
+-r--r--r-- 1 root root 4096 Jan 4 04:15 in_accel_y_raw
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 in_accel_y_scale
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 in_accel_z_calibbias
+-r--r--r-- 1 root root 4096 Jan 4 04:15 in_accel_z_raw
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 in_accel_z_scale
+-r--r--r-- 1 root root 4096 Jan 4 04:15 in_temp0_raw
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 in_temp0_scale
+-r--r--r-- 1 root root 4096 Jan 4 04:15 in_voltage0_supply_raw
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 in_voltage0_supply_scale
+-r--r--r-- 1 root root 4096 Jan 4 04:15 in_voltage1_raw
+-r--r--r-- 1 root root 4096 Jan 4 04:15 name
 drwxr-xr-x 2 root root 0 Jan 4 04:15 power
-\--w\-\-\-\-\-\-- 1 root root 4096 Jan 4 04:15 reset
--r\--r\--r\-- 1 root root 4096 Jan 4 04:15 sampling_frequency_available
+--w------- 1 root root 4096 Jan 4 04:15 reset
+-r--r--r-- 1 root root 4096 Jan 4 04:15 sampling_frequency_available
 drwxr-xr-x 2 root root 0 Jan 4 04:15 scan_elements
-lrwxrwxrwx 1 root root 0 Jan 4 04:15 subsystem -\> ../../../../../bus/iio
+lrwxrwxrwx 1 root root 0 Jan 4 04:15 subsystem -> ../../../../../bus/iio
 drwxr-xr-x 2 root root 0 Jan 4 04:15 trigger
--rw-r\--r\-- 1 root root 4096 Jan 4 04:15 uevent
-\</xterm\>\</WRAP\>
+-rw-r--r-- 1 root root 4096 Jan 4 04:15 uevent
+```
+:::
 
-##### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0\> **cat name**
+###### Show device name
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0> **cat name**
 adis16240
-\</xterm\>\</WRAP\>
+```
+:::
 
-##### ADIS16240 device attributes
+
+###### ADIS16240 device attributes
 
 For a detailed description please see:
 [drivers/staging/iio/Documentation/sysfs-bus-iio](staging.kernel.org>drivers/staging/iio/Documentation/sysfs-bus-iio)
@@ -241,31 +265,52 @@ For a detailed description please see:
 </tbody>
 </table>
 
-### Trigger management
+#### Trigger management
 
-\<WRAP round help\>
-This driver only supports it\'s own default trigger source **adis16240-dev0**
-\</WRAP\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0\> **cat trigger/current_trigger**
+This driver only supports it's own default trigger source **adis16240-dev0**
+
+:::
+
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0> **cat trigger/current_trigger**
 adis16240-dev0
-\</xterm\>\</WRAP\>
+```
+:::
 
-### Buffer management
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0/buffer\> **ls**
+#### Buffer management
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0/buffer> **ls**
 **bytes_per_datum** **enable** **length**
-\</xterm\>\</WRAP\>
+```
+:::
 
-![iio_snippets#Buffer management&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Buffer management&noheader&firstseconly&noeditbtn)
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0/scan_elements\>**ls**
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Buffer_management.md
+```
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/devices/platform/bfin-spi.0/spi0.5/iio:device0/scan_elements>**ls**
 in_accel_x_en in_accel_z_index in_timestamp_type
 in_accel_x_index in_accel_z_type in_voltage0_supply_en
 in_accel_x_type in_temp0_en in_voltage0_supply_index
@@ -273,10 +318,16 @@ in_accel_y_en in_temp0_index in_voltage0_supply_type
 in_accel_y_index in_temp0_type in_voltage1_en
 in_accel_y_type in_timestamp_en in_voltage1_index
 in_accel_z_en in_timestamp_index in_voltage1_type
-\</xterm\>\</WRAP\>
+```
+:::
 
-![iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn)
 
-## More Information
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_Typical_ADC_scan_elements.md
+```
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+### More Information
+
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

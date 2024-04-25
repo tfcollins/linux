@@ -1,13 +1,18 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/ltc6952
+title: LTC6953: Ultralow Jitter, 4.5GHz Clock Distributor with 11 Outputs, JESD204B/JESD204C
+---
+
 # LTC6952 Ultralow Jitter, 4.5GHz PLL, JESD204B/JESD204C Linux Driver
 
 ### Supported Devices
 
--   [LTC6952](adi>LTC6952)
--   [LTC6953](adi>LTC6953)
+-   [LTC6952](https://analog.com/LTC6952)
+-   [LTC6953](https://analog.com/LTC6953)
 
 ### Description
 
-The [LTC6952](adi>LTC6952) is a high performance, ultralow jitter, JESD204B/C clock generation and distribution IC. It includes a Phase Locked Loop (PLL) core, consisting of a reference divider, phase-frequency detector (PFD) with a phase-lock indicator, ultralow noise charge pump and integer feedback divider.
+The [LTC6952](https://analog.com/LTC6952) is a high performance, ultralow jitter, JESD204B/C clock generation and distribution IC. It includes a Phase Locked Loop (PLL) core, consisting of a reference divider, phase-frequency detector (PFD) with a phase-lock indicator, ultralow noise charge pump and integer feedback divider.
 
 The LTC6952's eleven outputs can be configured is up to five JESD204B/C subclass 1 device clock/SYSREF pairs plus one general purpose output, or simply eleven general purpose clock outputs for non-JESD204B/C applications.
 
@@ -28,7 +33,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;master?drivers/iio/frequency/ltc6952.c">drivers/iio/frequency/ltc6952.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/ltc6952.c">drivers/iio/frequency/ltc6952.c</a></td>
 <td>No</td>
 </tr>
 </tbody>
@@ -46,23 +51,26 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/frequency/ltc6952.c">drivers/iio/frequency/ltc6952.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/frequency/ltc6952.c">drivers/iio/frequency/ltc6952.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/frequency/adi,ltc6952.yaml">Documentation/devicetree/bindings/iio/frequency/adi,ltc6952.yaml</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/frequency/adi,ltc6952.yaml">Documentation/devicetree/bindings/iio/frequency/adi,ltc6952.yaml</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Enabling the driver
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The LTC6952 Driver depends on **CONFIG_SPI**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -77,9 +85,9 @@ The LTC6952 Driver depends on **CONFIG_SPI**
 
 ###### Required properties:
 
--   **compatible**: Should be \"adi,ltc6952\".
+-   **compatible**: Should be "adi,ltc6952".
 -   **reg**: SPI chip select number.
--   **spi-max-frequency**: Max SPI frequency to use (\<= 20000000).
+-   **spi-max-frequency**: Max SPI frequency to use (<= 20000000).
 -   **adi,vco-frequency-hz**: The frequency of the VCO.
 -   **adi,ref-frequency-hz**: Reference input frequency. This is fed in the reference divider.
 -   **clock-output-names**: An array of 11 elements, representing the names of the output clocks.

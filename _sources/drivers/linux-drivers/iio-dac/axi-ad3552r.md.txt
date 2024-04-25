@@ -1,3 +1,8 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-dac/axi-ad3552r
+title: AD3552R: Dual Channel, 16-Bit, 33 MUPS, Multispan, Multi-IO SPI DAC
+---
+
 # AD3552R Dual Channel, 16-Bit, 33 MUPS, Multispan, Multi-IO SPI DAC Linux device driver
 
 The AD3552R is a low drift, dual channel, ultra-fast, 16-bit accuracy, current output
@@ -13,12 +18,12 @@ accuracy.
 
 ### Supported Devices
 
--   [AD3552R](adi>AD3552R)
+-   [AD3552R](https://analog.com/AD3552R)
 
 ### Evaluation Boards
 
--   [EVAL-AD3552RFMC1Z](adi>EVAL-AD3552R)
--   [EVAL-AD3552RFMC2Z](adi>EVAL-AD3552R)
+-   [EVAL-AD3552RFMC1Z](https://analog.com/EVAL-AD3552R)
+-   [EVAL-AD3552RFMC2Z](https://analog.com/EVAL-AD3552R)
 
 ### Description
 
@@ -40,8 +45,8 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="linux.github&gt;cn0585_v1?drivers/iio/dac/axi-ad3552r.c">git</a></td>
-<td><a href="linux.github&gt;cn0585_v1?drivers/iio/dac/axi-ad3552r.c">No</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/cn0585_v1?drivers/iio/dac/axi-ad3552r.c">git</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/cn0585_v1?drivers/iio/dac/axi-ad3552r.c">No</a></td>
 </tr>
 </tbody>
 </table>
@@ -58,7 +63,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;cn0585_v1?drivers/iio/dac/axi-ad3552r.c">drivers/iio/dac/axi-ad3552r.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/cn0585_v1?drivers/iio/dac/axi-ad3552r.c">drivers/iio/dac/axi-ad3552r.c</a></td>
 </tr>
 </tbody>
 </table>
@@ -67,7 +72,7 @@ See [IIO](/software/linux/docs/iio/iio) for more information.
 
 Required devicetree properties:
 
--   compatible: Should always be \"adi,axi-ad3552r\"
+-   compatible: Should always be "adi,axi-ad3552r"
 -   clocks: define reference clock See Documentation/devicetree/bindings/clock/clock-bindings.txt
 
 Optional properties:
@@ -99,20 +104,20 @@ Example:
 <tbody>
 <tr class="odd">
 <td><a href="adi&gt;EVAL-AD3552R">EVAL-AD3552R</a> Device Tree</td>
-<td><a href="linux.github&gt;ad3552r_eval?/arch/arm/boot/dts/zynq-zed-adv7511-axi-ad3552r_evb.dts">zynq-zed-adv7511-axi-ad3552r_evb.dts</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/ad3552r_eval?/arch/arm/boot/dts/zynq-zed-adv7511-axi-ad3552r_evb.dts">zynq-zed-adv7511-axi-ad3552r_evb.dts</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Enabling Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
 ## Adding Linux driver support
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -133,62 +138,84 @@ Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
 
 ## Driver testing / API
 
-![iio_snippets#iio device files&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio device files&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_device_files.md
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@analog:/\> **cd /sys/bus/iio/devices/**
-root@analog:/sys/bus/iio/device\> ls -l
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
 
-iio:device0 -\> ../../../devices/soc0/axi/f8007100.adc/iio:device0
-iio:device1 -\> ../../../devices/soc0/fpga-axi@0/44a74000.axi-ad3552r/iio:device1
-iio_sysfs_trigger -\> ../../../devices/iio_sysfs_trigger
+```{code-block} bash
+root@analog:/> **cd /sys/bus/iio/devices/**
+root@analog:/sys/bus/iio/device> ls -l
 
-root:/sys/bus/iio/devices\> **cd iio:device1**
+iio:device0 -> ../../../devices/soc0/axi/f8007100.adc/iio:device0
+iio:device1 -> ../../../devices/soc0/fpga-axi@0/44a74000.axi-ad3552r/iio:device1
+iio_sysfs_trigger -> ../../../devices/iio_sysfs_trigger
+
+root:/sys/bus/iio/devices> **cd iio:device1**
 
 root@analog:/sys/bus/iio/devices/iio:device1# ls -l
 drwxr-xr-x 2 root root 0 May 16 07:42 buffer
 drwxr-xr-x 2 root root 0 May 15 15:04 buffer0
--r\--r\--r\-- 1 root root 4096 May 16 07:42 dev
--rw-r\--r\-- 1 root root 4096 May 16 07:42 input_source
--r\--r\--r\-- 1 root root 4096 May 16 07:42 input_source_available
--r\--r\--r\-- 1 root root 4096 May 15 15:04 name
-lrwxrwxrwx 1 root root 0 May 16 07:42 of_node -\> ../../../../../firmware/devicetree/base/fpga-axi@0/axi-ad3552r@44a74000
--rw-r\--r\-- 1 root root 4096 May 16 07:42 output_range
--r\--r\--r\-- 1 root root 4096 May 16 07:42 output_range_available
--rw-r\--r\-- 1 root root 4096 May 16 07:42 out_voltage0_raw
--rw-r\--r\-- 1 root root 4096 May 16 07:42 out_voltage1_raw
+-r--r--r-- 1 root root 4096 May 16 07:42 dev
+-rw-r--r-- 1 root root 4096 May 16 07:42 input_source
+-r--r--r-- 1 root root 4096 May 16 07:42 input_source_available
+-r--r--r-- 1 root root 4096 May 15 15:04 name
+lrwxrwxrwx 1 root root 0 May 16 07:42 of_node -> ../../../../../firmware/devicetree/base/fpga-axi@0/axi-ad3552r@44a74000
+-rw-r--r-- 1 root root 4096 May 16 07:42 output_range
+-r--r--r-- 1 root root 4096 May 16 07:42 output_range_available
+-rw-r--r-- 1 root root 4096 May 16 07:42 out_voltage0_raw
+-rw-r--r-- 1 root root 4096 May 16 07:42 out_voltage1_raw
 drwxr-xr-x 2 root root 0 May 15 15:04 power
--rw-r\--r\-- 1 root root 4096 May 16 07:42 sampling_frequency
+-rw-r--r-- 1 root root 4096 May 16 07:42 sampling_frequency
 drwxr-xr-x 2 root root 0 May 15 15:04 scan_elements
--rw-r\--r\-- 1 root root 4096 May 16 07:42 stream_status
--r\--r\--r\-- 1 root root 4096 May 16 07:42 stream_status_available
-lrwxrwxrwx 1 root root 0 May 16 07:42 subsystem -\> ../../../../../bus/iio
--rw-r\--r\-- 1 root root 4096 May 16 07:42 uevent
+-rw-r--r-- 1 root root 4096 May 16 07:42 stream_status
+-r--r--r-- 1 root root 4096 May 16 07:42 stream_status_available
+lrwxrwxrwx 1 root root 0 May 16 07:42 subsystem -> ../../../../../bus/iio
+-rw-r--r-- 1 root root 4096 May 16 07:42 uevent
 root:/sys/bus/iio/devices/iio:device1#
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/sys/bus/iio/devices/iio:device1\> **cat name**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/sys/bus/iio/devices/iio:device1> **cat name**
 **axi-ad3552r**
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ### DAC sampling rate (sampling_frequency)
 
 Read only attribute which returns the DAC sampling rate in Hz.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@analog:/sys/bus/iio/devices/iio:device1# **cat sampling_frequency**
 **16666667**
-root@analog:/sys/bus/iio/devices/iio:device1# echo 15000000 \> sampling_frequency
+root@analog:/sys/bus/iio/devices/iio:device1# echo 15000000 > sampling_frequency
 -bash: echo: write error: Invalid argument
 root@analog:/sys/bus/iio/devices/iio:device1#
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ## More Information
 
-![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_iio_iio_snippets_SUB_iio_pointers.md
+```

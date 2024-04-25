@@ -1,19 +1,24 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/ssm2602
+title: SSM2604: Low Power Audio Codec
+---
+
 # SSM2602 Sound CODEC Linux Driver
 
 ### Supported Devices
 
--   [SSM2602](adi>SSM2602)
--   [SSM2603](adi>SSM2603)
--   [SSM2604](adi>SSM2604)
+-   [SSM2602](https://analog.com/SSM2602)
+-   [SSM2603](https://analog.com/SSM2603)
+-   [SSM2604](https://analog.com/SSM2604)
 
 ### Evaluation Boards
 
--   [SSM2603-EVALZ](adi>SSM2603-EVALZ)
--   [SSM2604-EVALZ](adi>SSM2604-EVALZ)
+-   [SSM2603-EVALZ](https://analog.com/SSM2603-EVALZ)
+-   [SSM2604-EVALZ](https://analog.com/SSM2604-EVALZ)
 
 ### Reference Circuits
 
--   [CN0282](adi>CN0282)
+-   [CN0282](https://analog.com/CN0282)
 
 ## Source Code
 
@@ -57,13 +62,17 @@
 
 ## Example device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
 #### SPI
 
 SPI can be used for the SSM2602 if in SPI mode (MODE pin set to 1).
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
+```
 
 ``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
@@ -97,7 +106,9 @@ arch_initcall(board_init);
 
 I2C can be used for the SSM2602, SSM2603, SSM2604. For the SSM2602 make sure that it is in I2C mode (MODE pin set to 0).
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 ``` c
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
@@ -264,7 +275,7 @@ arch_initcall(board_init);
 
 ### DAI configuration
 
-The codec driver registers one DAI named **\"ssm2602-hifi\"**.
+The codec driver registers one DAI named **"ssm2602-hifi"**.
 
 #### Supported DAI formats
 
@@ -488,9 +499,12 @@ To add support for the built-in codec SSM2602 of BF52xC to the kernel build syst
                 < > SoC AC97 Audio support for BF5xx 
                 (0) Set a SPORT for Sound chip
 
-\<WRAP important\>
+:::{NOTE} <!-- ATTRS: important="" -->
+
 I2C bus is used to configure the codec. So, if the audio driver is built into kernel, the I2c driver is also built into kernel automatically. But if the audio driver is built as module, then make sure that the I2C driver is loaded before the audio module.
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
       Device Drivers  --->
@@ -516,9 +530,9 @@ If audio is configured as modules, skip this section. If audio is built into ker
 
 ### Testing the audio module
 
-\<xterm\>root:\~\> **modprobe snd-ssm2602**
-root:\~\> **modprobe snd-pcm-oss**
-root:\~\> **lsmod**
+```{code-block} bashroot:~> **modprobe snd-ssm2602**
+root:~> **modprobe snd-pcm-oss**
+root:~> **lsmod**
 Module Size Used by
 snd_pcm_oss 31968 0
 snd_mixer_oss 11360 1 snd_pcm_oss
@@ -533,47 +547,47 @@ snd_timer 13796 1 snd_pcm
 snd 31092 6 snd_pcm_oss,snd_mixer_oss,snd_soc_ssm2602,snd_soc_core,snd_pcm,snd_timer
 soundcore 3940 1 snd
 
-root:\~\> **tone**
-TONE: generating sine wave at 1000 Hz\...
-\</xterm\>
+root:~> **tone**
+TONE: generating sine wave at 1000 Hz...
+```
 
 ### Testing Audio
 
-1.  Check the output \<xterm\>root:\~\> **tone**
+1.  Check the output ```{code-block} bashroot:~> **tone**
 
-TONE: generating sine wave at 1000 Hz\...
-\</xterm\> You should hear something out of the headphone Jack on the top of J8.
+TONE: generating sine wave at 1000 Hz...
+``` You should hear something out of the headphone Jack on the top of J8.
 
-1.  Set the audio mixer to Mic (the default is Line, assuming you have built ALSA utils): \<xterm\>root:/\> **amixer sset \'Input Mux\' \'Mic\'**
+1.  Set the audio mixer to Mic (the default is Line, assuming you have built ALSA utils): ```{code-block} bashroot:/> **amixer sset 'Input Mux' 'Mic'**
 
-Simple mixer control \'Input Mux\',0
+Simple mixer control 'Input Mux',0
 
     Capabilities: enum
     Items: 'Line' 'Mic'
-    Item0: 'Mic'</xterm> Also you can run "alsamixer" to get graphic configuration interface, OSS-based "mixer" can work too.
+    Item0: 'Mic'``` Also you can run "alsamixer" to get graphic configuration interface, OSS-based "mixer" can work too.
     - Check to make sure mp3s work (assuming you have built mp3play),
-      - The first step is to download a mp3 file onto the platform. The ''wget'' command assumes that networking is properly configured (you have an IP number, the default gateway is set, and DNS servers can be accessed), and working. <xterm>root:/> **cd /var**
+      - The first step is to download a mp3 file onto the platform. The ''wget'' command assumes that networking is properly configured (you have an IP number, the default gateway is set, and DNS servers can be accessed), and working. ```{code-block} bashroot:/> **cd /var**
 
-root:/var\> **wget <http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3>**
-\</xterm\>
+root:/var> **wget <http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3>**
+```
 
-      - Next, play it with mp3play: <xterm>root:/var> **mp3play ABCOWhosOnFirstclip.mp3**</xterm>
-    - You can play it in one step with: <xterm>root:~> **mp3play http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3**
+      - Next, play it with mp3play: ```{code-block} bashroot:/var> **mp3play ABCOWhosOnFirstclip.mp3**```
+    - You can play it in one step with: ```{code-block} bashroot:~> **mp3play http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3**
 
 http://www.radiocrazy.com/shows/A/AbbottCostello/ABCOWhosOnFirstclip.mp3: MPEG2-III (0 ms)
-\</xterm\>
+```
 
-1.  Optionally check to make sure the Line and headphone are working properly: \<xterm\>root:/\> **amixer sset \'Input Mux\' \'Line\'**
+1.  Optionally check to make sure the Line and headphone are working properly: ```{code-block} bashroot:/> **amixer sset 'Input Mux' 'Line'**
 
-Simple mixer control \'Input Mux\',0
+Simple mixer control 'Input Mux',0
 
     Capabilities: enum
     Items: 'Line' 'Mic'
     Item0: 'Line'
 
-root:\~\> **arecord -d 10 test.wav**
-Recording WAVE \"test.wav\" : Unsigned 8 bit, Rate 8000 Hz, Mono
-root:\~\> **aplay test.wav**
-\</xterm\> This should record 10 seconds of whatever is on the Line, and then play it back over the output.
+root:~> **arecord -d 10 test.wav**
+Recording WAVE "test.wav" : Unsigned 8 bit, Rate 8000 Hz, Mono
+root:~> **aplay test.wav**
+``` This should record 10 seconds of whatever is on the Line, and then play it back over the output.
 
-1.  You should also be able to do a \"talkthrough\", and hear on the speakers anything you put on the line. \<xterm\>root:\~\> **arecord | aplay**\</xterm\>
+1.  You should also be able to do a "talkthrough", and hear on the speakers anything you put on the line. ```{code-block} bashroot:~> **arecord | aplay**```

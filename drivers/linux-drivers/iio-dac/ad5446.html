@@ -102,15 +102,9 @@
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
 <li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-scale">Show scale</a></li>
-<li><a class="reference internal" href="#set-channel-0">Set channel 0</a></li>
 <li><a class="reference internal" href="#list-available-power-down-modes">List available power down modes</a></li>
-<li><a class="reference internal" href="#set-power-down-mode">Set power down mode</a></li>
-<li><a class="reference internal" href="#enable-power-down-mode-on-output-y">Enable power down mode on output Y</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
 </ul>
 </li>
 </ul>
@@ -186,7 +180,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -253,7 +249,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -311,76 +309,76 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD5300"><span class="xref myst">AD5300</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5301"><span class="xref myst">AD5301</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5310"><span class="xref myst">AD5310</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5311"><span class="xref myst">AD5311</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5320"><span class="xref myst">AD5320</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5321"><span class="xref myst">AD5321</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5444"><span class="xref myst">AD5444</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5446"><span class="xref myst">AD5446</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5450"><span class="xref myst">AD5450</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5451"><span class="xref myst">AD5451</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5452"><span class="xref myst">AD5452</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5453"><span class="xref myst">AD5453</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5512A"><span class="xref myst">AD5512A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5541A"><span class="xref myst">AD5541A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5542"><span class="xref myst">AD5542</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5542A"><span class="xref myst">AD5542A</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5543"><span class="xref myst">AD5543</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5553"><span class="xref myst">AD5553</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5600"><span class="xref myst">AD5600</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5601"><span class="xref myst">AD5601</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5602"><span class="xref myst">AD5602</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5611"><span class="xref myst">AD5611</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5612"><span class="xref myst">AD5612</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5620"><span class="xref myst">AD5620</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5620"><span class="xref myst">AD5620-1</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5620"><span class="xref myst">AD5620-2</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5620"><span class="xref myst">AD5620-3</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5621"><span class="xref myst">AD5621</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5622"><span class="xref myst">AD5622</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5640"><span class="xref myst">AD5640</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5640"><span class="xref myst">AD5640-1</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5640"><span class="xref myst">AD5640-2</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5640"><span class="xref myst">AD5640-3</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5641"><span class="xref myst">AD5641</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5660"><span class="xref myst">AD5660</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5660"><span class="xref myst">AD5660-1</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5660"><span class="xref myst">AD5660-2</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5660"><span class="xref myst">AD5660-3</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5662"><span class="xref myst">AD5662</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5300">AD5300</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5301">AD5301</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5310">AD5310</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5311">AD5311</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5320">AD5320</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5321">AD5321</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5444">AD5444</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5446">AD5446</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5450">AD5450</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5451">AD5451</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5452">AD5452</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5453">AD5453</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5512A">AD5512A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5541A">AD5541A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5542">AD5542</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5542A">AD5542A</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5543">AD5543</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5553">AD5553</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5600">AD5600</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5601">AD5601</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5602">AD5602</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5611">AD5611</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5612">AD5612</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5620">AD5620</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5620">AD5620-1</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5620">AD5620-2</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5620">AD5620-3</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5621">AD5621</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5622">AD5622</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5640">AD5640</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5640">AD5640-1</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5640">AD5640-2</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5640">AD5640-3</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5641">AD5641</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5660">AD5660</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5660">AD5660-1</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5660">AD5660-2</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5660">AD5660-3</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5662">AD5662</a></p></li>
 </ul>
 </section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3ECN0009"><span class="xref myst">CN0009</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0143"><span class="xref myst">CN0143</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0151"><span class="xref myst">CN0151</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0156"><span class="xref myst">CN0156</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0169"><span class="xref myst">CN0169</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0179"><span class="xref myst">CN0179</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0181"><span class="xref myst">CN0181</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0202"><span class="xref myst">CN0202</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0203"><span class="xref myst">CN0203</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0204"><span class="xref myst">CN0204</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0348"><span class="xref myst">CN0348</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0009">CN0009</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0143">CN0143</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0151">CN0151</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0156">CN0156</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0169">CN0169</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0179">CN0179</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0181">CN0181</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0202">CN0202</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0203">CN0203</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0204">CN0204</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0348">CN0348</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5446"><span class="xref myst">EVAL-AD5446SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5453"><span class="xref myst">EVAL-AD5453SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5541ASDZ"><span class="xref myst">EVAL-AD5541ASDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5542ASDZ"><span class="xref myst">EVAL-AD5542ASDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5543SDZ"><span class="xref myst">EVAL-AD5543SDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5600PMDZ"><span class="xref myst">EVAL-AD5600PMDZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5621EBZ"><span class="xref myst">EVAL-AD5621EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5620EBZ"><span class="xref myst">EVAL-AD5620EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5660EBZ"><span class="xref myst">EVAL-AD5660EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD5662EBZ"><span class="xref myst">EVAL-AD5662EBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5446">EVAL-AD5446SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5453">EVAL-AD5453SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5541ASDZ">EVAL-AD5541ASDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5542ASDZ">EVAL-AD5542ASDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5543SDZ">EVAL-AD5543SDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5600PMDZ">EVAL-AD5600PMDZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5621EBZ">EVAL-AD5621EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5620EBZ">EVAL-AD5620EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5660EBZ">EVAL-AD5660EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD5662EBZ">EVAL-AD5662EBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -434,18 +432,20 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
 <section id="specifying-reference-voltage-via-the-regulator-framework">
 <h3>Specifying reference voltage via the regulator framework<a class="headerlink" href="#specifying-reference-voltage-via-the-regulator-framework" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP tip&gt;
-For chip variants with build in references such as the:
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: tip="" -->
+<p>For chip variants with build in references such as the:
 ad5620-2500
 ad5620-1250
 ad5640-2500
 ad5640-1250
 ad5660-2500
 ad5660-1250
-specifying the reference voltage via the regulator framework is not mandatory.
-&lt;/WRAP&gt;</p>
+specifying the reference voltage via the regulator framework is not mandatory.</p>
+</div>
 <p>Below example specifies a 2.5 Volt reference for the SPI device 3 on SPI-Bus 0. (<strong>spi0.3</strong>)</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
 <span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">regulator_consumer_supply</span><span class="w"> </span><span class="n">ad5446_consumer_supplies</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">REGULATOR_SUPPLY</span><span class="p">(</span><span class="s">&quot;vcc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;spi0.3&quot;</span><span class="p">),</span>
 <span class="p">};</span>
@@ -474,13 +474,13 @@ specifying the reference voltage via the regulator framework is not mandatory.
 <span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stamp_vdd_pdata</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="p">};</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 </pre></div>
 </div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">platform_device</span><span class="w"> </span><span class="o">*</span><span class="n">board_devices</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
+<span class="cp">## if defined(CONFIG_REGULATOR_FIXED_VOLTAGE) || defined(CONFIG_REGULATOR_FIXED_VOLTAGE_MODULE)</span>
 <span class="w">    </span><span class="o">&amp;</span><span class="n">brd_voltage_regulator</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -497,12 +497,12 @@ specifying the reference voltage via the regulator framework is not mandatory.
 <span class="n">arch_initcall</span><span class="p">(</span><span class="n">board_init</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.</p>
 <p>It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD5446) || \</span>
-<span class="cp">    defined(CONFIG_AD5446_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD5446) || </span>
+<span class="w">    </span><span class="n">defined</span><span class="p">(</span><span class="n">CONFIG_AD5446_MODULE</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="cm">/* the modalias must be the same as spi device driver name */</span>
 <span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ad5446&quot;</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Name of spi_driver for this device */</span>
@@ -511,7 +511,7 @@ specifying the reference voltage via the regulator framework is not mandatory.
 <span class="w">        </span><span class="p">.</span><span class="n">chip_select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="cm">/* Framework chip select */</span>
 <span class="w">        </span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_MODE_3</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -529,7 +529,7 @@ specifying the reference voltage via the regulator framework is not mandatory.
 <span class="n">arch_initcall</span><span class="p">(</span><span class="n">board_init</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 </section>
 <section id="devicetree">
 <h3>Devicetree<a class="headerlink" href="#devicetree" title="Link to this heading">¶</a></h3>
@@ -598,9 +598,11 @@ specifying the reference voltage via the regulator framework is not mandatory.
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD5446 Driver depends on <strong>CONFIG_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD5446 Driver depends on <strong>CONFIG_SPI</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         &lt;*&gt; Industrial I/O support ---&gt;
@@ -618,85 +620,132 @@ The AD5446 Driver depends on <strong>CONFIG_SPI</strong>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
-iio:device0 iio:device0:buffer0:access0 iio:trigger0
-iio:device0:buffer0 iio:device0:buffer0:event0</p>
-<p>root:/sys/bus/iio/devices&gt; <strong>cd iio:device0</strong></p>
-<p>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>ls -l</strong>
--r–r–r– 1 root root 4096 Jan 2 21:23 dev
--r–r–r– 1 root root 4096 Jan 2 21:23 name
--rw-r–r– 1 root root 4096 Jan 2 21:23 out_voltage0_powerdown
-–w——- 1 root root 4096 Jan 2 21:23 out_voltage0_raw
--rw-r–r– 1 root root 4096 Jan 2 21:23 out_voltage_powerdown_mode
--r–r–r– 1 root root 4096 Jan 2 21:23 out_voltage_powerdown_mode_available
--r–r–r– 1 root root 4096 Jan 2 21:23 out_voltage_scale
-drwxr-xr-x 2 root root 0 Jan 2 21:23 power
-lrwxrwxrwx 1 root root 0 Jan 2 21:23 subsystem -&gt; …/…/…/…/…/bus/iio
--rw-r–r– 1 root root 4096 Jan 2 21:23 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat name</strong>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
+iio:device0<span class="w"> </span>iio:device0:buffer0:access0<span class="w"> </span>iio:trigger0
+iio:device0:buffer0<span class="w"> </span>iio:device0:buffer0:event0
+
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>dev
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>name
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>out_voltage0_powerdown
+--w-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>out_voltage0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>out_voltage_powerdown_mode
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>out_voltage_powerdown_mode_available
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>out_voltage_scale
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>power
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../bus/iio
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">21</span>:23<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad5446
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-scale">
-<h3>Show scale<a class="headerlink" href="#show-scale" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-scale">Show scale</h6>
+<p><strong>Description:</strong>
 scale to be applied to out_voltage0_raw in order to obtain the measured voltage in millivolts.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat out_voltage_scale</strong>
-0.152
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-channel-0">
-<h3>Set channel 0<a class="headerlink" href="#set-channel-0" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
-/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw<br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>out_voltage_scale**
+<span class="m">0</span>.152
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-channel-0">Set channel 0</h6>
+<p><strong>Description:</strong>
+/sys/bus/iio/devices/iio:deviceX/out_voltageY_raw
 Raw (unscaled, no bias etc.) output voltage for
 channel Y.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; echo 1234 &gt; out_voltage0_raw
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1234</span><span class="w"> </span>&gt;<span class="w"> </span>out_voltage0_raw
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>out_voltage0_raw * out_voltage_scale</em> = 1234 * 0.152 mV = <strong>187.568 <em>mV</em></strong></p>
 <hr class="docutils" />
-<p>&lt;WRAP important&gt;
-Output power down modes described below only exist on:<br />
-* <a class="reference internal" href="#adi%3EAD5601"><span class="xref myst">AD5601</span></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: important="" -->
+<p>Output power down modes described below only exist on:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD5611"><span class="xref myst">AD5611</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5620"><span class="xref myst">AD5620</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5621"><span class="xref myst">AD5621</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5640"><span class="xref myst">AD5640</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD5660"><span class="xref myst">AD5660</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5601">AD5601</a></p></li>
 </ul>
-<p>&lt;/WRAP&gt;</p>
-</section>
+<ul class="simple">
+<li><p><a class="reference external" href="https://analog.com/AD5611">AD5611</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5620">AD5620</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5621">AD5621</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5640">AD5640</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD5660">AD5660</a></p></li>
+</ul>
+</div>
+</div>
 <section id="list-available-power-down-modes">
 <h3>List available power down modes<a class="headerlink" href="#list-available-power-down-modes" title="Link to this heading">¶</a></h3>
 <p>/sys/bus/iio/devices/iio:deviceX/out_voltage_powerdown_mode_available</p>
-<p><strong>Description:</strong><br />
+<p><strong>Description:</strong>
 Lists all available output power down modes.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat out_voltage_powerdown_mode_available</strong>
-1kohm_to_gnd 100kohm_to_gnd three_state
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-power-down-mode">
-<h3>Set power down mode<a class="headerlink" href="#set-power-down-mode" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>out_voltage_powerdown_mode_available**
+1kohm_to_gnd<span class="w"> </span>100kohm_to_gnd<span class="w"> </span>three_state
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-power-down-mode">Set power down mode</h6>
 <p>/sys/bus/iio/devices/iio:deviceX/out_voltage_powerdown_mode</p>
-<p><strong>Description:</strong><br />
+<p><strong>Description:</strong>
 Specifies the output power down mode.
-DAC output stage is disconnected from the amplifier and\</p>
+DAC output stage is disconnected from the amplifier and</p>
 <table>
 <tbody>
 <tr class="odd">
@@ -715,35 +764,52 @@ DAC output stage is disconnected from the amplifier and\</p>
 </table>
 <p>For a list of available output power down options read
 outX_powerdown_mode_available.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>echo three_state &gt; out_voltage_powerdown_mode</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat out_voltage_powerdown_mode</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span>three_state<span class="w"> </span>&gt;<span class="w"> </span>out_voltage_powerdown_mode**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>out_voltage_powerdown_mode**
 three_state
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="enable-power-down-mode-on-output-y">
-<h3>Enable power down mode on output Y<a class="headerlink" href="#enable-power-down-mode-on-output-y" title="Link to this heading">¶</a></h3>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="enable-power-down-mode-on-output-y">Enable power down mode on output Y</h6>
 <p>/sys/bus/iio/devices/iio:deviceX/out_voltageY_powerdown</p>
-<p><strong>Description:</strong><br />
+<p><strong>Description:</strong>
 Writing 1 causes output Y to enter the power down mode specified
 by the corresponding out_voltageY_powerdown_mode. Clearing returns to
 normal operation. Y may be suppressed if all outputs are
 controlled together.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>echo 1 &gt; out_voltage0_powerdown</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat out_voltage0_powerdown</strong>
-1
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>echo 0 &gt; out_voltage0_powerdown</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat out_voltage0_powerdown</strong>
-0
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>out_voltage0_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>out_voltage0_powerdown**
+<span class="m">1</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>out_voltage0_powerdown**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>out_voltage0_powerdown**
+<span class="m">0</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
 </section>
 </section>
 

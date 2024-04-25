@@ -97,19 +97,7 @@
 <li><a class="reference internal" href="#example-platform-device-initialization">Example platform device initialization</a></li>
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-available-sampling-frequencies-update-rates">Show available sampling frequencies / update rates</a></li>
-<li><a class="reference internal" href="#set-sampling-frequency-update-rate">Set sampling frequency / update rate</a></li>
-<li><a class="reference internal" href="#show-supply-voltage">Show supply voltage</a></li>
-<li><a class="reference internal" href="#show-available-scales-for-differential-input-channels">Show available scales for differential input channels</a></li>
-<li><a class="reference internal" href="#set-scale-for-differential-input-channels">Set scale for differential input channels</a></li>
-<li><a class="reference internal" href="#show-channel-in-voltage0-in-voltage0-measurement">Show channel in_voltage0-in_voltage0 measurement</a></li>
-<li><a class="reference internal" href="#trigger-management">Trigger management</a></li>
-<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -185,7 +173,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7768-1.html">AD7768-1</a></li>
@@ -252,7 +242,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -310,40 +302,40 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7785"><span class="xref myst">AD7785</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7792"><span class="xref myst">AD7792</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7793"><span class="xref myst">AD7793</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7794"><span class="xref myst">AD7794</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7795"><span class="xref myst">AD7795</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7796"><span class="xref myst">AD7796</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7797"><span class="xref myst">AD7797</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7798"><span class="xref myst">AD7798</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD7799"><span class="xref myst">AD7799</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7785">AD7785</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7792">AD7792</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7793">AD7793</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7794">AD7794</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7795">AD7795</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7796">AD7796</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7797">AD7797</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7798">AD7798</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7799">AD7799</a></p></li>
 </ul>
 </section>
 <section id="reference-circuits">
 <h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3ECN0172"><span class="xref myst">CN0172</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0206"><span class="xref myst">CN0206</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0234"><span class="xref myst">CN0234</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0312"><span class="xref myst">CN0312</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0325"><span class="xref myst">CN0325</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3ECN0326"><span class="xref myst">CN0326</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0172">CN0172</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0206">CN0206</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0234">CN0234</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0312">CN0312</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0325">CN0325</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/CN0326">CN0326</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7785EBZ"><span class="xref myst">EVAL-AD7785EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7792EBZ"><span class="xref myst">EVAL-AD7792EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7793EBZ"><span class="xref myst">EVAL-AD7793EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7794EBZ"><span class="xref myst">EVAL-AD7794EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7795EBZ"><span class="xref myst">EVAL-AD7795EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7796EBZ"><span class="xref myst">EVAL-AD7796EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7797EBZ"><span class="xref myst">EVAL-AD7797EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7798EBZ"><span class="xref myst">EVAL-AD7798EBZ</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7799EBZ"><span class="xref myst">EVAL-AD7799EBZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7785EBZ">EVAL-AD7785EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7792EBZ">EVAL-AD7792EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7793EBZ">EVAL-AD7793EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7794EBZ">EVAL-AD7794EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7795EBZ">EVAL-AD7795EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7796EBZ">EVAL-AD7796EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7797EBZ">EVAL-AD7797EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7798EBZ">EVAL-AD7798EBZ</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7799EBZ">EVAL-AD7799EBZ</a></p></li>
 </ul>
 </section>
 <section id="description">
@@ -395,7 +387,7 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 </section>
 <section id="example-platform-device-initialization">
 <h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: noheader firstseconly noeditbtn -->
 <p>The reference voltage may vary between boards and models. The platform_data for the device’s “struct device” holds this information.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * enum ad7793_clock_source - AD7793 clock source selection</span>
@@ -507,12 +499,12 @@ See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span cla
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<!-- CMDS: firstseconly noeditbtn -->
 <p>Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#if defined(CONFIG_AD7793) \</span>
-<span class="cp">    || defined(CONFIG_AD7793_MODULE)</span>
+<span class="cp">## if defined(CONFIG_AD7793) </span>
+<span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="n">defined</span><span class="p">(</span><span class="n">CONFIG_AD7793_MODULE</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ad7793&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">max_speed_hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w">     </span><span class="cm">/* max spi clock (SCK) speed in HZ */</span>
@@ -522,7 +514,7 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <span class="w">        </span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_MODE_3</span><span class="p">,</span>
 <span class="w">        </span><span class="p">.</span><span class="n">irq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IRQ_PF6</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="cp">#endif</span>
+<span class="cp">## endif</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -544,9 +536,11 @@ It may also required to adjust max_speed_hz. Please consult the datasheet, for m
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD7793 Driver depends on <strong>CONFIG_SPI</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD7793 Driver depends on <strong>CONFIG_SPI</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         ...
@@ -564,81 +558,125 @@ The AD7793 Driver depends on <strong>CONFIG_SPI</strong>
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
-<p><img alt="ad7793_eval_lr.jpg" src="resources/tools-software/linux-drivers/iio-adc/ad7793_eval_lr.jpg" />{width=“600” query=“?600”}</p>
+<a class="reference internal image-reference" href="../../../_images/ad7793_eval_lr.jpg"><img alt="ad7793_eval_lr.jpg" src="../../../_images/ad7793_eval_lr.jpg" style="width: 600px;" />
+</a>
 </section>
 <section id="driver-testing">
 <h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
-device0 trigger0</p>
-<p>root:/sys/bus/iio/devices&gt; <strong>cd iio:device0</strong></p>
-<p>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>ls -l</strong>
-drwxr-xr-x 4 root root 0 Jan 4 09:29 device0:buffer0
--rw-r–r– 1 root root 4096 Jan 4 09:30 in_voltage-in_voltage_scale
--r–r–r– 1 root root 4096 Jan 4 09:30 in_voltage-in_voltage_scale_available
--r–r–r– 1 root root 4096 Jan 4 09:30 in_voltage0-in_voltage0_raw
--r–r–r– 1 root root 4096 Jan 4 09:30 in_voltage0-in_voltage0_shorted_raw
--r–r–r– 1 root root 4096 Jan 4 09:30 in_voltage1-in_voltage1_raw
--r–r–r– 1 root root 4096 Jan 4 09:30 in_voltage2-in_voltage2_raw
--r–r–r– 1 root root 4096 Jan 4 09:30 in_voltage4_supply_raw
--rw-r–r– 1 root root 4096 Jan 4 09:30 in_voltage4_supply_scale
--r–r–r– 1 root root 4096 Jan 4 09:30 name
-drwxr-xr-x 2 root root 0 Jan 4 09:30 power
--rw-r–r– 1 root root 4096 Jan 4 09:30 sampling_frequency
--r–r–r– 1 root root 4096 Jan 4 09:30 sampling_frequency_available
-lrwxrwxrwx 1 root root 0 Jan 4 09:30 subsystem -&gt; …/…/…/…/…/bus/iio
--r–r–r– 1 root root 4096 Jan 4 09:30 in_temp0_raw
--rw-r–r– 1 root root 4096 Jan 4 09:30 in_temp0_scale
-drwxr-xr-x 2 root root 0 Jan 4 09:30 trigger
--rw-r–r– 1 root root 4096 Jan 4 09:30 uevent</p>
-<p>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat name</strong>
-ad7793
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-available-sampling-frequencies-update-rates">
-<h3>Show available sampling frequencies / update rates<a class="headerlink" href="#show-available-sampling-frequencies-update-rates" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat sampling_frequency_available</strong>
-470 242 123 62 50 39 33 19 17 16 12 10 8 6 4
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-sampling-frequency-update-rate">
-<h3>Set sampling frequency / update rate<a class="headerlink" href="#set-sampling-frequency-update-rate" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat sampling_frequency</strong>
-10
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>echo 50 &gt; sampling_frequency</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat sampling_frequency</strong>
-50
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
+device0<span class="w"> </span>trigger0
+
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:29<span class="w"> </span>device0:buffer0
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_voltage-in_voltage_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_voltage-in_voltage_scale_available
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_voltage0-in_voltage0_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_voltage0-in_voltage0_shorted_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_voltage1-in_voltage1_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_voltage2-in_voltage2_raw
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_voltage4_supply_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_voltage4_supply_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>name
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>power
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>sampling_frequency
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>sampling_frequency_available
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../bus/iio
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_temp0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>in_temp0_scale
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>trigger
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">09</span>:30<span class="w"> </span>uevent
+
 root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-supply-voltage">
-<h3>Show supply voltage<a class="headerlink" href="#show-supply-voltage" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-device-name">Show device name</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
+ad7793
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-available-sampling-frequencies-update-rates">Show available sampling frequencies / update rates</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency_available**
+<span class="m">470</span><span class="w"> </span><span class="m">242</span><span class="w"> </span><span class="m">123</span><span class="w"> </span><span class="m">62</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">39</span><span class="w"> </span><span class="m">33</span><span class="w"> </span><span class="m">19</span><span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">4</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-sampling-frequency-update-rate">Set sampling frequency / update rate</h6>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">10</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">50</span><span class="w"> </span>&gt;<span class="w"> </span>sampling_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>sampling_frequency**
+<span class="m">50</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-supply-voltage">Show supply voltage</h6>
+<p><strong>Description:</strong>
 Shows the AVDD supply voltage</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat in_voltage4_supply_raw</strong>
-7817399
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat in_voltage4_supply_scale</strong>
-0.000418420
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage4_supply_raw**
+<span class="m">7817399</span>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage4_supply_scale**
+<span class="m">0</span>.000418420
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in_voltage4_supply_raw * in_voltage4_supply_scale</em> = 7817399 * 0.000418420 = <strong>3270.95608958 <em>mV</em></strong></p>
-</section>
-<section id="show-available-scales-for-differential-input-channels">
-<h3>Show available scales for differential input channels<a class="headerlink" href="#show-available-scales-for-differential-input-channels" title="Link to this heading">¶</a></h3>
+<h6 class="rubric" id="show-available-scales-for-differential-input-channels">Show available scales for differential input channels</h6>
 <p>Lists all available scales for the differential input pairs:</p>
 <table>
 <thead>
@@ -667,29 +705,45 @@ root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat in_volt
 </tbody>
 </table>
 <p>Setting these directly influences the ADC input range, by altering the GAIN amplifier.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat in_voltage-in_voltage_scale_available</strong>
-0.000149010 0.000074500 0.000037250 0.000018620 0.000009310 0.000004650 0.000002320 0.000001160
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-scale-for-differential-input-channels">
-<h3>Set scale for differential input channels<a class="headerlink" href="#set-scale-for-differential-input-channels" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage-in_voltage_scale_available**
+<span class="m">0</span>.000149010<span class="w"> </span><span class="m">0</span>.000074500<span class="w"> </span><span class="m">0</span>.000037250<span class="w"> </span><span class="m">0</span>.000018620<span class="w"> </span><span class="m">0</span>.000009310<span class="w"> </span><span class="m">0</span>.000004650<span class="w"> </span><span class="m">0</span>.000002320<span class="w"> </span><span class="m">0</span>.000001160
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="set-scale-for-differential-input-channels">Set scale for differential input channels</h6>
 <p>Scale to be applied to in_voltage0-in_voltage0_raw, in_voltage1-in_voltage1_raw, in_voltage2-in_voltage2_raw in order to obtain the measured voltage in millivolts.
 Allows the user to select one scale out of the available scales.
 If the written scale differs from the current scale. The driver performs full and zero offset calibration on all differential input channels.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat in_voltage-in_voltage_scale</strong>
-0.000149010
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>echo 0.000074500 &gt; in_voltage-in_voltage_scale</strong>
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat in_voltage-in_voltage_scale</strong>
-0.000074500
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-channel-in-voltage0-in-voltage0-measurement">
-<h3>Show channel in_voltage0-in_voltage0 measurement<a class="headerlink" href="#show-channel-in-voltage0-in-voltage0-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage-in_voltage_scale**
+<span class="m">0</span>.000149010
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">0</span>.000074500<span class="w"> </span>&gt;<span class="w"> </span>in_voltage-in_voltage_scale**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage-in_voltage_scale**
+<span class="m">0</span>.000074500
+</pre></div>
+</div>
+<div class="docutils">
+<h6 class="rubric" id="show-channel-in-voltage0-in-voltage0-measurement">Show channel in_voltage0-in_voltage0 measurement</h6>
+<p><strong>Description:</strong>
 Raw unscaled voltage measurement</p>
 <table>
 <thead>
@@ -729,51 +783,87 @@ Raw unscaled voltage measurement</p>
 </tr>
 </tbody>
 </table>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt; <strong>cat in_voltage0-in_voltage0_raw</strong>
-6710665
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_voltage0-in_voltage0_raw**
+<span class="m">6710665</span>
+</pre></div>
+</div>
+<div class="docutils">
 <p><strong>U</strong> = <em>in_voltage0-in_voltage0_raw * in_voltage-in_voltage_scale</em> = 6710665 * 0.000149010 = <strong>999.95619165 <em>mV</em></strong></p>
-</section>
-<section id="trigger-management">
-<h3>Trigger management<a class="headerlink" href="#trigger-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP round help&gt;
-This driver only supports it’s own default trigger source <strong>ad7793-dev0</strong>
-&lt;/WRAP&gt;</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat trigger/current_trigger</strong>
+<h4 class="rubric" id="trigger-management">Trigger management</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>This driver only supports it’s own default trigger source <strong>ad7793-dev0</strong></p>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;<span class="w"> </span>**cat<span class="w"> </span>trigger/current_trigger**
 ad7793-dev0
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="buffer-management">
-<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/buffer&gt; ls
-<strong>enable</strong> <strong>length</strong>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="buffer-management">Buffer management</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/buffer&gt;<span class="w"> </span>ls
+**enable**<span class="w"> </span>**length**
 root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/buffer&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/scan_elements&gt; <strong>ls</strong>
-in_voltage0-in_voltage0_en in_voltage1-in_voltage1_index in_voltage4_supply_type
-in_voltage0-in_voltage0_index in_voltage1-in_voltage1_type temp0_en
-in_voltage0-in_voltage0_shorted_en in_voltage2-in_voltage2_en temp0_index
-in_voltage0-in_voltage0_shorted_index in_voltage2-in_voltage2_index temp0_type
-in_voltage0-in_voltage0_shorted_type in_voltage2-in_voltage2_type timestamp_en
-in_voltage0-in_voltage0_type in_voltage4_supply_en timestamp_index
-in_voltage1-in_voltage1_en in_voltage4_supply_index timestamp_type
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/scan_elements&gt;<span class="w"> </span>**ls**
+in_voltage0-in_voltage0_en<span class="w"> </span>in_voltage1-in_voltage1_index<span class="w"> </span>in_voltage4_supply_type
+in_voltage0-in_voltage0_index<span class="w"> </span>in_voltage1-in_voltage1_type<span class="w"> </span>temp0_en
+in_voltage0-in_voltage0_shorted_en<span class="w"> </span>in_voltage2-in_voltage2_en<span class="w"> </span>temp0_index
+in_voltage0-in_voltage0_shorted_index<span class="w"> </span>in_voltage2-in_voltage2_index<span class="w"> </span>temp0_type
+in_voltage0-in_voltage0_shorted_type<span class="w"> </span>in_voltage2-in_voltage2_type<span class="w"> </span>timestamp_en
+in_voltage0-in_voltage0_type<span class="w"> </span>in_voltage4_supply_en<span class="w"> </span>timestamp_index
+in_voltage1-in_voltage1_en<span class="w"> </span>in_voltage4_supply_index<span class="w"> </span>timestamp_type
 root:/sys/devices/platform/bfin-spi.0/spi0.3/device0/scan_elements&gt;
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>![iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
-</section>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</pre></div>
+</div>
+<div class="docutils">
+<!-- CMDS: noheader firstseconly noeditbtn -->
+<h3 class="rubric" id="more-information">More Information</h3>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

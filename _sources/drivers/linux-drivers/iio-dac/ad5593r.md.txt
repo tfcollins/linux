@@ -1,20 +1,28 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-dac/ad5593r
+title: AD5593R: 8 Channel, 12-Bit, Configurable ADC/DAC with on-chip Reference, I2C interface
+---
+
 # AD5593R IIO DAC/ADC Linux Driver
 
 ### Supported Devices
 
--   [AD5593R](adi>AD5593R)
+-   [AD5593R](https://analog.com/AD5593R)
 
 ### Reference Circuits
 
--   [CN0229](adi>CN0229)
+-   [CN0229](https://analog.com/CN0229)
 
 ### Evaluation Boards
 
--   [EVAL-AD5593R](adi>EVAL-AD5593R)
+-   [EVAL-AD5593R](https://analog.com/EVAL-AD5593R)
 
 ### Description
 
-![ad5593r_bd.png](/software/driver/linux/ad5593r_bd.png){.align-right}
+```{image} images/ad5593r_bd.png
+:alt: ad5593r_bd.png
+:.align-right
+```
 
 The AD5593R have eight I/Ox pins (I/O0 to I/O7) that can be independently configured as digital-to-analog converter (DAC) outputs, analog-to-digital converter (ADC) inputs, digital outputs, or digital inputs.
 When an I/Ox pin is configured as an analog output, it is driven by a 12-bit DAC. The output range of the DAC is 0 V to VREF or 0 V to 2 × VREF.
@@ -53,41 +61,48 @@ The AD5593R have an integrated 2.5 V, 25 ppm/°C reference, which is turned off 
 <tbody>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/dac/ad5592r-base.c">drivers/iio/dac/ad5592r-base.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/dac/ad5592r-base.c">drivers/iio/dac/ad5592r-base.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="linux.github&gt;master?drivers/iio/dac/ad5592r-base.h">drivers/iio/dac/ad5592r-base.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/dac/ad5592r-base.h">drivers/iio/dac/ad5592r-base.h</a></td>
 </tr>
 <tr class="odd">
 <td>driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/dac/ad5593r.c">drivers/iio/dac/ad5593r.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/dac/ad5593r.c">drivers/iio/dac/ad5593r.c</a></td>
 </tr>
 <tr class="even">
 <td>include</td>
-<td><a href="linux.github&gt;master?include/dt-bindings/iio/adi,ad5592r.h">include/dt-bindings/iio/adi,ad5592r.h</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?include/dt-bindings/iio/adi,ad5592r.h">include/dt-bindings/iio/adi,ad5592r.h</a></td>
 </tr>
 <tr class="odd">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/dac/ad5592r.txt">Documentation/devicetree/bindings/iio/dac/ad5592r.txt</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?Documentation/devicetree/bindings/iio/dac/ad5592r.txt">Documentation/devicetree/bindings/iio/dac/ad5592r.txt</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Hardware configuration
 
-![ad5592r_eval.jpg](/software/driver/linux/ad5592r_eval.jpg){width="600" query="?600"}
+```{image} images/ad5592r_eval.jpg
+:alt: ad5592r_eval.jpg
+:width: "600"
+:query: "?600"
+```
 
 ## Adding Linux driver support
 
 ### Enabling the driver
 
-Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
-\"make qconfig\")
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
 
-\<WRAP round help\>
+:::{NOTE} <!-- ATTRS: round="" help="" -->
+
 The AD5593R Driver depends on **CONFIG_I2C**
-\</WRAP\>
+
+:::
+
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -107,7 +122,7 @@ The AD5593R Driver depends on **CONFIG_I2C**
 #### Required properties
 
 -   **compatible**: Must be one of:
-    -   \"adi,ad5593r\"
+    -   "adi,ad5593r"
 -   **reg**: I2C address of the chip (generally 0x10).
 -   **#address-cells**: Should be 1.
 -   **#size-cells**: Should be 0.
@@ -138,7 +153,7 @@ The AD5593R Driver depends on **CONFIG_I2C**
 -   **vref-supply**: Phandle to the external reference voltage supply. This should only be set if there is an external reference voltage connected to the VREF pin. If the property is not set the internal 2.5V reference is used.
 -   **reset-gpios** : GPIO spec for the RESET pin. If specified, it will be asserted during driver probe.
 -   **gpio-controller**: Marks the device node as a GPIO controller.
--   **#gpio-cells**: Should be 2. The first cell is the GPIO number and the second cell specifies GPIO flags, as defined in \<dt-bindings/gpio/gpio.h\>.
+-   **#gpio-cells**: Should be 2. The first cell is the GPIO number and the second cell specifies GPIO flags, as defined in <dt-bindings/gpio/gpio.h>.
 
 #### Device tree example
 
@@ -195,7 +210,7 @@ The following example instanciates the ad5593r driver for a AD5593R device conne
 
 ## Driver testing
 
-If the driver correctly detected the device, the \"iio_info\" program should inform us about the available channels:
+If the driver correctly detected the device, the "iio_info" program should inform us about the available channels:
 
     root@linaro-ubuntu-desktop:~# iio_info 
     IIO context created: local
@@ -291,57 +306,81 @@ If the driver correctly detected the device, the \"iio_info\" program should inf
 
 ### Show device name
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **cat name**
 ad5593r
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ### Scales
 
 The output range of the DAC is 0 V to VREF or 0 V to 2 × VREF.
 **out_voltage_scale** is used to select the high or low range.
 Without external reference the driver selects the internal 2500mV VREF reference.
-So the scale computes as 2500mV/2\^12 = 0.610351562 or 5000mV/2\^12 = 1.220703124.
+So the scale computes as 2500mV/2^12 = 0.610351562 or 5000mV/2^12 = 1.220703124.
 
 The input range of the ADC is 0 V to VREF or 0 V to 2 × VREF.
 **in_voltage_scale** is used to select the high or low range.
 Without external reference the driver selects the internal 2500mV VREF reference.
-So the scale computes as 2500mV/2\^12 = 0.610351562 or 5000mV/2\^12 = 1.220703124.
+So the scale computes as 2500mV/2^12 = 0.610351562 or 5000mV/2^12 = 1.220703124.
 
 #### Show current scale
 
-**Description:**\
+**Description:**
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **cat out_voltage_scale**
 0.610351562
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 #### Show available scales
 
-**Description:**\
+**Description:**
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **cat in_voltage_scale_available**
 0.610351562 1.220703124
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 #### Change scales
 
-**Description:**\
+**Description:**
 scale to be applied to out_voltageY_raw/in_voltageY_raw in order to obtain the measured voltage in millivolts.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **echo 1.220703124 \> in_voltage_scale**
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **echo 1.220703124 > in_voltage_scale**
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# **cat in_voltage_scale**
 1.220703124
-\</xterm\>\</WRAP\>
+```
+:::
+
 
 ### Get channel Y input voltage
 
@@ -350,39 +389,51 @@ Raw unscaled voltage measurement on channel Y
 
 This specifies any shell prompt running on the target
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
 root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# cat in_voltage3_raw
 1491
-\</xterm\>\</WRAP\>
+```
+:::
 
-U = in_voltage3_raw \* in_voltage_scale = 1491 \* 0.610351562 = 910 mV
+
+U = in_voltage3_raw * in_voltage_scale = 1491 * 0.610351562 = 910 mV
 
 ### Set channel Y output voltage
 
-**Description:**\
+**Description:**
 Raw (unscaled, no bias etc.) output voltage for channel Y.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# echo 1638 \> out_voltage0_raw
-\</xterm\>\</WRAP\>
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
 
-**U** = *out_voltage0_raw \* out_voltage_scale* = 1638 \* 0.610351562 = **999.76 *mV***
+```{code-block} bash
+root@linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device2# echo 1638 > out_voltage0_raw
+```
+:::
+
+
+**U** = *out_voltage0_raw * out_voltage_scale* = 1638 * 0.610351562 = **999.76 *mV***
 
 ### Example obtaining the temperature in °C
 
-T = ( in_temp_raw + in_temp_offset ) \* in_temp_scale
+T = ( in_temp_raw + in_temp_offset ) * in_temp_scale
 
-T = ( 810 - 753 ) \* 376.78975 = 21477 mdeg C = 21.5 °C
+T = ( 810 - 753 ) * 376.78975 = 21477 mdeg C = 21.5 °C
 
-For more information see also here: [IIO Kernel Documentation](git.linux.org>Documentation/ABI/testing/sysfs-bus-iio)
+For more information see also here: [IIO Kernel Documentation](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/ABI/testing/sysfs-bus-iio)
 
 ### GPIO Testing
 
 The GPIO sysfs interface allows users to manipulate any GPIO from userspace. Userspace utilizes a sysfs control interface to dynamically request and release individual GPIOs. Once a GPIO has been requested, writing to the newly created path allows you to control the direction and the data while reading from it returns the GPIO data (which usually corresponds to a 0 or 1 which represents the signal level).
 
-For more information see also here: [GPIO Kernel Documentation](git.linux.org>Documentation/gpio/sysfs.txt)
+For more information see also here: [GPIO Kernel Documentation](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/gpio/sysfs.txt)
 
     root@linaro-ubuntu-desktop:~# cd /sys/class/gpio/
     root@linaro-ubuntu-desktop:/sys/class/gpio# ls

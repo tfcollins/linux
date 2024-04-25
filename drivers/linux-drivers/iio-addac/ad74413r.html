@@ -92,16 +92,7 @@
 <li><a class="reference internal" href="#files">Files</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
-<li><a class="reference internal" href="#show-raw-measurement">Show raw measurement</a></li>
-<li><a class="reference internal" href="#show-scale">Show scale</a></li>
-<li><a class="reference internal" href="#set-sampling-frequency">Set sampling frequency</a></li>
-<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#low-level-register-access-via-debugfs-direct-reg-access">Low level register access via debugfs (direct_reg_access)</a></li>
-<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a></li>
 </ul>
 </li>
 </ul>
@@ -177,7 +168,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
@@ -244,7 +237,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -302,15 +297,15 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD74413R"><span class="xref myst">AD74413R</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EAD74412R"><span class="xref myst">AD74412R</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD74413R">AD74413R</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD74412R">AD74412R</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD74413R"><span class="xref myst">EVAL-AD74413R</span></a></p></li>
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD74412R"><span class="xref myst">EVAL-AD74412R</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD74413R">EVAL-AD74413R</a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD74412R">EVAL-AD74412R</a></p></li>
 </ul>
 </section>
 <section id="source-code">
@@ -344,11 +339,11 @@ Content on this topic
 <tbody>
 <tr class="odd">
 <td>core driver</td>
-<td><a href="linux.github&gt;master?drivers/iio/addac/ad74413r.c">ad74413r.c</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?drivers/iio/addac/ad74413r.c">ad74413r.c</a></td>
 </tr>
 <tr class="even">
 <td>Documentation</td>
-<td><a href="linux.github&gt;master?./Documentation/devicetree/bindings/iio/addac/adi,ad74413r.yaml">adi,ad74413r.yaml</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/main?./Documentation/devicetree/bindings/iio/addac/adi,ad74413r.yaml">adi,ad74413r.yaml</a></td>
 </tr>
 </tbody>
 </table>
@@ -363,7 +358,7 @@ Content on this topic
 <tbody>
 <tr class="odd">
 <td>dts</td>
-<td><a href="linux.github&gt;rpi-5.15.y?arch/arm/boot/dts/overlays/rpi-ad74413r-overlay.dts">rpi-ad74413r-overlay.dts</a></td>
+<td><a href="https://github.com/analogdevicesinc/linux/rpi-5.15.y?arch/arm/boot/dts/overlays/rpi-ad74413r-overlay.dts">rpi-ad74413r-overlay.dts</a></td>
 </tr>
 </tbody>
 </table>
@@ -374,189 +369,327 @@ Content on this topic
 <p>When configured with channel 0 as voltage output, channel 1 as current
 output, channel 2 as voltage input and channel 3 as current input, the
 following structure is created under the corresponding IIO device.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
-root:/sys/bus/iio/devices&gt; ls
-iio:device0</p>
-<p>root:/sys/bus/iio/devices&gt; <strong>cd iio\:device0</strong></p>
-<p>root:/sys/bus/iio/devices/iio:device0&gt; <strong>ls -l</strong>
-drwxr-xr-x 2 root root 0 Aug 17 09:56 buffer
--r–r–r– 1 root root 4096 Aug 17 09:56 dev
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current0_offset
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current0_raw
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current0_sampling_frequency
--r–r–r– 1 root root 4096 Aug 17 09:56 in_current0_sampling_frequency_available
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current0_scale
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current3_offset
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current3_raw
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current3_sampling_frequency
--r–r–r– 1 root root 4096 Aug 17 09:56 in_current3_sampling_frequency_available
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current3_scale
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage1_offset
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage1_raw
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage1_sampling_frequency
--r–r–r– 1 root root 4096 Aug 17 09:56 in_voltage1_sampling_frequency_available
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage1_scale
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage2_offset
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage2_raw
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage2_sampling_frequency
--r–r–r– 1 root root 4096 Aug 17 09:56 in_voltage2_sampling_frequency_available
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage2_scale
--r–r–r– 1 root root 4096 Aug 17 09:56 name
-lrwxrwxrwx 1 root root 0 Aug 17 09:56 of_node -&gt; …/…/…/…/…/…/…/…/firmware/devicetree/base/soc/spi&#64;7e204000/ad74413r&#64;0
--rw-r–r– 1 root root 4096 Aug 17 09:56 out_current1_raw
--rw-r–r– 1 root root 4096 Aug 17 09:56 out_current1_scale
--rw-r–r– 1 root root 4096 Aug 17 09:56 out_voltage0_raw
--rw-r–r– 1 root root 4096 Aug 17 09:56 out_voltage0_scale
-drwxr-xr-x 2 root root 0 Aug 17 09:56 power
-drwxr-xr-x 2 root root 0 Aug 17 09:56 scan_elements
-lrwxrwxrwx 1 root root 0 Aug 17 09:56 subsystem -&gt; …/…/…/…/…/…/…/…/bus/iio
-drwxr-xr-x 2 root root 0 Aug 17 09:56 trigger
--rw-r–r– 1 root root 4096 Aug 17 09:56 uevent
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<section id="show-device-name">
-<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat name</strong>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/bus/iio/devices/**
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>ls
+iio:device0
+
+root:/sys/bus/iio/devices&gt;<span class="w"> </span>**cd<span class="w"> </span>iio:device0**
+
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>buffer
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>dev
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current0_offset
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current0_sampling_frequency
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current0_sampling_frequency_available
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current0_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current3_offset
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current3_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current3_sampling_frequency
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current3_sampling_frequency_available
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current3_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage1_offset
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage1_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage1_sampling_frequency
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage1_sampling_frequency_available
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage1_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage2_offset
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage2_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage2_sampling_frequency
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage2_sampling_frequency_available
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage2_scale
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>name
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>of_node<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ad74413r@0
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>out_current1_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>out_current1_scale
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>out_voltage0_raw
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>out_voltage0_scale
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>power
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>scan_elements
+lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../../../../bus/iio
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>trigger
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>uevent
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-device-name">Show device name</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
 ad74413r
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-raw-measurement">
-<h3>Show raw measurement<a class="headerlink" href="#show-raw-measurement" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-raw-measurement">Show raw measurement</h5>
+<p><strong>Description:</strong>
 Raw measurement of current on channel 0.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_current0_raw</strong>
-4608
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="show-scale">
-<h3>Show scale<a class="headerlink" href="#show-scale" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_current0_raw**
+<span class="m">4608</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="show-scale">Show scale</h5>
+<p><strong>Description:</strong>
 Scale to be applied to the raw measurement of current on channel 0 in order to obtain the actual current.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_current0_scale</strong>
-0.001525902
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="set-sampling-frequency">
-<h3>Set sampling frequency<a class="headerlink" href="#set-sampling-frequency" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_current0_scale**
+<span class="m">0</span>.001525902
+</pre></div>
+</div>
+<div class="docutils">
+<h5 class="rubric" id="set-sampling-frequency">Set sampling frequency</h5>
+<p><strong>Description:</strong>
 Show available sampling frequencies and select one for channel 0.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_current0_sampling_frequency_available</strong>
-10 20 1200 4800
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_current0_sampling_frequency</strong>
-20
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>echo 4800 &gt; in_current0_sampling_frequency</strong>
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat in_current0_sampling_frequency</strong>
-4800
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="buffer-management">
-<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
-<p><strong>Description:</strong><br />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_current0_sampling_frequency_available**
+<span class="m">10</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">1200</span><span class="w"> </span><span class="m">4800</span>
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_current0_sampling_frequency**
+<span class="m">20</span>
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">4800</span><span class="w"> </span>&gt;<span class="w"> </span>in_current0_sampling_frequency**
+root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cat<span class="w"> </span>in_current0_sampling_frequency**
+<span class="m">4800</span>
+</pre></div>
+</div>
+<div class="docutils">
+<h4 class="rubric" id="buffer-management">Buffer management</h4>
+<p><strong>Description:</strong>
 The scan_elements directory contains interfaces for elements that will be captured for a single triggered sample set in the buffer</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0&gt; <strong>cd scan_elements/</strong>
-root:/sys/bus/iio/devices/iio:device0/scan_elements&gt; <strong>ls -l</strong>
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current0_en
--r–r–r– 1 root root 4096 Aug 17 09:56 in_current0_index
--r–r–r– 1 root root 4096 Aug 17 09:56 in_current0_type
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_current3_en
--r–r–r– 1 root root 4096 Aug 17 09:56 in_current3_index
--r–r–r– 1 root root 4096 Aug 17 09:56 in_current3_type
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage1_en
--r–r–r– 1 root root 4096 Aug 17 09:56 in_voltage1_index
--r–r–r– 1 root root 4096 Aug 17 09:56 in_voltage1_type
--rw-r–r– 1 root root 4096 Aug 17 09:56 in_voltage2_en
--r–r–r– 1 root root 4096 Aug 17 09:56 in_voltage2_index
--r–r–r– 1 root root 4096 Aug 17 09:56 in_voltage2_type
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0&gt;<span class="w"> </span>**cd<span class="w"> </span>scan_elements/**
+root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current0_en
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current0_index
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current0_type
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current3_en
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current3_index
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_current3_type
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage1_en
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage1_index
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage1_type
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage2_en
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage2_index
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>in_voltage2_type
+</pre></div>
+</div>
+<div class="docutils">
 <p>Before enabling the buffer, a few steps need to be completed.</p>
 <ul class="simple">
 <li><p>For example, if we want to capture all input channels, we need to enable the scan elements:</p></li>
 </ul>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/scan_elements&gt; <strong>echo 1 &gt; in_current0_en</strong>
-root:/sys/bus/iio/devices/iio:device0/scan_elements&gt; <strong>echo 1 &gt; in_voltage1_en</strong>
-root:/sys/bus/iio/devices/iio:device0/scan_elements&gt; <strong>echo 1 &gt; in_voltage2_en</strong>
-root:/sys/bus/iio/devices/iio:device0/scan_elements&gt; <strong>echo 1 &gt; in_current3_en</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/scan_elements&gt; <strong>cd …/buffer/</strong>
-root:/sys/bus/iio/devices/iio:device0/buffer&gt; ls -l
--r–r–r– 1 root root 4096 Aug 17 09:56 data_available
--rw-r–r– 1 root root 4096 Aug 17 09:56 enable
--rw-r–r– 1 root root 4096 Aug 17 09:56 length
--rw-r–r– 1 root root 4096 Aug 17 09:56 watermark
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>in_current0_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>in_voltage1_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>in_voltage2_en**
+root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>in_current3_en**
+</pre></div>
+</div>
+<div class="docutils">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/scan_elements&gt;<span class="w"> </span>**cd<span class="w"> </span>../buffer/**
+root:/sys/bus/iio/devices/iio:device0/buffer&gt;<span class="w"> </span>ls<span class="w"> </span>-l
+-r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>data_available
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span><span class="nb">enable</span>
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>length
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:56<span class="w"> </span>watermark
+</pre></div>
+</div>
+<div class="docutils">
 <ul class="simple">
 <li><p>Set the buffer length:</p></li>
 </ul>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/buffer&gt; <strong>echo 1024 &gt; length</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/buffer&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1024</span><span class="w"> </span>&gt;<span class="w"> </span>length**
+</pre></div>
+</div>
+<div class="docutils">
 <ul class="simple">
 <li><p>Set the watermak:</p></li>
 </ul>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/buffer&gt; <strong>echo 512 &gt; watermark</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/buffer&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">512</span><span class="w"> </span>&gt;<span class="w"> </span>watermark**
+</pre></div>
+</div>
+<div class="docutils">
 <ul class="simple">
 <li><p>Enable the buffer:</p></li>
 </ul>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/buffer&gt; <strong>echo 1 &gt; enable</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/buffer&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>enable**
+</pre></div>
+</div>
+<div class="docutils">
 <ul class="simple">
 <li><p>Read the samples:</p></li>
 </ul>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/bus/iio/devices/iio:device0/buffer&gt; <strong>cat /dev/iio:device0</strong>
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-</section>
-<section id="low-level-register-access-via-debugfs-direct-reg-access">
-<h2>Low level register access via debugfs (direct_reg_access)<a class="headerlink" href="#low-level-register-access-via-debugfs-direct-reg-access" title="Link to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/bus/iio/devices/iio:device0/buffer&gt;<span class="w"> </span>**cat<span class="w"> </span>/dev/iio:device0**
+</pre></div>
+</div>
+<div class="docutils">
+<h2 class="rubric" id="low-level-register-access-via-debugfs-direct-reg-access">Low level register access via debugfs (direct_reg_access)</h2>
 <p>Some IIO drivers feature an optional debug facility, allowing users to read or write registers directly. Special care needs to be taken when using this feature, since you can modify registers on the back of the driver. Accessing debugfs requires root privileges.</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/&gt; <strong>/sys/kernel/debug/iio/iio:device0/</strong>
-root:/sys/kernel/debug/iio/iio:device0&gt; ls direct_reg_access
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**/sys/kernel/debug/iio/iio:device0/**
+root:/sys/kernel/debug/iio/iio:device0&gt;<span class="w"> </span>ls<span class="w"> </span>direct_reg_access
 direct_reg_access
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</pre></div>
+</div>
+<div class="docutils">
 <p>Reading</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root:/sys/kernel/debug/iio/iio:device0&gt; echo 0x45 &gt; direct_reg_access
-root:/sys/kernel/debug/iio/iio:device0&gt; cat direct_reg_access
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/kernel/debug/iio/iio:device0&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>0x45<span class="w"> </span>&gt;<span class="w"> </span>direct_reg_access
+root:/sys/kernel/debug/iio/iio:device0&gt;<span class="w"> </span>cat<span class="w"> </span>direct_reg_access
 0x00
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</pre></div>
+</div>
+<div class="docutils">
 <p>Writing</p>
 <p>Write ADDRESS VALUE</p>
-<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
-&lt;xterm&gt;
-root&#64;analog:/sys/kernel/debug/iio/iio:device0&gt; echo 0x45 0xADAD &gt; direct_reg_access
-root&#64;analog:/sys/kernel/debug/iio/iio:device0&gt; cat direct_reg_access
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: box="" bggreen="" -->
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<!-- ATTRS: info="" -->
+<p>This specifies any shell prompt running on the target</p>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/kernel/debug/iio/iio:device0&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>0x45<span class="w"> </span>0xADAD<span class="w"> </span>&gt;<span class="w"> </span>direct_reg_access
+root@analog:/sys/kernel/debug/iio/iio:device0&gt;<span class="w"> </span>cat<span class="w"> </span>direct_reg_access
 0xADAD
-&lt;/xterm&gt;&lt;/WRAP&gt;</p>
-</section>
-<section id="more-information">
-<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
-<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</pre></div>
+</div>
+<div class="docutils">
+<h2 class="rubric" id="more-information">More Information</h2>
+<!-- CMDS: noheader firstseconly noeditbtn -->
+</div>
 </section>
 </section>
 

@@ -174,7 +174,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="ad7280a.html">AD7280A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7291.html">AD7291</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7298.html">AD7298</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-adc/ad738x
+title: AD7387: 4-Channel, 4 MSPS, 14-Bit, Dual, Simultaneous Sampling SAR ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html#ad738x-iio-dual-channel-serial-adc-linux-driver">AD738x IIO Dual Channel Serial ADC Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7606.html">AD7605-4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7766.html">AD7766-1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ad7768-1.html">AD7768-1</a></li>
@@ -241,7 +243,9 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-inertial-measurement-units/adis16475
+title: ADIS16505: Precision, Miniature MEMs IMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html#adis16475-iio-inertial-measurement-unit-linux-driver">ADIS16475 IIO Inertial Measurement Unit Linux Driver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
@@ -299,23 +303,23 @@ Content on this topic
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EAD7091R-5"><span class="xref myst">AD7091R-5</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/AD7091R-5">AD7091R-5</a></p></li>
 </ul>
 </section>
 <section id="evaluation-boards">
 <h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#adi%3EEVAL-AD7091R-5SDZ"><span class="xref myst">EVAL-AD7091R-5SDZ</span></a></p></li>
+<li><p><a class="reference external" href="https://analog.com/EVAL-AD7091R-5SDZ">EVAL-AD7091R-5SDZ</a></p></li>
 </ul>
 </section>
 <section id="description">
 <h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
 <p>The AD7091R-5 is a 12-bit, multichannel, ultralow power, successive approximation analog-to-digital converter (ADC).</p>
-<p><img alt="ad7091r5_bd.png" src="software/driver/linux/ad7091r5_bd.png" />{.align-center width=“400” query=“?400”}</p>
+<img alt="../../../_images/ad7091r5_bd.png" src="../../../_images/ad7091r5_bd.png" />
 </section>
 <section id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
-<p><img alt="ad7091r5.jpg" src="software/driver/linux/ad7091r5.jpg" />{.align-center width=“600” query=“?600”}</p>
+<img alt="../../../_images/ad7091r5.jpg" src="../../../_images/ad7091r5.jpg" />
 </section>
 <section id="adding-linux-driver-support">
 <h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
@@ -323,9 +327,11 @@ Content on this topic
 <h3>Enabling the driver<a class="headerlink" href="#enabling-the-driver" title="Link to this heading">¶</a></h3>
 <p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
 “make qconfig”)</p>
-<p>&lt;WRAP round help&gt;
-The AD7091R5 Driver depends on <strong>CONFIG_I2C</strong>
-&lt;/WRAP&gt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<!-- ATTRS: round="" help="" -->
+<p>The AD7091R5 Driver depends on <strong>CONFIG_I2C</strong></p>
+</div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
     Device Drivers  ---&gt;
         ...
@@ -353,7 +359,7 @@ The AD7091R5 Driver depends on <strong>CONFIG_I2C</strong>
 <section id="optional-properties">
 <h4>Optional properties<a class="headerlink" href="#optional-properties" title="Link to this heading">¶</a></h4>
 <ul class="simple">
-<li><p><strong>vref-supply</strong>: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.<br />
+<li><p><strong>vref-supply</strong>: phandle + specifier to a regulator for the external VREF supply. If no external VREF is supplied this attribute should be omitted.
 see: Documentation/devicetree/bindings/regulator/regulator.txt</p></li>
 </ul>
 </section>

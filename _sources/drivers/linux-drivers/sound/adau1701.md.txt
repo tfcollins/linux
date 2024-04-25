@@ -1,29 +1,34 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adau1701
+title: ADAU1702: SigmaDSP® 28/56-Bit Audio Processor with Two ADCs and Four DACs
+---
+
 # ADAU1701 Sound Audio System Linux Driver
 
-### Supported Devices
+#### Supported Devices
 
--   [ADAU1401](adi>ADAU1401)
--   [ADAU1401A](adi>ADAU1401A)
--   [ADAU1701](adi>ADAU1701)
--   [ADAU1702](adi>ADAU1702)
+-   [ADAU1401](https://analog.com/ADAU1401)
+-   [ADAU1401A](https://analog.com/ADAU1401A)
+-   [ADAU1701](https://analog.com/ADAU1701)
+-   [ADAU1702](https://analog.com/ADAU1702)
 
-### Reference Circuits
+#### Reference Circuits
 
--   [CN0162](adi>CN0162)
+-   [CN0162](https://analog.com/CN0162)
 
-### Evaluation Boards
+#### Evaluation Boards
 
--   [EVAL-ADAU1401AEBZ](adi>EVAL-ADAU1401AEBZ)
--   [EVAL-ADAU1701MINIZ](adi>EVAL-ADAU1701MINIZ)
+-   [EVAL-ADAU1401AEBZ](https://analog.com/EVAL-ADAU1401AEBZ)
+-   [EVAL-ADAU1701MINIZ](https://analog.com/EVAL-ADAU1701MINIZ)
 
-### Description
+#### Description
 
 ADAU1701 is a SigmaDSP with DACs and ADCs,and support both analog and digital inputs/outputs(I2S).
 This driver is intended to drive ADAU1701 through I2S, so we adapt it into ASoC framework and treat it as an audio codec, also it needs to include firmware loading function to download firmware blob at the initializing time.
 
-## Source Code
+#### Source Code
 
-#### Status
+###### Status
 
 <table>
 <thead>
@@ -40,7 +45,7 @@ This driver is intended to drive ADAU1701 through I2S, so we adapt it into ASoC 
 </tbody>
 </table>
 
-#### Files
+###### Files
 
 <table>
 <thead>
@@ -61,7 +66,7 @@ This driver is intended to drive ADAU1701 through I2S, so we adapt it into ASoC 
 </tbody>
 </table>
 
-## Example platform device initialization
+### Example platform device initialization
 
 Below is an example which is used on Blackfin board file.
 
@@ -69,11 +74,11 @@ Below is an example which is used on Blackfin board file.
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
 
     [--snip--]
-#if defined(CONFIG_SND_SOC_ADAU1701) || defined(CONFIG_SND_SOC_ADAU1701_MODULE)
+## if defined(CONFIG_SND_SOC_ADAU1701) || defined(CONFIG_SND_SOC_ADAU1701_MODULE)
     {
         I2C_BOARD_INFO("adau1701", 0x34),
     },
-#endif
+## endif
     [--snip--]
 }
 
@@ -92,7 +97,7 @@ static int __init stamp_init(void)
 arch_initcall(board_init);
 ```
 
-### ASoC DAPM widgets
+#### ASoC DAPM widgets
 
 <table>
 <thead>
@@ -129,7 +134,7 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-### ALSA controls
+#### ALSA controls
 
 <table>
 <thead>
@@ -146,11 +151,11 @@ arch_initcall(board_init);
 </tbody>
 </table>
 
-### DAI Configuration
+#### DAI Configuration
 
-The CODEC driver register one DAI called **\"adau1701\"**.
+The CODEC driver register one DAI called **"adau1701"**.
 
-#### Supported DAI formats
+##### Supported DAI formats
 
 <table>
 <thead>
@@ -249,7 +254,7 @@ The CODEC driver register one DAI called **\"adau1701\"**.
 </tbody>
 </table>
 
-#### Sysclk Configuration
+##### Sysclk Configuration
 
 The sysclk source can be either be generated using the internal oscillator and an external crystal, or can come from an external clock signal.
 
@@ -262,7 +267,7 @@ enum adau1701_clk_src {
 
 The sysclk rate is configured using the PLL_MODE0 and PLL_MODE1 pins. Though for completeness it should also be passed to snd_soc_dai_set_sysclk.
 
-#### Example DAI Configuration
+##### Example DAI Configuration
 
 ``` c
 static int bfin_eval_adau1701_hw_params(struct snd_pcm_substream *substream,
@@ -304,19 +309,19 @@ static struct snd_soc_dai_link bfin_eval_adau1701_dai = {
 };
 ```
 
-### Generate the firmware file
+#### Generate the firmware file
 
 In order to use the SigmaDSP core of the ADAU1701 you need to provide a firmware file. Please refer to the [SigmaDSP Firmware Utility for Linux](resources/tools-software/linux-software/sigmadsp_genfirmware) page on how to generate a firmware file. The firmware file for ADAU1701 driver has to be named **adau1701.bin**.
 
-## ADAU1701 evaluation board driver
+### ADAU1701 evaluation board driver
 
-There is no dedicated Blackfin STAMP evaluation board for the ADAU1701. During test and driver development we used the [EVAL-ADAU1701MINIZ](adi>EVAL-ADAU1701MINIZ) board.
+There is no dedicated Blackfin STAMP evaluation board for the ADAU1701. During test and driver development we used the [EVAL-ADAU1701MINIZ](https://analog.com/EVAL-ADAU1701MINIZ) board.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
-### Source Code
+##### Source Code
 
-#### Status
+###### Status
 
 <table>
 <thead>
@@ -333,7 +338,7 @@ It can be easily wired to the Blackfin STAMP SPORT header.
 </tbody>
 </table>
 
-#### Files
+###### Files
 
 <table>
 <thead>
@@ -350,7 +355,7 @@ It can be easily wired to the Blackfin STAMP SPORT header.
 </tbody>
 </table>
 
-### Kernel configuration
+#### Kernel configuration
 
     Device Drivers  --->
     [*] I2C support  --->
@@ -367,40 +372,54 @@ Enable ALSA SoC evaluation board driver:
     <M>     ALSA for SoC audio support  --->
     <M>       Support for the EVAL-ADAU1701 boards on Blackfin eval boards
 
-### Hardware configuration
+#### Hardware configuration
 
 TODO
 
-### Driver testing
+#### Driver testing
 
 Load the driver and make sure the sound card is properly instantiated.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-bf5xx-i2s
-root:/\> modprobe snd-soc-bf5xx-i2s
-root:/\> modprobe snd-soc-adau1701
-root:/\> modprobe snd-soc-bfin-eval-adau1701
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-bf5xx-i2s
+root:/> modprobe snd-soc-bf5xx-i2s
+root:/> modprobe snd-soc-adau1701
+root:/> modprobe snd-soc-bfin-eval-adau1701
 dma rx:3 tx:4, err irq:45, regs:ffc00800
-asoc: ADAU1701 \<-\> bf5xx-i2s mapping ok
-\</xterm\>
-\</WRAP\>
+asoc: ADAU1701 <-> bf5xx-i2s mapping ok
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-pcm-oss
-root:/\> tone
-TONE: generating sine wave at 1000 Hz\...
+:::
 
-root:/\> arecord -f cd | aplay
-Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-\</xterm\>
-\</WRAP\>
 
-### More information
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-pcm-oss
+root:/> tone
+TONE: generating sine wave at 1000 Hz...
+
+root:/> arecord -f cd | aplay
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+```
+
+:::
+
+
+#### More information
 
 -   [SigmaStudio](resources/tools-software/sigmastudio)
 -   [SigmaDSP Firmware Utility for Linux](resources/tools-software/linux-software/sigmadsp_genfirmware)
 
-![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
+```

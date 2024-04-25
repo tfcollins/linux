@@ -1,12 +1,17 @@
+---
+wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/sound/adau1373
+title: ADAU1373: Low Power Codec with Speaker and Headphone Amplifier
+---
+
 # ADAU1373 Sound CODEC Linux Driver
 
 ### Supported Devices
 
--   [ADAU1373](adi>ADAU1373)
+-   [ADAU1373](https://analog.com/ADAU1373)
 
 ### Evaluation Boards
 
--   [EVAL-ADAU1373Z](adi>EVAL-ADAU1373Z)
+-   [EVAL-ADAU1373Z](https://analog.com/EVAL-ADAU1373Z)
 
 ### Source Code
 
@@ -54,11 +59,15 @@
 
 ### Example device initialization
 
-![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+<!-- CMDS: noheader firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
+```
 
 #### I2C
 
-![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+<!-- CMDS: firstseconly noeditbtn -->
+```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
+```
 
 ``` c
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
@@ -519,15 +528,15 @@ enum adau1373_pll_src {
 
 The input frequency must configured to be between 7813 and 27000000 Hz. The output frequency must be configured to be between 45158000 and 49152000. Configuring the PLL with other input or output frequency will fail.
 
-The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you\'d normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
+The PLL runs at 1024 times the base sample rate. So for a 48000 Hz based sample rate you'd normally choose 49152000 Hz for the PLL output frequncey and for a 44100 Hz based sample rate 45158400 Hz.
 
 ### DAI configuration
 
 The codec driver registers three DAIs:
 
--   \"adau1373-aif1\" (Digital Audio Interface A)
--   \"adau1373-aif2\" (Digital Audio Interface B)
--   \"adau1373-aif3\" (Digital Audio Interface C)
+-   "adau1373-aif1" (Digital Audio Interface A)
+-   "adau1373-aif2" (Digital Audio Interface B)
+-   "adau1373-aif3" (Digital Audio Interface C)
 
 #### Supported DAI formats
 
@@ -727,7 +736,7 @@ static struct snd_soc_dai_link bfin_eval_adau1373_dai = {
 
 ## ADAU1373 evaluation board driver
 
-There is no dedicated Blackfin STAMP evaluation board for the ADAU1373. During test and driver development we used the [EVAL-ADAU1373](adi>EVAL-ADAU1373) board.
+There is no dedicated Blackfin STAMP evaluation board for the ADAU1373. During test and driver development we used the [EVAL-ADAU1373](https://analog.com/EVAL-ADAU1373) board.
 
 It can be easily wired to the Blackfin STAMP SPORT header.
 
@@ -841,25 +850,37 @@ Note that the SPORT has separate signals for the capture and playback clocks, wh
 
 Load the driver and make sure the sound card is properly instantiated.
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-bf5xx-i2s
-root:/\> modprobe snd-soc-bf5xx-i2s
-root:/\> modprobe snd-soc-adau1373
-root:/\> modprobe snd-soc-bfin-eval-adau1373
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-bf5xx-i2s
+root:/> modprobe snd-soc-bf5xx-i2s
+root:/> modprobe snd-soc-adau1373
+root:/> modprobe snd-soc-bfin-eval-adau1373
 dma rx:3 tx:4, err irq:45, regs:ffc00800
-asoc: ADAU1373 \<-\> bf5xx-i2s mapping ok
-\</xterm\>
-\</WRAP\>
+asoc: ADAU1373 <-> bf5xx-i2s mapping ok
+```
 
-\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
-\<xterm\>
-root:/\> modprobe snd-pcm-oss
-root:/\> tone
-TONE: generating sine wave at 1000 Hz\...
+:::
 
-root:/\> arecord -f cd | aplay
-Recording WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-Playing WAVE \'stdin\' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
-\</xterm\>
-\</WRAP\>
+
+:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
+:::{HINT} <!-- ATTRS: info="" -->
+This specifies any shell prompt running on the target
+:::
+
+```{code-block} bash
+root:/> modprobe snd-pcm-oss
+root:/> tone
+TONE: generating sine wave at 1000 Hz...
+
+root:/> arecord -f cd | aplay
+Recording WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+Playing WAVE 'stdin' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
+```
+
+:::
+
