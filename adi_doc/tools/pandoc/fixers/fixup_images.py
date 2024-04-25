@@ -8,24 +8,55 @@ import sys
 import time
 import requests
 from urllib.parse import urlparse
+import logging
+
+fi_logger = logging.getLogger("fixup_images")
+
+here = os.path.dirname(os.path.realpath(__file__))
+with open(os.path.join(here, "known_bad_images.txt"), "r") as f:
+    known_bad_images = f.readlines()
+    known_bad_images = [x.strip().replace("\n", "") for x in known_bad_images]
 
 
 def download_image(url, output):
     """Download an image from a URL to a file."""
     import requests
 
+    if url in known_bad_images:
+        fi_logger.warning(f"Skipping known bad image {url}")
+        return False
+
+    fi_logger.info(f"Skipping download of {url} to {output}")
+    # with open(os.path.join(here, "known_bad_images.txt"), "a") as f:
+    #     f.write(f"{url}\n")
+    # return False
+
+    assert False, "SHOULD NOT DOWNLOAD IMAGES"
+
     # Download the image
     try:
-        response = requests.get(url)
+        # response = requests.get(url)
+        # Get url with timeout
+        # response = requests.get(url, timeout=5)
+        retries = 3
+        for i in range(retries):
+            try:
+                response = requests.get(url, timeout=5)
+                break
+            except requests.exceptions.RequestException as e:
+                fi_logger.warning(f"Failed to download {url}: {e}")
+                time.sleep(5)
+                if i == retries - 1:
+                    return False
         if response.status_code != 200:
-            print(f"Failed to download {url}: {response.status_code}")
+            fi_logger.warning(f"Failed to download {url}: {response.status_code}")
             return False
 
         # Save the image
         with open(output, "wb") as f:
             f.write(response.content)
     except Exception as e:
-        print(f"Failed to download {url}: {e}")
+        fi_logger.warning(f"Failed to download {url}: {e}")
         return False
 
     return True
@@ -35,15 +66,15 @@ def get_link(url, image, target_dir, text, ref_image):
     filename = os.path.basename(urlparse(url).path)
     output = os.path.join(target_dir, filename)
     if not os.path.exists(output):
-        print(f"Downloading {url} to {output}")
+        fi_logger.info(f"Downloading {url} to {output}")
         result = download_image(url, output)
         if not result:
-            print(f"Failed to download {url}")
+            fi_logger.warning(f"Failed to download {url}")
             with open("failed_images.txt", "a") as f:
                 f.write(f"{image}: {url}\n")
             return None
     else:
-        print(f"Skipping {url} to {output}. File already exists.")
+        fi_logger.info(f"Skipping {url} to {output}. File already exists.")
 
     # Fix the image link
     text = text.replace(ref_image, f"images/{filename}")
@@ -52,7 +83,7 @@ def get_link(url, image, target_dir, text, ref_image):
 
 def fixup_images(text, target_dir):
 
-    print("---------------------------------------")
+    fi_logger.info("---------------------------------------")
 
     # Parse the text for image links
     images = []
@@ -72,11 +103,11 @@ def fixup_images(text, target_dir):
         ref_image = image
         # Skip local images
         # print(f"Processing image {image} | {descriptions[images.index(image)]}")
-        print(f"Processing image {image}")
+        fi_logger.info(f"Processing image {image}")
 
         # Check for file extension in URL
         if not image.endswith((".jpg", ".png", ".gif", ".jpeg", ".bmp", ".svg")):
-            print(f"Skipping image {image}. Not a valid image file.")
+            fi_logger.warning(f"Skipping image {image}. Not a valid image file.")
             continue
 
         if image.startswith("http"):
@@ -95,12 +126,12 @@ def fixup_images(text, target_dir):
                 if response.ok:
                     url = guess
                 else:
-                    print(f"Failed to find image {guess}")
+                    fi_logger.warning(f"Failed to find image {guess}")
                     with open("failed_images.txt", "a") as f:
                         f.write(f"{image}: {guess}\n")
                     continue
             except Exception as e:
-                print(f"Failed to find image {guess}: {e}")
+                fi_logger.warning(f"Failed to find image {guess}: {e}")
                 with open("failed_images.txt", "a") as f:
                     f.write(f"{image}: {guess}\n")
                 continue
@@ -127,8 +158,8 @@ def fixup_images(text, target_dir):
 
         new_format = f"```{{image}} {image}\n"
         new_format += f":alt: {alt}\n"
-        print(f"Attributes: {attributes}")
-        print(f"Attributes Split: {attributes.split()}")
+        fi_logger.info(f"Attributes: {attributes}")
+        fi_logger.info(f"Attributes Split: {attributes.split()}")
         for attribute in attributes.split():
             if "=" not in attribute:
                 new_format += f":{attribute}\n"
@@ -136,10 +167,10 @@ def fixup_images(text, target_dir):
                 new_format += f":{attribute.split('=')[0]}: {attribute.split('=')[1]}\n"
         new_format += "```"
 
-        print("Old format:")
-        print(match.group(0))
-        print("New format:")
-        print(new_format)
+        fi_logger.info("Old format:")
+        fi_logger.info(match.group(0))
+        fi_logger.info("New format:")
+        fi_logger.info(new_format)
 
         text = text.replace(match.group(0), new_format)
 

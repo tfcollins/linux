@@ -56,10 +56,20 @@ def fix_includes(text, target_dir=None):
         path = includes[include]["path"]
         section = includes[include]["section"]
 
+        path = path.replace("//", "/")
+
+        filename = path.replace("/", "_")
+        if section:
+            filename = f"{filename}_SUB_{section.replace(' ', '_')}"
+        filename = f"{filename}.dokuwiki"
+        full_path = os.path.join(target_dir, filename)
+
         # Check if the file already exists
-        if os.path.exists(path):
-            fi_logger.info(f"File {path} found. Not downloading")
+        if os.path.exists(full_path):
+            fi_logger.info(f"File {full_path} found. Not downloading")
         else:
+            # assert False, "SHOULD NOT DOWNLOAD INCLUDES"
+
             fi_logger.info(f"Downloading {path} to {target_dir}")
             if path[0] == "/":
                 path = path[1:]
@@ -67,18 +77,17 @@ def fix_includes(text, target_dir=None):
             response = requests.get(url)
             if response.status_code != 200:
                 fi_logger.error(f"Failed to download {url}: {response.status_code}")
+                assert False, "SHOULD NOT DOWNLOAD INCLUDES"
                 with open("failed_includes.txt", "a") as f:
                     f.write(f"INCLUDE {path}: {url}\n")
                 continue
+
             # Do download
-            filename = path.replace("/", "_")
-            if section:
-                filename = f"{filename}_SUB_{section.replace(' ', '_')}"
-            filename = f"{filename}.dokuwiki"
-            full_path = os.path.join(target_dir, filename)
             with open(full_path, "wb") as f:
                 f.write(response.content)
             fi_logger.info(f"Downloaded {path} to {full_path}")
+
+            assert False, "SHOULD NOT DOWNLOAD INCLUDES"
 
             # Do subpage conversion
             subprocess.run(
@@ -100,7 +109,8 @@ def fix_includes(text, target_dir=None):
                 continue
             else:
                 # Remove the dokuwiki file
-                os.remove(full_path)
+                # os.remove(full_path)
+                pass
 
             # Parse generated markdown file
 
@@ -132,7 +142,9 @@ def fix_includes(text, target_dir=None):
                             if not noheader:
                                 if level == 1:
                                     line = line.replace("#", "##")
-                                    fi_logger.warning(f"FIXME: Adjusted header level for {section}")
+                                    fi_logger.warning(
+                                        f"FIXME: Adjusted header level for {section}"
+                                    )
                                 section_text.append(line)
                     else:
                         if "#" in line and line.count("#") <= level:

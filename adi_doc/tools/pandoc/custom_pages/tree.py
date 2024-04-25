@@ -1,9 +1,9 @@
 import os
 # import networkx as nx
 import shutil
+import logging
 
-nodes = []
-
+tree_logger = logging.getLogger("tree")
 
 def parse_file(filename, kernel_root):
     print("Parsing file:", filename)
@@ -32,9 +32,9 @@ def parse_file(filename, kernel_root):
             else:
                 dt_files.append(file_path)
 
-    print("Parsed headers:", headers)
-    print("Parsed dt_files:", dt_files)
-    print("-" * 80)
+    tree_logger.info(f"Parsed headers: {headers}")
+    tree_logger.info(f"Parsed dt_files: {dt_files}")
+    tree_logger.info("-" * 80)
 
     return headers, dt_files
 
@@ -55,7 +55,6 @@ def parse_devicetree_dependencies_from_file(filename, kernel_root):
     parsed_headers = []
     parsed_dt_files = []
     while True:
-        print("loop")
 
         headers_to_parse = []
         dts_to_parse = []
@@ -109,8 +108,6 @@ def determine_relationships(parsed_headers, parsed_dt_files, kernel_root):
 
     all_files = parsed_headers + parsed_dt_files
     all_file_names = parsed_header_names + parsed_dt_file_names
-
-    print(all_files)
 
     source_files = {}
     for path, name in zip(all_files, all_file_names):
@@ -301,7 +298,23 @@ def parse_page_for_dt_references(text):
             urls = re.findall(url_pattern, line)
             for url in urls:
                 if ".dts" in url:
-                    print(f"Found DTS URL: {url}")
+                    tree_logger.info(f"Found DTS URL: {url}")
+
+                    # Check branch
+                    #  https://github.com/analogdevicesinc/linux/rpi-4.19.y?arch/arm/boot/dts/overlays/rpi-adxl367-overlay.dts
+                    # Branch is before the first "?" so rpi-4.19.y in this case
+                    if "?" in url:
+                        branch = url.split("?")[0].split("/")[-1].strip()
+                        tree_logger.info(f"Branch: {branch}")
+                        if branch != "main":
+                            tree_logger.warning(f"Branch is not main, skipping")
+                            with open("failed.txt", "a") as f:
+                                f.write(f"Branch is not main: {url}\n")
+                            continue
+                    else:
+                        tree_logger.warning(f"Failed to find branch in URL: {url}")
+
+
                     dt_files.append(url)
 
     return dt_files
@@ -310,6 +323,7 @@ def parse_page_for_dt_references(text):
 def generate_dt_graph_for_all_dts_files(text, kernel_root, output_folder="dts_graphs"):
     """Generate a devicetree graph for all dts files."""
     # Remove output folder if it exists
+    all_files = []
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
     dts_files = parse_page_for_dt_references(text)
@@ -321,14 +335,53 @@ def generate_dt_graph_for_all_dts_files(text, kernel_root, output_folder="dts_gr
         assert dts_file_path, "Failed to extract dts file path: {dts_file}"
         dts_file_path = os.path.join(kernel_root, dts_file_path)
         files = generate_dt_graph_page(dts_file_path, kernel_root)
+        all_files.append(files)
         # Move to common folder
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
         for file in files.values():
             shutil.move(file, output_folder)
 
-    return output_folder
+    return output_folder, all_files
 
+def create_reference_blob_to_dt_graphs(folder, dt_graphs_folder):
+
+    try:
+        if dt_graphs_folder:
+            dt_files = os.listdir(dt_graphs_folder)
+            # Move to folder with driver
+            if os.path.exists(os.path.join(folder, dt_graphs_folder)):
+                shutil.rmtree(os.path.join(folder, dt_graphs_folder))
+
+            shutil.move(dt_graphs_folder, folder)
+
+            # Add links to devicetree map pages
+            dt_toc = "\n\n## Devicetree Maps\n\n"
+
+            for dt_file in dt_files:
+                if not dt_file.endswith(".md"):
+                    continue
+                dt_file_full = os.path.join(dt_graphs_folder, dt_file)
+                # [reference1](#heading-target)
+                dt_toc += f"- [{dt_file}](#{dt_file.replace('.md','')})\n"
+
+            dt_toc += "\n\n"
+
+            # dt_toc += "\n\n```{toctree}\n"
+            # dt_toc += ":maxdepth: 1\n\n"
+            # dt_toc += ":caption: Example Devicetrees\n\n"
+            # for dt_file in dt_files:
+            #     if not dt_file.endswith(".md"):
+            #         continue
+            #     dt_file_full = os.path.join(dt_graphs_folder, dt_file)
+            #     dt_toc += f"dt_file <{dt_file_full}>\n"
+            # dt_toc += "```\n\n"
+
+    except Exception as e:
+        print(f"Failed to generate devicetree map pages: {e}")
+        dt_toc = None
+
+    return dt_toc
 
 if __name__ == "__main__":
     # Parse the devicetree dependencies

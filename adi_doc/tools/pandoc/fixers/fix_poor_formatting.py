@@ -9,6 +9,7 @@ import logging
 
 fpl_logger = logging.getLogger("fix_poor_formatting")
 
+
 def fix_poor_formatting(text):
 
     # Check if any formatting is broken

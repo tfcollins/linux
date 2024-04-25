@@ -15,7 +15,7 @@ def update_graphviz_blocks(text):
         # Only handle the first tag found
         if not wrap_tag_locations:
             return text, False
-        tag_text = text[wrap_tag_locations[0][0]:wrap_tag_locations[0][1]]
+        tag_text = text[wrap_tag_locations[0][0] : wrap_tag_locations[0][1]]
         # print("Tag text: ", tag_text)
         if not is_end_tag:
             # Parse the tag text to determine the type of admonition
@@ -23,7 +23,9 @@ def update_graphviz_blocks(text):
             tag = soup.find()
             # print("Tag name: ", tag.name)
             # print("Tag attrs: ", tag.attrs)
-            attrs_as_string = " ".join([f'{key}="{value}"' for key, value in tag.attrs.items()])
+            attrs_as_string = " ".join(
+                [f'{key}="{value}"' for key, value in tag.attrs.items()]
+            )
             # Replace the tag with the appropriate admonition tag
             if "graphviz" in tag_text:
                 replacement = f"<!-- ATTRS: {attrs_as_string} -->\n" + "```{graphviz} "
@@ -32,9 +34,12 @@ def update_graphviz_blocks(text):
         else:
             replacement = "\n```\n"
 
-        text = text[:wrap_tag_locations[0][0]] + replacement + text[wrap_tag_locations[0][1]:]
+        text = (
+            text[: wrap_tag_locations[0][0]]
+            + replacement
+            + text[wrap_tag_locations[0][1] :]
+        )
         return text, True
-
 
     def replace(text, tag, is_end_tag=False):
         while True:
@@ -50,12 +55,14 @@ def update_graphviz_blocks(text):
     # Remove all backslashes between the graphviz tags
     def replace_backslashes(text):
         while True:
-            backslash_locations = [(m.start(), m.end()) for m in re.finditer(r"\\", text)]
+            backslash_locations = [
+                (m.start(), m.end()) for m in re.finditer(r"\\", text)
+            ]
             if not backslash_locations:
                 break
-            text = text[:backslash_locations[0][0]] + text[backslash_locations[0][1]:]
+            text = text[: backslash_locations[0][0]] + text[backslash_locations[0][1] :]
         return text
-    
+
     text = replace_backslashes(text)
 
     return text

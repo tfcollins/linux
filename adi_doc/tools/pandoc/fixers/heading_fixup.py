@@ -25,7 +25,7 @@ def adjust_heading(text):
         title = heading[1].strip()
         if title:
             # Adjust heading level
-            if i==0:
+            if i == 0:
                 level = 1
             else:
                 level = level + 1
