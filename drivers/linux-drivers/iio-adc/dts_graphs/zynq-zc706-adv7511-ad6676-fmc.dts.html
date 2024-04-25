@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>zynq-zc706-adv7511-ad6676-fmc.dts Devicetree Map &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+    <script src="../../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../../hdl/index.html">HDL</a>
+  <a href="../../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">zynq-zc706-adv7511-ad6676-fmc.dts Devicetree Map</a></li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../../hdl/index.html">HDL</a>
+  <a href="../../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul>
+<li class="toctree-l1"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1"/><div class="collapse"><a class="reference internal" href="../../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adis16203.html">ADIS16203</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adis16209.html">ADIS16209</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-accelerometer/adis16240.html">ADIS16240</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-amplifiers/ad8366.html">AD8366</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-amplifiers/ada4250.html">ADA4250</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-amplifiers/hmc425a.html">HMC425</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad400x.html">AD4003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad4630.html">AD4030-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad9208.html">AD6684</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7476a.html">AD7091</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7091r5.html">AD7091R-5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7091r8.html">AD7091R-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7124.html">AD7124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7780.html">AD7170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7192.html">AD7190</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7266.html">AD7265</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7280a.html">AD7280A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7291.html">AD7291</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7298.html">AD7298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7606.html">AD7605-4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7766.html">AD7766-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7768-1.html">AD7768-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7768.html">AD7768</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7793.html">AD7785</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7791.html">AD7787</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7887.html">AD7887</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad7998.html">AD7991</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad9083.html">AD9083</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-mxfe/ad9081.html">AD9207</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../axi-adc-hdl.html">AD9234</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adaq8092.html">ADAQ8092</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adas1000.html">ADAS1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-transceiver/adar1000.html">ADAR1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-cdc/ad7152.html">AD7152</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-cdc/ad7150.html">AD7150</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-cdc/ad7745.html">AD7745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-addac/ad74413r.html">AD74412R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/axi-ad3552r.html">AD3552R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5064.html">AD5024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5446.html">AD5300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5676.html">AD5310R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5360.html">AD5360</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5380.html">AD5380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5449.html">AD5415</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5421.html">AD5421</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5504.html">AD5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5592r.html">AD5592R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5593r.html">AD5593R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5624r.html">AD5624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5755.html">AD5735</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5764.html">AD5744</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5758.html">AD5758</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5791.html">AD5760</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ad5770r.html">AD5770R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dds/axi-dac-dds-hdl.html">AD9122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dac/ltc2664.html">LTC2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dds/ad9832.html">AD9832</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-dds/ad9834.html">AD9833</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-filter/admv8818.html">ADMV8818</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/ad9162.html">AD9161</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/ad9508.html">AD9508</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/ad9517.html">AD9516-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/ad9523.html">AD9523-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/ad9528.html">AD9528</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/adf4159.html">ADF4159</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/adf4350.html">ADF4350</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/adf4360.html">ADF4360-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/adf4371.html">ADF4371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/adf4377.html">ADF4377</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/adf5355.html">ADF4355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/admv1013.html">ADMV1013</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/admv1014.html">ADMV1014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/adrf6780.html">ADRF6780</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/hmc7044.html">HMC7044</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-pll/ltc6952.html">LTC6952</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-gyroscope/adis16060.html">ADIS16060</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-gyroscope/adis16080.html">ADIS16080</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-gyroscope/adis16130.html">ADIS16130</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-gyroscope/adis16136.html">ADIS16133</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-gyroscope/adis16260.html">ADIS16251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-resolver/ad2s90.html">AD2S90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-resolver/ad2s1200.html">AD2S1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-resolver/ad2s1210.html">AD2S1210</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ad6676.html">AD6676</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-transceiver/ad9361.html">AD9361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-transceiver/ad9371.html">AD9371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-transceiver/adrv9002.html">ADRV9002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-transceiver/adrv9009.html">ADRV9008-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-temperature/ltc2983.html">LTC2983</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iio-vector-power/adl5960.html">ADL5960</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-misc/ad714x.html">AD7142</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-touchscreen/ad7873.html">AD7873</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-touchscreen/ad7877.html">AD7877</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../input-touchscreen/ad7879.html">AD7879</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../leds/adp1650.html">ADP1650</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../misc/dpot.html">AD5160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mux/adgs1408.html">ADGS1408</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../networking-mac802154/adf7242.html">ADF7241</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../regulator/adp150.html">ADP122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../regulator/ad5398.html">AD5398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../serial/max310x.html">MAX3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/ad1835a.html">AD1835A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/ad1936.html">AD1933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/ad73322.html">AD73311</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adau1361.html">ADAU1361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adau1372.html">ADAU1372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adau1373.html">ADAU1373</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adau1381.html">ADAU1381</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adau1701.html">ADAU1401A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adau1977.html">ADAU1977</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adau7002.html">ADAU7002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adau7118.html">ADAU7118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/adav801.html">ADAV801</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/ssm2602.html">SSM2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sound/ssm4567.html">SSM4567</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../drm/adv7511.html">ADV7511</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../guides/build.html">Building Kernels</a></li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="zynq-zc706-adv7511-ad6676-fmc-dts-devicetree-map">
+<span id="zynq-zc706-adv7511-ad6676-fmc-dts"></span><h1>zynq-zc706-adv7511-ad6676-fmc.dts Devicetree Map<a class="headerlink" href="#zynq-zc706-adv7511-ad6676-fmc-dts-devicetree-map" title="Link to this heading">¶</a></h1>
+<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" d2Version="v0.6.5" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1069 767"><svg id="d2-svg" class="d2-3355870766" width="1069" height="767" viewBox="-198 -160 1069 767"><rect x="-198.000000" y="-160.000000" width="1069.000000" height="767.000000" rx="0.000000" fill="transparent" stroke-width="0" /><style type="text/css"><![CDATA[
+.d2-3355870766 .text {
+	font-family: "d2-3355870766-font-regular";
+}
+@font-face {
+	font-family: d2-3355870766-font-regular;
+	src: url("data:application/font-woff;base64,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");
+}
+@font-face {
+	font-family: d2-3355870766-font-semibold;
+	src: url("data:application/font-woff;base64,d09GRgABAAAAABAQAAoAAAAAGGgAAguFAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAAA9AAAAGAAAABgXqrWeWNtYXAAAAFUAAAAmgAAAMwDbgSFZ2x5ZgAAAfAAAAk7AAAMgBV68wdoZWFkAAALLAAAADYAAAA2FnoA72hoZWEAAAtkAAAAJAAAACQKgQXraG10eAAAC4gAAACgAAAArEuwBotsb2NhAAAMKAAAAFgAAABYR8hK2m1heHAAAAyAAAAAIAAAACAAQwD2bmFtZQAADKAAAANOAAAIcCYSZQ5wb3N0AAAP8AAAAB0AAAAg/9EAMgADAhoCWAAFAAACigJYAAAASwKKAlgAAAFeADIBJgAAAgsGAwMEAwICBGAAAvcAAAADAAAAAAAAAABBREJPAAAAIP//Au7/BgAAA9gBESAAAZ8AAAAAAesClAAAACAAA3icbMy7TsIAGEDhr7Zq1ar1Xu/Vepm8bCbOvoircTaGpwEehPAqrDAT2H6STgyc9UsOEqkEhcwQlVIqV2u8ePXmw6cvP/50IliS91a+/fqPiJEs5jGNWUxiHIPoRy+67Xt1iWePGk8uXbl241btzr0Ha1KZdRs25bZs21HYtWdf6cChI8dOnDpTOXfBAgAA//8BAAD//ysnH+MAAHicZFZZbBvX2f3ukOKIFLWMOMMx92XIGVKiSIrD4WgxF60WaWoxtdiiVkeOFyWxf4dWnATKDxgNUtcPRhKkKWrkIXaDLEjqFingomgbNHJQJEWRIE7QJUH70CBNExZtgqpRUFhkcYekJbkPVwMNON93vnPPOfdCHUwBEFniGVCBFpqhFRgAkXJRXlEQOFIWZZljVbKAKHIKfVO6cqsrqA6F1MHwm52PnjmDJk8Tz2zff/DksWN/XpydLT373vulZfT8+wAETAIQKeIy1AOFK4oRI0NrOEGMxKQoz3GTP3r25Ref7hNX7r9/RSQuX7v2g5cWC488fBrwt6HyJrqJtsAEHADr5qVoTOZ5zq0hhVgMV6I4gdNohEhMljQahjb+KnXo0veQEPEMudr8J3rm55bq1a6DpL3TemzMp59IjR9uEbqt9KiZf+BE6U8xK5+3mU43il6XXemXLm8SWmIDWsEOUOcWOJKjRIas9KKVRhi0m2SMRiQPp1S6uYLKkfHOH9+/NN7ZH+mKdplFfSpKbNzIWdwXz06dTy7NTGZy8qdGAwACf3kT3UBbYMHVeTwOrsySykwMbRQjMZnVaJBx4L7k4Nm+0LCly+Bjew+me2wiE3JP6eOFQ7lC3MkepAz5TDpvorJ2OxDQXt5ERWIDDOCo8aQUFiSxxpAs1Zr8e/5077LU1mtVF5bq1ZYRvRw2RUyhgR79xUcmziVspvHXtxOShV+SP2Vbp0fHp0DhBmP/HdqCfbjHLvRGhiZdxhp0lYj50SDL4OlU38nugXywrvR2/VivU7YI3MzrH0Ui7QN4iolzid5TQx66b8RAjbB2FO7uS+I+CHOD8sS7Ff1xkixFqxxxboYRGY5a6O/PHjaHW4wWS2J5GT05UyeOrujIGf2kNFf6PwBQga8soP+gLYhAArIKI7wUxQxgAUk7xIsMZ1Q2lnPzgiIgsbrTqupO43eGqlTdAv5vs2dBGjaYXIxJiM2KtLf5x3l9S2Qq2uKmGhq5jsOzc6mHMlyk0+OJRMK9mY62AZ+FH/yjtbs9HlDrfXZbqFltGGzvHvOTddNN7ebYQV5D6miK2dedCo8H0S+joaAYCYWipcthh40mbR6XF/OSBkB/JzaAVlxUEyXFUQpMkkoX1I5sZHyk4PE7Ox3Exo0lW8fxhdJvkTcecdhLr0C5DAkAeJt4i+DBBwAk+OFbAOVy+VY5Au8o79uq7x9X9iJd3oSviQ1orqiKEqk7Gv1ZXCy0aNUk2axz6DMpYnD7BkMhNKPWVLCq6tEWuBSsrFhhew9i8s4zvVSvdqSDsT6KGw2OZc55+WB3wSsEu1FxwBUM+flIbYx46ZXqo8YH2qryUe2xmw9s/bE7hKBivzO4h4+qpm+jLWi+y5F7zI43HbXGV/v7V+MJ/DcRSyRisXi86sZ4IXeoEF/MpzN57MlKjiQILdqq+nEHXVVpLGPYFSTK/KO++Xv3L8nOlF21UgkSS2SD+GHUzF98cOp8wmbKXUHMTpQonk+gYq1HnSQrpe8IWxYp1S7Po4fVlmFeMb4/5VDp5j6qmX7jas7MVYxvD21PImbH9RWOz6OtanJXpqimVYVgc0bgGLrR2GJLsah4OCzqjqnVHV2lDyte3lfeRE+hLaw21s0LshITUpTnhSBxx9dViKydYGjNrcgxT8zV7/XxjrDZmfQt56I5u2SWbF7Pfp871X6PXrBlTHa3ibEwOj0n+/tyHnbYwDpYm71Jz3UFk7OAgC5vojxxFowV3UqcJMsiDg+Grsr36+kDw9mm5cceG2q06mha1K+MfzFT98QTc1/MkOppsqGCf7C8iT5BRayxPfqnqrH6MVaXz9lpLSxqVc6s/vgCipY+jkecHjRRYkb4ICDQAyg1GgFElcgajZhGWRZVP311bUzH6NQNjG7szEuoWPZkeD7jKZcYpXcTAPoAFcEEIBqEXR+SLCfwPG5Pkk3PPb0uN7ANai2tDZ1/6rn1/XpTo1pnbIgiKC7Q7TTdTi9886+jxgDDtLNHcV19OabgMe/eE1neA02jWaXtTQxp0AohvfbNtekGpkGtNWgzZ153HPmNRp0n6kJeB/r0K+cBzn3A9dV2eVKp7QZA11ARtACiZOAkF6MSGfff3kWLn/0zgXJz8dL1eaxdX3kT/YG4CA1V31W0wNDYc4o+OLeSxkYEK2trK3g5whZL2GEPW61h/WtXr7744tWrr+VDq/n8yfb2k/n8agj3zwCgd4h1zLmIjz4pFpNxWGYur4WG7TOPLaJrI1pT6/ZfFiv76wJAHxIXMQpRShAVu9fuFrRGg0NWZPjZC8Mx0Rs3pwKLffMPJE8lTT3scwMz3z4Tjuxvs6VC4ups19qjA0TdPVXNv0dcBP/dmuekWqDsdMD+x42+HD3llm2ZcLTPdSi9OBIJeBO2Xv9C9/yDvdGubPxeveTN2Pxih6vTPNUT8HW4LAc8gcOHpDStbp5I9uQClTO6FQB9RqyDFitWFvFph2VikFySAfPAMY+/pEZqvblJLH12+zsTE9tPWrNWU9hcyr0whi6VLsy+cMe37xPr4LxrBgW7wcVw5E5MfjV6ipNsI2FpOCU52myyAU192UgLJjkvJ4/rJS5j8ad6uhOUgUM9R6/oGtqODA3dE63gDZQ30ceKDnwAyK0ha41U/3M70uzcwpDest+iTQV9suRLrCYPPNjXM2VNULLN1+9XWbPuyRNyHsVcvulssqeru/RG/6X71r8/0mYfZiyBE0c439FjycWoMmcAAP2eWFe8mSBkl+RimlTkyxpPJl76AL3aNSS0qs/+5Nr00eGh/7/w3QXlm2R5Ez6EJ6GhdtOqoLrkCAQczrY2fcDtDuCFz1vlt+ivhIDvr2gGNPgJCNrgFtqHeFAByJLItP3j1tRUxZvLaID4NX7PGkSV/vOxz59XHb99BXOFK3xCXAILzntR5qTKEkllMZyyOJkjDaLMHdk3Ot1yaM44xKyxg8zEbMv0IjvMru1zPtTy0M3shez169evZy9kb968iZovVLyQBoBfoCLuLVIilS6gYokBVP450QdDxFt4XmrXvA6edzh4nujz2G0ej83uAUDKPeINVISWPbrBsanRuC1Ck1HHNLjYc/bBd+vrZlR1He2EZvt2NBeC/wIAAP//AQAA//8mNaOpAAABAAAAAguFAT0GGV8PPPUAAwPoAAAAANhdoKsAAAAA2F4RM/44/s8IbgPdAAAAAwACAAAAAAAAAAEAAAPY/u8AAAiY/jj+OAhuAAEAAAAAAAAAAAAAAAAAAAAreJwsjTFOwnAcRt/3aapDo4k6NHFSY9JqoyayAglh+cEIA1dgZOA+3IAD9AJMDNyAE3AAhpL+w/Dylpc8b5izA6+Y+ZZf/xPaU7nHt85U6vPqe0r/EMoY6K496JG4mRL+I/yZ2kj9mtCWQkteXDPWiVxHHpIb3i1Ki4nFm0Vh8XR13aFnhokRX1qQW3woI6Btuu8FAAD//wEAAP//glgYdgAAACwALABKAIIAsgDeARABRAFmAdAB8gH+AgoCJgJYAnoCpgLYAwoDKgNmA4oDrAPIA/QEIgQ2BGIEegSkBOIFBgU6BXoFlAWqBbYFwgXQBgAGDAYiBkAAAQAAACsAjgAMAGQABwABAAAAAAAAAAAAAAAAAAQAA3icnJRBbxtFHMV/a6c2FSIqCEWphKo5gtSukyip2uaCQxrVIrKDNwVx3MRrexV719pdJ4SPwUfgxhfgzKkfgQNHPgAHDpzRvJnEdUCQRpWat56ZN+///m/+wFqwSp1g5T7wBjwO2OCNxzVW+cvjOt1gxeOVt/bcYxD0PW7wOPjZ4ya/BL97/B7btR89vs967VeP32er9ofHH9RN3Xi8ynbjc48f8KhRefwhDxo/OBzAs4bnDALWG795XOPjxp8e11lrNjxeYa35icf3+Ki55XGDR819fsKwxQabbGB4cv31DEObATknJBgiLimpSJhSYuiQcUpOwUz/x1obYPiUMRUVM17QosWF/oXE12yhTk5p8RmPMVyQUjHG0CehJKHg3LMdkJNRYegSM7VazDoROXMKTknMQ8K3v6U1JpPKIwpy/WJ1p5yQM2Gge0bMmRBTsEXIBtvssEubffbosbvEecXo+J78g8+d67HHS76W/pJUys0S+5icStVnnGPY1Foo95+zy5SYMxLtGpLwneqxDDuEPGWHHZ7z9J20LXuTypcYQ6WuDbTbunCGIWd4576nqtb20Z57TaauurWIyu90t2cMaOm8Ua1jeWbEPFe/C1LtDu+k5ohY3TXsE2J45Vlvn8yKS2YkHDP2ni2SGMmnigv5tnB1QiqXM2XY1j1Xpa62K2ciOhxi6Ik/W2I+XGKwb+NmmjaVFlvTQtnyvYsenxOTKuMnTLSyeGmx7m3zlXDFC8wNd0pO1YUZlfpQiiuUzyNa9Djg8IaS//dooL+uvyfMrxPiqrPJsO+7TaTuRuYhhj19d4jkyDd0OOYVPV5zrO82ffq06XJMh5c626OP4Qt6dNnXiY6wWztQyrt8i+FLOtpjuRPvj+uYfX8zqS+l3eU1ZcpMnlvloZ8uyZ06bBh61quzpc6ckjLUTqP+ZZpWMSOfipkUTuXlVTYWL8slYqpabG8X6yNyTdZCr9OyGi79fLBpdZrcFKhu0dXwTpn572l9c34d6aahVBc+LW2ps7mOKTlzuSFXfRkJZ5REcq6Ur/bM92LINYsKvYyR1Fu32kyUROuLmyHWy3/7dSR9hfrjeG22rNOTa0eH4p675PwNAAD//wEAAP//2S9cXwAAeJxiYGYAg//nGIwYsAAAAAAA//8BAAD//y8BAgMAAAA=");
+}
+.appendix-icon {
+	filter: drop-shadow(0px 0px 32px rgba(31, 36, 58, 0.1));
+}
+.d2-3355870766 .text-bold {
+	font-family: "d2-3355870766-font-bold";
+}
+@font-face {
+	font-family: d2-3355870766-font-bold;
+	src: url("data:application/font-woff;base64,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");
+}]]></style><style type="text/css"><![CDATA[.shape {
+  shape-rendering: geometricPrecision;
+  stroke-linejoin: round;
+}
+.connection {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.blend {
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+		.d2-3355870766 .fill-N1{fill:#0A0F25;}
+		.d2-3355870766 .fill-N2{fill:#676C7E;}
+		.d2-3355870766 .fill-N3{fill:#9499AB;}
+		.d2-3355870766 .fill-N4{fill:#CFD2DD;}
+		.d2-3355870766 .fill-N5{fill:#DEE1EB;}
+		.d2-3355870766 .fill-N6{fill:#EEF1F8;}
+		.d2-3355870766 .fill-N7{fill:#FFFFFF;}
+		.d2-3355870766 .fill-B1{fill:#0D32B2;}
+		.d2-3355870766 .fill-B2{fill:#0D32B2;}
+		.d2-3355870766 .fill-B3{fill:#E3E9FD;}
+		.d2-3355870766 .fill-B4{fill:#E3E9FD;}
+		.d2-3355870766 .fill-B5{fill:#EDF0FD;}
+		.d2-3355870766 .fill-B6{fill:#F7F8FE;}
+		.d2-3355870766 .fill-AA2{fill:#4A6FF3;}
+		.d2-3355870766 .fill-AA4{fill:#EDF0FD;}
+		.d2-3355870766 .fill-AA5{fill:#F7F8FE;}
+		.d2-3355870766 .fill-AB4{fill:#EDF0FD;}
+		.d2-3355870766 .fill-AB5{fill:#F7F8FE;}
+		.d2-3355870766 .stroke-N1{stroke:#0A0F25;}
+		.d2-3355870766 .stroke-N2{stroke:#676C7E;}
+		.d2-3355870766 .stroke-N3{stroke:#9499AB;}
+		.d2-3355870766 .stroke-N4{stroke:#CFD2DD;}
+		.d2-3355870766 .stroke-N5{stroke:#DEE1EB;}
+		.d2-3355870766 .stroke-N6{stroke:#EEF1F8;}
+		.d2-3355870766 .stroke-N7{stroke:#FFFFFF;}
+		.d2-3355870766 .stroke-B1{stroke:#0D32B2;}
+		.d2-3355870766 .stroke-B2{stroke:#0D32B2;}
+		.d2-3355870766 .stroke-B3{stroke:#E3E9FD;}
+		.d2-3355870766 .stroke-B4{stroke:#E3E9FD;}
+		.d2-3355870766 .stroke-B5{stroke:#EDF0FD;}
+		.d2-3355870766 .stroke-B6{stroke:#F7F8FE;}
+		.d2-3355870766 .stroke-AA2{stroke:#4A6FF3;}
+		.d2-3355870766 .stroke-AA4{stroke:#EDF0FD;}
+		.d2-3355870766 .stroke-AA5{stroke:#F7F8FE;}
+		.d2-3355870766 .stroke-AB4{stroke:#EDF0FD;}
+		.d2-3355870766 .stroke-AB5{stroke:#F7F8FE;}
+		.d2-3355870766 .background-color-N1{background-color:#0A0F25;}
+		.d2-3355870766 .background-color-N2{background-color:#676C7E;}
+		.d2-3355870766 .background-color-N3{background-color:#9499AB;}
+		.d2-3355870766 .background-color-N4{background-color:#CFD2DD;}
+		.d2-3355870766 .background-color-N5{background-color:#DEE1EB;}
+		.d2-3355870766 .background-color-N6{background-color:#EEF1F8;}
+		.d2-3355870766 .background-color-N7{background-color:#FFFFFF;}
+		.d2-3355870766 .background-color-B1{background-color:#0D32B2;}
+		.d2-3355870766 .background-color-B2{background-color:#0D32B2;}
+		.d2-3355870766 .background-color-B3{background-color:#E3E9FD;}
+		.d2-3355870766 .background-color-B4{background-color:#E3E9FD;}
+		.d2-3355870766 .background-color-B5{background-color:#EDF0FD;}
+		.d2-3355870766 .background-color-B6{background-color:#F7F8FE;}
+		.d2-3355870766 .background-color-AA2{background-color:#4A6FF3;}
+		.d2-3355870766 .background-color-AA4{background-color:#EDF0FD;}
+		.d2-3355870766 .background-color-AA5{background-color:#F7F8FE;}
+		.d2-3355870766 .background-color-AB4{background-color:#EDF0FD;}
+		.d2-3355870766 .background-color-AB5{background-color:#F7F8FE;}
+		.d2-3355870766 .color-N1{color:#0A0F25;}
+		.d2-3355870766 .color-N2{color:#676C7E;}
+		.d2-3355870766 .color-N3{color:#9499AB;}
+		.d2-3355870766 .color-N4{color:#CFD2DD;}
+		.d2-3355870766 .color-N5{color:#DEE1EB;}
+		.d2-3355870766 .color-N6{color:#EEF1F8;}
+		.d2-3355870766 .color-N7{color:#FFFFFF;}
+		.d2-3355870766 .color-B1{color:#0D32B2;}
+		.d2-3355870766 .color-B2{color:#0D32B2;}
+		.d2-3355870766 .color-B3{color:#E3E9FD;}
+		.d2-3355870766 .color-B4{color:#E3E9FD;}
+		.d2-3355870766 .color-B5{color:#EDF0FD;}
+		.d2-3355870766 .color-B6{color:#F7F8FE;}
+		.d2-3355870766 .color-AA2{color:#4A6FF3;}
+		.d2-3355870766 .color-AA4{color:#EDF0FD;}
+		.d2-3355870766 .color-AA5{color:#F7F8FE;}
+		.d2-3355870766 .color-AB4{color:#EDF0FD;}
+		.d2-3355870766 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}]]></style><style type="text/css">.d2-3355870766 .md em,
+.d2-3355870766 .md dfn {
+  font-family: "d2-3355870766-font-italic";
+}
+
+.d2-3355870766 .md b,
+.d2-3355870766 .md strong {
+  font-family: "d2-3355870766-font-bold";
+}
+
+.d2-3355870766 .md code,
+.d2-3355870766 .md kbd,
+.d2-3355870766 .md pre,
+.d2-3355870766 .md samp {
+  font-family: "d2-3355870766-font-mono";
+  font-size: 1em;
+}
+
+.d2-3355870766 .md {
+  tab-size: 4;
+}
+
+/* variables are provided in d2renderers/d2svg/d2svg.go */
+
+.d2-3355870766 .md {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+  color: var(--color-fg-default);
+  background-color: transparent; /* we don't want to define the background color */
+  font-family: "d2-3355870766-font-regular";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.d2-3355870766 .md details,
+.d2-3355870766 .md figcaption,
+.d2-3355870766 .md figure {
+  display: block;
+}
+
+.d2-3355870766 .md summary {
+  display: list-item;
+}
+
+.d2-3355870766 .md [hidden] {
+  display: none !important;
+}
+
+.d2-3355870766 .md a {
+  background-color: transparent;
+  color: var(--color-accent-fg);
+  text-decoration: none;
+}
+
+.d2-3355870766 .md a:active,
+.d2-3355870766 .md a:hover {
+  outline-width: 0;
+}
+
+.d2-3355870766 .md abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.d2-3355870766 .md dfn {
+  font-style: italic;
+}
+
+.d2-3355870766 .md h1 {
+  margin: 0.67em 0;
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.d2-3355870766 .md mark {
+  background-color: var(--color-attention-subtle);
+  color: var(--color-text-primary);
+}
+
+.d2-3355870766 .md small {
+  font-size: 90%;
+}
+
+.d2-3355870766 .md sub,
+.d2-3355870766 .md sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.d2-3355870766 .md sub {
+  bottom: -0.25em;
+}
+
+.d2-3355870766 .md sup {
+  top: -0.5em;
+}
+
+.d2-3355870766 .md img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: var(--color-canvas-default);
+}
+
+.d2-3355870766 .md figure {
+  margin: 1em 40px;
+}
+
+.d2-3355870766 .md hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid var(--color-border-muted);
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: var(--color-border-default);
+  border: 0;
+}
+
+.d2-3355870766 .md input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.d2-3355870766 .md [type="button"],
+.d2-3355870766 .md [type="reset"],
+.d2-3355870766 .md [type="submit"] {
+  -webkit-appearance: button;
+}
+
+.d2-3355870766 .md [type="button"]::-moz-focus-inner,
+.d2-3355870766 .md [type="reset"]::-moz-focus-inner,
+.d2-3355870766 .md [type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+.d2-3355870766 .md [type="button"]:-moz-focusring,
+.d2-3355870766 .md [type="reset"]:-moz-focusring,
+.d2-3355870766 .md [type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+.d2-3355870766 .md [type="checkbox"],
+.d2-3355870766 .md [type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.d2-3355870766 .md [type="number"]::-webkit-inner-spin-button,
+.d2-3355870766 .md [type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.d2-3355870766 .md [type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+.d2-3355870766 .md [type="search"]::-webkit-search-cancel-button,
+.d2-3355870766 .md [type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.d2-3355870766 .md ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.54;
+}
+
+.d2-3355870766 .md ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+.d2-3355870766 .md a:hover {
+  text-decoration: underline;
+}
+
+.d2-3355870766 .md hr::before {
+  display: table;
+  content: "";
+}
+
+.d2-3355870766 .md hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.d2-3355870766 .md table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.d2-3355870766 .md td,
+.d2-3355870766 .md th {
+  padding: 0;
+}
+
+.d2-3355870766 .md details summary {
+  cursor: pointer;
+}
+
+.d2-3355870766 .md details:not([open]) > *:not(summary) {
+  display: none !important;
+}
+
+.d2-3355870766 .md kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  color: var(--color-fg-default);
+  vertical-align: middle;
+  background-color: var(--color-canvas-subtle);
+  border: solid 1px var(--color-neutral-muted);
+  border-bottom-color: var(--color-neutral-muted);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--color-neutral-muted);
+}
+
+.d2-3355870766 .md h1,
+.d2-3355870766 .md h2,
+.d2-3355870766 .md h3,
+.d2-3355870766 .md h4,
+.d2-3355870766 .md h5,
+.d2-3355870766 .md h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  font-family: "d2-3355870766-font-semibold";
+}
+
+.d2-3355870766 .md h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+
+.d2-3355870766 .md h3 {
+  font-size: 1.25em;
+}
+
+.d2-3355870766 .md h4 {
+  font-size: 1em;
+}
+
+.d2-3355870766 .md h5 {
+  font-size: 0.875em;
+}
+
+.d2-3355870766 .md h6 {
+  font-size: 0.85em;
+  color: var(--color-fg-muted);
+}
+
+.d2-3355870766 .md p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.d2-3355870766 .md blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: var(--color-fg-muted);
+  border-left: 0.25em solid var(--color-border-default);
+}
+
+.d2-3355870766 .md ul,
+.d2-3355870766 .md ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.d2-3355870766 .md ol ol,
+.d2-3355870766 .md ul ol {
+  list-style-type: lower-roman;
+}
+
+.d2-3355870766 .md ul ul ol,
+.d2-3355870766 .md ul ol ol,
+.d2-3355870766 .md ol ul ol,
+.d2-3355870766 .md ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.d2-3355870766 .md dd {
+  margin-left: 0;
+}
+
+.d2-3355870766 .md pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  word-wrap: normal;
+}
+
+.d2-3355870766 .md ::placeholder {
+  color: var(--color-fg-subtle);
+  opacity: 1;
+}
+
+.d2-3355870766 .md input::-webkit-outer-spin-button,
+.d2-3355870766 .md input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.d2-3355870766 .md::before {
+  display: table;
+  content: "";
+}
+
+.d2-3355870766 .md::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.d2-3355870766 .md > *:first-child {
+  margin-top: 0 !important;
+}
+
+.d2-3355870766 .md > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.d2-3355870766 .md a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.d2-3355870766 .md .absent {
+  color: var(--color-danger-fg);
+}
+
+.d2-3355870766 .md .anchor {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.d2-3355870766 .md .anchor:focus {
+  outline: none;
+}
+
+.d2-3355870766 .md p,
+.d2-3355870766 .md blockquote,
+.d2-3355870766 .md ul,
+.d2-3355870766 .md ol,
+.d2-3355870766 .md dl,
+.d2-3355870766 .md table,
+.d2-3355870766 .md pre,
+.d2-3355870766 .md details {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.d2-3355870766 .md blockquote > :first-child {
+  margin-top: 0;
+}
+
+.d2-3355870766 .md blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.d2-3355870766 .md sup > a::before {
+  content: "[";
+}
+
+.d2-3355870766 .md sup > a::after {
+  content: "]";
+}
+
+.d2-3355870766 .md h1:hover .anchor,
+.d2-3355870766 .md h2:hover .anchor,
+.d2-3355870766 .md h3:hover .anchor,
+.d2-3355870766 .md h4:hover .anchor,
+.d2-3355870766 .md h5:hover .anchor,
+.d2-3355870766 .md h6:hover .anchor {
+  text-decoration: none;
+}
+
+.d2-3355870766 .md h1 tt,
+.d2-3355870766 .md h1 code,
+.d2-3355870766 .md h2 tt,
+.d2-3355870766 .md h2 code,
+.d2-3355870766 .md h3 tt,
+.d2-3355870766 .md h3 code,
+.d2-3355870766 .md h4 tt,
+.d2-3355870766 .md h4 code,
+.d2-3355870766 .md h5 tt,
+.d2-3355870766 .md h5 code,
+.d2-3355870766 .md h6 tt,
+.d2-3355870766 .md h6 code {
+  padding: 0 0.2em;
+  font-size: inherit;
+}
+
+.d2-3355870766 .md ul.no-list,
+.d2-3355870766 .md ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.d2-3355870766 .md ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.d2-3355870766 .md ol[type="a"] {
+  list-style-type: lower-alpha;
+}
+
+.d2-3355870766 .md ol[type="i"] {
+  list-style-type: lower-roman;
+}
+
+.d2-3355870766 .md div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.d2-3355870766 .md ul ul,
+.d2-3355870766 .md ul ol,
+.d2-3355870766 .md ol ol,
+.d2-3355870766 .md ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.d2-3355870766 .md li > p {
+  margin-top: 16px;
+}
+
+.d2-3355870766 .md li + li {
+  margin-top: 0.25em;
+}
+
+.d2-3355870766 .md dl {
+  padding: 0;
+}
+
+.d2-3355870766 .md dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-family: "d2-3355870766-font-semibold";
+}
+
+.d2-3355870766 .md dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.d2-3355870766 .md table th {
+  font-family: "d2-3355870766-font-semibold";
+}
+
+.d2-3355870766 .md table th,
+.d2-3355870766 .md table td {
+  padding: 6px 13px;
+  border: 1px solid var(--color-border-default);
+}
+
+.d2-3355870766 .md table tr {
+  background-color: var(--color-canvas-default);
+  border-top: 1px solid var(--color-border-muted);
+}
+
+.d2-3355870766 .md table tr:nth-child(2n) {
+  background-color: var(--color-canvas-subtle);
+}
+
+.d2-3355870766 .md table img {
+  background-color: transparent;
+}
+
+.d2-3355870766 .md img[align="right"] {
+  padding-left: 20px;
+}
+
+.d2-3355870766 .md img[align="left"] {
+  padding-right: 20px;
+}
+
+.d2-3355870766 .md span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.d2-3355870766 .md span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+}
+
+.d2-3355870766 .md span.frame span img {
+  display: block;
+  float: left;
+}
+
+.d2-3355870766 .md span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: var(--color-fg-default);
+}
+
+.d2-3355870766 .md span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.d2-3355870766 .md span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.d2-3355870766 .md span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.d2-3355870766 .md span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.d2-3355870766 .md span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.d2-3355870766 .md span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.d2-3355870766 .md span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.d2-3355870766 .md span.float-left span {
+  margin: 13px 0 0;
+}
+
+.d2-3355870766 .md span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.d2-3355870766 .md span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.d2-3355870766 .md code,
+.d2-3355870766 .md tt {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: var(--color-neutral-muted);
+  border-radius: 6px;
+}
+
+.d2-3355870766 .md code br,
+.d2-3355870766 .md tt br {
+  display: none;
+}
+
+.d2-3355870766 .md del code {
+  text-decoration: inherit;
+}
+
+.d2-3355870766 .md pre code {
+  font-size: 100%;
+}
+
+.d2-3355870766 .md pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.d2-3355870766 .md .highlight {
+  margin-bottom: 16px;
+}
+
+.d2-3355870766 .md .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.d2-3355870766 .md .highlight pre,
+.d2-3355870766 .md pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: var(--color-canvas-subtle);
+  border-radius: 6px;
+}
+
+.d2-3355870766 .md pre code,
+.d2-3355870766 .md pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.d2-3355870766 .md .csv-data td,
+.d2-3355870766 .md .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.d2-3355870766 .md .csv-data .blob-num {
+  padding: 10px 8px 9px;
+  text-align: right;
+  background: var(--color-canvas-default);
+  border: 0;
+}
+
+.d2-3355870766 .md .csv-data tr {
+  border-top: 0;
+}
+
+.d2-3355870766 .md .csv-data th {
+  font-family: "d2-3355870766-font-semibold";
+  background: var(--color-canvas-subtle);
+  border-top: 0;
+}
+
+.d2-3355870766 .md .footnotes {
+  font-size: 12px;
+  color: var(--color-fg-muted);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.d2-3355870766 .md .footnotes ol {
+  padding-left: 16px;
+}
+
+.d2-3355870766 .md .footnotes li {
+  position: relative;
+}
+
+.d2-3355870766 .md .footnotes li:target::before {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -24px;
+  pointer-events: none;
+  content: "";
+  border: 2px solid var(--color-accent-emphasis);
+  border-radius: 6px;
+}
+
+.d2-3355870766 .md .footnotes li:target {
+  color: var(--color-fg-default);
+}
+
+.d2-3355870766 .md .task-list-item {
+  list-style-type: none;
+}
+
+.d2-3355870766 .md .task-list-item label {
+  font-weight: 400;
+}
+
+.d2-3355870766 .md .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.d2-3355870766 .md .task-list-item + .task-list-item {
+  margin-top: 3px;
+}
+
+.d2-3355870766 .md .task-list-item .handle {
+  display: none;
+}
+
+.d2-3355870766 .md .task-list-item-checkbox {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+.d2-3355870766 .md .contains-task-list:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em 0.25em 0.2em;
+}
+</style><g id="title"><g class="shape" ></g><g><foreignObject requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" x="-97.000000" y="-59.000000" width="867" height="51"><div xmlns="http://www.w3.org/1999/xhtml" class="md"><h1>Devicetree dependencies: zynq-zc706-adv7511-ad6676-fmc.dts</h1>
+</div></foreignObject></g></g><a href="https://github.com/analogdevicesinc/linux/blob/main/include/dt-bindings/jesd204/adxcvr.h" xlink:href="https://github.com/analogdevicesinc/linux/blob/main/include/dt-bindings/jesd204/adxcvr.h"><g id="&#34;adxcvr.h&#34;"><g class="shape" ><rect x="521.000000" y="158.000000" width="139.000000" height="66.000000" fill="red" class=" stroke-B1" style="stroke-width:2;" /></g><text x="590.500000" y="196.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">adxcvr.h</text></g></a><a href="https://github.com/analogdevicesinc/linux/blob/main/include/dt-bindings/interrupt-controller/irq.h" xlink:href="https://github.com/analogdevicesinc/linux/blob/main/include/dt-bindings/interrupt-controller/irq.h"><g id="&#34;irq.h&#34;"><g class="shape" ><rect x="300.000000" y="304.000000" width="111.000000" height="66.000000" fill="red" class=" stroke-B1" style="stroke-width:2;" /></g><text x="355.500000" y="342.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">irq.h</text></g></a><a href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq-zc706.dtsi" xlink:href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq-zc706.dtsi"><g id="&#34;zynq-zc706.dtsi&#34;"><g class="shape" ><rect x="40.000000" y="158.000000" width="188.000000" height="66.000000" fill="green" class=" stroke-B1" style="stroke-width:2;" /></g><text x="134.000000" y="196.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">zynq-zc706.dtsi</text></g></a><a href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq-zc706-adv7511.dtsi" xlink:href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq-zc706-adv7511.dtsi"><g id="&#34;zynq-zc706-adv7511.dtsi&#34;"><g class="shape" ><rect x="248.000000" y="158.000000" width="253.000000" height="66.000000" fill="green" class=" stroke-B1" style="stroke-width:2;" /></g><text x="374.500000" y="196.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">zynq-zc706-adv7511.dtsi</text></g></a><a href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq.dtsi" xlink:href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq.dtsi"><g id="&#34;zynq.dtsi&#34;"><g class="shape" ><rect x="31.000000" y="304.000000" width="143.000000" height="66.000000" fill="green" class=" stroke-B1" style="stroke-width:2;" /></g><text x="102.500000" y="342.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">zynq.dtsi</text></g></a><a href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq-7000.dtsi" xlink:href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq-7000.dtsi"><g id="&#34;zynq-7000.dtsi&#34;"><g class="shape" ><rect x="11.000000" y="440.000000" width="182.000000" height="66.000000" fill="green" class=" stroke-B1" style="stroke-width:2;" /></g><text x="102.000000" y="478.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">zynq-7000.dtsi</text></g></a><a href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq-zc706-adv7511-ad6676-fmc.dts" xlink:href="https://github.com/analogdevicesinc/linux/blob/main/arch/arm/boot/dts/zynq-zc706-adv7511-ad6676-fmc.dts"><g id="&#34;zynq-zc706-adv7511-ad6676-fmc.dts&#34;"><g class="shape" ><rect x="205.000000" y="12.000000" width="338.000000" height="66.000000" fill="green" class=" stroke-B1" style="stroke-width:2;" /></g><text x="374.000000" y="50.500000" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">zynq-zc706-adv7511-ad6676-fmc.dts</text></g></a><g id="(&#34;zynq-zc706.dtsi&#34; -&gt; &#34;zynq.dtsi&#34;)[0]"><marker id="mk-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 102.999001 226.000000 L 102.999001 300.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-3355870766)" /></g><g id="(&#34;zynq-zc706.dtsi&#34; -&gt; &#34;irq.h&#34;)[0]"><path d="M 165.666000 226.000000 L 165.666000 254.000000 S 165.666000 264.000000 175.666000 264.000000 L 327.833008 264.000000 S 337.833008 264.000000 337.833008 274.000000 L 337.833008 300.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-3355870766)" /></g><g id="(&#34;zynq-zc706-adv7511.dtsi&#34; -&gt; &#34;irq.h&#34;)[0]"><path d="M 374.833008 226.000000 L 374.833008 300.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-3355870766)" /></g><g id="(&#34;zynq.dtsi&#34; -&gt; &#34;zynq-7000.dtsi&#34;)[0]"><path d="M 102.999001 372.000000 L 102.999001 436.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-3355870766)" /></g><g id="(&#34;zynq-zc706-adv7511-ad6676-fmc.dts&#34; -&gt; &#34;zynq-zc706.dtsi&#34;)[0]"><path d="M 290.333008 80.000000 L 290.333008 108.000000 S 290.333008 118.000000 280.333008 118.000000 L 144.332993 118.000000 S 134.332993 118.000000 134.332993 128.000000 L 134.332993 154.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-3355870766)" /></g><g id="(&#34;zynq-zc706-adv7511-ad6676-fmc.dts&#34; -&gt; &#34;zynq-zc706-adv7511.dtsi&#34;)[0]"><path d="M 374.833008 80.000000 L 374.833008 154.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-3355870766)" /></g><g id="(&#34;zynq-zc706-adv7511-ad6676-fmc.dts&#34; -&gt; &#34;adxcvr.h&#34;)[0]"><path d="M 459.333008 80.000000 L 459.333008 108.000000 S 459.333008 118.000000 469.333008 118.000000 L 580.833008 118.000000 S 590.833008 118.000000 590.833008 128.000000 L 590.833008 154.000000" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-3488378134)" mask="url(#d2-3355870766)" /></g><g transform="translate(644 142)" class="appendix-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3440_35088111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M14.3909 16.7965C14.7364 17.2584 15.1772 17.6406 15.6834 17.9171C16.1896 18.1938 16.7494 18.3582 17.3248 18.3993C17.9001 18.4405 18.4777 18.3575 19.0181 18.1559C19.5586 17.9543 20.0492 17.6389 20.4571 17.2309L22.8708 14.8173C23.6036 14.0586 24.0089 13.0425 23.9998 11.9877C23.9906 10.933 23.5676 9.92404 22.8217 9.17821C22.0759 8.43237 21.067 8.00931 20.0123 8.00015C18.9575 7.99098 17.9413 8.39644 17.1827 9.1292L15.7988 10.505" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.609 15.1874C17.2635 14.7255 16.8227 14.3433 16.3165 14.0667C15.8103 13.7902 15.2505 13.6257 14.6752 13.5845C14.0998 13.5433 13.5223 13.6263 12.9819 13.8279C12.4414 14.0295 11.9506 14.345 11.5428 14.753L9.1292 17.1666C8.39644 17.9252 7.99098 18.9414 8.00015 19.9962C8.00931 21.0509 8.43237 22.0598 9.17821 22.8056C9.92405 23.5515 10.933 23.9745 11.9877 23.9837C13.0425 23.9928 14.0586 23.5875 14.8173 22.8547L16.193 21.4788" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3440_35088111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(395 288)" class="appendix-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3440_35088111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M14.3909 16.7965C14.7364 17.2584 15.1772 17.6406 15.6834 17.9171C16.1896 18.1938 16.7494 18.3582 17.3248 18.3993C17.9001 18.4405 18.4777 18.3575 19.0181 18.1559C19.5586 17.9543 20.0492 17.6389 20.4571 17.2309L22.8708 14.8173C23.6036 14.0586 24.0089 13.0425 23.9998 11.9877C23.9906 10.933 23.5676 9.92404 22.8217 9.17821C22.0759 8.43237 21.067 8.00931 20.0123 8.00015C18.9575 7.99098 17.9413 8.39644 17.1827 9.1292L15.7988 10.505" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.609 15.1874C17.2635 14.7255 16.8227 14.3433 16.3165 14.0667C15.8103 13.7902 15.2505 13.6257 14.6752 13.5845C14.0998 13.5433 13.5223 13.6263 12.9819 13.8279C12.4414 14.0295 11.9506 14.345 11.5428 14.753L9.1292 17.1666C8.39644 17.9252 7.99098 18.9414 8.00015 19.9962C8.00931 21.0509 8.43237 22.0598 9.17821 22.8056C9.92405 23.5515 10.933 23.9745 11.9877 23.9837C13.0425 23.9928 14.0586 23.5875 14.8173 22.8547L16.193 21.4788" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3440_35088111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(212 142)" class="appendix-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3440_35088111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M14.3909 16.7965C14.7364 17.2584 15.1772 17.6406 15.6834 17.9171C16.1896 18.1938 16.7494 18.3582 17.3248 18.3993C17.9001 18.4405 18.4777 18.3575 19.0181 18.1559C19.5586 17.9543 20.0492 17.6389 20.4571 17.2309L22.8708 14.8173C23.6036 14.0586 24.0089 13.0425 23.9998 11.9877C23.9906 10.933 23.5676 9.92404 22.8217 9.17821C22.0759 8.43237 21.067 8.00931 20.0123 8.00015C18.9575 7.99098 17.9413 8.39644 17.1827 9.1292L15.7988 10.505" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.609 15.1874C17.2635 14.7255 16.8227 14.3433 16.3165 14.0667C15.8103 13.7902 15.2505 13.6257 14.6752 13.5845C14.0998 13.5433 13.5223 13.6263 12.9819 13.8279C12.4414 14.0295 11.9506 14.345 11.5428 14.753L9.1292 17.1666C8.39644 17.9252 7.99098 18.9414 8.00015 19.9962C8.00931 21.0509 8.43237 22.0598 9.17821 22.8056C9.92405 23.5515 10.933 23.9745 11.9877 23.9837C13.0425 23.9928 14.0586 23.5875 14.8173 22.8547L16.193 21.4788" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3440_35088111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(485 142)" class="appendix-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3440_35088111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M14.3909 16.7965C14.7364 17.2584 15.1772 17.6406 15.6834 17.9171C16.1896 18.1938 16.7494 18.3582 17.3248 18.3993C17.9001 18.4405 18.4777 18.3575 19.0181 18.1559C19.5586 17.9543 20.0492 17.6389 20.4571 17.2309L22.8708 14.8173C23.6036 14.0586 24.0089 13.0425 23.9998 11.9877C23.9906 10.933 23.5676 9.92404 22.8217 9.17821C22.0759 8.43237 21.067 8.00931 20.0123 8.00015C18.9575 7.99098 17.9413 8.39644 17.1827 9.1292L15.7988 10.505" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.609 15.1874C17.2635 14.7255 16.8227 14.3433 16.3165 14.0667C15.8103 13.7902 15.2505 13.6257 14.6752 13.5845C14.0998 13.5433 13.5223 13.6263 12.9819 13.8279C12.4414 14.0295 11.9506 14.345 11.5428 14.753L9.1292 17.1666C8.39644 17.9252 7.99098 18.9414 8.00015 19.9962C8.00931 21.0509 8.43237 22.0598 9.17821 22.8056C9.92405 23.5515 10.933 23.9745 11.9877 23.9837C13.0425 23.9928 14.0586 23.5875 14.8173 22.8547L16.193 21.4788" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3440_35088111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(158 288)" class="appendix-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3440_35088111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M14.3909 16.7965C14.7364 17.2584 15.1772 17.6406 15.6834 17.9171C16.1896 18.1938 16.7494 18.3582 17.3248 18.3993C17.9001 18.4405 18.4777 18.3575 19.0181 18.1559C19.5586 17.9543 20.0492 17.6389 20.4571 17.2309L22.8708 14.8173C23.6036 14.0586 24.0089 13.0425 23.9998 11.9877C23.9906 10.933 23.5676 9.92404 22.8217 9.17821C22.0759 8.43237 21.067 8.00931 20.0123 8.00015C18.9575 7.99098 17.9413 8.39644 17.1827 9.1292L15.7988 10.505" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.609 15.1874C17.2635 14.7255 16.8227 14.3433 16.3165 14.0667C15.8103 13.7902 15.2505 13.6257 14.6752 13.5845C14.0998 13.5433 13.5223 13.6263 12.9819 13.8279C12.4414 14.0295 11.9506 14.345 11.5428 14.753L9.1292 17.1666C8.39644 17.9252 7.99098 18.9414 8.00015 19.9962C8.00931 21.0509 8.43237 22.0598 9.17821 22.8056C9.92405 23.5515 10.933 23.9745 11.9877 23.9837C13.0425 23.9928 14.0586 23.5875 14.8173 22.8547L16.193 21.4788" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3440_35088111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(177 424)" class="appendix-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3440_35088111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M14.3909 16.7965C14.7364 17.2584 15.1772 17.6406 15.6834 17.9171C16.1896 18.1938 16.7494 18.3582 17.3248 18.3993C17.9001 18.4405 18.4777 18.3575 19.0181 18.1559C19.5586 17.9543 20.0492 17.6389 20.4571 17.2309L22.8708 14.8173C23.6036 14.0586 24.0089 13.0425 23.9998 11.9877C23.9906 10.933 23.5676 9.92404 22.8217 9.17821C22.0759 8.43237 21.067 8.00931 20.0123 8.00015C18.9575 7.99098 17.9413 8.39644 17.1827 9.1292L15.7988 10.505" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.609 15.1874C17.2635 14.7255 16.8227 14.3433 16.3165 14.0667C15.8103 13.7902 15.2505 13.6257 14.6752 13.5845C14.0998 13.5433 13.5223 13.6263 12.9819 13.8279C12.4414 14.0295 11.9506 14.345 11.5428 14.753L9.1292 17.1666C8.39644 17.9252 7.99098 18.9414 8.00015 19.9962C8.00931 21.0509 8.43237 22.0598 9.17821 22.8056C9.92405 23.5515 10.933 23.9745 11.9877 23.9837C13.0425 23.9928 14.0586 23.5875 14.8173 22.8547L16.193 21.4788" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3440_35088111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><g transform="translate(527 -4)" class="appendix-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3440_35088111)">
+<path d="M16 31.1109C24.3456 31.1109 31.1111 24.3454 31.1111 15.9998C31.1111 7.65415 24.3456 0.888672 16 0.888672C7.65436 0.888672 0.888885 7.65415 0.888885 15.9998C0.888885 24.3454 7.65436 31.1109 16 31.1109Z" fill="white" stroke="#DEE1EB"/>
+<path d="M14.3909 16.7965C14.7364 17.2584 15.1772 17.6406 15.6834 17.9171C16.1896 18.1938 16.7494 18.3582 17.3248 18.3993C17.9001 18.4405 18.4777 18.3575 19.0181 18.1559C19.5586 17.9543 20.0492 17.6389 20.4571 17.2309L22.8708 14.8173C23.6036 14.0586 24.0089 13.0425 23.9998 11.9877C23.9906 10.933 23.5676 9.92404 22.8217 9.17821C22.0759 8.43237 21.067 8.00931 20.0123 8.00015C18.9575 7.99098 17.9413 8.39644 17.1827 9.1292L15.7988 10.505" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.609 15.1874C17.2635 14.7255 16.8227 14.3433 16.3165 14.0667C15.8103 13.7902 15.2505 13.6257 14.6752 13.5845C14.0998 13.5433 13.5223 13.6263 12.9819 13.8279C12.4414 14.0295 11.9506 14.345 11.5428 14.753L9.1292 17.1666C8.39644 17.9252 7.99098 18.9414 8.00015 19.9962C8.00931 21.0509 8.43237 22.0598 9.17821 22.8056C9.92405 23.5515 10.933 23.9745 11.9877 23.9837C13.0425 23.9928 14.0586 23.5875 14.8173 22.8547L16.193 21.4788" stroke="#2E3346" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_3440_35088111">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+</g><mask id="d2-3355870766" maskUnits="userSpaceOnUse" x="-198" y="-160" width="1069" height="767">
+<rect x="-198" y="-160" width="1069" height="767" fill="white"></rect>
+<rect x="-97.000000" y="-59.000000" width="867" height="51" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="559.500000" y="180.500000" width="62" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="338.500000" y="326.500000" width="34" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="78.500000" y="180.500000" width="111" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="286.500000" y="180.500000" width="176" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="69.500000" y="326.500000" width="66" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="49.500000" y="462.500000" width="105" height="21" fill="rgba(0,0,0,0.75)"></rect>
+<rect x="243.500000" y="34.500000" width="261" height="21" fill="rgba(0,0,0,0.75)"></rect>
+</mask></svg></svg>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <div></div>
+    <div></div>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

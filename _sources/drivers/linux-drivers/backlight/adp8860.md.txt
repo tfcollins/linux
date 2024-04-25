@@ -1,31 +1,26 @@
----
-wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/backlight/adp8860
-title: ADP8863: Charge Pump, 7-Channel Fun Lighting LED Driver
----
-
 # ADP8860 Back-light LED Linux Driver
 
-##### Supported Devices
+### Supported Devices
 
--   [ADP8860](https://analog.com/ADP8860)
--   [ADP8861](https://analog.com/ADP8861)
--   [ADP8863](https://analog.com/ADP8863)
+-   [ADP8860](adi>ADP8860)
+-   [ADP8861](adi>ADP8861)
+-   [ADP8863](adi>ADP8863)
 
-##### Evaluation Boards
+### Evaluation Boards
 
--   [ADP8860DBCB-EVALZ](https://analog.com/ADP8860DBCB-EVALZ)
--   [ADP8860DBCP-EVALZ](https://analog.com/ADP8860DBCP-EVALZ)
--   [ADP8861DBCB-EVALZ](https://analog.com/ADP8861DBCB-EVALZ)
--   [ADP8863DBCB-EVALZ](https://analog.com/ADP8863DBCB-EVALZ)
--   [ADP8863DBCP-EVALZ](https://analog.com/ADP8863DBCP-EVALZ)
+-   [ADP8860DBCB-EVALZ](adi>ADP8860DBCB-EVALZ)
+-   [ADP8860DBCP-EVALZ](adi>ADP8860DBCP-EVALZ)
+-   [ADP8861DBCB-EVALZ](adi>ADP8861DBCB-EVALZ)
+-   [ADP8863DBCB-EVALZ](adi>ADP8863DBCB-EVALZ)
+-   [ADP8863DBCP-EVALZ](adi>ADP8863DBCP-EVALZ)
 
-##### Description
+### Description
 
-![adp8860_typical_operating_circuit.png](images/adp8860_typical_operating_circuit.png)
+![adp8860_typical_operating_circuit.png](/software/driver/linux/adp8860_typical_operating_circuit.png)
 
-##### Configuration
+### Configuration
 
-##### Software configurable features
+### Software configurable features
 
 Backlight:
 
@@ -124,9 +119,9 @@ LED:
 </tbody>
 </table>
 
-#### Source Code
+## Source Code
 
-##### Status
+### Status
 
 <table>
 <thead>
@@ -143,7 +138,7 @@ LED:
 </tbody>
 </table>
 
-##### Files
+### Files
 
 <table>
 <thead>
@@ -164,21 +159,21 @@ LED:
 </tbody>
 </table>
 
-#### Instructions / Theory of operation
+## Instructions / Theory of operation
 
-##### Backlight control
+### Backlight control
 
-With the ADP8860 driver installed, you will find sysfs files in the
-/sys/class/backlight/adp8860_bl/
-directory. You will be able to query and set the current screen
-brightness:
+With the ADP8860 driver installed, you will find sysfs files in the\
+/sys/class/backlight/adp8860_bl/\
+directory. You will be able to query and set the current screen\
+brightness:\
 
-    ; **brightness** : get/set screen brightness (an integer between 0 and 126) writing 127 will enable the Ambient Light Sensor.
+    ; **brightness** : get/set screen brightness (an integer between 0 and 126)\\ writing 127 will enable the Ambient Light Sensor.
     ; **actual_brightness** : reading from this file will query the HW to get real brightness value.
     ; **max_brightness** : the maximum brightness value.
     ; **bl_power** : Current FB Power mode (0: full on, 1..3: power saving modes; 4: full off).
 
-###### ADP8860 Specific Backlight controls
+#### ADP8860 Specific Backlight controls
 
 The ADP8860 features 3 individually programmable Ambient Light Sensing Zones:
 
@@ -192,102 +187,92 @@ Zone Daylight: Backlight DIM Intensity (an integer between 0 and 127, typically 
     ; **l3_dark_dim**  : Ambient Light Zone Dark: Backlight DIM Intensity (an integer between 0 and 127, typically set to 0)
     ; **l3_dark_max**  : Ambient Light Zone Dark: Backlight Intensity (an integer between 0 and 127)
 
-    ; **ambient_light_level** : Get conversion value of the first light sensor. This value is updated every 80 ms  (when the light sensor is enabled). Returns integer between 0 (dark) and 8000 (max ambient brightness)
-    ; **ambient_light_zone** : Get/Set current Ambient Light Zone. Reading returns integer between 1..3  (1 = Daylight, 2 = office, 3 = dark). Writing a value between 1..3 forces the Backlight controller  to enter the corresponding Ambient Light Zone. Writing 0 returns to normal operation.
+    ; **ambient_light_level** : Get conversion value of the first light sensor. This value is updated every 80 ms \\ (when the light sensor is enabled). Returns integer between 0 (dark) and 8000 (max ambient brightness)
+    ; **ambient_light_zone** : Get/Set current Ambient Light Zone. Reading returns integer between 1..3 \\ (1 = Daylight, 2 = office, 3 = dark). Writing a value between 1..3 forces the Backlight controller \\ to enter the corresponding Ambient Light Zone. Writing 0 returns to normal operation.
 
-##### LED handling under Linux
+### LED handling under Linux
 
-LEDs not assigned to the Backlight are optionally exposed to the Linux LEDs Class.
+LEDs not assigned to the Backlight are optionally exposed to the Linux LEDs Class.\
 The LED class allows control of LEDs from userspace.
 LEDs appear in /sys/class/leds/. The brightness file will
 set the brightness of the LED (taking a value 0-255).
 The LEDS class also introduces the optional concept of an LED trigger. A trigger
-is a kernel based source of led events, such as ide-disk or backlight control.
+is a kernel based source of led events, such as ide-disk or backlight control.\
 For more information read linux/Documentaion/leds-class.txt
 
     ; **brightness** : get/set LED brightness (an integer between 0 and 255)
     ; **max_brightness** : the maximum brightness value.
 
-#### Example platform device initialization
+## Example platform device initialization
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: info="" -->
-
-**platform_data: Platform data specific to the ADP8860 device.**
+\<WRAP info\>
+**platform_data: Platform data specific to the ADP8860 device.**\
 Includes what LEDs are available, feature selections and default initialization.
-
-:::
-
+\</WRAP\>
 
 ``` c
-## include <linux/i2c/adp8860.h>
+#include <linux/i2c/adp8860.h>
 ```
 
-<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8860_leds{} c linux-kernel>
-<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8860_pdata{} c linux-kernel>
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8860_leds{} c linux-kernel\>
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8860_pdata{} c linux-kernel\>
 
-<!-- CMDS: firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
 ``` C
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
-## if defined(CONFIG_BACKLIGHT_ADP8860) || defined(CONFIG_BACKLIGHT_ADP8860_MODULE)
+#if defined(CONFIG_BACKLIGHT_ADP8860) || defined(CONFIG_BACKLIGHT_ADP8860_MODULE)
     {
         I2C_BOARD_INFO("adp8860", 0x2A),
         .platform_data = (void *)&adp8860_pdata,
     },
-## endif
+#endif
 }
 ```
 
-#### Adding Linux driver support
+## Adding Linux driver support
 
-Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
-"make qconfig")
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
 
-:::{NOTE} <!-- ATTRS: tip="" -->
-
+\<WRAP tip\>
 The ADP8860 Backlight driver depends on I2C.
 It therefore requires selected I2C support to show up during kernel configuration.
+\</WRAP\>
 
-:::
-
-
-```{code-block} bash
-Device Drivers --->
+\<xterm\>
+Device Drivers \-\--\>
 
       Graphics support  --->
           [*] Backlight & LCD device support  ---
 
-```
+\</xterm\>
 
-### ADP8860 Back-light LED Linux Driver
+## ADP8860 Back-light LED Linux Driver
 
-##### Supported Devices
+### Supported Devices
 
--   [ADP8860](https://analog.com/ADP8860)
--   [ADP8861](https://analog.com/ADP8861)
--   [ADP8863](https://analog.com/ADP8863)
+-   [ADP8860](adi>ADP8860)
+-   [ADP8861](adi>ADP8861)
+-   [ADP8863](adi>ADP8863)
 
-##### Evaluation Boards
+### Evaluation Boards
 
--   [ADP8860DBCB-EVALZ](https://analog.com/ADP8860DBCB-EVALZ)
--   [ADP8860DBCP-EVALZ](https://analog.com/ADP8860DBCP-EVALZ)
--   [ADP8861DBCB-EVALZ](https://analog.com/ADP8861DBCB-EVALZ)
--   [ADP8863DBCB-EVALZ](https://analog.com/ADP8863DBCB-EVALZ)
--   [ADP8863DBCP-EVALZ](https://analog.com/ADP8863DBCP-EVALZ)
+-   [ADP8860DBCB-EVALZ](adi>ADP8860DBCB-EVALZ)
+-   [ADP8860DBCP-EVALZ](adi>ADP8860DBCP-EVALZ)
+-   [ADP8861DBCB-EVALZ](adi>ADP8861DBCB-EVALZ)
+-   [ADP8863DBCB-EVALZ](adi>ADP8863DBCB-EVALZ)
+-   [ADP8863DBCP-EVALZ](adi>ADP8863DBCP-EVALZ)
 
-##### Description
+### Description
 
-![adp8860_typical_operating_circuit.png](images/adp8860_typical_operating_circuit.png)
+![adp8860_typical_operating_circuit.png](/software/driver/linux/adp8860_typical_operating_circuit.png)
 
-##### Configuration
+### Configuration
 
-##### Software configurable features
+### Software configurable features
 
 Backlight:
 
@@ -386,9 +371,9 @@ LED:
 </tbody>
 </table>
 
-#### Source Code
+## Source Code
 
-##### Status
+### Status
 
 <table>
 <thead>
@@ -405,7 +390,7 @@ LED:
 </tbody>
 </table>
 
-##### Files
+### Files
 
 <table>
 <thead>
@@ -426,21 +411,21 @@ LED:
 </tbody>
 </table>
 
-#### Instructions / Theory of operation
+## Instructions / Theory of operation
 
-##### Backlight control
+### Backlight control
 
-With the ADP8860 driver installed, you will find sysfs files in the
-/sys/class/backlight/adp8860_bl/
-directory. You will be able to query and set the current screen
-brightness:
+With the ADP8860 driver installed, you will find sysfs files in the\
+/sys/class/backlight/adp8860_bl/\
+directory. You will be able to query and set the current screen\
+brightness:\
 
-    ; **brightness** : get/set screen brightness (an integer between 0 and 126) writing 127 will enable the Ambient Light Sensor.
+    ; **brightness** : get/set screen brightness (an integer between 0 and 126)\\ writing 127 will enable the Ambient Light Sensor.
     ; **actual_brightness** : reading from this file will query the HW to get real brightness value.
     ; **max_brightness** : the maximum brightness value.
     ; **bl_power** : Current FB Power mode (0: full on, 1..3: power saving modes; 4: full off).
 
-###### ADP8860 Specific Backlight controls
+#### ADP8860 Specific Backlight controls
 
 The ADP8860 features 3 individually programmable Ambient Light Sensing Zones:
 
@@ -454,90 +439,76 @@ Zone Daylight: Backlight DIM Intensity (an integer between 0 and 127, typically 
     ; **l3_dark_dim**  : Ambient Light Zone Dark: Backlight DIM Intensity (an integer between 0 and 127, typically set to 0)
     ; **l3_dark_max**  : Ambient Light Zone Dark: Backlight Intensity (an integer between 0 and 127)
 
-    ; **ambient_light_level** : Get conversion value of the first light sensor. This value is updated every 80 ms  (when the light sensor is enabled). Returns integer between 0 (dark) and 8000 (max ambient brightness)
-    ; **ambient_light_zone** : Get/Set current Ambient Light Zone. Reading returns integer between 1..3  (1 = Daylight, 2 = office, 3 = dark). Writing a value between 1..3 forces the Backlight controller  to enter the corresponding Ambient Light Zone. Writing 0 returns to normal operation.
+    ; **ambient_light_level** : Get conversion value of the first light sensor. This value is updated every 80 ms \\ (when the light sensor is enabled). Returns integer between 0 (dark) and 8000 (max ambient brightness)
+    ; **ambient_light_zone** : Get/Set current Ambient Light Zone. Reading returns integer between 1..3 \\ (1 = Daylight, 2 = office, 3 = dark). Writing a value between 1..3 forces the Backlight controller \\ to enter the corresponding Ambient Light Zone. Writing 0 returns to normal operation.
 
-##### LED handling under Linux
+### LED handling under Linux
 
-LEDs not assigned to the Backlight are optionally exposed to the Linux LEDs Class.
+LEDs not assigned to the Backlight are optionally exposed to the Linux LEDs Class.\
 The LED class allows control of LEDs from userspace.
 LEDs appear in /sys/class/leds/. The brightness file will
 set the brightness of the LED (taking a value 0-255).
 The LEDS class also introduces the optional concept of an LED trigger. A trigger
-is a kernel based source of led events, such as ide-disk or backlight control.
+is a kernel based source of led events, such as ide-disk or backlight control.\
 For more information read linux/Documentaion/leds-class.txt
 
     ; **brightness** : get/set LED brightness (an integer between 0 and 255)
     ; **max_brightness** : the maximum brightness value.
 
-#### Example platform device initialization
+## Example platform device initialization
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-:::{NOTE} <!-- ATTRS: info="" -->
-
-**platform_data: Platform data specific to the ADP8860 device.**
+\<WRAP info\>
+**platform_data: Platform data specific to the ADP8860 device.**\
 Includes what LEDs are available, feature selections and default initialization.
-
-:::
-
+\</WRAP\>
 
 ``` c
-## include <linux/i2c/adp8860.h>
+#include <linux/i2c/adp8860.h>
 ```
 
-<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8860_leds{} c linux-kernel>
-<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8860_pdata{} c linux-kernel>
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8860_leds{} c linux-kernel\>
+\<source trunk/arch/blackfin/mach-bf537/boards/stamp.c:adp8860_pdata{} c linux-kernel\>
 
-<!-- CMDS: firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
 ``` C
 static struct i2c_board_info __initdata bfin_i2c_board_info[] = {
-## if defined(CONFIG_BACKLIGHT_ADP8860) || defined(CONFIG_BACKLIGHT_ADP8860_MODULE)
+#if defined(CONFIG_BACKLIGHT_ADP8860) || defined(CONFIG_BACKLIGHT_ADP8860_MODULE)
     {
         I2C_BOARD_INFO("adp8860", 0x2A),
         .platform_data = (void *)&adp8860_pdata,
     },
-## endif
+#endif
 }
 ```
 
-#### Adding Linux driver support
+## Adding Linux driver support
 
-Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
-"make qconfig")
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
 
-:::{NOTE} <!-- ATTRS: tip="" -->
-
+\<WRAP tip\>
 The ADP8860 Backlight driver depends on I2C.
 It therefore requires selected I2C support to show up during kernel configuration.
+\</WRAP\>
 
-:::
-
-
-```{code-block} bash
-Device Drivers --->
+\<xterm\>
+Device Drivers \-\--\>
 
       Graphics support  --->
           [*] Backlight & LCD device support  --->
               <*>   Lowlevel Backlight controls
               <M>   Backlight Driver for ADP8860 using WLED
 
-```
+\</xterm\>
 
-### Hardware configuration
+## Hardware configuration
 
 During test and driver development we used the ADP8860 Evaluation Mother/Daughter Board.
 
-```{image} images/adp8870_adaptor_board_lr.jpg
-:alt: adp8870_adaptor_board_lr.jpg
-:width: "512"
-:query: "?512"
-```
+![adp8870_adaptor_board_lr.jpg](/software/driver/linux/adp8870_adaptor_board_lr.jpg){width="512" query="?512"}
 
 It can be easily wired to the Blackfin STAMP TWI/I2C header.
 
@@ -575,119 +546,119 @@ It can be easily wired to the Blackfin STAMP TWI/I2C header.
 
 Leave J31 and J32 open (these jumpers connect the SCL and SDA to the cypress chip used as USB bridge). Then apply your own SCL, SDA, and GND to the big J30 connector on the left edge of the board.
 
-The ADP8860 chip still needs Vin (to power the chip), Vddio (to pull nRST and nINT high), and Vboard (to power the ALS sensor on the daughter card). These are provided through the USB port and then get regulated down (Vin becomes 3.6V, Vddio is 2.7V, and Vboard is around 4 V). So even though you won't be using the USB to program the part, it would still be easiest to plug the board into a USB port just to power Vin, Vddio, and Vboard. Of course, if you want, you can power these supplies from a lab bench power supply. In that case, move LK1, 2, and 3 to the "EXT" position and apply the signals to J29.
+The ADP8860 chip still needs Vin (to power the chip), Vddio (to pull nRST and nINT high), and Vboard (to power the ALS sensor on the daughter card). These are provided through the USB port and then get regulated down (Vin becomes 3.6V, Vddio is 2.7V, and Vboard is around 4 V). So even though you won\'t be using the USB to program the part, it would still be easiest to plug the board into a USB port just to power Vin, Vddio, and Vboard. Of course, if you want, you can power these supplies from a lab bench power supply. In that case, move LK1, 2, and 3 to the \"EXT\" position and apply the signals to J29.
 
-### Driver testing
+## Driver testing
 
-#### Driver compiled as a module
+### Driver compiled as a module
 
 **ADP8860 driver is build as a module**
-```{code-block} bash
-root:/> **modprobe adp8860_bl**
+\<xterm\>
+root:/\> **modprobe adp8860_bl**
 adp8860_bl 0-002a: Rev.7 Backlight
 Registered led device: adp8860-led7
-root:/>
-```
+root:/\>
+\</xterm\>
 
-##### Example Backlight usage
+#### Example Backlight usage
 
-```{code-block} bash
-root:/> cd sys/class/backlight/adp8860_bl/
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl> ls -l
--r--r--r-- 1 root root 4096 Jan 1 03:29 actual_brightness
--r--r--r-- 1 root root 4096 Jan 1 03:29 ambient_light_level
--rw-rw-r-- 1 root root 4096 Jan 1 03:29 ambient_light_zone
--rw-r--r-- 1 root root 4096 Jan 1 03:31 bl_power
--rw-r--r-- 1 root root 4096 Jan 1 04:55 brightness
-lrwxrwxrwx 1 root root 0 Jan 1 03:29 device -> ../../../0-002a
--rw-rw-r-- 1 root root 4096 Jan 1 03:29 l1_daylight_dim
--rw-rw-r-- 1 root root 4096 Jan 1 03:29 l1_daylight_max
--rw-rw-r-- 1 root root 4096 Jan 1 03:30 l2_office_dim
--rw-rw-r-- 1 root root 4096 Jan 1 03:29 l2_office_max
--rw-rw-r-- 1 root root 4096 Jan 1 03:31 l3_dark_dim
--rw-rw-r-- 1 root root 4096 Jan 1 03:29 l3_dark_max
--r--r--r-- 1 root root 4096 Jan 1 03:29 max_brightness
+\<xterm\>
+root:/\> cd sys/class/backlight/adp8860_bl/
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\> ls -l
+-r\--r\--r\-- 1 root root 4096 Jan 1 03:29 actual_brightness
+-r\--r\--r\-- 1 root root 4096 Jan 1 03:29 ambient_light_level
+-rw-rw-r\-- 1 root root 4096 Jan 1 03:29 ambient_light_zone
+-rw-r\--r\-- 1 root root 4096 Jan 1 03:31 bl_power
+-rw-r\--r\-- 1 root root 4096 Jan 1 04:55 brightness
+lrwxrwxrwx 1 root root 0 Jan 1 03:29 device -\> ../../../0-002a
+-rw-rw-r\-- 1 root root 4096 Jan 1 03:29 l1_daylight_dim
+-rw-rw-r\-- 1 root root 4096 Jan 1 03:29 l1_daylight_max
+-rw-rw-r\-- 1 root root 4096 Jan 1 03:30 l2_office_dim
+-rw-rw-r\-- 1 root root 4096 Jan 1 03:29 l2_office_max
+-rw-rw-r\-- 1 root root 4096 Jan 1 03:31 l3_dark_dim
+-rw-rw-r\-- 1 root root 4096 Jan 1 03:29 l3_dark_max
+-r\--r\--r\-- 1 root root 4096 Jan 1 03:29 max_brightness
 drwxr-xr-x 2 root root 0 Jan 1 03:29 power
-lrwxrwxrwx 1 root root 0 Jan 1 03:29 subsystem -> ../../../../../../../../class/backlight
--rw-r--r-- 1 root root 4096 Jan 1 03:29 uevent
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl>
-```
+lrwxrwxrwx 1 root root 0 Jan 1 03:29 subsystem -\> ../../../../../../../../class/backlight
+-rw-r\--r\-- 1 root root 4096 Jan 1 03:29 uevent
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\>
+\</xterm\>
 
-###### Set Backlight Intensity
+##### Set Backlight Intensity
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl> **echo 42 > brightness**
-```
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\> **echo 42 \> brightness**
+\</xterm\>
 
-###### Query Backlight Intensity
+##### Query Backlight Intensity
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl> **cat brightness**
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\> **cat brightness**
 42
-```
+\</xterm\>
 
-###### Enable Ambient Light Sensing Feature
+##### Enable Ambient Light Sensing Feature
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl> **echo 127 > brightness**
-```
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\> **echo 127 \> brightness**
+\</xterm\>
 
-###### Query Ambient Light Level
+##### Query Ambient Light Level
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl> **cat ambient_light_level**
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\> **cat ambient_light_level**
 1276
-```
+\</xterm\>
 
-###### Query Ambient Light Zone
+##### Query Ambient Light Zone
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl> **cat ambient_light_zone**
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\> **cat ambient_light_zone**
 2
-```
+\</xterm\>
 
-###### Adjust Intensity for Ambient Light Zone 2 (office)
+##### Adjust Intensity for Ambient Light Zone 2 (office)
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl> **echo 22 > l2_office_max**
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\> **echo 22 \> l2_office_max**
 22
-```
+\</xterm\>
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl> **cat l2_office_max**
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/backlight/adp8860_bl\> **cat l2_office_max**
 22
-```
+\</xterm\>
 
-##### Example LED usage
+#### Example LED usage
 
-```{code-block} bash
-root:/> cd /sys/class/leds/adp8860-led7/
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7> ls -l
--rw-r--r-- 1 root root 4096 Jan 1 03:29 brightness
-lrwxrwxrwx 1 root root 0 Jan 1 03:29 device -> ../../../0-002a
--r--r--r-- 1 root root 4096 Jan 1 03:29 max_brightness
+\<xterm\>
+root:/\> cd /sys/class/leds/adp8860-led7/
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7\> ls -l
+-rw-r\--r\-- 1 root root 4096 Jan 1 03:29 brightness
+lrwxrwxrwx 1 root root 0 Jan 1 03:29 device -\> ../../../0-002a
+-r\--r\--r\-- 1 root root 4096 Jan 1 03:29 max_brightness
 drwxr-xr-x 2 root root 0 Jan 1 03:29 power
-lrwxrwxrwx 1 root root 0 Jan 1 03:29 subsystem -> ../../../../../../../../class/leds
-```
+lrwxrwxrwx 1 root root 0 Jan 1 03:29 subsystem -\> ../../../../../../../../class/leds
+\</xterm\>
 
-###### Set Intensity
+##### Set Intensity
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7>**echo 99 > brightness**
-```
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7\>**echo 99 \> brightness**
+\</xterm\>
 
-###### Turn LED OFF
+##### Turn LED OFF
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7> **echo 0 > brightness**
-```
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7\> **echo 0 \> brightness**
+\</xterm\>
 
-###### Query Max Brightness
+##### Query Max Brightness
 
-```{code-block} bash
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7> **cat max_brightness**
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7\> **cat max_brightness**
 255
-root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7>
-```
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-adapter/i2c-0/0-002a/leds/adp8860-led7\>
+\</xterm\>
 
-### More Information
+## More Information

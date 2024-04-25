@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AXI DAC HDL Linux Driver &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="LTC2664 IIO DAC Linux Driver" href="../iio-dac/ltc2664.html" />
+    <link rel="prev" title="AD5770R IIO DAC Linux Driver" href="../iio-dac/ad5770r.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">AXI DAC HDL Linux Driver</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#supported-boards">Supported Boards</a></li>
+<li><a class="reference internal" href="#supported-hdl-cores">Supported HDL Cores</a></li>
+<li><a class="reference internal" href="#sub-device-documentation-linked-mode">Sub device Documentation (linked mode)</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-platform-device-initialization">Example platform device initialization</a></li>
+<li><a class="reference internal" href="#enabling-linux-driver-support">Enabling Linux driver support</a></li>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
+<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
+<li><a class="reference internal" href="#show-set-dds-frequency">Show/Set DDS frequency</a></li>
+<li><a class="reference internal" href="#show-set-dds-phase">Show/Set DDS Phase</a></li>
+<li><a class="reference internal" href="#enable-disable-dds-channel">Enable/Disable DDS Channel</a><ul>
+<li><a class="reference internal" href="#hdl-version-7-00-a">HDL Version &lt; 7.00.a</a></li>
+<li><a class="reference internal" href="#id1">HDL Version &gt; 7.00.a</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#show-set-dds-scale">Show/Set DDS Scale</a></li>
+<li><a class="reference internal" href="#dac-internal-or-external-gain-dc-offset-and-phase-adjustments">DAC internal or external Gain, DC Offset, and Phase adjustments</a></li>
+<li><a class="reference internal" href="#external-synchronization">External synchronization</a><ul>
+<li><a class="reference internal" href="#example">Example:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
+<li><a class="reference internal" href="#low-level-register-access">Low level register access</a></li>
+<li><a class="reference internal" href="#ad9122-clocking-concept">AD9122 Clocking concept</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html">AD4003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html">AD4030-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html">AD6684</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html">AD7091</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html">AD7091R-5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html">AD7091R-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html">AD7124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html">AD7170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html">AD7190</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html">AD7265</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html">AD7768</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html">AD7785</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html">AD7787</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html">AD7887</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html">AD7991</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html">AD9083</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html">AD9207</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html">AD9234</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html">ADAQ8092</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html">ADAS1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html">ADAR1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74412R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">AD5310R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5415</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5735</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5744</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5760</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AD9122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad9832.html">AD9832</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad9834.html">AD9833</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9161</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9516-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF4355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16133</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html">AD6676</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html">AD9361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html">AD9371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9002.html">ADRV9002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html">ADRV9008-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/ad714x.html">AD7142</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html">ADP1650</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">AD5160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7241</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1835A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73311</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1381</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1401A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV801</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="axi-dac-hdl-linux-driver">
+<h1>AXI DAC HDL Linux Driver<a class="headerlink" href="#axi-dac-hdl-linux-driver" title="Link to this heading">¶</a></h1>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EAD9122"><span class="xref myst">AD9122</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9136"><span class="xref myst">AD9136</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9144"><span class="xref myst">AD9144</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9152"><span class="xref myst">AD9152</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9154"><span class="xref myst">AD9154</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9162"><span class="xref myst">AD9162</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9171"><span class="xref myst">AD9171</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9172"><span class="xref myst">AD9172</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9173"><span class="xref myst">AD9173</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9174"><span class="xref myst">AD9174</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9175"><span class="xref myst">AD9175</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9176"><span class="xref myst">AD9176</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9361"><span class="xref myst">AD9361</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9364"><span class="xref myst">AD9364</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9371"><span class="xref myst">AD9371</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9739A"><span class="xref myst">AD9739A</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9783"><span class="xref myst">AD9783</span></a></p></li>
+</ul>
+</section>
+<section id="supported-boards">
+<h2>Supported Boards<a class="headerlink" href="#supported-boards" title="Link to this heading">¶</a></h2>
+<p>This driver supports the\</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#resources/eval/user-guides/ad-fmcomms1-ebz"><span class="xref myst">AD-FMCOMMS1-EBZ FMC Card</span></a></p></li>
+<li><p><a class="reference internal" href="#resources/eval/user-guides/ad-fmcomms2-ebz"><span class="xref myst">AD-FMCOMMS2-EBZ FMC Card</span></a></p></li>
+<li><p><a class="reference internal" href="#resources/eval/user-guides/ad-fmcomms3-ebz"><span class="xref myst">AD-FMCOMMS3-EBZ FMC Card</span></a></p></li>
+<li><p><a class="reference internal" href="#resources/eval/user-guides/ad-fmcomms4-ebz"><span class="xref myst">AD-FMCOMMS4-EBZ FMC Card</span></a></p></li>
+<li><p><a class="reference internal" href="#resources/eval/user-guides/ad-fmcomms5-ebz"><span class="xref myst">AD-FMCOMMS5-EBZ FMC Card</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/eval/user-guides/ad-fmcomms11-ebz"><span class="xref myst">AD-FMCOMMS11-EBZ User Guide</span></a></p></li>
+<li><p><a class="reference internal" href="#resources/eval/user-guides/ad-fmcdaq2-ebz"><span class="xref myst">AD-FMCDAQ2-EBZ FMC Card</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/eval/user-guides/ad-fmcdaq3-ebz"><span class="xref myst">AD-FMCDAQ3-EBZ User Guide</span></a></p></li>
+<li><p><a class="reference internal" href="#resources/fpga/xilinx/fmc/ad9739a"><span class="xref myst">AD9739A Native FMC Card / Xilinx Reference Designs</span></a></p></li>
+<li><p><a class="reference internal" href="#resources/fpga/xilinx/interposer/ad9739a"><span class="xref myst">AD9739A Evaluation Board, DAC-FMC Interposer &amp; Xilinx Reference Design</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/eval/dpg/eval-ad9783"><span class="xref myst">EVALUATING THE AD9780/AD9781/AD9783 DIGITAL-TO-ANALOG CONVERTERS</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/fpga/xilinx/interposer/ad9783"><span class="xref myst">AD9783 Evaluation Board, DAC-FMC Interposer &amp; Xilinx Reference Design</span></a></p></li>
+<li><p><a class="reference internal" href="#resources/eval/user-guides/mykonos"><span class="xref myst">ADRV9371 FMC Card</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/eval/user-guides/adrv9009"><span class="xref myst">ADRV9009 &amp; ADRV9008 Prototyping Platform User Guide</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/eval/dpg/eval-ad9172"><span class="xref myst">AD9171/AD9172/AD9173/AD9174/AD9175/AD9176 Evaluation Board</span></a></p></li>
+</ul>
+</section>
+<section id="supported-hdl-cores">
+<h2>Supported HDL Cores<a class="headerlink" href="#supported-hdl-cores" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/resources/fpga/docs/axi_dac_ip"><span class="xref myst">Generic AXI DAC</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/fpga/peripherals/jesd204/jesd204_tpl_dac"><span class="xref myst">DAC JESD204B Transport Peripheral</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/fpga/docs/axi_ad9144"><span class="xref myst">AXI_AD9144</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/fpga/docs/axi_ad9361"><span class="xref myst">AXI_AD9361</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/fpga/docs/axi_ad9371"><span class="xref myst">AXI_AD9371</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/fpga/docs/axi_ad9783"><span class="xref myst">AXI_AD9783</span></a></p></li>
+</ul>
+</section>
+<section id="sub-device-documentation-linked-mode">
+<h2>Sub device Documentation (linked mode)<a class="headerlink" href="#sub-device-documentation-linked-mode" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-dds/ad9172"><span class="xref myst">AD9172 DAC Linux Driver</span></a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>The AXI DAC DDS HDL driver is the driver for various HDL interface cores which are used on different FPGA designs. The driver is implemented as an Linux IIO driver. It’s register map can be found here: <a class="reference internal" href="#/resources/fpga/docs/hdl/regmap"><span class="xref myst">Base register map (common to all cores)</span></a></p>
+<p>This driver is independent from the physical layer. So it’s being used with CMOS or LVDS type interfaces or the <a class="reference internal" href="#/resources/fpga/peripherals/jesd204"><span class="xref myst">JESD204 Interface Framework</span></a>.</p>
+<p>There are basically two use case scenarios for this driver, in which this driver controls only the HDL/FPGA transport layer capture core. This mode is called <code class="docutils literal notranslate"><span class="pre">standalone</span> <span class="pre">mode</span></code>, and the converter is fully configured and controlled by a separate driver.
+The Linux common clock framework is utilized so that this driver knows the sampling frequency of the connected converter DAC device.
+Alternatively this driver can also be used in a <code class="docutils literal notranslate"><span class="pre">linked</span> <span class="pre">mode</span></code>, where the converter device typically a SPI device must instantiate first. If this has happened this AXI-DAC driver will then probe as well. (Deferred probe mechanism)
+Finally both the HDL core platform device together with the converter SPI device will register a common IIO device, which will then exhibit a common set of attributes and channels.
+The converter SPI device driver is handled in a separate source file, which can be found in the same directory this driver exists. The device tree phandle “spibus-connected” is used to connect the AXI-DAC driver with the SPI control driver.</p>
+<p>Sometimes there is a common HDL/FPGA transport layer core, which handles both RX/TX or ADC/DMA.
+This single physical core is then handled by two independent IIO drivers each for one transport data direction.
+It’s physical address register space is then also split or divided, typically spaced by 0x4000.
+A good example for this case is the <a class="reference internal" href="#/resources/fpga/docs/axi_ad9361"><span class="xref myst">AXI_AD9361</span></a> HDL core.</p>
+<p>The HDL/FPGA transport layer capture core driver portion implements a polyphase dual tone DDS core per channel together with an DMA based waveform buffer mechanism.
+The buffer can be filled by arbitrary data, which is then typically cyclically repeated or used in a streaming fashion.</p>
+<p><img alt="axi-dac-dds-overview.png" src="resources/tools-software/linux-drivers/iio-dds/axi-dac-dds-overview.png" />{.align-center width=“800” query=“?800”}</p>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.c">drivers/iio/frequency/cf_axi_dds.c</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/frequency/cf_axi_dds.c">WIP</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9122.c">drivers/iio/frequency/ad9122.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9144.c">drivers/iio/frequency/ad9144.c</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9162.c">drivers/iio/frequency/ad9162.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/ad9172.c">drivers/iio/frequency/ad9172.c</a></td>
+</tr>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.c">drivers/iio/frequency/cf_axi_dds.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds_buffer_stream.c">drivers/iio/frequency/cf_axi_dds_buffer_stream.c</a></td>
+</tr>
+<tr class="odd">
+<td>include</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.h">drivers/iio/frequency/cf_axi_adc.h</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example-platform-device-initialization">
+<h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
+<p>The AXI DAC/DDS driver is a platform driver and can only be instantiated via device tree.</p>
+<p>Required devicetree properties:</p>
+<ul class="simple">
+<li><p><strong>compatible</strong>: Should always be one of these:</p>
+<ul>
+<li><p>adi,axi-ad9122-6.00.a</p></li>
+<li><p>adi,axi-ad9136-1.0</p></li>
+<li><p>adi,axi-ad9144-1.0</p></li>
+<li><p>adi,axi-ad9162-1.0</p></li>
+<li><p>adi,axi-ad9172-1.0</p></li>
+<li><p>adi,axi-ad9361x2-dds-6.00.a</p></li>
+<li><p>adi,axi-ad9361-dds-6.00.a</p></li>
+<li><p>adi,axi-ad9364-dds-6.00.a</p></li>
+<li><p>adi,axi-ad9371-tx-1.0</p></li>
+<li><p>adi,axi-ad9739a-8.00.b</p></li>
+<li><p>adi,axi-ad9963-dds-1.00.a</p></li>
+<li><p>adi,axi-adrv9009-tx-1.0</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p><strong>reg</strong>: Base address and register area size. This parameter expects a register range.</p></li>
+</ul>
+<p>Optional Parameters:</p>
+<ul class="simple">
+<li><p><strong>adi,axi-dds-default-scale</strong>: The power up DDS scale in 16-bit fractional representation. On driver probe the default mode is DDS with some default frequency at 0.25 Full Scale. Often this behavior is undesired. The best way to mute the DDS on startup is to set this to 0.</p></li>
+<li><p><strong>adi,axi-dds-default-frequency</strong>: The power up DDS frequency for all tones.</p></li>
+<li><p><strong>adi,axi-dds-parity-enable</strong>: If set the HDL core uses Parity Mode. (Default is Frame Mode)</p></li>
+<li><p><strong>adi,axi-dds-parity-type-odd</strong>: If set the HDL core use odd parity. (Default is even)</p></li>
+<li><p><strong>adi,axi-dds-1-rf-channel</strong>: If set the HDL core expects 1 RF channel. (Default 2 channels)</p></li>
+<li><p><strong>adi,axi-interpolation-core-available</strong>: If the FPGA system features an additional interpolation filter, this attribute should be set.</p></li>
+<li><p><strong>adi,axi-pl-fifo-enable</strong>: If the FPGA system features a PL FIFO (Programmable Logic), this attribute should be set.</p></li>
+<li><p><strong>dmas</strong>: DMA specifiers for the tx dma. See the DMA client binding: Documentation/devicetree/bindings/dma/dma.txt</p></li>
+<li><p><strong>dma-names</strong>: DMA request name. Should be “tx” if a dma is present.</p></li>
+<li><p><strong>spibus-connected</strong>: Phandle to the SPI device (control interface) on which the DAC can be found</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&amp;spi0 {
+    status = &quot;okay&quot;;
+
+    adc0_ad9361: ad9361-phy@0 {
+        #address-cells = &lt;1&gt;;
+        #size-cells = &lt;0&gt;;
+        #clock-cells = &lt;1&gt;;
+        compatible = &quot;ad9361&quot;;
+
+        /* SPI Setup */
+        reg = &lt;0&gt;;
+        spi-cpha;
+        spi-max-frequency = &lt;10000000&gt;;
+
+        /* Clocks */
+        clocks = &lt;&amp;ad9361_clkin 0&gt;;
+        clock-names = &quot;ad9361_ext_refclk&quot;;
+        clock-output-names = &quot;rx_sampl_clk&quot;, &quot;tx_sampl_clk&quot;;
+
+    [--- snip ---]
+
+    }
+}
+
+&amp;fpga_axi {
+    tx_dma: dma@7c420000 {
+        compatible = &quot;adi,axi-dmac-1.00.a&quot;;
+        reg = &lt;0x7c420000 0x10000&gt;;
+        #dma-cells = &lt;1&gt;;
+        interrupts = &lt;0 56 0&gt;;
+        clocks = &lt;&amp;clkc 16&gt;;
+
+        dma-channel {
+            adi,source-bus-width = &lt;64&gt;;
+            adi,destination-bus-width = &lt;64&gt;;
+            adi,type = &lt;1&gt;;
+            adi,cyclic;
+        };
+    };
+
+    cf_ad9361_dac_core_0: cf-ad9361-dds-core-lpc@79024000 {
+        compatible = &quot;adi,axi-ad9361-dds-6.00.a&quot;;
+        reg = &lt;0x79024000 0x1000&gt;;
+        clocks = &lt;&amp;adc0_ad9361 13&gt;;
+        clock-names = &quot;sampl_clk&quot;;
+        dmas = &lt;&amp;tx_dma 0&gt;;
+        dma-names = &quot;tx&quot;;
+        adi,axi-dds-default-scale = &lt;0&gt;;
+    };
+};  
+</pre></div>
+</div>
+</section>
+<section id="enabling-linux-driver-support">
+<h2>Enabling Linux driver support<a class="headerlink" href="#enabling-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<p>&lt;WRAP round help&gt;
+The AXI ADC HDL driver may depend on <strong>CONFIG_SPI</strong>
+&lt;/WRAP&gt;</p>
+</section>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
+    Device Drivers  ---&gt;
+    &lt;*&gt;     Industrial I/O support ---&gt;
+        --- Industrial I/O support
+        -*-   Enable ring buffer support within IIO
+        -*-     Industrial I/O lock free software ring
+        -*-   Enable triggered sampling support
+
+              *** Direct Digital Synthesis ***
+        [--snip--]
+
+        &lt;*&gt;   Analog Devices CoreFPGA AXI DDS driver
+        &lt;*&gt;   Analog Devices AD9122 DAC
+
+        [--snip--]
+</pre></div>
+</div>
+</section>
+<section id="hardware-configuration">
+<h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
+<p>In case the driver probes successfully and the device gets instantiated.
+Your systems kernel messages should include a line, which may look like the one shown below.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cf_axi_dds 79024000.cf-ad9361-dds-core-lpc: Analog Devices CF_AXI_DDS_DDS MASTER (8.00.b) at 0x79024000 mapped to 0xf0998000, probed DDS AD9361
+</pre></div>
+</div>
+</section>
+<section id="driver-testing">
+<h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
+<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<p>Some device attributes control the DDS HDL Core, others features of the DAC and associated clock providers.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+analog:/sys/bus/iio/devices/iio:device2# <strong>cd /sys/bus/iio/devices/</strong>
+root&#64;analog:/sys/bus/iio/devices# <strong>ls</strong>
+iio:device0 iio:device1 iio:device2 iio:device3
+root&#64;analog:/sys/bus/iio/devices#</p>
+<p>root&#64;analog:/sys/bus/iio/devices# <strong>cd iio\:device2</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>ls -l</strong>
+total 0
+drwxr-xr-x 5 root root 0 Jan 1 00:00 .
+drwxr-xr-x 4 root root 0 Jan 1 00:00 …
+drwxrwxrwx 2 root root 0 Jan 1 00:00 buffer
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 dev
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 name
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 of_node -&gt; …/…/…/…/…/firmware/devicetree/base/fpga-axi&#64;0/cf-ad9361-dds-core-lpc&#64;79024000
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_TX1_I_F1_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_TX1_I_F1_phase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_TX1_I_F1_raw
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage0_TX1_I_F1_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage1_TX1_I_F2_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage1_TX1_I_F2_phase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage1_TX1_I_F2_raw
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage1_TX1_I_F2_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage2_TX1_Q_F1_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage2_TX1_Q_F1_phase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage2_TX1_Q_F1_raw
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage2_TX1_Q_F1_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage3_TX1_Q_F2_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage3_TX1_Q_F2_phase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage3_TX1_Q_F2_raw
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage3_TX1_Q_F2_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage4_TX2_I_F1_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage4_TX2_I_F1_phase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage4_TX2_I_F1_raw
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage4_TX2_I_F1_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX2_I_F2_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX2_I_F2_phase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX2_I_F2_raw
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage5_TX2_I_F2_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage6_TX2_Q_F1_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage6_TX2_Q_F1_phase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage6_TX2_Q_F1_raw
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage6_TX2_Q_F1_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage7_TX2_Q_F2_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage7_TX2_Q_F2_phase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage7_TX2_Q_F2_raw
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage7_TX2_Q_F2_scale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_altvoltage_sampling_frequency
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage0_calibphase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage0_calibscale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage1_calibphase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage1_calibscale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage2_calibphase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage2_calibscale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage3_calibphase
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage3_calibscale
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 out_voltage_sampling_frequency
+drwxrwxrwx 2 root root 0 Jan 1 00:00 power
+drwxrwxrwx 2 root root 0 Jan 1 00:00 scan_elements
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -&gt; …/…/…/…/…/bus/iio
+-rw-rw-rw- 1 root root 4096 Jan 1 00:00 uevent
+root&#64;analog:/sys/bus/iio/devices/iio:device2#
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="show-device-name">
+<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat name</strong>
+cf-ad9361-dds-core-lpc
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-set-dds-frequency">
+<h3>Show/Set DDS frequency<a class="headerlink" href="#show-set-dds-frequency" title="Link to this heading">¶</a></h3>
+<p>Values are in Hz.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_altvoltage0_TX1_I_F1_frequency</strong>
+9279985
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>echo 500000 &gt; out_altvoltage0_TX1_I_F1_frequency</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_altvoltage0_TX1_I_F1_frequency</strong>
+500163
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-set-dds-phase">
+<h3>Show/Set DDS Phase<a class="headerlink" href="#show-set-dds-phase" title="Link to this heading">¶</a></h3>
+<p>Values are in milli degrees.
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_altvoltage0_TX1_I_F1_phase</strong>
+89995
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>echo 91000 &gt; out_altvoltage0_TX1_I_F1_phase</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_altvoltage0_TX1_I_F1_phase</strong>
+90995
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="enable-disable-dds-channel">
+<h3>Enable/Disable DDS Channel<a class="headerlink" href="#enable-disable-dds-channel" title="Link to this heading">¶</a></h3>
+<p>1 for enable, 0 for disable.</p>
+<p>With the introduction of the big channel MUX (REG_CHAN_CNTRL_7, DAC_DDS_SEL) starting with HDV Version &gt; 7.00, the RAW attribute has some side effects, that need to be understood.
+In many situations for example when the Buffer mode is used, it’s not desirable to write this attribute.</p>
+<section id="hdl-version-7-00-a">
+<h4>HDL Version &lt; 7.00.a<a class="headerlink" href="#hdl-version-7-00-a" title="Link to this heading">¶</a></h4>
+<p><img alt="dds_data_sel_v7-.png" src="resources/tools-software/linux-drivers/iio-dds/dds_data_sel_v7-.png" />{width=“500” query=“?500”}</p>
+</section>
+<section id="id1">
+<h4>HDL Version &gt; 7.00.a<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
+<p><img alt="dds_data_sel_v7+.png" src="resources/tools-software/linux-drivers/iio-dds/dds_data_sel_v7+.png" />{width=“500” query=“?500”}</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_altvoltage0_TX1_I_F1_raw</strong>
+1
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="show-set-dds-scale">
+<h3>Show/Set DDS Scale<a class="headerlink" href="#show-set-dds-scale" title="Link to this heading">¶</a></h3>
+<p>DDS amplitude: range 0.00 .… 1.00 (relative to full scale)</p>
+<p>&lt;note tip&gt;
+When disabling the DAC Buffer/DMA mode and a transition into DDS tone output mode is not desired -
+Scale of all channels should be set to 0.00. See also device tree attribute: adi,axi-dds-default-scale
+&lt;/note&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_altvoltage0_TX1_I_F1_scale</strong>
+0.500000
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_altvoltage0_TX1_I_F1_scale</strong>
+1.000000 0.500000 0.250000 0.125000 .…
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>echo 0.25 &gt; out_altvoltage0_TX1_I_F1_scale</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_altvoltage0_TX1_I_F1_scale</strong>
+0.250000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="dac-internal-or-external-gain-dc-offset-and-phase-adjustments">
+<h3>DAC internal or external Gain, DC Offset, and Phase adjustments<a class="headerlink" href="#dac-internal-or-external-gain-dc-offset-and-phase-adjustments" title="Link to this heading">¶</a></h3>
+<p>Depending on the platform. These attributes may control converter internal or external processing blocks.</p>
+<p>The AD9122 features Gain, DC Offset, and Phase adjustment for sideband
+suppression. These features can be controlled via following attributes:</p>
+<ul class="simple">
+<li><p>out_voltage0_calibbias</p></li>
+<li><p>out_voltage0_calibscale</p></li>
+<li><p>out_voltage0_phase</p></li>
+<li><p>out_voltage1_calibbias</p></li>
+<li><p>out_voltage1_calibscale</p></li>
+<li><p>out_voltage1_phase</p></li>
+</ul>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **grep “” out_voltage* **
+out_voltage0_calibbias:0
+out_voltage0_calibscale:505
+out_voltage0_phase:0
+out_voltage1_calibbias:0
+out_voltage1_calibscale:505
+out_voltage1_phase:0</p>
+<p>&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="external-synchronization">
+<h3>External synchronization<a class="headerlink" href="#external-synchronization" title="Link to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="#/resources/fpga/peripherals/jesd204/jesd204_tpl_dac"><span class="xref myst">DAC TPL HDL</span></a> core supports the <a class="reference internal" href="#/resources/fpga/peripherals/jesd204/jesd204_tpl_dac#External_synchronization"><span class="xref myst">EXT_SYNC</span></a> feature, allowing to synchronize multiple channels within a DAC or across multiple instances.
+This feature can also synchronize between the <a class="reference internal" href="#/resources/fpga/peripherals/jesd204/jesd204_tpl_adc"><span class="xref myst">ADC TPL HDL</span></a> and <a class="reference internal" href="#/resources/fpga/peripherals/jesd204/jesd204_tpl_dac"><span class="xref myst">DAC TPL HDL</span></a> core.</p>
+<p>There are two device attributes which allows controlling this feature:
+<code class="docutils literal notranslate"><span class="pre">sync_start_enable</span></code> and <code class="docutils literal notranslate"><span class="pre">sync_start_enable_available</span></code> reading the
+later returns the available modes which depend on HDL core synthesis
+parameters. The options are explained below. Reading ‘sync_start_enable’
+returns either ‘arm’ while waiting for the external synchronization
+signal or ‘disarm’ otherwise.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">arm</span></code>: Setting this key will arm the trigger mechanism sensitive to an external sync signal. Once the external sync signal goes high it synchronizes channels within a DAC, and across multiple instances. This key has an effect only the EXT_SYNC synthesis parameter is set.</p></li>
+</ul>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">disarm</span></code>: Setting this key will disarm the trigger mechanism sensitive to an external sync signal. This key has an effect only the EXT_SYNC synthesis parameter is set.</p></li>
+</ul>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">trigger_manual</span></code>: Setting this key will issue an external sync event if it is hooked up inside the fabric. This key has an effect only the EXT_SYNC synthesis parameter is set.</p></li>
+</ul>
+<section id="example">
+<h4>Example:<a class="headerlink" href="#example" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device3# <strong>cat sync_start_enable_available</strong>
+<strong>arm disarm trigger_manual</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device3# <strong>cat sync_start_enable</strong>
+<strong>disarm</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device3# <strong>echo arm &gt; sync_start_enable</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device3# <strong>cat sync_start_enable</strong>
+<strong>arm</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device3# <strong>echo trigger_manual &gt; sync_start_enable</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device3# <strong>cat sync_start_enable</strong>
+<strong>disarm</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="buffer-management">
+<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device3&gt; <strong>ls -l buffer</strong>
+total 0
+-rw-r–r– 1 root root 4096 Jan 1 00:12 enable
+-rw-r–r– 1 root root 4096 Jan 1 00:12 length
+-r–r–r– 1 root root 4096 Jan 1 00:12 watermark
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p><img alt="iio_snippets#buffer_management&amp;noheader&amp;firstseconly&amp;noeditbtn" src="page%3Esoftware/linux/docs/iio/iio_snippets#buffer_management&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device3&gt; <strong>ls -l scan_elements</strong>
+total 0
+-rw-r–r– 1 root root 4096 Jan 1 00:00 out_voltage0_en
+-r–r–r– 1 root root 4096 Jan 1 00:00 out_voltage0_index
+-r–r–r– 1 root root 4096 Jan 1 00:00 out_voltage0_type
+-rw-r–r– 1 root root 4096 Jan 1 00:00 out_voltage1_en
+-r–r–r– 1 root root 4096 Jan 1 00:00 out_voltage1_index
+-r–r–r– 1 root root 4096 Jan 1 00:00 out_voltage1_type
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p><img alt="iio_snippets#typical_adc_scan_elements&amp;noheader&amp;firstseconly&amp;noeditbtn" src="page%3Esoftware/linux/docs/iio/iio_snippets#typical_adc_scan_elements&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+</section>
+<section id="low-level-register-access">
+<h3>Low level register access<a class="headerlink" href="#low-level-register-access" title="Link to this heading">¶</a></h3>
+<p><img alt="iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&amp;noheader&amp;firstseconly&amp;noeditbtn" src="page%3Esoftware/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+</section>
+<section id="ad9122-clocking-concept">
+<h3>AD9122 Clocking concept<a class="headerlink" href="#ad9122-clocking-concept" title="Link to this heading">¶</a></h3>
+<p>There are three different clocks associated with the DAC.</p>
+<ul class="simple">
+<li><p>Data/Interface Clock (DCI)</p></li>
+<li><p>DAC Clock (DACCLK)</p></li>
+<li><p>Reference Clock (REFCLK)</p></li>
+</ul>
+<p>The Data/Interface Clock (DCI) is shared with the DDS HDL Core.</p>
+<p>The default AD9122 driver configuration uses a concept called Direct Clocking.
+This means an external clock provider must supply DCI and DACCLK.
+In case the DAC interpolation feature is not used and the DAC operates in Word-Mode
+then DCI = DACCLK.</p>
+<p>When N interpolation is used following equation must be satisfied.<br />
+N = {1, 2, 4, 8}<br />
+DACCLK = N * DCI and DACCLK &lt;= 1230MHz<br />
+The <em>out_altvoltage_interpolation_frequency_available</em> attribute allows you to query the supported
+interpolation frequencies for a given Interface Clock (<em>out_altvoltage_X_sampling_frequency</em>)
+by exercising possible settings on the clock provider.
+In case the clock provider is not capable providing exactly the requested rate, the mode is
+removed from the list.</p>
+<p><strong>So following example:</strong></p>
+<p>Assuming the clock provider can only provide following rates: 1000MHz / X, X = {1…1023}.<br />
+This results in following rates:<br />
+1000, 500, 333.33, 250, 200, 166.66, 142.85, 125, 111.11, .…</p>
+<ul class="simple">
+<li><p>In case the interface clock is set to 125MHz, then 1x, 2x, 4x and 8x interpolation is possible.</p></li>
+</ul>
+<ul class="simple">
+<li><p>Assuming the interface clock is set to 166.66MHz, then only 1x, 2x interpolation is possible. 4x interpolation won’t work since 666.66MHz cannot be supplied by the clock provider.</p></li>
+</ul>
+<p>The half-band interpolation filters have selectable pass bands
+that allow the center frequencies to be moved in increments of
+one-half their input data rate. The premodulation block provides
+a digital upconversion of the incoming waveform by one-half the
+incoming data rate, fDATA. This can be used to frequency-shift base-
+band input data to the center of the interpolation filter pass band.</p>
+<p>The available center shift frequencies for a given Interface Clock (<em>out_altvoltage_X_sampling_frequency</em>), can be queried
+using the <em>out_altvoltage_interpolation_center_shift_frequency_availabl</em>e attribute.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>cat out_altvoltage_1A_sampling_frequency</strong>
+491520000</p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>cat out_altvoltage_interpolation_frequency_available</strong>
+491520000 983040000</p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>cat out_altvoltage_interpolation_frequency</strong>
+491520000</p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>cat out_altvoltage_interpolation_center_shift_frequency</strong>
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;</p>
+<p><em>[ Set data clock to 122.88 MHz ]</em></p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>echo 122880000 &gt; out_altvoltage_1A_sampling_frequency</strong></p>
+<p><em>[ List available interpolation DAC frequencies ]</em></p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>cat out_altvoltage_interpolation_frequency_available</strong>
+122880000 245760000 491520000 983040000</p>
+<p><em>[ Select 8x interpolation ]</em></p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>echo 983040000 &gt; out_altvoltage_interpolation_frequency</strong></p>
+<p><em>[ List available center shift frequencies ]</em></p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>cat out_altvoltage_interpolation_center_shift_frequency_available</strong>
+0 61440000 122880000 184320000 245760000 307200000 368640000 430080000 491520000 552960000 614400000 675840000 737280000 798720000 860160000 921600000</p>
+<p><em>[ Select 2x interpolation ]</em></p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>echo 245760000 &gt; out_altvoltage_interpolation_frequency</strong></p>
+<p><em>[ List available center shift frequencies ]</em></p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>cat out_altvoltage_interpolation_center_shift_frequency_available</strong>
+0 61440000 122880000 184320000</p>
+<p><em>[ Select center shift frequencies ]</em></p>
+<p>root&#64;linaro-ubuntu-desktop:/sys/bus/iio/devices/iio:device4# <strong>echo 61440000 &gt; out_altvoltage_interpolation_center_shift_frequency</strong></p>
+<p>&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
+<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../iio-dac/ad5770r.html" title="Previous document" class="prev">AD5770R IIO DAC Linux Driver</a>
+    <a href="../iio-dac/ltc2664.html" title="Next document" class="next">LTC2664 IIO DAC Linux Driver</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

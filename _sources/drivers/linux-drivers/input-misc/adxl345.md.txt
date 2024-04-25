@@ -1,34 +1,25 @@
----
-wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/input-misc/adxl345
-title: ADXL375: 3-Axis, ±200 g Digital Accelerometer
----
-
 # ADXL345 Input 3-Axis Digital Accelerometer Linux Driver
 
-#### Supported Devices
+### Supported Devices
 
--   [ADXL345](https://analog.com/ADXL345)
--   [ADXL346](https://analog.com/ADXL346)
--   [ADXL375](https://analog.com/ADXL375)
+-   [ADXL345](adi>ADXL345)
+-   [ADXL346](adi>ADXL346)
+-   [ADXL375](adi>ADXL375)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0133](https://analog.com/CN0133)
+-   [CN0133](adi>CN0133)\
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADXL313-Z-M](https://analog.com/EVAL-ADXL313-Z-M)
--   [EVAL-ADXL345Z-DB](https://analog.com/EVAL-ADXL345Z-DB)
--   [EVAL-ADXL346Z-DB](https://analog.com/EVAL-ADXL346Z-DB)
--   [EVAL-ADXL375](https://analog.com/EVAL-ADXL375)
+-   [EVAL-ADXL313-Z-M](adi>EVAL-ADXL313-Z-M)
+-   [EVAL-ADXL345Z-DB](adi>EVAL-ADXL345Z-DB)
+-   [EVAL-ADXL346Z-DB](adi>EVAL-ADXL346Z-DB)
+-   [EVAL-ADXL375](adi>EVAL-ADXL375)
 
-#### Description
+### Description
 
-```{image} images/ADXL346_FUNCTIONAL_BLOCK_DIAGRAM.png
-:alt: ADXL346_FUNCTIONAL_BLOCK_DIAGRAM.png
-:width: "550"
-:query: "?550"
-```
+![ADXL346_FUNCTIONAL_BLOCK_DIAGRAM.png](/software/driver/linux/ADXL346_FUNCTIONAL_BLOCK_DIAGRAM.png){width="550" query="?550"}
 
 The ADXL345 is a small, thin, ultra low power, 3-axis accelerometer with high resolution (13-bit) measurement up to ±16 g. Digital output data is formatted as 16-bit twos complement and is accessible through either a SPI (3- or 4- wire) or I2C digital interface.
 
@@ -38,17 +29,13 @@ Several special sensing functions are provided. Activity and inactivity sensing 
 
 Low power modes enable intelligent motion-based power management with threshold sensing and active acceleration measurement at extremely low power dissipation.
 
-[ADXL345](https://analog.com/en/mems-and-sensors/imems-accelerometers/adxl345/products/product.html) - Small, Ultra Low Power, 3-Axis, ±2/4/8/16g Digital Accelerometer
-[ADXL346](https://analog.com/en/mems-and-sensors/imems-accelerometers/adxl346/products/product.html) - Ultra Low Power, Three-Axis, +-2/4/8/16g Digital Accelerometer
-[ADXL375](https://analog.com/en/mems-and-sensors/imems-accelerometers/adxl375/products/product.html) - Low Power, Three-Axis, +-200g Digital Accelerometer
+[ADXL345](adi>en/mems-and-sensors/imems-accelerometers/adxl345/products/product.html) - Small, Ultra Low Power, 3-Axis, ±2/4/8/16g Digital Accelerometer\
+[ADXL346](adi>en/mems-and-sensors/imems-accelerometers/adxl346/products/product.html) - Ultra Low Power, Three-Axis, +-2/4/8/16g Digital Accelerometer\
+[ADXL375](adi>en/mems-and-sensors/imems-accelerometers/adxl375/products/product.html) - Low Power, Three-Axis, +-200g Digital Accelerometer\
 
-```{image} youtube>8o_b2DO3d3E
-:alt: iMEMS® Motion Sensors featuring the ADXL345
-:.align-left
-:query: "?large"
-```
+![iMEMS® Motion Sensors featuring the ADXL345](youtube>8o_b2DO3d3E){.align-left query="?large"}
 
-##### ADXL34x Hardware Features
+#### ADXL34x Hardware Features
 
 **ADXL345/346:**
 
@@ -70,7 +57,7 @@ Low power modes enable intelligent motion-based power management with threshold 
 
       * 4- and 6-position orientation sensing
 
-#### Configuration
+### Configuration
 
 **Selectable ADXL34X I2C Device Address:**
 
@@ -93,9 +80,9 @@ Low power modes enable intelligent motion-based power management with threshold 
 </tbody>
 </table>
 
-#### Software configurable features
+### Software configurable features
 
-##### ADXL34x Linux Driver Features
+#### ADXL34x Linux Driver Features
 
 **ADXL345/346:**
 
@@ -124,11 +111,11 @@ Low power modes enable intelligent motion-based power management with threshold 
       * 4- and 6-position orientation sensing
           * User selectable Linux Input Event Code for individual positions
 
-### Source Code
+## Source Code
 
-##### Status
+### Status
 
-##### Status
+### Status
 
 <table>
 <thead>
@@ -145,7 +132,7 @@ Low power modes enable intelligent motion-based power management with threshold 
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -174,11 +161,11 @@ Low power modes enable intelligent motion-based power management with threshold 
 </tbody>
 </table>
 
-#### ADXL345/6 driver porting
+### ADXL345/6 driver porting
 
 Starting with linux-2.6.36 the ADXL34x driver is mainlined. If you are using an pre linux-2.6.36 kernel get the source from our repositories and add them to your kernel tree.
 
-If you are using a kernel version **without the threaded irq capabilities (< 2.6.30) get there driver from here:**
+If you are using a kernel version **without the threaded irq capabilities (\< 2.6.30) get there driver from here:**\
 
 -   [adxl34x.c](bfgit>linux-kernel?drivers/input/misc/adxl34x.c;h=c67bb179f81642fe1bf403d132567098fd492dee;hb=b03acb9bcd06d8495f9c2510a593a2adf9919aaa)
 
@@ -215,8 +202,8 @@ If you are using a kernel version **without the threaded irq capabilities (< 2.6
 ```
        * Copy to linux-2.6.x/include/linux/input/adxl34x.h
 
-**For the latest version of checkout the [Files](#Files) section of this document. **
-**Add following lines to** *linux-2.6.x/drivers/input/misc/Kconfig*:
+\*\*For the latest version of checkout the [Files](#Files) section of this document. **\
+**Add following lines to\*\* *linux-2.6.x/drivers/input/misc/Kconfig*:
 
     config INPUT_ADXL34X
         tristate "Analog Devices ADXL34x Three-Axis Digital Accelerometer"
@@ -261,13 +248,11 @@ If you are using a kernel version **without the threaded irq capabilities (< 2.6
     obj-$(CONFIG_INPUT_ADXL34X_I2C)     += adxl34x-i2c.o
     obj-$(CONFIG_INPUT_ADXL34X_SPI)     += adxl34x-spi.o
 
-### Example platform device initialization
+## Example platform device initialization
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
-Digital Accelerometer characteristics are highly application specific and may vary between boards and models. The platform_data for the device's "struct device" holds this information.
+Digital Accelerometer characteristics are highly application specific and may vary between boards and models. The platform_data for the device\'s \"struct device\" holds this information.
 
 ``` c
 /*
@@ -282,8 +267,8 @@ Digital Accelerometer characteristics are highly application specific and may va
  * Licensed under the GPL-2 or later.
  */
 
-## ifndef __LINUX_INPUT_ADXL34X_H__
-## define __LINUX_INPUT_ADXL34X_H__
+#ifndef __LINUX_INPUT_ADXL34X_H__
+#define __LINUX_INPUT_ADXL34X_H__
 
 struct adxl34x_platform_data {
 
@@ -307,10 +292,10 @@ struct adxl34x_platform_data {
      * opening of the second tap window.
      */
 
-## define ADXL_SUPPRESS   (1 << 3)
-## define ADXL_TAP_X_EN   (1 << 2)
-## define ADXL_TAP_Y_EN   (1 << 1)
-## define ADXL_TAP_Z_EN   (1 << 0)
+#define ADXL_SUPPRESS   (1 << 3)
+#define ADXL_TAP_X_EN   (1 << 2)
+#define ADXL_TAP_Y_EN   (1 << 1)
+#define ADXL_TAP_Z_EN   (1 << 0)
 
     u8 tap_axis_control;
 
@@ -380,14 +365,14 @@ struct adxl34x_platform_data {
      * considered inactive and the inactivity interrupt is triggered.
      */
 
-## define ADXL_ACT_ACDC       (1 << 7)
-## define ADXL_ACT_X_EN       (1 << 6)
-## define ADXL_ACT_Y_EN       (1 << 5)
-## define ADXL_ACT_Z_EN       (1 << 4)
-## define ADXL_INACT_ACDC     (1 << 3)
-## define ADXL_INACT_X_EN     (1 << 2)
-## define ADXL_INACT_Y_EN     (1 << 1)
-## define ADXL_INACT_Z_EN     (1 << 0)
+#define ADXL_ACT_ACDC       (1 << 7)
+#define ADXL_ACT_X_EN       (1 << 6)
+#define ADXL_ACT_Y_EN       (1 << 5)
+#define ADXL_ACT_Z_EN       (1 << 4)
+#define ADXL_INACT_ACDC     (1 << 3)
+#define ADXL_INACT_X_EN     (1 << 2)
+#define ADXL_INACT_Y_EN     (1 << 1)
+#define ADXL_INACT_Z_EN     (1 << 0)
 
     u8 act_axis_control;
 
@@ -475,11 +460,11 @@ struct adxl34x_platform_data {
      * maximum g-Range and scale factor.
      */
 
-## define ADXL_FULL_RES       (1 << 3)
-## define ADXL_RANGE_PM_2g    0
-## define ADXL_RANGE_PM_4g    1
-## define ADXL_RANGE_PM_8g    2
-## define ADXL_RANGE_PM_16g   3
+#define ADXL_FULL_RES       (1 << 3)
+#define ADXL_RANGE_PM_2g    0
+#define ADXL_RANGE_PM_4g    1
+#define ADXL_RANGE_PM_8g    2
+#define ADXL_RANGE_PM_16g   3
 
     u8 data_range;
 
@@ -508,8 +493,8 @@ struct adxl34x_platform_data {
      * Sleep Bit section of the ADXL34x datasheet for more information.
      */
 
-## define ADXL_LINK   (1 << 5)
-## define ADXL_AUTO_SLEEP (1 << 4)
+#define ADXL_LINK   (1 << 5)
+#define ADXL_AUTO_SLEEP (1 << 4)
 
     u8 power_mode;
 
@@ -523,9 +508,9 @@ struct adxl34x_platform_data {
      * DEFAULT should be ADXL_FIFO_STREAM
      */
 
-## define ADXL_FIFO_BYPASS    0
-## define ADXL_FIFO_FIFO      1
-## define ADXL_FIFO_STREAM    2
+#define ADXL_FIFO_BYPASS    0
+#define ADXL_FIFO_FIFO      1
+#define ADXL_FIFO_STREAM    2
 
     u8 fifo_mode;
 
@@ -578,9 +563,9 @@ struct adxl34x_platform_data {
      * 3-D orientation concurrently.
      */
 
-## define ADXL_EN_ORIENTATION_2D      1
-## define ADXL_EN_ORIENTATION_3D      2
-## define ADXL_EN_ORIENTATION_2D_3D   3
+#define ADXL_EN_ORIENTATION_2D      1
+#define ADXL_EN_ORIENTATION_3D      2
+#define ADXL_EN_ORIENTATION_2D_3D   3
 
     u8 orientation_enable;
 
@@ -592,14 +577,14 @@ struct adxl34x_platform_data {
      * angle where the orientation is considered invalid.
      */
 
-## define ADXL_DEADZONE_ANGLE_0p0     0   /* !!!0.0 [deg] */
-## define ADXL_DEADZONE_ANGLE_3p6     1   /* 3.6 [deg] */
-## define ADXL_DEADZONE_ANGLE_7p2     2   /* 7.2 [deg] */
-## define ADXL_DEADZONE_ANGLE_10p8    3   /* 10.8 [deg] */
-## define ADXL_DEADZONE_ANGLE_14p4    4   /* 14.4 [deg] */
-## define ADXL_DEADZONE_ANGLE_18p0    5   /* 18.0 [deg] */
-## define ADXL_DEADZONE_ANGLE_21p6    6   /* 21.6 [deg] */
-## define ADXL_DEADZONE_ANGLE_25p2    7   /* 25.2 [deg] */
+#define ADXL_DEADZONE_ANGLE_0p0     0   /* !!!0.0 [deg] */
+#define ADXL_DEADZONE_ANGLE_3p6     1   /* 3.6 [deg] */
+#define ADXL_DEADZONE_ANGLE_7p2     2   /* 7.2 [deg] */
+#define ADXL_DEADZONE_ANGLE_10p8    3   /* 10.8 [deg] */
+#define ADXL_DEADZONE_ANGLE_14p4    4   /* 14.4 [deg] */
+#define ADXL_DEADZONE_ANGLE_18p0    5   /* 18.0 [deg] */
+#define ADXL_DEADZONE_ANGLE_21p6    6   /* 21.6 [deg] */
+#define ADXL_DEADZONE_ANGLE_25p2    7   /* 25.2 [deg] */
 
     u8 deadzone_angle;
 
@@ -611,38 +596,36 @@ struct adxl34x_platform_data {
      * orientation sensing
      */
 
-## define ADXL_LP_FILTER_DIVISOR_2    0
-## define ADXL_LP_FILTER_DIVISOR_4    1
-## define ADXL_LP_FILTER_DIVISOR_8    2
-## define ADXL_LP_FILTER_DIVISOR_16   3
-## define ADXL_LP_FILTER_DIVISOR_32   4
-## define ADXL_LP_FILTER_DIVISOR_64   5
-## define ADXL_LP_FILTER_DIVISOR_128  6
-## define ADXL_LP_FILTER_DIVISOR_256  7
+#define ADXL_LP_FILTER_DIVISOR_2    0
+#define ADXL_LP_FILTER_DIVISOR_4    1
+#define ADXL_LP_FILTER_DIVISOR_8    2
+#define ADXL_LP_FILTER_DIVISOR_16   3
+#define ADXL_LP_FILTER_DIVISOR_32   4
+#define ADXL_LP_FILTER_DIVISOR_64   5
+#define ADXL_LP_FILTER_DIVISOR_128  6
+#define ADXL_LP_FILTER_DIVISOR_256  7
 
     u8 divisor_length;
 
     u32 ev_codes_orient_2d[4];  /* EV_KEY {+X, -X, +Y, -Y} */
     u32 ev_codes_orient_3d[6];  /* EV_KEY {+Z, +Y, +X, -X, -Y, -Z} */
 };
-## endif
+#endif
 ```
 
-#### Example Platform / Board file (SPI Interface Option)
+### Example Platform / Board file (SPI Interface Option)
 
-<!-- CMDS: firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 These snippets are all from the same file. `arch/blackfin/mach-bf548/boards/ezkit.c`:
 
 ``` C
-## include <linux/spi/adxl34x.h>
+#include <linux/spi/adxl34x.h>
 ```
 
 ``` c
-## if defined(CONFIG_INPUT_ADXL34X) || defined(CONFIG_INPUT_ADXL34X_MODULE)
-## include <linux/input/adxl34x.h>
+#if defined(CONFIG_INPUT_ADXL34X) || defined(CONFIG_INPUT_ADXL34X_MODULE)
+#include <linux/input/adxl34x.h>
 static const struct adxl34x_platform_data adxl34x_info = {
     .x_axis_offset = 0,
     .y_axis_offset = 0,
@@ -678,12 +661,12 @@ static const struct adxl34x_platform_data adxl34x_info = {
     /* EV_KEY {+Z, +Y, +X, -X, -Y, -Z} */
     .ev_codes_orient_3d = {BTN_Z, BTN_Y, BTN_X, BTN_A, BTN_B, BTN_C},
 };
-## endif
+#endif
 ```
 
 ``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
-## if defined(CONFIG_INPUT_ADXL34X_SPI) || defined(CONFIG_INPUT_ADXL34X_SPI_MODULE)
+#if defined(CONFIG_INPUT_ADXL34X_SPI) || defined(CONFIG_INPUT_ADXL34X_SPI_MODULE)
     {
         .modalias       = "adxl34x",
         .platform_data      = &adxl34x_info,
@@ -693,7 +676,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
         .chip_select        = 2,
         .mode           = SPI_MODE_3,
     },
-## endif
+#endif
 };
 ```
 
@@ -711,11 +694,11 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-##### Devicetree
+### Devicetree
 
 Required devicetree properties:
 
--   compatible: Needs to be "adi," followed by the name of the device. E.g. "adi,adxl34x"
+-   compatible: Needs to be \"adi,\" followed by the name of the device. E.g. \"adi,adxl34x\"
 -   reg: The chipselect number used for the device
 -   spi-max-frequency: Maximum SPI clock frequency
 -   spi-cpha: Needs to be set for the correct SPI mode
@@ -743,23 +726,21 @@ Required devicetree properties:
                    };
             };
 
-#### Example Platform / Board file (I2C Interface Option)
+### Example Platform / Board file (I2C Interface Option)
 
-<!-- CMDS: firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_I2C_devices.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
 
 These snippets are all from the same file. `arch/blackfin/mach-bf548/boards/ezkit.c`:
 
 ``` c
 static struct i2c_board_info __initdata board_i2c_board_info[] = {
-## if defined(CONFIG_INPUT_ADXL34X_I2C) || defined(CONFIG_INPUT_ADXL34X_I2C_MODULE)
+#if defined(CONFIG_INPUT_ADXL34X_I2C) || defined(CONFIG_INPUT_ADXL34X_I2C_MODULE)
     {
         I2C_BOARD_INFO("adxl34x", 0x53),
         .irq = IRQ_XYZ,
         .platform_data = (void *)&adxl34x_info,
     },
-## endif
+#endif
 };
 ```
 
@@ -777,11 +758,11 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-##### Devicetree
+### Devicetree
 
 Required devicetree properties:
 
--   compatible: Needs to be "adi," followed by the name of the device. E.g. "adi,adxl34x"
+-   compatible: Needs to be \"adi,\" followed by the name of the device. E.g. \"adi,adxl34x\"
 -   reg: The slave address of the device
 -   interrupt-parent: Specifies which IRQ controller is used
 -   interrupts: The interrupt associated with the INT2 pin
@@ -803,17 +784,14 @@ Required devicetree properties:
                    };
             };
 
-### Adding Linux driver support
+## Adding Linux driver support
 
-Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
-"make qconfig")
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
 
-:::{NOTE} <!-- ATTRS: round="" help="" -->
-
+\<WRAP round help\>
 The ADXL34x Driver depends on **CONFIG_SPI** or **CONFIG_I2C**
-
-:::
-
+\</WRAP\>
 
     Input device support
       -*- Generic input layer (needed for keyboard, mouse, ...)
@@ -838,28 +816,28 @@ The ADXL34x Driver depends on **CONFIG_SPI** or **CONFIG_I2C**
          <*>     support SPI bus connection (NEW)
             Hardware I/O ports  --->
 
-### Hardware configuration
+## Hardware configuration
 
-### Driver testing
+## Driver testing
 
-#### Driver compiled as a module
+### Driver compiled as a module
 
 I2C Interface:
-```{code-block} bashroot:~> **modprobe evdev**
-root:~> **modprobe adxl34x**
+\<xterm\>root:\~\> **modprobe evdev**
+root:\~\> **modprobe adxl34x**
 input: ADXL34x accelerometer as /devices/platform/i2c-bfin-twi.1/i2c-adapter/i2c-1/1-0053/input/input1
 adxl34x 1-0053: ADXL345 accelerometer, irq 140
-```
+\</xterm\>
 
 SPI Interface:
 
-```{code-block} bashroot:~> **modprobe evdev**
-root:~> **modprobe adxl34x**
+\<xterm\>root:\~\> **modprobe evdev**
+root:\~\> **modprobe adxl34x**
 input: ADXL34x accelerometer as /devices/platform/bfin-spi.1/spi1.2/input/input1
 adxl34x spi1.2: ADXL345 accelerometer, irq 140
-```
+\</xterm\>
 
-#### Driver compiled into the kernel
+### Driver compiled into the kernel
 
 Your kernel startup messages should include something like this
 
@@ -873,7 +851,7 @@ SPI Interface:
     input: ADXL34x accelerometer as /devices/platform/bfin-spi.1/spi1.2/input/input1
     adxl34x spi1.2: ADXL345 accelerometer, irq 140
 
-#### Common Problems
+### Common Problems
 
 In case you see a message like this
 
@@ -881,29 +859,29 @@ In case you see a message like this
 
 This means that the SPI communication and initilaization with the ADXL34x failed. **check bus_num and chip_select in your platform device file**
 
-#### Checking for proper installation
+### Checking for proper installation
 
 After the kernel boot your device folder should include at least one device node for the accelerometer
 
-```{code-block} bashroot:/> **ls -al /dev/input/**
-drw-r--r-- 2 root root 0 Jan 1 00:03 .
+\<xterm\>root:/\> **ls -al /dev/input/**
+drw-r\--r\-- 2 root root 0 Jan 1 00:03 .
 drwxr-xr-x 5 root root 0 Jan 1 00:03 ..
-crw-rw-r-- 1 root root 13, 64 Jan 1 00:03 event0
-crw-rw-r-- 1 root root 13, 65 Jan 1 00:03 event1
-root:/>
-```
+crw-rw-r\-- 1 root root 13, 64 Jan 1 00:03 event0
+crw-rw-r\-- 1 root root 13, 65 Jan 1 00:03 event1
+root:/\>
+\</xterm\>
 
 Check that the interrupt is registered.
 
-```{code-block} bashroot:~> **cat /proc/interrupts | grep adxl34x**
+\<xterm\>root:\~\> **cat /proc/interrupts | grep adxl34x**
 140: 0 adxl34x
-```
+\</xterm\>
 
-```{code-block} bashroot:~> **cat /sys/class/input/input1/name**
+\<xterm\>root:\~\> **cat /sys/class/input/input1/name**
 ADXL34x accelerometer
-```
+\</xterm\>
 
-#### Use the evtest utility to test proper function
+### Use the evtest utility to test proper function
 
     root:/> evtest /dev/input/event1
     Input driver version is 1.0.0
@@ -946,78 +924,72 @@ ADXL34x accelerometer
     Event: time 107831.632000, type 3 (Absolute), code 0 (X), value -16
     Event: time 107831.632000, type 3 (Absolute), code 2 (Z), value 11
 
-:::{NOTE} <!-- ATTRS: tip="" -->
-
-In case you move the accelerometer and don't receive events, it's likely that something with your Interrupt is wrong.
+\<WRAP tip\>
+In case you move the accelerometer and don\'t receive events, it\'s likely that something with your Interrupt is wrong.\
 **check irq number in your platform device file**
+\</WRAP\>
 
-:::
+\<WRAP tip\>
+In case you get a message like: `evtest: No such device`, it\'s likely that you have not install the necessary modules
+\</WRAP\>
 
+### Visualizing Linux Input Events using df_input example from DirectFB
 
-:::{NOTE} <!-- ATTRS: tip="" -->
-
-In case you get a message like: `evtest: No such device`, it's likely that you have not install the necessary modules
-
-:::
-
-
-#### Visualizing Linux Input Events using df_input example from DirectFB
-
-```{code-block} bash
-root:/> df_input &
+\<xterm\>
+root:/\> df_input &
 
      ~~~~~~~~~~~~~~~~~~~~~~~~~~| DirectFB 1.2.7 |~~~~~~~~~~~~~~~~~~~~~~~~~~
           (c) 2001-2008  The world wide DirectFB Open Source Community
           (c) 2000-2004  Convergence (integrated media) GmbH
         ----------------------------------------------------------------
 
-(*) DirectFB/Core: Single Application Core. (2009-05-27 15:03)
-[1] 401 df_input
-root:/> (*) Direct/Thread: Started 'VT Switcher' (405) [CRITICAL OTHER/OTHER 0/0] <12288>...
-(*) Direct/Thread: Started 'Keyboard Input' (406) [INPUT OTHER/OTHER 0/0] <12288>...
-(*) DirectFB/Input: Keyboard 0.9 (directfb.org)
-(*) Direct/Thread: Started 'Linux Input' (407) [INPUT OTHER/OTHER 0/0] <12288>...
-(*) DirectFB/Input: bf54x-keys (1) 0.1 (directfb.org)
-(*) Direct/Thread: Started 'Linux Input' (408) [INPUT OTHER/OTHER 0/0] <12288>...
-(*) DirectFB/Input: ADXL34x accelerometer (2) 0.1 (directfb.org)
-(*) DirectFB/Graphics: Generic Software Rasterizer 0.6 (directfb.org)
-(*) DirectFB/Core/WM: Default 0.3 (directfb.org)
-(*) FBDev/Surface: Allocated 480x272 24 bit RGB24 buffer (index 0) at offset 0 and pitch 1440.
-(*) FBDev/Surface: Allocated 480x272 24 bit RGB24 buffer (index 0) at offset 0 and pitch 1440.
-(*) Direct/Interface: Loaded 'FT2' implementation of 'IDirectFBFont'.
-(*) Direct/Interface: Loaded 'PNG' implementation of 'IDirectFBImageProvider'.
+(\*) DirectFB/Core: Single Application Core. (2009-05-27 15:03)
+\[1\] 401 df_input
+root:/\> (\*) Direct/Thread: Started \'VT Switcher\' (405) \[CRITICAL OTHER/OTHER 0/0\] \<12288\>\...
+(\*) Direct/Thread: Started \'Keyboard Input\' (406) \[INPUT OTHER/OTHER 0/0\] \<12288\>\...
+(\*) DirectFB/Input: Keyboard 0.9 (directfb.org)
+(\*) Direct/Thread: Started \'Linux Input\' (407) \[INPUT OTHER/OTHER 0/0\] \<12288\>\...
+(\*) DirectFB/Input: bf54x-keys (1) 0.1 (directfb.org)
+(\*) Direct/Thread: Started \'Linux Input\' (408) \[INPUT OTHER/OTHER 0/0\] \<12288\>\...
+(\*) DirectFB/Input: ADXL34x accelerometer (2) 0.1 (directfb.org)
+(\*) DirectFB/Graphics: Generic Software Rasterizer 0.6 (directfb.org)
+(\*) DirectFB/Core/WM: Default 0.3 (directfb.org)
+(\*) FBDev/Surface: Allocated 480x272 24 bit RGB24 buffer (index 0) at offset 0 and pitch 1440.
+(\*) FBDev/Surface: Allocated 480x272 24 bit RGB24 buffer (index 0) at offset 0 and pitch 1440.
+(\*) Direct/Interface: Loaded \'FT2\' implementation of \'IDirectFBFont\'.
+(\*) Direct/Interface: Loaded \'PNG\' implementation of \'IDirectFBImageProvider\'.
 
-root:/>
-```
+root:/\>
+\</xterm\>
 
-![df_input example screenshot](images/df_input_adxl_screenshot.png)
+![df_input example screenshot](/software/driver/linux/df_input_adxl_screenshot.png)
 
-#### ADXL34x Sysfs runtime controls
+### ADXL34x Sysfs runtime controls
 
-```{code-block} bashroot:/> cd sys/class/input/input1/device/
-root:/sys/devices/platform/bfin-spi.1/spi1.2> ls -al
+\<xterm\>root:/\> cd sys/class/input/input1/device/
+root:/sys/devices/platform/bfin-spi.1/spi1.2\> ls -al
 drwxr-xr-x 3 root root 0 Jan 2 10:39 .
 drwxr-xr-x 4 root root 0 Jan 2 10:39 ..
--rw-rw-r-- 1 root root 4096 Jan 2 12:01 autosleep
--rw-rw-r-- 1 root root 4096 Jan 2 12:01 calibrate
--rw-rw-r-- 1 root root 4096 Jan 2 12:01 disable
-lrwxrwxrwx 1 root root 0 Jan 2 12:01 driver -> ../../../../bus/spi/drivers/adxl34x
+-rw-rw-r\-- 1 root root 4096 Jan 2 12:01 autosleep
+-rw-rw-r\-- 1 root root 4096 Jan 2 12:01 calibrate
+-rw-rw-r\-- 1 root root 4096 Jan 2 12:01 disable
+lrwxrwxrwx 1 root root 0 Jan 2 12:01 driver -\> ../../../../bus/spi/drivers/adxl34x
 drwxr-xr-x 3 root root 0 Jan 2 10:39 input
--r--r--r-- 1 root root 4096 Jan 2 12:01 modalias
--rw-rw-r-- 1 root root 4096 Jan 2 12:01 rate
-lrwxrwxrwx 1 root root 0 Jan 2 12:01 subsystem -> ../../../../bus/spi
--rw-r--r-- 1 root root 4096 Jan 2 12:01 uevent
-root:/sys/devices/platform/bfin-spi.1/spi1.2>
-```
+-r\--r\--r\-- 1 root root 4096 Jan 2 12:01 modalias
+-rw-rw-r\-- 1 root root 4096 Jan 2 12:01 rate
+lrwxrwxrwx 1 root root 0 Jan 2 12:01 subsystem -\> ../../../../bus/spi
+-rw-r\--r\-- 1 root root 4096 Jan 2 12:01 uevent
+root:/sys/devices/platform/bfin-spi.1/spi1.2\>
+\</xterm\>
 
-##### Device Calibration
+#### Device Calibration
 
-```{code-block} bashroot:/sys/devices/platform/bfin-spi.1/spi1.2> echo 1 > calibrate
-root:/sys/devices/platform/bfin-spi.1/spi1.2> cat calibrate
+\<xterm\>root:/sys/devices/platform/bfin-spi.1/spi1.2\> echo 1 \> calibrate
+root:/sys/devices/platform/bfin-spi.1/spi1.2\> cat calibrate
 2,10,-204
-```
+\</xterm\>
 
-##### Controlling the Output Data Rate
+#### Controlling the Output Data Rate
 
 <table>
 <thead>
@@ -1111,122 +1083,97 @@ root:/sys/devices/platform/bfin-spi.1/spi1.2> cat calibrate
 </tbody>
 </table>
 
-Writing '**value**' into **rate** sets the desired sample rate
-Reading **rate** returns the current value
+Writing \'**value**\' into **rate** sets the desired sample rate\
+Reading **rate** returns the current value\
 See table above for supported sample rates
 
-```{code-block} bashroot:/sys/devices/platform/bfin-spi.1/spi1.2> echo 8 > rate
-root:/sys/devices/platform/bfin-spi.1/spi1.2> cat rate
+\<xterm\>root:/sys/devices/platform/bfin-spi.1/spi1.2\> echo 8 \> rate
+root:/sys/devices/platform/bfin-spi.1/spi1.2\> cat rate
 8
-```
+\</xterm\>
 
-:::{NOTE} <!-- ATTRS: tip="" -->
-
+\<WRAP tip\>
 **Be aware:**
 The ADXL34x conforms to The I2C Bus Specification, Version 2.1,
 January 2000, available from Phillips Semiconductor. It
 supports standard (100 kHz) and fast (400 kHz) data transfer modes.
 
 Very high output data rates are only possible via fast I2C (400kHz) or the SPI interface.
+\</WRAP\>
 
-:::
+#### Enabling / Disabling the Device
 
+Writing \'**1**\' into disable - disables the ADXL34x (low power suspend mode)\
+Writing \'**0**\' into disable - enables the ADXL34x\
 
-##### Enabling / Disabling the Device
+\<xterm\>root:/sys/devices/platform/bfin-spi.1/spi1.2\> echo 1 \> disable
+root:/sys/devices/platform/bfin-spi.1/spi1.2\> echo 0 \> disable
+root:/sys/devices/platform/bfin-spi.1/spi1.2\>
+\</xterm\>
 
-Writing '**1**' into disable - disables the ADXL34x (low power suspend mode)
-Writing '**0**' into disable - enables the ADXL34x
+#### Enabling / Disabling Autosleep Upon Inactivity
 
-```{code-block} bashroot:/sys/devices/platform/bfin-spi.1/spi1.2> echo 1 > disable
-root:/sys/devices/platform/bfin-spi.1/spi1.2> echo 0 > disable
-root:/sys/devices/platform/bfin-spi.1/spi1.2>
-```
+Writing \'**1**\' into autosleep - enables Autosleep Upon Inactivity\
+Writing \'**0**\' into autosleep - disables Autosleep Upon Inactivity\
 
-##### Enabling / Disabling Autosleep Upon Inactivity
+\<xterm\>root:/sys/devices/platform/bfin-spi.1/spi1.2\> echo 1 \> autosleep
+root:/sys/devices/platform/bfin-spi.1/spi1.2\> echo 0 \> autosleep
+root:/sys/devices/platform/bfin-spi.1/spi1.2\>
+\</xterm\>
 
-Writing '**1**' into autosleep - enables Autosleep Upon Inactivity
-Writing '**0**' into autosleep - disables Autosleep Upon Inactivity
+## ADXL345 on Raspberry Pi - A worked example
 
-```{code-block} bashroot:/sys/devices/platform/bfin-spi.1/spi1.2> echo 1 > autosleep
-root:/sys/devices/platform/bfin-spi.1/spi1.2> echo 0 > autosleep
-root:/sys/devices/platform/bfin-spi.1/spi1.2>
-```
-
-### ADXL345 on Raspberry Pi - A worked example
-
-#### Create an SD Card image
+### Create an SD Card image
 
 Download Raspbian "wheezy" SD Card Image from here:
 <http://www.raspberrypi.org/downloads>
 
-:::{NOTE} <!-- ATTRS: alert="" -->
-
-This example assumes that /dev/sdc is the SD-Card reader.
+\<WRAP alert\>
+This example assumes that /dev/sdc is the SD-Card reader.\
 All content will be lost!
+\</WRAP\>
 
-:::
-
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-Dave@HAL9000:~/devel/pshare/RaspberryPi$ **unzip 2012-08-16-wheezy-raspbian.zip**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/pshare/RaspberryPi\$ **unzip 2012-08-16-wheezy-raspbian.zip**
 Archive: 2012-08-16-wheezy-raspbian.zip
 
     inflating: 2012-08-16-wheezy-raspbian.img
 
-Dave@HAL9000:~/devel/pshare/RaspberryPi$ **sudo dd bs=1M if=2012-08-16-wheezy-raspbian.img of=/dev/sdc**
-[sudo] password for michael:
+Dave@HAL9000:\~/devel/pshare/RaspberryPi\$ **sudo dd bs=1M if=2012-08-16-wheezy-raspbian.img of=/dev/sdc**
+\[sudo\] password for michael:
 1850+0 records in
 1850+0 records out
 1939865600 bytes (1.9 GB) copied, 434.764 s, 4.5 MB/s
-Dave@HAL9000:~/devel/pshare/RaspberryPi$
-```
-:::
+Dave@HAL9000:\~/devel/pshare/RaspberryPi\$
+\</xterm\>\</WRAP\>
 
+### Compile a kernel
 
-#### Compile a kernel
-
-There are two ways to compile a new Kernel -
-* On the target itself
+There are two ways to compile a new Kernel -\
+\* On the target itself
 
 -   On a development computer (host)
 
-:::{NOTE} <!-- ATTRS: tip="" -->
-
+\<WRAP tip\>
 In order to speed things up - we compile the kernel on a foreign host.
+\</WRAP\>
 
-:::
+#### Get ARM tools and RaspberryPi kernel source
 
+##### Create an empty directory
 
-##### Get ARM tools and RaspberryPi kernel source
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/git\$ **mkdir RaspberryPi**
+Dave@HAL9000:\~/devel/git\$ **cd RaspberryPi**
+\</xterm\>\</WRAP\>
 
-###### Create an empty directory
+##### Get tools
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-Dave@HAL9000:~/devel/git$ **mkdir RaspberryPi**
-Dave@HAL9000:~/devel/git$ **cd RaspberryPi**
-```
-:::
-
-
-###### Get tools
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-Dave@HAL9000:~/devel/git/RaspberryPi$ **git clone https://github.com/raspberrypi/tools.git**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/git/RaspberryPi\$ **git clone https://github.com/raspberrypi/tools.git**
 Initialized empty Git repository in /home/michael/devel/git/RaspberryPi/tools/.git/
 remote: Counting objects: 11148, done.
 remote: Compressing objects: 100% (5752/5752), done.
@@ -1234,19 +1181,13 @@ remote: Total 11148 (delta 6433), reused 9628 (delta 4913)
 Receiving objects: 100% (11148/11148), 219.74 MiB | 359 KiB/s, done.
 Resolving deltas: 100% (6433/6433), done.
 Checking out files: 100% (10692/10692), done.
-```
-:::
+\</xterm\>\</WRAP\>
 
+##### Get Kernel Source
 
-###### Get Kernel Source
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-Dave@HAL9000:~/devel/git/RaspberryPi$ **git clone https://github.com/raspberrypi/linux.git**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/git/RaspberryPi\$ **git clone https://github.com/raspberrypi/linux.git**
 Initialized empty Git repository in /home/michael/devel/git/RaspberryPi/linux/.git/
 remote: Counting objects: 2287525, done.
 remote: Compressing objects: 100% (360373/360373), done.
@@ -1254,27 +1195,21 @@ remote: Total 2287525 (delta 1911472), reused 2276887 (delta 1905269)
 Receiving objects: 100% (2287525/2287525), 468.96 MiB | 566 KiB/s, done.
 Resolving deltas: 100% (1911472/1911472), done.
 Checking out files: 100% (37972/37972), done.
-Dave@HAL9000:~/devel/git/RaspberryPi$
-```
-:::
+Dave@HAL9000:\~/devel/git/RaspberryPi\$
+\</xterm\>\</WRAP\>
 
-
-:::{NOTE} <!-- ATTRS: tip="" -->
-
+\<WRAP tip\>
 See here:
 <http://elinux.org/RPi_Kernel_Compilation>
+\</WRAP\>
 
-:::
+##### Download and apply patches
 
+Get patch files here:\
+\* ![adxl34x_raspberrypi_patches.zip](/resources/tools-software/linux-drivers/input-misc/adxl34x_raspberrypi_patches.zip)
 
-###### Download and apply patches
-
-Get patch files here:
-* ![adxl34x_raspberrypi_patches.zip](/resources/tools-software/linux-drivers/input-misc/adxl34x_raspberrypi_patches.zip)
-
-:::{NOTE} <!-- ATTRS: important="" -->
-
-This was tested with the Raspberry Pi Model B, PCB Version 2 (made in UK)
+\<WRAP important\>
+This was tested with the Raspberry Pi Model B, PCB Version 2 (made in UK)\
 **The primary and secondary I2C channels have been reversed.**
 
 You may need to register i2c board info for Bus-0 instead of Bus-1.
@@ -1282,157 +1217,99 @@ You may need to register i2c board info for Bus-0 instead of Bus-1.
 ``` c
 /* From arch/arm/mach-bcm2708/bcm2708.c */
 
-## ifdef CONFIG_I2C
+#ifdef CONFIG_I2C
     i2c_register_board_info(0, bcm2708_i2c_board_info,
                 ARRAY_SIZE(bcm2708_i2c_board_info));
-## endif
+#endif
 ```
 
+\</WRAP\>
 
-:::
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **git am 0001-input-adxl34x-quick-hack-for-BCM2807-which-doesn-t-s.patch**
+Applying: input: adxl34x: quick hack for BCM2807 which doesn\'t support level sensitive interrupts
 
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **git am 0001-input-adxl34x-quick-hack-for-BCM2807-which-doesn-t-s.patch**
-Applying: input: adxl34x: quick hack for BCM2807 which doesn't support level sensitive interrupts
-
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **git am 0002-platform-RaspberryPi-provide-i2c-board-info-for-ADXL.patch**
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **git am 0002-platform-RaspberryPi-provide-i2c-board-info-for-ADXL.patch**
 Applying: platform: RaspberryPi: provide i2c board info for ADXL345 Accelerometer.
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$
-```
-:::
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$
+\</xterm\>\</WRAP\>
 
+##### Add ARM toolchain to the PATH variable and set ARCH and CROSS_COMPILE
 
-###### Add ARM toolchain to the PATH variable and set ARCH and CROSS_COMPILE
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **export PATH=/home/michael/devel/git/RaspberryPi/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/:\$PATH**
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **export ARCH=arm**
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **export CROSS_COMPILE=arm-linux-gnueabihf-**
+\</xterm\>\</WRAP\>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
+##### Load kernel config for bcmrpi
 
-```{code-block} bash
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **export PATH=/home/michael/devel/git/RaspberryPi/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/:$PATH**
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **export ARCH=arm**
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **export CROSS_COMPILE=arm-linux-gnueabihf-**
-```
-:::
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **make bcmrpi_defconfig**
+\#
+\# configuration written to .config
+\#
+\</xterm\>\</WRAP\>
 
+##### Now build your kernel
 
-###### Load kernel config for bcmrpi
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **make -j5**
+\</xterm\>\</WRAP\>
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
+##### Copy kernel image and modules to SD Card
 
-```{code-block} bash
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **make bcmrpi_defconfig**
-#
-# configuration written to .config
-#
-```
-:::
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **cp arch/arm/boot/zImage /media/A1B1-918F/kernel.img**
+Dave@HAL9000:\~/devel/git/RaspberryPi/linux\$ **sudo ARCH=arm make modules_install INSTALL_MOD_PATH=/media/10b4c001-2137-4418-b29e-57b7d15a6cbc**
+\</xterm\>\</WRAP\>
 
+#### Connect ADXL345 development Board
 
-###### Now build your kernel
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **make -j5**
-```
-:::
-
-
-###### Copy kernel image and modules to SD Card
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **cp arch/arm/boot/zImage /media/A1B1-918F/kernel.img**
-Dave@HAL9000:~/devel/git/RaspberryPi/linux$ **sudo ARCH=arm make modules_install INSTALL_MOD_PATH=/media/10b4c001-2137-4418-b29e-57b7d15a6cbc**
-```
-:::
-
-
-##### Connect ADXL345 development Board
-
-```{image} images/rpi_adxl345.jpg
-:alt: rpi_adxl345.jpg
-:width: "800"
-:query: "?800"
-```
+![rpi_adxl345.jpg](/resources/tools-software/linux-drivers/input-misc/rpi_adxl345.jpg){width="800" query="?800"}
 
 <http://elinux.org/RPi_Low-level_peripherals>
 
 Connect ADXL345 SDA, SCL and INT1 to the RaspberryPi GPIO header P1
 
-##### Power up your Raspberry Pi
+#### Power up your Raspberry Pi
 
-###### Load the I2C Bus driver module
+##### Load the I2C Bus driver module
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+pi@raspberrypi \~ \$ **sudo modprobe i2c-bcm2708**
+\</xterm\>\</WRAP\>
 
-```{code-block} bash
-pi@raspberrypi ~ $ **sudo modprobe i2c-bcm2708**
-```
-:::
+##### Check if ADXL345 was successfully probed / instantiated
 
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+pi@raspberrypi \~ \$ **dmesg | grep ADXL**
+\[ 44.858034\] input: ADXL34x accelerometer as /devices/platform/bcm2708_i2c.1/i2c-1/1-0053/input/input2
+pi@raspberrypi \~ \$
+\</xterm\>\</WRAP\>
 
-###### Check if ADXL345 was successfully probed / instantiated
+##### Get evtest tool
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+pi@raspberrypi \~ \$ **sudo apt-get install evtest**
+\</xterm\>\</WRAP\>
 
-```{code-block} bash
-pi@raspberrypi ~ $ **dmesg | grep ADXL**
-[ 44.858034] input: ADXL34x accelerometer as /devices/platform/bcm2708_i2c.1/i2c-1/1-0053/input/input2
-pi@raspberrypi ~ $
-```
-:::
+##### Driver test
 
-
-###### Get evtest tool
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-pi@raspberrypi ~ $ **sudo apt-get install evtest**
-```
-:::
-
-
-###### Driver test
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-pi@raspberrypi ~ $ **evtest /dev/input/event2**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+pi@raspberrypi \~ \$ **evtest /dev/input/event2**
 Input driver version is 1.0.1
 Input device ID: bus 0x18 vendor 0x0 product 0x159 version 0x0
-Input device name: "ADXL34x accelerometer"
+Input device name: \"ADXL34x accelerometer\"
 Supported events:
 
     Event type 0 (EV_SYN)
@@ -1459,37 +1336,31 @@ Supported events:
         Flat       3
 
 Properties:
-Testing ... (interrupt to exit)
+Testing \... (interrupt to exit)
 Event: time 1345080074.937061, type 3 (EV_ABS), code 0 (ABS_X), value 188
 Event: time 1345080074.937065, type 3 (EV_ABS), code 1 (ABS_Y), value -136
 Event: time 1345080074.937066, type 3 (EV_ABS), code 2 (ABS_Z), value 106
-Event: time 1345080074.937069, -------------- SYN_REPORT ------------
+Event: time 1345080074.937069, \-\-\-\-\-\-\-\-\-\-\-\-\-- SYN_REPORT \-\-\-\-\-\-\-\-\-\-\--
 Event: time 1345080074.976842, type 3 (EV_ABS), code 0 (ABS_X), value 197
 Event: time 1345080074.976847, type 3 (EV_ABS), code 1 (ABS_Y), value -134
 Event: time 1345080074.976848, type 3 (EV_ABS), code 2 (ABS_Z), value 112
-Event: time 1345080074.976850, -------------- SYN_REPORT ------------
+Event: time 1345080074.976850, \-\-\-\-\-\-\-\-\-\-\-\-\-- SYN_REPORT \-\-\-\-\-\-\-\-\-\-\--
 Event: time 1345080075.016672, type 3 (EV_ABS), code 0 (ABS_X), value 188
 Event: time 1345080075.016676, type 3 (EV_ABS), code 1 (ABS_Y), value -133
 Event: time 1345080075.016677, type 3 (EV_ABS), code 2 (ABS_Z), value 110
-Event: time 1345080075.016679, -------------- SYN_REPORT ------------
+Event: time 1345080075.016679, \-\-\-\-\-\-\-\-\-\-\-\-\-- SYN_REPORT \-\-\-\-\-\-\-\-\-\-\--
 Event: time 1345080075.056513, type 3 (EV_ABS), code 0 (ABS_X), value 189
 Event: time 1345080075.056516, type 3 (EV_ABS), code 1 (ABS_Y), value -131
 Event: time 1345080075.056518, type 3 (EV_ABS), code 2 (ABS_Z), value 99
-Event: time 1345080075.056520, -------------- SYN_REPORT ------------
+Event: time 1345080075.056520, \-\-\-\-\-\-\-\-\-\-\-\-\-- SYN_REPORT \-\-\-\-\-\-\-\-\-\-\--
 Event: time 1345080075.096264, type 3 (EV_ABS), code 0 (ABS_X), value 188
 Event: time 1345080075.096267, type 3 (EV_ABS), code 1 (ABS_Y), value -125
-Event: time 1345080075.096269, -------------- SYN_REPORT ------------
-```
-:::
+Event: time 1345080075.096269, \-\-\-\-\-\-\-\-\-\-\-\-\-- SYN_REPORT \-\-\-\-\-\-\-\-\-\-\--
+\</xterm\>\</WRAP\>
 
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-pi@raspberrypi ~ $ **cat /proc/interrupts**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+pi@raspberrypi \~ \$ **cat /proc/interrupts**
 
              CPU0
     3:       9183   ARMCTRL  BCM2708 Timer Tick
@@ -1504,42 +1375,32 @@ pi@raspberrypi ~ $ **cat /proc/interrupts**
 84: 14411 ARMCTRL mmc0
 **187: 784 GPIO 1-0053**
 Err: 0
-```
-:::
+\</xterm\>\</WRAP\>
 
-
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-pi@raspberrypi /sys/bus/i2c/devices/1-0053 $ **ls -l**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+pi@raspberrypi /sys/bus/i2c/devices/1-0053 \$ **ls -l**
 total 0
--rw-rw-r-- 1 root root 4096 Aug 16 01:22 autosleep
--rw-rw-r-- 1 root root 4096 Aug 16 01:22 calibrate
--rw-rw-r-- 1 root root 4096 Aug 16 01:22 disable
-lrwxrwxrwx 1 root root 0 Aug 16 01:22 driver -> ../../../../../bus/i2c/drivers/adxl34x
+-rw-rw-r\-- 1 root root 4096 Aug 16 01:22 autosleep
+-rw-rw-r\-- 1 root root 4096 Aug 16 01:22 calibrate
+-rw-rw-r\-- 1 root root 4096 Aug 16 01:22 disable
+lrwxrwxrwx 1 root root 0 Aug 16 01:22 driver -\> ../../../../../bus/i2c/drivers/adxl34x
 drwxr-xr-x 3 root root 0 Aug 16 01:22 input
--r--r--r-- 1 root root 4096 Aug 16 01:22 modalias
--r--r--r-- 1 root root 4096 Aug 16 01:22 name
--r--r--r-- 1 root root 4096 Aug 16 01:22 position
+-r\--r\--r\-- 1 root root 4096 Aug 16 01:22 modalias
+-r\--r\--r\-- 1 root root 4096 Aug 16 01:22 name
+-r\--r\--r\-- 1 root root 4096 Aug 16 01:22 position
 drwxr-xr-x 2 root root 0 Aug 16 01:22 power
--rw-rw-r-- 1 root root 4096 Aug 16 01:22 rate
-lrwxrwxrwx 1 root root 0 Aug 16 01:22 subsystem -> ../../../../../bus/i2c
--rw-r--r-- 1 root root 4096 Aug 16 01:22 uevent
-pi@raspberrypi /sys/bus/i2c/devices/1-0053 $
-```
-:::
+-rw-rw-r\-- 1 root root 4096 Aug 16 01:22 rate
+lrwxrwxrwx 1 root root 0 Aug 16 01:22 subsystem -\> ../../../../../bus/i2c
+-rw-r\--r\-- 1 root root 4096 Aug 16 01:22 uevent
+pi@raspberrypi /sys/bus/i2c/devices/1-0053 \$
+\</xterm\>\</WRAP\>
 
+## More Information
 
-### More Information
+![](page>resources/tools-software/linux-drivers/snippets#input_pointers&noheader&firstseconly&noeditbtn)
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} resources_tools-software_linux-drivers_snippets_SUB_input_pointers.md
-```
-
-#### ADXL345/6 Android Acceleration Sensor
+### ADXL345/6 Android Acceleration Sensor
 
 Using this driver under Android as Acceleration Sensor
 Follow the link here [ADXL345 Android Sensor](/resources/tools-software/android-drivers/sensor-acceleration/adxl345)

@@ -1,8 +1,3 @@
----
-wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/hwmon/axi_fan_control
-title: Fan Control IP core: Core to control the fan used for cooling Xilinx Zynq Ultrascale+ MPSoC
----
-
 # Fan Control HDL CORE driver
 
 ### Supported Devices
@@ -80,13 +75,13 @@ Required devicetree properties:
 
 ## Enabling Linux driver support
 
-Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
-"make qconfig")
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
 
 ## Adding Linux driver support
 
-Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
-"make qconfig")
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -104,151 +99,97 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 
 Each and every HWMON device has a device folder under /sys/class/hwmon/hwmonX, where X is the hwmon device index. Under every of these directory folders there are a set of files, depending on what kind of hardware monitoring is supported (temperature, voltage). In order to determine which hwmon device corresponds to which hardware chip, the user can read the name file under /sys/class/hwmon/hwmonX/name.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/> **cd /sys/class/hwmon/**
-root:/sys/class/hwmon> ls
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/\> **cd /sys/class/hwmon/**
+root:/sys/class/hwmon\> ls
 hwmon0 hwmon1
-root:/sys/class/hwmon> **cd hwmon0**
-root:/sys/class/hwmon/hwmon0> **ls -l**
+root:/sys/class/hwmon\> **cd hwmon0**
+root:/sys/class/hwmon/hwmon0\> **ls -l**
 total 0
 drwxr-xr-x 3 root root 0 Nov 16 11:17 .
 drwxr-xr-x 3 root root 0 Nov 16 11:17 ..
-lrwxrwxrwx 1 root root 0 Nov 16 11:17 device -> ../../../axi-fan-control@80000000
--r--r--r-- 1 root root 4096 Nov 16 11:17 fan1_fault
--r--r--r-- 1 root root 4096 Nov 16 11:17 fan1_input
--r--r--r-- 1 root root 4096 Nov 16 11:17 fan1_label
--r--r--r-- 1 root root 4096 Nov 16 11:17 name
-lrwxrwxrwx 1 root root 0 Nov 16 11:17 of_node -> ../../../../../firmware/devicetree/base/axi-fan-control@80000000
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 device -\> ../../../axi-fan-control@80000000
+-r\--r\--r\-- 1 root root 4096 Nov 16 11:17 fan1_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 11:17 fan1_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 11:17 fan1_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 11:17 name
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 of_node -\> ../../../../../firmware/devicetree/base/axi-fan-control@80000000
 drwxr-xr-x 2 root root 0 Nov 16 11:17 power
--rw-r--r-- 1 root root 4096 Nov 16 11:17 pwm1
-lrwxrwxrwx 1 root root 0 Nov 16 11:17 subsystem -> ../../../../../class/hwmon
--r--r--r-- 1 root root 4096 Nov 16 11:17 temp1_input
--r--r--r-- 1 root root 4096 Nov 16 11:17 temp1_label
--rw-r--r-- 1 root root 4096 Nov 16 11:17 uevent
-root:/sys/class/hwmon/hwmon0>
-```
-:::
-
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 pwm1
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 subsystem -\> ../../../../../class/hwmon
+-r\--r\--r\-- 1 root root 4096 Nov 16 11:17 temp1_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 11:17 temp1_label
+-rw-r\--r\-- 1 root root 4096 Nov 16 11:17 uevent
+root:/sys/class/hwmon/hwmon0\>
+\</xterm\>\</WRAP\>
 
 For more information on the files format and accepted values, take a look to [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
 
 #### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon0> **cat name**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon0\> **cat name**
 axi_fan_control
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show FAN input (in RPM)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon0> **cat fan1_input**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon0\> **cat fan1_input**
 3600
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show FAN label
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon0> **cat fan1_label**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon0\> **cat fan1_label**
 SOM FAN
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show PWM input
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon0> **cat pwm1**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon0\> **cat pwm1**
 200
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show Temperature input (in milliC)
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon0> **cat temp1_input**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon0\> **cat temp1_input**
 32000
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show Temperature label
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon0> **cat temp1_label**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon0\> **cat temp1_label**
 SYSMON4
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show fault
 
 When reading **fan1_fault** returns 1, that means that either the FAN is physically not working/broken or the tacho signal fails to stay within its designated frequency interval.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon0> **cat fan1_fault**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon0\> **cat fan1_fault**
 0
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Set PWM value
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon0> **echo 250 > pwm1**
-```
-:::
-
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon0\> **echo 250 \> pwm1**
+\</xterm\>\</WRAP\>
 
 ## More Information
 
@@ -258,6 +199,4 @@ root:/sys/class/hwmon/hwmon0> **echo 250 > pwm1**
 -   [HWMON Linux Kernel Documentation](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/hwmon)
 -   [HWMON sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface)
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
-```
+![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)

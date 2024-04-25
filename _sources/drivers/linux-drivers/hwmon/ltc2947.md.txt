@@ -1,22 +1,17 @@
----
-wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/hwmon/ltc2947
-title: LTC2947: High Precision Power and Energy Monitor
----
-
 # LTC2947 High Precision Power and Energy Monitor
 
 ### Supported Devices
 
--   [LTC2947](https://analog.com/LTC2947)
+-   [LTC2947](adi>LTC2947)
 
 ### Evaluation Boards
 
--   [DC2334A](https://analog.com/DC2334A)
--   [DC2574A-KIT](https://analog.com/DC2574A-KIT)
+-   [DC2334A](adi>DC2334A)
+-   [DC2574A-KIT](adi>DC2574A-KIT)
 
 ### Description
 
-This is a Hardware Monitor subsystem driver. There are two driver's (sharing the same core implementation) for the LTC2947 since the device supports both SPI and I2C interfaces. The underlying bus is abstracted in the core implementation by using regmap. The Hwmon subsystem provides a unified framework for drivers doing hardware monitoring. It exposes a set of sysfs file that should follow the [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
+This is a Hardware Monitor subsystem driver. There are two driver\'s (sharing the same core implementation) for the LTC2947 since the device supports both SPI and I2C interfaces. The underlying bus is abstracted in the core implementation by using regmap. The Hwmon subsystem provides a unified framework for drivers doing hardware monitoring. It exposes a set of sysfs file that should follow the [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
 
 ## Source Code
 
@@ -117,22 +112,19 @@ Example I2C:
             };
     };
 
-For more supported devicetree properties take a look to [dt-bindings](https://github.com/analogdevicesinc/linux/master?Documentation/devicetree/bindings/hwmon/adi,ltc2947.yaml).
+For more supported devicetree properties take a look to [dt-bindings](linux.github>master?Documentation/devicetree/bindings/hwmon/adi,ltc2947.yaml).
 
 ## Enabling Linux driver support
 
 Configure kernel with "make menuconfig" (alternatively use "make xconfig" or "make qconfig").
-:::{NOTE} <!-- ATTRS: round="" help="" -->
-
+\<WRAP round help\>
 The LTC2947 SPI driver depends **CONFIG_SPI** and the LTC2947 I2C driver depends on **CONFIG_I2C**.
-
-:::
-
+\</WRAP\>
 
 ## Adding Linux driver support
 
-Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
-"make qconfig")
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
 
     Linux Kernel Configuration
         Device Drivers  --->
@@ -151,302 +143,212 @@ Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
 
 Each and every HWMON device has a device folder under /sys/class/hwmon/hwmonX, where X is the hwmon device index. Under every of these directory folders there are a set of files, depending on what kind of hardware monitoring is supported (temperature, voltage). In order to determine which hwmon device corresponds to which hardware chip, the user can read the name file under /sys/class/hwmon/hwmonX/name.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/> **cd /sys/class/hwmon/**
-root:/sys/class/hwmon> ls
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/\> **cd /sys/class/hwmon/**
+root:/sys/class/hwmon\> ls
 hwmon0 hwmon1
 
-root:/sys/class/hwmon> **cd hwmon1**
+root:/sys/class/hwmon\> **cd hwmon1**
 
-root:/sys/class/hwmon/hwmon1> **ls -l**
+root:/sys/class/hwmon/hwmon1\> **ls -l**
 total 0
--r--r--r-- 1 root root 4096 Nov 16 09:25 curr1_fault
--r--r--r-- 1 root root 4096 Nov 16 09:25 curr1_highest
--r--r--r-- 1 root root 4096 Nov 16 09:25 curr1_input
--r--r--r-- 1 root root 4096 Nov 16 09:25 curr1_label
--r--r--r-- 1 root root 4096 Nov 16 09:25 curr1_lowest
--rw-r--r-- 1 root root 4096 Nov 16 09:25 curr1_max
--r--r--r-- 1 root root 4096 Nov 16 09:25 curr1_max_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:25 curr1_min
--r--r--r-- 1 root root 4096 Nov 16 09:25 curr1_min_alarm
---w------- 1 root root 4096 Nov 16 09:25 curr1_reset_history
-lrwxrwxrwx 1 root root 0 Nov 16 09:25 device -> ../../../spi0.0
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy1_fault
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy1_input
--rw-r--r-- 1 root root 4096 Nov 16 09:25 energy1_max
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy1_max_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:25 energy1_min
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy1_min_alarm
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy1_overflow_alarm
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy2_fault
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy2_input
--rw-r--r-- 1 root root 4096 Nov 16 09:25 energy2_max
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy2_max_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:25 energy2_min
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy2_min_alarm
--r--r--r-- 1 root root 4096 Nov 16 09:25 energy2_overflow_alarm
--r--r--r-- 1 root root 4096 Nov 16 09:25 in0_fault
--r--r--r-- 1 root root 4096 Nov 16 09:25 in0_highest
--r--r--r-- 1 root root 4096 Nov 16 09:25 in0_input
--r--r--r-- 1 root root 4096 Nov 16 09:25 in0_label
--r--r--r-- 1 root root 4096 Nov 16 09:25 in0_lowest
--rw-r--r-- 1 root root 4096 Nov 16 09:25 in0_max
--r--r--r-- 1 root root 4096 Nov 16 09:25 in0_max_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:25 in0_min
--r--r--r-- 1 root root 4096 Nov 16 09:25 in0_min_alarm
---w------- 1 root root 4096 Nov 16 09:25 in0_reset_history
--r--r--r-- 1 root root 4096 Nov 16 09:25 in1_fault
--r--r--r-- 1 root root 4096 Nov 16 09:25 in1_highest
--r--r--r-- 1 root root 4096 Nov 16 09:25 in1_input
--r--r--r-- 1 root root 4096 Nov 16 09:25 in1_label
--r--r--r-- 1 root root 4096 Nov 16 09:25 in1_lowest
--rw-r--r-- 1 root root 4096 Nov 16 09:25 in1_max
--r--r--r-- 1 root root 4096 Nov 16 09:25 in1_max_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:25 in1_min
--r--r--r-- 1 root root 4096 Nov 16 09:25 in1_min_alarm
---w------- 1 root root 4096 Nov 16 09:25 in1_reset_history
--r--r--r-- 1 root root 4096 Nov 16 09:21 name
-lrwxrwxrwx 1 root root 0 Nov 16 09:25 of_node -> ../../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ltc2947@0
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_lowest
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_max_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 curr1_min_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 curr1_reset_history
+lrwxrwxrwx 1 root root 0 Nov 16 09:25 device -\> ../../../spi0.0
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1_input
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 energy1_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1_max_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 energy1_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1_min_alarm
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy1_overflow_alarm
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2_input
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 energy2_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2_max_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 energy2_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2_min_alarm
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 energy2_overflow_alarm
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0_lowest
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 in0_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0_max_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 in0_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in0_min_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 in0_reset_history
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1_lowest
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 in1_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1_max_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 in1_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 in1_min_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 in1_reset_history
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:21 name
+lrwxrwxrwx 1 root root 0 Nov 16 09:25 of_node -\> ../../../../../../../../../firmware/devicetree/base/soc/spi@7e204000/ltc2947@0
 drwxr-xr-x 2 root root 0 Nov 16 09:25 power
--r--r--r-- 1 root root 4096 Nov 16 09:25 power1_fault
--r--r--r-- 1 root root 4096 Nov 16 09:25 power1_input
--r--r--r-- 1 root root 4096 Nov 16 09:25 power1_input_highest
--r--r--r-- 1 root root 4096 Nov 16 09:25 power1_input_lowest
--r--r--r-- 1 root root 4096 Nov 16 09:25 power1_label
--rw-r--r-- 1 root root 4096 Nov 16 09:25 power1_max
--r--r--r-- 1 root root 4096 Nov 16 09:25 power1_max_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:25 power1_min
--r--r--r-- 1 root root 4096 Nov 16 09:25 power1_min_alarm
---w------- 1 root root 4096 Nov 16 09:25 power1_reset_history
-lrwxrwxrwx 1 root root 0 Nov 16 09:25 subsystem -> ../../../../../../../../../class/hwmon
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp1_fault
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp1_highest
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp1_input
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp1_label
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp1_lowest
--rw-r--r-- 1 root root 4096 Nov 16 09:25 temp1_max
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp1_max_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:25 temp1_min
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp1_min_alarm
---w------- 1 root root 4096 Nov 16 09:25 temp1_reset_history
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp2_label
--rw-r--r-- 1 root root 4096 Nov 16 09:25 temp2_max
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp2_max_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:25 temp2_min
--r--r--r-- 1 root root 4096 Nov 16 09:25 temp2_min_alarm
--rw-r--r-- 1 root root 4096 Nov 16 09:17 uevent
-root:/sys/class/hwmon/hwmon1>
-```
-:::
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1_input_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1_input_lowest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1_label
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 power1_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1_max_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 power1_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 power1_min_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 power1_reset_history
+lrwxrwxrwx 1 root root 0 Nov 16 09:25 subsystem -\> ../../../../../../../../../class/hwmon
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_fault
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_highest
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_input
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_label
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_lowest
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_max_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp1_min_alarm
+\--w\-\-\-\-\-\-- 1 root root 4096 Nov 16 09:25 temp1_reset_history
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp2_label
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 temp2_max
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp2_max_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:25 temp2_min
+-r\--r\--r\-- 1 root root 4096 Nov 16 09:25 temp2_min_alarm
+-rw-r\--r\-- 1 root root 4096 Nov 16 09:17 uevent
+root:/sys/class/hwmon/hwmon1\>
+\</xterm\>\</WRAP\>
 
-
-For each type of monitored value (current, power), the file will look like **${type}_${monitored_value}_${channel}**, where **${monitored_value}** can be the current value, the high threshold, etc... The channel is the index when, for example, a device can monitor more than one voltage. For more information on the files format, take a look to [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
+For each type of monitored value (current, power), the file will look like **\${type}\_\${monitored_value}\_\${channel}**, where **\${monitored_value}** can be the current value, the high threshold, etc\... The channel is the index when, for example, a device can monitor more than one voltage. For more information on the files format, take a look to [sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface).
 
 #### Show device name
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat name**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat name**
 ltc2947
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show current values
 
 The device supports readings of current, voltage, power, temperature and energy. To get, for example, the value of the monitored voltage:
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in0_input**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in0_input**
 4910
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show highest read value
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in0_highest**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in0_highest**
 5026
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show lowest read value
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in0_lowest**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in0_lowest**
 4754
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show high threshold
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in0_max**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in0_max**
 5500
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show low threshold
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in0_min**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in0_min**
 4500
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show high threshold alarm
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in0_max_alarm**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in0_max_alarm**
 0
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show low threshold alarm
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in0_min_alarm**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in0_min_alarm**
 0
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show fault
 
-When the **${type}_${channel}_fault** files are present, the user can read these files to look for faulty cases. If reading this file returns 1, then the readings for that channel are invalid and should be discarded...
+When the **\${type}\_\${channel}\_fault** files are present, the user can read these files to look for faulty cases. If reading this file returns 1, then the readings for that channel are invalid and should be discarded\...
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in0_fault**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in0_fault**
 0
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show label
 
 Some channels, support a label attribute which specifies the name of the channel being monitored.
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat in1_label**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat in1_label**
 DVCC
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Show Overflow alarm
 
-These properties are custom and not part of the sysfs-hwmon interface. However, the device set's an alarm when register overflow is near for accumulated values (in this case, energy).
+These properties are custom and not part of the sysfs-hwmon interface. However, the device set\'s an alarm when register overflow is near for accumulated values (in this case, energy).
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **cat energy1_overflow_alarm**
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **cat energy1_overflow_alarm**
 0
-```
-:::
-
+\</xterm\>\</WRAP\>
 
 #### Set High threshold
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **echo 5500 > in0_max**
-```
-:::
-
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **echo 5500 \> in0_max**
+\</xterm\>\</WRAP\>
 
 #### Set Low threshold
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **echo 4500 > in0_min**
-```
-:::
-
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **echo 4500 \> in0_min**
+\</xterm\>\</WRAP\>
 
 #### Reset History
 
-:::{NOTE} <!-- ATTRS: box="" bggreen="" -->
-:::{HINT} <!-- ATTRS: info="" -->
-This specifies any shell prompt running on the target
-:::
-
-```{code-block} bash
-root:/sys/class/hwmon/hwmon1> **echo 1 > in0_reset_history**
-```
-:::
-
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/class/hwmon/hwmon1\> **echo 1 \> in0_reset_history**
+\</xterm\>\</WRAP\>
 
 ## More Information
 
@@ -456,6 +358,4 @@ root:/sys/class/hwmon/hwmon1> **echo 1 > in0_reset_history**
 -   [HWMON Linux Kernel Documentation](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/hwmon)
 -   [HWMON sysfs-interface](https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface)
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
-```
+![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)

@@ -1,0 +1,353 @@
+# ADP1650 LED Flash Linux Driver
+
+### Supported Devices
+
+-   [ADP1650](adi>ADP1650)
+
+### Evaluation Boards
+
+-   [ADP1650CB-EVALZ](adi>ADP1650CB-EVALZ)
+
+### Description
+
+![](scrape>adi>ADP1650#description)
+
+-   [Product Page](adi>ADP1650)
+-   ![](scrape>adi>ADP1650#datasheet-details)
+
+## Source Code
+
+### Status
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="bfgit&gt;linux-kernel?drivers/leds/leds-adp1650.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/leds/leds-adp1650.c">In Progress</a></td>
+</tr>
+</tbody>
+</table>
+
+### Files
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="http://blackfin.uclinux.org/git/?p=linux-kernel;a=blob_plain;f=drivers/leds/leds-adp1650.c;hb=HEAD">drivers/leds/leds-adp1650.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="http://blackfin.uclinux.org/git/?p=linux-kernel;a=blob_plain;f=include/linux/i2c/adp1650.h;hb=HEAD">include/linux/i2c/adp1650.h</a></td>
+</tr>
+</tbody>
+</table>
+
+## Example platform device initialization
+
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
+
+\<WRAP info\>
+**platform_data: Platform data specific to the ADP1650 device.**\
+Includes feature selections and default initialization.
+
+Please see [include/linux/i2c/adp1650.h](http://blackfin.uclinux.org/git/?p=linux-kernel;a=blob_plain;f=include/linux/i2c/adp1650.h;hb=HEAD) for details.
+\</WRAP\>
+
+``` c
+#include <linux/i2c/adp1650.h>
+
+static struct adp1650_leds_platform_data adp1650_pdata = {
+    .timer_iocfg =  ADP1650_IOCFG_IO2_HIGH_IMP |
+            ADP1650_IOCFG_IO1_TORCH |
+            ADP1650_FL_TIMER_ms(500),
+
+    .current_set =  ADP1650_I_FL_mA(900) |
+            ADP1650_I_TOR_mA(100),
+
+    .output_mode =  ADP1650_IL_PEAK_2A25 |
+            ADP1650_STR_LV_EDGE |
+            ADP1650_FREQ_FB_EN |
+            ADP1650_OUTPUT_EN |
+            ADP1650_STR_MODE_HW |
+            ADP1650_STR_MODE_STBY,
+
+    .control =  ADP1650_I_TX2_mA(400) |
+            ADP1650_I_TX1_mA(400),
+
+    .ad_mode =  ADP1650_DYN_OVP_EN |
+            ADP1650_STR_POL_ACTIVE_HIGH |
+            ADP1650_I_ILED_2mA75 |
+            ADP1650_IL_DC_1A50 |
+            ADP1650_IL_DC_EN,
+
+    .batt_low = ADP1650_CL_SOFT_EN |
+            ADP1650_I_VB_LO_mA(400) |
+            ADP1650_V_VB_LO_3V50,
+
+    .gpio_enable = -1,
+};
+```
+
+![](page>software/linux/docs/platform_and_bus_model#Declaring I2C devices&firstseconly&noeditbtn)
+
+``` c
+static struct i2c_board_info __initdata board_i2c_board_info[] = {
+#if defined(CONFIG_LEDS_ADP1650) || defined(CONFIG_LEDS_ADP1650_MODULE)
+    {
+        I2C_BOARD_INFO("adp1650", 0x30),
+        .platform_data = (void *)&adp1650_pdata,
+    },
+#endif
+};
+```
+
+``` c
+static int __init board_init(void)
+{
+    [--snip--]
+
+    i2c_register_board_info(0, board_i2c_board_info,
+                ARRAY_SIZE(board_i2c_board_info));
+    [--snip--]
+
+    return 0;
+}
+arch_initcall(board_init);
+```
+
+## Adding Linux driver support
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+\<WRAP tip\>
+The ADP1650 LED driver depends on I2C.
+\</WRAP\>
+
+\<xterm\>
+Device Drivers \-\--\>
+
+      [*] LED Support  ---> 
+          --- LED Support
+          [*]   LED Class Support
+              *** LED drivers ***
+
+          <--snip-->
+          **<*>   LED Support for ADP1650 I2C chips**
+          <--snip-->
+
+\</xterm\>
+
+## Driver testing
+
+### LED handling under Linux
+
+The LED class allows control of LEDs from userspace.
+LEDs appear in /sys/class/leds/. The brightness file will
+set the brightness of the LED (taking a value 0-255).
+
+For more information read [linux/Documentaion/leds-class.txt](git.linux.org>linux/Documentaion/leds-class.txt)
+
+    ; **brightness** : get/set LED brightness (an integer between 0 and 255)
+    ; **max_brightness** : the maximum brightness value.\\
+
+#### Driver specific brightness interpretation
+
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Define</th>
+<th>Description</th>
+<th>Intensity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>FL_MODE_OFF</td>
+<td>Turns LED/FLASH off</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>FL_MODE_TORCH_25mA</td>
+<td>Software initiated TORCH/Assist light</td>
+<td>25mA</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>FL_MODE_TORCH_50mA</td>
+<td>(STROBE) triggers FLASH</td>
+<td>50mA</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>FL_MODE_TORCH_75mA</td>
+<td></td>
+<td>75mA</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>FL_MODE_TORCH_100mA</td>
+<td></td>
+<td>100mA</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>FL_MODE_TORCH_125mA</td>
+<td></td>
+<td>125mA</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>FL_MODE_TORCH_150mA</td>
+<td></td>
+<td>150mA</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>FL_MODE_TORCH_175mA</td>
+<td></td>
+<td>175mA</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>FL_MODE_TORCH_200mA</td>
+<td></td>
+<td>200mA</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>FL_MODE_TORCH_TRIG_EXT_25mA</td>
+<td>Hardware (GPIO1) triggered TORCH/Assist light</td>
+<td>25mA</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>FL_MODE_TORCH_TRIG_EXT_50mA</td>
+<td>(STROBE) triggers FLASH</td>
+<td>50mA</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>FL_MODE_TORCH_TRIG_EXT_75mA</td>
+<td></td>
+<td>75mA</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>FL_MODE_TORCH_TRIG_EXT_100mA</td>
+<td></td>
+<td>100mA</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>FL_MODE_TORCH_TRIG_EXT_125mA</td>
+<td></td>
+<td>125mA</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>FL_MODE_TORCH_TRIG_EXT_150mA</td>
+<td></td>
+<td>150mA</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>FL_MODE_TORCH_TRIG_EXT_175mA</td>
+<td></td>
+<td>175mA</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>FL_MODE_TORCH_TRIG_EXT_200mA</td>
+<td></td>
+<td>200mA</td>
+</tr>
+<tr class="even">
+<td>254</td>
+<td>FL_MODE_FLASH</td>
+<td>Software initiated LED FLASH</td>
+<td>I_FL</td>
+</tr>
+<tr class="odd">
+<td>255</td>
+<td>FL_MODE_FLASH_TRIG_EXT</td>
+<td>Hardware (STROBE) triggered LED FLASH</td>
+<td>I_FL</td>
+</tr>
+</tbody>
+</table>
+
+#### Example LED usage
+
+\<xterm\>
+root:/\> cd sys/class/leds/adp1650/
+
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650\> **ls -l**
+-rw-r\--r\-- 1 root root 4096 Jan 5 08:42 brightness
+lrwxrwxrwx 1 root root 0 Jan 5 08:23 device -\> ../../../0-0030
+-r\--r\--r\-- 1 root root 4096 Jan 5 08:23 max_brightness
+drwxr-xr-x 2 root root 0 Jan 5 08:23 power
+lrwxrwxrwx 1 root root 0 Jan 5 08:23 subsystem -\> ../../../../../../../class/leds
+-rw-r\--r\-- 1 root root 4096 Jan 5 08:23 uevent
+\</xterm\>
+
+##### Enable TORCH/Assist Light (Intensity 100mA)
+
+\<WRAP round help\>
+A subsequent assert of **STROBE** will trigger the FLASH
+\</WRAP\>
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650\> **echo 4 \> brightness**
+\</xterm\>\</WRAP\>
+
+##### Prepare TORCH/Assist Light for an GPIO1 enable trigger (Intensity 100mA)
+
+\<WRAP round help\>
+A subsequent assert of **STROBE** will trigger the FLASH
+\</WRAP\>
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650\> **echo 12 \> brightness**
+\</xterm\>\</WRAP\>
+
+##### Initiate FLASH (Intensity set by I_FL)
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650\> **echo 254 \> brightness**
+\</xterm\>\</WRAP\>
+
+##### Prepare FLASH for an STROBE triggered enable (Intensity set by I_FL)
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650\> **echo 255 \> brightness**
+\</xterm\>\</WRAP\>
+
+##### Disable all LED activity
+
+\<WRAP box bggreen\>\<wrap info\>This specifies any shell prompt running on the target\</wrap\>
+\<xterm\>
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650\> **echo 0 \> brightness**
+\</xterm\>\</WRAP\>
+
+## More Information

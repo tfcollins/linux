@@ -102,9 +102,21 @@
 <li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
 <li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
 <li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
-<li><a class="reference internal" href="#hwmon-device-files">HWMON device files</a></li>
+<li><a class="reference internal" href="#hwmon-device-files">HWMON device files</a><ul>
+<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
+<li><a class="reference internal" href="#show-fan-input-in-rpm">Show FAN input (in RPM)</a></li>
+<li><a class="reference internal" href="#show-fan-label">Show FAN label</a></li>
+<li><a class="reference internal" href="#show-pwm-input">Show PWM input</a></li>
+<li><a class="reference internal" href="#show-temperature-input-in-millic">Show Temperature input (in milliC)</a></li>
+<li><a class="reference internal" href="#show-temperature-label">Show Temperature label</a></li>
+<li><a class="reference internal" href="#show-fault">Show fault</a></li>
+<li><a class="reference internal" href="#set-pwm-value">Set PWM value</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+<li><a class="reference internal" href="#hwmon-pointers">HWMON pointers</a></li>
 </ul>
 </li>
 </ul>
@@ -161,6 +173,129 @@ Content on this topic
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html">AD4003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html">AD4030-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html">AD6684</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html">AD7091</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html">AD7091R-5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html">AD7091R-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html">AD7124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html">AD7170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html">AD7190</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html">AD7265</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html">AD7768</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html">AD7785</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html">AD7787</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html">AD7887</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html">AD7991</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html">AD9083</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html">AD9207</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html">AD9234</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html">ADAQ8092</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html">ADAS1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html">ADAR1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74412R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">AD5310R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5415</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5735</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5744</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5760</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html">AD9122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html">AD9832</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html">AD9833</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9161</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9516-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF4355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16133</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html">AD6676</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html">AD9361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html">AD9371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9002.html">ADRV9002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html">ADRV9008-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/ad714x.html">AD7142</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html">ADP1650</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">AD5160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7241</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1835A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73311</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1381</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1401A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV801</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
@@ -281,183 +416,108 @@ Content on this topic
 <section id="hwmon-device-files">
 <h3>HWMON device files<a class="headerlink" href="#hwmon-device-files" title="Link to this heading">¶</a></h3>
 <p>Each and every HWMON device has a device folder under /sys/class/hwmon/hwmonX, where X is the hwmon device index. Under every of these directory folders there are a set of files, depending on what kind of hardware monitoring is supported (temperature, voltage). In order to determine which hwmon device corresponds to which hardware chip, the user can read the name file under /sys/class/hwmon/hwmonX/name.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/&gt;<span class="w"> </span>**cd<span class="w"> </span>/sys/class/hwmon/**
-root:/sys/class/hwmon&gt;<span class="w"> </span>ls
-hwmon0<span class="w"> </span>hwmon1
-root:/sys/class/hwmon&gt;<span class="w"> </span>**cd<span class="w"> </span>hwmon0**
-root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**ls<span class="w"> </span>-l**
-total<span class="w"> </span><span class="m">0</span>
-drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>.
-drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>..
-lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>device<span class="w"> </span>-&gt;<span class="w"> </span>../../../axi-fan-control@80000000
--r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>fan1_fault
--r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>fan1_input
--r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>fan1_label
--r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>name
-lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>of_node<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../firmware/devicetree/base/axi-fan-control@80000000
-drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>power
--rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>pwm1
-lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">0</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>subsystem<span class="w"> </span>-&gt;<span class="w"> </span>../../../../../class/hwmon
--r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>temp1_input
--r--r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>temp1_label
--rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>Nov<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">11</span>:17<span class="w"> </span>uevent
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/&gt; <strong>cd /sys/class/hwmon/</strong>
+root:/sys/class/hwmon&gt; ls
+hwmon0 hwmon1
+root:/sys/class/hwmon&gt; <strong>cd hwmon0</strong>
+root:/sys/class/hwmon/hwmon0&gt; <strong>ls -l</strong>
+total 0
+drwxr-xr-x 3 root root 0 Nov 16 11:17 .
+drwxr-xr-x 3 root root 0 Nov 16 11:17 …
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 device -&gt; …/…/…/axi-fan-control&#64;80000000
+-r–r–r– 1 root root 4096 Nov 16 11:17 fan1_fault
+-r–r–r– 1 root root 4096 Nov 16 11:17 fan1_input
+-r–r–r– 1 root root 4096 Nov 16 11:17 fan1_label
+-r–r–r– 1 root root 4096 Nov 16 11:17 name
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 of_node -&gt; …/…/…/…/…/firmware/devicetree/base/axi-fan-control&#64;80000000
+drwxr-xr-x 2 root root 0 Nov 16 11:17 power
+-rw-r–r– 1 root root 4096 Nov 16 11:17 pwm1
+lrwxrwxrwx 1 root root 0 Nov 16 11:17 subsystem -&gt; …/…/…/…/…/class/hwmon
+-r–r–r– 1 root root 4096 Nov 16 11:17 temp1_input
+-r–r–r– 1 root root 4096 Nov 16 11:17 temp1_label
+-rw-r–r– 1 root root 4096 Nov 16 11:17 uevent
 root:/sys/class/hwmon/hwmon0&gt;
-</pre></div>
-</div>
-<div class="docutils">
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
 <p>For more information on the files format and accepted values, take a look to <a class="reference external" href="https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface">sysfs-interface</a>.</p>
-<h4 class="rubric" id="show-device-name">Show device name</h4>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**cat<span class="w"> </span>name**
+<section id="show-device-name">
+<h4>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/class/hwmon/hwmon0&gt; <strong>cat name</strong>
 axi_fan_control
-</pre></div>
-</div>
-<div class="docutils">
-<h4 class="rubric" id="show-fan-input-in-rpm">Show FAN input (in RPM)</h4>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**cat<span class="w"> </span>fan1_input**
-<span class="m">3600</span>
-</pre></div>
-</div>
-<div class="docutils">
-<h4 class="rubric" id="show-fan-label">Show FAN label</h4>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**cat<span class="w"> </span>fan1_label**
-SOM<span class="w"> </span>FAN
-</pre></div>
-</div>
-<div class="docutils">
-<h4 class="rubric" id="show-pwm-input">Show PWM input</h4>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**cat<span class="w"> </span>pwm1**
-<span class="m">200</span>
-</pre></div>
-</div>
-<div class="docutils">
-<h4 class="rubric" id="show-temperature-input-in-millic">Show Temperature input (in milliC)</h4>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**cat<span class="w"> </span>temp1_input**
-<span class="m">32000</span>
-</pre></div>
-</div>
-<div class="docutils">
-<h4 class="rubric" id="show-temperature-label">Show Temperature label</h4>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**cat<span class="w"> </span>temp1_label**
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-fan-input-in-rpm">
+<h4>Show FAN input (in RPM)<a class="headerlink" href="#show-fan-input-in-rpm" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/class/hwmon/hwmon0&gt; <strong>cat fan1_input</strong>
+3600
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-fan-label">
+<h4>Show FAN label<a class="headerlink" href="#show-fan-label" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/class/hwmon/hwmon0&gt; <strong>cat fan1_label</strong>
+SOM FAN
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-pwm-input">
+<h4>Show PWM input<a class="headerlink" href="#show-pwm-input" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/class/hwmon/hwmon0&gt; <strong>cat pwm1</strong>
+200
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-temperature-input-in-millic">
+<h4>Show Temperature input (in milliC)<a class="headerlink" href="#show-temperature-input-in-millic" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/class/hwmon/hwmon0&gt; <strong>cat temp1_input</strong>
+32000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-temperature-label">
+<h4>Show Temperature label<a class="headerlink" href="#show-temperature-label" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/class/hwmon/hwmon0&gt; <strong>cat temp1_label</strong>
 SYSMON4
-</pre></div>
-</div>
-<div class="docutils">
-<h4 class="rubric" id="show-fault">Show fault</h4>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-fault">
+<h4>Show fault<a class="headerlink" href="#show-fault" title="Link to this heading">¶</a></h4>
 <p>When reading <strong>fan1_fault</strong> returns 1, that means that either the FAN is physically not working/broken or the tacho signal fails to stay within its designated frequency interval.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**cat<span class="w"> </span>fan1_fault**
-<span class="m">0</span>
-</pre></div>
-</div>
-<div class="docutils">
-<h4 class="rubric" id="set-pwm-value">Set PWM value</h4>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<!-- ATTRS: box="" bggreen="" -->
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<!-- ATTRS: info="" -->
-<p>This specifies any shell prompt running on the target</p>
-</div>
-</div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root:/sys/class/hwmon/hwmon0&gt;<span class="w"> </span>**echo<span class="w"> </span><span class="m">250</span><span class="w"> </span>&gt;<span class="w"> </span>pwm1**
-</pre></div>
-</div>
-<div class="docutils">
-<h2 class="rubric" id="more-information">More Information</h2>
-<h2 class="rubric" id="hwmon-pointers">HWMON pointers</h2>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/class/hwmon/hwmon0&gt; <strong>cat fan1_fault</strong>
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="set-pwm-value">
+<h4>Set PWM value<a class="headerlink" href="#set-pwm-value" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/class/hwmon/hwmon0&gt; <strong>echo 250 &gt; pwm1</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+</section>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
+</section>
+<section id="hwmon-pointers">
+<h2>HWMON pointers<a class="headerlink" href="#hwmon-pointers" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>HWMON mailing list: <a class="reference external" href="mailto:linux-hwmon&#37;&#52;&#48;vger&#46;kernel&#46;org">linux-hwmon<span>&#64;</span>vger<span>&#46;</span>kernel<span>&#46;</span>org</a></p></li>
 <li><p><a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/hwmon">HWMON Linux Kernel Documentation</a></p></li>
 <li><p><a class="reference external" href="https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface">HWMON sysfs-interface</a></p></li>
 </ul>
-<!-- CMDS: noheader firstseconly noeditbtn -->
-<p><em><strong>Need Help?</strong></em></p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://ez.analog.com/community/linux-device-drivers/linux-software-drivers">Analog Devices Linux Device Drivers Help Forum</a></p></li>
-<li><p><a class="reference external" href="https://ez.analog.com/">Ask a Question</a></p></li>
-</ul>
-</div>
-</section>
+<p>![](page&gt;resources/tools-software/linux-drivers/need_help#need help&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
 </section>
 </section>
 

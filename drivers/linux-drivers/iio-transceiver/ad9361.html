@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AD9361 high performance, highly integrated RF Agile Transceiver™ Linux device driver &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="AD9371, AD9375 highly integrated, wideband RF transceiver Linux device driver" href="ad9371.html" />
+    <link rel="prev" title="AD6676 Wideband IF Receiver Subsystem Linux device driver" href="../iio-adc/ad6676.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">AD9361 high performance, highly integrated RF Agile Transceiver™ Linux device driver</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#reference-circuits">Reference Circuits</a></li>
+<li><a class="reference internal" href="#evaluation-boards">Evaluation Boards</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a><ul>
+<li><a class="reference internal" href="#related-device-drivers">Related Device Drivers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#device-driver-customization">Device Driver Customization</a></li>
+<li><a class="reference internal" href="#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
+<li><a class="reference internal" href="#enabling-linux-driver-support">Enabling Linux driver support</a></li>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
+<li><a class="reference internal" href="#driver-testing-api">Driver testing / API</a><ul>
+<li><a class="reference internal" href="#general-attribute-naming-convention">General attribute naming convention:</a></li>
+<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
+<li><a class="reference internal" href="#enable-state-machine-controls">Enable State Machine Controls</a></li>
+<li><a class="reference internal" href="#local-oscillator-control-lo">Local Oscillator Control (LO)</a><ul>
+<li><a class="reference internal" href="#local-oscillator-power-down">Local Oscillator Power-down</a></li>
+<li><a class="reference internal" href="#external-lo-support">External LO Support</a></li>
+<li><a class="reference internal" href="#fastlock-mode">FASTLOCK MODE</a><ul>
+<li><a class="reference internal" href="#create-profile">Create Profile</a></li>
+<li><a class="reference internal" href="#recall-profile">Recall Profile</a></li>
+<li><a class="reference internal" href="#saving-a-profile">Saving a Profile</a></li>
+<li><a class="reference internal" href="#loading-a-profile">Loading a Profile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rx-signal-path">RX Signal Path</a><ul>
+<li><a class="reference internal" href="#setting-querying-the-rx-sample-rate">Setting / Querying the RX Sample Rate</a></li>
+<li><a class="reference internal" href="#list-chosen-rx-path-rates">List chosen RX Path Rates</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tx-signal-path">TX Signal Path</a><ul>
+<li><a class="reference internal" href="#setting-querying-the-tx-sample-rate">Setting / Querying the TX Sample Rate</a></li>
+<li><a class="reference internal" href="#list-chosen-tx-path-rates">List chosen TX Path Rates</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rate-governors">Rate Governors</a><ul>
+<li><a class="reference internal" href="#list-available-rate-governors">List available Rate Governors</a></li>
+<li><a class="reference internal" href="#selecting-rate-governor">Selecting Rate Governor</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#digital-fir-filter-controls">Digital FIR Filter controls</a><ul>
+<li><a class="reference internal" href="#query-current-filter-configuration">Query current filter Configuration</a></li>
+<li><a class="reference internal" href="#load-a-filter">Load a Filter</a><ul>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#filter-enable-disable">Filter Enable / Disable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rf-bandwidth-analog-filter-control">RF Bandwidth Analog Filter Control</a><ul>
+<li><a class="reference internal" href="#rx-rf-bandwidth-control">RX RF Bandwidth Control</a></li>
+<li><a class="reference internal" href="#tx-rf-bandwidth-control">TX RF Bandwidth Control</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rx-gain-control">RX Gain Control</a><ul>
+<li><a class="reference internal" href="#loading-a-gain-table">Loading a gain table</a></li>
+<li><a class="reference internal" href="#reading-a-gain-table">Reading a gain table</a></li>
+<li><a class="reference internal" href="#gain-control-modes">Gain control modes</a></li>
+<li><a class="reference internal" href="#querying-or-setting-a-gain-control-mode">Querying or Setting a Gain Control Mode</a></li>
+<li><a class="reference internal" href="#reading-the-current-gain">Reading the current Gain</a></li>
+<li><a class="reference internal" href="#mgc-setting-the-current-gain">MGC setting the current Gain</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tx-attenuation-control">Tx Attenuation Control</a></li>
+<li><a class="reference internal" href="#received-strength-signal-indicator-rssi">Received Strength Signal Indicator (RSSI)</a></li>
+<li><a class="reference internal" href="#tx-received-strength-signal-indicator-tx-rssi">TX Received Strength Signal Indicator (TX RSSI)</a></li>
+<li><a class="reference internal" href="#calibration-mode-controls">Calibration Mode Controls</a><ul>
+<li><a class="reference internal" href="#with-optional-calibration-phase-offset-value">With optional calibration phase offset value</a><ul>
+<li><a class="reference internal" href="#force-tx-quad-phase-search">Force tx quad phase search</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#calibration-tracking-controls">Calibration Tracking Controls</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rf-port-selection">RF Port Selection</a></li>
+<li><a class="reference internal" href="#dcxo-tuning-digital-controlled-crystal-oscillator">DCXO Tuning (digital controlled crystal oscillator)</a></li>
+<li><a class="reference internal" href="#xo-correction">XO Correction</a></li>
+<li><a class="reference internal" href="#die-temperature-reading">Die Temperature Reading</a></li>
+<li><a class="reference internal" href="#auxadc-reading">AuxADC Reading</a></li>
+<li><a class="reference internal" href="#auxdac-writing">AuxDAC Writing</a></li>
+<li><a class="reference internal" href="#rssi-gain-step-calibration">RSSI Gain Step Calibration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-debug-facilities">Advanced Debug Facilities</a><ul>
+<li><a class="reference internal" href="#runtime-device-driver-customization">Runtime Device Driver Customization</a><ul>
+<li><a class="reference internal" href="#example-to-change-the-driver-from-fdd-into-tdd-mode-operation">Example to change the driver from FDD into TDD mode operation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gpo-manual-control">GPO Manual Control</a></li>
+<li><a class="reference internal" href="#build-in-self-test-bist">Build-In Self-Test (BIST)</a><ul>
+<li><a class="reference internal" href="#bist-tone">BIST Tone</a></li>
+<li><a class="reference internal" href="#prbs">PRBS</a></li>
+<li><a class="reference internal" href="#bist-loopback">BIST Loopback</a></li>
+<li><a class="reference internal" href="#bist-timing-analysis">BIST Timing Analysis</a></li>
+<li><a class="reference internal" href="#digital-tune">Digital Tune</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#low-level-register-access-via-debugfs-direct-reg-access">Low level register access via debugfs (direct_reg_access)</a></li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html">AD4003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html">AD4030-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html">AD6684</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html">AD7091</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html">AD7091R-5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html">AD7091R-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html">AD7124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html">AD7170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html">AD7190</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html">AD7265</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html">AD7768</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html">AD7785</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html">AD7787</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html">AD7887</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html">AD7991</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html">AD9083</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html">AD9207</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html">AD9234</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html">ADAQ8092</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html">ADAS1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adar1000.html">ADAR1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74412R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">AD5310R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5415</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5735</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5744</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5760</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html">AD9122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html">AD9832</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html">AD9833</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9161</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9516-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF4355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16133</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html">AD6676</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AD9361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad9371.html">AD9371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adrv9002.html">ADRV9002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adrv9009.html">ADRV9008-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/ad714x.html">AD7142</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html">ADP1650</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">AD5160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7241</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1835A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73311</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1381</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1401A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV801</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="ad9361-high-performance-highly-integrated-rf-agile-transceiver-linux-device-driver">
+<h1>AD9361 high performance, highly integrated RF Agile Transceiver™ Linux device driver<a class="headerlink" href="#ad9361-high-performance-highly-integrated-rf-agile-transceiver-linux-device-driver" title="Link to this heading">¶</a></h1>
+<p>The AD9361 is a high performance, highly integrated RF Agile Transceiver™. Its programmability and wideband capability make it ideal for a broad range of transceiver applications. The device combines an RF front end with a flexible mixed-signal baseband section and integrated frequency synthesizers, simplifying design-in by providing a configurable digital interface to a processor.</p>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EAD9361"><span class="xref myst">AD9361</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9363"><span class="xref myst">AD9363</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9364"><span class="xref myst">AD9364</span></a></p></li>
+</ul>
+</section>
+<section id="reference-circuits">
+<h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EAD-FMCOMMS2-EBZ"><span class="xref myst">AD-FMCOMMS2-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD-FMCOMMS3-EBZ"><span class="xref myst">AD-FMCOMMS3-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD-FMCOMMS4-EBZ"><span class="xref myst">AD-FMCOMMS4-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD-FMCOMMS5-EBZ"><span class="xref myst">AD-FMCOMMS5-EBZ</span></a></p></li>
+</ul>
+</section>
+<section id="evaluation-boards">
+<h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EAD-FMCOMMS2-EBZ"><span class="xref myst">AD-FMCOMMS2-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD-FMCOMMS3-EBZ"><span class="xref myst">AD-FMCOMMS3-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD-FMCOMMS4-EBZ"><span class="xref myst">AD-FMCOMMS4-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD-FMCOMMS5-EBZ"><span class="xref myst">AD-FMCOMMS5-EBZ</span></a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>This is a Linux industrial I/O (<a class="reference internal" href="#/software/linux/docs/iio/iio"><span class="xref myst">IIO</span></a>) subsystem driver, targeting RF Transceivers.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span class="xref myst">IIO</span></a> for more information.</p>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9361.c">git</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9361.c">No</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9361.c">drivers/iio/adc/ad9361.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9361_conv.c">drivers/iio/adc/ad9361_conv.c</a></td>
+</tr>
+<tr class="odd">
+<td>include</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9361.h">drivers/iio/adc/ad9361.h</a></td>
+</tr>
+<tr class="even">
+<td>devicetree bindings</td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/adc/adi,ad9361.txt">Documentation/devicetree/bindings/iio/adc/adi,ad9361.txt</a></td>
+</tr>
+</tbody>
+</table>
+<section id="related-device-drivers">
+<h4>Related Device Drivers<a class="headerlink" href="#related-device-drivers" title="Link to this heading">¶</a></h4>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_core.c">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_ring_stream.c">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
+</tr>
+<tr class="odd">
+<td>include</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc.h">drivers/iio/adc/cf_axi_adc.h</a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.c">drivers/iio/frequency/cf_axi_dds.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.h">drivers/iio/frequency/cf_axi_dds.h</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="device-driver-customization">
+<h2>Device Driver Customization<a class="headerlink" href="#device-driver-customization" title="Link to this heading">¶</a></h2>
+<p>Please follow the link here for detailed options and examples:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization"><span class="xref myst">AD9361/AD9363/AD9364 Device Driver Customization</span></a></p></li>
+</ul>
+</section>
+<section id="example-linux-device-tree-initialization">
+<h2>Example Linux Device-Tree Initialization<a class="headerlink" href="#example-linux-device-tree-initialization" title="Link to this heading">¶</a></h2>
+<p>The AD9361 driver is a spi-bus driver and can currently only be instantiated via device tree.</p>
+<p>Required devicetree properties:</p>
+<ul class="simple">
+<li><p>compatible: Should always be “adi,ad9361”, “adi,ad9363” or “adi,ad9364”</p></li>
+<li><p>reg: SPI slave select number</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FMCOMMS2/3 Device Tree</td>
+<td><a href="linux.github&gt;master?arch/arm/boot/dts/adi-fmcomms2.dtsi">adi-fmcomms2.dtsi</a></td>
+</tr>
+<tr class="even">
+<td>FMCOMMS4 Device Tree</td>
+<td><a href="linux.github&gt;master?arch/arm/boot/dts/adi-fmcomms4.dtsi">adi-fmcomms4.dtsi</a></td>
+</tr>
+<tr class="odd">
+<td>FMCOMMS5 Device Tree</td>
+<td><a href="linux.github&gt;master?arch/arm/boot/dts/adi-fmcomms5.dtsi">adi-fmcomms5.dtsi</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="enabling-linux-driver-support">
+<h2>Enabling Linux driver support<a class="headerlink" href="#enabling-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<p>&lt;WRAP round help&gt;
+The AD9361 driver depends on <strong>CONFIG_SPI</strong>
+&lt;/WRAP&gt;</p>
+</section>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
+    Device Drivers  ---&gt;
+    &lt;*&gt;     Industrial I/O support ---&gt;
+        --- Industrial I/O support
+        -*-   Enable ring buffer support within IIO
+        -*-     Industrial I/O lock free software ring
+        -*-   Enable triggered sampling support
+
+              *** Analog to digital converters ***
+        [--snip--]
+
+        &lt;*&gt;   Analog Devices AD9467 AD9643 High-Speed AXI ADC driver
+
+        [--snip--]
+</pre></div>
+</div>
+</section>
+<section id="hardware-configuration">
+<h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
+</section>
+<section id="driver-testing-api">
+<h2>Driver testing / API<a class="headerlink" href="#driver-testing-api" title="Link to this heading">¶</a></h2>
+<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<p>&lt;WRAP top tip round box 60%&gt;<strong>TIP:</strong>
+An example program which uses the interface can be found here:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/resources/tools-software/linux-software/iio_oscilloscope"><span class="xref myst">IIO Oscilloscope</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/tools-software/linux-software/fmcomms2_plugin"><span class="xref myst">AD936X Plugin Description</span></a></p></li>
+</ul>
+<p>&lt;/WRAP&gt;\</p>
+<section id="general-attribute-naming-convention">
+<h3>General attribute naming convention:<a class="headerlink" href="#general-attribute-naming-convention" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">in_voltage0_[…]</span></code>: targets RX1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">in_voltage1_[…]</span></code>: targets RX2 (AD9361 in 2RX2TX mode only)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out_voltage0_[…]</span></code>: targets TX1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out_voltage1_[…]</span></code>: targets TX2 (AD9361 in 2RX2TX mode only)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out_altvoltage0_[…]</span></code>: targets RX LO</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out_altvoltage1_[…]</span></code>: targets TX LO</p></li>
+</ul>
+<p>&lt;WRAP tip&gt;
+Because of differences in silicon implementation; and the way an IIO device wants to be expressed as a device with channels and attributes, there may be specific attributes that are exposed on multiple channels, that control the same bit/register in the device (are duplicated for convenience or to match the IIO model). A specific example of this is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">in_voltage0_rf_port_select</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">in_voltage1_rf_port_select</span></code></p></li>
+</ul>
+<p>There is only one bit in the device that controls both channels, and this is provided for convenience.
+&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
+root:/sys/bus/iio/devices&gt; ls
+iio:device0 iio:device1 iio:device2 iio:device3 iio:device4</p>
+<p>root:/sys/bus/iio/devices&gt; <strong>cd iio:device1</strong></p>
+<p>root:/sys/bus/iio/devices/iio:device1# ls -l
+total 0
+-rw-r–r– 1 root root 4096 Jan 15 13:33 calib_mode
+-r–r–r– 1 root root 4096 Jan 15 13:49 calib_mode_available
+-rw-r–r– 1 root root 4096 Jan 15 13:32 dcxo_tune_coarse
+-rw-r–r– 1 root root 4096 Jan 15 13:32 dcxo_tune_fine
+-r–r–r– 1 root root 4096 Jan 15 13:49 dev
+-rw-r–r– 1 root root 4096 Jan 15 13:33 ensm_mode
+-r–r–r– 1 root root 4096 Jan 15 13:49 ensm_mode_available
+–w——- 1 root root 4096 Jan 15 13:49 filter_fir_config
+-rw-r–r– 1 root root 4096 Jan 15 13:32 in_out_voltage_filter_fir_en
+-rw-r–r– 1 root root 4096 Jan 15 13:49 in_temp0_input
+-rw-r–r– 1 root root 4096 Jan 15 13:33 in_voltage0_gain_control_mode
+-rw-r–r– 1 root root 4096 Jan 15 13:32 in_voltage0_hardwaregain
+-rw-r–r– 1 root root 4096 Jan 15 13:33 in_voltage0_rf_port_select
+-rw-r–r– 1 root root 4096 Jan 15 13:49 in_voltage0_rssi
+-rw-r–r– 1 root root 4096 Jan 15 13:33 in_voltage1_gain_control_mode
+-rw-r–r– 1 root root 4096 Jan 15 13:32 in_voltage1_hardwaregain
+-rw-r–r– 1 root root 4096 Jan 15 13:49 in_voltage1_rf_port_select
+-rw-r–r– 1 root root 4096 Jan 15 13:49 in_voltage1_rssi
+-rw-r–r– 1 root root 4096 Jan 15 13:49 in_voltage2_offset
+-rw-r–r– 1 root root 4096 Jan 15 13:49 in_voltage2_raw
+-rw-r–r– 1 root root 4096 Jan 15 13:49 in_voltage2_scale
+-rw-r–r– 1 root root 4096 Jan 15 13:32 in_voltage_bb_dc_offset_tracking_en
+-rw-r–r– 1 root root 4096 Jan 15 13:32 in_voltage_filter_fir_en
+-r–r–r– 1 root root 4096 Jan 15 13:49 in_voltage_gain_control_mode_available
+-rw-r–r– 1 root root 4096 Jan 15 13:32 in_voltage_quadrature_tracking_en
+-rw-r–r– 1 root root 4096 Jan 15 13:32 in_voltage_rf_bandwidth
+-rw-r–r– 1 root root 4096 Jan 15 13:32 in_voltage_rf_dc_offset_tracking_en
+-r–r–r– 1 root root 4096 Jan 15 13:49 in_voltage_rf_port_select_available
+-rw-r–r– 1 root root 4096 Jan 15 13:33 in_voltage_sampling_frequency
+-r–r–r– 1 root root 4096 Jan 15 13:49 name
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_altvoltage0_RX_LO_fastlock_load
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_altvoltage0_RX_LO_fastlock_recall
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_altvoltage0_RX_LO_fastlock_save
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_altvoltage0_RX_LO_fastlock_store
+-rw-r–r– 1 root root 4096 Jan 15 13:33 out_altvoltage0_RX_LO_frequency
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_altvoltage1_TX_LO_fastlock_load
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_altvoltage1_TX_LO_fastlock_recall
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_altvoltage1_TX_LO_fastlock_save
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_altvoltage1_TX_LO_fastlock_store
+-rw-r–r– 1 root root 4096 Jan 15 13:33 out_altvoltage1_TX_LO_frequency
+-rw-r–r– 1 root root 4096 Jan 15 13:32 out_voltage0_hardwaregain
+-rw-r–r– 1 root root 4096 Jan 15 13:33 out_voltage0_rf_port_select
+-r–r–r– 1 root root 4096 Jan 15 13:49 out_voltage0_rssi
+-rw-r–r– 1 root root 4096 Jan 15 13:32 out_voltage1_hardwaregain
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_voltage1_rf_port_select
+-r–r–r– 1 root root 4096 Jan 15 13:49 out_voltage1_rssi
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_voltage2_raw
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_voltage2_scale
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_voltage3_raw
+-rw-r–r– 1 root root 4096 Jan 15 13:49 out_voltage3_scale
+-rw-r–r– 1 root root 4096 Jan 15 13:32 out_voltage_filter_fir_en
+-rw-r–r– 1 root root 4096 Jan 15 13:32 out_voltage_rf_bandwidth
+-r–r–r– 1 root root 4096 Jan 15 13:49 out_voltage_rf_port_select_available
+-rw-r–r– 1 root root 4096 Jan 15 13:33 out_voltage_sampling_frequency
+drwxr-xr-x 2 root root 0 Jan 15 13:49 power
+-r–r–r– 1 root root 4096 Jan 15 13:49 rx_path_rates
+lrwxrwxrwx 1 root root 0 Jan 15 13:49 subsystem -&gt; …/…/…/…/…/…/…/…/bus/iio
+-rw-r–r– 1 root root 4096 Jan 15 13:33 trx_rate_governor
+-r–r–r– 1 root root 4096 Jan 15 13:49 trx_rate_governor_available
+-r–r–r– 1 root root 4096 Jan 15 13:49 tx_path_rates
+-rw-r–r– 1 root root 4096 Jan 15 13:49 uevent</p>
+<p>root:/sys/bus/iio/devices/iio:device1#
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-device-name">
+<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat name</strong>
+ad9361-phy
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="enable-state-machine-controls">
+<h3>Enable State Machine Controls<a class="headerlink" href="#enable-state-machine-controls" title="Link to this heading">¶</a></h3>
+<p>The AD9361 transceiver includes an Enable State Machine (ENSM), allowing real time control over the current state of the device. The ENSM has two possible control methods – SPI control (writing ensm_mode), and pin control (writing ensm_mode = pinctrl).
+The ENSM is controlled asynchronously by writing SPI registers to advance the current state to the next state.
+The ENABLE and TXNRX pins allow real time control of the current state.
+The ENSM allows TDD or FDD operation depending on the configuration.\</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat ensm_mode_available</strong>
+sleep wait alert fdd pinctrl pinctrl_fdd_indep
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p><strong>FDD Mode options:</strong></p>
+<ul class="simple">
+<li><p>sleep</p></li>
+<li><p>alert</p></li>
+<li><p>fdd</p></li>
+<li><p>pinctrl</p></li>
+<li><p>pinctrl_fdd_indep (FDD Independent Mode)</p></li>
+</ul>
+<p><strong>TDD Mode options:</strong></p>
+<ul class="simple">
+<li><p>sleep</p></li>
+<li><p>alert</p></li>
+<li><p>rx</p></li>
+<li><p>tx</p></li>
+<li><p>pinctrl</p></li>
+</ul>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat ensm_mode</strong>
+fdd</p>
+<p>root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo alert &gt; ensm_mode</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat ensm_mode</strong>
+alert
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP left tip round box 100%&gt;<strong>NOTE:</strong><br />
+Be aware if you you want to transition in TDD mode from RX to TX you have to go via ALERT.
+(Recent driver releases - do this now automatically.…)</p>
+<p>You may want to checkout the ENSM Pin-Control test script here:
+<a class="reference external" href="https://github.com/analogdevicesinc/linux_image_ADI-scripts/blob/master/test_ensm_pinctrl.sh">test_ensm_pinctrl.sh</a>
+&lt;/WRAP&gt;</p>
+</section>
+<section id="local-oscillator-control-lo">
+<h3>Local Oscillator Control (LO)<a class="headerlink" href="#local-oscillator-control-lo" title="Link to this heading">¶</a></h3>
+<p>The AD9361 transceiver contains two identical RFPLL synthesizers to generate the required LO signals.
+One is programmed for the RX channel and the other for the TX channel.
+The tuning range supported by this driver covers 70MHz to 6GHz (AD9363: 325-3800 MHz) with 2Hz tuning granularity.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+<strong>cat out_altvoltage0_RX_LO_frequency</strong>
+2400000000
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 2450000000 &gt; out_altvoltage0_RX_LO_frequency</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_altvoltage0_RX_LO_frequency</strong>
+2450000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="local-oscillator-power-down">
+<h4>Local Oscillator Power-down<a class="headerlink" href="#local-oscillator-power-down" title="Link to this heading">¶</a></h4>
+<p>If both, the TX and RX Local Oscillators (LO) are set to the same frequency or very close to each other.
+The TX LO may leak into the RX path. Usually this is avoided in TDD mode, since always only one of the LOs is enabled at a given time. However sometimes it can be beneficial in FDD mode to turn the TX LO off. Care must be taken since TX LO in Power-down mode, will cause the TX QUAD calibration to fail.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 0 &gt; out_altvoltage1_TX_LO_powerdown</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_altvoltage1_TX_LO_powerdown</strong>
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_altvoltage0_RX_LO_powerdown</strong>
+1
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="external-lo-support">
+<h4>External LO Support<a class="headerlink" href="#external-lo-support" title="Link to this heading">¶</a></h4>
+<p>The driver allows switching between external and internal LO on the fly.
+Writing 1 into out_altvoltage0_RX_LO_external/out_altvoltage1_TX_LO_external switches to external LO.
+Respectively writing 0 switches back to the internal synthesizer.</p>
+<p>In case additional clocks are specified in the device tree (clock-names: “ext_tx_lo” “ext_rx_lo”).
+The driver automatically controls the external clock/PLL Synthesizer.</p>
+<p>&lt;note tip&gt;
+This feature does not exist on the AD9363
+&lt;/note&gt;</p>
+<p>Example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    adc0_ad9361: ad9361-phy@0 {
+
+        compatible = &quot;adi,ad9361&quot;;
+
+
+        /* Clocks */
+        clocks = &lt;&amp;ad9361_clkin&gt;, &lt;&amp;ad9361_ext_tx_lo&gt;, &lt;&amp;ad9361_ext_rx_lo&gt;;
+        clock-names = &quot;ad9361_ext_refclk&quot;, &quot;ext_tx_lo&quot;, &quot;ext_rx_lo&quot;;
+        clock-output-names = &quot;rx_sampl_clk&quot;, &quot;tx_sampl_clk&quot;;
+</pre></div>
+</div>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+<strong>cat out_altvoltage0_RX_LO_frequency</strong>
+2400000000
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 1 &gt; out_altvoltage0_RX_LO_external</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_altvoltage0_RX_LO_external</strong>
+1
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="fastlock-mode">
+<h4>FASTLOCK MODE<a class="headerlink" href="#fastlock-mode" title="Link to this heading">¶</a></h4>
+<p>The device includes a Fast Lock mode that makes it possible to achieve faster than normal frequency changes by storing sets of synthesizer programming information (called “profiles”) either into device registers or the BB processor’s memory space to be recalled at a later time.
+The Fast Lock mode eliminates most of the overhead of synthesizer programming by allowing up to 8 full RX profiles and 8 full TX profiles of frequency configuration information (including VCO cal results) to be stored in the device for faster frequency changes.
+In order to use a particular profile, first it must be configured. Typically, this would be accomplished at powerup, but a new or updated profile can be defined at any convenient time.</p>
+<p>&lt;WRAP left tip round box 100%&gt;<strong>NOTE:</strong><br />
+You may want to checkout the Fastlock Pin-Control test script here:
+<a class="reference external" href="https://github.com/analogdevicesinc/linux_image_ADI-scripts/blob/master/test_tx_fastlock_pinctrl.sh">test_tx_fastlock_pinctrl.sh</a>
+&lt;/WRAP&gt;</p>
+<section id="create-profile">
+<h5>Create Profile<a class="headerlink" href="#create-profile" title="Link to this heading">¶</a></h5>
+<p>To create a profile tune the synthesizer and then write the target profile number into out_altvoltageX_fastlock_store.</p>
+<p>Valid profile range is from 0…7</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 4242000000 &gt; out_altvoltage0_RX_LO_frequency</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 0 &gt; out_altvoltage0_RX_LO_fastlock_store</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="recall-profile">
+<h5>Recall Profile<a class="headerlink" href="#recall-profile" title="Link to this heading">¶</a></h5>
+<p>To recall a profile write the target profile number into out_altvoltageX_fastlock_recall.
+Valid profile range is from 0…7.</p>
+<p>Reading out_altvoltageX_fastlock_recall returns the current profile number
+or –EINVAL if in normal synthesizer mode.</p>
+<p>When in fastlock pin select mode (adi,[tx|rx]-fastlock-pincontrol-enable).
+This file needs to be written once with a value, before the pin-control can be used.
+This will moves the device into fastlock mode.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 0 &gt; out_altvoltage0_RX_LO_fastlock_recall</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="saving-a-profile">
+<h5>Saving a Profile<a class="headerlink" href="#saving-a-profile" title="Link to this heading">¶</a></h5>
+<p>In order to use more than 8 Profiles – an existing profile can be read back and stored by the user application.</p>
+<p>The format is: Profile# val0,val1,val2,…,val15</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; ** echo 0 &gt; out_altvoltage0_RX_LO_fastlock_save **
+root:/sys/bus/iio/devices/iio:device1&gt; ** cat out_altvoltage0_RX_LO_fastlock_save **
+0 240,0,202,204,12,80,24,16,187,255,60,238,113,233,93,174
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="loading-a-profile">
+<h5>Loading a Profile<a class="headerlink" href="#loading-a-profile" title="Link to this heading">¶</a></h5>
+<p>A previously saved profile can be loaded in any of the 8 available slots.
+Write the profile string into out_altvoltageX_fastlock_load</p>
+<p>The format is: Profile# val0,val1,val2,…,val15</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; ** echo 0 240,0,202,204,12,80,24,16,187,255,60,238,113,233,93,174 &gt; out_altvoltage0_RX_LO_fastlock_load **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+</section>
+<section id="rx-signal-path">
+<h3>RX Signal Path<a class="headerlink" href="#rx-signal-path" title="Link to this heading">¶</a></h3>
+<p>The AD9361 RX signal path passes downconverted signals (I and Q) to the baseband receiver section. The baseband RX signal path is composed of two programmable analog low-pass filters, a 12-bit ADC, and four stages of digital decimating filters. Each of the four decimating filters can be bypassed. The corner frequency for each low-pass filter is programmable via SPI registers. Figure below shows a block diagram for the AD9361 RX signal path. Note that both the I and Q paths are schematically identical to each other.<br />
+<img alt="RX Signal Path" src="resources/tools-software/linux-drivers/iio-transceiver/rx_signal_path.png" />{.align-center width=“800” query=“?800”}</p>
+<p>The high level in_voltage_sampling_frequency attribute effectively controls the BBPLL frequency the ADC Sample clock and all following decimating filter blocks except the FIR block which is handled upon user configuration.
+This IIO device attribute allows the user to control the Baseband (BB) Sample Rate in Hz granularity in the range from 521KSPS up to 61.44MSPS, also depending on the FIR filter decimation chosen.
+in_voltage_sampling_frequency as well as out_voltage_sampling_frequency are not entirely independent, by default the both need to match unless adi,fdd-rx-rate-2tx-enable is enabled.
+Then RX rate can be twice the TX rate.</p>
+<p>&lt;WRAP left tip round box 100%&gt;<strong>NOTE:</strong><br />
+In the minimum ADC rate is 25MSPS.
+Baseband rates below 2.083 MSPS (25MSPS/12) require FIR decimation/interpolation to be set.
+In other words the FIR filter needs to be configured and enabled.
+The minimum baseband rate with the FIR filter (decimate by 4) enabled is: 25MSPS /(4*12) = 520.83 kSPS.</p>
+<p>Some example filters can be found here:<a class="reference external" href="https://github.com/analogdevicesinc/iio-oscilloscope/tree/master/filters">filters</a></p>
+<p>&lt;/WRAP&gt;</p>
+<section id="setting-querying-the-rx-sample-rate">
+<h4>Setting / Querying the RX Sample Rate<a class="headerlink" href="#setting-querying-the-rx-sample-rate" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_sampling_frequency</strong>
+30720000
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 10000000 &gt; in_voltage_sampling_frequency</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_sampling_frequency</strong>
+10000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="list-chosen-rx-path-rates">
+<h4>List chosen RX Path Rates<a class="headerlink" href="#list-chosen-rx-path-rates" title="Link to this heading">¶</a></h4>
+<p>This attribute lists the current rates in the various digital blocks.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Description</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BBPLL</td>
+<td>The Baseband PLL frequency</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>ADC</td>
+<td>The ADC sample rate</td>
+<td>BBPLL/ADC = BBPLL divider</td>
+</tr>
+<tr class="odd">
+<td>R2</td>
+<td>Rate of the HB3/DEC3 filter</td>
+<td>ADC/R2 = HB3 decimation factor</td>
+</tr>
+<tr class="even">
+<td>R1</td>
+<td>Rate of the HB2 filter</td>
+<td>R2/R1 = HB2 decimation factor</td>
+</tr>
+<tr class="odd">
+<td>RF</td>
+<td>Rate of the HB1 filter</td>
+<td>R1/RF = HB1 decimation factor</td>
+</tr>
+<tr class="even">
+<td>RXSAMP</td>
+<td>RX sampling rate or baseband rate</td>
+<td>RF/RXSAMP = FIR decimation factor</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat rx_path_rates</strong>
+BBPLL:983040000 ADC:245760000 R2:122880000 R1:61440000 RF:30720000 RXSAMP:30720000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="tx-signal-path">
+<h3>TX Signal Path<a class="headerlink" href="#tx-signal-path" title="Link to this heading">¶</a></h3>
+<p>The AD9361 TX signal path receives 12-bit 2s complement data in I-Q format from the AD9361 digital interface, and each channel (I and Q) passes this data through four digital interpolating filters to a 12-bit DAC. Each of the four interpolating filters can be bypassed. The DAC’s analog output is passed through two low pass filters prior to the RF mixer. The corner frequency for each low-pass filter is programmable via SPI registers. Figure 1 shows a block diagram for the AD9361 TX signal path. Note that both the I and the Q paths are schematically identical to each other. The four blocks leading up to the DAC in shown figure below comprise the digital filtering for the transmit path. These programmable filters provide the bandwidth limiting required prior to conversion from digital to analog. They also provide interpolation to translate from the input data rate to the rate needed for proper digital to analog conversion. In each filter, interpolation is performed first, followed by the filter transfer function.<br />
+<img alt="TX Signal Path" src="resources/tools-software/linux-drivers/iio-transceiver/tx_signal_path.png" />{.align-center width=“800” query=“?800”}</p>
+<p>The high level out_voltage_sampling_frequency attribute effectively controls the BBPLL frequency the ADC Sample clock, the DAC clock and all following interpolation filter blocks except the FIR block which is handled upon user configuration.
+This IIO device attribute allows the user to control the Baseband (BB) Sample Rate in Hz granularity in the range from 218KSPS up to 61.44MSPS, also depending on the FIR filter decimation chosen.
+out_voltage_sampling_frequency as well as in_voltage_sampling_frequency are not entirely independent, by default the both need to match unless adi,fdd-rx-rate-2tx-enable is set.
+Then RX rate can be twice the TX rate, however this mode needs to be supported by the FPGA/Baseband-Processor.
+The feedback clock must be externally divided.</p>
+<p>&lt;WRAP left tip round box 100%&gt;<strong>NOTE:</strong><br />
+In the minimum ADC rate is 25MSPS.
+Baseband rates below 2.083 MSPS (25MSPS/12) require FIR decimation/interpolation to be set.
+In other words the FIR filter needs to be configured and enabled.
+The minimum baseband rate with the FIR filter (decimate by 4) enabled is: 25MSPS /(4*12) = 520.83 kSPS.</p>
+<p>Some example filters can be found here:<a class="reference external" href="https://github.com/analogdevicesinc/iio-oscilloscope/tree/master/filters">filters</a></p>
+<p>&lt;/WRAP&gt;</p>
+<section id="setting-querying-the-tx-sample-rate">
+<h4>Setting / Querying the TX Sample Rate<a class="headerlink" href="#setting-querying-the-tx-sample-rate" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage_sampling_frequency</strong>
+30720000
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 10000000 &gt; out _voltage_sampling_frequency</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out _voltage_sampling_frequency</strong>
+10000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="list-chosen-tx-path-rates">
+<h4>List chosen TX Path Rates<a class="headerlink" href="#list-chosen-tx-path-rates" title="Link to this heading">¶</a></h4>
+<p>This attribute lists the current rates in the various digital blocks.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Description</th>
+<th>Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TXSAMP</td>
+<td>TX sample rate or baseband rate</td>
+<td>TF/TXSAMP = FIR interpolation factor</td>
+</tr>
+<tr class="even">
+<td>TF</td>
+<td>Rate of the HB1 filter</td>
+<td>T1/TF = HB1 interpolation factor</td>
+</tr>
+<tr class="odd">
+<td>T1</td>
+<td>Rate of the HB2 filter</td>
+<td>T2/T1 = HB2 interpolation factor</td>
+</tr>
+<tr class="even">
+<td>T2</td>
+<td>Rate of the HB3/INT3 filter</td>
+<td>DAC/T2 = HB3 interpolation factor</td>
+</tr>
+<tr class="odd">
+<td>DAC</td>
+<td>The DAC sample rate</td>
+<td>ADC/DAC = DAC clock divider</td>
+</tr>
+<tr class="even">
+<td>BBPLL</td>
+<td>The Baseband PLL frequency</td>
+<td>BBPLL/ADC = BBPLL divider</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat tx_path_rates</strong>
+BBPLL:983040000 DAC:122880000 T2:122880000 T1:61440000 TF:30720000 TXSAMP:30720000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="rate-governors">
+<h3>Rate Governors<a class="headerlink" href="#rate-governors" title="Link to this heading">¶</a></h3>
+<p>The rate governor option allows the user to influence the ADC sample rate and decimation/interpolation rates chosen in the followed digital blocks.
+It mainly influences whether RX HB3/DEC3/ and TX HB3/INT3 decimates/interpolates by 3 or 2, thus resulting in an higher oversampling rate.
+Decimate by 3 doesn’t necessarily produce higher performance. Therefore the default setting of Nominal is always a good option.</p>
+<section id="list-available-rate-governors">
+<h4>List available Rate Governors<a class="headerlink" href="#list-available-rate-governors" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat trx_rate_governor_available</strong>
+nominal highest_osr
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="selecting-rate-governor">
+<h4>Selecting Rate Governor<a class="headerlink" href="#selecting-rate-governor" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat trx_rate_governor</strong>
+highest_osr
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo nominal &gt; trx_rate_governor</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat trx_rate_governor</strong>
+nominal
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="digital-fir-filter-controls">
+<h3>Digital FIR Filter controls<a class="headerlink" href="#digital-fir-filter-controls" title="Link to this heading">¶</a></h3>
+<p>The last/first digital filter in the RX/TX signal path is a programmable poly-phase FIR filter. The RX/TX FIR filter can decimate/interpolate by a factor of 1, 2, or 4, or it can be bypassed if not needed. The filter taps are configurable in groups of 16 between a minimum of 16 and a maximum of 128 taps. The RX FIR also has a programmable gain of -12dB, -6dB, 0dB, or +6dB. The filter provides a fixed +6dB gain to maximize dynamic range, so the programmable gain is typically set to -6dB to produce a net gain of 0dB. The TX FIR also has a programmable gain setting of 0dB or -6dB. Be aware there are some limitations in terms of the maximum number of taps supported by the different clock ratios, please consult the AD9361 manual for more details.
+The AD9361 device driver will warn if a programmed filter doesn’t match the limits.</p>
+<p>In general the filters are either created using the:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#/resources/eval/user-guides/ad-fmcomms2-ebz/software/filters"><span class="xref myst">MATLAB Filter Design Wizard for AD9361</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/analogdevicesinc/libad9361-iio">libad9361-iio</a></p></li>
+</ol>
+<p>Some per-generated examples can be found here: <a class="reference external" href="https://github.com/analogdevicesinc/iio-oscilloscope/tree/master/filters">AD936x example filters</a></p>
+<section id="query-current-filter-configuration">
+<h4>Query current filter Configuration<a class="headerlink" href="#query-current-filter-configuration" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat filter_fir_config</strong>
+FIR Rx 0,0 Tx 0,0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>Return Value:<br />
+<strong>Rx</strong> &lt;Num Taps&gt;,&lt;Decimation factor&gt; <strong>Tx</strong> &lt;Num Taps&gt;,&lt;Interpolation factor&gt;\</p>
+</section>
+<section id="load-a-filter">
+<h4>Load a Filter<a class="headerlink" href="#load-a-filter" title="Link to this heading">¶</a></h4>
+<p>Query current filter Configuration</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat LTE20.txt &gt; filter_fir_config</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat filter_fir_config</strong>
+FIR Rx 128,2 Tx 128,2
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>Each file requires a short header:\</p>
+<ul class="simple">
+<li><p>Lines prefixed with ‘#’ are ignored</p></li>
+<li><p>Coefficients are signed 16-bit numbers</p></li>
+<li><p>Multiple filter files can be loaded until each RX and each TX has its own set of coefficients</p></li>
+<li><p>Syntax and examples shown below</p></li>
+</ul>
+<section id="syntax">
+<h5>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">¶</a></h5>
+<p>&lt;xterm&gt;
+<strong>RX</strong> [1,2,3(both)] <strong>GAIN</strong> [-12, -6, 0, 6] <strong>DEC</strong> [1,2,4]
+<strong>TX</strong> [1,2,3(both)] <strong>GAIN</strong> [-6, 0] <strong>INT</strong> [1,2,4]
+[<strong>RRX</strong> &lt;BBPLL ADC R2 R1 RF RXSAMP&gt;]
+[<strong>RTX</strong> &lt;BBPLL DAC T2 T1 TF TXSAMP&gt;]
+[<strong>BWRX</strong> &lt;RX RF Bandwidth&gt;]
+[<strong>BWTX</strong> &lt;RX TF Bandwidth&gt;]
+&lt;tx-coef0, rx-coef0&gt;
+&lt;tx-coef1, rx-coef1&gt;
+&lt;…, …&gt;
+&lt;tx-coefN-1, rx-coefN-1&gt;
+&lt;/xterm&gt;</p>
+</section>
+<section id="examples">
+<h5>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h5>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
+#TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
+#tx,rx
+RX 3 GAIN -6 DEC 2
+TX 3 GAIN 0 INT 2
+RTX 983040000 245760000 245760000 122880000 61440000 30720000
+RRX 983040000 491520000 245760000 122880000 61440000 30720000
+BWTX 19365438
+BWRX 19365514
+-5,49
+0,217
+--snip--
+
+#RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
+#TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
+#tx,rx
+RX 3 GAIN -6 DEC 2
+-5
+0
+--snip--
+
+#RX [1,2,3(both)] GAIN [-12, -6, 0, 6] DEC [1,2,4]
+#TX [1,2,3(both)] GAIN [-6, 0] INT [1,2,4]
+#tx,rx
+TX 3 GAIN 0 INT 2
+49
+217
+--snip--
+</pre></div>
+</div>
+</section>
+<section id="filter-enable-disable">
+<h5>Filter Enable / Disable<a class="headerlink" href="#filter-enable-disable" title="Link to this heading">¶</a></h5>
+<p>To enable or disable the RX or TX path filters simply write 0,N or 1,Y to one of below
+control files. Combo attribute in_out_voltage_filter_fir_en allows to simultaneously enable both filters.
+This might sometimes be necessary, depending on the RX/TX Path Sampling Frequency and FIR interpolation and decimation rates chosen.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_filter_fir_en</strong>
+0
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 1 &gt; in_voltage_filter_fir_en</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_filter_fir_en</strong>
+1
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage_filter_fir_en</strong>
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_out_voltage_filter_fir_en</strong>
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+</section>
+<section id="rf-bandwidth-analog-filter-control">
+<h3>RF Bandwidth Analog Filter Control<a class="headerlink" href="#rf-bandwidth-analog-filter-control" title="Link to this heading">¶</a></h3>
+<section id="rx-rf-bandwidth-control">
+<h4>RX RF Bandwidth Control<a class="headerlink" href="#rx-rf-bandwidth-control" title="Link to this heading">¶</a></h4>
+<p>The AD9361 features several Rx Analog Filter Blocks (RX TIA LPF, RX BB LPF)
+Analog filtering before the ADC reduces spurious signal levels by removing mixer products and providing general low pass filtering prior to downconversion.
+The RX TIA LPF is a single-pole low-pass filter with a programmable 3dB corner frequency.
+The RX BB LPF is a third-order Butterworthlow-passfilter with a programmable 3dB corner frequency.</p>
+<p>These filters can be set by writing a single device attribute (in_voltage_rf_bandwidth)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_rf_bandwidth</strong>
+18000000
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 9000000 &gt; in_voltage_rf_bandwidth</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_rf_bandwidth</strong>
+9000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="tx-rf-bandwidth-control">
+<h4>TX RF Bandwidth Control<a class="headerlink" href="#tx-rf-bandwidth-control" title="Link to this heading">¶</a></h4>
+<p>The AD9361 features several Tx Analog Filter Blocks (TX BB LPF, TX Secondary LPF)
+Analog filtering after the DAC reduces spurious outputs by removing sampling artifacts and providing general low pass filtering prior to upconversion.
+The TX BB LPF is a third-order Butterworth low-pass filter with a programmable 3dB corner frequency.
+The TX Secondary LPF is a single-polelow-passfilter with a programmable 3dB corner frequency.</p>
+<p>These filters can be set by writing a single device attribute (out_voltage_rf_bandwidth)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage_rf_bandwidth</strong>
+18000000
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 9000000 &gt; out_voltage_rf_bandwidth</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage_rf_bandwidth</strong>
+9000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="rx-gain-control">
+<h3>RX Gain Control<a class="headerlink" href="#rx-gain-control" title="Link to this heading">¶</a></h3>
+<p>The versatile and highly configurable AD9361 transceiver has several gain control modes that enable its use in a variety of applications. Fully automatic gain control (AGC) modes are available that address time division duplex (TDD) as well as frequency division duplex (FDD) scenarios. In addition, the AD9361 has manual gain control (MGC) options that allow the baseband processor (BBP) to control the gain.</p>
+<p>The default ADI provided optimized gain tables in full table mode provide 77 entries and in split gain table mode 41.
+Each index results typically in a 1 dB monotonic gain step. There are a total of 3 different tables available for different RX LO frequency ranges. The tables are swapped in and out automatically by the driver based on RX LO settings.</p>
+<p>Standard Tables:</p>
+<table>
+<thead>
+<tr class="header">
+<th>RX LO Range</th>
+<th>Min GAIN</th>
+<th>Max Gain</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>70 ... 1300 MHz</td>
+<td>-1 dB</td>
+<td>73 dB</td>
+</tr>
+<tr class="even">
+<td>1300 ... 4000 MHz</td>
+<td>-3 dB</td>
+<td>71 dB</td>
+</tr>
+<tr class="odd">
+<td>4000 ... 6000 MHz</td>
+<td>-10 dB</td>
+<td>62 dB</td>
+</tr>
+</tbody>
+</table>
+<p>Custom gain tables can be loaded automatically during driver probe or anytime later via the gain_table_config sysfs attribute.
+Tables must be stored in the /lib/firmware folder, or compiled into the kernel using the CONFIG_FIRMWARE_IN_KERNEL, CONFIG_EXTRA_FIRMWARE config options.
+The table loaded during driver probe can be specified using following device tree property:</p>
+<p><strong>adi,gaintable-name</strong> = “ad9361_std_gaintable”;</p>
+<p>In case no table is specified or loaded, the driver will continue to use the provided standard gain tables.</p>
+<p>Gain tables are stored in a human readable file, with the format specified below. Up to 15 gain tables (for different frequency ranges, or gain table modes) can be provided in a single file.</p>
+<p>Example: <a class="reference internal" href="#linux.github%3Emaster?firmware/ad9361_std_gaintable"><span class="xref myst">ad9361_std_gaintable</span></a></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;list&gt;   
+ &lt;gaintable [AD9361|AD9364] type=[FULL|SPLIT] dest=[1|2|3] start=FREQUENCY1_Hz end=FREQUENCY2_Hz&gt;
+ gain_in_dB, reg_0x131, reg_0x132, reg_0x133
+ gain_in_dB, reg_0x131, reg_0x132, reg_0x133
+ gain_in_dB, reg_0x131, reg_0x132, reg_0x133
+ …
+ &lt;/gaintable&gt;
+
+...
+
+&lt;/list&gt;
+</pre></div>
+</div>
+<p><strong>Assumptions:</strong>\</p>
+<ul class="simple">
+<li><p>Gain tables must be monotonic</p></li>
+<li><p>gain_in_dB: is the absolute Gain in dB (signed char format: -128…127)</p></li>
+<li><p>reg_0x131: Ext LNA, Int LNA, &amp; Mixer Gain Word</p></li>
+<li><p>reg_0x132: TIA &amp; LPF Word</p></li>
+<li><p>reg_0x133: DC Cal bit &amp; Dig Gain Word</p></li>
+<li><p>end must be greater than start frequency (in Hz)</p></li>
+<li><p>There must be sufficient tables provided to support the entire used tuning range</p></li>
+<li><p>dest specifies the targeted RX. (1 = RX1, 2=RX2, 3=RX1 and RX2) (not used at the moment default is always RX1 and RX2)</p></li>
+</ul>
+<section id="loading-a-gain-table">
+<h4>Loading a gain table<a class="headerlink" href="#loading-a-gain-table" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device1# ls /lib/firmware/ad9*
+ad9361_std_gaintable</p>
+<p>root&#64;analog:/sys/bus/iio/devices/iio:device1# cat /lib/firmware/ad9361_std_gaintable &gt; gain_table_config
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="reading-a-gain-table">
+<h4>Reading a gain table<a class="headerlink" href="#reading-a-gain-table" title="Link to this heading">¶</a></h4>
+<p>Reading the gain_table_config attribute returns the current gain table that is loaded into the transceiver IC.
+The printed format matches the format used in the gaintable file.</p>
+<p>Reading the gain table only displays the gain table that will be used with the current RX_LO frequency setting.
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; echo 2450000000 &gt; out_altvoltage0_RX_LO_frequency
+root:/sys/bus/iio/devices/iio:device1&gt; cat out_altvoltage0_RX_LO_frequency
+2450000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device1# cat gain_table_config
+&lt;gaintable AD9361 type=FULL dest=3 start=1300000000 end=4000000000&gt;
+-3, 0x00, 0x00, 0x20
+-3, 0x00, 0x00, 0x00
+-3, 0x00, 0x00, 0x00
+-2, 0x00, 0x01, 0x00
+-1, 0x00, 0x02, 0x00
+0, 0x00, 0x03, 0x00
+1, 0x00, 0x04, 0x00
+2, 0x00, 0x05, 0x00
+3, 0x01, 0x03, 0x20
+4, 0x01, 0x04, 0x00
+5, 0x01, 0x05, 0x00
+6, 0x01, 0x06, 0x00
+7, 0x01, 0x07, 0x00
+8, 0x01, 0x08, 0x00</p>
+<p>[–snip–]</p>
+<p>69, 0x6D, 0x38, 0x20
+70, 0x6E, 0x38, 0x20
+71, 0x6F, 0x38, 0x20
+&lt;/gaintable&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="gain-control-modes">
+<h4>Gain control modes<a class="headerlink" href="#gain-control-modes" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_gain_control_mode_available</strong>
+manual fast_attack slow_attack hybrid
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<table>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>manual</td>
+<td>In MGC mode, the BBP controls the gain index pointer(s). In its simplest form, the BBP evaluates the digital signal level at the I/O port and then adjusts the gain appropriately. The BBP can control manual gain in one of two ways. The default method uses SPI writes (writing in_voltage[0,1]_hardwaregain) the total gain in dB. This results in different gain indices depending on the gain table loaded. Alternatively, the BBP can pulse the Control Input pins to move the gain indices.</td>
+</tr>
+<tr class="even">
+<td>slow_attack</td>
+<td>Slow Attack Mode is intended for slowly changing signals such as those found in some FDD applications such as WCDMA and FDD LTE. The Slow Attack AGC uses a 2nd order control loop with hysteresis that changes the gain in order to keep the average signal power within a programmable window</td>
+</tr>
+<tr class="odd">
+<td>hybrid</td>
+<td>The AGC hybrid mode is the same as the slow AGC mode with the exception that the gain update counter is not used. Instead, gain updates occur when the BBP pulls the CTRL_IN2 signal high. The “hybrid” term arises because the BBP has taken some control of the algorithm away from the AD9361 so gain control is no longer completely automatic.</td>
+</tr>
+<tr class="even">
+<td>fast_attack</td>
+<td>Fast Attack Mode is intended for waveforms that “burst” on and off, such as those found in TDD applications or GSM/EDGE FDD applications. The AGC responds very quickly to overloads at the start of a burst so that the AGC can settle to an optimum gain index by the time the data portion of the signal arrives.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="querying-or-setting-a-gain-control-mode">
+<h4>Querying or Setting a Gain Control Mode<a class="headerlink" href="#querying-or-setting-a-gain-control-mode" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage0_gain_control_mode</strong>
+slow_attack
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo manual &gt; in_voltage0_gain_control_mode</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage0_gain_control_mode</strong>
+manual
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage1_gain_control_mode</strong>
+slow_attack
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="reading-the-current-gain">
+<h4>Reading the current Gain<a class="headerlink" href="#reading-the-current-gain" title="Link to this heading">¶</a></h4>
+<p>Supported in all available Gain control modes</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage0_hardwaregain</strong>
+61.000000 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage1_hardwaregain</strong>
+71.000000 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="mgc-setting-the-current-gain">
+<h4>MGC setting the current Gain<a class="headerlink" href="#mgc-setting-the-current-gain" title="Link to this heading">¶</a></h4>
+<p>Only available in Manual Gain Control Mode (MGC)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 42 &gt; in_voltage0_hardwaregain</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage0_hardwaregain</strong>
+42.000000 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="tx-attenuation-control">
+<h3>Tx Attenuation Control<a class="headerlink" href="#tx-attenuation-control" title="Link to this heading">¶</a></h3>
+<p>The TX attenuation/gain can be individually controlled for TX1 and TX2.
+The range is from 0 to -89.75 dB in 0.25dB steps.
+The nomenclature used here is gain instead of attenuation, so all values are expressed negative.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage0_hardwaregain</strong>
+-10.000000 dB
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo -42.25 &gt; out_voltage0_hardwaregain</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage0_hardwaregain</strong>
+-42.250000 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage1_hardwaregain</strong>
+-10.000000 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="received-strength-signal-indicator-rssi">
+<h3>Received Strength Signal Indicator (RSSI)<a class="headerlink" href="#received-strength-signal-indicator-rssi" title="Link to this heading">¶</a></h3>
+<p>Given the wide variety of applications for which the AD9361 is suited, the received strength signal indicator (RSSI) may be setup in one of several configurations, allowing the user to optimize the RSSI to produce extremely accurate results with a minimum of BBP interaction. The AD9361 measures RSSI by measuring the power level in dB and compensating for the receive path gain. The various options available support both TDD and FDD applications. Note that the RSSI value is not in absolute units. Equating the RSSI read-back value to an absolute power level (e.g., in dBm) requires a system factory or bench calibration. To calibrate the RSSI word to an absolute reference, inject a signal into the antenna port of the completed system and read the RSSI word. From this test, generate a correction factor that equates the RSI word to the injected signal level at the antenna port.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage0_rssi</strong>
+104.50 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage1_rssi</strong>
+116.75 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="tx-received-strength-signal-indicator-tx-rssi">
+<h3>TX Received Strength Signal Indicator (TX RSSI)<a class="headerlink" href="#tx-received-strength-signal-indicator-tx-rssi" title="Link to this heading">¶</a></h3>
+<p>Recognizing that in TDD systems the receiver and transmitter are not operating simultaneously, the AD9361 provides the ability to reuse the receiver circuitry by multiplexing the power detector into the receive path. The receiver RSSI circuitry is then turned on during the transmit burst and results in accurate Tx RSSI measurements.</p>
+<p>&lt;WRAP tip round box 60%&gt;<strong>NOTE:</strong><br />
+This feature is only available in TX MONITOR MODE<br />
+set <strong>in_voltage0_rf_port_select</strong> to one of the following modes:
+<strong>TX_MONITOR</strong>1, <strong>TX_MONITOR2</strong> or <strong>TX_MONITOR1_2</strong>
+&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage0_rssi</strong>
+30.50 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage1_rssi</strong>
+0.00 dB
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="calibration-mode-controls">
+<h3>Calibration Mode Controls<a class="headerlink" href="#calibration-mode-controls" title="Link to this heading">¶</a></h3>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat calib_mode_available</strong>
+auto manual manual_tx_quad tx_quad rf_dc_offs rssi_gain_step
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<table>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>auto</td>
+<td>Run TX Quadrature Calibration when moving to a new carrier frequency that is more than 100 MHz away from the previous carrier frequency</td>
+</tr>
+<tr class="even">
+<td>manual</td>
+<td>Disables auto mode</td>
+</tr>
+<tr class="odd">
+<td>manual_tx_quad</td>
+<td>Disables auto mode and also prevents any TX Quad Calibration unless manually invoked using tx_quad</td>
+</tr>
+<tr class="even">
+<td>rf_dc_offs</td>
+<td>Issue RF DC Offset Calibration</td>
+</tr>
+<tr class="odd">
+<td>tx_quad</td>
+<td>Issue TX Quadrature Calibration (may have a second optional parameter (cal phase value 0..31)</td>
+</tr>
+<tr class="even">
+<td>rssi_gain_step</td>
+<td>Runs the RSSI gain step calibration. Before running this calibration, provide a single tone within the channel bandwidth and monitor the received data. Adjust the tone amplitude until the received data is within a few dB of full scale but not overloading. Once this calibration is done, <strong>calib_mode</strong> will be automatically set to its previous value.</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat calib_mode</strong>
+auto
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; **echo tx_quad &gt; calib_mode **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="with-optional-calibration-phase-offset-value">
+<h4>With optional calibration phase offset value<a class="headerlink" href="#with-optional-calibration-phase-offset-value" title="Link to this heading">¶</a></h4>
+<p><a class="reference internal" href="#ez%3Edocs/DOC-3143"><span class="xref myst">Please see the FAQ for more information</span></a></p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; **echo tx_quad 14 &gt; calib_mode **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="force-tx-quad-phase-search">
+<h5>Force tx quad phase search<a class="headerlink" href="#force-tx-quad-phase-search" title="Link to this heading">¶</a></h5>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; **echo tx_quad -2 &gt; calib_mode **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="calibration-tracking-controls">
+<h4>Calibration Tracking Controls<a class="headerlink" href="#calibration-tracking-controls" title="Link to this heading">¶</a></h4>
+<p>Writing 0, N or 1, Y to the below attributes either disables or enables the corresponding tracking option.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_quadrature_tracking_en</strong>
+1
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 0 &gt; in_voltage_quadrature_tracking_en</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_quadrature_tracking_en</strong>
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_bb_dc_offset_tracking_en</strong>
+1
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_rf_dc_offset_tracking_en</strong>
+1
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="rf-port-selection">
+<h3>RF Port Selection<a class="headerlink" href="#rf-port-selection" title="Link to this heading">¶</a></h3>
+<p>Each receive channel has 3 differential or 6 single ended inputs that can be multiplexed to the signal chain, likewise each transmitter has 2 differential outputs that can be chosen from.</p>
+<p>&lt;WRAP important&gt;
+This setting effects all ports simultaneously. For example, there is no ability to enable R1A and R2B ports, so there are no individual controls. Everything must use the name port, therefore the nomenclature of RxA (meaning it changes both channel 1 and channel 2, to the “A” port).
+&lt;/WRAP&gt;</p>
+<p>&lt;WRAP tip round box&gt;<strong>NOTE: Switching the RF INPUT port:</strong><br />
+Switching the RF input port:</p>
+<p>During device driver initialization the driver runs the RF DC offset calibration only on the default RF input port specified with <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization#rf_port_input_select"><span class="xref myst">these attributes</span></a>.
+So if using the RF RX B or C inputs along with the RF RX A input, you should run the calibration also, once with other input band/port selected.
+After calibrating each band, switching between from the A input to the B or C input should not require another calibration unless a large frequency change is made. Since the B and C inputs use the same calibration results, switching from input B to input C may require running the RF DC offset calibration.<br />
+See here: <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls"><span class="xref myst">Calibration Mode Controls: rf_dc_offs</span></a></p>
+<p>&lt;/WRAP&gt;</p>
+<p>&lt;WRAP tip round box&gt;<strong>NOTE: Switching the RF OUTPUT port:</strong><br />
+During device driver initialization the driver runs the TX Quadrature calibration only on the default RF output port specified with <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization#rf_port_output_select"><span class="xref myst">these attributes</span></a>.
+During regular operation TX Quadrature is only run on the select RF output.
+However the TX quadrature calibration stores a separate set of calibration results for the RF TX_A and TX_B output path.
+So if switching the output, the calibration must be once manually triggered.<br />
+See here: <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls"><span class="xref myst">Calibration Mode Controls: tx_quad</span></a></p>
+<p>&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat out_voltage_rf_port_select_available</strong>
+A B
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_voltage_rf_port_select_available</strong>
+A_BALANCED B_BALANCED C_BALANCED A_N A_P B_N B_P C_N C_P TX_MONITOR1 TX_MONITOR2 TX_MONITOR1_2
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo B_BALANCED &gt; in_voltage0_rf_port_select</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="dcxo-tuning-digital-controlled-crystal-oscillator">
+<h3>DCXO Tuning (digital controlled crystal oscillator)<a class="headerlink" href="#dcxo-tuning-digital-controlled-crystal-oscillator" title="Link to this heading">¶</a></h3>
+<p>The AD9361 can either be clocked from an external clock source or a local <a class="reference external" href="https://en.wikipedia.org/wiki/Crystal_oscillator">crystal oscillator</a> (XO). Since it’s likely that a Crystal oscillator is not perfect - a digital correction (DCXO) can be used to tune the external component. This only works with AT cut fundamental mode crystal resonators with a load capacitance of less than 10pF which are connected between the XTALP and XTALN pins of the AD9361.</p>
+<p>This is what ADI’s <a class="reference internal" href="#/resources/eval/user-guides/ad-fmcomms2-ebz"><span class="xref myst">FMCOMMS2</span></a>, <a class="reference internal" href="#/resources/eval/user-guides/ad-fmcomms3-ebz"><span class="xref myst">FMCOMMS3</span></a>, and <a class="reference internal" href="#/resources/eval/user-guides/ad-fmcomms4-ebz"><span class="xref myst">FMCOMMS4</span></a> boards are using.</p>
+<p><img alt="dcxo.png" src="resources/tools-software/linux-drivers/iio-transceiver/dcxo.png" />{.align-right width=“500” query=“?direct&amp;500”}
+By adjusting a capacitor within the AD9361, the resulting DCXO frequency can be adjusted to compensate for XO frequency tolerance and stability. <code class="docutils literal notranslate"><span class="pre">dcxo_tune_coarse</span></code> sets a coarse capacitor value while <code class="docutils literal notranslate"><span class="pre">dcxo_tune_fine</span></code> sets a fine capacitor value. Together, these two settings control the frequency of the DCXO. The resolution of the DCXO varies with coarse word with a worst case resolution (at coarse word = 0) of 0.0125 ppm. Using both coarse and fine words, the DCXO can vary the frequency over a ±60 ppm range.</p>
+<p>After initialization (after the BBPLL and RFPLLs are programmed, calibrated, and locked), the DCXO words may be written at any time without disturbing the system.</p>
+<p>The plot shows the variation of DCXO frequency over all possible variations of coarse and fine word. The XO nominal frequency used in this test was 40MHz.</p>
+<p>The DCXO can be tuned using the coarse and fine tune attributes detailed below.</p>
+<p>&lt;note tip&gt;
+This feature does not exist on the AD9363
+&lt;/note&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat dcxo_tune_coarse</strong>
+8
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat dcxo_tune_fine</strong>
+5920
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 5930 &gt; dcxo_tune_fine</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat dcxo_tune_fine</strong>
+5930
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="xo-correction">
+<h3>XO Correction<a class="headerlink" href="#xo-correction" title="Link to this heading">¶</a></h3>
+<p>For systems that are using single ended crystal oscillators, or an external clock source and driving it into the
+XTALN pin, some correction may be necessary. What happens in this case, is you digitally correct for the oscillator offset, by determining what the actual oscillator is, and then telling the system, so it can use that specific number in it’s math for the PLL and sample rate calculations.</p>
+<p>This is what the <a class="reference internal" href="#/resources/eval/user-guides/ad-fmcomms5-ebz"><span class="xref myst">FMCOMMS5</span></a>, <a class="reference internal" href="#adi%3Eadrv9364"><span class="xref myst">ADI RF SOM1</span></a>,
+<a class="reference internal" href="#adi%3Eadrv9361"><span class="xref myst">ADI RF SOM2</span></a> and the <a class="reference internal" href="#/university/tools/pluto"><span class="xref myst">PlutoSDR</span></a> use.</p>
+<p>Since every time this is written, it will re-calculate and re-program all the PLL settings (Tx LO, Rx LO, ADC and DAC sample rates), this should only be updated when disturbing the system is acceptable. (normally reprogramming the LO, or sample rates)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat xo_correction</strong>
+40000000
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 40000005 &gt; xo_correction</strong>
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat xo_correction</strong>
+40000005
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="die-temperature-reading">
+<h3>Die Temperature Reading<a class="headerlink" href="#die-temperature-reading" title="Link to this heading">¶</a></h3>
+<p>For accurate results this read back requires a one-point factory calibration.
+Determine the offset between this readback in millidegree Celsius and the known device temperature.
+Then adjust the device tree property “adi,temp-sense-offset-signed” with a proper offset in degrees Celsius.
+In the OSC advanced plugin see AUX ADC/DAC/IO tab under Temp sensor offset.
+Also the absolute offset (signed char) is directly written into register 0x0B.</p>
+<p>Example:\</p>
+<ol class="arabic simple">
+<li><p>Temp Sensor Offset (Reg 0x0B) = 0xCE = -50</p></li>
+<li><p>in_temp0_input readback = 28123 m°C -&gt; temperature is 28 °C</p></li>
+<li><p>Actual device temperature 24 °C</p></li>
+<li><p>OFFSETdelta = 24 - 28 = -4</p></li>
+<li><p>Temp Sensor Offset (corrected) = -50 - 4 = -54 = 0xCA</p></li>
+</ol>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat in_temp0_input</strong>
+29825
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="auxadc-reading">
+<h3>AuxADC Reading<a class="headerlink" href="#auxadc-reading" title="Link to this heading">¶</a></h3>
+<p>There is an Auxiliary ADC on the chip - that can be read like any other IIO ADC.</p>
+<p>Attributes are:</p>
+<ul class="simple">
+<li><p>in_voltage2_offset</p></li>
+<li><p>in_voltage2_raw</p></li>
+<li><p>in_voltage2_scale</p></li>
+</ul>
+<p>To obtain the reading in mV calculate: <em>(in_voltage2_raw + in_voltage2_offset) * in_voltage2_scale</em></p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>grep “” in_voltage2_</strong>*
+in_voltage2_offset:57
+in_voltage2_raw:1494
+in_voltage2_scale:0.305250
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="auxdac-writing">
+<h3>AuxDAC Writing<a class="headerlink" href="#auxdac-writing" title="Link to this heading">¶</a></h3>
+<p>There are 2 Auxiliary DACs on the chip.</p>
+<p>Attributes are:</p>
+<ul class="simple">
+<li><p>out_voltage2_raw</p></li>
+<li><p>out_voltage2_scale</p></li>
+<li><p>out_voltage3_raw</p></li>
+<li><p>out_voltage3_scale</p></li>
+</ul>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>grep “” out_voltage2* out_voltage3</strong>*
+out_voltage2_raw:306
+out_voltage2_scale:1.000000
+out_voltage3_raw:306
+out_voltage3_scale:1.000000
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>echo 1000 &gt; out_voltage2_raw</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="rssi-gain-step-calibration">
+<h3>RSSI Gain Step Calibration<a class="headerlink" href="#rssi-gain-step-calibration" title="Link to this heading">¶</a></h3>
+<p>The RSSI gain step calibration can be run by setting <strong>calib_mode</strong> to <strong>rssi_gain_step</strong> (See: <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-transceiver/ad9361#calibration_mode_controls"><span class="xref myst">ad9361#calibration_mode_controls</span></a>).</p>
+<p>Once the calibration is done, the error tables can be read and loaded again anytime using the dedicated sysfs attribute. Since the gain step calibration register values are dependent on the LO frequency, specifying them is also possible (gain_step_calib_reg_val = Maximum LNA Gain LNA, Gain difference word for Index 0, LNA Gain difference word for Index 1, LNA Gain difference word for Index 2, LNA Gain difference word for Index 3).</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device1&gt; <strong>cat rssi_gain_step_error</strong>
+lna_error: 0 15 14 0
+mixer_error: 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 0
+gain_step_calib_reg_val: 192 44 16 6 0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="advanced-debug-facilities">
+<h2>Advanced Debug Facilities<a class="headerlink" href="#advanced-debug-facilities" title="Link to this heading">¶</a></h2>
+<p>The AD9361 driver supports a number of advanced debug controls via the kernel <a class="reference external" href="https://en.wikipedia.org/wiki/debugfs">debugfs</a>.
+How these device files/controls can be used is described here.
+The <a class="reference internal" href="#/resources/tools-software/linux-software/fmcomms2_advanced_plugin"><span class="xref myst">AD936X Advanced Plugin</span></a> directly controls these and adds a user friendly interface.</p>
+<section id="runtime-device-driver-customization">
+<h3>Runtime Device Driver Customization<a class="headerlink" href="#runtime-device-driver-customization" title="Link to this heading">¶</a></h3>
+<p>There is a large number of <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization"><span class="xref myst">AD9361 Device Driver Customization</span></a> options available. Typically these are supplied via <a class="reference external" href="https://en.wikipedia.org/wiki/device_tree">Devicetree</a>.
+However for debug and evaluation purposes these can be changed during runtime. Please note that changes will be lost if the device is unbinded or the platform is rebooted. Changes will only take affect once the <code class="docutils literal notranslate"><span class="pre">initialize</span></code> attribute is written <code class="docutils literal notranslate"><span class="pre">1</span></code>. It should also be noted that the AD9361 will take a RESET, so current settings done via the main IIO API will be lost. Accessing <a class="reference external" href="https://en.wikipedia.org/wiki/debugfs">debugfs</a> requires root privileges. Only device files prefixed with <code class="docutils literal notranslate"><span class="pre">adi,</span></code> are <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-transceiver/ad9361-customization"><span class="xref myst">AD9361 Device Driver Customization Options</span></a>.</p>
+<p>In order to identify if the IIO device in question (ad9361-phy) you first need to identify the IIO device number.
+Therefore read the name attribute of each IIO device</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:~# grep “” /sys/bus/iio/devices/iio\:device*/name
+/sys/bus/iio/devices/iio:device0/name:ad7291
+<strong>/sys/bus/iio/devices/iio:device1/name:ad9361-phy</strong>
+/sys/bus/iio/devices/iio:device2/name:xadc
+/sys/bus/iio/devices/iio:device3/name:adf4351-udc-rx-pmod
+/sys/bus/iio/devices/iio:device4/name:adf4351-udc-tx-pmod
+/sys/bus/iio/devices/iio:device5/name:cf-ad9361-dds-core-lpc
+/sys/bus/iio/devices/iio:device6/name:cf-ad9361-lpc
+root&#64;analog:~#
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>Change directory to <strong>/sys/kernel/debug</strong>/iio/ iio:deviceX.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:~# cd /sys/kernel/debug/iio/iio\:device1
+root&#64;analog:/sys/kernel/debug/iio/iio:device1# <strong>ls</strong>
+[–snip–]
+adi,txmon-2-lo-cm
+adi,txmon-dc-tracking-enable
+adi,txmon-delay
+adi,txmon-duration
+adi,txmon-high-gain
+adi,txmon-low-gain
+adi,txmon-low-high-thresh
+adi,txmon-one-shot-mode-enable
+adi,update-tx-gain-in-alert-enable
+adi,xo-disable-use-ext-refclk-enable
+bist_prbs
+bist_timing_analysis
+bist_tone
+calibration_switch_control
+digital_tune
+direct_reg_access
+gaininfo_rx1
+gaininfo_rx2
+initialize
+loopback
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="example-to-change-the-driver-from-fdd-into-tdd-mode-operation">
+<h4>Example to change the driver from FDD into TDD mode operation<a class="headerlink" href="#example-to-change-the-driver-from-fdd-into-tdd-mode-operation" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device1# <strong>cat adi,frequency-division-duplex-mode-enable</strong>
+1</p>
+<p>root&#64;analog:/sys/kernel/debug/iio/iio:device1# <strong>cat /sys/bus/iio/devices/iio\:device1/ensm_mode_available</strong>
+sleep wait alert <strong>fdd pinctrl pinctrl_fdd_indep</strong></p>
+<p>root&#64;analog:/sys/kernel/debug/iio/iio:device1# <strong>echo 0 &gt; adi,frequency-division-duplex-mode-enable</strong>
+root&#64;analog:/sys/kernel/debug/iio/iio:device1# <strong>echo 1 &gt; initialize</strong></p>
+<p>root&#64;analog:/sys/kernel/debug/iio/iio:device1# <strong>cat /sys/bus/iio/devices/iio\:device1/ensm_mode_available</strong>
+sleep wait alert <strong>rx tx pinctrl</strong></p>
+<p>&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="gpo-manual-control">
+<h3>GPO Manual Control<a class="headerlink" href="#gpo-manual-control" title="Link to this heading">¶</a></h3>
+<p>This attribute allows controlling the GPO[0…3] via debugfs.
+In order to use these pins, <code class="docutils literal notranslate"><span class="pre">adi,gpo-manual-mode-enable</span></code> must be enabled.</p>
+<p>&lt;note warning&gt;Be aware that GPO manual mode can conflict with external LNA and
+automatic ENSM slave mode.&lt;/note&gt;
+GPOs can be addressed individual 0…3 or
+altogether using 0xF as Identifier.</p>
+<p><strong>SYNTAX:</strong></p>
+<p><strong>gpo_set</strong> <em>&lt;Identifier&gt;</em> <em>&lt;Value&gt;</em>\</p>
+<table>
+<thead>
+<tr class="header">
+<th>Enable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+</tr>
+<tr class="even">
+<td>X</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+# cd /sys/kernel/debug/iio/iio\:device1
+# echo 1 &gt; adi,gpo-manual-mode-enable
+# echo 0 1 &gt; gpo_set
+# echo 0 0 &gt; gpo_set
+# echo 0xF 0xF &gt; gpo_set
+# echo 0xF 0 &gt; gpo_set
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="build-in-self-test-bist">
+<h3>Build-In Self-Test (BIST)<a class="headerlink" href="#build-in-self-test-bist" title="Link to this heading">¶</a></h3>
+<p>Controling these attribute files directly take effect and therefore don’t require the <code class="docutils literal notranslate"><span class="pre">initialize</span></code> sequence.
+Test functionality exposed here is only meant to route or inject test patterns/data than can be used to validate the Digital Interface or functionality of the device.</p>
+<section id="bist-tone">
+<h4>BIST Tone<a class="headerlink" href="#bist-tone" title="Link to this heading">¶</a></h4>
+<p>User selectable tone (with frequency and level selection), that can either injected into the RX or TX path.
+A MASK can be supplied to disable certain channels.
+A masked channel (box check) is not driving any data.</p>
+<p>SYNTAX:</p>
+<p><strong>bist_tone</strong> <em>&lt;Injection Point&gt; &lt;Tone Frequency&gt; &lt;Tone Level&gt; &lt;Channel Mask&gt;</em></p>
+<table>
+<thead>
+<tr class="header">
+<th>Injection Point</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Tone Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+</tr>
+<tr class="even">
+<td>&gt; 3</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Tone Level (dbFS)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+</tr>
+<tr class="even">
+<td>12</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Channel Mask</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bit</td>
+</tr>
+<tr class="even">
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>: Inject -6dBFS tone at Fsample/32 into RX (all channels enabled)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device1# **echo 2 0 6 0 &gt; bist_tone **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="prbs">
+<h4>PRBS<a class="headerlink" href="#prbs" title="Link to this heading">¶</a></h4>
+<p>Pseudorandom Binary Sequence (<a class="reference external" href="https://en.wikipedia.org/wiki/Pseudorandom_binary_sequence">PRBS</a>) that can either injected into the RX or TX path.</p>
+<p>SYNTAX:</p>
+<p><strong>bist_prbs</strong> <em>&lt;Injection Point&gt;</em></p>
+<table>
+<thead>
+<tr class="header">
+<th>Injection Point</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>: Inject PRBS into RX</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device1# **echo 2 &gt; bist_prbs **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="bist-loopback">
+<h4>BIST Loopback<a class="headerlink" href="#bist-loopback" title="Link to this heading">¶</a></h4>
+<p>Allows either to digitally loopback TX data into the RX path or vice versa.</p>
+<ul class="simple">
+<li><p>Digital TX -&gt; Digital RX loopback : The loopback happens inside the AD9361/4 close to the internal digital interface block. The entire RF section is bypassed. This can be used to validate (monitor on RX) the digital samples/symbols sent to the device.</p></li>
+<li><p>RF RX -&gt; RF TX loopback : The loopback happens in the ADI provided HDL core. The Transmitter will transmit anything that the receiver receives. The entire RF chain is active (Sample rates, RF bandwidth and FIR settings will all effect the transmission.</p></li>
+</ul>
+<p><strong>SYNTAX:</strong></p>
+<p><strong>loopback</strong> <em>&lt;Mode&gt;</em></p>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Disable</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Digital TX -&gt; Digital RX</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>RF RX -&gt; RF TX</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>: Digital TX -&gt; Digital RX</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device1# **echo 1 &gt; loopback **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="bist-timing-analysis">
+<h4>BIST Timing Analysis<a class="headerlink" href="#bist-timing-analysis" title="Link to this heading">¶</a></h4>
+<p><strong>bist_timing_analysis</strong>:
+See here: <a class="reference internal" href="#/resources/eval/user-guides/ad-fmcomms2-ebz/interface_timing_validation"><span class="xref myst">Digital Interface Timing Verification</span></a></p>
+</section>
+<section id="digital-tune">
+<h4>Digital Tune<a class="headerlink" href="#digital-tune" title="Link to this heading">¶</a></h4>
+<p><strong>digital_tune</strong>:
+See here: <a class="reference internal" href="#/resources/eval/user-guides/ad-fmcomms2-ebz/interface_timing_validation"><span class="xref myst">Digital Interface Timing Verification</span></a></p>
+</section>
+</section>
+</section>
+<section id="low-level-register-access-via-debugfs-direct-reg-access">
+<h2>Low level register access via debugfs (direct_reg_access)<a class="headerlink" href="#low-level-register-access-via-debugfs-direct-reg-access" title="Link to this heading">¶</a></h2>
+<p><img alt="iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&amp;noheader&amp;firstseconly&amp;noeditbtn" src="page%3Esoftware/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+</section>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
+<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../iio-adc/ad6676.html" title="Previous document" class="prev">AD6676 Wideband IF Receiver Subsystem Linux device driver</a>
+    <a href="ad9371.html" title="Next document" class="next">AD9371, AD9375 highly integrated, wideband RF transceiver Linux device driver</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ADP1650 LED Flash Linux Driver &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Digital Potentiometer Linux Driver" href="../misc/dpot.html" />
+    <link rel="prev" title="AD7879 Input Touch Screen Digitizer Linux Driver" href="../input-touchscreen/ad7879.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">ADP1650 LED Flash Linux Driver</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#evaluation-boards">Evaluation Boards</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-platform-device-initialization">Example platform device initialization</a></li>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
+<li><a class="reference internal" href="#led-handling-under-linux">LED handling under Linux</a><ul>
+<li><a class="reference internal" href="#driver-specific-brightness-interpretation">Driver specific brightness interpretation</a></li>
+<li><a class="reference internal" href="#example-led-usage">Example LED usage</a><ul>
+<li><a class="reference internal" href="#enable-torch-assist-light-intensity-100ma">Enable TORCH/Assist Light (Intensity 100mA)</a></li>
+<li><a class="reference internal" href="#prepare-torch-assist-light-for-an-gpio1-enable-trigger-intensity-100ma">Prepare TORCH/Assist Light for an GPIO1 enable trigger (Intensity 100mA)</a></li>
+<li><a class="reference internal" href="#initiate-flash-intensity-set-by-i-fl">Initiate FLASH (Intensity set by I_FL)</a></li>
+<li><a class="reference internal" href="#prepare-flash-for-an-strobe-triggered-enable-intensity-set-by-i-fl">Prepare FLASH for an STROBE triggered enable (Intensity set by I_FL)</a></li>
+<li><a class="reference internal" href="#disable-all-led-activity">Disable all LED activity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html">AD4003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html">AD4030-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html">AD6684</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html">AD7091</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html">AD7091R-5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html">AD7091R-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html">AD7124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html">AD7170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html">AD7190</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html">AD7265</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html">AD7768</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html">AD7785</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html">AD7787</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html">AD7887</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html">AD7991</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html">AD9083</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html">AD9207</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html">AD9234</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html">ADAQ8092</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html">ADAS1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html">ADAR1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74412R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">AD5310R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5415</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5735</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5744</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5760</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html">AD9122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html">AD9832</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html">AD9833</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9161</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9516-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF4355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16133</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html">AD6676</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html">AD9361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html">AD9371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9002.html">ADRV9002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html">ADRV9008-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/ad714x.html">AD7142</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ADP1650</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">AD5160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7241</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1835A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73311</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1381</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1401A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV801</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="adp1650-led-flash-linux-driver">
+<h1>ADP1650 LED Flash Linux Driver<a class="headerlink" href="#adp1650-led-flash-linux-driver" title="Link to this heading">¶</a></h1>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EADP1650"><span class="xref myst">ADP1650</span></a></p></li>
+</ul>
+</section>
+<section id="evaluation-boards">
+<h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EADP1650CB-EVALZ"><span class="xref myst">ADP1650CB-EVALZ</span></a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p><img alt="" src="drivers/linux-drivers/leds/scrape%3Eadi%3EADP1650#description" /></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EADP1650"><span class="xref myst">Product Page</span></a></p></li>
+<li><p><img alt="" src="drivers/linux-drivers/leds/scrape%3Eadi%3EADP1650#datasheet-details" /></p></li>
+</ul>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="bfgit&gt;linux-kernel?drivers/leds/leds-adp1650.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/leds/leds-adp1650.c">In Progress</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="http://blackfin.uclinux.org/git/?p=linux-kernel;a=blob_plain;f=drivers/leds/leds-adp1650.c;hb=HEAD">drivers/leds/leds-adp1650.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="http://blackfin.uclinux.org/git/?p=linux-kernel;a=blob_plain;f=include/linux/i2c/adp1650.h;hb=HEAD">include/linux/i2c/adp1650.h</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example-platform-device-initialization">
+<h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
+<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<p>&lt;WRAP info&gt;
+<strong>platform_data: Platform data specific to the ADP1650 device.</strong><br />
+Includes feature selections and default initialization.</p>
+<p>Please see <a class="reference external" href="http://blackfin.uclinux.org/git/?p=linux-kernel;a=blob_plain;f=include/linux/i2c/adp1650.h;hb=HEAD">include/linux/i2c/adp1650.h</a> for details.
+&lt;/WRAP&gt;</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/i2c/adp1650.h&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">adp1650_leds_platform_data</span><span class="w"> </span><span class="n">adp1650_pdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">timer_iocfg</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">ADP1650_IOCFG_IO2_HIGH_IMP</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_IOCFG_IO1_TORCH</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_FL_TIMER_ms</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span>
+
+<span class="w">    </span><span class="p">.</span><span class="n">current_set</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">ADP1650_I_FL_mA</span><span class="p">(</span><span class="mi">900</span><span class="p">)</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_I_TOR_mA</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+
+<span class="w">    </span><span class="p">.</span><span class="n">output_mode</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">ADP1650_IL_PEAK_2A25</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_STR_LV_EDGE</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_FREQ_FB_EN</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_OUTPUT_EN</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_STR_MODE_HW</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_STR_MODE_STBY</span><span class="p">,</span>
+
+<span class="w">    </span><span class="p">.</span><span class="n">control</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">ADP1650_I_TX2_mA</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_I_TX1_mA</span><span class="p">(</span><span class="mi">400</span><span class="p">),</span>
+
+<span class="w">    </span><span class="p">.</span><span class="n">ad_mode</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">ADP1650_DYN_OVP_EN</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_STR_POL_ACTIVE_HIGH</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_I_ILED_2mA75</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_IL_DC_1A50</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_IL_DC_EN</span><span class="p">,</span>
+
+<span class="w">    </span><span class="p">.</span><span class="n">batt_low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ADP1650_CL_SOFT_EN</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_I_VB_LO_mA</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span><span class="w"> </span><span class="o">|</span>
+<span class="w">            </span><span class="n">ADP1650_V_VB_LO_3V50</span><span class="p">,</span>
+
+<span class="w">    </span><span class="p">.</span><span class="n">gpio_enable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring I2C devices&amp;firstseconly&amp;noeditbtn)</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">i2c_board_info</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="n">board_i2c_board_info</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#if defined(CONFIG_LEDS_ADP1650) || defined(CONFIG_LEDS_ADP1650_MODULE)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">I2C_BOARD_INFO</span><span class="p">(</span><span class="s">&quot;adp1650&quot;</span><span class="p">,</span><span class="w"> </span><span class="mh">0x30</span><span class="p">),</span>
+<span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">adp1650_pdata</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="cp">#endif</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">board_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">[</span><span class="o">--</span><span class="n">snip</span><span class="o">--</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">i2c_register_board_info</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">board_i2c_board_info</span><span class="p">,</span>
+<span class="w">                </span><span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">board_i2c_board_info</span><span class="p">));</span>
+<span class="w">    </span><span class="p">[</span><span class="o">--</span><span class="n">snip</span><span class="o">--</span><span class="p">]</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">arch_initcall</span><span class="p">(</span><span class="n">board_init</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<p>&lt;WRAP tip&gt;
+The ADP1650 LED driver depends on I2C.
+&lt;/WRAP&gt;</p>
+<p>&lt;xterm&gt;
+Device Drivers —&gt;</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  [*] LED Support  ---&gt; 
+      --- LED Support
+      [*]   LED Class Support
+          *** LED drivers ***
+
+      &lt;--snip--&gt;
+      **&lt;*&gt;   LED Support for ADP1650 I2C chips**
+      &lt;--snip--&gt;
+</pre></div>
+</div>
+<p>&lt;/xterm&gt;</p>
+</section>
+<section id="driver-testing">
+<h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
+<section id="led-handling-under-linux">
+<h3>LED handling under Linux<a class="headerlink" href="#led-handling-under-linux" title="Link to this heading">¶</a></h3>
+<p>The LED class allows control of LEDs from userspace.
+LEDs appear in /sys/class/leds/. The brightness file will
+set the brightness of the LED (taking a value 0-255).</p>
+<p>For more information read <a class="reference internal" href="#git.linux.org%3Elinux/Documentaion/leds-class.txt"><span class="xref myst">linux/Documentaion/leds-class.txt</span></a></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>; **brightness** : get/set LED brightness (an integer between 0 and 255)
+; **max_brightness** : the maximum brightness value.\\
+</pre></div>
+</div>
+<section id="driver-specific-brightness-interpretation">
+<h4>Driver specific brightness interpretation<a class="headerlink" href="#driver-specific-brightness-interpretation" title="Link to this heading">¶</a></h4>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Define</th>
+<th>Description</th>
+<th>Intensity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>FL_MODE_OFF</td>
+<td>Turns LED/FLASH off</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>FL_MODE_TORCH_25mA</td>
+<td>Software initiated TORCH/Assist light</td>
+<td>25mA</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>FL_MODE_TORCH_50mA</td>
+<td>(STROBE) triggers FLASH</td>
+<td>50mA</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>FL_MODE_TORCH_75mA</td>
+<td></td>
+<td>75mA</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>FL_MODE_TORCH_100mA</td>
+<td></td>
+<td>100mA</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>FL_MODE_TORCH_125mA</td>
+<td></td>
+<td>125mA</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>FL_MODE_TORCH_150mA</td>
+<td></td>
+<td>150mA</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>FL_MODE_TORCH_175mA</td>
+<td></td>
+<td>175mA</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>FL_MODE_TORCH_200mA</td>
+<td></td>
+<td>200mA</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>FL_MODE_TORCH_TRIG_EXT_25mA</td>
+<td>Hardware (GPIO1) triggered TORCH/Assist light</td>
+<td>25mA</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>FL_MODE_TORCH_TRIG_EXT_50mA</td>
+<td>(STROBE) triggers FLASH</td>
+<td>50mA</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>FL_MODE_TORCH_TRIG_EXT_75mA</td>
+<td></td>
+<td>75mA</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>FL_MODE_TORCH_TRIG_EXT_100mA</td>
+<td></td>
+<td>100mA</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>FL_MODE_TORCH_TRIG_EXT_125mA</td>
+<td></td>
+<td>125mA</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>FL_MODE_TORCH_TRIG_EXT_150mA</td>
+<td></td>
+<td>150mA</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>FL_MODE_TORCH_TRIG_EXT_175mA</td>
+<td></td>
+<td>175mA</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>FL_MODE_TORCH_TRIG_EXT_200mA</td>
+<td></td>
+<td>200mA</td>
+</tr>
+<tr class="even">
+<td>254</td>
+<td>FL_MODE_FLASH</td>
+<td>Software initiated LED FLASH</td>
+<td>I_FL</td>
+</tr>
+<tr class="odd">
+<td>255</td>
+<td>FL_MODE_FLASH_TRIG_EXT</td>
+<td>Hardware (STROBE) triggered LED FLASH</td>
+<td>I_FL</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-led-usage">
+<h4>Example LED usage<a class="headerlink" href="#example-led-usage" title="Link to this heading">¶</a></h4>
+<p>&lt;xterm&gt;
+root:/&gt; cd sys/class/leds/adp1650/</p>
+<p>root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650&gt; <strong>ls -l</strong>
+-rw-r–r– 1 root root 4096 Jan 5 08:42 brightness
+lrwxrwxrwx 1 root root 0 Jan 5 08:23 device -&gt; …/…/…/0-0030
+-r–r–r– 1 root root 4096 Jan 5 08:23 max_brightness
+drwxr-xr-x 2 root root 0 Jan 5 08:23 power
+lrwxrwxrwx 1 root root 0 Jan 5 08:23 subsystem -&gt; …/…/…/…/…/…/…/class/leds
+-rw-r–r– 1 root root 4096 Jan 5 08:23 uevent
+&lt;/xterm&gt;</p>
+<section id="enable-torch-assist-light-intensity-100ma">
+<h5>Enable TORCH/Assist Light (Intensity 100mA)<a class="headerlink" href="#enable-torch-assist-light-intensity-100ma" title="Link to this heading">¶</a></h5>
+<p>&lt;WRAP round help&gt;
+A subsequent assert of <strong>STROBE</strong> will trigger the FLASH
+&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650&gt; <strong>echo 4 &gt; brightness</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="prepare-torch-assist-light-for-an-gpio1-enable-trigger-intensity-100ma">
+<h5>Prepare TORCH/Assist Light for an GPIO1 enable trigger (Intensity 100mA)<a class="headerlink" href="#prepare-torch-assist-light-for-an-gpio1-enable-trigger-intensity-100ma" title="Link to this heading">¶</a></h5>
+<p>&lt;WRAP round help&gt;
+A subsequent assert of <strong>STROBE</strong> will trigger the FLASH
+&lt;/WRAP&gt;</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650&gt; <strong>echo 12 &gt; brightness</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="initiate-flash-intensity-set-by-i-fl">
+<h5>Initiate FLASH (Intensity set by I_FL)<a class="headerlink" href="#initiate-flash-intensity-set-by-i-fl" title="Link to this heading">¶</a></h5>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650&gt; <strong>echo 254 &gt; brightness</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="prepare-flash-for-an-strobe-triggered-enable-intensity-set-by-i-fl">
+<h5>Prepare FLASH for an STROBE triggered enable (Intensity set by I_FL)<a class="headerlink" href="#prepare-flash-for-an-strobe-triggered-enable-intensity-set-by-i-fl" title="Link to this heading">¶</a></h5>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650&gt; <strong>echo 255 &gt; brightness</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="disable-all-led-activity">
+<h5>Disable all LED activity<a class="headerlink" href="#disable-all-led-activity" title="Link to this heading">¶</a></h5>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/i2c-bfin-twi.0/i2c-0/0-0030/leds/adp1650&gt; <strong>echo 0 &gt; brightness</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+</section>
+</section>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../input-touchscreen/ad7879.html" title="Previous document" class="prev">AD7879 Input Touch Screen Digitizer Linux Driver</a>
+    <a href="../misc/dpot.html" title="Next document" class="next">Digital Potentiometer Linux Driver</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

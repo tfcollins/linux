@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ADAR1000 8 GHz to 16 GHz, 4-Channel, X Band and KuBand Beamformer Linux device driver &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="AD7152 IIO Capacitance to Digital Converter Linux Driver" href="../iio-cdc/ad7152.html" />
+    <link rel="prev" title="ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver" href="../iio-adc/adas1000.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">ADAR1000 8 GHz to 16 GHz, 4-Channel, X Band and KuBand Beamformer Linux device driver</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#evaluation-boards">Evaluation Boards</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-linux-device-tree-initialization">Example Linux Device-Tree Initialization</a></li>
+<li><a class="reference internal" href="#enabling-linux-driver-support">Enabling Linux driver support</a></li>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#driver-testing-api">Driver testing / API</a><ul>
+<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
+<li><a class="reference internal" href="#rx-tx-phase-control">RX/TX Phase Control</a><ul>
+<li><a class="reference internal" href="#loading-a-gain-table">Loading a gain table</a></li>
+<li><a class="reference internal" href="#reading-a-gain-table">Reading a gain table</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ram-memory-access">RAM memory access</a><ul>
+<li><a class="reference internal" href="#save-load-beam-position">Save/Load beam position</a><ul>
+<li><a class="reference internal" href="#save-beam-position-command">Save beam position command</a></li>
+<li><a class="reference internal" href="#load-beam-position-command">Load beam position command</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#save-load-bias-settings">Save/Load bias settings</a><ul>
+<li><a class="reference internal" href="#save-rx-bias-settings">Save RX bias settings</a></li>
+<li><a class="reference internal" href="#save-tx-bias-settings">Save TX bias settings</a></li>
+<li><a class="reference internal" href="#load-bias-settings">Load bias settings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#memory-sequencer">Memory sequencer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#low-level-register-access-via-debugfs-direct-reg-access">Low level register access via debugfs (direct_reg_access)</a></li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html">AD4003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html">AD4030-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html">AD6684</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html">AD7091</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html">AD7091R-5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html">AD7091R-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html">AD7124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html">AD7170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html">AD7190</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html">AD7265</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html">AD7768</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html">AD7785</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html">AD7787</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html">AD7887</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html">AD7991</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html">AD9083</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html">AD9207</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html">AD9234</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html">ADAQ8092</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html">ADAS1000</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ADAR1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74412R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">AD5310R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5415</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5735</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5744</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5760</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html">AD9122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html">AD9832</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html">AD9833</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9161</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9516-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF4355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16133</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html">AD6676</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad9361.html">AD9361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad9371.html">AD9371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adrv9002.html">ADRV9002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adrv9009.html">ADRV9008-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/ad714x.html">AD7142</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html">ADP1650</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">AD5160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7241</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1835A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73311</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1381</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1401A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV801</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="adar1000-8-ghz-to-16-ghz-4-channel-x-band-and-kuband-beamformer-linux-device-driver">
+<h1>ADAR1000 8 GHz to 16 GHz, 4-Channel, X Band and KuBand Beamformer Linux device driver<a class="headerlink" href="#adar1000-8-ghz-to-16-ghz-4-channel-x-band-and-kuband-beamformer-linux-device-driver" title="Link to this heading">¶</a></h1>
+<p>The ADAR1000 is a 4-channel, X and Ku frequency band, beamforming core chip for phased arrays. This device operates in half-duplex between receive and transmit modes. In receive mode, input signals pass through four receive channels and are combined in a common RF_IO pin. In transmit mode, the RF_IO input signal is split and passes through the four transmit channels. In both modes, the ADAR1000 provides a ≥31 dB gain adjustment range and a full 360° phase adjustment range in the radio frequency (RF) path, with 6-bit resolution (less than ≤0.5 dB and 2.8°, respectively).</p>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EADAR1000"><span class="xref myst">ADAR1000</span></a></p></li>
+</ul>
+</section>
+<section id="evaluation-boards">
+<h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3Eeval-adar1000"><span class="xref myst">eval-adar1000</span></a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>This is a Linux industrial I/O (<a class="reference internal" href="#/software/linux/docs/iio/iio"><span class="xref myst">IIO</span></a>) subsystem driver, targeting RF Transceivers.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span class="xref myst">IIO</span></a> for more information.</p>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="linux.github&gt;master?drivers/iio/adc/adar1000.c">git</a></td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/adar1000.c">No</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master/drivers/iio/beamformer/adar1000.c">drivers/iio/beamformer/adar1000.c</a></td>
+</tr>
+<tr class="even">
+<td>devicetree bindings</td>
+<td><a href="linux.github&gt;master?Documentation/devicetree/bindings/iio/adc/adi,adar1000.yaml">Documentation/devicetree/bindings/iio/adc/adi,adar1000.yaml</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example-linux-device-tree-initialization">
+<h2>Example Linux Device-Tree Initialization<a class="headerlink" href="#example-linux-device-tree-initialization" title="Link to this heading">¶</a></h2>
+<p>The ADAR1000 driver is a spi-bus driver and can currently only be instantiated via device tree.</p>
+<p>Required devicetree properties:</p>
+<ul class="simple">
+<li><p>compatible: Should always be “adi,adar1000”</p></li>
+<li><p>reg: SPI slave select number</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RPI Device Tree</td>
+<td><a href="https://github.com/analogdevicesinc/linux/tree/rpi-4.19.y/arch/arm/boot/dts/overlays/rpi-adar1000-overlay.dts">rpi-adar1000-overlay.dts</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="enabling-linux-driver-support">
+<h2>Enabling Linux driver support<a class="headerlink" href="#enabling-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<p>&lt;WRAP round help&gt;
+The ADAR1000 driver depends on <strong>CONFIG_SPI</strong>
+&lt;/WRAP&gt;</p>
+</section>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
+    Device Drivers  ---&gt;
+    &lt;*&gt;     Industrial I/O support ---&gt;
+        --- Industrial I/O support
+        -*-   Enable ring buffer support within IIO
+        -*-     Industrial I/O lock free software ring
+        -*-   Enable triggered sampling support
+
+              *** Analog to digital converters ***
+        [--snip--]
+
+        &lt;*&gt;   Analog Devices ADAR1000 Beamformer driver 
+
+        [--snip--]
+</pre></div>
+</div>
+</section>
+<section id="driver-testing-api">
+<h2>Driver testing / API<a class="headerlink" href="#driver-testing-api" title="Link to this heading">¶</a></h2>
+<p>&lt;note important&gt;SPI writes and reads for certain attributes are delayed because of how the hardware behaves. So, updates to certain properties take a couple of seconds to be reflected in a read-back from hardware.&lt;/note&gt;
+![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<p>[<strong>General attribute naming convention:</strong>]{.underline}<br />
+in_voltage0_[…]: targets RX1<br />
+in_voltage1_[…]: targets RX2<br />
+out_voltage0_[…]: targets TX1<br />
+out_voltage1_[…]: targets TX2<br />
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
+root:/sys/bus/iio/devices&gt; ls
+iio:device0 iio:device1 iio:device2 iio:device3</p>
+<p>root:/sys/bus/iio/devices&gt; <strong>cd iio:device0</strong></p>
+<p>root:/sys/bus/iio/devices/iio:device1# ls -l
+total 0
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 bias_current_rx
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 bias_current_rx_lna
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 bias_current_tx
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 bias_current_tx_drv
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 dev
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 gen_clk_cycles
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_temp0_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage0_RX_beam_pos_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage0_RX_beam_pos_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage0_RX_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage0_RX_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage0_RX_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage1_RX_beam_pos_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage1_RX_beam_pos_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage1_RX_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage1_RX_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage1_RX_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage2_RX_beam_pos_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage2_RX_beam_pos_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage2_RX_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage2_RX_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage2_RX_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage3_RX_beam_pos_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage3_RX_beam_pos_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage3_RX_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage3_RX_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage3_RX_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage_bias_set_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage_bias_set_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage_sequence_end
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 in_voltage_sequence_start
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 label
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 lna_bias_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 lna_bias_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 name
+lrwxrwxrwx 1 root root 0 Oct 27 09:10 of_node -&gt; …/…/…/…/…/…/…/…/firmware/devicetree/base/fpga-axi&#64;0/axi_quad_spi&#64;85200000/adar1000&#64;1/dev&#64;0
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_beam_pos_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_beam_pos_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_detector_en
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_pa_bias_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_pa_bias_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage0_TX_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_beam_pos_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_beam_pos_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_detector_en
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_pa_bias_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_pa_bias_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage1_TX_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_beam_pos_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_beam_pos_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_detector_en
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_pa_bias_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_pa_bias_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage2_TX_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_beam_pos_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_beam_pos_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_detector_en
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_hardwaregain
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_pa_bias_off
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_pa_bias_on
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_phase
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_powerdown
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage3_TX_raw
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage_bias_set_load
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage_bias_set_save
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage_sequence_end
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 out_voltage_sequence_start
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 phase_table_config
+drwxrwxrwx 2 root root 0 Oct 27 09:10 power
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 reset
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 rx_lna_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 rx_vga_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 rx_vm_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 sequencer_enable
+lrwxrwxrwx 1 root root 0 Oct 27 09:10 subsystem -&gt; …/…/…/…/…/…/…/…/bus/iio
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 tx_lna_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 tx_vga_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 tx_vm_enable
+-rw-rw-rw- 1 root root 4096 Oct 27 09:10 uevent
+root:/sys/bus/iio/devices/iio:device0#
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="show-device-name">
+<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device0&gt; <strong>cat name</strong>
+adar1000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="rx-tx-phase-control">
+<h3>RX/TX Phase Control<a class="headerlink" href="#rx-tx-phase-control" title="Link to this heading">¶</a></h3>
+<p>The default phase control is provided by table 13 of the <a class="reference internal" href="#adi%3Emedia/en/technical-documentation/data-sheets/ADAR1000.pdf"><span class="xref myst">ADAR1000 datasheet</span></a>. This is the configuration used at device startup.</p>
+<p>Standard Table:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Phase (Degrees)</th>
+<th>I Reg (Hex)</th>
+<th>Q Reg (Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0 ... 360</td>
+<td>0x3F</td>
+<td>0x20</td>
+</tr>
+</tbody>
+</table>
+<p>Custom phase tables can be loaded automatically during driver probe or anytime later via the phase_table_config sysfs attribute.
+Tables must be stored in the /firmware folder, or compiled into the kernel using the CONFIG_FIRMWARE_IN_KERNEL, CONFIG_EXTRA_FIRMWARE config options.
+The table loaded during driver probe can be specified using following device tree property:</p>
+<p><strong>adi,phasetable-name</strong> = “adar1000_std_phasetable”;</p>
+<p>In case no table is specified or loaded, the driver will continue to use the provided standard phase table.</p>
+<p>Phase table is stored in a human readable file, with the format specified below.</p>
+<p>Example: <a class="reference internal" href="#linux.github%3Emaster?firmware/adar1000_std_phasetable"><span class="xref myst">adar1000_std_phasetable</span></a></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> &lt;phasetable [ADAR1000] table entries=no_of_entries&gt;
+ phase_in_degrees, reg_I, reg_Q
+ phase_in_degrees, reg_I, reg_Q
+ phase_in_degrees, reg_I, reg_Q
+ …
+ &lt;/phasetable&gt;
+</pre></div>
+</div>
+<p><strong>Assumptions:</strong>\</p>
+<ul class="simple">
+<li><p>phase tables must be monotonic</p></li>
+</ul>
+<section id="loading-a-gain-table">
+<h4>Loading a gain table<a class="headerlink" href="#loading-a-gain-table" title="Link to this heading">¶</a></h4>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device0# ls /firmware/adar*
+adar1000_std_phasetable</p>
+<p>root&#64;analog:/sys/bus/iio/devices/iio:device0# cat /firmware/adar1000_std_phasetable &gt; phase_table_config
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="reading-a-gain-table">
+<h4>Reading a gain table<a class="headerlink" href="#reading-a-gain-table" title="Link to this heading">¶</a></h4>
+<p>Reading the phase_table_config attribute returns the current phase table that is loaded into the IC.
+The printed format matches the format used in the phasetable file.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device0# cat phase_table_config
+&lt;phasetable ADAR1000 table entries=64&gt;
+0.000, 0x3F, 0x20
+2.812, 0x3F, 0x21
+5.625, 0x3F, 0x23
+8.437, 0x3F, 0x24
+11.250, 0x3F, 0x26
+14.040, 0x3E, 0x27
+16.875, 0x3E, 0x28
+19.687, 0x3D, 0x2A
+22.500, 0x3D, 0x2B
+25.312, 0x3C, 0x2D</p>
+<p>[–snip–]</p>
+<p>165.937, 0x1E, 0x27
+168.750, 0x1E, 0x26
+171.562, 0x1F, 0x24
+174.375, 0x1F, 0x23
+177.187, 0x1F, 0x21
+&lt;/phasetable&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="ram-memory-access">
+<h3>RAM memory access<a class="headerlink" href="#ram-memory-access" title="Link to this heading">¶</a></h3>
+<p>On-chip RAM is provided for storing phase and amplitude settings for up to 121 beam positions and seven bias settings for both transmit and receive modes.</p>
+<section id="save-load-beam-position">
+<h4>Save/Load beam position<a class="headerlink" href="#save-load-beam-position" title="Link to this heading">¶</a></h4>
+<p>A beam position can be written to ram and loaded afterwards from that memory location (index).</p>
+<section id="save-beam-position-command">
+<h5>Save beam position command<a class="headerlink" href="#save-beam-position-command" title="Link to this heading">¶</a></h5>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo 0, -11.0, 15.4 &gt; /sys/bus/iio/devices/iio\:device0/in_voltage1_RX_beam_pos_save
+</pre></div>
+</div>
+<p>This command can be decoded using this enumeration:
+&lt;note tip&gt;beam_position, gain_value, phase_value&lt;/note&gt;
+Values for <strong>gain_value</strong> and <strong>phase_value</strong> must be in integer and fractional part. <strong>beam_position</strong> can take values from 0 to 120.</p>
+</section>
+<section id="load-beam-position-command">
+<h5>Load beam position command<a class="headerlink" href="#load-beam-position-command" title="Link to this heading">¶</a></h5>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo 10 &gt; in_voltage1_RX_beam_pos_load
+</pre></div>
+</div>
+<p>To load a position just write the position number in the load attribute for the required channel.</p>
+</section>
+</section>
+<section id="save-load-bias-settings">
+<h4>Save/Load bias settings<a class="headerlink" href="#save-load-bias-settings" title="Link to this heading">¶</a></h4>
+<p>Seven memory locations are also provided for storing bias settings for all the transmit and receive channel subcircuits.</p>
+<section id="save-rx-bias-settings">
+<h5>Save RX bias settings<a class="headerlink" href="#save-rx-bias-settings" title="Link to this heading">¶</a></h5>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo 0, 1, 2, 3, 4 &gt; in_voltage_bias_set_save
+</pre></div>
+</div>
+<p>The values written here correspond the the following diagram:</p>
+<p>&lt;note tip&gt;bias_setting_index, LNA_BIAS_OFF, LNA_BIAS_ON, BIAS_CURRENT_RX, BIAS_CURRENT_RX_LNA&lt;/note&gt;</p>
+</section>
+<section id="save-tx-bias-settings">
+<h5>Save TX bias settings<a class="headerlink" href="#save-tx-bias-settings" title="Link to this heading">¶</a></h5>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo 1, 10, 2, 3, 5, 6, 7, 8, 9, 10, 11 &gt; out_voltage_bias_set_save
+</pre></div>
+</div>
+<p>The values written here correspond the the following diagram:</p>
+<p>&lt;note tip&gt;bias_setting_index, CH1_PA_BIAS_OFF, CH2_PA_BIAS_OFF, CH3_PA_BIAS_OFF, CH1_PA_BIAS_ON, CH2_PA_BIAS_ON, CH3_PA_BIAS_ON, CH4_PA_BIAS_OFF, CH4_PA_BIAS_ON, BIAS_CURRENT_TX, BIAS_CURRENT_TX_DRV&lt;/note&gt;</p>
+</section>
+<section id="load-bias-settings">
+<h5>Load bias settings<a class="headerlink" href="#load-bias-settings" title="Link to this heading">¶</a></h5>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo 5 &gt; out_voltage_bias_set_load
+echo  &gt; in_voltage_bias_set_load
+</pre></div>
+</div>
+<p>For loading a different bias setting the operations is the same for RX and TX channels.</p>
+</section>
+</section>
+<section id="memory-sequencer">
+<h4>Memory sequencer<a class="headerlink" href="#memory-sequencer" title="Link to this heading">¶</a></h4>
+<p>The beam can be stepped sequentially through the positions stored in memory. To use this feature the following steps must be executed:</p>
+<ol class="arabic simple">
+<li><p>load sequence start</p></li>
+<li><p>load sequence end</p></li>
+<li><p>enable sequencer</p></li>
+<li><p>generate clock cycles</p></li>
+<li><p>pulse TX/RX Load pin</p></li>
+</ol>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>echo 10 &gt; in_voltage_sequence_start
+echo 20 &gt; in_voltage_sequence_end
+echo 1 &gt; sequencer_enable
+echo 1 &gt; gen_clk_cycles
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="low-level-register-access-via-debugfs-direct-reg-access">
+<h2>Low level register access via debugfs (direct_reg_access)<a class="headerlink" href="#low-level-register-access-via-debugfs-direct-reg-access" title="Link to this heading">¶</a></h2>
+<p><img alt="iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&amp;noheader&amp;firstseconly&amp;noeditbtn" src="page%3Esoftware/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+</section>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
+<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../iio-adc/adas1000.html" title="Previous document" class="prev">ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver</a>
+    <a href="../iio-cdc/ad7152.html" title="Next document" class="next">AD7152 IIO Capacitance to Digital Converter Linux Driver</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

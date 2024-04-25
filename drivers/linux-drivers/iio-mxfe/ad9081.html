@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AD9081 MxFE Linux Driver &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="AD9208 ADC Linux Driver" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html" />
+    <link rel="prev" title="AD9083 Linux Driver" href="../iio-adc/ad9083.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">AD9081 MxFE Linux Driver</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#supported-boards">Supported Boards</a><ul>
+<li><a class="reference internal" href="#user-guides">User Guides</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#supported-hdl-cores">Supported HDL Cores</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a><ul>
+<li><a class="reference internal" href="#example-device-trees">Example device trees</a></li>
+<li><a class="reference internal" href="#interrelated-device-drivers">Interrelated Device Drivers</a><ul>
+<li><a class="reference internal" href="#transport-layer-receive-axi-adc-driver">Transport Layer Receive AXI-ADC driver</a></li>
+<li><a class="reference internal" href="#transport-layer-transmit-axi-dac-dds-driver">Transport Layer Transmit AXI-DAC / DDS driver</a></li>
+<li><a class="reference internal" href="#link-layer-axi-jesd204b-hdl-driver">Link Layer AXI JESD204B HDL driver</a></li>
+<li><a class="reference internal" href="#phy-layer-axi-jesd204b-gt-gigabit-tranceiver-hdl-driver-xilinx-altera-intel">PHY Layer AXI JESD204B GT (Gigabit Tranceiver) HDL driver (XILINX/ALTERA-INTEL)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#enabling-linux-driver-support">Enabling Linux driver support</a></li>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#device-tree-customization">Device tree customization</a><ul>
+<li><a class="reference internal" href="#device-tree-example">Device Tree Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#general-iio-and-driver-conventions">General IIO and driver conventions</a><ul>
+<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
+<li><a class="reference internal" href="#adc-rate">ADC Rate</a></li>
+<li><a class="reference internal" href="#rx-sample-rate">RX Sample Rate</a></li>
+<li><a class="reference internal" href="#dac-rate">DAC Rate</a></li>
+<li><a class="reference internal" href="#tx-sample-rate">TX Sample Rate</a></li>
+<li><a class="reference internal" href="#adc-nyquist-zone-control">ADC Nyquist Zone Control</a></li>
+<li><a class="reference internal" href="#nco-frequency-control">NCO Frequency Control</a><ul>
+<li><a class="reference internal" href="#main-data-path">Main Data Path</a></li>
+<li><a class="reference internal" href="#channel-data-path">Channel Data Path</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nco-phase-control">NCO Phase Control</a><ul>
+<li><a class="reference internal" href="#id1">Main Data Path</a></li>
+<li><a class="reference internal" href="#id2">Channel Data Path</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tx-nco-channel-digital-gain">TX NCO Channel Digital Gain</a></li>
+<li><a class="reference internal" href="#tx-nco-test-tone-modes">TX NCO Test Tone Modes</a></li>
+<li><a class="reference internal" href="#fast-frequency-hopping-control">Fast Frequency Hopping Control</a><ul>
+<li><a class="reference internal" href="#transmit-main-path-ffh-nco-mode">Transmit Main Path FFH NCO Mode</a></li>
+<li><a class="reference internal" href="#receive-main-path-ffh-nco-mode">Receive Main Path FFH NCO Mode</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#programmable-fir-filter">Programmable FIR Filter</a><ul>
+<li><a class="reference internal" href="#configuration-file-format">Configuration File Format</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#loopback-modes">Loopback Modes</a><ul>
+<li><a class="reference internal" href="#jesd-loopback-rx-tx">JESD Loopback RX-&gt;TX</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#on-die-temperature-reading">On-Die Temperature Reading</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#low-level-debug-functions-via-debugfs">Low level debug functions via debugfs</a><ul>
+<li><a class="reference internal" href="#jesd-link-status">JESD Link Status</a></li>
+<li><a class="reference internal" href="#dac-full-scale-current-ua">dac-full-scale-current-ua</a></li>
+<li><a class="reference internal" href="#bist-prbs-select-jrx">bist_prbs_select_jrx</a></li>
+<li><a class="reference internal" href="#bist-prbs-error-counters-jrx">bist_prbs_error_counters_jrx</a></li>
+<li><a class="reference internal" href="#bist-prbs-select-jtx">bist_prbs_select_jtx</a></li>
+<li><a class="reference internal" href="#bist-spo-sweep-jrx">bist_spo_sweep_jrx</a></li>
+<li><a class="reference internal" href="#bist-spo-set-jrx">bist_spo_set_jrx</a></li>
+<li><a class="reference internal" href="#bist-2d-eyescan-jrx">bist_2d_eyescan_jrx</a><ul>
+<li><a class="reference internal" href="#example-eye-diagram-created-from-half-rate-eye-scan-data">Example Eye Diagram Created from Half Rate Eye Scan Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#low-level-register-access-via-debugfs-direct-reg-access">Low level register access via debugfs (direct_reg_access)</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad400x.html">AD4003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad4630.html">AD4030-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9208.html">AD6684</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7476a.html">AD7091</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r5.html">AD7091R-5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7091r8.html">AD7091R-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7124.html">AD7124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7780.html">AD7170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7192.html">AD7190</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7266.html">AD7265</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7280a.html">AD7280A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7291.html">AD7291</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7298.html">AD7298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7606.html">AD7605-4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7766.html">AD7766-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768-1.html">AD7768-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7768.html">AD7768</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7793.html">AD7785</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7791.html">AD7787</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7887.html">AD7887</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad7998.html">AD7991</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad9083.html">AD9083</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AD9207</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/axi-adc-hdl.html">AD9234</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adaq8092.html">ADAQ8092</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/adas1000.html">ADAS1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html">ADAR1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74412R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">AD5310R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5415</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5735</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5744</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5760</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html">AD9122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html">AD9832</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html">AD9833</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9161</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9516-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF4355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16133</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-adc/ad6676.html">AD6676</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html">AD9361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html">AD9371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9002.html">ADRV9002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html">ADRV9008-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/ad714x.html">AD7142</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html">ADP1650</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">AD5160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7241</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1835A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73311</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1381</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1401A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV801</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="ad9081-mxfe-linux-driver">
+<h1>AD9081 MxFE Linux Driver<a class="headerlink" href="#ad9081-mxfe-linux-driver" title="Link to this heading">¶</a></h1>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EAD9081"><span class="xref myst">AD9081</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9082"><span class="xref myst">AD9082</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9988"><span class="xref myst">AD9988</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9986"><span class="xref myst">AD9986</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9177"><span class="xref myst">AD9177</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9207"><span class="xref myst">AD9207</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9209"><span class="xref myst">AD9209</span></a></p></li>
+</ul>
+</section>
+<section id="supported-boards">
+<h2>Supported Boards<a class="headerlink" href="#supported-boards" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EAD9081-FMCA-EBZ"><span class="xref myst">AD9081-FMCA-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9082-FMCA-EBZ"><span class="xref myst">AD9082-FMCA-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9988-FMCB-EBZ"><span class="xref myst">AD9988-FMCB-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EAD9986-FMCB-EBZ"><span class="xref myst">AD9986-FMCB-EBZ</span></a></p></li>
+<li><p><a class="reference internal" href="#adi%3EQuad-MxFE"><span class="xref myst">Quad-MxFE</span></a></p></li>
+</ul>
+<section id="user-guides">
+<h3>User Guides<a class="headerlink" href="#user-guides" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/resources/eval/user-guides/ad9081_fmca_ebz"><span class="xref myst">AD9081/AD9082 Prototyping Platform User Guide</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/eval/user-guides/quadmxfe"><span class="xref myst">Quad-MxFE Prototyping Platform User Guide</span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="supported-hdl-cores">
+<h2>Supported HDL Cores<a class="headerlink" href="#supported-hdl-cores" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/resources/eval/user-guides/ad9081_fmca_ebz/ad9081_fmca_ebz_hdl"><span class="xref myst">AD9081-FMCA-EBZ (Single MxFE) HDL Reference Design</span></a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>The mixed signal front end (MxFE®) is a high integration devicewith a 16-bit, 12 GSPS maximum sample rate radio frequency (RF) digital-to-analog converter (DAC) core and a 12-bit, 4 GSPS rate RF analog-to-digital converter (ADC) core. The AD9081 features a 16-lane, 24.75 Gbps JESD204C or 15.5 Gbps JESD204B data transceiver port, an on-chip clock multiplier, and digital signal processing capability targeted at single-and dual-band direct-to-RF radio applications.</p>
+<p>The AD9081 supports four transmitter channels and four receiver channels with a 4D4A configuration. The receiver ADC channels can be shared with observation channels in time division duplex(TDD) operating mode. The AD9081 directly addresses the emerging base station applications with high integration and common platform requirements. The device has flexible inter-polation/decimation configurations that enable direct-to-RF multiband radio applications. AD9081 supports a complex transmit input data rate up to 6 GSPS and a receive output data rate in single-channel mode up to 4 GSPS. The maximum radio band spacing supported in multichannel modes is 1.2 GHz. AD9081 features a bypassable interpolator and decimator for achieving ultra wideband capability with low latency loop back and frequency hopping modes targeted at phase array radar system and electronic warfare jammer applications.</p>
+<p>For more information about the AD9081, contact Analog Devices, Inc., at: <a class="reference internal" href="#MxFEsupport&#64;analog.com"><span class="xref myst">MxFEsupport&#64;analog.com</span></a>.</p>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Source</th>
+<th style="text-align: center;">Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><a href="linux.github&gt;master?drivers/iio/adc/ad9081.c">drivers/iio/adc/ad9081.c</a></td>
+<td style="text-align: center;"><a href="git.linux.org&gt;drivers/iio/adc/ad9081.c">No</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9081.c">drivers/iio/adc/ad9081.c</a></td>
+</tr>
+<tr class="even">
+<td>API driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/ad9081">drivers/iio/adc/ad9081</a></td>
+</tr>
+</tbody>
+</table>
+<section id="example-device-trees">
+<h4>Example device trees<a class="headerlink" href="#example-device-trees" title="Link to this heading">¶</a></h4>
+<p><br />
+<img alt="zynq#example_device_trees&amp;nofooter&amp;noheader" src="page%3E/resources/eval/user-guides/ad9081_fmca_ebz/quickstart/zynq#example_device_trees&amp;nofooter&amp;noheader" /></p>
+<p><img alt="microblaze#example_device_trees&amp;nofooter&amp;noheader" src="page%3E/resources/eval/user-guides/ad9081_fmca_ebz/quickstart/microblaze#example_device_trees&amp;nofooter&amp;noheader" /></p>
+</section>
+<section id="interrelated-device-drivers">
+<h4>Interrelated Device Drivers<a class="headerlink" href="#interrelated-device-drivers" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/resources/tools-software/linux-drivers/jesd204/jesd204-fsm-framework"><span class="xref myst">JESD204 (FSM) Interface Linux Kernel Framework</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/fpga/peripherals/jesd204"><span class="xref myst">JESD204 Interface Framework</span></a></p></li>
+</ul>
+<section id="transport-layer-receive-axi-adc-driver">
+<h5>Transport Layer Receive AXI-ADC driver<a class="headerlink" href="#transport-layer-receive-axi-adc-driver" title="Link to this heading">¶</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_core.c">drivers/iio/adc/cf_axi_adc_core.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc_ring_stream.c">drivers/iio/adc/cf_axi_adc_ring_stream.c</a></td>
+</tr>
+<tr class="odd">
+<td>include</td>
+<td><a href="linux.github&gt;master?drivers/iio/adc/cf_axi_adc.h">drivers/iio/adc/cf_axi_adc.h</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Documentation:</strong> <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-adc/axi-adc-hdl"><span class="xref myst">AXI ADC HDL Linux Driver</span></a></p>
+</section>
+<section id="transport-layer-transmit-axi-dac-dds-driver">
+<h5>Transport Layer Transmit AXI-DAC / DDS driver<a class="headerlink" href="#transport-layer-transmit-axi-dac-dds-driver" title="Link to this heading">¶</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.c">drivers/iio/frequency/cf_axi_dds.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="linux.github&gt;master?drivers/iio/frequency/cf_axi_dds.h">drivers/iio/frequency/cf_axi_adc.h</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Documentation:</strong> <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-dds/axi-dac-dds-hdl"><span class="xref myst">AXI DAC HDL Linux Driver</span></a></p>
+</section>
+<section id="link-layer-axi-jesd204b-hdl-driver">
+<h5>Link Layer AXI JESD204B HDL driver<a class="headerlink" href="#link-layer-axi-jesd204b-hdl-driver" title="Link to this heading">¶</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/jesd204/axi_jesd204_rx.c">drivers/iio/jesd204/axi_jesd204_rx.c</a></td>
+</tr>
+<tr class="even">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/jesd204/axi_jesd204_tx.c">drivers/iio/jesd204/axi_jesd204_tx.c</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Documentation:</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/%5Bresources/tools-software/linux-drivers/jesd204/axi_jesd204_tx"><span class="xref myst">JESD204B/C Transmit Linux Driver</span></a></p></li>
+<li><p><a class="reference internal" href="#/resources/tools-software/linux-drivers/jesd204/axi_jesd204_rx"><span class="xref myst">JESD204B/C Receive Linux Driver</span></a></p></li>
+</ul>
+</section>
+<section id="phy-layer-axi-jesd204b-gt-gigabit-tranceiver-hdl-driver-xilinx-altera-intel">
+<h5>PHY Layer AXI JESD204B GT (Gigabit Tranceiver) HDL driver (XILINX/ALTERA-INTEL)<a class="headerlink" href="#phy-layer-axi-jesd204b-gt-gigabit-tranceiver-hdl-driver-xilinx-altera-intel" title="Link to this heading">¶</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;master?drivers/iio/jesd204/axi_adxcvr.c">drivers/iio/jesd204/axi_adxcvr.c</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Documentation:</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#/resources/tools-software/linux-drivers/jesd204/axi_adxcvr"><span class="xref myst">JESD204B/C AXI_ADXCVR Highspeed Transceivers Linux Driver</span></a></p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+<section id="enabling-linux-driver-support">
+<h2>Enabling Linux driver support<a class="headerlink" href="#enabling-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or “make qconfig”)</p>
+<p>&lt;WRAP round help&gt;
+The ADRV9009 driver depends on <strong>CONFIG_SPI</strong>
+&lt;/WRAP&gt;</p>
+</section>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
+    Device Drivers  ---&gt;
+        &lt;*&gt; JESD204 High-Speed Serial Interface Framework
+    &lt;*&gt;     Industrial I/O support ---&gt;
+        --- Industrial I/O support
+        -*-   Enable ring buffer support within IIO
+        -*-     Industrial I/O lock free software ring
+        -*-   Enable triggered sampling support
+
+              *** Analog to digital converters ***
+        [--snip--]
+
+        -*- Analog Devices High-Speed AXI ADC driver core
+                &lt;*&gt; Analog Devices AD9081 and similar Mixed Signal Front End (MxFE)
+                &lt; &gt; Analog Devices AD9208 and similar high speed ADCs  
+                &lt; &gt; Analog Devices AD9361, AD9364 RF Agile Transceiver driver
+        &lt; &gt; Analog Devices AD9371 RF Transceiver driver
+        &lt; &gt; Analog Devices ADRV9009/ADRV9008 RF Transceiver driver
+        &lt; &gt; Analog Devices AD6676 Wideband IF Receiver driver
+        &lt; &gt; Analog Devices AD9467, AD9680, etc. high speed ADCs
+
+        [--snip--]
+        
+
+    Frequency Synthesizers DDS/PLL  ---&gt;
+            Direct Digital Synthesis  ---&gt;
+            &lt;*&gt; Analog Devices CoreFPGA AXI DDS driver
+        Clock Generator/Distribution  ---&gt;  
+            &lt; &gt; Analog Devices AD9508 Clock Fanout Buffer                 
+            &lt; &gt; Analog Devices AD9523 Low Jitter Clock Generator          
+            &lt; &gt; Analog Devices AD9528 Low Jitter Clock Generator          
+            &lt; &gt; Analog Devices AD9548 Network Clock Generator/Synchronizer
+            &lt; &gt; Analog Devices AD9517 12-Output Clock Generator 
+                        &lt;*&gt; Analog Devices HMC7044, HMC7043 Clock Jitter Attenuator with JESD204B
+                        &lt; &gt; Analog Devices LTC6952 Clock Ultralow Jitter with JESD204B/C
+
+    &lt;*&gt;   JESD204 High-Speed Serial Interface Support  ---&gt;
+        --- JESD204 High-Speed Serial Interface Support  
+        &lt; &gt;   Altera Arria10 JESD204 PHY Support         
+        &lt;*&gt;   Analog Devices AXI ADXCVR PHY Support      
+        &lt; &gt;   Generic AXI JESD204B configuration driver  
+        &lt;*&gt;   Analog Devices AXI JESD204B TX Support     
+        &lt;*&gt;   Analog Devices AXI JESD204B RX Support  
+</pre></div>
+</div>
+</section>
+<section id="device-tree-customization">
+<h2>Device tree customization<a class="headerlink" href="#device-tree-customization" title="Link to this heading">¶</a></h2>
+<p>The AD9081 Linux IIO device driver is configured and customized using device tree, a simple tree structure of nodes and properties. Properties are key-value pairs, and node may contain both properties and child nodes.
+The top device node of the AD9081/82 contains common and device specific attributes.
+Under the top node, there are two child-nodes (<code class="docutils literal notranslate"><span class="pre">adi,tx-dacs</span></code> and <code class="docutils literal notranslate"><span class="pre">adi,rx-adcs</span></code>).
+In case of DAC or ADC only operation, both nodes are required and must contain at least the <code class="docutils literal notranslate"><span class="pre">adi,dac-frequency-hz</span></code> and respectively the <code class="docutils literal notranslate"><span class="pre">adi,adc-frequency-hz</span></code> property. However omitting the child nodes will disable this ADC/DAC data path.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">spi</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">trx0_ad9081</span><span class="p">:</span><span class="w"> </span><span class="n">ad9081</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>
+<span class="w">        </span><span class="c1">// Device common properties</span>
+
+<span class="w">        </span><span class="n">adi</span><span class="p">,</span><span class="n">tx</span><span class="o">-</span><span class="n">dacs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Tx/DAC properties and child-nodes</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="n">adi</span><span class="p">,</span><span class="n">rx</span><span class="o">-</span><span class="n">adcs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Rx/ADC properties and child-nodes        </span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Each of these child nodes handle certain aspects of either the digital-to-analog converter core side or the analog-to-digital converter side of the Mixed Signal Frontend (MxFE®)
+These child-nodes again contain ADC or DAC side common attributes. Such as the ADC/DAC frequency. But also, three child-nodes to customize the main data paths, the channelizers and the serial JESD204 interfaces.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">adi</span><span class="p">,</span><span class="n">rx</span><span class="o">-</span><span class="n">adcs</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">adi</span><span class="p">,</span><span class="n">main</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">paths</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">adi</span><span class="p">,</span><span class="n">channelizer</span><span class="o">-</span><span class="n">paths</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">adi</span><span class="p">,</span><span class="n">jesd</span><span class="o">-</span><span class="n">links</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">adi,main-data-paths</span></code> node iterates the used ADCs or DACs together with its default/dedicated CDDCs and CDUCs. Each of these nodes have in return again properties to configure the default NCO frequencies, modes, decimation, etc. (A list of supported properties/attributes can be found below.)</p></li>
+<li><p>The second mandatory node is the <code class="docutils literal notranslate"><span class="pre">adi,channelizer-paths</span></code> node. The utilized channelizers FDDCs and FDUCs are described in here, which are always related to the main data paths. Therefore, the main data path child-nodes contain a property (<code class="docutils literal notranslate"><span class="pre">adi,crossbar-select</span></code>) of a device node containing a phandle to the FDUC or FDDC that it is attached to.</p></li>
+<li><p>The last mandatory child-node is the <code class="docutils literal notranslate"><span class="pre">adi,jesd-links</span></code> node. This node contains up to two (single/dual link) child-nodes, one for each link.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="n">adi</span><span class="p">,</span><span class="n">main</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">paths</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nl">ad9081_dac0</span><span class="p">:</span><span class="w"> </span><span class="n">dac</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nl">ad9081_dac1</span><span class="p">:</span><span class="w"> </span><span class="n">dac</span><span class="err">@</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nl">ad9081_dac2</span><span class="p">:</span><span class="w"> </span><span class="n">dac</span><span class="err">@</span><span class="mi">2</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nl">ad9081_dac3</span><span class="p">:</span><span class="w"> </span><span class="n">dac</span><span class="err">@</span><span class="mi">3</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="n">adi</span><span class="p">,</span><span class="n">channelizer</span><span class="o">-</span><span class="n">paths</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nl">ad9081_tx_fddc_chan0</span><span class="p">:</span><span class="w"> </span><span class="n">channel</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nl">ad9081_tx_fddc_chan1</span><span class="p">:</span><span class="w"> </span><span class="n">channel</span><span class="err">@</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span>
+
+
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="n">adi</span><span class="p">,</span><span class="n">jesd</span><span class="o">-</span><span class="n">links</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nl">ad9081_tx_jesd_l0</span><span class="p">:</span><span class="w"> </span><span class="n">link</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<section id="device-tree-example">
+<h3>Device Tree Example<a class="headerlink" href="#device-tree-example" title="Link to this heading">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">spi</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">trx0_ad9081</span><span class="p">:</span><span class="w"> </span><span class="n">ad9081</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+<span class="w">        </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+<span class="w">        </span><span class="n">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;adi,ad9081&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">spi</span><span class="o">-</span><span class="n">max</span><span class="o">-</span><span class="n">frequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">5000000</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="cm">/* Clocks */</span>
+<span class="w">        </span><span class="n">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">hmc7044</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">clock</span><span class="o">-</span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;dev_clk&quot;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">clock</span><span class="o">-</span><span class="n">output</span><span class="o">-</span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;rx_sampl_clk&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;tx_sampl_clk&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="cp">#clock-cells = &lt;1&gt;;</span>
+
+<span class="w">        </span><span class="n">jesd204</span><span class="o">-</span><span class="n">device</span><span class="p">;</span>
+<span class="w">        </span><span class="cp">#jesd204-cells = &lt;2&gt;;</span>
+<span class="w">        </span><span class="n">jesd204</span><span class="o">-</span><span class="n">top</span><span class="o">-</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* This is the TOP device */</span>
+<span class="w">        </span><span class="n">jesd204</span><span class="o">-</span><span class="n">link</span><span class="o">-</span><span class="n">ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">FRAMER_LINK0_RX</span><span class="w"> </span><span class="n">DEFRAMER_LINK0_TX</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">jesd204</span><span class="o">-</span><span class="n">inputs</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="o">&lt;&amp;</span><span class="n">axi_ad9081_core_rx</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">FRAMER_LINK0_RX</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="o">&lt;&amp;</span><span class="n">axi_ad9081_core_tx</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">DEFRAMER_LINK0_TX</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">adi</span><span class="p">,</span><span class="n">tx</span><span class="o">-</span><span class="n">dacs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+<span class="w">            </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+
+<span class="w">            </span><span class="n">adi</span><span class="p">,</span><span class="n">dac</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">6200000000</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">adi</span><span class="p">,</span><span class="n">main</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">paths</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+<span class="w">                </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+
+<span class="w">                </span><span class="n">adi</span><span class="p">,</span><span class="n">interpolation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">                </span><span class="nl">ad9081_dac0</span><span class="p">:</span><span class="w"> </span><span class="n">dac</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">crossbar</span><span class="o">-</span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">100000000</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 100 MHz */</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">                </span><span class="nl">ad9081_dac1</span><span class="p">:</span><span class="w"> </span><span class="n">dac</span><span class="err">@</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">crossbar</span><span class="o">-</span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">200000000</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 200 MHz */</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">                </span><span class="nl">ad9081_dac2</span><span class="p">:</span><span class="w"> </span><span class="n">dac</span><span class="err">@</span><span class="mi">2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">crossbar</span><span class="o">-</span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan0</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan1</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* All 4 channels @ dac2 */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">300000000</span><span class="o">&gt;</span><span class="p">;</span><span class="w">  </span><span class="cm">/* 300 MHz */</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">                </span><span class="nl">ad9081_dac3</span><span class="p">:</span><span class="w"> </span><span class="n">dac</span><span class="err">@</span><span class="mi">3</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">crossbar</span><span class="o">-</span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan0</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan1</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* All 4 channels @ dac2 */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">400000000</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 400 MHz */</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">            </span><span class="p">};</span>
+
+<span class="w">            </span><span class="n">adi</span><span class="p">,</span><span class="n">channelizer</span><span class="o">-</span><span class="n">paths</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+<span class="w">                </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+<span class="w">                </span><span class="n">adi</span><span class="p">,</span><span class="n">interpolation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">                </span><span class="nl">ad9081_tx_fddc_chan0</span><span class="p">:</span><span class="w"> </span><span class="n">channel</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">gain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">50000000</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">                </span><span class="p">};</span>
+<span class="w">                </span><span class="nl">ad9081_tx_fddc_chan1</span><span class="p">:</span><span class="w"> </span><span class="n">channel</span><span class="err">@</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">gain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">100000000</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">                </span><span class="p">};</span>
+<span class="w">            </span><span class="p">};</span>
+
+<span class="w">            </span><span class="n">adi</span><span class="p">,</span><span class="n">jesd</span><span class="o">-</span><span class="n">links</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+<span class="w">                </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+
+<span class="w">                </span><span class="nl">ad9081_tx_jesd_l0</span><span class="p">:</span><span class="w"> </span><span class="n">link</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+<span class="w">                    </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">converter</span><span class="o">-</span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan0</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan0</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="cm">/* FIXME not supported */</span>
+<span class="w">                                   </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan1</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_tx_fddc_chan1</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">logical</span><span class="o">-</span><span class="n">lane</span><span class="o">-</span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">link</span><span class="o">-</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">17</span><span class="o">&gt;</span><span class="p">;</span><span class="w">           </span><span class="cm">/* JESD Quick Configuration Mode */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">subclass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span><span class="w">         </span><span class="cm">/* JESD SUBCLASS 0,1,2 */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span><span class="w">          </span><span class="cm">/* JESD VERSION 0=204A,1=204B,2=204C */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">dual</span><span class="o">-</span><span class="n">link</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span><span class="w">            </span><span class="cm">/* JESD Dual Link Mode */</span>
+
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">converters</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span><span class="w">    </span><span class="cm">/* JESD M */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">octets</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span><span class="w">     </span><span class="cm">/* JESD F */</span>
+
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">frames</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">multiframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="p">;</span><span class="w">   </span><span class="cm">/* JESD K */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">converter</span><span class="o">-</span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">16</span><span class="o">&gt;</span><span class="p">;</span><span class="w">    </span><span class="cm">/* JESD N */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">bits</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">16</span><span class="o">&gt;</span><span class="p">;</span><span class="w">     </span><span class="cm">/* JESD NP&#39; */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">control</span><span class="o">-</span><span class="n">bits</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span><span class="w">  </span><span class="cm">/* JESD CS */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">lanes</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">;</span><span class="w">     </span><span class="cm">/* JESD L */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">samples</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">converter</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* JESD S */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">high</span><span class="o">-</span><span class="n">density</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span><span class="w">         </span><span class="cm">/* JESD HD */</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">            </span><span class="p">};</span>
+<span class="w">        </span><span class="p">};</span>
+
+<span class="w">        </span><span class="n">adi</span><span class="p">,</span><span class="n">rx</span><span class="o">-</span><span class="n">adcs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+<span class="w">            </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+
+<span class="w">            </span><span class="n">adi</span><span class="p">,</span><span class="n">adc</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3100000000</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">adi</span><span class="p">,</span><span class="n">main</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">paths</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+<span class="w">                </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+
+<span class="w">                </span><span class="nl">ad9081_adc0</span><span class="p">:</span><span class="w"> </span><span class="n">adc</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">decimation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">70000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="c1">//adi,crossbar-select = &lt;&amp;ad9081_rx_fddc_chan0&gt;, &lt;&amp;ad9081_rx_fddc_chan2&gt;; /* Static for now */</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">                </span><span class="nl">ad9081_adc1</span><span class="p">:</span><span class="w"> </span><span class="n">adc</span><span class="err">@</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">decimation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">150000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="c1">//adi,crossbar-select = &lt;&amp;ad9081_rx_fddc_chan1&gt;, &lt;&amp;ad9081_rx_fddc_chan3&gt;; /* Static for now */</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">            </span><span class="p">};</span>
+
+<span class="w">            </span><span class="n">adi</span><span class="p">,</span><span class="n">channelizer</span><span class="o">-</span><span class="n">paths</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+<span class="w">                </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+
+<span class="w">                </span><span class="nl">ad9081_rx_fddc_chan0</span><span class="p">:</span><span class="w"> </span><span class="n">channel</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">decimation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">gain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">30000000</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">                </span><span class="p">};</span>
+<span class="w">                </span><span class="nl">ad9081_rx_fddc_chan1</span><span class="p">:</span><span class="w"> </span><span class="n">channel</span><span class="err">@</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">decimation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">gain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">nco</span><span class="o">-</span><span class="n">frequency</span><span class="o">-</span><span class="n">shift</span><span class="o">-</span><span class="n">hz</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">60000000</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">                </span><span class="p">};</span>
+<span class="w">            </span><span class="p">};</span>
+
+<span class="w">            </span><span class="n">adi</span><span class="p">,</span><span class="n">jesd</span><span class="o">-</span><span class="n">links</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="cp">#size-cells = &lt;0&gt;;</span>
+<span class="w">                </span><span class="cp">#address-cells = &lt;1&gt;;</span>
+
+<span class="w">                </span><span class="nl">ad9081_rx_jesd_l0</span><span class="p">:</span><span class="w"> </span><span class="n">link</span><span class="err">@</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">converter</span><span class="o">-</span><span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_rx_fddc_chan0</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_rx_fddc_chan0</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">                                </span><span class="o">&lt;&amp;</span><span class="n">ad9081_rx_fddc_chan1</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="n">ad9081_rx_fddc_chan1</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">logical</span><span class="o">-</span><span class="n">lane</span><span class="o">-</span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">bits</span><span class="o">/</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="o">&gt;</span><span class="p">;</span>
+
+
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">link</span><span class="o">-</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">18</span><span class="o">&gt;</span><span class="p">;</span><span class="w">           </span><span class="cm">/* JESD Quick Configuration Mode */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">subclass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span><span class="w">         </span><span class="cm">/* JESD SUBCLASS 0,1,2 */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span><span class="w">          </span><span class="cm">/* JESD VERSION 0=204A,1=204B,2=204C */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">dual</span><span class="o">-</span><span class="n">link</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span><span class="w">            </span><span class="cm">/* JESD Dual Link Mode */</span>
+
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">converters</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span><span class="w">    </span><span class="cm">/* JESD M */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">octets</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span><span class="w">     </span><span class="cm">/* JESD F */</span>
+
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">frames</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">multiframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="p">;</span><span class="w">   </span><span class="cm">/* JESD K */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">converter</span><span class="o">-</span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">16</span><span class="o">&gt;</span><span class="p">;</span><span class="w">    </span><span class="cm">/* JESD N */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">bits</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">16</span><span class="o">&gt;</span><span class="p">;</span><span class="w">     </span><span class="cm">/* JESD NP&#39; */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">control</span><span class="o">-</span><span class="n">bits</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span><span class="w">  </span><span class="cm">/* JESD CS */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">lanes</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">;</span><span class="w">     </span><span class="cm">/* JESD L */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">samples</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">converter</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">frame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="cm">/* JESD S */</span>
+<span class="w">                    </span><span class="n">adi</span><span class="p">,</span><span class="n">high</span><span class="o">-</span><span class="n">density</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span><span class="w">         </span><span class="cm">/* JESD HD */</span>
+<span class="w">                </span><span class="p">};</span>
+<span class="w">            </span><span class="p">};</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="general-iio-and-driver-conventions">
+<h2>General IIO and driver conventions<a class="headerlink" href="#general-iio-and-driver-conventions" title="Link to this heading">¶</a></h2>
+<p>Controlling the MxFE is done via the IIO sysfs interface. For convenience users can use <a class="reference internal" href="#/resources/tools-software/linux-software/libiio"><span class="xref myst">libiio</span></a> and its various programming langue bindings.
+The MxFE IIO device under /sys/bus/iio/devices/iio:deviceX features a set of channels and device attributes, which are explained here.
+Some basic, but important concepts are explained in the bullet list below:</p>
+<ul class="simple">
+<li><p>Channels prefixed with <code class="docutils literal notranslate"><span class="pre">in_voltageX</span></code> apply to Receive (RX) ADC data paths.</p></li>
+<li><p>Channels prefixed with <code class="docutils literal notranslate"><span class="pre">out_voltageX</span></code> apply to Transmit (TX) DAC data paths.</p></li>
+<li><p>Each channel has a complex modifier <code class="docutils literal notranslate"><span class="pre">in_voltageX_i</span></code> and <code class="docutils literal notranslate"><span class="pre">in_voltageX_q</span></code> or <code class="docutils literal notranslate"><span class="pre">out_voltageX_i</span></code> and <code class="docutils literal notranslate"><span class="pre">out_voltageX_q</span></code>. Controlling a channel attribute for the <code class="docutils literal notranslate"><span class="pre">i</span></code> modified channel will simultaneously control the <code class="docutils literal notranslate"><span class="pre">q</span></code> modified channel and vice versa. So, writing/reading only needs to happen once, since they are mirrored. The complex IQ modifiers are only important for the data buffers, sine I &amp; Q are individual data components.</p></li>
+<li><p>IIO channels <code class="docutils literal notranslate"><span class="pre">[in|out]_voltageX</span></code>apply to the channelizer data paths (Fine DDC/DUC).</p>
+<ul>
+<li><p>Each IIO channel has some <code class="docutils literal notranslate"><span class="pre">[in|out]_voltageX_[i|q]_channel_[attributes]</span></code></p></li>
+<li><p>In case the channelizer data paths (Fine DDC/DUC) are bypassed (decimation=1 or interpolation=1), the X still applies to a data path.</p>
+<ul>
+<li><p>On the RX side: The <strong>adi,converter-select</strong> property is used to connect <strong>adi,channelizer-paths</strong>, where the <strong>reg = &lt;X&gt;</strong> property value defines the X in the IIO channel name.</p></li>
+<li><p>On the TX side: The <strong>adi,maindp-dac-1x-non1x-crossbar-select = &lt;X&gt;</strong> property within adi,main-data-paths dac&#64;Y takes the data path number (DC_DP_X) as argument (x). So setting it to 0 on the DAC node for DAC1 will instruct the XBAR to route the very first data path to the CDUC1 which by default routes to DAC1. In case this property is not present, the default mapping CDUC0-&gt;DAC0, CDUC1-&gt;DAC1, … will be used.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>Each channelizer data path (FDDC, FDUC) connects at least to one Coarse DDC/DUC (CDDC/CDUC), which maps then to one or more ADCs/DACs depending on configuration. These are called main data paths and are controlled via the <code class="docutils literal notranslate"><span class="pre">[in|out]_voltageX_[i|q]_main_[attributes]</span></code> attributes.</p>
+<ul>
+<li><p>Be aware, since multiple channels can map to the same main data path (CDDC/CDUC), changing a main attribute of one channel will also update same attribute of any other channel that maps to the same main data path (CDDC/CDUC).</p></li>
+<li><p>The crossbar mapping between Fine and Coarse Digital Up/Down Converters, ADCs/DACs is defined in the device tree.</p></li>
+</ul>
+</li>
+<li><p>Device attributes (without <code class="docutils literal notranslate"><span class="pre">in_voltageX</span></code>or <code class="docutils literal notranslate"><span class="pre">out_voltageX</span></code> prefix) apply to the entire device.</p></li>
+</ul>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
+root:/sys/bus/iio/devices&gt; ls
+iio:device0 iio:device3 iio:device2</p>
+<p>root:/sys/bus/iio/devices&gt; <strong>cd iio:device2</strong></p>
+<p>root&#64;analog:/sys/bus/iio/devices/iio:device2# ls -al
+total 0
+drwxr-xr-x 5 root root 0 Mar 28 12:44 .
+drwxr-xr-x 5 root root 0 Mar 28 12:44 …
+-rw-r–r– 1 root root 4096 Mar 28 12:44 adc_clk_powerdown
+drwxr-xr-x 2 root root 0 Mar 28 12:44 buffer
+-r–r–r– 1 root root 4096 Mar 28 12:44 dev
+–w——- 1 root root 4096 Mar 28 12:44 filter_fir_config
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_temp0_input
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_temp0_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_channel_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_channel_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_channel_nco_phase
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_main_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_main_ffh_trig_hop_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_i_nyquist_zone
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_channel_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_channel_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_channel_nco_phase
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_main_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_main_ffh_trig_hop_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage0_q_nyquist_zone
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_channel_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_channel_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_channel_nco_phase
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_main_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_main_ffh_trig_hop_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_i_nyquist_zone
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_channel_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_channel_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_channel_nco_phase
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_main_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_main_ffh_trig_hop_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage1_q_nyquist_zone
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_channel_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_channel_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_channel_nco_phase
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_main_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_main_ffh_trig_hop_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_i_nyquist_zone
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_channel_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_channel_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_channel_nco_phase
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_main_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_main_ffh_trig_hop_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage2_q_nyquist_zone
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_channel_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_channel_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_channel_nco_phase
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_main_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_main_ffh_trig_hop_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_i_nyquist_zone
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_channel_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_channel_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_channel_nco_phase
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_main_6db_digital_gain_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_main_ffh_trig_hop_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage3_q_nyquist_zone
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage_adc_frequency
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage_main_ffh_mode_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage_main_nco_frequency_available
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage_nyquist_zone_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage_sampling_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 in_voltage_test_mode
+-r–r–r– 1 root root 4096 Mar 28 12:44 in_voltage_test_mode_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 jesd204_fsm_ctrl
+-r–r–r– 1 root root 4096 Mar 28 12:44 jesd204_fsm_error
+-r–r–r– 1 root root 4096 Mar 28 12:44 jesd204_fsm_paused
+–w——- 1 root root 4096 Mar 28 12:44 jesd204_fsm_resume
+-r–r–r– 1 root root 4096 Mar 28 12:44 jesd204_fsm_state
+-rw-r–r– 1 root root 4096 Mar 28 12:44 loopback_mode
+-r–r–r– 1 root root 4096 Mar 28 12:44 loopback_mode_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 multichip_sync
+-r–r–r– 1 root root 4096 Mar 28 12:44 name
+lrwxrwxrwx 1 root root 0 Mar 28 12:44 of_node -&gt; …/…/…/…/…/firmware/devicetree/base/fpga-axi&#64;0/axi-ad9081-rx-hpc&#64;84a10000
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_channel_nco_gain_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_channel_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_channel_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_channel_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_main_nco_ffh_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_main_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_i_main_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_channel_nco_gain_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_channel_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_channel_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_channel_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_main_nco_ffh_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_main_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage0_q_main_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_channel_nco_gain_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_channel_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_channel_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_channel_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_main_nco_ffh_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_main_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_i_main_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_channel_nco_gain_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_channel_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_channel_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_channel_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_main_nco_ffh_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_main_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage1_q_main_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_channel_nco_gain_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_channel_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_channel_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_channel_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_main_nco_ffh_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_main_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_i_main_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_channel_nco_gain_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_channel_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_channel_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_channel_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_main_nco_ffh_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_main_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage2_q_main_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_channel_nco_gain_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_channel_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_channel_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_channel_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_main_nco_ffh_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_main_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_i_main_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_channel_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_channel_nco_gain_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_channel_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_channel_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_channel_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_label
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_main_ffh_mode
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_main_nco_ffh_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_main_nco_ffh_index
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_main_nco_ffh_select
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_main_nco_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_main_nco_phase
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_main_nco_test_tone_en
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage3_q_main_nco_test_tone_scale
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage_channel_nco_frequency_available
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage_dac_frequency
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage_main_ffh_gpio_mode_en
+-r–r–r– 1 root root 4096 Mar 28 12:44 out_voltage_main_ffh_mode_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage_main_nco_frequency_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 out_voltage_sampling_frequency
+drwxr-xr-x 2 root root 0 Mar 28 12:44 power
+-rw-r–r– 1 root root 4096 Mar 28 12:44 powerdown
+drwxr-xr-x 2 root root 0 Mar 28 12:44 scan_elements
+lrwxrwxrwx 1 root root 0 Mar 28 12:44 subsystem -&gt; …/…/…/…/…/bus/iio
+-rw-r–r– 1 root root 4096 Mar 28 12:44 sync_start_enable
+-r–r–r– 1 root root 4096 Mar 28 12:44 sync_start_enable_available
+-rw-r–r– 1 root root 4096 Mar 28 12:44 uevent</p>
+<p>&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="show-device-name">
+<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device2&gt; <strong>cat name</strong>
+axi-ad9081-rx-hpc
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="adc-rate">
+<h3>ADC Rate<a class="headerlink" href="#adc-rate" title="Link to this heading">¶</a></h3>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltage_adc_frequency</span></code></p>
+<p>Read only attribute which returns the RX ADC rate Hz.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device2&gt; <strong>cat in_voltage_adc_frequency</strong>
+4000000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="rx-sample-rate">
+<h3>RX Sample Rate<a class="headerlink" href="#rx-sample-rate" title="Link to this heading">¶</a></h3>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltage_sampling_frequency</span></code></p>
+<p>Read only attribute which returns the RX digital IQ base-band rate in Hz.
+This must not be confused with the ADC rate, which is (MAIN_decimation * CHANNEL_decimation) time higher.
+MAIN_decimation, CHANNEL_decimation are defined in the device tree.</p>
+<p>in_voltage_sampling_frequency = in_voltage_adc_frequency / (MAIN_decimation * CHANNEL_decimation)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device2&gt; <strong>cat in_voltage_sampling_frequency</strong>
+250000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="dac-rate">
+<h3>DAC Rate<a class="headerlink" href="#dac-rate" title="Link to this heading">¶</a></h3>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltage_dac_frequency</span></code></p>
+<p>Read only attribute which returns the TX DAC rate Hz.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device2&gt; <strong>cat out_voltage_dac_frequency</strong>
+12000000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="tx-sample-rate">
+<h3>TX Sample Rate<a class="headerlink" href="#tx-sample-rate" title="Link to this heading">¶</a></h3>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltage_sampling_frequency</span></code></p>
+<p>Read only attribute which returns the TX digital IQ base-band rate in Hz.
+This must not be confused with the DAC rate, which is (MAIN_interpolation * CHANNEL_interpolation) time higher.
+MAIN_interpolation, CHANNEL_interpolation are defined in the device tree.</p>
+<p>out_voltage_sampling_frequency = fDAC / (MAIN_interpolation * CHANNEL_interpolation)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device2&gt; <strong>cat out_voltage_sampling_frequency</strong>
+250000000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="adc-nyquist-zone-control">
+<h3>ADC Nyquist Zone Control<a class="headerlink" href="#adc-nyquist-zone-control" title="Link to this heading">¶</a></h3>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltageX_nyquist_zone</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltage_nyquist_zone_available</span></code></p>
+<p>Calibration is used to reduce residual spurious artifacts that are common among interleaving ADC architectures because of sub ADC timing, gain, and offsets mismatches. The ADCs are initially factory calibrated, and background calibration is also employed to further improve and maintain the performance across device operating conditions.</p>
+<p>One background calibration algorithm employed adjusts the interleaving timing mismatches and depends on the knowledge of the Nyquist zone being odd or even, which depends on the ADC input frequency (fIN), and sample rate (fADC), as defined in the following equation:</p>
+<p>Nyquist Zone = ROUNDDOWN × (fIN/(fADC/2)) + 1 (Please see: Calibration and Specifying Nyquist Zone in UG-1578)</p>
+<p><img alt="ad908x_nyquist_zones.png" src="resources/tools-software/linux-drivers/iio-mxfe/ad908x_nyquist_zones.png" />{.align-center width=“400” query=“?400”}</p>
+<p>The current Nyquist Zone can be queried and controlled via the <code class="docutils literal notranslate"><span class="pre">in_voltage_nyquist_zone</span></code> attribute.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/bus/iio/devices/iio:device2&gt; <strong>cat in_voltage_nyquist_zone_available</strong>
+<strong>odd even</strong>
+root:/sys/bus/iio/devices/iio:device2&gt; <strong>echo even &gt; cat in_voltage0_i_nyquist_zone</strong>
+root:/sys/bus/iio/devices/iio:device2&gt; <strong>cat cat in_voltage0_i_nyquist_zone</strong>
+<strong>even</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="nco-frequency-control">
+<h3>NCO Frequency Control<a class="headerlink" href="#nco-frequency-control" title="Link to this heading">¶</a></h3>
+<section id="main-data-path">
+<h4>Main Data Path<a class="headerlink" href="#main-data-path" title="Link to this heading">¶</a></h4>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">[in|out]_voltageX_[i|q]_main_nco_frequency</span></code></p>
+<p>Sets the main data path (CDDC/CDUC) NCO frequency (fCARRIER) in Hz<br />
+<strong>out_voltageX_i_main_nco_frequency Range is:</strong> −fDAC/2 ≤ fCARRIER &lt; +fDAC/2<br />
+<strong>in_voltageX_i_main_nco_frequency Range is:</strong> −fADC/2 ≤ fCARRIER &lt; +fADC/2</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **echo 1000000000 &gt; out_voltage0_i_main_nco_frequency **
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **cat out_voltage0_i_main_nco_frequency **
+**1000000000**</p>
+<p>root&#64;analog:/sys/bus/iio/devices/iio:device2# **echo 300000000 &gt; in_voltage0_i_main_nco_frequency **
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **cat in_voltage0_i_main_nco_frequency **
+**300000000 **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="channel-data-path">
+<h4>Channel Data Path<a class="headerlink" href="#channel-data-path" title="Link to this heading">¶</a></h4>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">[in|out]_voltageX_[i|q]_channel_nco_frequency</span></code></p>
+<p>Sets the channel data path (FDDC/FDUC) NCO frequency (fCARRIER) in Hz<br />
+<strong>out_voltageX_i_channel_nco_frequency Range is:</strong> −(fDAC/MAIN_interpolation)/2 ≤ fCARRIER &lt; +(fDAC/MAIN_interpolation)/2<br />
+<strong>in_voltageX_i_channel_nco_frequency Range is:</strong> −(fADC/MAIN_decimation)/2 ≤ fCARRIER &lt; +(fADC/MAIN_decimation)/2<br />
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **echo 1000000000 &gt; out_voltage0_i_channel_nco_frequency **
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_voltage0_i_channel_nco_frequency</strong>
+<strong>1000000000</strong></p>
+<p>root&#64;analog:/sys/bus/iio/devices/iio:device2# **echo 300000000 &gt; out_voltage0_i_channel_nco_frequency **
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_voltage0_i_channel_nco_frequency</strong>
+**300000000 **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="nco-phase-control">
+<h3>NCO Phase Control<a class="headerlink" href="#nco-phase-control" title="Link to this heading">¶</a></h3>
+<section id="id1">
+<h4>Main Data Path<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">[in|out]_voltageX_[i|q]_main_nco_phase</span></code></p>
+<p>Sets the main data path (CDDC/CDUC) NCO phase offset in milli degrees<br />
+<strong>Range is</strong>: −180° ≤ Degrees Offset ≤ +180° (Values are in milli degrees.)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **echo 66000 &gt; out_voltage0_i_main_nco_phase **
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **cat out_voltage0_i_main_nco_phase **
+**66000**</p>
+<p>root&#64;analog:/sys/bus/iio/devices/iio:device2# **echo -42000 &gt; in_voltage0_i_main_nco_phase **
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **cat in_voltage0_i_main_nco_phase **
+**-42000 **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="id2">
+<h4>Channel Data Path<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h4>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">[in|out]_voltageX_[i|q]_channel_nco_phase</span></code></p>
+<p>Sets the channel data path (FDDC/FDUC) NCO phase offset in milli degrees<br />
+<strong>Range is</strong>: −180° ≤ Degrees Offset ≤ +180° (Values are in milli degrees.)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **echo 13123 &gt; out_voltage0_i_channel_nco_phase **
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_voltage0_i_channel_nco_phase</strong>
+<strong>13123</strong></p>
+<p>root&#64;analog:/sys/bus/iio/devices/iio:device2# **echo 13123 &gt; out_voltage0_i_channel_nco_phase **
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat out_voltage0_i_channel_nco_phase</strong>
+**13123 **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="tx-nco-channel-digital-gain">
+<h3>TX NCO Channel Digital Gain<a class="headerlink" href="#tx-nco-channel-digital-gain" title="Link to this heading">¶</a></h3>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_channel_nco_gain_scale</span></code></p>
+<p>The input data into each channelizer stage can be rescaled prior to additional processing. This feature is useful in multiband applications to prevent digital clipping when the outputs of two or more channelizer stages are summed in the main datapath to produce a multiband band signal. The gain/scale is set via <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_channel_nco_gain_scale</span></code> attribute.</p>
+<p><strong>Range is</strong>: 0 ≤ Gain ≤ 1.999 (−∞ dB &lt; dBGain ≤ +6.018 dB)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>echo 0.707 &gt; out_voltage0_i_channel_nco_gain_scale</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="tx-nco-test-tone-modes">
+<h3>TX NCO Test Tone Modes<a class="headerlink" href="#tx-nco-test-tone-modes" title="Link to this heading">¶</a></h3>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_[channel|main]_nco_test_tone_en</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_[channel|main]_nco_test_tone_scale</span></code></p>
+<p>The Test Tone Mode can be enabled using the <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_[channel|main]_nco_test_tone_en</span></code> attributes in order to provide a complex, single-tone output.
+The tone is generated using a programmable internal dc amplitude level that is injected into the complex modulator input to generate an unmodulated single tone.
+The dc amplitude level is controlled by the <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_[channel|main]_nco_test_tone_scale</span></code> attributes which corresponds to a full-scale tone.</p>
+<p><strong>Range is</strong>: 0 ≤ Scale ≤ 0.9999.</p>
+<p>Please see also <a class="reference internal" href="#/resources/tools-software/linux-drivers/iio-mxfe/ad9081#nco_frequency_control"><span class="xref myst">NCO Frequency Control</span></a> section.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_channel_nco_test_tone_en</span></code> mode is most useful for applications that require multiple single-tone signals of varying frequency and amplitude, while applications that only require a single tone can use the same feature available on the main datapath NCOs. <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_test_tone_en</span></code></p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>echo 0.25 &gt; out_voltage0_i_channel_nco_test_tone_scale</strong>
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>echo 1 &gt; out_voltage0_i_channel_nco_test_tone_en</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="fast-frequency-hopping-control">
+<h3>Fast Frequency Hopping Control<a class="headerlink" href="#fast-frequency-hopping-control" title="Link to this heading">¶</a></h3>
+<p>The complex NCOs used in both the transmit and receive datapaths support FFH mode. In the transmit datapath, each main datapath NCO consists of a bank of 31 NCOs. In the receive main and channelizer datapaths, each NCO consists of a bank of 16 NCOs. The transmit and receive hop sequence can be independently controlled via GPIOx pins or the SPI register (IIO sysfs attributes). Asynchronous trigger hop mode is an additional mode only supported on the receive path.</p>
+<section id="transmit-main-path-ffh-nco-mode">
+<h4>Transmit Main Path FFH NCO Mode<a class="headerlink" href="#transmit-main-path-ffh-nco-mode" title="Link to this heading">¶</a></h4>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_ffh_frequency</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_ffh_index</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_ffh_select</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_ffh_mode</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">out_voltage_main_ffh_gpio_mode_en</span></code>\</p>
+<p>The FFH NCO associated with each main datapath is implemented with 31 additional 32-bit NCOs.
+Each NCO can be configured with a unique frequency tuning word FTWx where x is a value between 0 and 30. These FTWs can be preloaded into the hopping frequency register bank using the <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_ffh_index</span></code> and <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_ffh_frequency</span></code> attributes.</p>
+<p>The user first addresses hopping frequency register bank by setting its index using <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_ffh_index</span></code>, followed by setting the frequency using <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_ffh_frequency</span></code>.
+The user repeats these steps until all required FTWs are programmed.
+Once this is done, the pre-configured FTW can be called via the channels <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_nco_ffh_select</span></code> attribute, which accepts values between 0…30. Alternatively GPIO based hopping can be enabled using the <code class="docutils literal notranslate"><span class="pre">out_voltage_main_ffh_gpio_mode_en</span></code> attribute.
+The hop transition mode of NCOs can be controlled using the <code class="docutils literal notranslate"><span class="pre">out_voltageX_[i|q]_main_ffh_mode</span></code> attribute. Allowed options are phase_continuous, phase_incontinuous, and phase_coherent.</p>
+</section>
+<section id="receive-main-path-ffh-nco-mode">
+<h4>Receive Main Path FFH NCO Mode<a class="headerlink" href="#receive-main-path-ffh-nco-mode" title="Link to this heading">¶</a></h4>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_frequency</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_phase</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_ffh_index</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_ffh_select</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_ffh_mode</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_ffh_trig_hop_en</span></code><br />
+<strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_ffh_gpio_mode_en</span></code><br />
+Each main data path (CDDC) NCO contains 16 channel registers sets, that can be programmed with unique Frequency (PIW) and Phase (POW) settings.
+The user sets the channel index using <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_ffh_index</span></code>, followed by setting the frequency and phase using <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_frequency</span></code> and <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_phase</span></code>.
+The index attribute accepts values between 0 and 15. The user repeats these steps until all required FTWs are programmed.
+Once this is done, the pre-configured NCO can be selected via the channels <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_ffh_select</span></code> select attribute, which also accepts values between 0…15.
+Alternatively, GPIO based hopping can be configured using the <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_ffh_mode</span></code> attribute. The <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_ffh_mode</span></code> attribute options are instantaneous_update, synchronous_update_by_transfer_bit and synchronous_update_by_gpio. Using <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_ffh_gpio_mode_en</span></code> the GPIO controlled mode is enabled, the mode switches between the mode set in the devicetree using <code class="docutils literal notranslate"><span class="pre">adi,nco-channel-select-mode</span></code> and software/SPI control using <code class="docutils literal notranslate"><span class="pre">in_voltageX_[i|q]_main_nco_ffh_select</span></code>.</p>
+</section>
+</section>
+<section id="programmable-fir-filter">
+<h3>Programmable FIR Filter<a class="headerlink" href="#programmable-fir-filter" title="Link to this heading">¶</a></h3>
+<p>What: <code class="docutils literal notranslate"><span class="pre">filter_fir_config</span></code></p>
+<p>Both the AD9081 and AD9082 provide a hardware FIR filter that can be programmed with up to 192 taps, and runs at the full converter rate of 4 or 6 GS/s respectively. Typical usecases of this filter include, but are not limited to:</p>
+<ul class="simple">
+<li><p>Equalization of analog impairments</p></li>
+<li><p>Channel-to-channel crosstalk correction</p></li>
+<li><p>Equalization with crosstalk correction</p></li>
+<li><p>Quadrature error correction</p></li>
+</ul>
+<p>The full capabilities and supported operational modes are described on page 138 and onwards of the <a class="reference external" href="https://www.analog.com/media/en/technical-documentation/user-guides/ad9081-ad9082-ug-1578.pdf">AD9081/AD9082 User Guide (Rev. PrC)</a></p>
+<p>Filter configurations can be written as follows:</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# **cat /root/pfilt.cfg &gt; filter_fir_config **
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="configuration-file-format">
+<h4>Configuration File Format<a class="headerlink" href="#configuration-file-format" title="Link to this heading">¶</a></h4>
+<p>A filter configuration file is an ASCII textfile with LF line-endings, and supports the following directives:</p>
+<ul class="simple">
+<li><p>All lines starting with a <code class="docutils literal notranslate"><span class="pre">#</span></code> symbol are skipped / treated as comments. Note, the <code class="docutils literal notranslate"><span class="pre">#</span></code> has to be the <strong>first</strong> character of a line.</p></li>
+<li><p>Filter mode</p>
+<ul>
+<li><p>The filter mode determines the filter architecture, for more information about these see the user guide.</p></li>
+<li><p>Syntax: <code class="docutils literal notranslate"><span class="pre">mode:</span> <span class="pre">&lt;I_MODE&gt;</span> <span class="pre">&lt;Q_MODE&gt;</span></code>, where supported values of <code class="docutils literal notranslate"><span class="pre">I_MODE</span></code> and <code class="docutils literal notranslate"><span class="pre">Q_MODE</span></code> are: <code class="docutils literal notranslate"><span class="pre">disabled</span></code>, <code class="docutils literal notranslate"><span class="pre">real_n4</span></code>, <code class="docutils literal notranslate"><span class="pre">real_n2</span></code>, <code class="docutils literal notranslate"><span class="pre">matrix</span></code>, <code class="docutils literal notranslate"><span class="pre">complex_full</span></code>, <code class="docutils literal notranslate"><span class="pre">complex_half</span></code>, <code class="docutils literal notranslate"><span class="pre">real_n</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Filter gain</p>
+<ul>
+<li><p>The digital gain can be used to compensate coefficient gain/losses</p></li>
+<li><p>Syntax: <code class="docutils literal notranslate"><span class="pre">gain:</span> <span class="pre">&lt;Sa&gt;</span> <span class="pre">&lt;Sb&gt;</span> <span class="pre">&lt;Sc&gt;</span> <span class="pre">&lt;Sd&gt;</span></code>, where the filter gain values <code class="docutils literal notranslate"><span class="pre">S[abcd]</span></code> must be <code class="docutils literal notranslate"><span class="pre">-12</span></code>, <code class="docutils literal notranslate"><span class="pre">-6</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">6</span></code> or <code class="docutils literal notranslate"><span class="pre">12</span></code> (Unit is dB).</p>
+<ul>
+<li><p>Note: All values are required, even if only one is actually used!</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Destination</p>
+<ul>
+<li><p>The destination directive controls which ADC pair and page these values are applied to. Pages can be used to store multiple sets of coefficients and rapidly switch between them using gpios.</p></li>
+<li><p>Syntax: <code class="docutils literal notranslate"><span class="pre">dest:</span> <span class="pre">&lt;ADC_PAIR&gt;</span> <span class="pre">&lt;PAGES&gt;</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC_PAIR</span></code> must be either <code class="docutils literal notranslate"><span class="pre">adc_pair_0</span></code>, <code class="docutils literal notranslate"><span class="pre">adc_pair_1</span></code> or <code class="docutils literal notranslate"><span class="pre">adc_pair_all</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PAGES</span></code> must be either <code class="docutils literal notranslate"><span class="pre">page_0</span></code>, <code class="docutils literal notranslate"><span class="pre">page_1</span></code>, <code class="docutils literal notranslate"><span class="pre">page_2</span></code>, <code class="docutils literal notranslate"><span class="pre">page_3</span></code> or <code class="docutils literal notranslate"><span class="pre">page_all</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Delay</p>
+<ul>
+<li><p>This setting is used for filter delay compensation in half complex mode and quadrature error correction / image rejection respectively.</p></li>
+<li><p>Syntax: <code class="docutils literal notranslate"><span class="pre">delay:</span> <span class="pre">&lt;HALF_COMPLEX_DELAY&gt;</span> <span class="pre">&lt;IMAGE_CANCEL_DELAY&gt;</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">HALF_COMPLEX_DELAY</span></code>: Integer in [0, 255] (Unit is samples)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IMAGE_CANCEL_DELAY</span></code>: Integer in [0, 127] (Unit is samples)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Filter coefficients</p>
+<ul>
+<li><p>Lines containing filter coefficients are not prefixed, and should either contain two or four 16-bit integers in decimal notation, where four values are required when <code class="docutils literal notranslate"><span class="pre">I_MODE</span> <span class="pre">==</span> <span class="pre">matrix</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<p>The parser can be found here: <a class="reference external" href="https://github.com/analogdevicesinc/linux/blob/d9dc5b364e5a589f6156834dec2dfb0fb55033bd/drivers/iio/adc/ad9081.c#L2430-L2647">ad9081_parse_fir</a></p>
+<section id="examples">
+<h5>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h5>
+<p>The iio-oscilloscope project provides some samples which can be used as a reference:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/analogdevicesinc/iio-oscilloscope/blob/master/filters/ad9081/ad9081_pfir_OFF.cfg">ad9081_pfir_OFF.cfg</a></p></li>
+<li><p><a class="reference external" href="https://github.com/analogdevicesinc/iio-oscilloscope/blob/master/filters/ad9081/ad9081_pfir_DualReal.cfg">ad9081_pfir_DualReal.cfg</a></p></li>
+<li><p><a class="reference external" href="https://github.com/analogdevicesinc/iio-oscilloscope/blob/master/filters/ad9081/ad9081_pfir_SingleInphase.cfg">ad9081_pfir_SingleInphase.cfg</a></p></li>
+<li><p><a class="reference external" href="https://github.com/analogdevicesinc/iio-oscilloscope/blob/master/filters/ad9081/ad9081_pfir_Matrix.cfg">ad9081_pfir_Matrix.cfg</a></p></li>
+<li><p><a class="reference external" href="https://github.com/analogdevicesinc/iio-oscilloscope/blob/master/filters/ad9081/ad9081_pfir_FullComplex.cfg">ad9081_pfir_FullComplex.cfg</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="loopback-modes">
+<h3>Loopback Modes<a class="headerlink" href="#loopback-modes" title="Link to this heading">¶</a></h3>
+<p>The AD9081/AD9082 supports two methods to loopback the samples from the receive (ADC) path to the transmit (DAC) path.</p>
+<section id="jesd-loopback-rx-tx">
+<h4>JESD Loopback RX-&gt;TX<a class="headerlink" href="#jesd-loopback-rx-tx" title="Link to this heading">¶</a></h4>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">loopback_mode</span></code></p>
+<p>The <strong>indirect loopback</strong> path loops the ADC outputs through the receive and transmit datapaths to take advantage of the signal processing capability. The data
+loopback occurs between the lane FIFO blocks of the JESD204B/C transmitter and JESD204B/C receiver.
+For this mode to function correctly the JESD configuration between RX and TX must be identical and only use a single link.The physical to logical lane mapping for both links must also match.</p>
+<p>The <strong>direct loopback</strong> path loops the ADC output data directly back into a specified DAC without any signal processing, which provides the shortest path latency but no ability to delay or modify the received signal before re-transmitting through the DAC cores. For this mode to function correctly the ADC and DAC rates must match.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>0</code></td>
+<td>Looback mode is disabled</td>
+</tr>
+<tr class="even">
+<td><code>1</code></td>
+<td>Indirect Loopback enabled</td>
+</tr>
+<tr class="odd">
+<td><code>2</code></td>
+<td>Direct Loopback enabled</td>
+</tr>
+<tr class="even">
+<td><code>3</code></td>
+<td>Direct Loopback enabled with control of ADC data overflow before looping back to DAC</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>echo 1 &gt; loopback_mode</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="on-die-temperature-reading">
+<h3>On-Die Temperature Reading<a class="headerlink" href="#on-die-temperature-reading" title="Link to this heading">¶</a></h3>
+<p><strong>What:</strong> <code class="docutils literal notranslate"><span class="pre">in_temp0_input</span></code></p>
+<p>The device contains a Temperature Monitoring Unit (TMU) that functions as a digital thermometer. The TMU is comprised of four sensors placed at different chip locations. The on-die temperature value is measured and digitized through an ADC. At any given time, the temperature in signed milli-degrees Celsius, from the sensor with the <strong>highest</strong> temperature can be read from the <code class="docutils literal notranslate"><span class="pre">in_temp0_input</span></code> attribute.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/bus/iio/devices/iio:device2# <strong>cat in_temp0_input</strong>
+<strong>86120</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+</section>
+<section id="low-level-debug-functions-via-debugfs">
+<h2>Low level debug functions via debugfs<a class="headerlink" href="#low-level-debug-functions-via-debugfs" title="Link to this heading">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@analog:/sys/kernel/debug/iio/iio:device2# ls -al
+total 0
+drwxr-xr-x 2 root root 0 Jan  1  1970 .
+drwxr-xr-x 5 root root 0 Jan  1  1970 ..
+-rw-r--r-- 1 root root 0 Jan  1  1970 bist_prbs_error_counters_jrx
+-rw-r--r-- 1 root root 0 Jan  1  1970 bist_prbs_select_jrx
+-rw-r--r-- 1 root root 0 Jan  1  1970 bist_prbs_select_jtx
+-rw-r--r-- 1 root root 0 Jan  1  1970 bist_spo_set_jrx
+-rw-r--r-- 1 root root 0 Jan  1  1970 bist_spo_sweep_jrx
+-rw------- 1 root root 0 Jan  1  1970 dac-full-scale-current-ua
+-rw-r--r-- 1 root root 0 Feb  6 18:18 direct_reg_access
+-rw-r--r-- 1 root root 0 Jan  1  1970 pseudorandom_err_check
+-r--r--r-- 1 root root 0 Jan  1  1970 status
+</pre></div>
+</div>
+<section id="jesd-link-status">
+<h3>JESD Link Status<a class="headerlink" href="#jesd-link-status" title="Link to this heading">¶</a></h3>
+<p>Reading <code class="docutils literal notranslate"><span class="pre">status</span></code> returns a status string.</p>
+<p><strong>Example:</strong>
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>cat status</strong>
+<strong>JESD TX (JRX) Link1 0xF lanes in DATA
+JESD TX (JRX) Link1 TPL Phase Difference Read 0, Set 3
+JESD RX (JTX) Link1 in DATA, SYNC deasserted, PLL locked, PHASE established, MODE valid</strong>
+root&#64;analog:/sys/kernel/debug/iio/iio:device2#
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="dac-full-scale-current-ua">
+<h3>dac-full-scale-current-ua<a class="headerlink" href="#dac-full-scale-current-ua" title="Link to this heading">¶</a></h3>
+<p>Writing <code class="docutils literal notranslate"><span class="pre">dac-full-scale-current-ua</span></code> controls the DAC full scale current in uA.
+Recommended range is 7000.…40000 (7mA - 40mA)</p>
+<p><strong>Example:</strong>
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>echo 40000 &gt; dac-full-scale-current-ua</strong>
+root&#64;analog:/sys/kernel/debug/iio/iio:device2#
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="bist-prbs-select-jrx">
+<h3>bist_prbs_select_jrx<a class="headerlink" href="#bist-prbs-select-jrx" title="Link to this heading">¶</a></h3>
+<p>Writing <code class="docutils literal notranslate"><span class="pre">bist_prbs_select_jrx</span></code> selects the <a class="reference external" href="https://en.wikipedia.org/wiki/PRBS">PRBS</a> type. (accepted values depend on the GT architecture).
+Reading returns the selected type.</p>
+<p>&lt;note tip&gt;When testing this feature make sure <a class="reference internal" href="#/resources/tools-software/linux-drivers/jesd204/axi_adxcvr#prbs_select1"><span class="xref myst">axi_adxcvr-tx prbs_select</span></a> is configured with a matching PRBS.
+&lt;/note&gt;</p>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>PRBS_DISABLE</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>PRBS7</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>PRBS9</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>PRBS15</td>
+</tr>
+<tr class="odd">
+<td>31</td>
+<td>PRBS31</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> &lt;PRBS Type&gt; &lt;PRBS test duration time in seconds&gt;
+</pre></div>
+</div>
+<p><strong>Example:</strong>
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>echo 15 1 &gt; bist_prbs_select_jrx</strong>
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>cat bist_prbs_select_jrx</strong>
+<strong>15</strong>
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>cat bist_prbs_error_counters_jrx</strong>
+<strong>0/1 0/1 0/1 0/1 0/1 0/1 0/1 0/1</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="bist-prbs-error-counters-jrx">
+<h3>bist_prbs_error_counters_jrx<a class="headerlink" href="#bist-prbs-error-counters-jrx" title="Link to this heading">¶</a></h3>
+<p>Reading <code class="docutils literal notranslate"><span class="pre">bist_prbs_error_counters_jrx</span></code> returns the PRBS error counters for all lanes.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Link0</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>[: Link1]</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Lane_0</td>
+<td>Lane_1</td>
+<td>Lane_2</td>
+<td>...</td>
+<td>Lane_L-1</td>
+<td>: Lane_0</td>
+<td>Lane_1</td>
+<td>Lane_2</td>
+<td>...</td>
+<td>Lane_L-1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&lt;errors&gt;/&lt;pass&gt;</td>
+<td>&lt;errors&gt;/&lt;pass&gt;</td>
+<td>&lt;errors&gt;/&lt;pass&gt;</td>
+<td>...</td>
+<td>&lt;errors&gt;/&lt;pass&gt;</td>
+<td>&lt;errors&gt;/&lt;pass&gt;</td>
+<td>&lt;errors&gt;/&lt;pass&gt;</td>
+<td>&lt;errors&gt;/&lt;pass&gt;</td>
+<td>...</td>
+<td>&lt;errors&gt;/&lt;pass&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Format is: &lt;errors&gt;/&lt;pass&gt;</p>
+<p><strong>Example:</strong>
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>cat bist_prbs_error_counters_jrx</strong>
+<strong>0/1 0/1 0/1 0/1 0/1 0/1 0/1 0/1</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="bist-prbs-select-jtx">
+<h3>bist_prbs_select_jtx<a class="headerlink" href="#bist-prbs-select-jtx" title="Link to this heading">¶</a></h3>
+<p>Writing <code class="docutils literal notranslate"><span class="pre">bist_prbs_select_jtx</span></code> selects the <a class="reference external" href="https://en.wikipedia.org/wiki/PRBS">PRBS</a> type. (accepted values depend on the GT architecture).
+Reading returns the selected type.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>PRBS_DISABLE</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>PRBS7</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>PRBS15</td>
+</tr>
+<tr class="even">
+<td>31</td>
+<td>PRBS31</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong>
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>echo 31 &gt; bist_prbs_select_jtx</strong>
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>cat bist_prbs_select_jtx</strong>
+<strong>31</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="bist-spo-sweep-jrx">
+<h3>bist_spo_sweep_jrx<a class="headerlink" href="#bist-spo-sweep-jrx" title="Link to this heading">¶</a></h3>
+<p>Writing following 3 values to <code class="docutils literal notranslate"><span class="pre">bist_spo_sweep_jrx</span></code> performs a horizontal sweep of the “static phase offset” (SPO) codes and checking for PRBS errors as described in the JESD204B/C Receiver PHY PRBS Testing section of the User Guide.
+Reading <code class="docutils literal notranslate"><span class="pre">bist_spo_sweep_jrx</span></code> returns the good left and right SPO value.</p>
+<p>&lt;note tip&gt;When testing this feature make sure <a class="reference internal" href="#/resources/tools-software/linux-drivers/jesd204/axi_adxcvr#prbs_select1"><span class="xref myst">axi_adxcvr-tx prbs_select</span></a> is configured with a matching PRBS.
+&lt;/note&gt;</p>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>PRBS type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>PRBS_DISABLE</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>PRBS7</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>PRBS9</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>PRBS15</td>
+</tr>
+<tr class="odd">
+<td>31</td>
+<td>PRBS31</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;Lane 0…7&gt; &lt;PRBS type&gt; &lt;PRBS test duration time in seconds&gt;</p>
+<p><strong>Example:</strong>
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>echo 0 15 1 &gt; bist_spo_sweep_jrx</strong>
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>cat bist_spo_sweep_jrx</strong>
+<strong>l:18 r:20</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="bist-spo-set-jrx">
+<h3>bist_spo_set_jrx<a class="headerlink" href="#bist-spo-set-jrx" title="Link to this heading">¶</a></h3>
+<p>Writing <code class="docutils literal notranslate"><span class="pre">bist_spo_set_jrx</span></code> sets the SPO offset. Range depends on the deserializer mode.
+Reading returns the written value. This feature can be used to implement 2D eye scan externally.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Deserializer mode</th>
+<th>Lane rate</th>
+<th>SPO Range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HALF_RATE</td>
+<td>8...16 Gbps</td>
+<td>+/- 32</td>
+</tr>
+<tr class="even">
+<td>QUART_RATE</td>
+<td>&gt; 16 Gbps</td>
+<td>+/- 16</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong>
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>echo 2 &gt; bist_spo_set_jrx</strong>
+root&#64;analog:/sys/kernel/debug/iio/iio:device2# <strong>cat bist_spo_set_jrx</strong>
+<strong>2</strong>
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="bist-2d-eyescan-jrx">
+<h3>bist_2d_eyescan_jrx<a class="headerlink" href="#bist-2d-eyescan-jrx" title="Link to this heading">¶</a></h3>
+<p>The device has built in comparator circuits that enables the ability to reproduce an eye diagram estimate at the output of the CTLE circuit inside the JESD204B/C receiver core.</p>
+<p>Writing <code class="docutils literal notranslate"><span class="pre">bist_2d_eyescan_jrx</span></code> selects the physical lane (0…7). In HALF_RATE mode two additional arguments are requires. (PRBS type and duration)
+Reading returns either error (-22) in case the Lane is not mapped, or CSV for SPO offset, good upper and lower voltages in mV.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Deserializer mode</th>
+<th>Lane rate</th>
+<th>SPO Range</th>
+<th>bist_2d_eyescan_jrx arguments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HALF_RATE</td>
+<td>8...16 Gbps</td>
+<td>+/- 32</td>
+<td>&lt;Physical Lane 0..7&gt; &lt;PRBS type&gt; &lt;PRBS test duration time in ms&gt;</td>
+</tr>
+<tr class="even">
+<td>QUART_RATE</td>
+<td>&gt; 16 Gbps</td>
+<td>+/- 16</td>
+<td>&lt;Physical Lane 0..7&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;note tip&gt;When using HALF_RATE mode make sure <a class="reference internal" href="#/resources/tools-software/linux-drivers/jesd204/axi_adxcvr#prbs_select1"><span class="xref myst">axi_adxcvr-tx prbs_select</span></a> is configured with a matching PRBS.
+&lt;/note&gt;</p>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>PRBS type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>PRBS_DISABLE</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>PRBS7</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>PRBS9</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>PRBS15</td>
+</tr>
+<tr class="odd">
+<td>31</td>
+<td>PRBS31</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong>
+&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root&#64;analog:~# echo 7 &gt; /sys/bus/platform/devices/84b60000.axi-adxcvr-tx/prbs_select
+root&#64;analog:~# iio_attr -D axi-ad9081-rx-hpc bist_2d_eyescan_jrx “1 7 10”
+# lane 1 spo_steps 64 rate 10000000
+-1,204,-204
+-2,204,-204
+-3,204,-208
+-4,204,-204
+-5,204,-204
+-6,204,-204
+-7,200,-200
+-8,200,-200
+-9,196,-196
+-10,196,-192
+-11,188,-184
+-12,180,-180
+-13,172,-176
+-14,160,-164
+-15,152,-148
+[-snip-]
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="example-eye-diagram-created-from-half-rate-eye-scan-data">
+<h4>Example Eye Diagram Created from Half Rate Eye Scan Data<a class="headerlink" href="#example-eye-diagram-created-from-half-rate-eye-scan-data" title="Link to this heading">¶</a></h4>
+<p>Example from: <a class="reference internal" href="#github%3Epyadi-iio"><span class="xref myst">pyadi-iio</span></a></p>
+<p><img alt="screenshot_from_2024-01-19_14-15-55.png" src="resources/tools-software/linux-drivers/iio-mxfe/screenshot_from_2024-01-19_14-15-55.png" />{.align-center width=“400” query=“?400”}</p>
+</section>
+</section>
+</section>
+<section id="low-level-register-access-via-debugfs-direct-reg-access">
+<h2>Low level register access via debugfs (direct_reg_access)<a class="headerlink" href="#low-level-register-access-via-debugfs-direct-reg-access" title="Link to this heading">¶</a></h2>
+<p><img alt="iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&amp;noheader&amp;firstseconly&amp;noeditbtn" src="page%3Esoftware/linux/docs/iio/iio_snippets#low_level_register_access_via_debugfs_direct_reg_access&amp;noheader&amp;firstseconly&amp;noeditbtn" /></p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="../iio-adc/ad9083.html" title="Previous document" class="prev">AD9083 Linux Driver</a>
+    <a href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html" title="Next document" class="next">AD9208 ADC Linux Driver</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

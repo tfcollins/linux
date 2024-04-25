@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver &#8212; Linux Kernel: Variant from Analog Devices, Inc. v6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.min.css?v=cf8483f0" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <script src="../../../_static/documentation_options.js?v=cb43cce9"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/tabs.js?v=3ee01567"></script>
+    <script defer="" src="../../../_static/app.umd.js?v=96350458"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ADAR1000 8 GHz to 16 GHz, 4-Channel, X Band and KuBand Beamformer Linux device driver" href="../iio-transceiver/adar1000.html" />
+    <link rel="prev" title="ADAQ8092 14-Bit, 105 MSPS, μModule Linux device driver" href="adaq8092.html" />
+   
+  
+    <meta name="robots" content="noindex">
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head><body>
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <header>
+    <div class="header">
+      <div id="left">
+        <label id="show-sidebar" for="input-show-toc" title="Show/hide index"></label>
+      </div>
+      <div id="right">
+        <span>
+          <a id="logo-org" href="https://analog.com"></a>
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a>
+        </span>
+        <span class="reverse">
+          <label id="show-localtoc" for="input-show-localtoc" title="Show/hide contents"></label>
+        </span>
+      </div>
+    </div>
+    <div class="repotoc-tree">
+      <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+    </div>
+  </header>
+
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div>
+          <div class="localtoc-header">On this page</div>
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver</a><ul>
+<li><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
+<li><a class="reference internal" href="#evaluation-boards">Evaluation Boards</a></li>
+<li><a class="reference internal" href="#reference-circuits">Reference Circuits</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li><a class="reference internal" href="#status">Status</a></li>
+<li><a class="reference internal" href="#files">Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-platform-device-initialization">Example platform device initialization</a></li>
+<li><a class="reference internal" href="#adding-linux-driver-support">Adding Linux driver support</a></li>
+<li><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
+<li><a class="reference internal" href="#driver-testing">Driver testing</a><ul>
+<li><a class="reference internal" href="#show-device-name">Show device name</a></li>
+<li><a class="reference internal" href="#list-available-low-filter-frequencies">List available low filter frequencies</a></li>
+<li><a class="reference internal" href="#set-and-show-low-filter-frequency">Set and show low filter frequency</a></li>
+<li><a class="reference internal" href="#set-and-show-filter-frequency">Set and show filter frequency</a></li>
+<li><a class="reference internal" href="#list-available-adc-gain-values">List available ADC gain values</a></li>
+<li><a class="reference internal" href="#set-and-adc-gain-value">Set and ADC gain value</a></li>
+<li><a class="reference internal" href="#set-adc-calibration-gain">Set ADC calibration gain</a></li>
+<li><a class="reference internal" href="#list-available-right-leg-drive-outputs">List available Right Leg drive outputs</a></li>
+<li><a class="reference internal" href="#select-right-leg-drive-output-electrode">Select Right Leg drive output electrode</a></li>
+<li><a class="reference internal" href="#enable-disable-right-leg-drive-output">Enable/Disable Right Leg drive output</a></li>
+<li><a class="reference internal" href="#setup-right-leg-drive-summing-junction-configuration">Setup Right Leg drive summing junction configuration</a></li>
+<li><a class="reference internal" href="#setup-vcm-summing-junction-configuration">Setup VCM summing junction configuration</a></li>
+<li><a class="reference internal" href="#enable-disable-shield-driver">Enable/Disable shield driver</a></li>
+<li><a class="reference internal" href="#enable-disable-calibration-dac">Enable/Disable calibration DAC</a></li>
+<li><a class="reference internal" href="#set-calibration-dac-output-value">Set calibration DAC output value</a></li>
+<li><a class="reference internal" href="#show-calibration-dac-scale">Show calibration DAC scale</a></li>
+<li><a class="reference internal" href="#debugfs">Debugfs</a></li>
+<li><a class="reference internal" href="#direct-register-read-and-write-acccess">Direct register read and write acccess</a></li>
+<li><a class="reference internal" href="#check-fuse-crc-status">Check fuse CRC status</a></li>
+<li><a class="reference internal" href="#check-fuse-status">Check fuse status</a></li>
+<li><a class="reference internal" href="#check-pll-status">Check PLL status</a></li>
+<li><a class="reference internal" href="#enable-testtone">Enable testtone</a></li>
+<li><a class="reference internal" href="#set-testtone-frequnecy">Set testtone frequnecy</a></li>
+<li><a class="reference internal" href="#enable-internal-testtone-routing">Enable internal testtone routing</a></li>
+<li><a class="reference internal" href="#enable-external-testtone-output">Enable external testtone output</a></li>
+<li><a class="reference internal" href="#enable-testtone-routing-to-individual-ecg-channels">Enable testtone routing to individual ECG channels</a></li>
+<li><a class="reference internal" href="#trigger-management">Trigger management</a></li>
+<li><a class="reference internal" href="#buffer-management">Buffer management</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+              <a id="no-logo" href="../../../index.html">
+                Linux Kernel: Variant from Analog Devices, Inc.
+              </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="../../../../documentation/eval/index.html">Evaluation Boards</a>
+  <a href="../../../../documentation/university/index.html">University Program</a>
+  <a href="../../../../hdl/index.html">HDL</a>
+  <a href="../../../../no-OS/index.html">no-OS</a>
+  <a href="../../../../pyadi-iio/index.html">pyadi-iio</a>
+  <a href="../../../../precision-converters-firmware/index.html">Precision Converters Firmware</a>
+  <a href="../../../../PrecisionToolbox/index.html">Precision Toolbox</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <html>
+  <body><ul class="current">
+<li class="toctree-l1 current"><input class="toctree-collapse" type="checkbox" name="toctree-collapse-1" id="toctree-collapse-1" checked=""/><div class="collapse"><a class="reference internal" href="../../../drivers_index.html">Linux Drivers</a><label for="toctree-collapse-1"><div class="icon"></div></label></div><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../multifunction-device/adp5520.html">ADP5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8860.html">ADP8860</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../backlight/adp8870.html">ADP8870</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clk/adi/clk-ad9545.c.html">AD9545</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5588.html">ADP5587</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-keyboard/adp5589.html">ADP5585</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/axi_fan_control.html">Fan Control IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hwmon/ltc2947.html">LTC2947</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin1100.html">ADIN1100</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-phy/adin.html">ADIN1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin1110.html">ADIN1110</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/adin2111.html">ADIN2111</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../net-mac-phy/open_alliance.html">Open Alliance - 10BASE-T1x MAC-PHY Serial Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl313.html">ADXL312,</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl345.html">ADXL345</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl355.html">ADXL355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/adxl362.html">ADXL362</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl367.html">ADXL367</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adxl372.html">ADXL372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16201.html">ADIS16201</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16203.html">ADIS16203</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16209.html">ADIS16209</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-accelerometer/adis16240.html">ADIS16240</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ad8366.html">AD8366</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/ada4250.html">ADA4250</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-amplifiers/hmc425a.html">HMC425</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad400x.html">AD4003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad4630.html">AD4030-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad9208.html">AD6684</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7476a.html">AD7091</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7091r5.html">AD7091R-5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7091r8.html">AD7091R-8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7124.html">AD7124</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7780.html">AD7170</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7192.html">AD7190</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7266.html">AD7265</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7280a.html">AD7280A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7291.html">AD7291</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7298.html">AD7298</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad738x.html">AD7380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7606.html">AD7605-4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7766.html">AD7766-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7768-1.html">AD7768-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7768.html">AD7768</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7793.html">AD7785</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7791.html">AD7787</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7887.html">AD7887</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad7998.html">AD7991</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad9083.html">AD9083</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-mxfe/ad9081.html">AD9207</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../resources/tools-software/linux-drivers/iio-adc/ad9208.html">AD9208</a></li>
+<li class="toctree-l2"><a class="reference internal" href="axi-adc-hdl.html">AD9234</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adaq8092.html">ADAQ8092</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ADAS1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adar1000.html">ADAR1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7152.html">AD7152</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7150.html">AD7150</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-cdc/ad7745.html">AD7745</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-addac/ad74413r.html">AD74412R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/axi-ad3552r.html">AD3552R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5064.html">AD5024</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5446.html">AD5300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5676.html">AD5310R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5360.html">AD5360</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5380.html">AD5380</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5449.html">AD5415</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5421.html">AD5421</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5504.html">AD5501</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5592r.html">AD5592R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5593r.html">AD5593R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5624r.html">AD5624</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5755.html">AD5735</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5764.html">AD5744</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5758.html">AD5758</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5791.html">AD5760</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ad5770r.html">AD5770R</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/axi-dac-dds-hdl.html">AD9122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dac/ltc2664.html">LTC2664</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9832.html">AD9832</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-dds/ad9834.html">AD9833</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-filter/admv8818.html">ADMV8818</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9162.html">AD9161</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9508.html">AD9508</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9517.html">AD9516-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9523.html">AD9523-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ad9528.html">AD9528</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4159.html">ADF4159</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4350.html">ADF4350</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4360.html">ADF4360-0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4371.html">ADF4371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf4377.html">ADF4377</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adf5355.html">ADF4355</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1013.html">ADMV1013</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/admv1014.html">ADMV1014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/adrf6780.html">ADRF6780</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/hmc7044.html">HMC7044</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-pll/ltc6952.html">LTC6952</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16060.html">ADIS16060</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16080.html">ADIS16080</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16130.html">ADIS16130</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16136.html">ADIS16133</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adis16260.html">ADIS16251</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-gyroscope/adxrs450.html">ADXRS450</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-impedance-analyzer/ad5933.html">AD5933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16400.html">ADIS16300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16480.html">ADIS16375</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-inertial-measurement-units/adis16475.html">ADIS16460</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s90.html">AD2S90</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1200.html">AD2S1200</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-resolver/ad2s1210.html">AD2S1210</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ad6676.html">AD6676</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9361.html">AD9361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/ad9371.html">AD9371</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9002.html">ADRV9002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-transceiver/adrv9009.html">ADRV9008-1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-temperature/ltc2983.html">LTC2983</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iio-vector-power/adl5960.html">ADL5960</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-misc/ad714x.html">AD7142</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7873.html">AD7873</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7877.html">AD7877</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../input-touchscreen/ad7879.html">AD7879</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../leds/adp1650.html">ADP1650</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../misc/dpot.html">AD5160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mux/adgs1408.html">ADGS1408</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking-mac802154/adf7242.html">ADF7241</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/adp150.html">ADP122</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../regulator/ad5398.html">AD5398</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../serial/max310x.html">MAX3107</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1835a.html">AD1835A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad1936.html">AD1933</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ad73322.html">AD73311</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1361.html">ADAU1361</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1372.html">ADAU1372</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1373.html">ADAU1373</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1381.html">ADAU1381</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1701.html">ADAU1401A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau1977.html">ADAU1977</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7002.html">ADAU7002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adau7118.html">ADAU7118</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/adav801.html">ADAV801</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm2602.html">SSM2602</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sound/ssm4567.html">SSM4567</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../drm/adv7511.html">ADV7511</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/build.html">Building Kernels</a></li>
+</ul>
+</body>
+</html>
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="adas1000-low-power-5-electrode-electrocardiogram-ecg-analog-front-end-afe-linux-driver">
+<h1>ADAS1000: Low Power, 5-ELECTRODE ELECTROCARDIOGRAM (ECG) ANALOG FRONT END (AFE) Linux Driver<a class="headerlink" href="#adas1000-low-power-5-electrode-electrocardiogram-ecg-analog-front-end-afe-linux-driver" title="Link to this heading">¶</a></h1>
+<section id="supported-devices">
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EADAS1000"><span class="xref myst">ADAS1000</span></a></p></li>
+</ul>
+</section>
+<section id="evaluation-boards">
+<h2>Evaluation Boards<a class="headerlink" href="#evaluation-boards" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3EEVAL-ADAS1000SDZ"><span class="xref myst">EVAL-ADAS1000SDZ</span></a></p></li>
+</ul>
+</section>
+<section id="reference-circuits">
+<h2>Reference Circuits<a class="headerlink" href="#reference-circuits" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#adi%3ECN0308"><span class="xref myst">CN0308</span></a></p></li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>This is a Linux industrial I/O (<a class="reference internal" href="#/software/linux/docs/iio/iio"><span class="xref myst">IIO</span></a>) subsystem driver, targeting multi channel serial interface ADCs.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See <a class="reference internal" href="#/software/linux/docs/iio/iio"><span class="xref myst">IIO</span></a> for more information.</p>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
+<section id="status">
+<h3>Status<a class="headerlink" href="#status" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="linux.github&gt;adas1000?drivers/iio/adc/adas1000.c">drivers/iio/adc/adas1000.c</a></td>
+<td><a href="git.linux.org&gt;drivers/iio/adc/adas1000.c">In progress</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h3>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="linux.github&gt;adas1000?drivers/iio/adc/adas1000.c">drivers/iio/adc/adas1000.c</a></td>
+</tr>
+<tr class="even">
+<td>include</td>
+<td><a href="linux.github&gt;adas1000?include/linux/platform_data/adas1000.h">include/linux/platform_data/adas1000.h</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example-platform-device-initialization">
+<h2>Example platform device initialization<a class="headerlink" href="#example-platform-device-initialization" title="Link to this heading">¶</a></h2>
+<p>![](page&gt;software/linux/docs/platform_and_bus_model#Platform Data&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * struct adas1000_platform_data - ADAS1000 platform data</span>
+<span class="cm"> * @enbale_vref_buffer: If true enable the vref buffer</span>
+<span class="cm"> * @use_external_clock: If true use the external clock applied at the XTAL pin</span>
+<span class="cm"> * @driver_external_common_mode: If true drive the internal common mode signal</span>
+<span class="cm"> *  to the external common mode pin.</span>
+<span class="cm"> * @use_external_common_mode: If true use the signal applied at the external</span>
+<span class="cm"> *  common mode pin as the common mode signal.</span>
+<span class="cm"> * @high_perfomance: If true configure the ADAS1000 for high performance mode.</span>
+<span class="cm"> **/</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">adas1000_platform_data</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">enable_vref_buffer</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_external_clock</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">drive_external_common_mode</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_external_common_mode</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">high_performance</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">adas1000_platform_data</span><span class="w"> </span><span class="n">pdata</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">enable_vref_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">high_performance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>If no platform data is provided the driver will use the device’s default setting for all registers.</p>
+<p>![](page&gt;software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&amp;firstseconly&amp;noeditbtn)</p>
+<p>Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">spi_board_info</span><span class="w"> </span><span class="n">board_spi_board_info</span><span class="p">[]</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">modalias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;adas1000&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">max_speed_hz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000000</span><span class="p">,</span><span class="w">     </span><span class="cm">/* max spi clock (SCK) speed in HZ */</span>
+<span class="w">        </span><span class="p">.</span><span class="n">bus_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">chip_select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPIO_PF10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">MAX_CTRL_CS</span><span class="p">,</span><span class="w"> </span><span class="cm">/* CS, change it for your board */</span>
+<span class="w">        </span><span class="p">.</span><span class="n">platform_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">adas1000_pdata</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPI_MODE_0</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">board_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">[</span><span class="o">--</span><span class="n">snip</span><span class="o">--</span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">spi_register_board_info</span><span class="p">(</span><span class="n">board_spi_board_info</span><span class="p">,</span><span class="w"> </span><span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">board_spi_board_info</span><span class="p">));</span>
+
+<span class="w">    </span><span class="p">[</span><span class="o">--</span><span class="n">snip</span><span class="o">--</span><span class="p">]</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">arch_initcall</span><span class="p">(</span><span class="n">board_init</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-linux-driver-support">
+<h2>Adding Linux driver support<a class="headerlink" href="#adding-linux-driver-support" title="Link to this heading">¶</a></h2>
+<p>Configure kernel with “make menuconfig” (alternatively use “make xconfig” or
+“make qconfig”)</p>
+<p>&lt;WRAP round help&gt;
+The ADAS1000 Driver depends on <strong>CONFIG_SPI</strong>
+&lt;/WRAP&gt;</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Linux Kernel Configuration
+    Device Drivers  ---&gt;
+        &lt;*&gt;     Industrial I/O support ---&gt;
+            --- Industrial I/O support
+            [--snip--]
+            Analog to digital converters  ---&gt;  
+                *** Analog to digital converters ***
+                [--snip--]
+                &lt;*&gt; Analog Devices ADAS1000 ECG driver
+                [--snip--]
+</pre></div>
+</div>
+</section>
+<section id="hardware-configuration">
+<h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Link to this heading">¶</a></h2>
+</section>
+<section id="driver-testing">
+<h2>Driver testing<a class="headerlink" href="#driver-testing" title="Link to this heading">¶</a></h2>
+<p>![iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio device files&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/&gt; <strong>cd /sys/bus/iio/devices/</strong>
+root:/sys/bus/iio/devices&gt; ls
+iio:device0 trigger0</p>
+<p>root:/sys/bus/iio/devices&gt; <strong>cd iio:device0</strong></p>
+<p>root:/sys/devices/platform/bfin-spi.0/spi0.12/iio:device0&gt; <strong>ls -l</strong>
+drwxr-xr-x 2 root root 0 Jan 1 00:00 buffer
+-r–r–r– 1 root root 4096 Jan 1 00:00 dev
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage-voltage_filter_low_pass_3db_frequency
+-r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage-voltage_filter_low_pass_3db_frequency_available
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage-voltage_offset
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage-voltage_sampling_frequency
+-r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage-voltage_sampling_frequency_available
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage-voltage_scale
+-r–r–r– 1 root root 4096 Jan 1 00:00 in_voltage-voltage_scale_available
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage0-voltage2_calibscale
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage0-voltage5_calibscale
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage1-voltage0_calibscale
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage1-voltage2_calibscale
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage1-voltage5_calibscale
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage2-voltage5_calibscale
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage3-voltage5_calibscale
+-rw-r–r– 1 root root 4096 Jan 1 00:00 in_voltage4-voltage5_calibscale
+-r–r–r– 1 root root 4096 Jan 1 00:00 name
+-rw-r–r– 1 root root 4096 Jan 1 00:00 out_voltage6_calibration_offset
+-rw-r–r– 1 root root 4096 Jan 1 00:00 out_voltage6_calibration_powerdown
+-rw-r–r– 1 root root 4096 Jan 1 00:00 out_voltage6_calibration_raw
+-rw-r–r– 1 root root 4096 Jan 1 00:00 out_voltage6_calibration_scale
+drwxr-xr-x 2 root root 0 Jan 1 00:00 power
+-rw-r–r– 1 root root 4096 Jan 1 00:00 rld_out_select
+-r–r–r– 1 root root 4096 Jan 1 00:00 rld_out_select_available
+-rw-r–r– 1 root root 4096 Jan 1 00:00 rld_powerdown
+-rw-r–r– 1 root root 4096 Jan 1 00:00 rld_summing_junction_ce_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 rld_summing_junction_la_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 rld_summing_junction_ll_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 rld_summing_junction_ra_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 rld_summing_junction_v1_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 rld_summing_junction_v2_en
+drwxr-xr-x 2 root root 0 Jan 1 00:00 scan_elements
+-rw-r–r– 1 root root 4096 Jan 1 00:00 shield_driver_powerdown
+lrwxrwxrwx 1 root root 0 Jan 1 00:00 subsystem -&gt; …/…/…/…/…/…/…/bus/iio
+drwxr-xr-x 2 root root 0 Jan 1 00:00 trigger
+-rw-r–r– 1 root root 4096 Jan 1 00:00 uevent
+-rw-r–r– 1 root root 4096 Jan 1 00:00 vcm_summing_junction_ce_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 vcm_summing_junction_la_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 vcm_summing_junction_ll_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 vcm_summing_junction_ra_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 vcm_summing_junction_v1_en
+-rw-r–r– 1 root root 4096 Jan 1 00:00 vcm_summing_junction_v2_en</p>
+<p>root:/sys/devices/platform/bfin-spi.0/spi0.12/iio:device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<section id="show-device-name">
+<h3>Show device name<a class="headerlink" href="#show-device-name" title="Link to this heading">¶</a></h3>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0/&gt; <strong>cat name</strong>
+adas1000
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>Contains the device name, this will always be “adas1000” for the adas1000 driver.</p>
+</section>
+<section id="list-available-low-filter-frequencies">
+<h3>List available low filter frequencies<a class="headerlink" href="#list-available-low-filter-frequencies" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+in_voltage-voltage_filter_low_pass_3db_frequency_available</p>
+<p>Lists all available low pass filter frequencies, which may be set by writing to in_voltage-voltage_filter_low_pass_3db_frequency.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_filter_low_pass_3db_frequency_available</strong>
+40 150 250 400
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="set-and-show-low-filter-frequency">
+<h3>Set and show low filter frequency<a class="headerlink" href="#set-and-show-low-filter-frequency" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+in_voltage-voltage_filter_low_pass_3db_frequency</p>
+<p>Writing to this file will set the low pass filter frequency, reading from this file will show the currently selected low pass filter.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_filter_low_pass_3db_frequency</strong>
+40
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>echo 250 &gt; in_voltage-voltage_filter_low_pass_3db_frequency</strong>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_filter_low_pass_3db_frequency</strong>
+250
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP round help&gt;The low pass filter will only be active when sampling with 2kHz base frequency.&lt;/WRAP&gt;</p>
+<p>=== List available sampling frequencies ===
+<strong>Description:</strong><br />
+in_voltage-voltage_sampling_frequency_available</p>
+<p>Lists all available sampling frequencies, which may be set by writing to in_voltage-voltage_sampling_frequency.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_sampling_frequency_available</strong>
+128000 64000 32000 16000 8000 4000 2000 1000 500
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP round help&gt;The only actuall supported sampling rates by the ADAS1000 are 128000, 16000 and 2000, all other sampling rates will be achieved by using a 2x or 4x decimation filter.&lt;/WRAP&gt;</p>
+</section>
+<section id="set-and-show-filter-frequency">
+<h3>Set and show filter frequency<a class="headerlink" href="#set-and-show-filter-frequency" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+in_voltage-voltage_sampling_frequency</p>
+<p>Writing to this file will set the sampling frequency, reading from the file will return the currently selected sampling frequency.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_sampling_frequency</strong>
+4000
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>Setting a new sampling frequency can be done by writing to the file.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>echo 8000 &gt; in_voltage-voltage_sampling_frequency</strong>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_sampling_frequency</strong>
+8000
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="list-available-adc-gain-values">
+<h3>List available ADC gain values<a class="headerlink" href="#list-available-adc-gain-values" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+in_voltage-voltage_scale_available</p>
+<p>List the available ADC gain settings, which can be set using in_voltage-voltage_scale.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_scale_available</strong>
+0.000019618 0.000013079 0.000009809 0.000006539
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="set-and-adc-gain-value">
+<h3>Set and ADC gain value<a class="headerlink" href="#set-and-adc-gain-value" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+in_voltage-voltage_scale</p>
+<p>Scale to be applied to in_voltageY-voltageZ_raw in order to obtain the measured voltage in millivolts.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_scale</strong>
+0.000019618
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>echo 0.000006539 &gt; in_voltage-voltage_scale</strong>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage-voltage_scale</strong>
+0.000006539
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="set-adc-calibration-gain">
+<h3>Set ADC calibration gain<a class="headerlink" href="#set-adc-calibration-gain" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+in_voltage0-voltage2_calibscale<br />
+in_voltage0-voltage5_calibscale<br />
+in_voltage1-voltage0_calibscale<br />
+in_voltage1-voltage2_calibscale<br />
+in_voltage1-voltage5_calibscale<br />
+in_voltage2-voltage5_calibscale<br />
+in_voltage3-voltage5_calibscale<br />
+in_voltage4-voltage5_calibscale<br />
+Set the channel calibration gain. Writing to these files will set the calibration gain for the respective channel. Valid values are in the range of -2048 to 2047.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>echo 1020 &gt; in_voltage0-voltage2_calibscale</strong>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat in_voltage0-voltage2_calibscale</strong>
+1020
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>&lt;WRAP round help&gt; in_voltage0-voltage2_calibscale and in_voltage0-voltage5_calibscale, in_voltage1-voltage0_calibscale and in_voltage1-voltage5_calibscale, in_voltage1-voltage2_calibscale and in_voltage2-voltage5_calibscale refer to the same set of calibration data.&lt;/WRAP&gt;</p>
+</section>
+<section id="list-available-right-leg-drive-outputs">
+<h3>List available Right Leg drive outputs<a class="headerlink" href="#list-available-right-leg-drive-outputs" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+rld_out_select_available</p>
+<p>List available values for the rld_out_select file.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat rld_out_select_available</strong>
+rl la ll ra v1 v2
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="select-right-leg-drive-output-electrode">
+<h3>Select Right Leg drive output electrode<a class="headerlink" href="#select-right-leg-drive-output-electrode" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+rld_out_select</p>
+<p>Set the Right Leg drive output electrode.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>echo rl &gt; rld_out_select_available</strong>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt; <strong>cat rld_out_select</strong>
+rl
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="enable-disable-right-leg-drive-output">
+<h3>Enable/Disable Right Leg drive output<a class="headerlink" href="#enable-disable-right-leg-drive-output" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+rld_powerdown</p>
+<p>Enable or disable the Right Leg drive output. Writing a ‘0’ to this file will enable the Right Leg drive, writing a ‘1’ to this file will enable the Right Leg drive.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat rld_powerdown
+1
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; echo 0 &gt; rld_powerdown
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat rld_powerdown
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="setup-right-leg-drive-summing-junction-configuration">
+<h3>Setup Right Leg drive summing junction configuration<a class="headerlink" href="#setup-right-leg-drive-summing-junction-configuration" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+rld_summing_junction_ce_en<br />
+rld_summing_junction_la_en<br />
+rld_summing_junction_ll_en<br />
+rld_summing_junction_ra_en<br />
+rld_summing_junction_v1_en<br />
+rld_summing_junction_v2_en</p>
+<p>Writing a ‘1’ to a file will add the respective channel to the Right Leg driver summing junction, writing a ‘0’ will remove it.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat rld_summing_junction_la_en
+1
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; echo 1 &gt; rld_summing_junction_v2_en
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat rld_summing_junction_v2_en
+1
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="setup-vcm-summing-junction-configuration">
+<h3>Setup VCM summing junction configuration<a class="headerlink" href="#setup-vcm-summing-junction-configuration" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+vcm_summing_junction_ce_en<br />
+vcm_summing_junction_la_en<br />
+vcm_summing_junction_ll_en<br />
+vcm_summing_junction_ra_en<br />
+vcm_summing_junction_v1_en<br />
+vcm_summing_junction_v2_en</p>
+<p>Writing a ‘1’ to a file will add the respective channel to the VCM summing junction, writing a ‘0’ will remove it.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat vcm_summing_junction_ra_en
+0
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; echo 1 &gt; vcm_summing_junction_ra_en
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat vcm_summing_junction_ra_en
+1
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="enable-disable-shield-driver">
+<h3>Enable/Disable shield driver<a class="headerlink" href="#enable-disable-shield-driver" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+shield_driver_powerdown</p>
+<p>Enable or disable the shield driver. Writing a ‘0’ to this file will enable the shild driver, writing a ‘1’ to this file will enable the shield driver.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat shield_driver_powerdown
+1
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; echo 0 &gt; shield_driver_powerdown
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat shield_driver_powerdown
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>out_voltage6_calibration_offset</p>
+</section>
+<section id="enable-disable-calibration-dac">
+<h3>Enable/Disable calibration DAC<a class="headerlink" href="#enable-disable-calibration-dac" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+out_voltage6_calibration_powerdown</p>
+<p>Enable or disable the calibration DAC. Writing a ‘0’ to this file will enable the calibration DAC, writing a ‘1’ to this file will disable the calibration DAC.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat out_voltage6_calibration_raw
+1
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; echo 0 &gt; out_voltage6_calibration_powerdown
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat out_voltage6_calibration_raw
+0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="set-calibration-dac-output-value">
+<h3>Set calibration DAC output value<a class="headerlink" href="#set-calibration-dac-output-value" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+out_voltage6_calibration_raw</p>
+<p>Sets the calibration DAC output value. Valid values are in the range of 0-1023.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; echo 100 &gt; out_voltage6_calibration_raw
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat out_voltage6_calibration_raw
+100
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="show-calibration-dac-scale">
+<h3>Show calibration DAC scale<a class="headerlink" href="#show-calibration-dac-scale" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+out_voltage6_calibration_scale</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0&gt; cat out_voltage6_calibration_scale
+0.002346
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>Vout = (out_voltage6_calibration_offset + out_voltage6_calibration_raw) * out_voltage6_calibration_scale</p>
+</section>
+<section id="debugfs">
+<h3>Debugfs<a class="headerlink" href="#debugfs" title="Link to this heading">¶</a></h3>
+<p>The adas1000 driver exposes also some files, which are meant for debugging purposes, in debugfs. These files can be used to read the OPSTAT register and to configure the testtone generator.</p>
+<p>root:/sys/kernel/debug/iio/iio:device0&gt; ls
+direct_reg_access pll_locked testtone_la_en testtone_v1_en
+fuse_crc_failure testtone_en testtone_ll_en testtone_v2_en
+fuse_status testtone_frequency testtone_out_en
+pll_lock_lost testtone_internal testtone_ra_en
+root:/sys/kernel/debug/iio/iio:device0&gt;</p>
+</section>
+<section id="direct-register-read-and-write-acccess">
+<h3>Direct register read and write acccess<a class="headerlink" href="#direct-register-read-and-write-acccess" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+direct_reg_access</p>
+<p>Allows direct register access to the device. To write to a register write the register address and the register value seperated by a space to the file.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/kernel/debug/iio/iio:device0&gt; echo 0x12 0x17 &gt; direct_reg_access
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<p>To read a register value, first write the register address to the file followed by a read.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/kernel/debug/iio/iio:device0&gt; echo 0x05 &gt; direct_reg_access
+root:/sys/kernel/debug/iio/iio:device0&gt; cat direct_reg_access
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="check-fuse-crc-status">
+<h3>Check fuse CRC status<a class="headerlink" href="#check-fuse-crc-status" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+fuse_crc_failure</p>
+<p>‘1’ if a fuse CRC failure has been detected, ‘0’ otherwise.</p>
+</section>
+<section id="check-fuse-status">
+<h3>Check fuse status<a class="headerlink" href="#check-fuse-status" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+fuse_status</p>
+<p>‘0’ if the fuse bits have been read, ‘1’ otherwise.</p>
+</section>
+<section id="check-pll-status">
+<h3>Check PLL status<a class="headerlink" href="#check-pll-status" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+pll_locked</p>
+<p>‘1’ if the PLL is locked, ‘0’ otherwise.</p>
+</section>
+<section id="enable-testtone">
+<h3>Enable testtone<a class="headerlink" href="#enable-testtone" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+testtone_en</p>
+<p>Enable the testtone generator.</p>
+<p>&lt;WRAP round help&gt;If both the testtone and the calibration DAC are enabled, the testtone will take precedence.&lt;/WRAP&gt;</p>
+</section>
+<section id="set-testtone-frequnecy">
+<h3>Set testtone frequnecy<a class="headerlink" href="#set-testtone-frequnecy" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+testtone_frequency</p>
+<p>Select the testtone frequency and waveform.</p>
+<p>Valid values are:</p>
+<ul class="simple">
+<li><p>1: 1 Hz square wave</p></li>
+<li><p>10: 10 Hz sine wave</p></li>
+<li><p>150: 150 Hz sine wave</p></li>
+</ul>
+</section>
+<section id="enable-internal-testtone-routing">
+<h3>Enable internal testtone routing<a class="headerlink" href="#enable-internal-testtone-routing" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+testtone_internal</p>
+<p>Route the testtone signal internally ECG channels.</p>
+</section>
+<section id="enable-external-testtone-output">
+<h3>Enable external testtone output<a class="headerlink" href="#enable-external-testtone-output" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+testtone_out_en</p>
+<p>Enables or disables testtone output to the external CAL_DAC_IO pin.</p>
+<p>&lt;WRAP round help&gt;The testtone signal will be routed to the CAL_DAC_IO pin by default and only if internal routing is enabled this switch will have an effect.&lt;/WRAP&gt;</p>
+</section>
+<section id="enable-testtone-routing-to-individual-ecg-channels">
+<h3>Enable testtone routing to individual ECG channels<a class="headerlink" href="#enable-testtone-routing-to-individual-ecg-channels" title="Link to this heading">¶</a></h3>
+<p><strong>Description:</strong><br />
+testtone_la_en<br />
+testtone_ll_en<br />
+testtone_ra_en<br />
+testtone_v1_en<br />
+testtone_v2_en<br />
+Enables the internal testtone routing to the individual ECG channels.</p>
+</section>
+<section id="trigger-management">
+<h3>Trigger management<a class="headerlink" href="#trigger-management" title="Link to this heading">¶</a></h3>
+<p>The adas1000 driver will register a IIO trigger for the device. The trigger will be hooked up to the devices DATARDY IRQ. Normally you would want to use this trigger as the trigger for the device.</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0/&gt; <strong>echo adas1000-dev0 &gt; trigger/current_trigger</strong>
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0/&gt; <strong>cat trigger/current_trigger</strong>
+adas1000-dev0
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+</section>
+<section id="buffer-management">
+<h3>Buffer management<a class="headerlink" href="#buffer-management" title="Link to this heading">¶</a></h3>
+<p>![iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Buffer management&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+<p>&lt;WRAP box bggreen&gt;&lt;wrap info&gt;This specifies any shell prompt running on the target&lt;/wrap&gt;
+&lt;xterm&gt;
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0/scan_elements&gt; <strong>ls</strong>
+in_voltage0-voltage2_en in_voltage1-voltage5_en
+in_voltage0-voltage2_index in_voltage1-voltage5_index
+in_voltage0-voltage2_type in_voltage1-voltage5_type
+in_voltage0-voltage5_en in_voltage2-voltage5_en
+in_voltage0-voltage5_index in_voltage2-voltage5_index
+in_voltage0-voltage5_type in_voltage2-voltage5_type
+in_voltage1-voltage0_en in_voltage3-voltage5_en
+in_voltage1-voltage0_index in_voltage3-voltage5_index
+in_voltage1-voltage0_type in_voltage3-voltage5_type
+in_voltage1-voltage2_en in_voltage4-voltage5_en
+in_voltage1-voltage2_index in_voltage4-voltage5_index
+in_voltage1-voltage2_type in_voltage4-voltage5_type
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.18/iio:device0/scan_elements&gt;
+&lt;/xterm&gt;&lt;/WRAP&gt;</p>
+<table>
+<thead>
+<tr class="header">
+<th>Channel</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>in_voltage0-voltage2</td>
+<td>LA-RA (LEAD I)</td>
+</tr>
+<tr class="even">
+<td>in_voltage1-voltage0</td>
+<td>LL-LA (LEAD II)</td>
+</tr>
+<tr class="odd">
+<td>in_voltage1-voltage2</td>
+<td>LL-RA (LEAD III)</td>
+</tr>
+<tr class="even">
+<td>in_voltage0-voltage5</td>
+<td>LA-VCM</td>
+</tr>
+<tr class="odd">
+<td>in_voltage1-voltage5</td>
+<td>LL-VCM</td>
+</tr>
+<tr class="even">
+<td>in_voltage2-voltage5</td>
+<td>RA-VCM</td>
+</tr>
+<tr class="odd">
+<td>in_voltage3-voltage5</td>
+<td>V1-VCM (V1')</td>
+</tr>
+<tr class="even">
+<td>in_voltage4-voltage5</td>
+<td>V2-VCM (V2')</td>
+</tr>
+</tbody>
+</table>
+<p>If any of the first three channels is selected the device will operate in Lead mode, otherwise it will operate in single-end mode.
+If channels from the first three channels are selected channels from the second three channels can not be selected and vice versa.</p>
+<p>![iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#Typical ADC scan elements&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</section>
+</section>
+<section id="more-information">
+<h2>More Information<a class="headerlink" href="#more-information" title="Link to this heading">¶</a></h2>
+<p>![iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn](/page&gt;software/linux/docs/iio/iio_snippets#iio pointers&amp;noheader&amp;firstseconly&amp;noeditbtn)</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="adaq8092.html" title="Previous document" class="prev">ADAQ8092 14-Bit, 105 MSPS, μModule Linux device driver</a>
+    <a href="../iio-transceiver/adar1000.html" title="Next document" class="next">ADAR1000 8 GHz to 16 GHz, 4-Channel, X Band and KuBand Beamformer Linux device driver</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <div id="vertical-border"></div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+
+  
+  <form action="" method="get" class="search-area">
+    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+    <button value="search"></button>
+    <span id="search-progress"></span>
+  </form>
+  
+    <footer>
+      &#169;2024, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

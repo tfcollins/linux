@@ -1,33 +1,28 @@
----
-wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/input-misc/adxl362
-title: ADXL362: Micropower 3-Axis MEMS Accelerometer, Programmable Digital Output, ±2/±4/±8 g Range
----
-
 # ADXL362 Input 3-Axis Digital Accelerometer Linux Driver
 
-#### Supported Devices
+### Supported Devices
 
--   [ADXL362](https://analog.com/ADXL362)
+-   [ADXL362](adi>ADXL362)
 
-#### Reference Circuits
+### Reference Circuits
 
--   [CN0274](https://analog.com/CN0274)
+-   [CN0274](adi>CN0274)
 
-#### Evaluation Boards
+### Evaluation Boards
 
--   [EVAL-ADXL362Z](https://analog.com/EVAL-ADXL362Z)
--   [EVAL-ADXL362Z-DB](https://analog.com/EVAL-ADXL362Z-DB)
--   [EVAL-ADXL362Z-MLP](https://analog.com/EVAL-ADXL362Z-MLP)
--   [EVAL-ADXL362Z-S](https://analog.com/EVAL-ADXL362Z-S)
+-   [EVAL-ADXL362Z](adi>EVAL-ADXL362Z)
+-   [EVAL-ADXL362Z-DB](adi>EVAL-ADXL362Z-DB)
+-   [EVAL-ADXL362Z-MLP](adi>EVAL-ADXL362Z-MLP)
+-   [EVAL-ADXL362Z-S](adi>EVAL-ADXL362Z-S)
 
-#### ADXL362: Micropower 3-Axis MEMS Accelerometer: Digital Output, ±2/±4/±8 g Range
+### ADXL362: Micropower 3-Axis MEMS Accelerometer: Digital Output, ±2/±4/±8 g Range
 
--   [Product Page](https://analog.com/ADXL362)
+-   [Product Page](adi>ADXL362)
 -   ![](scrape>adi>ADXL362#datasheet-details)
 
-### Source Code
+## Source Code
 
-#### Status
+### Status
 
 <table>
 <thead>
@@ -44,7 +39,7 @@ title: ADXL362: Micropower 3-Axis MEMS Accelerometer, Programmable Digital Outpu
 </tbody>
 </table>
 
-#### Files
+### Files
 
 <table>
 <thead>
@@ -65,14 +60,12 @@ title: ADXL362: Micropower 3-Axis MEMS Accelerometer, Programmable Digital Outpu
 </tbody>
 </table>
 
-### Example platform device initialization
+## Example platform device initialization
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Platform_Data.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn)
 
 Digital Accelerometer characteristics are application specific and may vary between boards and models.
-The platform_data for the device's "struct device" holds this information.
+The platform_data for the device\'s "struct device" holds this information.
 
 ``` c
 enum adxl_odr {
@@ -208,16 +201,14 @@ static struct adxl362_platform_data adxl362_info = {
 };
 ```
 
-<!-- CMDS: firstseconly noeditbtn -->
-```{include} software_linux_docs_platform_and_bus_model_SUB_Declaring_SPI_slave_devices.md
-```
+![](page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn)
 
 Depending on the DDS IC used, you may need to set the modalias accordingly, matching your part name.
 It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
 
 ``` c
 static struct spi_board_info board_spi_board_info[] __initdata = {
-## if defined(CONFIG_INPUT_ADXL362) || defined(CONFIG_INPUT_ADXL362_MODULE)
+#if defined(CONFIG_INPUT_ADXL362) || defined(CONFIG_INPUT_ADXL362_MODULE)
     {
         .modalias   = "adxl362",
         .platform_data  = &adxl362_info,
@@ -227,7 +218,7 @@ static struct spi_board_info board_spi_board_info[] __initdata = {
         .chip_select    = 1,
         .mode       = SPI_MODE_0,
     },
-## endif
+#endif
 };
 ```
 
@@ -245,19 +236,16 @@ static int __init board_init(void)
 arch_initcall(board_init);
 ```
 
-### Adding Linux driver support
+## Adding Linux driver support
 
-Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
-"make qconfig")
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
 
-:::{NOTE} <!-- ATTRS: round="" help="" -->
-
+\<WRAP round help\>
 The ADXL34x Driver depends on **CONFIG_SPI**
+\</WRAP\>
 
-:::
-
-
-```{code-block} bash
+\<xterm\>
 Input device support
 
     -*- Generic input layer (needed for keyboard, mouse, ...)
@@ -292,33 +280,29 @@ Input device support
           < >   VTI CMA3000 Tri-axis accelerometer
           Hardware I/O ports  --->
 
-```
+\</xterm\>
 
-### Hardware configuration
+## Hardware configuration
 
-```{image} images/eval-adxl362z.jpg
-:alt: eval-adxl362z
-:width: "300"
-:query: "?300"
-```
+![eval-adxl362z](/resources/tools-software/linux-drivers/input-misc/eval-adxl362z.jpg){width="300" query="?300"}
 
-### Driver testing
+## Driver testing
 
-#### Driver compiled as a module
+### Driver compiled as a module
 
-```{code-block} bash
-root:~> **modprobe evdev**
-root:~> **modprobe adxl362**
+\<xterm\>
+root:\~\> **modprobe evdev**
+root:\~\> **modprobe adxl362**
 input: ADXL362 accelerometer as /devices/platform/bfin-spi.0/spi_master/spi0/spi0.1/input/input0
-```
+\</xterm\>
 
-#### Driver compiled into the kernel
+### Driver compiled into the kernel
 
 Your kernel startup messages should include something like this
 
     input: ADXL362 accelerometer as /devices/platform/bfin-spi.0/spi_master/spi0/spi0.1/input/input0
 
-#### Common Problems
+### Common Problems
 
 In case you see a message like this
 
@@ -326,22 +310,22 @@ In case you see a message like this
 
 This means that the SPI communication and initilaization with the ADXL362 failed. **check bus_num and chip_select in your platform device file**
 
-#### Checking for proper installation
+### Checking for proper installation
 
 After the kernel boot your device folder should include at least one device node for the accelerometer
 
-```{code-block} bashroot:/> **ls -al /dev/input/**
-drw-r--r-- 2 root root 0 Jan 1 00:03 .
+\<xterm\>root:/\> **ls -al /dev/input/**
+drw-r\--r\-- 2 root root 0 Jan 1 00:03 .
 drwxr-xr-x 5 root root 0 Jan 1 00:03 ..
-crw-rw-r-- 1 root root 13, 64 Jan 1 00:03 event0
-root:/>
-```
+crw-rw-r\-- 1 root root 13, 64 Jan 1 00:03 event0
+root:/\>
+\</xterm\>
 
-```{code-block} bashroot:~> **cat /sys/class/input/input0/name**
+\<xterm\>root:\~\> **cat /sys/class/input/input0/name**
 ADXL362 accelerometer
-```
+\</xterm\>
 
-#### Use the event_test utility to test proper function
+### Use the event_test utility to test proper function
 
     root:/> event_test /dev/input/event0
     Input driver version is 1.0.1
@@ -376,39 +360,33 @@ ADXL362 accelerometer
     Event: time 43.656481, type 3 (Absolute), code 2 (Z), value 280
     Event: time 43.656486, -------------- Report Sync ------------
 
-:::{NOTE} <!-- ATTRS: tip="" -->
-
-In case you move the accelerometer and don't receive events, it's likely that something with your Interrupt is wrong.
+\<WRAP tip\>
+In case you move the accelerometer and don\'t receive events, it\'s likely that something with your Interrupt is wrong.\
 **check irq number in your platform device file**
+\</WRAP\>
 
-:::
+\<WRAP tip\>
+In case you get a message like: `evtest: No such device`, it\'s likely that you have not install the necessary modules
+\</WRAP\>
 
+### ADXL34x Sysfs runtime controls
 
-:::{NOTE} <!-- ATTRS: tip="" -->
-
-In case you get a message like: `evtest: No such device`, it's likely that you have not install the necessary modules
-
-:::
-
-
-#### ADXL34x Sysfs runtime controls
-
-```{code-block} bash
-root:/> cd sys/class/input/input0/device/
-root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1> **ls -al**
+\<xterm\>
+root:/\> cd sys/class/input/input0/device/
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1\> **ls -al**
 drwxr-xr-x 4 root root 0 Jan 1 01:40 .
 drwxr-xr-x 4 root root 0 Jan 1 01:40 ..
--rw-rw-r-- 1 root root 4096 Jan 1 01:50 autosleep
-lrwxrwxrwx 1 root root 0 Jan 1 01:50 driver -> ../../../../../../bus/spi/drivers/adxl362
+-rw-rw-r\-- 1 root root 4096 Jan 1 01:50 autosleep
+lrwxrwxrwx 1 root root 0 Jan 1 01:50 driver -\> ../../../../../../bus/spi/drivers/adxl362
 drwxr-xr-x 3 root root 0 Jan 1 01:40 input
--r--r--r-- 1 root root 4096 Jan 1 01:50 modalias
+-r\--r\--r\-- 1 root root 4096 Jan 1 01:50 modalias
 drwxr-xr-x 2 root root 0 Jan 1 01:50 power
--rw-rw-r-- 1 root root 4096 Jan 1 01:50 rate
-lrwxrwxrwx 1 root root 0 Jan 1 01:50 subsystem -> ../../../../../../bus/spi
--rw-r--r-- 1 root root 4096 Jan 1 01:50 uevent
-```
+-rw-rw-r\-- 1 root root 4096 Jan 1 01:50 rate
+lrwxrwxrwx 1 root root 0 Jan 1 01:50 subsystem -\> ../../../../../../bus/spi
+-rw-r\--r\-- 1 root root 4096 Jan 1 01:50 uevent
+\</xterm\>
 
-##### Controlling the Output Data Rate
+#### Controlling the Output Data Rate
 
 <table>
 <thead>
@@ -445,32 +423,30 @@ lrwxrwxrwx 1 root root 0 Jan 1 01:50 subsystem -> ../../../../../../bus/spi
 </tbody>
 </table>
 
-Writing '**Output Data Rate**' into **rate** sets the desired sample rate
-Reading **rate** returns the current Output Data Rate
+Writing \'**Output Data Rate**\' into **rate** sets the desired sample rate\
+Reading **rate** returns the current Output Data Rate\
 See table above for supported sample rates
 
-```{code-block} bash
-root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1> echo 400 > rate
-root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1> cat rate
+\<xterm\>
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1\> echo 400 \> rate
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1\> cat rate
 400
-```
+\</xterm\>
 
-##### Enabling / Disabling Autosleep Upon Inactivity
+#### Enabling / Disabling Autosleep Upon Inactivity
 
-Writing '**1**' into autosleep - enables Autosleep Upon Inactivity
-Writing '**0**' into autosleep - disables Autosleep Upon Inactivity
+Writing \'**1**\' into autosleep - enables Autosleep Upon Inactivity\
+Writing \'**0**\' into autosleep - disables Autosleep Upon Inactivity\
 
-```{code-block} bashroot:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1> echo 1 > autosleep
-root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1> echo 0 > autosleep
-```
+\<xterm\>root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1\> echo 1 \> autosleep
+root:/sys/devices/platform/bfin-spi.0/spi_master/spi0/spi0.1\> echo 0 \> autosleep
+\</xterm\>
 
-### More Information
+## More Information
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} resources_tools-software_linux-drivers_snippets_SUB_input_pointers.md
-```
+![](page>resources/tools-software/linux-drivers/snippets#input_pointers&noheader&firstseconly&noeditbtn)
 
-#### ADXL362/6 Android Acceleration Sensor
+### ADXL362/6 Android Acceleration Sensor
 
 Using this driver under Android as Acceleration Sensor
 Follow the link here [ADXL362 Android Sensor](/resources/tools-software/android-drivers/sensor-acceleration/adxl345)

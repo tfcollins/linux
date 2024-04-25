@@ -1,0 +1,110 @@
+# AD2S90 IIO Resolver-to-Digital Converter Linux Driver
+
+### Supported Devices
+
+-   [AD2S90](adi>AD2S90)
+
+### Description
+
+![](scrape>adi>AD2S90#description)
+
+-   [Product Page](adi>ad2s90)
+
+This is a Linux industrial I/O ([IIO](/software/linux/docs/iio/iio)) subsystem driver, targeting Resolver-to-Digital Converters.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [IIO](/software/linux/docs/iio/iio) for more information.
+
+## Source Code
+
+### Status
+
+<table>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Mainlined?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="git.linux.org&gt;drivers/staging/iio/resolver/ad2s90.c">git</a></td>
+<td><a href="git.linux.org&gt;drivers/staging/iio/resolver/ad2s90.c">Yes</a></td>
+</tr>
+</tbody>
+</table>
+
+### Files
+
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>driver</td>
+<td><a href="staging.kernel.org&gt;drivers/staging/iio/resolver/ad2s90.c">drivers/staging/iio/resolver/ad2s90.c</a></td>
+</tr>
+</tbody>
+</table>
+
+## Adding Linux driver support
+
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
+
+\<WRAP round help\>
+The Driver depends on **CONFIG_SPI**
+\</WRAP\>
+
+    Linux Kernel Configuration
+        Device Drivers  --->
+            [*] Staging drivers  --->
+                <*>     Industrial I/O support --->
+                    --- Industrial I/O support
+                    -*-   Enable ring buffer support within IIO
+                    -*-     Industrial I/O lock free software ring
+                    -*-   Enable triggered sampling support
+
+                          *** Resolver to digital converters ***
+                    [--snip--]
+
+                    <*>   Analog Devices AD2S90 driver
+
+                    [--snip--]
+
+## Driver Usage
+
+The device file path may looks like,
+
+    /sys/devices/platform/bfin-spi.0/spi0.3/iio/device0/ad2s90>
+
+There are two files:
+
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">File Name</th>
+<th style="text-align: center;">Permission</th>
+<th style="text-align: center;">Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">angular</td>
+<td style="text-align: center;">read only</td>
+<td style="text-align: center;">12 bits angular value</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">description</td>
+<td style="text-align: center;">read only</td>
+<td style="text-align: center;">description about this chip</td>
+</tr>
+</tbody>
+</table>
+
+## More Information
+
+![iio_snippets#iio pointers&noheader&firstseconly&noeditbtn](/page>software/linux/docs/iio/iio_snippets#iio pointers&noheader&firstseconly&noeditbtn)

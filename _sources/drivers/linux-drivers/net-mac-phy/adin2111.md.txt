@@ -1,13 +1,8 @@
----
-wiki-source: https://wiki.analog.com/resources/tools-software/linux-drivers/net-mac-phy/adin2111
-title: ADIN2111 - Low Complexity, 2-Port Ethernet Switch with Integrated 10BASE-T1L PHYs
----
-
 # ADIN2111 10BASE-T1L 2-Port Ethernet Switch Linux Driver
 
 ### Supported Devices
 
--   [ADIN2111](https://analog.com/ADIN2111)
+-   [ADIN2111](adi>ADIN2111)
 
 ### Supported Boards
 
@@ -56,10 +51,10 @@ The device has a 4-wire SPI interface for communication between the MAC and host
 
 ## Enabling Linux driver support
 
-Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
-"make qconfig")
+Configure kernel with \"make menuconfig\" (alternatively use \"make xconfig\" or
+\"make qconfig\")
 
-1.  Hit the search button (typically the slash "/" key)
+1.  Hit the search button (typically the slash \"/\" key)
 2.  Type ADIN1110, then hit Enter; if nothing shows up, the driver is not available in your kernel tree, please use [the ADI linux tree](https://github.com/analogdevicesinc/linux/)
 3.  Press 1 (the key), then hit Enter
 4.  You should see the location + dependencies for enabling the driver
@@ -133,14 +128,14 @@ To rename them you need to create a udev rule under:
     root@analog:~# cat /etc/udev/rules.d/55-adin2111-net.rules
     SUBSYSTEM=="net", ACTION=="add", ATTR{phys_switch_id}=="6164696e323131312d31", ATTR{phys_port_name}!="", NAME="adin2111-0-$attr{phys_port_name}"
 
-<note important>
+\<note important\>
 You need to change the phys_switch_id to match your own system.
 This can be found under:
 
     root@analog:~# cat /sys/class/net/eth1/phys_switch_id
     6164696e323131312d31
 
-</note>
+\</note\>
 
 ### Bridging the two ports
 
@@ -155,7 +150,7 @@ Linux driver will allocated and register two port netdevs. In this way each port
     ip link set br0 up
     ip route add 192.168.160.0/24 dev br0
 
-<note important>Default behavior of ADIN2111 will be to forward to the host only frames with the destination MAC address of the interface and broadcast address (Multicast only if enabled). Other frames are not seen by the SPI host and will be forwarded to the other port.</note>
+\<note important\>Default behavior of ADIN2111 will be to forward to the host only frames with the destination MAC address of the interface and broadcast address (Multicast only if enabled). Other frames are not seen by the SPI host and will be forwarded to the other port.\</note\>
 
 ##### Printing the forwarding database
 
@@ -206,7 +201,7 @@ Links for the tool:
 -   Official page with source code: <https://mirrors.edge.kernel.org/pub/software/network/ethtool/>
 -   Manual page: <http://man7.org/linux/man-pages/man8/ethtool.8.html>
 
-<note tip>Some features of ethtool described here are available in newer versions of ethtool. If some of them don't work, consider upgrading or getting a newer version</note>
+\<note tip\>Some features of ethtool described here are available in newer versions of ethtool. If some of them don\'t work, consider upgrading or getting a newer version\</note\>
 
 #### Example: Seeing MAC & PHY info
 
@@ -297,8 +292,8 @@ Since the PHY can only do 10 Mbps full-duplex, the only operation possible here 
 
 This is a more system-general test but it also validates the PHY.
 
-<note tip>
-More tools are available for this sort of testing (iperf3, netperf, etc), but iperf is one of the more basic/simple ones to do this validation. If this one achieves expected results, others should too</note>
+\<note tip\>
+More tools are available for this sort of testing (iperf3, netperf, etc), but iperf is one of the more basic/simple ones to do this validation. If this one achieves expected results, others should too\</note\>
 
 On one of the endpoints with the ADIN1100, run:
 
@@ -334,6 +329,4 @@ On the other host check the hash
 -   [Ethernet Controller bindings doc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-controller.yaml)
 -   [Ethernet PHY bindings doc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/net/ethernet-phy.yaml)
 
-<!-- CMDS: noheader firstseconly noeditbtn -->
-```{include} resources_tools-software_linux-drivers_need_help_SUB_need_help.md
-```
+![](page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn)
