@@ -1,0 +1,175 @@
+====== Fan Control HDL CORE driver ======
+
+===== Supported Devices =====
+
+[[/resources/fpga/docs/axi_fan_control|axi_fan_control]]
+
+==== Supported boards ====
+
+[[/resources/eval/user-guides/adrv9009-zu11eg?s[]=zu11eg|ADRV9009-ZU11EG RF System-on-Module]]
+
+=== Description ===
+
+This is a Hardware Monitor subsystem driver. The Hwmon subsystem provides a unified framework for drivers doing hardware monitoring. It exposes a set of sysfs files that should follow the [[https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface|sysfs-interface]].
+
+====== Source Code ======
+
+===== Status =====
+
+^ Source ^ Mainlined? ^
+| [[linux.github>master?drivers/hwmon/axi_fan_control.c | drivers/hwmon/axi_fan_control.c]] | [[git.linux.org>drivers/hwmon/axi_fan_control.c|WIP]] |
+
+===== Files =====
+^ Function ^ File ^
+| driver | [[linux.github>master?drivers/hwmon/axi_fan_control.c | drivers/hwmon/axi_fan_control.c]] |
+
+====== Example platform device initialization ======
+
+The AXI FAN CONTROL driver is a platform driver and can currently only be instantiated via device tree.
+
+Required devicetree properties:
+  * **compatible**: Should always be one of these:
+    * adi,axi-fan-control-1.00.a
+  * **reg**: Base address and register area size. This parameter expects a register range.
+  * **clocks**: Reference clock.
+  * **interrupts**: Interrupt line.
+  * **adi,pulses-per-revolution**: Number of pulses per revolution
+
+<code>
+&fpga_axi {
+	axi_fan_control: axi-fan-control@80000000 {
+		compatible = "adi,axi-fan-control-1.00.a";
+		reg = <0x0 0x80000000 0x10000>;
+		clocks = <&clk 71>;
+		interrupts = <0 110 0>;
+		adi,pulses-per-revolution = <2>;
+};
+</code>
+====== Enabling Linux driver support ======
+
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
+
+====== Adding Linux driver support ======
+
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
+
+<code>
+Linux Kernel Configuration
+	Device Drivers  --->
+        <*>     Hardware Monitoring support --->
+            --- Hardware Monitoring support
+        [--snip--]
+            <*> Analog Devices FAN Control HDL Core driver
+        [--snip--]
+</code>
+
+====== Hardware configuration ======
+
+====== Driver testing ======
+
+===== HWMON device files =====
+
+Each and every HWMON device has a device folder under /sys/class/hwmon/hwmonX, where X is the hwmon device index. Under every of these directory folders there are a set of files, depending on what kind of hardware monitoring is supported (temperature, voltage). In order to determine which hwmon device corresponds to which hardware chip, the user can read the name file under /sys/class/hwmon/hwmonX/name.
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/> **cd /sys/class/hwmon/**
+root:/sys/class/hwmon> ls
+hwmon0  hwmon1
+root:/sys/class/hwmon> **cd hwmon0**
+root:/sys/class/hwmon/hwmon0> **ls -l**
+total 0
+drwxr-xr-x 3 root root    0 Nov 16 11:17 .
+drwxr-xr-x 3 root root    0 Nov 16 11:17 ..
+lrwxrwxrwx 1 root root    0 Nov 16 11:17 device -> ../../../axi-fan-control@80000000
+-r--r--r-- 1 root root 4096 Nov 16 11:17 fan1_fault
+-r--r--r-- 1 root root 4096 Nov 16 11:17 fan1_input
+-r--r--r-- 1 root root 4096 Nov 16 11:17 fan1_label
+-r--r--r-- 1 root root 4096 Nov 16 11:17 name
+lrwxrwxrwx 1 root root    0 Nov 16 11:17 of_node -> ../../../../../firmware/devicetree/base/axi-fan-control@80000000
+drwxr-xr-x 2 root root    0 Nov 16 11:17 power
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 pwm1
+lrwxrwxrwx 1 root root    0 Nov 16 11:17 subsystem -> ../../../../../class/hwmon
+-r--r--r-- 1 root root 4096 Nov 16 11:17 temp1_input
+-r--r--r-- 1 root root 4096 Nov 16 11:17 temp1_label
+-rw-r--r-- 1 root root 4096 Nov 16 11:17 uevent
+root:/sys/class/hwmon/hwmon0>
+</xterm></WRAP>
+
+For more information on the files format and accepted values, take a look to [[https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface|sysfs-interface]].
+
+==== Show device name ====
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/class/hwmon/hwmon0> **cat name**
+axi_fan_control
+</xterm></WRAP>
+
+==== Show FAN input (in RPM) ====
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/class/hwmon/hwmon0> **cat fan1_input**
+3600
+</xterm></WRAP>
+
+==== Show FAN label ====
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/class/hwmon/hwmon0> **cat fan1_label**
+SOM FAN
+</xterm></WRAP>
+
+==== Show PWM input ====
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/class/hwmon/hwmon0> **cat pwm1**
+200
+</xterm></WRAP>
+
+==== Show Temperature input (in milliC) ====
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/class/hwmon/hwmon0> **cat temp1_input**
+32000
+</xterm></WRAP>
+
+==== Show Temperature label ====
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/class/hwmon/hwmon0> **cat temp1_label**
+SYSMON4
+</xterm></WRAP>
+
+==== Show fault ====
+
+When reading **fan1_fault** returns 1, that means that either the FAN is physically not working/broken or the tacho signal fails to stay within its designated frequency interval.
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/class/hwmon/hwmon0> **cat fan1_fault**
+0
+</xterm></WRAP>
+
+==== Set PWM value ====
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/class/hwmon/hwmon0> **echo 250 > pwm1**
+</xterm></WRAP>
+
+====== More Information ======
+
+====== HWMON pointers ======
+  * HWMON mailing list: <linux-hwmon@vger.kernel.org>
+  * [[https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/hwmon | HWMON Linux Kernel Documentation]]
+  * [[https://www.kernel.org/doc/Documentation/hwmon/sysfs-interface | HWMON sysfs-interface]]
+
+{{page>resources/tools-software/linux-drivers/need_help#need help&noheader&firstseconly&noeditbtn}}

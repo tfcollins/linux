@@ -1,0 +1,254 @@
+====== AD7791 IIO Low Power Sigma-Delta ADC Linux Driver ======
+
+===== Supported Devices =====
+
+  * [[adi>AD7787]]
+  * [[adi>AD7788]]
+  * [[adi>AD7789]]
+  * [[adi>AD7790]]
+  * [[adi>AD7791]]
+
+===== Reference Circuits =====
+
+  * [[adi>CN0216]]
+  * [[adi>CN0271]]
+  * [[adi>CN0354]]
+===== Evaluation Boards =====
+
+  * [[adi>EVAL-AD7791EBZ]]
+
+===== Description =====
+
+This is a Linux industrial I/O ([[software:linux:docs:iio:iio|IIO]]) subsystem driver, targeting multi channel serial interface ADCs.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [[software:linux:docs:iio:iio|IIO]] for more information.
+
+====== Source Code ======
+
+===== Status =====
+
+^  Source  ^  Mainlined?  ^
+| [[git.linux.org>drivers/iio/adc/ad7791.c|git]] |  [[git.linux.org>drivers/iio/adc/ad7791.c|Yes]]  |
+===== Files =====
+
+^ Function ^ File ^
+| driver  | [[git.linux.org>drivers/iio/adc/ad7791.c]] |
+| include | [[git.linux.org>include/linux/platform_data/ad7791.h]] |
+====== Example platform device initialization ======
+
+{{page>software/linux/docs/platform_and_bus_model#Platform Data&noheader&firstseconly&noeditbtn}}
+
+<code c>
+/**
+ * struct ad7791_platform_data - AD7791 device platform data
+ * @buffered: If set to true configure the device for buffered input mode.
+ * @burnout_current: If set to true the 100mA burnout current is enabled.
+ * @unipolar: If set to true sample in unipolar mode, if set to false sample in
+ *      bipolar mode.
+ */
+struct ad7791_platform_data {
+	bool buffered;
+	bool burnout_current;
+	bool unipolar;
+};
+</code>
+
+<code c>
+static struct ad7791_platform_data ad7791_pdata =  {
+	.buffered = true,
+	.burnout_current = false,
+	.unipolar = false,
+};
+</code>
+
+{{page>software/linux/docs/platform_and_bus_model#Declaring SPI slave devices&firstseconly&noeditbtn}}
+
+Depending on the converter IC used, you may need to set the modalias accordingly, matching your part name.
+It may also required to adjust max_speed_hz. Please consult the datasheet, for maximum spi clock supported by the device in question.
+
+<code c>
+static struct spi_board_info board_spi_board_info[] __initdata = {
+	{
+		.modalias = "ad7791",
+		.max_speed_hz = 1000000,     /* max spi clock (SCK) speed in HZ */
+		.bus_num = 0,
+		.chip_select = 3, /* CS, change it for your board */
+		.platform_data = &ad7791_pdata, /* No spi_driver specific config */
+		.mode = SPI_MODE_3,
+		.irq = IRQ_PF6,
+	},
+};
+</code>
+
+<code c>
+static int __init board_init(void)
+{
+	[--snip--]
+
+	spi_register_board_info(board_spi_board_info, ARRAY_SIZE(board_spi_board_info));
+
+	[--snip--]
+
+	return 0;
+}
+arch_initcall(board_init);
+</code>
+
+====== Adding Linux driver support ======
+
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
+
+<WRAP round help>
+The AD7791 Driver depends on **CONFIG_SPI**
+</WRAP>
+
+<code>
+Linux Kernel Configuration
+    Device Drivers  --->
+        ...
+        <*>     Industrial I/O support --->
+            --- Industrial I/O support
+            ...
+            Analog to digital converters  ---> 
+                ...
+                <*>  Analog Devices AD7791 ADC driver
+                ...
+            ...
+        ...
+</code>
+====== Hardware configuration ======
+
+{{:resources:tools-software:linux-drivers:iio-adc:ad7791_eval_lr.jpg?600|}}
+====== Driver testing ======
+
+{{page>software:linux:docs:iio:iio_snippets#iio device files&noheader&firstseconly&noeditbtn}}
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/> **cd /sys/bus/iio/devices/**
+root:/sys/bus/iio/devices> ls
+iio:device0         trigger0
+
+root:/sys/bus/iio/devices> **cd device0**
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **ls -l**
+drwxr-xr-x    2 root     root             0 Jan  1 04:18 buffer
+-r--r--r--    1 root     root          4096 Jan  1 04:18 dev
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage-voltage_scale
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage-voltage_shorted_scale
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage0-voltage0_offset
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage0-voltage0_raw
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage0-voltage0_shorted_offset
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage0-voltage0_shorted_raw
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage1_supply_offset
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage1_supply_raw
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 in_voltage_supply_scale
+-r--r--r--    1 root     root          4096 Jan  1 04:18 name
+drwxr-xr-x    2 root     root             0 Jan  1 04:18 power
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 sampling_frequency
+-r--r--r--    1 root     root          4096 Jan  1 04:18 sampling_frequency_available
+drwxr-xr-x    2 root     root             0 Jan  1 04:18 scan_elements
+lrwxrwxrwx    1 root     root             0 Jan  1 04:18 subsystem -> ../../../../../../../bus/iio
+drwxr-xr-x    2 root     root             0 Jan  1 04:18 trigger
+-rw-r--r--    1 root     root          4096 Jan  1 04:18 uevent
+
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0>
+</xterm></WRAP>
+
+=== Show device name ===
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat name**
+ad7791
+</xterm></WRAP>
+
+=== Show available sampling frequencies / update rates ===
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat sampling_frequency_available**
+120 100 33.3 20 16.7 16.6 13.3 9.5
+</xterm></WRAP>
+
+=== Set sampling frequency / update rate ===
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat sampling_frequency**
+16.6
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **echo 100 > sampling_frequency**
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat sampling_frequency**
+100
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0>
+</xterm></WRAP>
+
+=== Show supply voltage ===
+
+**Description:**\\
+Shows the AVDD supply voltage
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage1_supply_raw**
+7817399
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage_supply_scale**
+0.000697374
+</xterm></WRAP>
+
+**U** = //(in_voltage1_supply_raw + in_voltage1_supply_offset) * in_voltage_supply_scale// = 7817399 * 0.000697374 = **3270.95608958 //mV//**
+
+=== Show in_voltage0-voltage0_raw measurement ===
+
+**Description:**\\
+Raw unscaled voltage measurement on channel 0
+
+^ ADC Input Pair ^ Channel name ^
+| AIN(+) – AIN(–) | in_voltage0-voltage0_raw |
+| AIN(-) - AIN(-) | in_voltage0-voltage0_shorted_raw |
+| AVDD | in_voltage1_supply_raw |
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0> **cat in_voltage0-voltage0_raw**
+6710665
+</xterm></WRAP>
+
+**U** = //(in_voltage0-voltage0_raw + in_voltage0-voltage0_offset) * in_voltage-voltage_scale// = 6710665 * 0.000596046 = **999.95619165 //mV//**
+
+===== Trigger management =====
+
+<WRAP round help>
+This driver only supports it's own default trigger source **ad7791-dev0**
+</WRAP>
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/device0> **cat trigger/current_trigger** 
+ad7791-dev0
+</xterm></WRAP>
+
+===== Buffer management =====
+
+{{page>software:linux:docs:iio:iio_snippets#Buffer management&noheader&firstseconly&noeditbtn}}
+
+<WRAP box bggreen><wrap info>This specifies any shell prompt running on the target</wrap>
+<xterm>
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0/scan_elements> **ls**
+in_timestamp_en                     in_voltage0-voltage0_shorted_index
+in_timestamp_index                  in_voltage0-voltage0_shorted_type
+in_timestamp_type                   in_voltage0-voltage0_type
+in_voltage0-voltage0_en             in_voltage1_supply_en
+in_voltage0-voltage0_index          in_voltage1_supply_index
+in_voltage0-voltage0_shorted_en     in_voltage1_supply_type
+
+root:/sys/devices/platform/bfin-spi.0/spi0.3/iio:device0/scan_elements>
+</xterm></WRAP>
+
+{{page>software:linux:docs:iio:iio_snippets#Typical ADC scan elements&noheader&firstseconly&noeditbtn}}
+
+====== More Information ======
+
+{{page>software:linux:docs:iio:iio_snippets#iio pointers&noheader&firstseconly&noeditbtn}}

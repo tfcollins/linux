@@ -1,0 +1,70 @@
+====== AD2S90 IIO Resolver-to-Digital Converter Linux Driver ======
+
+===== Supported Devices =====
+
+  * [[adi>AD2S90]]
+
+===== Description =====
+
+{{scrape>adi>AD2S90#description}}
+
+  * [[adi>ad2s90|Product Page]]
+This is a Linux industrial I/O ([[software:linux:docs:iio:iio|IIO]]) subsystem driver, targeting Resolver-to-Digital Converters.
+The industrial I/O subsystem provides a unified framework for drivers for many different types of converters and sensors using a number of different physical interfaces (i2c, spi, etc).
+See [[software:linux:docs:iio:iio|IIO]] for more information.
+
+====== Source Code ======
+
+===== Status =====
+
+^ Source ^ Mainlined? ^
+| [[git.linux.org>drivers/staging/iio/resolver/ad2s90.c|git]] | [[git.linux.org>drivers/staging/iio/resolver/ad2s90.c|Yes]] |
+===== Files =====
+
+^ Function ^ File ^
+| driver  | [[staging.kernel.org>drivers/staging/iio/resolver/ad2s90.c]] |
+
+
+====== Adding Linux driver support ======
+
+Configure kernel with "make menuconfig" (alternatively use "make xconfig" or
+"make qconfig")
+
+<WRAP round help>
+The Driver depends on **CONFIG_SPI**
+</WRAP>
+
+<code>
+Linux Kernel Configuration
+	Device Drivers  --->
+		[*] Staging drivers  --->
+			<*>     Industrial I/O support --->
+			    --- Industrial I/O support
+			    -*-   Enable ring buffer support within IIO
+			    -*-     Industrial I/O lock free software ring
+			    -*-   Enable triggered sampling support
+
+			          *** Resolver to digital converters ***
+			    [--snip--]
+
+			    <*>   Analog Devices AD2S90 driver
+
+			    [--snip--]
+
+</code>
+
+====== Driver Usage ======
+
+The device file path may looks like,
+<code>
+/sys/devices/platform/bfin-spi.0/spi0.3/iio/device0/ad2s90>
+</code>
+
+There are two files:
+^  File Name  ^  Permission  ^  Usage  ^
+| angular | read only | 12 bits angular value |
+| description | read only | description about this chip |
+
+====== More Information ======
+
+{{page>software:linux:docs:iio:iio_snippets#iio pointers&noheader&firstseconly&noeditbtn}}
