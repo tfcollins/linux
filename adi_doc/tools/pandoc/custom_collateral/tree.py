@@ -168,10 +168,12 @@ def generate_d2lang_file(top_node, source_files, output_file, links):
 
     d2_file = ""
     top_node = os.path.basename(top_node)
-    d2_file += f"""title: |md
-# Devicetree dependencies: {top_node}
-| {{near: top-center}}
-"""
+
+    # Title seem broken?
+#     d2_file += f"""title: |md
+# # Devicetree dependencies: {top_node}
+# | {{near: top-center}}
+# """
 
     for file in source_files.keys():
         link = links[file]
