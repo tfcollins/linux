@@ -300,6 +300,16 @@ drivers, index_page_ref = parse_driver_index_page()
 complete = 0
 total = len(drivers)
 
+# Parse the unique links, since some drivers share pages
+drivers_unique = {}
+links = []
+for driver, link in drivers.items():
+    if link not in links:
+        drivers_unique[driver] = link
+        links.append(link)
+drivers = drivers_unique
+
+# Process each driver
 if not RUN_PARALLEL:
     for driver, link in drivers.items():
         process_driver(driver, link)
