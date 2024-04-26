@@ -20,6 +20,7 @@ loggers = [
     "fix_wrap_tags",
     "fix_poor_formatting",
     "fix_short_links",
+    "metadata",
 ]
 # Enable all loggers to start
 for logger in loggers:
@@ -28,14 +29,15 @@ for logger in loggers:
 # Disable specific loggers
 # disabled_loggers = ["fixup_images"]
 disabled_loggers = loggers
-# disabled_loggers.remove("fix_includes")
+# disabled_loggers.remove("metadata")
 for logger in disabled_loggers:
     logging.getLogger(logger).disabled = True
 
-from custom_pages.tree import (
+from custom_collateral.tree import (
     create_reference_blob_to_dt_graphs,
     generate_dt_graph_for_all_dts_files,
 )
+from custom_collateral.metadata import add_metadata
 from fixers.fix_all import run_all_fixers
 from fixers.fix_index import fix_driver_index
 from fixers.fixup_wrap_tags import preprocess
@@ -62,6 +64,14 @@ for item in files_in_dir:
 
 if not os.path.exists(FOLDER):
     os.makedirs(FOLDER)
+
+# Clear generated dts_graphs folders
+# Find all dts_graphs folders with the path FOLDER
+for root, dirs, files in os.walk(FOLDER):
+    for d in dirs:
+        if "dts_graphs" in d:
+            print(f"Removing {os.path.join(root, d)}")
+            shutil.rmtree(os.path.join(root, d))
 
 
 def parse_driver_index_page():
@@ -120,6 +130,10 @@ def parse_driver_index_page():
     if not os.path.exists("generated"):
         os.makedirs("generated")
 
+    # Sort drivers alphabetically
+    drivers_alphabetical = sorted(drivers.keys())
+    drivers = {k: drivers[k] for k in drivers_alphabetical}
+
     # Create index markdown file with links to each driver
     with open("generated/drivers.md", "w") as f:
         f.write("## Linux Drivers\n\n")
@@ -161,9 +175,17 @@ def parse_driver_index_page():
     return drivers, index_page_ref
 
 
+enabled = False
 # Download doc pages for each driver
 def process_driver(driver, link):
     # if "AD937" not in driver:
+    #     return
+
+    # if "ADXL345" in driver:
+    #     global enabled
+    #     enabled = True
+
+    # if not enabled:
     #     return
 
     print("---------------------------------------")
@@ -197,6 +219,7 @@ def process_driver(driver, link):
     if not os.path.exists(f"{FOLDER}/{subfolder}"):
         os.makedirs(f"{FOLDER}/{subfolder}")
     output = f"{FOLDER}/{subfolder}/{output}"
+
     subprocess.run(
         [
             "pandoc",
@@ -240,22 +263,15 @@ def process_driver(driver, link):
     # skips = ["fixup_images"]
     # text = run_all_fixers(text, f"{FOLDER}/{subfolder}", skips)
     text = run_all_fixers(text, f"{FOLDER}/{subfolder}")
-    
+
     print("Done fixup")
+    kernel_root = os.path.abspath(os.path.join("..", "..", ".."))
 
     # Add metadata to page
-    text = (
-        f"""---
-wiki-source: {ROOT}{link}
-title: {driver}
----
-
-"""
-        + text
-    )
+    meta = {"driver": driver, "link": ROOT + link}
+    text = add_metadata(text, meta, os.path.join(kernel_root, "drivers"))
 
     # Generate devicetree map pages
-    kernel_root = os.path.abspath(os.path.join("..", "..", ".."))
     dt_graphs_folder, all_files = generate_dt_graph_for_all_dts_files(text, kernel_root)
 
     if len(all_files) > 0:
@@ -297,9 +313,6 @@ title: {driver}
 drivers, index_page_ref = parse_driver_index_page()
 
 
-complete = 0
-total = len(drivers)
-
 # Parse the unique links, since some drivers share pages
 drivers_unique = {}
 links = []
@@ -308,6 +321,9 @@ for driver, link in drivers.items():
         drivers_unique[driver] = link
         links.append(link)
 drivers = drivers_unique
+
+complete = 0
+total = len(drivers)
 
 # Process each driver
 if not RUN_PARALLEL:
@@ -318,7 +334,7 @@ if not RUN_PARALLEL:
 
 else:
     cores = multiprocessing.cpu_count()
-    pool = multiprocessing.Pool(cores//2)
+    pool = multiprocessing.Pool(cores // 2)
 
     processed_drivers = []
 

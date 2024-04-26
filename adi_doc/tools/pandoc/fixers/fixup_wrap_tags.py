@@ -76,6 +76,8 @@ def process(text):
 
     def replace_first_tag_found(text, retag, is_end_tag):
         wrap_tag_locations = [(m.start(), m.end()) for m in re.finditer(retag, text)]
+        # print("Wrap tag locations: ", wrap_tag_locations)
+        # print(f"For: {retag}")
         # Only handle the first tag found
         if not wrap_tag_locations:
             return text, False
@@ -85,7 +87,7 @@ def process(text):
             # Parse the tag text to determine the type of admonition
             soup = BeautifulSoup(tag_text, "html.parser")
             tag = soup.find()
-            # print("Tag name: ", tag.name)
+            # print("Tag name: ", tag.name)z
             # print("Tag attrs: ", tag.attrs)
             attrs_as_string = " ".join(
                 [f'{key}="{value}"' for key, value in tag.attrs.items()]

@@ -1,13 +1,14 @@
 import os
+
 # import networkx as nx
 import shutil
 import logging
 
 tree_logger = logging.getLogger("tree")
 
+
 def parse_file(filename, kernel_root):
-    print("Parsing file:", filename)
-    """Parse a file."""
+    """Parse a header or dt file to get dependencies."""
     if not os.path.exists(filename):
         raise FileNotFoundError(f"File not found: {filename}")
 
@@ -48,8 +49,6 @@ def parse_devicetree_dependencies_from_file(filename, kernel_root):
         text = f.read()
 
     headers, dt_files = parse_file(filename, kernel_root)
-    # print("Parsed headers:", headers)
-    # print("Parsed dt_files:", dt_files)
 
     # recursively parse all dependencies
     parsed_headers = []
@@ -222,13 +221,13 @@ def generate_page(top_node, svg_filename, output_file):
 
 """
 
-#     page = f"""# {top_node} Devicetree Map
+    #     page = f"""# {top_node} Devicetree Map
 
-# <div style="text-align: center;">
-# {svg}
-# </div>
+    # <div style="text-align: center;">
+    # {svg}
+    # </div>
 
-# """
+    # """
 
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(page)
@@ -314,7 +313,6 @@ def parse_page_for_dt_references(text):
                     else:
                         tree_logger.warning(f"Failed to find branch in URL: {url}")
 
-
                     dt_files.append(url)
 
     return dt_files
@@ -324,8 +322,8 @@ def generate_dt_graph_for_all_dts_files(text, kernel_root, output_folder="dts_gr
     """Generate a devicetree graph for all dts files."""
     # Remove output folder if it exists
     all_files = []
-    if os.path.exists(output_folder):
-        shutil.rmtree(output_folder)
+    # if os.path.exists(output_folder): # This will remove other shared files
+    #     shutil.rmtree(output_folder)
     dts_files = parse_page_for_dt_references(text)
     for dts_file in dts_files:
         # url to filename
@@ -344,16 +342,28 @@ def generate_dt_graph_for_all_dts_files(text, kernel_root, output_folder="dts_gr
 
     return output_folder, all_files
 
+
 def create_reference_blob_to_dt_graphs(folder, dt_graphs_folder):
 
     try:
         if dt_graphs_folder:
             dt_files = os.listdir(dt_graphs_folder)
             # Move to folder with driver
-            if os.path.exists(os.path.join(folder, dt_graphs_folder)):
-                shutil.rmtree(os.path.join(folder, dt_graphs_folder))
+            # if os.path.exists(os.path.join(folder, dt_graphs_folder)):
+            #     print(f"Removing existing folder: {os.path.join(folder, dt_graphs_folder)}")
+            #     shutil.rmtree(os.path.join(folder, dt_graphs_folder))
 
-            shutil.move(dt_graphs_folder, folder)
+            # shutil.move(dt_graphs_folder, folder)
+
+            target = os.path.join(folder, dt_graphs_folder)
+            if not os.path.exists(target):
+                os.mkdir(target)
+
+            for dt_file in dt_files:
+                if not os.path.exists(os.path.join(target, dt_file)):
+                    shutil.move(os.path.join(dt_graphs_folder, dt_file), target)
+                else:
+                    tree_logger.info(f"File already exists: {dt_file}")
 
             # Add links to devicetree map pages
             dt_toc = "\n\n## Devicetree Maps\n\n"
@@ -363,7 +373,9 @@ def create_reference_blob_to_dt_graphs(folder, dt_graphs_folder):
                     continue
                 dt_file_full = os.path.join(dt_graphs_folder, dt_file)
                 # [reference1](#heading-target)
-                dt_toc += f"- [{dt_file}](#{dt_file.replace('.md','')})\n"
+                dt_toc += (
+                    f"- [{dt_file.replace('.md','')}](#{dt_file.replace('.md','')})\n"
+                )
 
             dt_toc += "\n\n"
 
@@ -382,6 +394,7 @@ def create_reference_blob_to_dt_graphs(folder, dt_graphs_folder):
         dt_toc = None
 
     return dt_toc
+
 
 if __name__ == "__main__":
     # Parse the devicetree dependencies
