@@ -1591,7 +1591,7 @@ static int ad9545_trigger_n_shot(struct ad9545_out_clk *clk)
 	return ad9545_io_update(clk->st);
 }
 
-static int ad9545_out_clk_enable(struct clk_hw *hw)
+static int ad9545_out_clk_prepare(struct clk_hw *hw)
 {
 	struct ad9545_out_clk *clk = to_out_clk(hw);
 
@@ -1601,7 +1601,7 @@ static int ad9545_out_clk_enable(struct clk_hw *hw)
 		return ad9545_output_muting(clk, false);
 }
 
-static void ad9545_out_clk_disable(struct clk_hw *hw)
+static void ad9545_out_clk_unprepare(struct clk_hw *hw)
 {
 	struct ad9545_out_clk *clk = to_out_clk(hw);
 
@@ -1614,7 +1614,7 @@ static void ad9545_out_clk_disable(struct clk_hw *hw)
 		ad9545_output_muting(clk, true);
 }
 
-static int ad9545_out_clk_is_enabled(struct clk_hw *hw)
+static int ad9545_out_clk_is_prepared(struct clk_hw *hw)
 {
 	struct ad9545_out_clk *clk = to_out_clk(hw);
 	u32 regval;
@@ -1696,9 +1696,22 @@ static int ad9545_out_clk_get_nshot(struct clk_hw *hw)
 }
 
 static const struct clk_ops ad9545_out_clk_ops = {
-	.enable = ad9545_out_clk_enable,
-	.disable = ad9545_out_clk_disable,
-	.is_enabled = ad9545_out_clk_is_enabled,
+	/*
+	 * prepare/unprepare, not enable/disable: every one of these performs
+	 * regmap I/O over SPI and therefore sleeps. The common clock framework
+	 * invokes .enable/.disable/.is_enabled with enable_lock held - a
+	 * spinlock, with interrupts disabled - so sleeping there is illegal and
+	 * produces "BUG: scheduling while atomic". clk_disable_unused() walks
+	 * every unused clock at late_initcall and calls .disable under that
+	 * lock, so this fired on every boot.
+	 *
+	 * .prepare/.unprepare/.is_prepared take the same signatures and run
+	 * under prepare_lock, which is a mutex. Consumers using the
+	 * clk_prepare_enable()/clk_disable_unprepare() pairs are unaffected.
+	 */
+	.prepare = ad9545_out_clk_prepare,
+	.unprepare = ad9545_out_clk_unprepare,
+	.is_prepared = ad9545_out_clk_is_prepared,
 	.recalc_rate = ad9545_out_clk_recalc_rate,
 	.round_rate = ad9545_out_clk_round_rate,
 	.set_rate = ad9545_out_clk_set_rate,
